@@ -4,7 +4,7 @@
 
 **COBLE - COnda BuiLdEr**: Build and manage conda environments from the RSE team at the ICR
 
-The GitLab for COBLE is at: [https://gitlab.com/icr-rse/apps/coble](https://gitlab.com/icr-rse/apps/coble)  
+The GitHub page for COBLE is at: [https://github.com/ICR-RSE-Group/coble](https://github.com/ICR-RSE-Group/coble)  
 
 COBLE is a set of scripts to help build and manage conda environments, particularly for R and Bioconductor packages, along with Python packages. It allows you to define environments using YAML files or bash recipes, automates the installation process, captures logs for error analysis, and generates reproducible outputs including combined environment files and installation scripts.
 
