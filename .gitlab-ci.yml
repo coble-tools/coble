@@ -1,0 +1,66 @@
+# GitLab CI/CD pipeline for building and pushing Docker images to Docker Hub
+#
+# Required CI/CD Variables (set in GitLab Settings → CI/CD → Variables):
+# - DOCKER_HUB_USERNAME: Your Docker Hub username
+# - DOCKER_HUB_TOKEN: Docker Hub access token (create at hub.docker.com/settings/security)
+
+stages:
+  - build
+  - deploy
+
+variables:
+  # Use Docker-in-Docker service
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  IMAGE_REPO: icrsc/coble
+
+# Build the mini image using the multi-variant Dockerfile
+build-452:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  before_script:
+    - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+  script:
+    - docker build -f docker/452.docker --build-arg BUILD_TAG=452 -t ${IMAGE_REPO}:452 -t ${IMAGE_REPO}:452-${CI_COMMIT_SHORT_SHA} .
+    - docker push ${IMAGE_REPO}:452
+    - docker push ${IMAGE_REPO}:452-${CI_COMMIT_SHORT_SHA}
+  after_script:
+    - docker logout
+  only:
+    - main
+    - master
+
+# Build the mini image using the multi-variant Dockerfile
+build-mini:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  before_script:
+    - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+  script:
+    - docker build -f docker/452.docker --build-arg BUILD_TAG=mini -t ${IMAGE_REPO}:mini -t ${IMAGE_REPO}:mini-${CI_COMMIT_SHORT_SHA} .
+    - docker push ${IMAGE_REPO}:mini
+    - docker push ${IMAGE_REPO}:mini-${CI_COMMIT_SHORT_SHA}
+  after_script:
+    - docker logout
+  only:
+    - main
+    - master
+
+# Build and deploy MkDocs documentation to GitLab Pages
+pages:
+  stage: deploy
+  image: python:3.11-slim
+  script:
+    - pip install -r docs/requirements.txt
+    - mkdocs build --strict
+    - mv site public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+    - master

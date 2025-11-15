@@ -1,0 +1,95 @@
+################### BUILD AND RUN THIS DOCKER FILE ############################
+#### MINI VERSION ####
+# docker build -f docker/452.docker --build-arg BUILD_TAG=mini -t icrsc/coble:mini .
+# docker run --rm -it icrsc/coble:mini
+# docker push icrsc/coble:mini
+# --- on alma
+# singularity pull -F coble-mini.sif docker://icrsc/coble:mini
+# singularity shell coble-mini.sif
+##### FULL VERSION ####
+# docker build -f docker/452.docker --build-arg BUILD_TAG=452 -t icrsc/coble:452 .
+# docker run --rm -it icrsc/coble:452
+# docker push icrsc/coble:452
+# --- on alma
+# singularity pull -F coble-452.sif docker://icrsc/coble:452
+# singularity shell coble-452.sif
+##############################################################################
+
+FROM continuumio/miniconda3
+WORKDIR /app
+
+# Build argument for tag (mini, full, etc)
+ARG BUILD_TAG=mini
+
+# folders and configs based on tag
+ENV RESULTS_DIR=/app/results/coble-${BUILD_TAG}
+ENV ENVS_DIR=/app/envs/coble-${BUILD_TAG}
+ENV PKGS_DIR=/app/pkgs/coble-${BUILD_TAG}
+ENV LOG_OUT=/app/logs/coble-${BUILD_TAG}.out
+ENV LOG_ERR=/app/logs/coble-${BUILD_TAG}.err
+ENV CONFIG_FILE=/app/config/coble-${BUILD_TAG}.yml
+
+RUN apt-get update
+RUN apt-get install -y gcc-4.9
+RUN apt-get upgrade -y libstdc++6
+RUN apt-get upgrade -y g++
+RUN apt-get install -y liblz-dev
+RUN apt-get install -y libgomp1
+RUN apt install -y zlib1g-dev
+
+# install the coble bash library
+RUN mkdir bin results logs pkgs envs config
+COPY bin ./bin
+COPY config ./config
+
+# Create .condarc with channels in /app (accessible to all users)
+RUN echo "channels:" > /app/.condarc && \
+    echo "  - conda-forge" >> /app/.condarc && \
+    echo "  - bioconda" >> /app/.condarc && \    
+    echo "  - https://conda.anaconda.org/dranew" >> /app/.condarc && \
+    echo "  - defaults" >> /app/.condarc && \
+    echo "channel_priority: strict" >> /app/.condarc
+
+# Set conda environment variables
+ENV CONDARC=/app/.condarc
+ENV CONDA_PKGS_DIRS=/app/pkgs/coble-mini
+
+RUN bash bin/coble-bash.sh \
+       --steps "create,export,errors,missing" \
+       --input "$CONFIG_FILE" \
+       --results "$RESULTS_DIR" \
+       --r-version "4.5.2" \
+       --python-version "3.14.0" \
+       --env "$ENVS_DIR" \
+       --pkg "$PKGS_DIR" \
+       --output "$LOG_OUT" \
+       --error "$LOG_ERR"
+
+# Verify environment was created and check structure
+RUN echo "=== Checking envs directory ===" && \
+    ls -la /app/envs/ && \
+    echo "=== Conda env list ===" && \
+    conda env list && \
+    echo "=== Checking if conda_meta exists ===" && \
+    ls -la /app/envs/coble-mini/ || echo "Directory not found"
+
+# Set up bashrc to auto-activate environment (for Docker)
+RUN conda init bash && \
+    echo "conda activate /app/envs/coble-mini" >> /root/.bashrc && \
+    mkdir -p /etc/profile.d && \
+    echo "export CONDARC=/app/.condarc" > /etc/profile.d/conda_env.sh
+
+# Create singularity-friendly activation script
+RUN echo '#!/bin/bash' > /app/activate_env.sh && \
+    echo 'source /opt/conda/etc/profile.d/conda.sh' >> /app/activate_env.sh && \
+    echo "conda activate /app/envs/coble-mini" >> /app/activate_env.sh && \
+    echo 'exec bash' >> /app/activate_env.sh && \
+    chmod +x /app/activate_env.sh
+
+# Set environment variable for Singularity
+ENV SINGULARITY_SHELL=/app/activate_env.sh
+
+# Default to interactive bash shell with conda environment activated
+CMD ["/bin/bash"]
+
+#################################################################################

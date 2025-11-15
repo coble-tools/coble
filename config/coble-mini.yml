@@ -1,0 +1,15 @@
+#coble-yml
+dependencies:
+  - r_conda:
+    - biocmanager    
+    - devtools    
+    - remotes    
+    - data.table
+  - bio_package:
+    - fgsea
+  - r_conda:
+    - stringi
+    - rcpp
+    - plyr
+    - reticulate
+    - sitmo

@@ -1,0 +1,245 @@
+
+conda install -c conda-forge r-stringi r-rcpp r-plyr r-reticulate r-sitmo
+conda install conda-forge::r-seurat
+conda install conda-forge::r-units
+bioconda::bioconductor-stjoincount
+conda install -c conda-forge libxml2
+conda install -c conda-forge pandoc pypandoc boost-cpp  r-xml r-xlconnect r-xml2 r-testthat r-systemfonts r-ragg
+conda install -c conda-forge fonts-conda-ecosystem mscorefonts r-nloptr r-polyclip
+conda install -c conda-forge zlib
+conda install conda-forge::r-rsqlite
+BiocManager::install(c("limma", "vsn", "edgeR", "org.Hs.eg.db", "org.Mm.eg.db"))
+conda install -c conda-forge r-tzdb r-vroom r-readr r-readxl r-rcppannoy r-glmnet
+install.packages(c("bedr", "SIMMS", "NanoStringNorm", "haven", "foreign", "spatstat"))
+install_github("aroneklund/copynumber")
+conda install -c conda-forge r-rcpparmadillo r-conquer r-minqa
+conda install conda-forge::r-lme4
+install.packages(c("FactoMineR", "factoextra"))
+conda install bioconda::bioconductor-fgsea # FAILED 
+install.packages(c("knitr", "rmarkdown", "inline", "data.table"))
+conda install -c conda-forge r-rjson r-interp
+BiocManager::install(c("biomaRt", "rtracklayer",  "GenomicFeatures", "BSgenome", "VariantAnnotation", "ensembldb", "biovizBase", "Gviz", "GenomicInteractions"))
+install.packages(c("distributions3", "mboost", 'AER', 'brglm2', 'flexmix', 'modelsummary', 'nonnest2', 'tinytest', "knitr", 'UpSetR', 'plotrix', 'gplots', 'drc', 'cowplot'))
+install.packages("countreg", repos="http://R-Forge.R-project.org", dependencies = TRUE)
+install.packages("chicane", dependencies = TRUE)
+conda install conda-forge::r-v8
+# BiocManager::install(c("multtest", "GSEABase", "cellHTS2", "reshape", "TeachingDemos", "tidyverse", "SingleR", "scran", "scater", "celldex"))
+BiocManager::install("MAST")
+# BiocManager::install(c("impute", "genefu")) # FAILED
+# install.packages(c("iC10", "amap")) # FAILED
+conda install -c conda-forge r-xlconnect # for reading XLXS files
+**** RESTART HERE
+conda install -c bioconda bioconductor-fastseg
+BiocManager::install("methylKit")
+install.packages(c("tidyverse", "argparser", "stringdist"))
+BiocManager::install("BSgenome.Hsapiens.NCBI.GRCh38")
+remotes::install_github("Nik-Zainal-Group/signature.tools.lib")
+BiocManager::install("genomation")
+BiocManager::install(c("ggbio", "TxDb.Hsapiens.UCSC.hg38.knownGene"))
+install.packages("Signac")
+BiocManager::install("EnsDb.Hsapiens.v86")
+BiocManager::install("harmony")
+conda install -c anaconda hdf5
+install.packages("hdf5r")
+conda install -c conda-forge r-rjags
+BiocManager::install("infercnv")
+remotes::install_github("hdng/clonevol")
+install.packages("packcircles")
+BiocManager::install("GenomeInfoDb")
+
+# needed for ArchR
+module load X11/20231019-GCCcore-13.2.0
+install.packages("Cairo");
+
+devtools::install_github("GreenleafLab/ArchR", ref="master", repos = BiocManager::repositories())
+library(ArchR)
+ArchR::installExtraPackages()
+
+remotes::install_github("satijalab/seurat-wrappers")
+
+BiocManager::install("ShortRead")
+
+conda install -c conda-forge r-eulerr
+
+devtools::install_github("xmc811/Scillus", ref = "development")
+
+devtools::install_github('VanLoo-lab/ascat/ASCAT')
+
+remotes::install_github("chris-mcginnis-ucsf/DoubletFinder")
+install.packages("clustree")
+
+conda install -c bioconda bioconductor-chicago
+
+library(remotes)
+remotes::install_github("carmonalab/STACAS")
+
+BiocManager::install("batchelor")
+
+install.packages("CIDER")
+
+BiocManager::install("GSVA")
+
+devtools::install_github("cansysbio/ConsensusTME")
+
+devtools::install_github('EDePasquale/DoubletDecon')
+
+BiocManager::install("Rsubread")
+
+conda install -c davidaknowles r-leafcutter
+
+BiocManager::install("liftOver")
+
+library("devtools")
+install_github("aroneklund/copynumber")
+
+conda install r-seqminer
+install.packages("sequenza")
+
+BiocManager::install("glmGamPoi")
+devtools::install_github("satijalab/sctransform", ref = "develop")
+
+install.packages("Ckmeans.1d.dp")
+
+wget followed by R CMD INSTALL
+https://cran.r-project.org/src/contrib/Archive/modes/modes_0.7.0.tar.gz
+
+install.packages("dynamicTreeCut")
+
+install.packages("roll")
+
+devtools::install_github('cole-trapnell-lab/monocle3', ref="develop")
+
+install.packages("hdf5r")
+
+conda install -c bioconda pysamstats -FAILED
+
+install.packages("LDlinkR")
+
+install.packages("randomForest")
+
+
+BiocManager::install("multiGSEA")
+wget  http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz
+R CMD INSTALL REdiscoverTEdata_1.0.1.tar.gz 
+
+install.packages("Matrix.utils")
+
+devtools::install_github("karakulahg/TEffectR")
+
+BiocManager::install("minfi")
+BiocManager::install("IlluminaHumanMethylationEPICanno.ilm10b4.hg19")
+BiocManager::install("IlluminaHumanMethylationEPICmanifest")
+BiocManager::install("missMethyl")
+BiocManager::install("minfiData")
+BiocManager::install("DMRcate")
+
+BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)
+
+
+install.packages("clusterSim")
+install.packages("clv")
+
+devtools::install_github("saeyslab/nichenetr")
+
+BiocManager::install("kstreet13/slingshot")
+
+
+conda install conda-forge::r-ncdf4
+install.packages(c("HiClimR", "ccaPP", "egg"))
+BiocManager::install("sva")
+devtools::install_github("digitalcytometry/cytotrace2", subdir = "cytotrace2_r") 
+pip install scanoramaCT
+pip install numpy
+
+conda install conda-forge::r-rpostgres
+remotes::install_github("PriceLab/ghdb")
+
+BiocManager::install("destiny")
+
+devtools::install_github("sqjin/CellChat")
+
+
+install.packages("openssl")
+
+install.packages("pracma", repos="http://R-Forge.R-project.org")
+
+install.packages("remotes")
+remotes::install_github("trevorld/r-optparse")
+
+conda install -c conda-forge r-mcmcpack
+install.packages(c("mvtnorm","ellipse","coda","Matrix","Rtsne","gtools","foreach","doParallel","doSNOW","snow","lattice","MASS","bayesm","robustbase","chron","mnormt","schoolmath","devtools","RColorBrewer"))
+
+BiocManager::install("DEXSeq")
+
+# for R package SCENIC
+conda install -c conda-forge r-arrow
+BiocManager::install(c("AUCell", "RcisTarget"))
+BiocManager::install(c("GENIE3"))
+remotes::install_github("bokeh/rbokeh")
+BiocManager::install(c("DT", "NMF", "ComplexHeatmap", "R2HTML", "Rtsne"))
+BiocManager::install(c("doMC", "doRNG"))
+devtools::install_github("aertslab/SCopeLoomR", build_vignettes = TRUE)
+devtools::install_github("aertslab/SCENIC") 
+install.packages("ISOpureR")
+conda install -c bioconda r-diffcorr
+
+library(devtools)
+devtools::install_github("broadinstitute/cdsr_models")
+
+
+install_github("PhanstielLab/Sushi")
+BiocManager::install("ChromSCape")
+devtools::install_github("GreenleafLab/chromVARmotifs")
+
+
+install_github('sztup/scarHRD', build_vignettes = TRUE)
+install_github("guokai8/scGSVA")
+BiocManager::install("reactome.db")
+pip install spatialde
+BiocManager::install("GenomeInfoDb")
+install.packages("poolr")
+conda install r-ggrepel
+install.packages(c("tsne", "flexmix", "fpc")) 
+devtools::install_github("cit-bioinfo/mMCP-counter")
+remotes::install_github("mojaveazure/seurat-disk")
+devtools::install_github("immunomind/immunarch")
+devtools::reload(pkgload::inst("immunarch"))
+install.packages("strawr")
+devtools::install_github("https://github.com/kharchenkolab/numbat")
+install.packages("keras")
+install.packages("ijtiff")
+install.packages("bbmle")
+devtools::install_github("choisy/cutoff")
+BiocManager::install("PoisonAlien/maftools")
+BiocManager::install("illuminaHumanv4.db")
+BiocManager::install("zellkonverter")
+conda install conda-forge::r-ggiraph
+BiocManager::install("NanoStringNCTools")
+BiocManager::install("GeomxTools")
+BiocManager::install("GeoMxWorkflows")
+install.packages("lmerTest")
+install.packages("maptools")
+install.packages("openxlsx")
+conda install bioconda::bioconductor-cellhts2
+pip install requests 
+BiocManager::install("Orthology.eg.db")
+install.packages("effsize")
+BiocManager::install("viper")
+BiocManager::install("dorothea")
+install.packages("enrichR")
+BiocManager::install("aracne.networks")
+BiocManager::install("survcomp")
+BiocManager::install("scDblFinder")
+python -m pip install PyYAML
+install.packages(c("languageserver", "unigd", "AsioHeaders")) 
+install.packages("httpgd") 
+python -m pip install radian
+devtools::install_github("saeyslab/nichenetr")
+remotes::install_github("bnprks/BPCells/r")
+BiocManager::install("AIMS")
+conda install conda-forge::r-tensorflow
+devtools::install_github('munoztd0/reprtree')
+install.packages("seqinr")
+remotes::install_github("carmonalab/ProjecTILs")
+devtools::install_github("saeyslab/multinichenetr")
+remotes::install_github("carmonalab/SignatuR")

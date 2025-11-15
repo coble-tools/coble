@@ -1,0 +1,7 @@
+envs/*
+pkgs/*
+results/*
+logs/*
+singularity/*
+.venv-docs/*
+site/*

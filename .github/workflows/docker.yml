@@ -1,0 +1,96 @@
+# GitHub Actions workflow for building and pushing Docker images to Docker Hub
+#
+# Required Repository Secrets (set in Settings → Secrets and variables → Actions):
+# - DOCKER_HUB_USERNAME: Your Docker Hub username
+# - DOCKER_HUB_TOKEN: Docker Hub access token (create at hub.docker.com/settings/security)
+
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docker/**'
+      - 'config/**'
+      - 'bin/**'
+      - '.github/workflows/docker.yml'
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      build_452:
+        description: 'Build 452 image'
+        type: boolean
+        default: true
+      build_mini:
+        description: 'Build mini image'
+        type: boolean
+        default: true
+
+env:
+  IMAGE_REPO: icrsc/coble
+
+jobs:
+  build-452:
+    name: Build 452 Image
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' || 
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_452 == 'true')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push 452 image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/452.docker
+          build-args: BUILD_TAG=452
+          push: true
+          tags: |
+            ${{ env.IMAGE_REPO }}:452
+            ${{ env.IMAGE_REPO }}:452-${{ github.sha }}
+          cache-from: type=registry,ref=${{ env.IMAGE_REPO }}:452
+          cache-to: type=inline
+
+  build-mini:
+    name: Build Mini Image
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' || 
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_mini == 'true')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push mini image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/452.docker
+          build-args: BUILD_TAG=mini
+          push: true
+          tags: |
+            ${{ env.IMAGE_REPO }}:mini
+            ${{ env.IMAGE_REPO }}:mini-${{ github.sha }}
+          cache-from: type=registry,ref=${{ env.IMAGE_REPO }}:mini
+          cache-to: type=inline
