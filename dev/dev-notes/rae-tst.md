@@ -74,3 +74,12 @@ bash bin/coble-bash.sh \
        --steps convert \
        --input "config/syed-recipe.txt" \
        --results ./results/syed-converted
+
+
+find the version of a specific r package in an environment
+Rscript -e "packageVersion('fgsea')"
+Rscript -e "packageVersion('stJoincount')"
+python --version
+python -m pip show numpy | awk '/^Version:/{print $2}'
+Rscript --version
+

@@ -74,18 +74,18 @@ Check the results directory:
 ls -la results/my-env/
 ```
 
-You'll find:
-- `coble.yml` - Combined environment specification
-- `built-conda.yml` - Conda export
-- `r_packages.txt` - R package list
-- `pip_packages.txt` - Python package list
-- `recipe.sh` - Reproducible installation script
+You'll find:  
+- `coble.yml` - Combined environment specification  
+- `built-conda.yml` - Conda export  
+- `r_packages.txt` - R package list  
+- `pip_packages.txt` - Python package list  
+- `recipe.sh` - Reproducible installation script  
 
 ## Common Workflows
 
 ### Create and Export
 
-Build an environment and export all package lists:
+Build an environment and export all package lists:  
 
 ```bash
 bin/coble-bash.sh \
@@ -100,7 +100,7 @@ bin/coble-bash.sh \
 
 ### Check for Errors
 
-Analyze installation logs for errors:
+Analyze installation logs for errors:  
 
 ```bash
 bin/coble-bash.sh \

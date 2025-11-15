@@ -1,6 +1,13 @@
+15/11/2025
+-[x] move to guthub and use runners
+-[x] add docker images
+-[x] build as singularity
+-[ ] restructure so it takes within 6 hours for the runners on github
+-[ ] logs do not exist in container build so error report is not created, need to divert stout to files
+
 13/11/2025
--[ ] change to new name coble
--[ ] Have slurm and bash scruots serpeatey
+-[x] change to new name coble
+-[x] Have slurm and bash scruots serpeatey
 -[ ] R and python versions "latest" and "none" options
 -[ ] Add a compare option for between envs or files
 
