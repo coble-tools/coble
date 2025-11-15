@@ -32,8 +32,7 @@ COBLE packages are built on Docker and made available via DockerHub for easy use
 All COBLE environments are available as Docker images on DockerHub:
 
 - `icrsc/coble:452` - Full R 4.5.2 environment
-- `icrsc/coble:mini-452` - Minimal R 4.5.2 environment
-- `icrsc/coble:full-452` - Complete R 4.5.2 with extended packages
+- `icrsc/coble:mini` - Minimal R 4.5.2 environment
 
 See the [Docker](docker.md) and [Singularity](singularity.md) pages for usage details.
 
@@ -47,4 +46,4 @@ See the [Docker](docker.md) and [Singularity](singularity.md) pages for usage de
 
 ## Support
 
-For issues, questions, or contributions, visit the [GitLab repository](https://gitlab.com/icr-rse/apps/coble).
+For issues, questions, or contributions, visit the [GitHub repository](https://github.com/ICR-RSE-Group/coble/issues).
