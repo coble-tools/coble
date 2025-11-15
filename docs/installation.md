@@ -34,7 +34,7 @@ docker run --rm -it icrsc/coble:452
 
 See the [Docker Usage](docker.md) and [Singularity Usage](singularity.md) pages for more details.
 
-## Option 2: Install from GitLab Source
+## Option 2: Install from GitHub Source
 
 To build environments locally or customize COBLE:
 
@@ -47,7 +47,7 @@ To build environments locally or customize COBLE:
 ### Clone the Repository
 
 ```bash
-git clone https://gitlab.com/icr-rse/apps/coble.git
+git clone https://github.com/ICR-RSE-Group/coble.git
 cd coble
 ```
 

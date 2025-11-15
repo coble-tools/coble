@@ -14,7 +14,7 @@ Internal development notes and workflows for COBLE maintainers.
 ### Local Development
 
 ```bash
-git clone https://gitlab.com/icr-rse/apps/coble.git
+git clone https://github.com/ICR-RSE-Group/coble.git
 cd coble
 ```
 
@@ -69,13 +69,13 @@ docker build -f docker/452.docker -t test-coble:452 .
 
 ### CI/CD Pipeline
 
-The GitLab CI pipeline automatically:
+The GitHub Actions CI pipeline automatically:
 
 1. Builds all Docker images on push to `main`/`master`
 2. Tags with commit SHA for traceability
 3. Pushes to DockerHub
 
-See `.gitlab-ci.yml` for details.
+See `.github/workflows/` for details.
 
 ## Additional Development Notes
 
@@ -121,7 +121,7 @@ Add to `docker/` or modify existing with build args.
 
 ### 4. Update CI Pipeline
 
-Add new job to `.gitlab-ci.yml`:
+Add new job to `.github/workflows/`:
 
 ```yaml
 build-newenv:
@@ -178,7 +178,7 @@ Before merging changes:
 1. Update version/changelog (if applicable)
 2. Merge to `main`
 3. CI automatically builds and pushes images
-4. Tag release in GitLab
+4. Tag release in GitHub
 5. Update documentation if needed
 
 ## Troubleshooting Development Issues
@@ -207,4 +207,4 @@ See project README for contribution guidelines.
 
 ## Contact
 
-RSE Team at ICR - see GitLab project page for contact information.
+RSE Team at ICR - see GitHub project page for contact information.

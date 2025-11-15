@@ -12,7 +12,7 @@ For local builds bash or slurm can be used to run the scripts directly, see full
 
 ## 📚 Documentation
 
-**Full documentation is available at: [https://icr-rse.gitlab.io/apps/coble/](https://icr-rse.gitlab.io/apps/coble/)** 
+**Full documentation is available at: [https://icr-rse-group.github.io/coble/](https://icr-rse-group.github.io/coble/)** 
 
 ## Running COBLE
 
@@ -31,11 +31,11 @@ This opens up a shell inside the container. There is an activation script that r
 
 The singularity images are entirely self contained so once downloaded as a file they can be, for example, copied to a TRE or other secure non-internet connected system and run there without any further downloads or setup.
 
-### Install from GitLab
+### Install from GitHub source
 
 Install by git clone, the script is intended to be run from the `conda-builds` folder.  
 ```
-git clone https://gitlab.com/icr-rse/apps/coble.git
+git clone https://github.com/ICR-RSE-Group/coble.git
 cd coble
 ```
 ## Example use

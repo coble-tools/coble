@@ -1,7 +1,7 @@
 site_name: COBLE Documentation
 site_description: COnda BuiLdEr - Build and manage conda environments
 site_author: RSE Team at ICR
-repo_url: https://gitlab.com/icr-rse/apps/coble
+repo_url: https://github.com/ICR-RSE-Group/coble
 repo_name: icr-rse/coble
 
 theme:

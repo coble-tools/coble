@@ -8,14 +8,8 @@ name: Docker Build
 
 on:
   push:
-    branches:
-      - main
-      - master
-    paths:
-      - 'docker/**'
-      - 'config/**'
-      - 'bin/**'
-      - '.github/workflows/docker.yml'
+    tags:
+      - 'docker-*'   # Trigger builds only when pushing tags like docker-*
   workflow_dispatch:  # Allow manual trigger
     inputs:
       build_452:
@@ -35,8 +29,8 @@ jobs:
     name: Build 452 Image
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'push' || 
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_452 == 'true')
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_452 == 'true') ||
+      (github.event_name == 'push' && (startsWith(github.ref_name, 'docker-452') || startsWith(github.ref_name, 'docker-all')))
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -67,8 +61,8 @@ jobs:
     name: Build Mini Image
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'push' || 
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_mini == 'true')
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_mini == 'true') ||
+      (github.event_name == 'push' && (startsWith(github.ref_name, 'docker-mini') || startsWith(github.ref_name, 'docker-all')))
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

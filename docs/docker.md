@@ -1,6 +1,6 @@
 # Docker Usage
 
-COBLE provides pre-built Docker images on DockerHub for immediate use.
+COBLE provides pre-built Docker images on [DockerHub](https://hub.docker.com/r/icrsc/coble) for immediate use.
 
 ## Available Images
 

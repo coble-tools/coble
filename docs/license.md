@@ -10,4 +10,4 @@ Copyright © 2025 Institute of Cancer Research
 
 This software is provided for research and academic purposes. Please contact the RSE team for licensing and usage information.
 
-For more information, visit the [GitLab repository](https://gitlab.com/icr-rse/apps/coble).
+For more information, visit the [GitHub repository](https://github.com/ICR-RSE-Group/coble).

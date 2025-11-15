@@ -5,7 +5,7 @@ srun --pty --mem=8GB -c 2 -t 30:00:00 -p interactive bash
 # FIRST TIME SETUP ONLY
 mkdir -p /data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV
 cd /data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV
-git clone https://gitlab.com/icr-rse/apps/coble.git
+git clone https://github.com/ICR-RSE-Group/coble.git
 #---------------------------------
 
 # Navigate to folder

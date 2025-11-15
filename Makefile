@@ -11,7 +11,7 @@ help:
 	@echo "  make docs         - Serve documentation locally (auto-reload)"
 	@echo "  make docs-serve   - Same as 'make docs'"
 	@echo "  make docs-build   - Build documentation to site/"
-	@echo "  make docs-deploy  - Deploy to GitLab Pages (CI only)"
+	@echo "  make docs-deploy  - Deploy to GitHub Pages (CI only)"
 	@echo "  make clean        - Remove built documentation and venv"
 	@echo ""
 	@echo "First time setup: make docs-setup"
@@ -36,7 +36,7 @@ docs-build: $(MKDOCS)
 	@echo "Documentation built to site/"
 
 docs-deploy: $(MKDOCS)
-	@echo "Deploying to GitLab Pages..."
+	@echo "Deploying to GitHub Pages..."
 	$(MKDOCS) build --strict
 	@echo "Documentation ready for deployment"
 

@@ -13,9 +13,9 @@
   - Build notes
   - Developer notes
 
-### GitLab CI/CD Integration
-- Added `pages` job to `.gitlab-ci.yml`
-- Automatically builds and deploys docs to GitLab Pages on push to main/master
+### GitHub Actions CI/CD Integration
+- Added `pages` job to `.github/workflows/`
+- Automatically builds and deploys docs to GitHub Pages on push to main/master
 
 ## 🚀 How to Use
 
@@ -36,7 +36,7 @@ make docs
 
 You now have:
 - ✅ Professional documentation site
-- ✅ Automatic GitLab Pages deployment
+- ✅ Automatic GitHub Pages deployment
 - ✅ `make docs` for local development
 - ✅ Comprehensive user and developer guides
 
