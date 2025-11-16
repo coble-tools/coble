@@ -16,12 +16,12 @@
 ##############################################################################
 #### Builds are triggered by tags ####
 # Delete locally and remotely
-git tag -d docker-452
-git push origin :refs/tags/docker-452
+# git tag -d docker-452
+# git push origin :refs/tags/docker-452
 
 # Recreate and push
-git tag docker-452
-git push origin docker-452
+# git tag docker-452
+# git push origin docker-452
 #############################################################################
 
 FROM continuumio/miniconda3
