@@ -29,7 +29,7 @@ WORKDIR /app
 
 # Build arguments
 ARG BUILD_TAG=mini
-ARG SOLVER=mamba  # choices: mamba | conda
+ARG SOLVER=conda  # choices: mamba | conda
 
 # folders and configs based on tag
 ENV RESULTS_DIR=/app/results/coble-${BUILD_TAG}
@@ -39,13 +39,15 @@ ENV LOG_OUT=/app/logs/coble-${BUILD_TAG}.out
 ENV LOG_ERR=/app/logs/coble-${BUILD_TAG}.err
 ENV CONFIG_FILE=/app/config/coble-${BUILD_TAG}.yml
 
-RUN apt-get update
-RUN apt-get install -y gcc-4.9
-RUN apt-get upgrade -y libstdc++6
-RUN apt-get upgrade -y g++
-RUN apt-get install -y liblz-dev
-RUN apt-get install -y libgomp1
-RUN apt install -y zlib1g-dev
+# Update conda to latest version
+RUN conda update -n base -c defaults conda -y && conda clean -afy
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        zlib1g-dev \
+        libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Optionally install mamba for faster solves
 RUN if [ "$SOLVER" = "mamba" ]; then \

@@ -13,9 +13,8 @@ dependencies:
     - plyr
     - reticulate
     - sitmo
-  - conda:
-    - conda-forge::r-seurat
-    - conda-forge::r-units
+    - seurat
+    - units  
   - bio_package:
     - stJoincount
   - conda:
@@ -40,7 +39,8 @@ dependencies:
     - devtools
   - conda:
     - zlib
-    - conda-forge::r-rsqlite
+  - r_conda:
+    - rsqlite
   - bio_package:
     - limma
     - vsn
