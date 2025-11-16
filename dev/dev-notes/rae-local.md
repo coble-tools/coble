@@ -8,5 +8,6 @@ bash bin/coble-bash.sh \
        --env "./envs/coble-test" \
        --pkg "./pkgs/coble-test" \
        --output results/coble-test.out \
-       --error results/coble-test.err
+       --error results/coble-test.err \
+       --quiet "y"
 

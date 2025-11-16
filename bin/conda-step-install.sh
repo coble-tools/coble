@@ -4,7 +4,15 @@ new_mamba_prefix=$2
 new_mamba_pkgs=$3
 bash_script_output=$4
 mamba_yaml_input=$5
-dry_run=$6
+quiet=$6
+dry_run=$7
+
+quiet_conda=""
+quiet_r="FALSE"
+if [[ $quiet == "y" || $quiet == "yes" || $quiet == "true" ]]; then
+  quiet_conda="-q"
+  quiet_r="TRUE"
+fi
 
 echo "# Starting in conda-step-install.sh at $(date)" >> $bash_script_output
 
@@ -165,11 +173,11 @@ elif [[ $is_channel == True ]]; then
       $conda_exe config --add channels $line_cleaned          
     fi      
 elif [[ $is_package == True ]]; then                        
-    echo "=== === >>> INSTALLING: $conda_exe install -y -q $line_cleaned --freeze-installed"
-    echo "$conda_exe install -y -q $line_cleaned --freeze-installed" >> $bash_script_output
+    echo "=== === >>> INSTALLING: $conda_exe install -y $quiet_conda $line_cleaned --freeze-installed"
+    echo "$conda_exe install -y $quiet_conda $line_cleaned --freeze-installed" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      $conda_exe install -y -q $line_cleaned --freeze-installed
+      $conda_exe install -y $quiet_conda $line_cleaned --freeze-installed
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi
@@ -185,51 +193,51 @@ elif [[ $is_pip == True ]]; then
     fi
     conda_list+=("$line_cleaned:$install_source")
 elif [[ $is_r_conda == True ]]; then                        
-    echo "=== === >>> INSTALLING: $conda_exe install -y -q r-$line_cleaned --freeze-installed"
-    echo "$conda_exe install -y -q r-$line_cleaned --freeze-installed" >> $bash_script_output
+    echo "=== === >>> INSTALLING: $conda_exe install -y $quiet_conda r-$line_cleaned --freeze-installed"
+    echo "$conda_exe install -y $quiet_conda r-$line_cleaned --freeze-installed" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      $conda_exe install -y -q r-$line_cleaned --freeze-installed
+      $conda_exe install -y $quiet_conda r-$line_cleaned --freeze-installed
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi
     conda_list+=("$line_cleaned:$install_source")
 elif [[ $is_r_package == True ]]; then
     echo "=== === >>> INSTALLING: Rscript -e \"install.packages('$line_cleaned', repo='https://cloud.r-project.org',force=TRUE,quiet=TRUE)\""
-    echo "Rscript -e \"install.packages('$line_cleaned', repo='https://cloud.r-project.org',force=TRUE,quiet=TRUE)\"" >> $bash_script_output
+    echo "Rscript -e \"install.packages('$line_cleaned', repo='https://cloud.r-project.org',force=TRUE,quiet=$quiet_r)\"" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      Rscript -e "install.packages('$line_cleaned', repo='https://cloud.r-project.org',force=TRUE,quiet=TRUE)"
+      Rscript -e "install.packages('$line_cleaned', repo='https://cloud.r-project.org',force=TRUE,quiet=$quiet_r)"
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi
     conda_list+=("$line_cleaned:$install_source")
 elif [[ $is_bioc_conda == True ]]; then
-    echo "=== === >>> INSTALLING: $conda_exe install -y -q bioconda::bioconductor-$line_cleaned --freeze-installed"
-    echo "$conda_exe install -y -q bioconda::bioconductor-$line_cleaned --freeze-installed" >> $bash_script_output
+    echo "=== === >>> INSTALLING: $conda_exe install -y $quiet_conda bioconda::bioconductor-$line_cleaned --freeze-installed"
+    echo "$conda_exe install -y $quiet_conda bioconda::bioconductor-$line_cleaned --freeze-installed" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      $conda_exe install -y -q bioconda::bioconductor-$line_cleaned --freeze-installed
+      $conda_exe install -y $quiet_conda bioconda::bioconductor-$line_cleaned --freeze-installed
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi
     conda_list+=("$line_cleaned:$install_source")
 elif [[ $is_biocmanager == True ]]; then      
-    echo "=== === >>> INSTALLING: Rscript -e \"BiocManager::install('$line_cleaned',force=TRUE,quiet=TRUE)\""
-    echo "Rscript -e \"BiocManager::install('$line_cleaned',force=TRUE,quiet=TRUE)\"" >> $bash_script_output
+    echo "=== === >>> INSTALLING: Rscript -e \"BiocManager::install('$line_cleaned',force=TRUE,quiet=$quiet_r)\""
+    echo "Rscript -e \"BiocManager::install('$line_cleaned',force=TRUE,quiet=$quiet_r)\"" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      Rscript -e "BiocManager::install('$line_cleaned',force=TRUE,quiet=TRUE)"
+      Rscript -e "BiocManager::install('$line_cleaned',force=TRUE,quiet=$quiet_r)"
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi
     conda_list+=("$line_cleaned:$install_source")
 elif [[ $is_github == True ]]; then
-    echo "=== === >>> INSTALLING: Rscript -e \"devtools::install_github('$line_cleaned',quiet=TRUE)\""
-    echo "Rscript -e \"devtools::install_github('$line_cleaned',quiet=TRUE)\"" >> $bash_script_output
+    echo "=== === >>> INSTALLING: Rscript -e \"devtools::install_github('$line_cleaned',quiet=$quiet_r)\""
+    echo "Rscript -e \"devtools::install_github('$line_cleaned',quiet=$quiet_r)\"" >> $bash_script_output
     if [[ $dry_run == "run" ]]; then
       start_time=$(date +%s)
-      Rscript -e "devtools::install_github('$line_cleaned',quiet=TRUE)"
+      Rscript -e "devtools::install_github('$line_cleaned',quiet=$quiet_r)"
       end_time=$(date +%s)
       echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
     fi

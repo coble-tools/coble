@@ -23,6 +23,7 @@ bin/coble-bash.sh [OPTIONS]
 | `--results DIR` | Directory to store results | Yes |
 | `--output FILE` | Output log file | No |
 | `--error FILE` | Error log file | No |
+| `--quiet y\|n` | Suppress informational messages (default: n) | No |
 
 #### Environment Options
 

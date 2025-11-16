@@ -8,7 +8,8 @@ new_mamba_pkgs=$3
 r_version=$4
 python_version=$5
 bash_script_output=$6
-dry_run=$7
+quiet=$7
+dry_run=$8
 
 echo "source ~/.bashrc" >> $bash_script_output
 echo "export CONDA_PKGS_DIRS=$new_mamba_pkgs" >> $bash_script_output
