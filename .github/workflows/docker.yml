@@ -57,6 +57,31 @@ jobs:
           cache-from: type=registry,ref=${{ env.IMAGE_REPO }}:452
           cache-to: type=inline
 
+      - name: Collect debug artifacts
+        if: always()
+        run: |
+          mkdir -p ./action-debug
+          echo "---- Environment Variables ----" > ./action-debug/env.txt
+          env >> ./action-debug/env.txt
+          echo "---- Docker Version ----" > ./action-debug/docker-info.txt
+          docker version >> ./action-debug/docker-info.txt 2>&1 || true
+          docker info >> ./action-debug/docker-info.txt 2>&1 || true
+          echo "---- Disk Usage ----" > ./action-debug/disk-usage.txt
+          df -h >> ./action-debug/disk-usage.txt 2>&1 || true
+          echo "---- Docker Images ----" > ./action-debug/docker-images.txt
+          docker images >> ./action-debug/docker-images.txt 2>&1 || true
+          echo "---- Build Context ----" > ./action-debug/build-context.txt
+          ls -lah . >> ./action-debug/build-context.txt 2>&1 || true
+          ls -lah docker/ >> ./action-debug/build-context.txt 2>&1 || true
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-452-${{ github.run_id }}
+          path: ./action-debug/
+          retention-days: 7
+
   build-mini:
     name: Build Mini Image
     runs-on: ubuntu-latest
@@ -88,3 +113,28 @@ jobs:
             ${{ env.IMAGE_REPO }}:mini-${{ github.sha }}
           cache-from: type=registry,ref=${{ env.IMAGE_REPO }}:mini
           cache-to: type=inline
+
+      - name: Collect debug artifacts
+        if: always()
+        run: |
+          mkdir -p ./action-debug
+          echo "---- Environment Variables ----" > ./action-debug/env.txt
+          env >> ./action-debug/env.txt
+          echo "---- Docker Version ----" > ./action-debug/docker-info.txt
+          docker version >> ./action-debug/docker-info.txt 2>&1 || true
+          docker info >> ./action-debug/docker-info.txt 2>&1 || true
+          echo "---- Disk Usage ----" > ./action-debug/disk-usage.txt
+          df -h >> ./action-debug/disk-usage.txt 2>&1 || true
+          echo "---- Docker Images ----" > ./action-debug/docker-images.txt
+          docker images >> ./action-debug/docker-images.txt 2>&1 || true
+          echo "---- Build Context ----" > ./action-debug/build-context.txt
+          ls -lah . >> ./action-debug/build-context.txt 2>&1 || true
+          ls -lah docker/ >> ./action-debug/build-context.txt 2>&1 || true
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-mini-${{ github.run_id }}
+          path: ./action-debug/
+          retention-days: 7
