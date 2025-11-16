@@ -31,10 +31,8 @@ Pull any of these images:
 singularity pull -F coble-452.sif docker://icrsc/coble:452
 
 # Mini 452 environment
-singularity pull -F coble-mini-452.sif docker://icrsc/coble:mini-452
+singularity pull -F coble-mini.sif docker://icrsc/coble:mini
 
-# Full 452 environment
-singularity pull -F coble-full-452.sif docker://icrsc/coble:full-452
 ```
 
 ## Running Containers
@@ -61,7 +59,13 @@ R --version
 
 # List packages
 conda list
+
+# Specific packages
+Rscript -e "packageVersion('fgsea')"
+python -m pip show numpy | awk '/^Version:/{print $2}'
 ```
+
+
 
 ### Execute Commands
 
@@ -69,21 +73,13 @@ Run a single command without entering the shell:
 
 ```bash
 # Python script
-singularity exec coble-452.sif python script.py
+singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && python script.py"
 
 # R script
-singularity exec coble-452.sif Rscript analysis.R
+singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && Rscript analysis.R"
 
-# Any command
-singularity exec coble-452.sif bash -c "python --version && R --version"
-```
-
-### Run Default Command
-
-Execute the container's default entry point:
-
-```bash
-singularity run coble-452.sif
+# Check versions
+singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && python --version && R --version"
 ```
 
 ## Working with Files
@@ -103,8 +99,11 @@ python analysis.py
 
 ### Bind Additional Paths
 
-Mount specific directories:
+Use bind only when you need remapping, clarity, or isolation. 
+Chck first, eg can you do this:  
+`singularity exec coble-452.sif ls /data/scratch`
 
+To mount specific directories:
 ```bash
 singularity shell --bind /data:/mnt/data coble-452.sif
 ```
@@ -114,7 +113,7 @@ Multiple bind mounts:
 ```bash
 singularity shell \
   --bind /data:/mnt/data \
-  --bind /scratch:/scratch \
+  --bind /data/scratch:/data/scratch \
   coble-452.sif
 ```
 

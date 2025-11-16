@@ -84,20 +84,14 @@ docker run --rm -it \
 
 If you need a custom environment, build from the provided Dockerfiles:
 
-### Classic 452 Image
-
 ```bash
-docker build -f docker/452.docker -t my-custom-coble:452 .
+docker build -f docker/Dockerfile.452 --build-arg BUILD_TAG=452 -t my-custom-coble:452 .
 ```
 
-### Mini/Full Variants
+Provide a config file for the build. The Dockerfile expects a YAML based on the BUILD_TAG. You can edit coble-452.yml, or you can create your own e.g. `config/custom-xyz.yml`
 
 ```bash
-# Mini version
-docker build -f docker/452.mini.docker --build-arg BUILD_TAG=mini -t my-custom-coble:mini .
-
-# Full version
-docker build -f docker/452.mini.docker --build-arg BUILD_TAG=452 -t my-custom-coble:full .
+docker build -f docker/Dockerfile.452 --build-arg BUILD_TAG=xyz -t my-custom-coble:xyz .
 ```
 
 ## Pushing to Your Own Registry

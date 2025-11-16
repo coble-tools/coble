@@ -55,7 +55,6 @@ cd coble
 
 - `bin/coble-bash.sh` - Run COBLE via bash
 - `bin/coble-slurm.sh` - Submit COBLE jobs to SLURM
-- `bin/conda-step-*.sh` - Individual step scripts
 
 ## Next Steps
 
