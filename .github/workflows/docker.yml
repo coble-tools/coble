@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/452.docker
+          file: docker/Dockerfile.452
           build-args: BUILD_TAG=452
           push: true
           tags: |
@@ -105,7 +105,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/452.docker
+          file: docker/Dockerfile.452
           build-args: BUILD_TAG=mini
           push: true
           tags: |

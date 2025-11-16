@@ -1,6 +1,6 @@
 ################### BUILD AND RUN THIS DOCKER FILE ############################
 #### MINI VERSION ####
-# docker build -f docker/452.docker --build-arg BUILD_TAG=mini -t icrsc/coble:mini .
+# docker build -f docker/Dockerfile.452 --build-arg BUILD_TAG=mini -t icrsc/coble:mini .
 # docker run --rm -it icrsc/coble:mini
 # docker push icrsc/coble:mini
 # --- on alma
@@ -27,8 +27,9 @@
 FROM continuumio/miniconda3
 WORKDIR /app
 
-# Build argument for tag (mini, full, etc)
+# Build arguments
 ARG BUILD_TAG=mini
+ARG SOLVER=mamba  # choices: mamba | conda
 
 # folders and configs based on tag
 ENV RESULTS_DIR=/app/results/coble-${BUILD_TAG}
@@ -45,6 +46,14 @@ RUN apt-get upgrade -y g++
 RUN apt-get install -y liblz-dev
 RUN apt-get install -y libgomp1
 RUN apt install -y zlib1g-dev
+
+# Optionally install mamba for faster solves
+RUN if [ "$SOLVER" = "mamba" ]; then \
+            conda install -y -n base -c conda-forge mamba && conda clean -afy ; \
+        else \
+            echo "Using conda (no mamba install)" ; \
+        fi
+ENV MAMBA_NO_BANNER=1
 
 # install the coble bash library
 RUN mkdir bin results logs pkgs envs config
@@ -63,8 +72,9 @@ RUN echo "channels:" > /app/.condarc && \
 ENV CONDARC=/app/.condarc
 ENV CONDA_PKGS_DIRS=/app/pkgs/coble-mini
 
-RUN bash bin/coble-bash.sh \
-       --steps "create,export,errors,missing" \
+RUN if [ "$SOLVER" = "mamba" ]; then STEPS="mamba:create,export,errors,missing"; else STEPS="conda:create,export,errors,missing"; fi ; \
+    bash bin/coble-bash.sh \
+    --steps "$STEPS" \
        --input "$CONFIG_FILE" \
        --results "$RESULTS_DIR" \
        --r-version "4.5.2" \
@@ -95,7 +105,9 @@ RUN echo '#!/bin/bash' > /app/activate_env.sh && \
     echo 'exec bash' >> /app/activate_env.sh && \
     chmod +x /app/activate_env.sh
 
-# Set environment variable for Singularity
+RUN conda clean -afy
+
+    # Set environment variable for Singularity
 ENV SINGULARITY_SHELL=/app/activate_env.sh
 
 # Default to interactive bash shell with conda environment activated

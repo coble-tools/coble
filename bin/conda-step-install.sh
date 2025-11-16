@@ -58,7 +58,7 @@ elif [[ $line == *"  - conda:"* ]]; then
     is_r_conda=False; is_github=False; is_wget=False; is_bash=False
     is_package=True
     install_source="conda"
-    conda_exe="conda"
+    # conda_exe="conda"
     echo "=== === >>> Switching to package mode. === === >>>"
     echo "=== === >>> Switching to package mode. === === >>>" >&2
     echo "# === === >>> Switching to package mode. $conda_exe" >> $bash_script_output
@@ -68,7 +68,7 @@ elif [[ $line == *"  - mamba:"* ]]; then
     is_r_conda=False; is_github=False; is_wget=False; is_bash=False
     is_package=True
     install_source="conda"
-    conda_exe="mamba"
+    # conda_exe="mamba"
     echo "=== === >>> Switching to package mode. === === >>>"
     echo "=== === >>> Switching to package mode. === === >>>" >&2
     echo "# === === >>> Switching to package mode. $conda_exe" >> $bash_script_output
@@ -78,7 +78,7 @@ elif [[ $line == *"  - anaconda:"* ]]; then
     is_r_conda=False; is_github=False; is_wget=False; is_bash=False
     is_package=True
     install_source="conda"
-    conda_exe="/opt/software/applications/anaconda/3/bin/conda"
+    # conda_exe="/opt/software/applications/anaconda/3/bin/conda"
     echo "=== === >>> Switching to package mode. === === >>>"
     echo "=== === >>> Switching to package mode. === === >>>" >&2
     echo "# === === >>> Switching to package mode. $conda_exe" >> $bash_script_output

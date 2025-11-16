@@ -134,3 +134,19 @@ sbatch -o logs/syed-recipe-yaml-v2-01.out \
        --pkg "pkgs/syed-yaml-4.5.2" \
        --output logs/syed-recipe-yaml-v2-01.out \
        --error logs/syed-recipe-yaml-v2-01.err
+
+
+    # new coble
+
+    sbatch -o results/syed-452.out \
+       -e results/syed-452.err \
+       bin/coble-slurm.sh \
+       --steps "create,export,errors,missing" \
+       --input "config/coble-452.yml" \
+       --results "results/coble-452" \
+       --r-version "4.5.2" \
+       --python-version "3.14.0" \
+       --env "envs/coble-452" \
+       --pkg "pkgs/coble-452" \
+       --output logs/coble-452.out \
+       --error logs/coble-452.err

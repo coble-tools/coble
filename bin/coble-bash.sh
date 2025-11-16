@@ -306,6 +306,15 @@ export CONDA_PKGS_DIRS=$new_mamba_pkgs
 
 source ~/.bashrc
 
+# if the OUTPUT_FILE and ERROR_FILE are set, redirect stdout and stderr
+if [ -n "$OUTPUT_FILE" ] && [ -n "$ERROR_FILE" ]; then
+  # first make sure the directory exists
+  mkdir -p "$(dirname "$OUTPUT_FILE")"
+  mkdir -p "$(dirname "$ERROR_FILE")"
+  echo "Redirecting stdout to $OUTPUT_FILE and stderr to $ERROR_FILE"
+  exec > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
+fi
+
 # init the bash script as empty if create or install is selected
 if [[ $steps == *"create"* || $steps == *"install"* || $steps == *"recipe"* ]]; then
   echo "#!/bin/sh" > $bash_script_output
