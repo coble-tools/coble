@@ -19,7 +19,7 @@ if [ -d "$new_mamba_pkgs" ]; then
     echo "rm -rf $new_mamba_pkgs" >> $bash_script_output
 fi
 echo "conda clean --packages --tarballs -y" >> $bash_script_output
-echo "$conda_exe create -y -p $new_mamba_prefix $r_version $python_version" >> $bash_script_output
+echo "$conda_exe create -y -q -p $new_mamba_prefix $r_version $python_version" >> $bash_script_output
 
 if [[ $dry_run == "run" ]]; then                
     source ~/.bashrc    
@@ -36,9 +36,9 @@ if [[ $dry_run == "run" ]]; then
     fi
     # clean tarballs
     conda clean --packages --tarballs -y    
-    echo "=== >>> Creating... $conda_exe create -y -p $new_mamba_prefix $r_version $python_version "      
+    echo "=== >>> Creating... $conda_exe create -y -q -p $new_mamba_prefix $r_version $python_version "      
     start_time=$(date +%s)
-    $conda_exe create -y -p $new_mamba_prefix $r_version $python_version
+    $conda_exe create -y -q -p $new_mamba_prefix $r_version $python_version
     end_time=$(date +%s)
     echo "# Time taken: $(($end_time - $start_time)) seconds." >> $bash_script_output
 fi
