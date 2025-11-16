@@ -137,6 +137,10 @@ dependencies:
     - Nik-Zainal-Group/signature.tools.lib
   - bio_package:
     - genomation
+  - bio_conda:
+    - RBGL
+  - bio_package:    
+    - OrganismDbi
     - ggbio
     - TxDb.Hsapiens.UCSC.hg38.knownGene
   - r_package:
