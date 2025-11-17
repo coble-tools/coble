@@ -23,6 +23,7 @@ From: continuumio/miniconda3
     export MAMBA_NO_BANNER=1
     export SINGULARITY_SHELL=/app/activate_env.sh
     export R_LIBS_USER=~/R/coble-tst-library
+    export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
 
 %post
     cd /app
