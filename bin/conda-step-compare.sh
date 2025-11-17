@@ -63,6 +63,17 @@ echo "" | tee -a $comparison_output
 
 source ~/.bashrc
 
+# Initialize conda for bash shell
+if [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
+    source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
+elif [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    source "/opt/conda/etc/profile.d/conda.sh"
+elif [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+elif [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/anaconda3/etc/profile.d/conda.sh"
+fi
+
 # Function to handle environment export or file copy
 process_side() {
   local side=$1

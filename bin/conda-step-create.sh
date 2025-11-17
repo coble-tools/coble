@@ -23,7 +23,18 @@ echo "conda clean --packages --tarballs -y" >> $bash_script_output
 echo "$conda_exe create -y -q -p $new_mamba_prefix $r_version $python_version" >> $bash_script_output
 
 if [[ $dry_run == "run" ]]; then                
-    source ~/.bashrc    
+    source ~/.bashrc
+    
+    # Initialize conda for bash shell
+    if [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
+        source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
+    elif [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+        source "/opt/conda/etc/profile.d/conda.sh"
+    elif [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        source "$HOME/miniconda3/etc/profile.d/conda.sh"
+    elif [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        source "$HOME/anaconda3/etc/profile.d/conda.sh"
+    fi    
     export CONDA_PKGS_DIRS=$new_mamba_pkgs    
     # remove everything at the prefix if it exists
     if [ -d "$new_mamba_prefix" ]; then

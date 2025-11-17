@@ -205,7 +205,9 @@ Check for packages that failed to install.
 ### conda-step-compare.sh
 
 Compare two environments or package files.  
+```
 bash bin/coble-bash.sh --steps compare --lhs-env ./envs/old --rhs-env ./envs/new --results ./results/compare
+```
 
 
 ### conda-step-diff.sh

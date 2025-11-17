@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 source ~/.bashrc
 
+# Initialize conda for bash shell
+if [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
+    source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
+elif [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    source "/opt/conda/etc/profile.d/conda.sh"
+elif [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+elif [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/anaconda3/etc/profile.d/conda.sh"
+fi
+
 new_mamba_prefix=$1
 mamba_yaml_output=$2
 r_packages_output=$3
