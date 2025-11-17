@@ -2,9 +2,9 @@ Bootstrap: docker
 From: continuumio/miniconda3
 
 %labels
-    org.opencontainers.image.version tst
-    org.opencontainers.image.title coble-tst
-    org.opencontainers.image.description COBLE tst variant - experimental/test bioinformatics environment
+    org.opencontainers.image.version stjoincount
+    org.opencontainers.image.title coble-stjoincount
+    org.opencontainers.image.description COBLE stjoincount variant - join count analysis bioinformatics environment
     org.opencontainers.image.source https://github.com/ICR-RSE-Group/coble
     org.opencontainers.image.licenses MIT
 
@@ -13,17 +13,17 @@ From: continuumio/miniconda3
     config /app/config
 
 %environment
-    export RESULTS_DIR=/app/results/coble-tst
+    export RESULTS_DIR=/app/results/coble-stjoincount
     export ENVS_DIR=/app/envs/coble
     export PKGS_DIR=/app/pkgs/coble
-    export CONFIG_FILE=/app/config/coble-tst.yml
-    export COBLE_VARIANT=tst
+    export CONFIG_FILE=/app/config/coble-stjoincount.yml
+    export COBLE_VARIANT=stjoincount
     export CONDARC=/app/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
     export MAMBA_NO_BANNER=1
     export SINGULARITY_SHELL=/app/activate_env.sh
-    export R_LIBS_USER=~/R/coble-tst-library
-    export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
+    export R_LIBS_USER=~/R/coble-stjoincount-library
+    export R_LIBS=~/R/coble-stjoincount-library:/app/envs/coble/lib/R/library
 
 %post
     cd /app
@@ -133,18 +133,18 @@ EOF
     exec /bin/bash
 
 %help
-    COBLE - tst variant
+    COBLE - stjoincount variant
     
-    Experimental/test bioinformatics conda environment.
+    Join count analysis focused bioinformatics conda environment.
     
     Usage:
         # Interactive shell (auto-activates environment)
-        singularity shell coble-tst.sif
+        singularity shell coble-stjoincount.sif
         
         # Execute command with activated environment
-        singularity exec coble-tst.sif bash -c "source /app/activate_conda.sh && python script.py"
+        singularity exec coble-stjoincount.sif bash -c "source /app/activate_conda.sh && python script.py"
     
     Build:
-        sudo singularity build coble-tst.sif singularity/coble-tst.def
+        sudo singularity build coble-stjoincount.sif singularity/coble-stjoincount.def
     
     More info: https://github.com/ICR-RSE-Group/coble
