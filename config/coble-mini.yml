@@ -1,6 +1,5 @@
 #coble-yml
-dependencies:
-  - mamba:
+dependencies:  
   - r_conda:
     - biocmanager    
     - devtools    
@@ -8,9 +7,3 @@ dependencies:
     - data.table
   - bio_package:
     - fgsea
-  - r_conda:
-    - stringi
-    - rcpp
-    - plyr
-    - reticulate
-    - sitmo

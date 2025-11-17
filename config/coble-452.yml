@@ -1,10 +1,5 @@
 #coble-yml
-dependencies:
-  - bash:
-    - echo "quick clean"
-    - df -m
-    - conda clean -afy
-    - df -m
+dependencies:  
   - r_conda:
     - biocmanager    
     - devtools    
@@ -137,12 +132,7 @@ dependencies:
     - argparser
     - stringdist
   - bio_package:
-    - BSgenome.Hsapiens.NCBI.GRCh38
-  - bash:
-    - echo "quick clean"
-    - df -m
-    - conda clean -afy
-    - df -m
+    - BSgenome.Hsapiens.NCBI.GRCh38  
   - github:
     - Nik-Zainal-Group/signature.tools.lib
   - bio_package:
@@ -331,12 +321,7 @@ dependencies:
   - bio_package:
     - DEXSeq  
   - r_conda:    
-    - arrow
-  - bash:
-    - echo "quick clean"
-    - df -m
-    - conda clean -afy
-    - df -m
+    - arrow  
   - bio_package:
     - AUCell
     - RcisTarget
