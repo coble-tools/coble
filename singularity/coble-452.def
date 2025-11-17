@@ -38,21 +38,31 @@ From: continuumio/miniconda3
     echo "Solver: ${SOLVER}"
     echo "========================================"
 
-    # Prepare directories and .condarc (exclude defaults)
+    # Create directories and .condarc FIRST before any conda operations
     mkdir -p results logs pkgs envs
-        cat > /app/.condarc <<EOF
+    cat > /root/.condarc <<EOF
 channels:
   - conda-forge
   - bioconda
   - https://conda.anaconda.org/dranew
-  - nodefaults
 channel_priority: strict
-default_channels:
-    - https://conda.anaconda.org/conda-forge
-custom_multichannels:
-    defaults: []
+show_channel_urls: true
 EOF
-    export CONDARC=/app/.condarc
+    
+    # Also create for /app
+    cat > /app/.condarc <<EOF
+channels:
+  - conda-forge
+  - bioconda
+  - https://conda.anaconda.org/dranew
+channel_priority: strict
+show_channel_urls: true
+default_channels:
+  - https://conda.anaconda.org/conda-forge
+custom_multichannels:
+  defaults: []
+EOF
+    export CONDARC=/root/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
 
     # Install system dependencies
@@ -65,7 +75,7 @@ EOF
 
     # Ensure latest conda and mamba from conda-forge, then update base
     echo "Installing conda and mamba from conda-forge, updating base..."
-    conda install -y -n base -c conda-forge conda mamba && \
+    conda install -y -n base conda mamba && \
     conda update -y -n base --all && \
     conda clean -afy
 

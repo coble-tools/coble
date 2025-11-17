@@ -3,7 +3,7 @@
 #SBATCH --output=logs/coble-sing-build-%j.out
 #SBATCH --error=logs/coble-sing-build-%j.err
 #SBATCH -n 4
-#SBATCH -t 04:00:00
+#SBATCH -t 10:00:00
 #SBATCH --mem=16G
 
 # COBLE Singularity Build Script for SLURM
