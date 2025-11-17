@@ -7,6 +7,12 @@ dependencies:
     - data.table
   - bio_package:
     - fgsea
+  - r-conda:
+    - raster
+    - spdep
+    - magick
+  - bio_package:
+    - stJoincount
   - r_conda:
     - stringi
     - rcpp
@@ -14,9 +20,7 @@ dependencies:
     - reticulate
     - sitmo
     - seurat
-    - units  
-  - bio_package:
-    - stJoincount
+    - units    
   - conda:
     - libxml2
     - pandoc
@@ -187,9 +191,7 @@ dependencies:
   - bio_package:
     - batchelor
   - wget:
-    - https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz
-  - conda:
-    - conda-forge::r-magick
+    - https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz  
   - bio_package:
     - GSVA
   - github:
@@ -235,8 +237,7 @@ dependencies:
     - hdf5r
   - conda:
     - conda-forge::r-units
-    - conda-forge::r-sf
-    - conda-forge::r-spdep
+    - conda-forge::r-sf    
   - bash:
     - Rscript -e "remotes::install_github('cole-trapnell-lab/monocle3', ref='develop')"    
   - pip:
@@ -383,8 +384,7 @@ dependencies:
   - r_package:
     - openxlsx
   - r_package:  
-    - terra
-    - raster
+    - terra    
   - bio_conda:
     - DelayedArray
   - bio_package:
