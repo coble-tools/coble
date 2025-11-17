@@ -4,12 +4,12 @@
 # - DOCKER_HUB_USERNAME: Your Docker Hub username
 # - DOCKER_HUB_TOKEN: Docker Hub access token (create at hub.docker.com/settings/security)
 
-name: Docker Build
+name: Docker Build Deprecated
 
 on:
   push:
     tags:
-      - 'docker-*'   # Trigger builds only when pushing tags like docker-*
+      - 'xdocker-*'   # Trigger builds only when pushing tags like docker-*
   workflow_dispatch:  # Allow manual trigger
     inputs:
       build_452:
