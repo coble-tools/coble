@@ -30,14 +30,30 @@ From: continuumio/miniconda3
     echo "========================================"
     echo "Building COBLE variant: tst"
     echo "Config: /app/config/coble-tst.yml"
-    echo "Solver: conda (faster)"
+    echo "Solver: conda (default)"
     echo "========================================"
 
-    # Update conda and all base packages to latest (removes upgrade prompt)
-    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
-    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
-    conda update -n base -c defaults conda -y && \
-    conda update -n base -c defaults --all -y && \
+    # Create .condarc with channels (explicitly exclude defaults repo)
+    mkdir -p results logs pkgs envs
+        cat > /app/.condarc <<EOF
+channels:
+  - conda-forge
+  - bioconda
+  - https://conda.anaconda.org/dranew
+  - nodefaults
+channel_priority: strict
+default_channels:
+    - https://conda.anaconda.org/conda-forge
+custom_multichannels:
+    defaults: []
+EOF
+    export CONDARC=/app/.condarc
+    export CONDA_PKGS_DIRS=/app/pkgs/coble
+
+    # Ensure latest conda from conda-forge and update base packages
+    echo "Updating conda and base packages from conda-forge..."    
+    conda install -y -n base -c conda-forge conda && \
+    conda update -y -n base --all && \
     conda clean -afy
 
     # Install system dependencies
@@ -48,26 +64,7 @@ From: continuumio/miniconda3
             libgomp1 && \
         rm -rf /var/lib/apt/lists/*
 
-    # Refresh conda from conda-forge after base update
-    echo "Ensuring latest conda from conda-forge..."
-    conda install -y -n base -c conda-forge conda && conda clean -afy
-    
-    # Create directories
-    mkdir -p results logs pkgs envs
-
-    # Create .condarc with channels (explicitly exclude defaults repo)
-    cat > /app/.condarc <<EOF
-channels:
-  - conda-forge
-  - bioconda
-  - https://conda.anaconda.org/dranew
-  - nodefaults
-channel_priority: strict
-EOF
-
     # Build the environment
-    export CONDARC=/app/.condarc
-    export CONDA_PKGS_DIRS=/app/pkgs/coble
     
     echo "Running coble-bash.sh with conda..."
     bash /app/bin/coble-bash.sh \

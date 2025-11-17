@@ -33,12 +33,22 @@ From: continuumio/miniconda3
     echo "Solver: conda"
     echo "========================================"
 
-    # Update conda and all base packages to latest (removes upgrade prompt)
-    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
-    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
-    conda update -n base -c defaults conda -y && \
-    conda update -n base -c defaults --all -y && \
-    conda clean -afy
+    # Prepare directories and .condarc (exclude defaults)
+    mkdir -p results logs pkgs envs
+        cat > /app/.condarc <<EOF
+channels:
+  - conda-forge
+  - bioconda
+  - https://conda.anaconda.org/dranew
+  - nodefaults
+channel_priority: strict
+default_channels:
+    - https://conda.anaconda.org/conda-forge
+custom_multichannels:
+    defaults: []
+EOF
+    export CONDARC=/app/.condarc
+    export CONDA_PKGS_DIRS=/app/pkgs/coble
 
     # Install system dependencies
     apt-get update && \
@@ -48,22 +58,11 @@ From: continuumio/miniconda3
             libgomp1 && \
         rm -rf /var/lib/apt/lists/*
 
-    # Refresh conda from conda-forge after base update
-    echo "Ensuring latest conda from conda-forge..."
-    conda install -y -n base -c conda-forge conda && conda clean -afy
-    
-    # Create directories
-    mkdir -p results logs pkgs envs
-
-    # Create .condarc with channels (explicitly exclude defaults repo)
-    cat > /app/.condarc <<EOF
-channels:
-  - conda-forge
-  - bioconda
-  - https://conda.anaconda.org/dranew
-  - nodefaults
-channel_priority: strict
-EOF
+    # Ensure latest conda from conda-forge and update base
+    echo "Updating conda and base packages from conda-forge..."
+    conda install -y -n base -c conda-forge conda && \
+    conda update -y -n base --all && \
+    conda clean -afy
 
     # Build the environment
     export CONDARC=/app/.condarc
