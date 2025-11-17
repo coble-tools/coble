@@ -64,11 +64,11 @@ echo ""
 
 # Build the image
 echo "Starting Singularity build at $(date)"
-echo "Command: singularity build --fakeroot singularity/coble-${VARIANT}.sif singularity/coble-${VARIANT}.def"
+echo "Command: singularity build --force --fakeroot singularity/coble-${VARIANT}.sif singularity/coble-${VARIANT}.def"
 echo ""
 
 # Try fakeroot first, fall back to sudo if available
-if singularity build --fakeroot "singularity/coble-${VARIANT}.sif" "singularity/coble-${VARIANT}.def"; then
+if singularity build --fakeroot --force "singularity/coble-${VARIANT}.sif" "singularity/coble-${VARIANT}.def"; then
     echo ""
     echo "Build completed successfully at $(date)"
     echo "Image: singularity/coble-${VARIANT}.sif"

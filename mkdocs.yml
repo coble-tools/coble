@@ -64,7 +64,12 @@ nav:
     - Using Singularity: singularity.md
     - Command Reference: cli-reference.md
   - Development:
-    - Developer Guide: developer.md
+    - Quick Build: quickbuild.md
+    - Configuration Guide: config.md
+    - Conda Environments: develop-conda.md
+    - Docker Containers: develop-docker.md
+    - Singularity Containers: develop-singularity.md
+    - SLURM Batch Jobs: develop-slurm.md
     - Build Notes: build-notes.md
     - Developer Notes: dev-notes.md
   - About:
