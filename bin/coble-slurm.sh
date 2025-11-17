@@ -18,6 +18,8 @@ echo "SLURM_MEM_PER_NODE=$SLURM_MEM_PER_NODE"
 echo "SLURM_TIME_LIMIT=$SLURM_TIME_LIMIT"
 echo "############################################"
 
+source ~/.bashrc
+
 bash bin/coble-bash.sh \
   --stdout "logs/coble-${SLURM_JOB_ID}.out" \
   --stderr "logs/coble-${SLURM_JOB_ID}.err" \

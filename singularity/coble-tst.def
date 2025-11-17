@@ -76,7 +76,7 @@ EOF
         --python-version "3.14.0" \
         --env "/app/envs/coble" \
         --pkg "/app/pkgs/coble" \
-        --quiet "y" \
+        --quiet "n" \
         --divert "y"
 
     # Verify environment was created
@@ -90,6 +90,8 @@ EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-tst-library
+export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
 exec bash
 EOF
     chmod +x /app/activate_env.sh
@@ -98,6 +100,8 @@ EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-tst-library
+export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
 EOF
     chmod +x /app/activate_conda.sh
 

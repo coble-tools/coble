@@ -92,6 +92,8 @@ EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-452-library
+export R_LIBS=~/R/coble-452-library:/app/envs/coble/lib/R/library
 exec bash
 EOF
     chmod +x /app/activate_env.sh
@@ -100,6 +102,8 @@ EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-452-library
+export R_LIBS=~/R/coble-452-library:/app/envs/coble/lib/R/library
 EOF
     chmod +x /app/activate_conda.sh
 

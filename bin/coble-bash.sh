@@ -370,6 +370,16 @@ if [[ $steps == *"export"* ]]; then
   echo "bin/conda-step-export.sh $new_mamba_prefix $mamba_yaml_output $r_packages_output $pip_packages_output $coble_output"
   bash bin/conda-step-export.sh $new_mamba_prefix $mamba_yaml_output $r_packages_output $pip_packages_output $coble_output
 fi
+
+# Copy stdout and stderr
+# don't copy if they are the same file
+if [ "$OUTPUT_FILE" != "$copy_stdout" ]; then
+  cp $OUTPUT_FILE $copy_stdout
+fi
+if [ "$ERROR_FILE" != "$copy_stderr" ]; then
+  cp $ERROR_FILE $copy_stderr
+fi
+
 #-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE-COMPARE
 if [[ $steps == *"compare"* ]]; then  
   echo "=== >>> Comparing package versions"
@@ -418,12 +428,3 @@ echo "###################################################################"
 echo "All steps completed successfully at $(date)."
 echo "Time taken: $(($(date +%s) - $start_time)) seconds."
 echo "###################################################################"
-
-# finally copy stdout and stderr
-# don;t copy if they are the same file
-if [ "$OUTPUT_FILE" != "$copy_stdout" ]; then
-  cp $OUTPUT_FILE $copy_stdout
-fi
-if [ "$ERROR_FILE" != "$copy_stderr" ]; then
-  cp $ERROR_FILE $copy_stderr
-fi
