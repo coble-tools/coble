@@ -1,8 +1,62 @@
 # Developer Guide
 
-This guide is for COBLE developers and maintainers who need to build Docker images, trigger CI/CD pipelines, and manage releases.
+This guide is for COBLE developers and maintainers who need to build environments and manage releases.
 
-## CI/CD Docker Build Process
+## Overview: Building COBLE Environments
+
+COBLE environments can be built using three approaches:
+
+1. **Conda (Local)** - Direct conda environment creation using `coble-bash.sh`
+2. **Docker** - Containerized builds, automated via CI/CD
+3. **Singularity** - HPC-optimized containers, can be built locally or via SLURM
+
+| Method | Best For | Build Location | CI/CD Support | SLURM Support |
+|--------|----------|----------------|---------------|---------------|
+| **Conda** | Local development, testing | Local machine | ❌ | ✅ `coble-slurm.sh` |
+| **Docker** | Production, cloud deployment | GitHub Actions + Local | ✅ Tag-triggered | ❌ |
+| **Singularity** | HPC clusters, air-gapped systems | HPC or local | ❌ | ✅ `coble-slurm-sing.sh` |
+
+---
+
+## 1. Building with Conda (Local)
+
+### Direct Environment Creation
+
+Use `coble-bash.sh` to create conda environments directly on your local machine or HPC:
+
+```bash
+bash bin/coble-bash.sh \
+  --steps "create,export,errors,missing" \
+  --input "config/coble-mini.yml" \
+  --results "results/coble-mini" \
+  --r-version "4.5.2" \
+  --python-version "3.14.0" \
+  --env "./envs/coble-mini" \
+  --pkg "./pkgs/coble-mini"
+```
+
+### SLURM Batch Job for Conda Builds
+
+Use the provided SLURM wrapper to build environments on HPC clusters:
+
+```bash
+# Submit conda environment build job
+sbatch bin/coble-slurm.sh \
+  --steps "create,export,errors,missing" \
+  --input "config/coble-452.yml" \
+  --results "results/coble-452" \
+  --env "./envs/coble-452"
+```
+
+The `coble-slurm.sh` script:
+- Exports SLURM diagnostics (job ID, nodes, resources)
+- Passes all arguments to `coble-bash.sh`
+- Creates timestamped log files
+- Default resources: 4 tasks, 10-hour timeout
+
+---
+
+## 2. Building with Docker
 
 COBLE uses GitHub Actions to automatically build and push Docker images when specific tags are pushed to the repository.
 
@@ -115,7 +169,7 @@ git push origin docker-$tag
 git tag | grep docker-
 ```
 
-## Local Docker Build Testing
+### Local Docker Build Testing
 
 Before pushing tags, test builds locally:
 
@@ -133,16 +187,154 @@ docker run --rm -it icrsc/coble:$tag
 echo $COBLE_VARIANT
 ```
 
+### Docker Troubleshooting
+
+#### Build Fails with "Config Not Found"
+
+Error: `ERROR: config/coble-<variant>.yml not found`
+
+**Solution**: Ensure the config file is committed and pushed before creating the docker tag.
+
+#### Build Hangs During Conda Solve
+
+**Solution**: Consider using `SOLVER=mamba` build arg or simplifying the package list.
+
+#### Push Permission Denied
+
+**Solution**: Verify `DOCKER_HUB_TOKEN` secret is valid and has push permissions.
+
+#### Check Build Logs
+
+1. Go to **Actions** tab in GitHub
+2. Click on the failed workflow run
+3. Download debug artifacts (automatically uploaded on all builds)
+
+---
+
+## 3. Building with Singularity
+
+COBLE can be built as Singularity/Apptainer images for HPC environments. Each variant has its own dedicated definition file.
+
+### Available Definition Files
+
+Three variant-specific definition files in `singularity/`:
+
+- **`coble-mini.def`** - Minimal environment (conda solver)
+- **`coble-452.def`** - Full 452+ packages (mamba solver)
+- **`coble-tst.def`** - Experimental/test (conda solver)
+
+Each file is self-contained with hardcoded:
+- Config file path (`/app/config/coble-<variant>.yml`)
+- Variant name (`COBLE_VARIANT=<variant>`)
+- Solver choice (conda or mamba)
+- Channel configuration (conda-forge, bioconda, dranew - no anaconda defaults)
+- User R library path (`R_LIBS_USER=~/R/coble-<variant>-library`)
+
+### Local Singularity Build
+
+Build directly on your workstation or HPC:
+
+```bash
+# Build mini variant (conda solver)
+sudo singularity build singularity/coble-mini.sif singularity/coble-mini.def
+
+# Build 452 variant (mamba solver, faster)
+sudo singularity build singularity/coble-452.sif singularity/coble-452.def
+
+# Or use fakeroot (no sudo required if supported)
+singularity build --fakeroot singularity/coble-452.sif singularity/coble-452.def
+```
+
+### SLURM Batch Job for Singularity Builds
+
+Use the provided SLURM script for long-running builds:
+
+```bash
+# Build 452 variant on SLURM cluster
+sbatch bin/coble-slurm-sing.sh 452
+
+# Build mini variant
+sbatch bin/coble-slurm-sing.sh mini
+
+# Build tst variant
+sbatch bin/coble-slurm-sing.sh tst
+```
+
+The `coble-slurm-sing.sh` script:
+- Validates definition and config files
+- Exports SLURM diagnostics
+- Attempts fakeroot build (no sudo needed)
+- Creates output in `singularity/coble-<variant>.sif`
+- Shows image info and size on completion
+- Default resources: 4 CPUs, 16GB RAM, 4-hour timeout
+
+Monitor build progress:
+```bash
+tail -f logs/coble-sing-build-<jobid>.out
+```
+
+### Pull Pre-built from Docker Hub
+
+Alternative to building - convert existing Docker images:
+
+```bash
+singularity pull coble-452.sif docker://icrsc/coble:452
+singularity shell coble-452.sif
+```
+
+### Offline/Air-gapped Environments
+
+Build on internet-connected machine, then transfer:
+
+```bash
+# On workstation with internet
+sudo singularity build coble-452.sif singularity/coble-452.def
+
+# Transfer to HPC
+scp coble-452.sif user@hpc:/path/to/destination/
+
+# Use on HPC (no rebuild needed)
+singularity shell coble-452.sif
+```
+
+### Singularity Troubleshooting
+
+#### Error: "could not create user namespace"
+
+**Solution**: Use `--fakeroot` flag or request admin to enable user namespaces.
+
+#### Error: "failed to pull docker image"
+
+**Solution**: Check internet connectivity:
+```bash
+curl -I https://hub.docker.com/
+```
+
+#### Build Hangs at Conda Solve
+
+**Solution**: Use 452/tst variants (mamba) or reduce package list complexity.
+
+#### Permission Denied Writing to /app
+
+**Solution**: Expected during `%post`; ensure using `sudo` or `--fakeroot`.
+
+#### R Library Not Writable
+
+**Solution**: R packages install to `~/R/coble-<variant>-library` (set via `R_LIBS_USER` environment variable). Directory created automatically on first use.
+
+---
+
 ## Adding New Variants
 
 ### Step-by-Step Process
 
 1. **Create configuration file** (`config/coble-<variant>.yml`)
-2. **Test locally** using `coble-bash.sh`
-3. **Build Docker image locally** to verify
-4. **Commit config file**
-5. **Push docker tag** to trigger CI build
-6. **Update documentation** (add to available images list)
+2. **Test locally** using `coble-bash.sh` (conda method)
+3. **Build containers** (optional):
+   - Docker: Push tag to trigger CI
+   - Singularity: Create `.def` file and build
+4. **Commit all files** (config, definition files if applicable)
+5. **Update documentation**
 
 ### Configuration File Template
 
@@ -160,22 +352,27 @@ dependencies:
     # Add pip packages here
 ```
 
-### Testing the Variant Locally
+### For Singularity: Adding a New Variant
 
-```bash
-tag=<variant>
+To add a new Singularity variant (e.g., `custom`):
 
-bash bin/coble-bash.sh \
-  --steps "create,export,errors,missing" \
-  --input "config/coble-$tag.yml" \
-  --results "results/coble-$tag" \
-  --r-version "4.5.2" \
-  --python-version "3.14.0" \
-  --env "./envs/coble-$tag" \
-  --pkg "./pkgs/coble-$tag" \
-  --output "results/coble-$tag.out" \
-  --error "logs/coble-$tag.err"
-```
+1. **Create config file**: `config/coble-custom.yml`
+2. **Copy and modify definition file**:
+   ```bash
+   cp singularity/coble-mini.def singularity/coble-custom.def
+   ```
+3. **Update hardcoded values** in the new `.def` file:
+   - Labels: `org.opencontainers.image.version custom`
+   - Environment: `COBLE_VARIANT=custom`, `CONFIG_FILE=/app/config/coble-custom.yml`, `R_LIBS_USER=~/R/coble-custom-library`
+   - Post section: Update echo messages and `coble-bash.sh` parameters
+   - Help section: Update variant name and examples
+4. **Choose solver**: Keep `conda` for small envs, use `mamba` for large ones
+5. **Build and test**:
+   ```bash
+   sudo singularity build singularity/coble-custom.sif singularity/coble-custom.def
+   ```
+
+---
 
 ## Script Versioning
 
@@ -201,43 +398,26 @@ bash bin/coble-bash.sh --version
 
 ### Active Workflows
 
-- `.github/workflows/docker-dynamic.yml` - Dynamic variant builds (active)
+- `.github/workflows/docker-dynamic.yml` - Dynamic Docker variant builds (tag-triggered)
 - `.github/workflows/docs.yml` - Documentation deployment
 
 ### Legacy Workflows
 
-- `.github/workflows/docker.yml` - Original 452/mini specific jobs (manual dispatch only)
+- `.github/workflows/docker.yml` - Original 452/mini Docker jobs (manual dispatch only)
+
+### SLURM Scripts
+
+- `bin/coble-slurm.sh` - Conda environment builds on SLURM
+- `bin/coble-slurm-sing.sh` - Singularity image builds on SLURM
 
 ## CI/CD Secrets
 
-Required secrets in GitHub repository settings:
+Required secrets in GitHub repository settings (Docker builds only):
 
 - `DOCKER_HUB_USERNAME` - Docker Hub username
 - `DOCKER_HUB_TOKEN` - Docker Hub access token
 
 Generate token at: https://hub.docker.com/settings/security
-
-## Troubleshooting CI Builds
-
-### Build Fails with "Config Not Found"
-
-Error: `ERROR: config/coble-<variant>.yml not found`
-
-**Solution**: Ensure the config file is committed and pushed before creating the docker tag.
-
-### Build Hangs During Conda Solve
-
-**Solution**: Consider using `SOLVER=mamba` build arg or simplifying the package list.
-
-### Push Permission Denied
-
-**Solution**: Verify `DOCKER_HUB_TOKEN` secret is valid and has push permissions.
-
-### Check Build Logs
-
-1. Go to **Actions** tab in GitHub
-2. Click on the failed workflow run
-3. Download debug artifacts (automatically uploaded on all builds)
 
 ## Best Practices
 
@@ -270,6 +450,33 @@ Every build creates two tags:
 
 Use SHA tags for reproducibility in production.
 
+### Singularity Definition File Structure
+
+The `.def` file structure:
+
+- `%labels` - Image metadata (version, title, description, source, license)
+- `%files` - Copy local files into container (bin/, config/)
+- `%environment` - Runtime environment variables:
+  - `COBLE_VARIANT`, `CONFIG_FILE`, result/env/pkg paths
+  - `R_LIBS_USER` for writable R package installation
+- `%post` - Build steps (runs as root):
+  - Conda full update (`conda update --all`)
+  - System packages (gcc, zlib, etc.)
+  - Channel configuration (`nodefaults` to exclude anaconda.com)
+  - Environment creation via `coble-bash.sh`
+  - Activation scripts for shell/exec usage
+- `%runscript` - Default behavior when running image
+- `%startscript` - Behavior for `singularity instance start`
+- `%help` - Documentation displayed with `singularity run-help`
+
+**Key differences from Docker**:
+- No build arguments (each variant is a separate file)
+- `nodefaults` in channels to exclude Anaconda default repos
+- Full conda update to prevent upgrade prompts
+- `R_LIBS_USER` for writable user package installation
+
+---
+
 ## Release Workflow
 
 For formal releases:
@@ -278,254 +485,6 @@ For formal releases:
 2. Update documentation
 3. Create GitHub Release with tag like `v1.0.0`
 4. Optionally tag Docker images with release version
-
-## Singularity Build Process
-
-COBLE can also be built as Singularity/Apptainer images for HPC environments. Each variant has its own dedicated definition file with hardcoded settings.
-
-### Available Definition Files
-
-Three variant-specific definition files in `singularity/`:
-
-- **`coble-mini.def`** - Minimal environment (conda solver)
-- **`coble-452.def`** - Full 452+ packages (mamba solver)
-- **`coble-tst.def`** - Experimental/test (conda solver)
-
-Each file is self-contained with hardcoded:
-- Config file path (`/app/config/coble-<variant>.yml`)
-- Variant name (`COBLE_VARIANT=<variant>`)
-- Solver choice (conda or mamba)
-- Channel configuration (conda-forge, bioconda, dranew - no defaults)
-
-### Building from Definition Files on HPC
-
-#### Requirements
-
-- Singularity/Apptainer installed (typically available as a module)
-- Internet access to Docker Hub (for base image)
-- Either:
-  - Root/sudo access, OR
-  - Fakeroot feature enabled (`singularity build --fakeroot`)
-- Access to conda package channels during build
-
-#### Build Commands
-
-No build arguments needed - each variant is a separate file:
-
-```bash
-# Build mini variant (conda solver)
-sudo singularity build singularity/coble-mini.sif singularity/coble-mini.def
-
-# Build 452 variant (mamba solver, faster)
-sudo singularity build singularity/coble-452.sif singularity/coble-452.def
-
-# Build tst variant (conda solver)
-sudo singularity build singularity/coble-tst.sif singularity/coble-tst.def
-```
-
-#### Using Fakeroot (no sudo required)
-
-```bash
-singularity build --fakeroot singularity/coble-452.sif singularity/coble-452.def
-```
-
-#### What Happens During Build
-
-1. **Bootstrap**: Pulls `continuumio/miniconda3` from Docker Hub (no Docker daemon needed)
-2. **Files copied**: `bin/` and `config/` directories copied into image at `/app/`
-3. **Environment setup**: Conda updated fully, channels configured, base packages refreshed
-4. **System packages**: Build tools (gcc, zlib, etc.) installed via apt
-5. **Solver install**: Mamba installed for 452/tst variants (faster dependency resolution)
-6. **Conda environment**: Created using `coble-bash.sh` with variant-specific config
-7. **Activation scripts**: Created for both interactive and exec usage
-
-### Using Pre-built Docker Images
-
-If you have network access but cannot build on HPC, pull from Docker Hub:
-
-```bash
-# Pull and convert Docker image to Singularity
-tag=452
-singularity pull coble-$tag.sif docker://icrsc/coble:$tag
-
-# Test it
-singularity shell coble-$tag.sif
-```
-
-This is simpler but requires the Docker image to exist on Docker Hub (built via CI/CD).
-
-### Testing the Built Image
-
-```bash
-# Interactive shell (environment auto-activates)
-singularity shell coble-452.sif
-
-# Inside container
-Singularity> echo $COBLE_VARIANT
-452
-Singularity> conda env list
-Singularity> exit
-
-# Execute command with environment
-singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && python --version"
-
-# Check for specific packages
-singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && conda list | grep numpy"
-```
-
-### Offline/Air-gapped HPC Environments
-
-If your HPC has no internet access:
-
-1. **Build on a machine with internet** (your workstation):
-   ```bash
-   sudo singularity build coble-452.sif singularity/coble-452.def
-   ```
-
-2. **Transfer to HPC**:
-   ```bash
-   scp coble-452.sif user@hpc:/path/to/destination/
-   ```
-
-3. **Use on HPC** (no build required):
-   ```bash
-   singularity shell coble-452.sif
-   ```
-
-### Build on SLURM Cluster
-
-#### Using the Provided SLURM Script
-
-COBLE includes a ready-to-use SLURM script for building Singularity images:
-
-```bash
-# Build 452 variant (full environment with mamba)
-sbatch bin/coble-slurm-sing.sh 452
-
-# Build mini variant (minimal with conda)
-sbatch bin/coble-slurm-sing.sh mini
-
-# Build tst variant (test with conda)
-sbatch bin/coble-slurm-sing.sh tst
-
-# Default to mini if no argument
-sbatch bin/coble-slurm-sing.sh
-```
-
-The script (`bin/coble-slurm-sing.sh`):
-- Validates definition and config files exist
-- Exports SLURM environment variables for diagnostics
-- Attempts fakeroot build (no sudo needed)
-- Creates output in `singularity/coble-<variant>.sif`
-- Shows image info and size on completion
-- Provides troubleshooting tips on failure
-- Default resources: 4 CPUs, 16GB RAM, 4-hour timeout
-
-Check build progress:
-```bash
-# Watch output log
-tail -f logs/coble-sing-build-<jobid>.out
-
-# Check for errors
-tail -f logs/coble-sing-build-<jobid>.err
-```
-
-#### Custom SLURM Batch Script
-
-For manual control, create your own batch script:
-
-```bash
-#!/bin/bash
-#SBATCH --job-name=coble-build-452
-#SBATCH --time=04:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
-#SBATCH --output=logs/coble-build-%j.out
-#SBATCH --error=logs/coble-build-%j.err
-
-module load singularity || true
-mkdir -p logs singularity
-
-# Choose the variant to build:
-singularity build --fakeroot singularity/coble-452.sif singularity/coble-452.def
-
-# Or build a different variant:
-# singularity build --fakeroot singularity/coble-mini.sif singularity/coble-mini.def
-# singularity build --fakeroot singularity/coble-tst.sif singularity/coble-tst.def
-```
-
-Submit with: `sbatch build_coble.sh`
-
-### Adding a New Singularity Variant
-
-To add a new variant (e.g., `custom`):
-
-1. **Create config file**: `config/coble-custom.yml`
-2. **Copy and modify definition file**:
-   ```bash
-   cp singularity/coble-mini.def singularity/coble-custom.def
-   ```
-3. **Update hardcoded values** in the new `.def` file:
-   - Labels: `org.opencontainers.image.version custom`
-   - Environment: `COBLE_VARIANT=custom`, `CONFIG_FILE=/app/config/coble-custom.yml`
-   - Post section: Update echo messages and `coble-bash.sh` parameters
-   - Help section: Update variant name and examples
-4. **Choose solver**: Keep `conda` for small envs, use `mamba` for large ones
-5. **Build and test**:
-   ```bash
-   sudo singularity build singularity/coble-custom.sif singularity/coble-custom.def
-   ```
-
-### Comparing Docker vs Singularity Workflow
-
-| Approach | Where to Build | Requirements | Use Case |
-|----------|---------------|--------------|----------|
-| **Docker image** → pull to Singularity | Local + CI/CD | Docker Hub access on HPC | Standard workflow, reproducible |
-| **Singularity .def** on HPC | HPC with internet | Fakeroot or sudo, internet | Custom builds, no Docker Hub |
-| **Singularity .def** local → transfer | Local workstation | Singularity installed locally | Air-gapped HPC |
-
-### Troubleshooting Singularity Builds
-
-#### Error: "could not create user namespace"
-
-**Solution**: Use `--fakeroot` flag or request admin to enable user namespaces.
-
-#### Error: "failed to pull docker image"
-
-**Solution**: Check internet connectivity and Docker Hub accessibility:
-```bash
-curl -I https://hub.docker.com/
-```
-
-#### Build Hangs at Conda Solve
-
-**Solution**: Use `SOLVER=mamba` or reduce package list complexity in config.
-
-#### Permission Denied Writing to /app
-
-**Solution**: This is expected during `%post`; ensure you're using `sudo` or `--fakeroot`.
-
-### Definition File Structure
-
-The `.def` file mirrors the Dockerfile with these sections:
-
-- `%labels` - Image metadata (version, title, description, source, license)
-- `%files` - Copy local files into container (bin/, config/)
-- `%environment` - Environment variables exported at runtime
-- `%post` - Build steps (runs as root during build):
-  - Conda update and solver installation
-  - System package installation (gcc, zlib, etc.)
-  - Channel configuration (nodefaults to exclude anaconda.com repos)
-  - Environment creation via `coble-bash.sh`
-  - Activation script creation
-- `%runscript` - Default behavior when running image
-- `%startscript` - Behavior for `singularity instance start`
-- `%help` - Documentation displayed with `singularity run-help`
-
-**Key differences from Docker**:
-- No build arguments (each variant is a separate file)
-- `nodefaults` in channels to exclude Anaconda default repos
-- Full conda update (`conda update --all`) to prevent upgrade prompts
 
 ## Additional Resources
 
