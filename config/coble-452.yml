@@ -7,7 +7,7 @@ dependencies:
     - data.table
   - bio_package:
     - fgsea
-  - r-conda:
+  - r_conda:
     - raster
     - spdep
     - magick
