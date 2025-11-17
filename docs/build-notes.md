@@ -75,7 +75,7 @@ Reduce final image size by using multi-stage builds (future enhancement).
 Reuse the conda package cache:
 
 ```dockerfile
-ENV CONDA_PKGS_DIRS=/app/pkgs/syed-452
+ENV CONDA_PKGS_DIRS=/app/pkgs/coble-452
 ```
 
 ### Build Arguments

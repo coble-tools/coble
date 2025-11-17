@@ -299,7 +299,7 @@ dependencies:
   - bio_package:
     - destiny
   - github:
-    - sqjin/CellChat
+    - jinworks/CellChat
   - r_package:
     - openssl
   - bash:

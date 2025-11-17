@@ -59,6 +59,7 @@ nav:
     - Installation: installation.md
     - Quick Start: quickstart.md
   - Usage:
+    - Using Slurm: slurm.md
     - Using Docker: docker.md
     - Using Singularity: singularity.md
     - Command Reference: cli-reference.md

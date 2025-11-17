@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-#SBATCH -J "MmbaPlne"
+#SBATCH -J "CobleBuild"
+#SBATCH --output=logs/coble-%j.out
+#SBATCH --error=logs/coble-%j.err
 #SBATCH -n 4
 #SBATCH -t 100:00:00
 
@@ -16,5 +18,8 @@ echo "SLURM_MEM_PER_NODE=$SLURM_MEM_PER_NODE"
 echo "SLURM_TIME_LIMIT=$SLURM_TIME_LIMIT"
 echo "############################################"
 
-bash bin/coble-bash.sh "$@"
+bash bin/coble-bash.sh \
+  --output "logs/coble-${SLURM_JOB_ID}.out" \
+  --error "logs/coble-${SLURM_JOB_ID}.err" \
+  "$@"
 

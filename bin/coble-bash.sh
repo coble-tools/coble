@@ -52,8 +52,8 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --python-version VER    Python version (e.g., 3.13.1, 3.14.0)"
   echo "  --env DIR               Environment folder path"
   echo "  --pkg DIR               Package cache folder path"
-  echo "  --output FILE           Output log file (for sbatch)"
-  echo "  --error FILE            Error log file (for sbatch)"
+  echo "  --stdout FILE           Output log file (for sbatch)"
+  echo "  --stderr FILE           Error log file (for sbatch)"
   echo "  --extra VALUE           Extra parameter (used by some steps)"
   echo "  --quiet y|n             Suppress informational messages (default: n)"
   echo "  --divert y|n            Divert output to files (default: n)"
@@ -299,6 +299,8 @@ done_report="$results_dir/done-report.txt"
 installed_report="$results_dir/installed-report.txt"
 r_version="r-base=$R_VERSION"
 python_version="python=$PYTHON_VERSION"
+copy_stdout="$results_dir/stdout.txt"
+copy_stderr="$results_dir/stderr.txt"
 mkdir -p $results_dir
 #################################################
 
@@ -416,3 +418,7 @@ echo "###################################################################"
 echo "All steps completed successfully at $(date)."
 echo "Time taken: $(($(date +%s) - $start_time)) seconds."
 echo "###################################################################"
+
+# finally copy stdout and stderr
+cp $OUTPUT_FILE $copy_stdout
+cp $ERROR_FILE $copy_stderr

@@ -8,9 +8,9 @@ All images are available under the `icrsc/coble` repository:
 
 | Image Tag | Description | Config File |
 |-----------|-------------|-------------|
-| `icrsc/coble:452` | Classic R 4.5.2 environment | `config/syed-452.yml` |
-| `icrsc/coble:mini-452` | Minimal R 4.5.2 environment | `config/coble-mini.yml` |
-| `icrsc/coble:full-452` | Full R 4.5.2 with extended packages | `config/coble-452.yml` |
+| `icrsc/coble:452` | Classic R 4.5.2 environment | `config/coble-452.yml` |
+| `icrsc/coble:mini` | Minimal R 4.5.2 environment | `config/coble-mini.yml` |
+| `icrsc/coble:tst` | Test image | `config/coble-tst.yml` |
 
 ## Basic Usage
 
