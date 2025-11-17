@@ -394,7 +394,45 @@ If your HPC has no internet access:
 
 ### Build on SLURM Cluster
 
-For long builds, submit as a batch job:
+#### Using the Provided SLURM Script
+
+COBLE includes a ready-to-use SLURM script for building Singularity images:
+
+```bash
+# Build 452 variant (full environment with mamba)
+sbatch bin/coble-slurm-sing.sh 452
+
+# Build mini variant (minimal with conda)
+sbatch bin/coble-slurm-sing.sh mini
+
+# Build tst variant (test with conda)
+sbatch bin/coble-slurm-sing.sh tst
+
+# Default to mini if no argument
+sbatch bin/coble-slurm-sing.sh
+```
+
+The script (`bin/coble-slurm-sing.sh`):
+- Validates definition and config files exist
+- Exports SLURM environment variables for diagnostics
+- Attempts fakeroot build (no sudo needed)
+- Creates output in `singularity/coble-<variant>.sif`
+- Shows image info and size on completion
+- Provides troubleshooting tips on failure
+- Default resources: 4 CPUs, 16GB RAM, 4-hour timeout
+
+Check build progress:
+```bash
+# Watch output log
+tail -f logs/coble-sing-build-<jobid>.out
+
+# Check for errors
+tail -f logs/coble-sing-build-<jobid>.err
+```
+
+#### Custom SLURM Batch Script
+
+For manual control, create your own batch script:
 
 ```bash
 #!/bin/bash
@@ -409,12 +447,11 @@ module load singularity || true
 mkdir -p logs singularity
 
 # Choose the variant to build:
-sudo singularity build singularity/coble-452.sif singularity/coble-452.def
-# singularity build --fakeroot singularity/coble-452.sif singularity/coble-452.def
+singularity build --fakeroot singularity/coble-452.sif singularity/coble-452.def
 
 # Or build a different variant:
-# sudo singularity build singularity/coble-mini.sif singularity/coble-mini.def
-# sudo singularity build singularity/coble-tst.sif singularity/coble-tst.def
+# singularity build --fakeroot singularity/coble-mini.sif singularity/coble-mini.def
+# singularity build --fakeroot singularity/coble-tst.sif singularity/coble-tst.def
 ```
 
 Submit with: `sbatch build_coble.sh`

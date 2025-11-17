@@ -22,6 +22,7 @@ From: continuumio/miniconda3
     export CONDA_PKGS_DIRS=/app/pkgs/coble
     export MAMBA_NO_BANNER=1
     export SINGULARITY_SHELL=/app/activate_env.sh
+    export R_LIBS_USER=~/R/coble-tst-library
 
 %post
     cd /app
@@ -33,6 +34,8 @@ From: continuumio/miniconda3
     echo "========================================"
 
     # Update conda and all base packages to latest (removes upgrade prompt)
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
     conda update -n base -c defaults conda -y && \
     conda update -n base -c defaults --all -y && \
     conda clean -afy
@@ -48,7 +51,7 @@ From: continuumio/miniconda3
     # Refresh conda from conda-forge after base update
     echo "Ensuring latest conda from conda-forge..."
     conda install -y -n base -c conda-forge conda && conda clean -afy
-
+    
     # Create directories
     mkdir -p results logs pkgs envs
 
