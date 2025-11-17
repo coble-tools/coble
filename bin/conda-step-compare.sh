@@ -128,11 +128,72 @@ process_side "left-hand side" "$lhs_env" "$lhs_coble" "$lhs_conda" "$lhs_r" "$lh
 # Process right-hand side
 process_side "right-hand side" "$rhs_env" "$rhs_coble" "$rhs_conda" "$rhs_r" "$rhs_pip" "rhs"
 
+# Now we have all files ready for comparison
+echo "" | tee -a $comparison_output
+echo ">>> Comparing environments..." | tee -a $comparison_output
 
+# Function to create simple comparison
+simple_compare() {
+  local file1=$1
+  local file2=$2
+  local label=$3
+  
+  echo "" | tee -a $comparison_output
+  echo ">>> $label:" | tee -a $comparison_output
+  echo "----------------------------------------" | tee -a $comparison_output
+  
+  # Get unique lines in file1 (removed in file2)
+  if [ -f "$file1" ] && [ -f "$file2" ]; then
+    removed=$(comm -23 <(sort "$file1") <(sort "$file2") | wc -l)
+    added=$(comm -13 <(sort "$file1") <(sort "$file2") | wc -l)
+    common=$(comm -12 <(sort "$file1") <(sort "$file2") | wc -l)
+    
+    echo "Common packages: $common" | tee -a $comparison_output
+    echo "Removed (in LHS only): $removed" | tee -a $comparison_output
+    echo "Added (in RHS only): $added" | tee -a $comparison_output
+    
+    if [ $removed -gt 0 ]; then
+      echo "" | tee -a $comparison_output
+      echo "Removed packages:" | tee -a $comparison_output
+      comm -23 <(sort "$file1") <(sort "$file2") | head -20 | sed 's/^/  - /' | tee -a $comparison_output
+      if [ $removed -gt 20 ]; then
+        echo "  ... and $((removed - 20)) more" | tee -a $comparison_output
+      fi
+    fi
+    
+    if [ $added -gt 0 ]; then
+      echo "" | tee -a $comparison_output
+      echo "Added packages:" | tee -a $comparison_output
+      comm -13 <(sort "$file1") <(sort "$file2") | head -20 | sed 's/^/  + /' | tee -a $comparison_output
+      if [ $added -gt 20 ]; then
+        echo "  ... and $((added - 20)) more" | tee -a $comparison_output
+      fi
+    fi
+  fi
+}
 
+# Compare R packages
+simple_compare "$lhs_r" "$rhs_r" "R Packages Comparison"
 
+# Compare pip packages  
+simple_compare "$lhs_pip" "$rhs_pip" "Pip Packages Comparison"
+
+# For conda YAML, just show key differences
+echo "" | tee -a $comparison_output
+echo ">>> Conda Environment Comparison:" | tee -a $comparison_output
+echo "----------------------------------------" | tee -a $comparison_output
+if [ -f "$lhs_conda" ] && [ -f "$rhs_conda" ]; then
+  echo "LHS Environment: $(grep '^name:' "$lhs_conda" | cut -d':' -f2 | xargs)" | tee -a $comparison_output
+  echo "RHS Environment: $(grep '^name:' "$rhs_conda" | cut -d':' -f2 | xargs)" | tee -a $comparison_output
+  echo "" | tee -a $comparison_output
+  echo "For detailed conda package differences, compare:" | tee -a $comparison_output
+  echo "  $lhs_conda" | tee -a $comparison_output
+  echo "  $rhs_conda" | tee -a $comparison_output
+fi
 
 # Cleanup
 rm -rf $tmp_dir
 
-echo ">>> Comparison complete!"
+echo "" | tee -a $comparison_output
+echo ">>> Comparison complete!" | tee -a $comparison_output
+echo "Full results saved to: $comparison_output" | tee -a $comparison_output
