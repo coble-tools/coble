@@ -1,10 +1,13 @@
+17/11/2025
+-[ ] Outstanding issue with the order of channlels when running in singularity from slurm.
+
 15/11/2025
 -[x] move to guthub and use runners
 -[x] add docker images
 -[x] build as singularity
--[ ] restructure so it takes within 6 hours for the runners on github
+-[ ] restructure so it takes within 6 hours for the runners on github NO using singularity instead of docker
 -[x] logs do not exist in container build so error report is not created, need to divert stout to files
--[ ] logs now douible , add a flag to divert or not so only need to divert in a docker contaner or bash if required.
+-[x] logs now double , add a flag to divert or not so only need to divert in a docker contaner or bash if required.
 
 13/11/2025
 -[x] change to new name coble
