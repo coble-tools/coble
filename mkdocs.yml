@@ -63,6 +63,7 @@ nav:
     - Using Singularity: singularity.md
     - Command Reference: cli-reference.md
   - Development:
+    - Developer Guide: developer.md
     - Build Notes: build-notes.md
     - Developer Notes: dev-notes.md
   - About:
