@@ -299,8 +299,8 @@ done_report="$results_dir/done-report.txt"
 installed_report="$results_dir/installed-report.txt"
 r_version="r-base=$R_VERSION"
 python_version="python=$PYTHON_VERSION"
-copy_stdout="$results_dir/stdout.txt"
-copy_stderr="$results_dir/stderr.txt"
+copy_stdout="$results_dir/stdout.log"
+copy_stderr="$results_dir/stderr.log"
 mkdir -p $results_dir
 #################################################
 
