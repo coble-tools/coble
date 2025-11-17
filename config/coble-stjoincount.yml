@@ -1,0 +1,13 @@
+#coble-yml
+dependencies:  
+  - r_conda:
+    - biocmanager            
+    - data.table
+  - bio_package:
+    - fgsea
+  - r-conda:
+    - raster
+    - spdep
+    - magick
+  - bio_package:
+    - stJoincount
