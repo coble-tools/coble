@@ -23,14 +23,20 @@ WORKDIR /app
 # Build arguments
 ARG BUILD_TAG=mini
 ARG SOLVER=conda  # choices: mamba | conda
+LABEL org.opencontainers.image.version="${BUILD_TAG}" \
+    org.opencontainers.image.title="coble" \
+    org.opencontainers.image.description="COBLE reproducible bioinformatics environment" \
+    org.opencontainers.image.source="https://github.com/ICR-RSE-Group/coble" \
+    org.opencontainers.image.licenses="MIT"
 
 # folders and configs based on tag
 ENV RESULTS_DIR=/app/results/coble-${BUILD_TAG}
-ENV ENVS_DIR=/app/envs/coble-${BUILD_TAG}
-ENV PKGS_DIR=/app/pkgs/coble-${BUILD_TAG}
+ENV ENVS_DIR=/app/envs/coble
+ENV PKGS_DIR=/app/pkgs/coble
 ENV LOG_OUT=/app/logs/coble-${BUILD_TAG}.out
 ENV LOG_ERR=/app/logs/coble-${BUILD_TAG}.err
 ENV CONFIG_FILE=/app/config/coble-${BUILD_TAG}.yml
+ENV COBLE_VARIANT=${BUILD_TAG}
 
 # Update conda to latest version
 RUN conda update -n base -c defaults conda -y && conda clean -afy
@@ -65,7 +71,7 @@ RUN echo "channels:" > /app/.condarc && \
 
 # Set conda environment variables
 ENV CONDARC=/app/.condarc
-ENV CONDA_PKGS_DIRS=/app/pkgs/coble-mini
+ENV CONDA_PKGS_DIRS=/app/pkgs/coble
 
 RUN if [ "$SOLVER" = "mamba" ]; then STEPS="mamba:create,export,errors,missing"; else STEPS="conda:create,export,errors,missing"; fi ; \
     bash bin/coble-bash.sh \
@@ -86,11 +92,11 @@ RUN echo "=== Checking envs directory ===" && \
     echo "=== Conda env list ===" && \
     conda env list && \
     echo "=== Checking if conda_meta exists ===" && \
-    ls -la /app/envs/coble-mini/ || echo "Directory not found"
+    ls -la /app/envs/coble/ || echo "Directory not found"
 
 # Set up bashrc to auto-activate environment (for Docker)
 RUN conda init bash && \
-    echo "conda activate /app/envs/coble-mini" >> /root/.bashrc && \
+    echo "conda activate /app/envs/coble" >> /root/.bashrc && \
     mkdir -p /etc/profile.d && \
     echo "export CONDARC=/app/.condarc" > /etc/profile.d/conda_env.sh
 
@@ -98,14 +104,14 @@ RUN conda init bash && \
 # For 'singularity shell' (launches interactive bash)
 RUN echo '#!/bin/bash' > /app/activate_env.sh && \
     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /app/activate_env.sh && \
-    echo "conda activate /app/envs/coble-mini" >> /app/activate_env.sh && \
+    echo "conda activate /app/envs/coble" >> /app/activate_env.sh && \
     echo 'exec bash' >> /app/activate_env.sh && \
     chmod +x /app/activate_env.sh
 
 # For 'singularity exec' (source only, no exec bash)
 RUN echo '#!/bin/bash' > /app/activate_conda.sh && \
     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /app/activate_conda.sh && \
-    echo "conda activate /app/envs/coble-mini" >> /app/activate_conda.sh && \
+    echo "conda activate /app/envs/coble" >> /app/activate_conda.sh && \
     chmod +x /app/activate_conda.sh
 
 RUN conda clean -afy

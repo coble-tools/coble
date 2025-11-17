@@ -35,6 +35,23 @@ singularity pull -F coble-mini.sif docker://icrsc/coble:mini
 
 ```
 
+### Check Which COBLE Tag You Have
+
+Inside a shell (or via `singularity exec`) you can verify the loaded image tag:
+
+```bash
+echo $COBLE_VARIANT          # Prints the environment flavor (e.g. 452, mini, xyz)
+env | grep COBLE_VARIANT     # Alternate inspection
+```
+
+If you need metadata without starting a shell:
+
+```bash
+singularity exec coble-452.sif bash -c 'echo $COBLE_VARIANT'
+```
+
+This environment variable is embedded at Docker build time and carried into the `.sif` image.
+
 ## Running Containers
 
 ### Interactive Shell

@@ -36,6 +36,28 @@ All COBLE environments are available as Docker images on DockerHub:
 
 See the [Docker](docker.md) and [Singularity](singularity.md) pages for usage details.
 
+### Checking the Image Version
+
+All COBLE Docker/Singularity images expose the environment flavor (build tag) via the variable `COBLE_VARIANT`.
+
+Inside a running container or shell:
+
+```bash
+echo $COBLE_VARIANT   # e.g. 452, mini
+```
+
+Non-interactive check:
+
+```bash
+docker run --rm icrsc/coble:452 bash -c 'echo $COBLE_VARIANT'
+```
+
+For Singularity:
+
+```bash
+singularity exec coble-452.sif bash -c 'echo $COBLE_VARIANT'
+```
+
 ## How It Works
 
 1. **Define** your environment using YAML or bash recipes

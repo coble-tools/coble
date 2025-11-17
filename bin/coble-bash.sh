@@ -9,6 +9,7 @@
 #   coble-bash.sh --steps conda:create:export:missing --input ./data/full.yml --results ./results/test --r-version 4.5.2 --python-version 3.14.0 --env ./envs/test --pkg ./pkgs/test
 
 # Initialize variables
+COBLE_SCRIPT_VERSION="0.1.0"  # Increment manually when releasing a new script version
 steps=""
 INPUT_YAML=""
 RESULTS_DIR=""
@@ -33,7 +34,6 @@ lhs_pip=""
 rhs_pip=""
 results_dir=""
 comparison_output=""
-
 # Check for help flag first
 if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
   echo "Usage: coble-bash.sh [OPTIONS]"
@@ -70,6 +70,7 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --rhs-pip FILE          Right-hand side pip packages file"
   echo "  --results DIR           Results directory (required)"
   echo "  --output FILE           Output comparison file (optional)"
+  echo "  --version               Print COBLE script version and exit"
   echo ""
   echo "Step Descriptions (all optional):"
   echo "  conda/mamba/anaconda    - Select conda executable (conda vs mamba vs /opt/...anaconda)"
@@ -216,6 +217,8 @@ while [[ $# -gt 0 ]]; do
       comparison_output="$2"
       shift 2
       ;;
+    --version)
+      echo "coble-bash.sh version: ${COBLE_SCRIPT_VERSION}"; exit 0 ;;
     -h|--help)
       # Already handled above, this is just for completeness
       exit 0

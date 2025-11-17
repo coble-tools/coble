@@ -49,6 +49,26 @@ conda list
 R -e "installed.packages()[,c('Package','Version')]"
 ```
 
+### Check Release and Variant
+
+Images expose both a release (tool/image) and a variant (environment flavor):
+
+```bash
+echo $COBLE_RELEASE          # e.g. v1.0.0 or dev
+echo $COBLE_VARIANT          # e.g. 452, mini, xyz
+env | grep COBLE_RELEASE
+env | grep COBLE_VARIANT
+```
+
+From outside (non-interactive run):
+
+```bash
+docker run --rm icrsc/coble:452 bash -c 'echo $COBLE_RELEASE'
+docker run --rm icrsc/coble:452 bash -c 'echo $COBLE_VARIANT'
+```
+
+`COBLE_VARIANT` comes from `BUILD_TAG` (environment flavor). `COBLE_RELEASE` comes from the GitHub release tag or falls back to `git describe` / `dev`.
+
 ## Advanced Usage
 
 ### Mount Local Directories
