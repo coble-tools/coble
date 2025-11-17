@@ -2,9 +2,9 @@ Bootstrap: docker
 From: continuumio/miniconda3
 
 %labels
-    org.opencontainers.image.version mini
-    org.opencontainers.image.title coble-mini
-    org.opencontainers.image.description COBLE mini variant - minimal bioinformatics environment
+    org.opencontainers.image.version tst
+    org.opencontainers.image.title coble-tst
+    org.opencontainers.image.description COBLE tst variant - experimental/test bioinformatics environment
     org.opencontainers.image.source https://github.com/ICR-RSE-Group/coble
     org.opencontainers.image.licenses MIT
 
@@ -13,23 +13,23 @@ From: continuumio/miniconda3
     config /app/config
 
 %environment
-    export RESULTS_DIR=/app/results/coble-mini
+    export RESULTS_DIR=/app/results/coble-tst
     export ENVS_DIR=/app/envs/coble
     export PKGS_DIR=/app/pkgs/coble
-    export CONFIG_FILE=/app/config/coble-mini.yml
-    export COBLE_VARIANT=mini
+    export CONFIG_FILE=/app/config/coble-tst.yml
+    export COBLE_VARIANT=tst
     export CONDARC=/app/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
     export MAMBA_NO_BANNER=1
     export SINGULARITY_SHELL=/app/activate_env.sh
-    export R_LIBS_USER=~/R/coble-mini-library
-    export R_LIBS=~/R/coble-mini-library:/app/envs/coble/lib/R/library
+    export R_LIBS_USER=~/R/coble-tst-library
+    export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
 
 %post
     cd /app
     
     # Set variant name (change this line to adapt for other variants)
-    VARIANT="mini"
+    VARIANT="stjoincount"
     SOLVER="conda"
     
     echo "========================================"
@@ -38,7 +38,7 @@ From: continuumio/miniconda3
     echo "Solver: ${SOLVER}"
     echo "========================================"
 
-    # Prepare directories and .condarc (exclude defaults)
+    # Create .condarc with channels (explicitly exclude defaults repo)
     mkdir -p results logs pkgs envs
         cat > /app/.condarc <<EOF
 channels:
@@ -55,6 +55,12 @@ EOF
     export CONDARC=/app/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
 
+    # Ensure latest conda from conda-forge and update base packages
+    echo "Updating conda and base packages from conda-forge..."    
+    conda install -y -n base -c conda-forge conda && \
+    conda update -y -n base --all && \
+    conda clean -afy
+
     # Install system dependencies
     apt-get update && \
         apt-get install -y --no-install-recommends \
@@ -63,15 +69,7 @@ EOF
             libgomp1 && \
         rm -rf /var/lib/apt/lists/*
 
-    # Ensure latest conda from conda-forge and update base
-    echo "Updating conda and base packages from conda-forge..."
-    conda install -y -n base -c conda-forge conda && \
-    conda update -y -n base --all && \
-    conda clean -afy
-
     # Build the environment
-    export CONDARC=/app/.condarc
-    export CONDA_PKGS_DIRS=/app/pkgs/coble
     
     echo "Running coble-bash.sh with ${SOLVER}..."
     bash /app/bin/coble-bash.sh \
@@ -82,7 +80,7 @@ EOF
         --python-version "3.14.0" \
         --env "/app/envs/coble" \
         --pkg "/app/pkgs/coble" \
-        --quiet "y" \
+        --quiet "n" \
         --divert "y"
 
     # Verify environment was created
@@ -125,18 +123,18 @@ EOF
     exec /bin/bash
 
 %help
-    COBLE - mini variant
+    COBLE - tst variant
     
-    Minimal bioinformatics conda environment.
+    Experimental/test bioinformatics conda environment.
     
     Usage:
         # Interactive shell (auto-activates environment)
-        singularity shell coble-mini.sif
+        singularity shell coble-tst.sif
         
         # Execute command with activated environment
-        singularity exec coble-mini.sif bash -c "source /app/activate_conda.sh && python script.py"
+        singularity exec coble-tst.sif bash -c "source /app/activate_conda.sh && python script.py"
     
     Build:
-        sudo singularity build coble-mini.sif singularity/coble-mini.def
+        sudo singularity build coble-tst.sif singularity/coble-tst.def
     
     More info: https://github.com/ICR-RSE-Group/coble

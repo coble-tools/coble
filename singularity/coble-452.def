@@ -28,10 +28,14 @@ From: continuumio/miniconda3
 %post
     cd /app
     
+    # Set variant name (change this line to adapt for other variants)
+    VARIANT="452"
+    SOLVER="conda"
+    
     echo "========================================"
-    echo "Building COBLE variant: 452"
-    echo "Config: /app/config/coble-452.yml"
-    echo "Solver: mamba (faster)"
+    echo "Building COBLE variant: ${VARIANT}"
+    echo "Config: /app/config/coble-${VARIANT}.yml"
+    echo "Solver: ${SOLVER}"
     echo "========================================"
 
     # Prepare directories and .condarc (exclude defaults)
@@ -69,11 +73,11 @@ EOF
     export CONDARC=/app/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
     
-    echo "Running coble-bash.sh with mamba..."
+    echo "Running coble-bash.sh with ${SOLVER}..."
     bash /app/bin/coble-bash.sh \
-        --steps "mamba:create,export,errors,missing" \
-        --input "/app/config/coble-452.yml" \
-        --results "/app/results/coble-452" \
+        --steps "${SOLVER}:create,export,errors,missing" \
+        --input "/app/config/coble-${VARIANT}.yml" \
+        --results "/app/results/coble-${VARIANT}" \
         --r-version "4.5.2" \
         --python-version "3.14.0" \
         --env "/app/envs/coble" \
@@ -88,24 +92,24 @@ EOF
     ls -la /app/envs/coble/ || echo "Directory not found"
 
     # Create singularity-friendly activation scripts
-    cat > /app/activate_env.sh <<'EOF'
+    cat > /app/activate_env.sh <<EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
-export R_LIBS_USER=~/R/coble-452-library
-export R_LIBS=~/R/coble-452-library:/app/envs/coble/lib/R/library
-mkdir -p "$R_LIBS_USER"
+export R_LIBS_USER=~/R/coble-${VARIANT}-library
+export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
+mkdir -p "\$R_LIBS_USER"
 exec bash
 EOF
     chmod +x /app/activate_env.sh
 
-    cat > /app/activate_conda.sh <<'EOF'
+    cat > /app/activate_conda.sh <<EOF
 #!/bin/bash
 source /opt/conda/etc/profile.d/conda.sh
 conda activate /app/envs/coble
-export R_LIBS_USER=~/R/coble-452-library
-export R_LIBS=~/R/coble-452-library:/app/envs/coble/lib/R/library
-mkdir -p "$R_LIBS_USER"
+export R_LIBS_USER=~/R/coble-${VARIANT}-library
+export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
+mkdir -p "\$R_LIBS_USER"
 EOF
     chmod +x /app/activate_conda.sh
 
