@@ -69,7 +69,7 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --lhs-pip FILE          Left-hand side pip packages file"
   echo "  --rhs-pip FILE          Right-hand side pip packages file"
   echo "  --results DIR           Results directory (required)"
-  echo "  --output FILE           Output comparison file (optional)"
+  echo "  --comparison-output FILE           Output comparison file (optional)"
   echo "  --version               Print COBLE script version and exit"
   echo ""
   echo "Step Descriptions (all optional):"
@@ -153,11 +153,11 @@ while [[ $# -gt 0 ]]; do
       PKG_FLDR="$2"
       shift 2
       ;;
-    --output)
+    --stdout)
       OUTPUT_FILE="$2"
       shift 2
       ;;
-    --error)
+    --stderr)
       ERROR_FILE="$2"
       shift 2
       ;;
@@ -245,11 +245,11 @@ fi
 
 # Set defaults for optional parameters
 if [ -z "$OUTPUT_FILE" ]; then
-  OUTPUT_FILE="$RESULTS_DIR/output.log"
+  OUTPUT_FILE="$RESULTS_DIR/stdout.log"
 fi
 
 if [ -z "$ERROR_FILE" ]; then
-  ERROR_FILE="$RESULTS_DIR/error.log"
+  ERROR_FILE="$RESULTS_DIR/stderr.log"
 fi
 
 echo "Mamba environment creation script started at $(date)"
@@ -420,5 +420,10 @@ echo "Time taken: $(($(date +%s) - $start_time)) seconds."
 echo "###################################################################"
 
 # finally copy stdout and stderr
-cp $OUTPUT_FILE $copy_stdout
-cp $ERROR_FILE $copy_stderr
+# don;t copy if they are the same file
+if [ "$OUTPUT_FILE" != "$copy_stdout" ]; then
+  cp $OUTPUT_FILE $copy_stdout
+fi
+if [ "$ERROR_FILE" != "$copy_stderr" ]; then
+  cp $ERROR_FILE $copy_stderr
+fi

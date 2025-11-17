@@ -33,8 +33,6 @@ LABEL org.opencontainers.image.version="${BUILD_TAG}" \
 ENV RESULTS_DIR=/app/results/coble-${BUILD_TAG}
 ENV ENVS_DIR=/app/envs/coble
 ENV PKGS_DIR=/app/pkgs/coble
-ENV LOG_OUT=/app/logs/coble-${BUILD_TAG}.out
-ENV LOG_ERR=/app/logs/coble-${BUILD_TAG}.err
 ENV CONFIG_FILE=/app/config/coble-${BUILD_TAG}.yml
 ENV COBLE_VARIANT=${BUILD_TAG}
 
@@ -81,9 +79,7 @@ RUN if [ "$SOLVER" = "mamba" ]; then STEPS="mamba:create,export,errors,missing";
        --r-version "4.5.2" \
        --python-version "3.14.0" \
        --env "$ENVS_DIR" \
-       --pkg "$PKGS_DIR" \
-       --output "$LOG_OUT" \
-       --error "$LOG_ERR" \
+       --pkg "$PKGS_DIR" \       
        --quiet "y" \
        --divert "y"
 

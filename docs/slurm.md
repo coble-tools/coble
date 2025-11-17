@@ -71,9 +71,12 @@ The `coble-slurm.sh` wrapper:
 ### Default SLURM Parameters
 
 ```bash
-#SBATCH -J "MmbaPlne"      # Job name
-#SBATCH -n 4               # Number of tasks
-#SBATCH -t 100:00:00       # Time limit (100 hours)
+#!/usr/bin/env bash
+#SBATCH -J "CobleBuild"
+#SBATCH --output=logs/coble-%j.out
+#SBATCH --error=logs/coble-%j.err
+#SBATCH -n 4
+#SBATCH -t 10:00:00
 ```
 
 ### Submitting with the Wrapper
@@ -86,9 +89,7 @@ sbatch bin/coble-slurm.sh \
   --r-version "4.5.2" \
   --python-version "3.14.0" \
   --env "./envs/coble-452" \
-  --pkg "./pkgs/coble-452"
-       --output results/coble-$tag.out \
-       --error results/coble-$tag.err \
+  --pkg "./pkgs/coble-452"       
 ```
 
 ### Customizing SLURM Parameters

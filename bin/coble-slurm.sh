@@ -3,7 +3,7 @@
 #SBATCH --output=logs/coble-%j.out
 #SBATCH --error=logs/coble-%j.err
 #SBATCH -n 4
-#SBATCH -t 100:00:00
+#SBATCH -t 10:00:00
 
 
 # Export some environment variables from slurm eg machine and node

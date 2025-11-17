@@ -279,11 +279,181 @@ For formal releases:
 3. Create GitHub Release with tag like `v1.0.0`
 4. Optionally tag Docker images with release version
 
+## Singularity Build Process
+
+COBLE can also be built as Singularity/Apptainer images for HPC environments.
+
+### Building from Definition File on HPC
+
+The Singularity definition file `singularity/coble-452.def` allows building directly on HPC systems.
+
+#### Requirements
+
+- Singularity/Apptainer installed (typically available as a module)
+- Internet access to Docker Hub (for base image)
+- Either:
+  - Root/sudo access, OR
+  - Fakeroot feature enabled (`singularity build --fakeroot`)
+- Access to conda package channels during build
+
+#### Basic Build Command
+
+```bash
+# Set your variant
+tag=452
+
+# Build with sudo
+sudo singularity build coble-$tag.sif singularity/coble-452.def --build-arg BUILD_TAG=$tag
+
+# Or with fakeroot (no sudo required)
+singularity build --fakeroot coble-$tag.sif singularity/coble-452.def --build-arg BUILD_TAG=$tag
+```
+
+#### Build Arguments
+
+```bash
+# Default conda solver
+singularity build --fakeroot coble-mini.sif singularity/coble-452.def \
+  --build-arg BUILD_TAG=mini
+
+# Use mamba for faster dependency resolution
+singularity build --fakeroot coble-452.sif singularity/coble-452.def \
+  --build-arg BUILD_TAG=452 \
+  --build-arg SOLVER=mamba
+```
+
+#### What Happens During Build
+
+1. **Bootstrap**: Pulls `continuumio/miniconda3` from Docker Hub (no Docker daemon needed)
+2. **Files copied**: `bin/` and `config/` directories copied into image at `/app/`
+3. **Environment setup**: Conda configured, channels added, base updated
+4. **System packages**: Build tools (gcc, zlib, etc.) installed via apt
+5. **Conda environment**: Created using `coble-bash.sh` with specified config
+6. **Activation scripts**: Created for both interactive and exec usage
+
+### Using Pre-built Docker Images
+
+If you have network access but cannot build on HPC, pull from Docker Hub:
+
+```bash
+# Pull and convert Docker image to Singularity
+tag=452
+singularity pull coble-$tag.sif docker://icrsc/coble:$tag
+
+# Test it
+singularity shell coble-$tag.sif
+```
+
+This is simpler but requires the Docker image to exist on Docker Hub (built via CI/CD).
+
+### Testing the Built Image
+
+```bash
+# Interactive shell (environment auto-activates)
+singularity shell coble-452.sif
+
+# Inside container
+Singularity> echo $COBLE_VARIANT
+452
+Singularity> conda env list
+Singularity> exit
+
+# Execute command with environment
+singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && python --version"
+
+# Check for specific packages
+singularity exec coble-452.sif bash -c "source /app/activate_conda.sh && conda list | grep numpy"
+```
+
+### Offline/Air-gapped HPC Environments
+
+If your HPC has no internet access:
+
+1. **Build on a machine with internet** (your workstation):
+   ```bash
+   sudo singularity build coble-452.sif singularity/coble-452.def --build-arg BUILD_TAG=452
+   ```
+
+2. **Transfer to HPC**:
+   ```bash
+   scp coble-452.sif user@hpc:/path/to/destination/
+   ```
+
+3. **Use on HPC** (no build required):
+   ```bash
+   singularity shell coble-452.sif
+   ```
+
+### Build on SLURM Cluster
+
+For long builds, submit as a batch job:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=coble-build
+#SBATCH --time=02:00:00
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --output=logs/coble-build-%j.out
+#SBATCH --error=logs/coble-build-%j.err
+
+module load singularity
+
+tag=452
+singularity build --fakeroot coble-$tag.sif singularity/coble-452.def \
+  --build-arg BUILD_TAG=$tag \
+  --build-arg SOLVER=mamba
+```
+
+Submit with: `sbatch build_coble.sh`
+
+### Comparing Docker vs Singularity Workflow
+
+| Approach | Where to Build | Requirements | Use Case |
+|----------|---------------|--------------|----------|
+| **Docker image** → pull to Singularity | Local + CI/CD | Docker Hub access on HPC | Standard workflow, reproducible |
+| **Singularity .def** on HPC | HPC with internet | Fakeroot or sudo, internet | Custom builds, no Docker Hub |
+| **Singularity .def** local → transfer | Local workstation | Singularity installed locally | Air-gapped HPC |
+
+### Troubleshooting Singularity Builds
+
+#### Error: "could not create user namespace"
+
+**Solution**: Use `--fakeroot` flag or request admin to enable user namespaces.
+
+#### Error: "failed to pull docker image"
+
+**Solution**: Check internet connectivity and Docker Hub accessibility:
+```bash
+curl -I https://hub.docker.com/
+```
+
+#### Build Hangs at Conda Solve
+
+**Solution**: Use `SOLVER=mamba` or reduce package list complexity in config.
+
+#### Permission Denied Writing to /app
+
+**Solution**: This is expected during `%post`; ensure you're using `sudo` or `--fakeroot`.
+
+### Definition File Structure
+
+The `.def` file mirrors the Dockerfile with these sections:
+
+- `%arguments` - Build-time variables (BUILD_TAG, SOLVER)
+- `%files` - Copy local files into container
+- `%environment` - Environment variables (set at runtime)
+- `%post` - Build steps (runs as root during build)
+- `%runscript` - Default behavior when running image
+- `%startscript` - Behavior for `singularity instance start`
+- `%help` - Documentation displayed with `singularity run-help`
+
 ## Additional Resources
 
 - [Build Notes](build-notes.md) - Detailed build process
 - [Developer Notes](dev-notes.md) - Development environment setup
 - [Docker Usage](docker.md) - Using pre-built images
+- [Singularity Usage](singularity.md) - HPC usage guide
 - [CLI Reference](cli-reference.md) - Command-line options
 
 ## Questions?

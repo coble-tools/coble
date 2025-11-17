@@ -2,6 +2,5 @@ envs/*
 pkgs/*
 results/*
 logs/*
-singularity/*
-.venv-docs/*
+singularity/*.sif
 site/*

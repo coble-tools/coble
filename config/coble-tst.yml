@@ -1,8 +1,8 @@
 #coble-yml
-dependencies:  
+dependencies:
   - requests
-  - r_conda:    
+  - r_conda:
+    - devtools
     - stringi
   - r_package:
-    - devtools
-    - fgsea
+    - tidyverse
