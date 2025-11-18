@@ -38,9 +38,7 @@ dependencies:
     - mscorefonts
   - r_conda:
     - nloptr
-    - polyclip
-  - r_package:
-    - devtools
+    - polyclip  
   - conda:
     - zlib
   - r_conda:
