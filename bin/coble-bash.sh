@@ -322,6 +322,16 @@ export CONDA_PKGS_DIRS=$new_mamba_pkgs
 #################################################
 
 source ~/.bashrc
+# Initialize conda for bash shell
+if [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
+    source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
+elif [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+    source "/opt/conda/etc/profile.d/conda.sh"
+elif [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+elif [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+    source "$HOME/anaconda3/etc/profile.d/conda.sh"
+fi
 
 # if the OUTPUT_FILE and ERROR_FILE are set, redirect stdout and stderr
 if [ -n "$OUTPUT_FILE" ] && [ -n "$ERROR_FILE" ] && [ "$divert" == "y" ] ; then

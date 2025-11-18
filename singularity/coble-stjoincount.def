@@ -13,7 +13,6 @@ From: continuumio/miniconda3
     config /app/config
 
 %environment
-    export PATH=/app/envs/coble/bin:$PATH
     export RESULTS_DIR=/app/results/coble-stjoincount
     export ENVS_DIR=/app/envs/coble
     export PKGS_DIR=/app/pkgs/coble
@@ -101,56 +100,26 @@ EOF
     ls -la /app/envs/coble/ || echo "Directory not found"
 
     # Create singularity-friendly activation scripts
-    cat > /app/activate_env.sh <<'EOF'
+    cat > /app/activate_env.sh <<EOF
 #!/bin/bash
-# Try multiple methods to initialize conda
-if [ -n "${CONDA_EXE}" ] && [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
-    source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
-elif [ -f /opt/conda/etc/profile.d/conda.sh ]; then
-    source /opt/conda/etc/profile.d/conda.sh
-else
-    eval "$(${CONDA_EXE:-conda} shell.bash hook)" 2>/dev/null || true
-fi
-
-# Activate with fallback to PATH
-conda activate /app/envs/coble 2>/dev/null || true
-export PATH=/app/envs/coble/bin:$PATH
-export R_LIBS_USER=~/R/coble-stjoincount-library
-export R_LIBS=~/R/coble-stjoincount-library:/app/envs/coble/lib/R/library
+source /opt/conda/etc/profile.d/conda.sh
+conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-${VARIANT}-library
+export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
 mkdir -p "$R_LIBS_USER"
 exec bash
 EOF
     chmod +x /app/activate_env.sh
 
-    cat > /app/activate_conda.sh <<'EOF'
+    cat > /app/activate_conda.sh <<EOF
 #!/bin/bash
-# Try multiple methods to initialize conda
-if [ -n "${CONDA_EXE}" ] && [ -f "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh" ]; then
-    source "${CONDA_EXE%/bin/conda}/etc/profile.d/conda.sh"
-elif [ -f /opt/conda/etc/profile.d/conda.sh ]; then
-    source /opt/conda/etc/profile.d/conda.sh
-else
-    eval "$(${CONDA_EXE:-conda} shell.bash hook)" 2>/dev/null || true
-fi
-
-# Activate with fallback to PATH
-conda activate /app/envs/coble 2>/dev/null || true
-export PATH=/app/envs/coble/bin:$PATH
-export R_LIBS_USER=~/R/coble-stjoincount-library
-export R_LIBS=~/R/coble-stjoincount-library:/app/envs/coble/lib/R/library
+source /opt/conda/etc/profile.d/conda.sh
+conda activate /app/envs/coble
+export R_LIBS_USER=~/R/coble-${VARIANT}-library
+export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
 mkdir -p "$R_LIBS_USER"
 EOF
     chmod +x /app/activate_conda.sh
-
-    cat > /app/use_env.sh <<'EOF'
-#!/bin/bash
-# Simple PATH-based setup without conda activation
-export PATH=/app/envs/coble/bin:$PATH
-export R_LIBS_USER=~/R/coble-stjoincount-library
-export R_LIBS=~/R/coble-stjoincount-library:/app/envs/coble/lib/R/library
-mkdir -p "$R_LIBS_USER"
-EOF
-    chmod +x /app/use_env.sh
 
     # Clean conda cache
     conda clean -afy
@@ -172,15 +141,8 @@ EOF
         # Interactive shell (auto-activates environment)
         singularity shell coble-stjoincount.sif
         
-        # Direct execution (recommended - works without conda activation)
-        singularity exec coble-stjoincount.sif python script.py
-        singularity exec coble-stjoincount.sif Rscript analysis.R
-        
-        # With explicit conda activation (if needed)
+        # Execute command with activated environment
         singularity exec coble-stjoincount.sif bash -c "source /app/activate_conda.sh && python script.py"
-        
-        # Simple PATH-based setup (no conda activation)
-        singularity exec coble-stjoincount.sif bash -c "source /app/use_env.sh && python script.py"
     
     Build:
         sudo singularity build coble-stjoincount.sif singularity/coble-stjoincount.def
