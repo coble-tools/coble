@@ -24,6 +24,8 @@ From: continuumio/miniconda3
     export SINGULARITY_SHELL=/app/activate_env.sh
     export R_LIBS_USER=~/R/coble-tst-library
     export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
+    # Add conda environment to PATH automatically
+    export PATH=/app/envs/coble/bin:$PATH
 
 %post
     cd /app
@@ -100,26 +102,49 @@ EOF
     ls -la /app/envs/coble/ || echo "Directory not found"
 
     # Create singularity-friendly activation scripts
-    cat > /app/activate_env.sh <<EOF
+    cat > /app/activate_env.sh <<'EOF'
 #!/bin/bash
-source /opt/conda/etc/profile.d/conda.sh
-conda activate /app/envs/coble
-export R_LIBS_USER=~/R/coble-${VARIANT}-library
-export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
-mkdir -p "\$R_LIBS_USER"
+# Initialize conda in multiple ways for maximum compatibility
+if [ -f /opt/conda/etc/profile.d/conda.sh ]; then
+    . /opt/conda/etc/profile.d/conda.sh
+elif [ -f "$CONDA_EXE" ]; then
+    eval "$($CONDA_EXE shell.bash hook)"
+fi
+conda activate /app/envs/coble 2>/dev/null || true
+export R_LIBS_USER=~/R/coble-tst-library
+export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
+export PATH=/app/envs/coble/bin:$PATH
+mkdir -p "$R_LIBS_USER"
 exec bash
 EOF
     chmod +x /app/activate_env.sh
 
-    cat > /app/activate_conda.sh <<EOF
+    cat > /app/activate_conda.sh <<'EOF'
 #!/bin/bash
-source /opt/conda/etc/profile.d/conda.sh
-conda activate /app/envs/coble
-export R_LIBS_USER=~/R/coble-${VARIANT}-library
-export R_LIBS=~/R/coble-${VARIANT}-library:/app/envs/coble/lib/R/library
-mkdir -p "\$R_LIBS_USER"
+# Initialize conda in multiple ways for maximum compatibility
+if [ -f /opt/conda/etc/profile.d/conda.sh ]; then
+    . /opt/conda/etc/profile.d/conda.sh
+elif [ -f "$CONDA_EXE" ]; then
+    eval "$($CONDA_EXE shell.bash hook)"
+fi
+conda activate /app/envs/coble 2>/dev/null || true
+export R_LIBS_USER=~/R/coble-tst-library
+export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
+export PATH=/app/envs/coble/bin:$PATH
+mkdir -p "$R_LIBS_USER"
 EOF
     chmod +x /app/activate_conda.sh
+    
+    # Create a simpler path-based wrapper for users who don't want conda activation
+    cat > /app/use_env.sh <<'EOF'
+#!/bin/bash
+# Simple PATH-based activation (no conda needed)
+export PATH=/app/envs/coble/bin:$PATH
+export R_LIBS_USER=~/R/coble-tst-library
+export R_LIBS=~/R/coble-tst-library:/app/envs/coble/lib/R/library
+mkdir -p "$R_LIBS_USER"
+EOF
+    chmod +x /app/use_env.sh
 
     # Clean conda cache
     conda clean -afy
@@ -137,12 +162,25 @@ EOF
     
     Experimental/test bioinformatics conda environment.
     
-    Usage:
-        # Interactive shell (auto-activates environment)
+    Usage Options:
+    
+    1. Interactive shell (auto-activates via SINGULARITY_SHELL):
         singularity shell coble-tst.sif
-        
-        # Execute command with activated environment
+    
+    2. Run commands directly (PATH-based, no conda activation needed):
+        singularity exec coble-tst.sif python script.py
+        singularity exec coble-tst.sif R -e "library(tidyverse)"
+    
+    3. Explicit conda activation (if you need conda-specific features):
         singularity exec coble-tst.sif bash -c "source /app/activate_conda.sh && python script.py"
+    
+    4. Simple PATH-based setup (alternative to conda activation):
+        singularity exec coble-tst.sif bash -c "source /app/use_env.sh && python script.py"
+    
+    Environment Details:
+        - Python and R executables are in PATH by default
+        - R libraries: ~/R/coble-tst-library and /app/envs/coble/lib/R/library
+        - Config: /app/config/coble-tst.yml
     
     Build:
         sudo singularity build coble-tst.sif singularity/coble-tst.def
