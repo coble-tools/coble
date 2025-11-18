@@ -10,6 +10,10 @@
 
 # Initialize variables
 COBLE_SCRIPT_VERSION="0.1.0"  # Increment manually when releasing a new script version
+
+# Bypass conda TOS checks for automated builds
+export CONDA_TOS_ACCEPTED=yes
+
 steps=""
 INPUT_YAML=""
 RESULTS_DIR=""

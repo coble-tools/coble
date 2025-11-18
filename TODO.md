@@ -1,3 +1,6 @@
+18/11/2025 Feedback from Syed
+- [ ] He really wants to run from recipe, have it kick out if there are ANY errors, then resume when he has fixed it from a chosen location.
+
 17/11/2025
 -[ ] Outstanding issue with the order of channlels when running in singularity from slurm.
 

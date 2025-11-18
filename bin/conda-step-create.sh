@@ -14,6 +14,9 @@ dry_run=$9
 output_file=${10}
 error_file=${11}
 
+# Bypass conda TOS checks
+export CONDA_TOS_ACCEPTED=yes
+
 echo "source ~/.bashrc" >> $bash_script_output
 echo "export CONDA_PKGS_DIRS=$new_mamba_pkgs" >> $bash_script_output
 if [ -d "$new_mamba_prefix" ]; then      

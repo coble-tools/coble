@@ -64,6 +64,7 @@ custom_multichannels:
 EOF
     export CONDARC=/root/.condarc
     export CONDA_PKGS_DIRS=/app/pkgs/coble
+    export CONDA_TOS_ACCEPTED=yes
 
     # Install system dependencies
     apt-get update && \
@@ -84,7 +85,7 @@ EOF
     export CONDA_PKGS_DIRS=/app/pkgs/coble
     
     echo "Running coble-bash.sh with ${SOLVER}..."
-    bash /app/bin/coble-bash.sh \
+    CONDA_TOS_ACCEPTED=yes bash /app/bin/coble-bash.sh \
         --steps "${SOLVER}:create,export,errors,missing" \
         --input "/app/config/coble-${VARIANT}.yml" \
         --results "/app/results/coble-${VARIANT}" \
@@ -93,7 +94,8 @@ EOF
         --env "/app/envs/coble" \
         --pkg "/app/pkgs/coble" \
         --quiet "y" \
-        --divert "y"
+        --divert "y" \
+        --exit-error "y"
 
     # Verify environment was created
     echo "=== Verifying environment ==="

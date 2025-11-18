@@ -10,6 +10,9 @@ dry_run=$8
 output_file=${9}
 error_file=${10}
 
+# Bypass conda TOS checks
+export CONDA_TOS_ACCEPTED=yes
+
 quiet_conda=""
 quiet_r="FALSE"
 if [[ $quiet == "y" || $quiet == "yes" || $quiet == "true" ]]; then
