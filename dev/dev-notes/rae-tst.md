@@ -83,3 +83,13 @@ python --version
 python -m pip show numpy | awk '/^Version:/{print $2}'
 Rscript --version
 
+
+
+bash bin/coble-bash.sh \
+  --steps "create,export,errors" \
+  --input "config/coble-tst.yml" \
+  --results "results/coble-tst" \
+  --r-version "4.5.2" \
+  --python-version "3.14.0" \
+  --env "./envs/coble-tst" \
+  --pkg "./pkgs/coble-tst"

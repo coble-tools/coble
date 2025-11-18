@@ -5,7 +5,10 @@ new_mamba_pkgs=$3
 bash_script_output=$4
 mamba_yaml_input=$5
 quiet=$6
-dry_run=$7
+exit_error=$7
+dry_run=$8
+output_file=${9}
+error_file=${10}
 
 quiet_conda=""
 quiet_r="FALSE"

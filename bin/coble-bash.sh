@@ -22,6 +22,7 @@ ERROR_FILE=""
 extra="none"
 quiet="n"
 divert="n"
+exit_error="n"
 lhs_env=""
 rhs_env=""
 lhs_coble=""
@@ -57,6 +58,7 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --extra VALUE           Extra parameter (used by some steps)"
   echo "  --quiet y|n             Suppress informational messages (default: n)"
   echo "  --divert y|n            Divert output to files (default: n)"
+  echo "  --exit-error y|n        Exit if errors detected mid way (don't complete to end as best effort) (default: n)"
   echo "  ---- step=compare options ----"
   echo "  --lhs-env PATH          Left-hand side conda environment path"
   echo "  --rhs-env PATH          Right-hand side conda environment path"
@@ -173,6 +175,10 @@ while [[ $# -gt 0 ]]; do
       divert="$2"
       shift 2
       ;;
+    --exit-error)
+      exit_error="$2"
+      shift 2
+      ;;
     --lhs-env)
       lhs_env="$2"
       shift 2
@@ -265,6 +271,7 @@ echo "CMD: PKG_FLDR: ${PKG_FLDR}"
 echo "CMD: OUTPUT_FILE: ${OUTPUT_FILE}"
 echo "CMD: ERROR_FILE: ${ERROR_FILE}"
 echo "CMD: extra: ${extra}"
+echo "CMD: exit_error: ${exit_error}"
 
 
 mkdir -p $RESULTS_DIR
@@ -340,6 +347,11 @@ if [ -n "$OUTPUT_FILE" ] && [ -n "$ERROR_FILE" ] && [ "$divert" == "y" ] ; then
   mkdir -p "$(dirname "$ERROR_FILE")"
   echo "Redirecting stdout to $OUTPUT_FILE and stderr to $ERROR_FILE"
   exec > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
+elif [ "$exit_error " == "y" ] ; then
+  mkdir -p "$(dirname "$OUTPUT_FILE")"
+  mkdir -p "$(dirname "$ERROR_FILE")"
+  echo "Redirecting stdout to $OUTPUT_FILE and stderr to $ERROR_FILE"
+  exec > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 fi
 
 # init the bash script as empty if create or install is selected
@@ -356,10 +368,10 @@ fi
 #-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE-CREATE
 if [[ $steps == *"create"* ]]; then  
   echo "=== >>> Creating initial conda environment: $conda_exe"
-  echo "bin/conda-step-create.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $r_version $python_version $bash_script_output $quiet $dry_run"
-  bash bin/conda-step-create.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $r_version $python_version $bash_script_output $quiet $dry_run
-  echo "bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $dry_run"
-  bash bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $dry_run
+  echo "bin/conda-step-create.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $r_version $python_version $bash_script_output $quiet $exit_error $dry_run $OUTPUT_FILE $ERROR_FILE"
+  bash bin/conda-step-create.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $r_version $python_version $bash_script_output $quiet $exit_error $dry_run $OUTPUT_FILE $ERROR_FILE
+  echo "bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $exit_error $dry_run $OUTPUT_FILE $ERROR_FILE"
+  bash bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $exit_error $dry_run $OUTPUT_FILE $ERROR_FILE
 fi
 
 #-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE-RECIPE
@@ -372,7 +384,7 @@ fi
 #-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE-UPDATE
 if [[ $steps == *"update"* ]]; then  
   echo "=== >>> Additional conda file to process: $mamba_yaml_input"  
-  bash bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $dry_run
+  bash bin/conda-step-install.sh $conda_exe $new_mamba_prefix $new_mamba_pkgs $bash_script_output $mamba_yaml_input $quiet $exit_error $dry_run $OUTPUT_FILE $ERROR_FILE
 fi
 #-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT-EXPORT
 if [[ $steps == *"export"* ]]; then
