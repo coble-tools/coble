@@ -76,8 +76,8 @@ EOF
 
     # Ensure latest conda and mamba from conda-forge, then update base
     echo "Installing conda and mamba from conda-forge, updating base..."
-    conda install -y -n base conda mamba && \
-    conda update -y -n base --all && \
+    conda install -y -n base -c conda-forge conda mamba && \
+    conda update -y -n base -c conda-forge --all && \
     conda clean -afy
 
     # Build the environment

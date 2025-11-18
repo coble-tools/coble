@@ -68,8 +68,8 @@ EOF
     
     # Ensure latest conda from conda-forge and update base packages
     echo "Updating conda and base packages from conda-forge..."        
-    conda install -y -n base conda && \
-    conda update -y -n base --all && \
+    conda install -y -n base -c conda-forge conda && \
+    conda update -y -n base -c conda-forge --all && \
     conda clean -afy
 
     # Install system dependencies
