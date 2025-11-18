@@ -2,7 +2,7 @@
 #SBATCH -J "CobleSingularityBuild"
 #SBATCH --output=logs/coble-sing-build-%j.out
 #SBATCH --error=logs/coble-sing-build-%j.err
-#SBATCH -n 4
+#SBATCH -n 2
 #SBATCH -t 10:00:00
 #SBATCH --mem=16G
 

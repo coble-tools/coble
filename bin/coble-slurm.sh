@@ -2,7 +2,7 @@
 #SBATCH -J "CobleBuild"
 #SBATCH --output=logs/coble-%j.out
 #SBATCH --error=logs/coble-%j.err
-#SBATCH -n 4
+#SBATCH -n 2
 #SBATCH -t 10:00:00
 
 
