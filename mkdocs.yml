@@ -59,7 +59,6 @@ nav:
   - Recipes: recipes.md
   - Conda Build: overview.md
   - Docker Build: docker-build.md
-  - Container Environments: container-env.md        
-  - Development: DEV.md  
+  - Container Environments: container-env.md          
   - About:
     - License: license.md
