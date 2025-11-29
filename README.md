@@ -4,18 +4,21 @@
 ## How to Run
 
 1. **Edit your email address** in `code/coble-recipe-slurm.sh`:
-   - Change the line:
-     ```bash
-     #SBATCH --mail-user=your.email@domain.com
-     ```
-   - Put your own email address so you get SLURM notifications.
+   
+   Put your own email address so you get SLURM notifications.
 
 2. **Submit your build job** with one command:
    ```bash
-   sbatch code/coble-recipe-slurm.sh \
+   sbatch --mail-user=your.email@domain.com \
+   code/coble-recipe-slurm.sh \
    --results results/r-452 \
    --input config/r-452.sh \
-   --env ./envs/r-452   
+   --env ./envs/r-452 \
+   --r-version 4.5.2 \
+   --python-version 3.14.0 \
+   --skip-errors \
+   --override-envs
+
    ```
    Change the paths if you want different results, input, environment, or package locations.  
    There is an assumption that you will be isolating your environmnts and want to set the pkg enviroment variable and use prefix rather than name environments.  

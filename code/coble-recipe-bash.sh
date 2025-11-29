@@ -29,6 +29,8 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --env NAME              Name of the conda environment to create/use (required, as a prefix path)"  
   echo "  --r-version VERSION     R version to use (default: $COBLE_R_VERSION)"
   echo "  --python-version VERSION Python version to use (default: $COBLE_PYTHON_VERSION)"
+  echo "  --skip-errors           Continue processing even if errors are detected"
+  echo "  --override-envs         Override R_LIBS_USER and CONDA_PKGS_DIRS to isolate environments"
   exit 0
 fi
 
