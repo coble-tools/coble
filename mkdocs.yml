@@ -1,7 +1,7 @@
 site_name: COBLE Documentation
 site_description: Documentation for COBLE - COnda BuiLdEr
 site_author: RSE team at ICR
-repo_url: https://gitlab.com/group/collaborations/bcrbioin/coble
+repo_url: https://github.com/ICR-RSE-Group/coble
 repo_name: icr-rse/coble
 
 theme:
