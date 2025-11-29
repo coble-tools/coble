@@ -1,22 +1,6 @@
-18/11/2025 Feedback from Syed
-- [ ] He really wants to run from recipe, have it kick out if there are ANY errors, then resume when he has fixed it from a chosen location.
-- [ ] So what we are looking for is checkpointing and resume. So a batch is started. It stops. When the confg is fixed you press "resume". It simply starts agin going thorugh the bash lines it generates 1 by 1 but if it finds 1 identical to a line it has already done it doesn;t execute. When it exits gracelessly it copes the recipe to a file_recipe_checkpoint.txt so you can see where it got to. If that file already exists it copies it and then reretaes it. At the beginning of every run if you have chosen checkointing it checks if that file exists and if so uses that to skip lines already done.
-- [ ] There is a problem with ALL the code and I want to restore from a version here: ea0d751a96d2f65af9481ac7d8d7206183dd9b6c but git seems to be down!
-
-17/11/2025
--[ ] Outstanding issue with the order of channlels when running in singularity from slurm.
-
-15/11/2025
--[x] move to guthub and use runners
--[x] add docker images
--[x] build as singularity
--[ ] restructure so it takes within 6 hours for the runners on github NO using singularity instead of docker
--[x] logs do not exist in container build so error report is not created, need to divert stout to files
--[x] logs now double , add a flag to divert or not so only need to divert in a docker contaner or bash if required.
-
 13/11/2025
--[x] change to new name coble
--[x] Have slurm and bash scruots serpeatey
+-[ ] change to new name coble
+-[ ] Have slurm and bash scruots serpeatey
 -[ ] R and python versions "latest" and "none" options
 -[ ] Add a compare option for between envs or files
 

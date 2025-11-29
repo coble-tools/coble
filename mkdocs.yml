@@ -1,7 +1,7 @@
 site_name: COBLE Documentation
-site_description: COnda BuiLdEr - Build and manage conda environments
-site_author: RSE Team at ICR
-repo_url: https://github.com/ICR-RSE-Group/coble
+site_description: Documentation for COBLE - COnda BuiLdEr
+site_author: RSE team at ICR
+repo_url: https://gitlab.com/group/collaborations/bcrbioin/coble
 repo_name: icr-rse/coble
 
 theme:
@@ -55,22 +55,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Installation: installation.md
-    - Quick Start: quickstart.md
-  - Usage:
-    - Using Slurm: slurm.md
-    - Using Docker: docker.md
-    - Using Singularity: singularity.md
-    - Command Reference: cli-reference.md
-  - Development:
-    - Quick Build: quickbuild.md
-    - Configuration Guide: config.md
-    - Conda Environments: develop-conda.md
-    - Docker Containers: develop-docker.md
-    - Singularity Containers: develop-singularity.md
-    - SLURM Batch Jobs: develop-slurm.md
-    - Build Notes: build-notes.md
-    - Developer Notes: dev-notes.md
+  - Motivation: motivation.md
+  - Recipes: recipes.md
+  - Conda Build: overview.md
+  - Docker Build: docker-build.md
+  - Container Environments: container-env.md        
+  - Development: DEV.md  
   - About:
     - License: license.md

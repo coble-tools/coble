@@ -1,71 +1,48 @@
-# COBLE - COnda BuiLdEr
+<img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
 
-<img src="coble.png" alt="COBLE logo" width="200" style="float: left; margin-right: 20px; margin-bottom: 10px;" />
+# COBLE: COnda BuiLdEr
 
-**COBLE - COnda BuiLdEr**: Build and manage conda environments from the RSE team at the ICR
+COBLE is a tool to build and manage conda environments, developed by the RSE team at the ICR.
 
-The GitHub page for COBLE is at: [https://github.com/ICR-RSE-Group/coble](https://github.com/ICR-RSE-Group/coble)  
+## How to Run
 
-COBLE is a set of scripts to help build and manage conda environments, particularly for R and Bioconductor packages, along with Python packages. It allows you to define environments using YAML files or bash recipes, automates the installation process, captures logs for error analysis, and generates reproducible outputs including combined environment files and installation scripts.
+1. **Edit your email address** in `code/coble-recipe-slurm.sh`:
+   - Change the line:
+     ```bash
+     #SBATCH --mail-user=your.email@domain.com
+     ```
+   - Use your own email address to receive SLURM notifications.
 
-COBLE packages are built on Docker and made available via DockerHub for easy use with Singularity. This enables the same conda environments to be used on secure systems without internet access.
+2. **Submit your build job**:
+   ```bash
+   sbatch code/coble-recipe-slurm.sh \
+   --results results/r-452 \
+   --input config/r-452.sh \
+   --env ./envs/r-452
+   ```
+   Adjust the paths as needed for your results, input, environment, or package locations.
 
-## Key Features
+   The environment is passed as a prefix path and set as the `CONDA_COBLE_ENV` variable for use in config scripts. Example usage in scripts:
+   ```bash
+   conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0
+   conda activate ${CONDA_COBLE_ENV}
+   ```
+   This is optional; you can hardcode paths if preferred.
 
-- 🐍 **Multi-language Support**: Python, R, and Bioconductor packages
-- 🐳 **Container-Ready**: Docker images published to DockerHub
-- 🔒 **Offline-Capable**: Use Singularity images in air-gapped environments
-- 📝 **Reproducible**: Auto-generated installation scripts and environment exports
-- 🔍 **Error Analysis**: Built-in error reporting and package verification
-- ⚙️ **Flexible**: YAML or bash recipe-based configuration
+## What This Does
+- Builds a conda environment and installs R/Python packages.
+- Exits on error, allowing you to fix and rerun from the last fail point.
+- Logs output to the results directory.
+- Sends an email if the job fails.
 
-## Quick Links
+## Output Structure
+- Results directory contains:
+  - `coble-stdout.log`: Standard output log
+  - `coble-stderr.log`: Standard error log
+  - `recipe.sh`: The generated recipe script
+  - `done.txt`: Log of completed R library installs
+- Environment-specific directories for installed packages and R libraries.
 
-- [Installation Guide](installation.md) - Get started with COBLE
-- [Quick Start](quickstart.md) - Create your first environment
-- [Docker Usage](docker.md) - Use pre-built Docker images
-- [Singularity Usage](singularity.md) - Deploy in secure environments
-- [Command Reference](cli-reference.md) - Full CLI documentation
-
-## Available Images
-
-All COBLE environments are available as Docker images on DockerHub:
-
-- `icrsc/coble:452` - Full R 4.5.2 environment
-- `icrsc/coble:mini` - Minimal R 4.5.2 environment
-
-See the [Docker](docker.md) and [Singularity](singularity.md) pages for usage details.
-
-### Checking the Image Version
-
-All COBLE Docker/Singularity images expose the environment flavor (build tag) via the variable `COBLE_VARIANT`.
-
-Inside a running container or shell:
-
-```bash
-echo $COBLE_VARIANT   # e.g. 452, mini
-```
-
-Non-interactive check:
-
-```bash
-docker run --rm icrsc/coble:452 bash -c 'echo $COBLE_VARIANT'
-```
-
-For Singularity:
-
-```bash
-singularity exec coble-452.sif bash -c 'echo $COBLE_VARIANT'
-```
-
-## How It Works
-
-1. **Define** your environment using YAML or bash recipes
-2. **Build** conda environments with automated package installation
-3. **Export** reproducible environment specifications
-4. **Deploy** via Docker or Singularity containers
-5. **Verify** with built-in error checking and package reports
-
-## Support
-
-For issues, questions, or contributions, visit the [GitHub repository](https://github.com/ICR-RSE-Group/coble/issues).
+## Requirements
+- SLURM cluster
+- Conda installed and initialized

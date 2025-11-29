@@ -1,0 +1,302 @@
+##########################################################################################
+##### R 4.5.2 installations
+##########################################################################################
+
+conda create -p /data/scratch/DBC/UBCN/BCRBIOIN/SHARED/software/conda_envs/R-4.5.2 r-base=4.5.2 python=3.14.0
+conda activate /data/scratch/DBC/UBCN/BCRBIOIN/SHARED/software/conda_envs/R-4.5.2
+
+conda install -y r-biocmanager --no-update-deps
+
+conda install -y r-data.table --no-update-deps
+Rscript -e "BiocManager::install('fgsea',force=TRUE)
+
+
+conda install -c conda-forge r-stringi r-rcpp r-plyr r-reticulate r-sitmo --no-update-deps
+
+conda install conda-forge::r-seurat
+
+conda install conda-forge::r-units
+
+BiocManager::install("stJoincount")
+
+conda install -c conda-forge libxml2
+conda install -c conda-forge pandoc pypandoc boost-cpp  r-xml r-xlconnect r-xml2 r-testthat r-systemfonts r-ragg
+
+
+# for fonts to work otherwise default unix ones are DejaVu
+conda install -c conda-forge fonts-conda-ecosystem mscorefonts r-nloptr r-polyclip
+
+install.packages("devtools")
+
+conda install -c conda-forge zlib
+conda install conda-forge::r-rsqlite
+BiocManager::install(c("limma", "vsn", "edgeR", "org.Hs.eg.db", "org.Mm.eg.db"))
+
+conda install -c conda-forge r-tzdb r-vroom r-readr r-readxl r-rcppannoy r-glmnet
+
+install.packages('gdata')
+wget https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz
+R CMD INSTALL NanoStringNorm_1.2.1.1.tar.gz 
+
+install.packages(c("bedr", "SIMMS", "haven", "foreign", "spatstat"))
+
+# required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
+install_github("aroneklund/copynumber")
+
+# these wont install happily from install.packages (needed for FactoMineR)
+conda install -c conda-forge r-rcpparmadillo r-conquer r-minqa
+
+conda install conda-forge::r-lme4
+install.packages(c("FactoMineR", "factoextra"))
+
+install.packages(c("knitr", "rmarkdown", "inline"))
+
+conda install -c conda-forge r-rjson r-interp
+BiocManager::install(c("biomaRt", "rtracklayer",  "GenomicFeatures", "BSgenome", "VariantAnnotation", "ensembldb", "biovizBase", "Gviz", "GenomicInteractions"))
+
+install.packages(c("distributions3", "mboost", 'AER', 'brglm2', 'flexmix', 'modelsummary', 'nonnest2', 'tinytest', "knitr", 'UpSetR', 'plotrix', 'gplots', 'drc'))
+
+install.packages("countreg", repos="http://R-Forge.R-project.org", dependencies = TRUE)
+install.packages("chicane", dependencies = TRUE)
+
+
+conda install conda-forge::r-v8
+BiocManager::install(c("multtest", "GSEABase", "cellHTS2", "reshape", "TeachingDemos", "tidyverse", "SingleR", "scran", "scater", "celldex"))
+
+BiocManager::install(c("MAST", "impute", "genefu", "fastseg")) 
+
+BiocManager::install("methylKit")
+
+install.packages(c("tidyverse", "argparser", "stringdist"))
+
+BiocManager::install("BSgenome.Hsapiens.NCBI.GRCh38")
+remotes::install_github("Nik-Zainal-Group/signature.tools.lib")
+
+BiocManager::install("genomation")
+
+BiocManager::install(c("ggbio", "TxDb.Hsapiens.UCSC.hg38.knownGene"))
+
+install.packages("Signac")
+BiocManager::install(c("EnsDb.Hsapiens.v86", "harmony"))
+conda install -c conda-forge hdf5
+install.packages("hdf5r")
+
+conda install -c conda-forge r-rjags
+BiocManager::install("infercnv")
+
+remotes::install_github("hdng/clonevol")
+install.packages("packcircles")
+
+# needed for ArchR
+conda install conda-forge::r-cairo
+
+devtools::install_github("GreenleafLab/ArchR", ref="master", repos = BiocManager::repositories())
+library(ArchR)
+ArchR::installExtraPackages()
+
+remotes::install_github("satijalab/seurat-wrappers")
+
+BiocManager::install("ShortRead")
+
+conda install -c conda-forge r-eulerr
+
+devtools::install_github("xmc811/Scillus", ref = "development")
+
+devtools::install_github('VanLoo-lab/ascat/ASCAT')
+
+remotes::install_github("chris-mcginnis-ucsf/DoubletFinder")
+install.packages("clustree")
+
+BiocManager::install("Chicago")
+
+library(remotes)
+remotes::install_github("carmonalab/STACAS")
+
+BiocManager::install("batchelor")
+
+devtools::install_github('zhiyuan-hu-lab/CIDER')
+
+conda install conda-forge::r-magick
+BiocManager::install("GSVA")
+
+devtools::install_github("cansysbio/ConsensusTME")
+
+conda install conda-forge::r-gdtools
+BiocManager::install("pcaMethods")
+git clone https://git.bioconductor.org/packages/DeconRNASeq
+R CMD INSTALL DeconRNASeq
+devtools::install_github('EDePasquale/DoubletDecon') 
+
+BiocManager::install("Rsubread")
+
+# conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route	
+install.packages("rstan")
+devtools::install_github("stan-dev/rstantools")
+devtools::install_github("davidaknowles/leafcutter/leafcutter") # FAILED also
+
+BiocManager::install("liftOver")
+
+conda install r-seqminer
+install.packages(c('squash', 'iotools'))
+wget https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_3.0.0.tar.gz
+R CMD INSTALL sequenza_3.0.0.tar.gz
+
+BiocManager::install("glmGamPoi")
+devtools::install_github("satijalab/sctransform", ref = "develop")
+
+install.packages("Ckmeans.1d.dp")
+
+wget https://cran.r-project.org/src/contrib/Archive/modes/modes_0.7.0.tar.gz
+R CMD INSTALL modes_0.7.0.tar.gz
+
+install.packages(c("dynamicTreeCut", "roll"))
+
+install.packages("hdf5r")
+
+conda install conda-forge::r-units
+conda install conda-forge::r-sf
+conda install conda-forge::r-spdep
+devtools::install_github('cole-trapnell-lab/monocle3', ref="develop")
+
+
+conda install -c bioconda pysamstats # FAILED
+
+install.packages("LDlinkR")
+
+install.packages("randomForest")
+
+
+BiocManager::install("multiGSEA")
+wget  http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz
+R CMD INSTALL REdiscoverTEdata_1.0.1.tar.gz 
+
+wget https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz
+R CMD INSTALL Matrix.utils_0.9.8.tar.gz 
+
+devtools::install_github("karakulahg/TEffectR")
+
+BiocManager::install("minfi")
+BiocManager::install(c("IlluminaHumanMethylationEPICanno.ilm10b4.hg19", "IlluminaHumanMethylationEPICmanifest", "missMethyl", "minfiData", "DMRcate"))
+
+BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)
+
+
+install.packages(c("clusterSim", "clv"))
+
+devtools::install_github("saeyslab/nichenetr")
+
+BiocManager::install("kstreet13/slingshot")
+
+
+conda install conda-forge::r-ncdf4
+install.packages(c("HiClimR", "ccaPP", "egg"))
+BiocManager::install("sva")
+devtools::install_github("digitalcytometry/cytotrace2", subdir = "cytotrace2_r") 
+pip install scanoramaCT
+
+conda install conda-forge::r-rpostgres
+remotes::install_github("PriceLab/ghdb")
+
+BiocManager::install("destiny")
+
+devtools::install_github("sqjin/CellChat")
+
+install.packages("openssl")
+
+install.packages("pracma", repos="http://R-Forge.R-project.org")
+
+remotes::install_github("trevorld/r-optparse")
+
+conda install -c conda-forge r-mcmcpack
+install.packages(c("mvtnorm","ellipse","coda","Matrix","Rtsne","gtools","foreach","doParallel","doSNOW","snow","lattice","MASS","bayesm","robustbase","chron","mnormt","schoolmath","RColorBrewer"))
+
+BiocManager::install("DEXSeq")
+
+# for R package SCENIC
+conda install -c conda-forge r-arrow
+BiocManager::install(c("AUCell", "RcisTarget", "GENIE3"))
+remotes::install_github("bokeh/rbokeh") 
+BiocManager::install("R2HTML")
+devtools::install_github("aertslab/SCopeLoomR", build_vignettes = TRUE)
+devtools::install_github("aertslab/SCENIC") 
+install.packages(c("ISOpureR", "DiffCorr"))
+
+devtools::install_github("broadinstitute/cdsr_models")
+
+devtools::install_github("PhanstielLab/Sushi")
+BiocManager::install("ChromSCape")
+
+devtools::install_github('sztup/scarHRD', build_vignettes = TRUE)
+
+devtools::install_github("guokai8/scGSVA")
+
+BiocManager::install("reactome.db")
+
+pip install spatialde
+
+install.packages(c("poolr", "tsne", "flexmix", "fpc")) 
+
+devtools::install_github("cit-bioinfo/mMCP-counter")
+
+remotes::install_github("mojaveazure/seurat-disk")
+
+install.packages("immunarch")
+
+install.packages("strawr")
+
+devtools::install_github("https://github.com/kharchenkolab/numbat")
+
+install.packages(c("keras", "ijtiff"))
+
+install.packages("bbmle")
+devtools::install_github("choisy/cutoff")
+
+wget https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz
+R CMD INSTALL zlibbioc_1.50.0.tar.gz
+BiocManager::install("PoisonAlien/maftools")
+
+BiocManager::install("illuminaHumanv4.db")
+
+BiocManager::install("zellkonverter")
+
+BiocManager::install("NanoStringNCTools")
+BiocManager::install("GeomxTools")
+BiocManager::install("GeoMxWorkflows")
+
+
+conda install conda-forge::r-maptools
+install.packages(c("openxlsx"))
+conda install bioconda::bioconductor-cellhts2 # FAILED
+
+# for custom gitlab.py script to work if this R is loaded
+pip install requests 
+
+BiocManager::install("Orthology.eg.db")
+install.packages("effsize")
+
+BiocManager::install(c("viper", "dorothea"))
+install.packages("enrichR")
+
+BiocManager::install("aracne.networks")
+
+BiocManager::install("scDblFinder")
+
+python -m pip install PyYAML
+
+install.packages(c("languageserver", "unigd", "AsioHeaders")) 
+wget https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
+R CMD INSTALL httpgd_2.0.4.tar.gz
+
+python -m pip install radian
+
+devtools::install_github('munoztd0/reprtree')
+
+install.packages("seqinr")
+
+remotes::install_github("carmonalab/ProjecTILs")
+
+remotes::install_github("carmonalab/SignatuR")
+
+devtools::install_github("vladchimescu/lpsymphony")
+devtools::install_github("nignatiadis/IHW")
+devtools::install_github("saeyslab/multinichenetr")
