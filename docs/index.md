@@ -7,22 +7,33 @@ COBLE is a tool to build and manage conda environments, developed by the RSE tea
 ## How to Run
 
 1. **Edit your email address** in `code/coble-recipe-slurm.sh`:
-   - Change the line:
-     ```bash
-     #SBATCH --mail-user=your.email@domain.com
-     ```
-   - Use your own email address to receive SLURM notifications.
+   
+   Put your own email address so you get SLURM notifications.
 
-2. **Submit your build job**:
+2. **Submit your build job** with one command:
    ```bash
-   sbatch code/coble-recipe-slurm.sh \
+   sbatch --mail-user=your.email@domain.com \
+   code/coble-recipe-slurm.sh \
    --results results/r-452 \
    --input config/r-452.sh \
-   --env ./envs/r-452
+   --env ./envs/r-452 \
+   --r-version 4.5.2 \
+   --python-version 3.14.0 \
+   --skip-errors \
+   --override-envs
    ```
-   Adjust the paths as needed for your results, input, environment, or package locations.
+   Adjust the paths as needed for your results, input, environment. 
+   Some of the arguments are optional, some required:
+    - `--results`: Directory to store logs and outputs (required)
+    - `--input`: Configuration script for the environment (required)
+    - `--env`: Path to the conda environment to create/use (required)
+    - `--r-version`: R version to install (optional, default: 4.5.2)
+    - `--python-version`: Python version to install (optional, default: 3.14.0)
+    - `--skip-errors`: Continue processing even if errors are detected (optional, default is to stop)
+    - `--override-envs`: Override R_LIBS_USER and CONDA_PKGS_DIRS to isolate environments locally next to the prefix (optional, default is not to override)
 
-   The environment is passed as a prefix path and set as the `CONDA_COBLE_ENV` variable for use in config scripts. Example usage in scripts:
+   The environment is passed as a prefix path and set as the `CONDA_COBLE_ENV` variable for use in config scripts. 
+   Example usage in scripts:
    ```bash
    conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0
    conda activate ${CONDA_COBLE_ENV}
