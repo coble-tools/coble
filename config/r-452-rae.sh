@@ -1,40 +1,40 @@
 # recipe for building Syed's 4.5.2
-# sbatch --mail-user rachel.alcraft@icr.ac.uk code/coble-recipe-slurm.sh --results results/r-452 --input config/r-452.sh --env ./envs/r-452
+# sbatch --mail-user rachel.alcraft@icr.ac.uk code/coble-recipe-slurm.sh --results results/r-452-rae --input config/r-452-rae.sh --env ./envs/r-452-rae --skip-errors --override-envs
 
 conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}
 
-conda install -y r-biocmanager --no-update-deps
-conda install -y r-devtools --no-update-deps
-conda install -y r-remotes --no-update-deps
+conda install -y r-biocmanager --freeze-installed
+conda install -y r-devtools --freeze-installed
+conda install -y r-remotes --freeze-installed
 
-conda install -y r-data.table --no-update-deps
+conda install -y r-data.table --freeze-installed
 Rscript -e "BiocManager::install('fgsea',force=TRUE)"
 
-conda install -y -c conda-forge r-stringi r-rcpp r-plyr r-reticulate r-sitmo --no-update-deps
+conda install -y -c conda-forge r-stringi r-rcpp r-plyr r-reticulate r-sitmo --freeze-installed
 
-conda install -y conda-forge::r-seurat
+conda install -y conda-forge::r-seurat --freeze-installed
 
-conda install -y conda-forge::r-units
+conda install -y conda-forge::r-units --freeze-installed
 
-conda install -y r-raster --no-update-deps
-conda install -y r-spdep --no-update-deps
-conda install -y r-magick --no-update-deps
+conda install -y r-raster --freeze-installed
+conda install -y r-spdep --freeze-installed
+conda install -y r-magick --freeze-installed
 Rscript -e "BiocManager::install('stJoincount',force=TRUE)"
 
-conda install -y -c conda-forge libxml2
-conda install -y -c conda-forge pandoc pypandoc boost-cpp  r-xml r-xlconnect r-xml2 r-testthat r-systemfonts r-ragg
+conda install -y -c conda-forge libxml2 --freeze-installed
+conda install -y -c conda-forge pandoc pypandoc boost-cpp  r-xml r-xlconnect r-xml2 r-testthat r-systemfonts r-ragg --freeze-installed
 
 # for fonts to work otherwise default unix ones are DejaVu
-conda install -y -c conda-forge fonts-conda-ecosystem mscorefonts r-nloptr r-polyclip
+conda install -y -c conda-forge fonts-conda-ecosystem mscorefonts r-nloptr r-polyclip --freeze-installed
 
 Rscript -e "install.packages('devtools', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
-conda install -y -c conda-forge zlib
-conda install -y conda-forge::r-rsqlite
+conda install -y -c conda-forge zlib --freeze-installed
+conda install -y conda-forge::r-rsqlite --freeze-installed
 Rscript -e "BiocManager::install(c('limma', 'vsn', 'edgeR', 'org.Hs.eg.db', 'org.Mm.eg.db'))"
 
-conda install -y -c conda-forge r-tzdb r-vroom r-readr r-readxl r-rcppannoy r-glmnet
+conda install -y -c conda-forge r-tzdb r-vroom r-readr r-readxl r-rcppannoy r-glmnet --freeze-installed
 
 Rscript -e "install.packages('gdata', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 #wget https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz
@@ -48,14 +48,14 @@ Rscript -e "install.packages(c('bedr', 'SIMMS', 'haven', 'foreign', 'spatstat'),
 Rscript -e "devtools::install_url('https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip')"
 
 # these wont install happily from install.packages (needed for FactoMineR)
-conda install -y -c conda-forge r-rcpparmadillo r-conquer r-minqa
+conda install -y -c conda-forge r-rcpparmadillo r-conquer r-minqa --freeze-installed
 
-conda install -y conda-forge::r-lme4
+conda install -y conda-forge::r-lme4 --freeze-installed
 Rscript -e "install.packages(c('FactoMineR', 'factoextra'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
 Rscript -e "install.packages(c('knitr', 'rmarkdown', 'inline'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
-conda install -y -c conda-forge r-rjson r-interp
+conda install -y -c conda-forge r-rjson r-interp --freeze-installed
 Rscript -e "BiocManager::install(c('biomaRt', 'rtracklayer',  'GenomicFeatures', 'BSgenome', 'VariantAnnotation', 'ensembldb', 'biovizBase', 'Gviz', 'GenomicInteractions'))"
 
 Rscript -e "install.packages(c('distributions3', 'mboost', 'AER', 'brglm2', 'flexmix', 'modelsummary', 'nonnest2', 'tinytest', 'knitr', 'UpSetR', 'plotrix', 'gplots', 'drc'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
@@ -63,7 +63,7 @@ Rscript -e "install.packages(c('distributions3', 'mboost', 'AER', 'brglm2', 'fle
 #Rscript -e "install.packages('countreg', repos='http://R-Forge.R-project.org', dependencies = TRUE)"  #RA failed on coble
 Rscript -e "install.packages('chicane', dependencies=TRUE,,repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
-conda install -y conda-forge::r-v8
+conda install -y conda-forge::r-v8 --freeze-installed
 #Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'cellHTS2', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"  #RA failed on coble
 
 #Rscript -e "BiocManager::install(c('MAST', 'impute', 'genefu', 'fastseg'))"   #RA failed on coble
@@ -79,10 +79,10 @@ Rscript -e "BiocManager::install(c('ggbio', 'TxDb.Hsapiens.UCSC.hg38.knownGene')
 
 Rscript -e "install.packages('Signac', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 Rscript -e "BiocManager::install(c('EnsDb.Hsapiens.v86', 'harmony'))"
-conda install -y -c conda-forge hdf5
+conda install -y -c conda-forge hdf5 --freeze-installed
 Rscript -e "install.packages('hdf5r', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
-conda install -y -c conda-forge r-rjags
+conda install -y -c conda-forge r-rjags --freeze-installed
 Rscript -e "BiocManager::install('infercnv')"
 
 # Rscript -e "remotes::install_github('hdng/clonevol')" #RA
@@ -90,7 +90,7 @@ Rscript -e "devtools::install_url('https://github.com/hdng/clonevol/archive/refs
 Rscript -e "install.packages('packcircles', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
 # needed for ArchR
-conda install -y conda-forge::r-cairo
+conda install -y conda-forge::r-cairo --freeze-installed
 
 # Rscript -e "remotes::install_github('GreenleafLab/ArchR', ref='master', repos = BiocManager::repositories())" #RA
 Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories())"
@@ -102,7 +102,7 @@ Rscript -e "devtools::install_url('https://github.com/satijalab/seurat-wrappers/
 
 Rscript -e "BiocManager::install('ShortRead')"
 
-conda install -y -c conda-forge r-eulerr
+conda install -y -c conda-forge r-eulerr --freeze-installed
 
 # Rscript -e "remotes::install_github('xmc811/Scillus', ref = 'development')" #RA
 Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip')"
@@ -122,13 +122,13 @@ Rscript -e "BiocManager::install('batchelor')"
 
 Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz')"
 
-conda install -y conda-forge::r-magick
+conda install -y conda-forge::r-magick --freeze-installed
 Rscript -e "BiocManager::install('GSVA')"
 
 # Rscript -e "remotes::install_github('cansysbio/ConsensusTME')" #RA
 Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip')"
 
-conda install -y conda-forge::r-gdtools
+conda install -y conda-forge::r-gdtools --freeze-installed
 Rscript -e "BiocManager::install('pcaMethods')"
 rm -rf DeconRNASeq
 git clone https://git.bioconductor.org/packages/DeconRNASeq
@@ -151,7 +151,7 @@ Rscript -e "devtools::install_url('https://github.com/stan-dev/rstantools/archiv
 
 Rscript -e "BiocManager::install('liftOver')"
 
-conda install -y r-seqminer
+conda install -y r-seqminer --freeze-installed
 Rscript -e "install.packages(c('squash', 'iotools'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 # wget https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_3.0.0.tar.gz
 # R CMD INSTALL sequenza_3.0.0.tar.gz
@@ -171,9 +171,9 @@ Rscript -e "install.packages(c('dynamicTreeCut', 'roll'), repo='https://cloud.r-
 
 Rscript -e "install.packages('hdf5r', repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
-conda install -y conda-forge::r-units
-conda install -y conda-forge::r-sf
-conda install -y conda-forge::r-spdep
+conda install -y conda-forge::r-units --freeze-installed
+conda install -y conda-forge::r-sf --freeze-installed
+conda install -y conda-forge::r-spdep --freeze-installed
 # Rscript -e "remotes::install_github('cole-trapnell-lab/monocle3', ref='develop')" RA
 Rscript -e "devtools::install_url('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip')"
 
@@ -210,14 +210,14 @@ Rscript -e "install.packages(c('clusterSim', 'clv'), repo='https://cloud.r-proje
 Rscript -e "devtools::install_url('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip')"
 Rscript -e "BiocManager::install('kstreet13/slingshot')"
 
-conda install -y conda-forge::r-ncdf4
+conda install -y conda-forge::r-ncdf4 --freeze-installed
 Rscript -e "install.packages(c('HiClimR', 'ccaPP', 'egg'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 Rscript -e "BiocManager::install('sva')"
 # Rscript -e "remotes::install_github('digitalcytometry/cytotrace2', subdir = 'cytotrace2_r')" #RA
 Rscript -e "devtools::install_url('https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip', subdir = 'cytotrace2_r')"
 python -m pip install scanoramaCT
 
-conda install -y conda-forge::r-rpostgres
+conda install -y conda-forge::r-rpostgres --freeze-installed
 # Rscript -e "remotes::install_github('PriceLab/ghdb')" #RA
 Rscript -e "devtools::install_url('https://github.com/PriceLab/ghdb/archive/refs/heads/master.zip')"
 
@@ -232,13 +232,13 @@ Rscript -e "install.packages('pracma', repos='http://R-Forge.R-project.org')"
 # Rscript -e "remotes::install_github('trevorld/r-optparse')" #RA
 Rscript -e "devtools::install_url('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip')"
 
-conda install -y -c conda-forge r-mcmcpack
+conda install -y -c conda-forge r-mcmcpack --freeze-installed
 Rscript -e "install.packages(c('mvtnorm','ellipse','coda','Matrix','Rtsne','gtools','foreach','doParallel','doSNOW','snow','lattice','MASS','bayesm','robustbase','chron','mnormt','schoolmath','RColorBrewer'), repo='https://cloud.r-project.org',force=TRUE,quiet=FALSE)"
 
 Rscript -e "BiocManager::install('DEXSeq')"
 
 # for R package SCENIC
-conda install -y -c conda-forge r-arrow
+conda install -y -c conda-forge r-arrow --freeze-installed
 Rscript -e "BiocManager::install(c('AUCell', 'RcisTarget', 'GENIE3'))"
 # Rscript -e "remotes::install_github('bokeh/rbokeh')" #RA
 Rscript -e "devtools::install_url('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip')"
