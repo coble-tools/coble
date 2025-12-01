@@ -205,6 +205,21 @@ else
 fi
 echo
 
+FAILED_FILE="$RESULTS_DIR/failed.txt"
+# Check if it exists, if not create it with header
+if [ ! -f "$FAILED_FILE" ]; then  
+  echo "# ==============================================" >> "$FAILED_FILE"  
+  echo "# Generated COBLE failed log on $(date)" > "$FAILED_FILE"  
+  echo "# Input recipe file: $INPUT_RECIPE" >> "$FAILED_FILE"  
+  echo "# ==============================================" >> "$FAILED_FILE"  
+  echo "Created failed file at $FAILED_FILE"
+else  
+  echo "# ==============================================" >> "$FAILED_FILE"
+  echo "# Appending COBLE failed log on $(date)" from "$INPUT_RECIPE" >> "$FAILED_FILE"    
+  echo "Appended failed file at $FAILED_FILE"
+fi
+echo
+
 ################################################################################
 # Function to take the contents of the .condarc and copy it to results so we know exactly
 # what channels and settings were used during the build
@@ -436,21 +451,13 @@ is_blank=false
 is_activation_line=false
 last_stdout_line=0
 last_stderr_line=0
+line_number=0
 while IFS= read -r line || [ -n "$line" ]; do  
   line=$(echo "$line" | envsubst)
+  line_number=$((line_number + 1))
   expanded_line=$line
   line_exists=false
-  
-  # Keep the error log a reasonable size    
-  #if [ $(wc -l < "$ERROR_FILE") -gt 1000 ]; then
-  #  cp "$ERROR_FILE" "$ERROR_FILE.$(date +%s)"
-  #  > "$ERROR_FILE"
-  #fi
-  #if [ $(wc -l < "$OUTPUT_FILE") -gt 1000 ]; then
-  #  cp "$OUTPUT_FILE" "$OUTPUT_FILE.$(date +%s)"
-  #  > "$OUTPUT_FILE"
-  #fi
-  
+    
   # Skip blank lines when trimmed
   trimmed_line="${line#"${line%%[![:space:]]*}"}"
   trimmed_line="${trimmed_line%"${trimmed_line##*[![:space:]]}"}"
@@ -523,13 +530,19 @@ while IFS= read -r line || [ -n "$line" ]; do
       if [ $is_error -eq 0 ]; then
         echo "Error detected after executing line: $expanded_line"
         echo "Skipping error as per --skip-errors flag."      
-        echo "# WARNING: Error detected but skipping as per --skip-errors flag at $(date) after executing line:" >> "$RECIPE_FILE"        
+        echo "# WARNING: Error detected but skipping as per --skip-errors flag at $(date) after executing line:" >> "$RECIPE_FILE" 
+        echo "# WARNING: Error on LINE $line_number at $(date) after executing line:" >> "$FAILED_FILE"               
+        echo "$expanded_line" >> "$FAILED_FILE"
       fi      
       if [[ "$expanded_line" != *"coble@"* ]]; then
         echo "$expanded_line" >> "$RECIPE_FILE"      
       fi
-      echo "#    time taken for line: $((end_time_line - start_time_line)) seconds."
-      echo "#    time taken for line: $((end_time_line - start_time_line)) seconds." >> "$RECIPE_FILE"
+      time_taken=$((end_time_line - start_time_line))
+      hours=$((time_taken / 3600))
+      minutes=$(((time_taken % 3600) / 60))
+      seconds=$((time_taken % 60))
+      echo "#    time taken for line: ${hours}h ${minutes}m ${seconds}s."
+      echo "#    time taken for line: ${hours}h ${minutes}m ${seconds}s." >> "$RECIPE_FILE"
     fi
   else
     if [ "$is_comment" = true ] && [ "$started" = true ]; then      
@@ -558,10 +571,14 @@ pip freeze > "$python_packages"
 
 echo "###################################################################"
 echo "All steps completed successfully at $(date)."
-echo "Time taken: $(($(date +%s) - $start_time)) seconds."
+time_taken=$(($(date +%s) - $start_time))
+hours=$((time_taken / 3600))
+minutes=$(((time_taken % 3600) / 60))
+seconds=$((time_taken % 60))
+echo "Time taken: ${hours}h ${minutes}m ${seconds}s."
 echo "###################################################################"
 
 echo "###################################################################" >> "$RECIPE_FILE"
 echo "# All steps completed successfully at $(date)." >> "$RECIPE_FILE"
-echo "# Time taken: $(($(date +%s) - $start_time)) seconds." >> "$RECIPE_FILE"
+echo "Time taken: ${hours}h ${minutes}m ${seconds}s." >> "$RECIPE_FILE"
 echo "###################################################################" >> "$RECIPE_FILE"

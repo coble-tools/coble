@@ -9,5 +9,6 @@ echo "# R_LIBS_USER=${R_LIBS_USER}"
 conda create -p ${CONDA_COBLE_ENV} -y r-base=4.5.2 python=3.14.0
 conda activate ${CONDA_COBLE_ENV}
 coble@r@essentials devtools
+conda install -y nonsense
 coble@bioc@fgea
 

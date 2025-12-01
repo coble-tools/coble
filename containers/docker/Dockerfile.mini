@@ -6,6 +6,7 @@
 # docker push icrsc/coble:mini
 ## TO USE THIS DOCKER IMAGE
 # docker run --rm -it icrsc/coble:mini
+# docker run --rm -it -v "$PWD/myresults:/app/results/coble" icrsc/coble:mini
 ##############################################################################
 # singularity pull -F coble-mini.sif docker://icrsc/coble:mini
 # singularity shell coble-452.sif

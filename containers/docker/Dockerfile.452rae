@@ -1,14 +1,14 @@
 ################### BUILD AND RUN THIS DOCKER FILE ############################
 #### MINI VERSION ####
-# tag=452syed
-# docker build -f containers/docker/Dockerfile.452syed -t icrsc/coble:452syed .
-# docker run --rm -it icrsc/coble:452syed
-# docker push icrsc/coble:452syed
+# tag=452rae
+# docker build -f containers/docker/Dockerfile.452rae -t icrsc/coble:452rae .
+# docker run --rm -it icrsc/coble:452rae
+# docker push icrsc/coble:452rae
 ## TO USE THIS DOCKER IMAGE
-# docker run --rm -it icrsc/coble:452syed
+# docker run --rm -it icrsc/coble:452rae
 ##############################################################################
-# singularity pull -F coble-452syed.sif docker://icrsc/coble:452syed
-# singularity shell coble-452syed.sif
+# singularity pull -F coble-452rae.sif docker://icrsc/coble:452rae
+# singularity shell coble-452rae.sif
 #################################################################################
 
 FROM continuumio/miniconda3
@@ -17,7 +17,7 @@ WORKDIR /app
 # IMPORTANT VARIABLES
 ENV R_VERSION=4.5.2
 ENV PYTHON_VERSION=3.14.0
-ENV BUILD_TAG=r-452-syed
+ENV BUILD_TAG=r-452-rae
 
 LABEL org.opencontainers.image.version="${BUILD_TAG}" \
     org.opencontainers.image.title="coble" \
