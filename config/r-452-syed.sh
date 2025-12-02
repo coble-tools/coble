@@ -8,6 +8,12 @@
 conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}
 
+# This needs to be early on to allow pysamstats to build (don't know why to be investigated)
+python -m pip install "setuptools>=59.0"
+python -m pip install --upgrade "Cython>=3.0.11"
+python -m pip install pysam
+python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
+
 conda install -y r-biocmanager --no-update-deps
 
 conda install -y -c conda-forge r-devtools gcc_linux-64 gxx_linux-64 --no-update-deps
@@ -64,7 +70,12 @@ Rscript -e "install.packages('countreg', repos='http://R-Forge.R-project.org', d
 Rscript -e "install.packages('chicane', dependencies = TRUE, repos='https://cloud.r-project.org')"
 
 conda install -y conda-forge::r-v8 --no-update-deps
-Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"
+Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'celldex'))"
+
+# needed for ArchR and scater
+conda install -y conda-forge::r-cairo --no-update-deps
+Rscript -e "BiocManager::install(c('scater'))"
+
 Rscript -e "BiocManager::install(c('cellHTS2'))"
 
 Rscript -e "BiocManager::install(c('MAST', 'impute', 'genefu', 'fastseg'))"
@@ -91,9 +102,7 @@ Rscript -e "BiocManager::install('infercnv')"
 Rscript -e "devtools::install_url('https://github.com/hdng/clonevol/archive/refs/heads/master.zip', dependencies = FALSE)"
 Rscript -e "install.packages('packcircles', repos='https://cloud.r-project.org')"
 
-# needed for ArchR
-conda install -y conda-forge::r-cairo --no-update-deps
-
+conda install -y conda-forge::r-pdftools --no-update-deps
 Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories(), dependencies = TRUE)"
 
 Rscript -e "ArchR::installExtraPackages()"
@@ -104,7 +113,7 @@ Rscript -e "BiocManager::install('ShortRead')"
 
 conda install -y -c conda-forge r-eulerr --no-update-deps
 
-Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = TRUE)" # errors but seems ok
 
 Rscript -e "devtools::install_url('https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip', subdir='ASCAT', dependencies = FALSE)"
 
@@ -126,10 +135,7 @@ Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/arc
 
 conda install -y conda-forge::r-gdtools --no-update-deps
 Rscript -e "BiocManager::install('pcaMethods')"
-rm -rf DeconRNASeq
-git clone https://git.bioconductor.org/packages/DeconRNASeq
-R CMD INSTALL DeconRNASeq
-rm -rf DeconRNASeq
+Rscript -e "devtools::install_url('https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "devtools::install_url('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('Rsubread')"
@@ -286,11 +292,13 @@ Rscript -e "devtools::install_url('https://github.com/saeyslab/multinichenetr/ar
 Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', dependencies = TRUE)"
 
 # Added to try to fix
-conda install -y conda-forge::r-maptools --no-update-deps
+Rscript -e "install.packages('maptools', repos='https://cloud.r-project.org', dependencies = TRUE)"
+Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')" # error but it seems ok
 
-Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')"
 
-python -m pip install "setuptools>=59.0"
-python -m pip install --upgrade "Cython>=3.0.11"
-python -m pip install pysam
-python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
+
+#####################
+conda install -y davidaknowles::r-leafcutter --not-update-deps
+Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip', dependencies = TRUE)"
