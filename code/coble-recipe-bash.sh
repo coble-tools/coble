@@ -167,6 +167,8 @@ conda config --get pkgs_dirs
 conda config --show-sources
 conda config --show > "$RESULTS_DIR/.condarc_backup"
 conda config --show-sources > "$RESULTS_DIR/.conda-config-sources.txt"
+echo "conda deactivate"
+conda deactivate
 #################################################
 RECIPE_FILE="$RESULTS_DIR/recipe.sh"
 # Check if it exists, if not create it with header
