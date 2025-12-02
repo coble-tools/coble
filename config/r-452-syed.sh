@@ -284,3 +284,45 @@ Rscript -e "devtools::install_url('https://github.com/nignatiadis/IHW/archive/re
 Rscript -e "devtools::install_url('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip', dependencies = FALSE)"
 
 Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', dependencies = FALSE)"
+
+# Added to try to fix
+Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"
+
+conda install -y r-raster --freeze-installed
+conda install -y r-spdep --freeze-installed
+conda install -y r-magick --freeze-installed
+Rscript -e "BiocManager::install('stJoincount')"
+
+#conda install -y conda-forge::r-maptools --no-update-deps
+#conda install -y -c bioconda pysamstats --no-update-deps 
+#cellHTS2
+#Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')"
+
+Rscript -e "devtools::install_url('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories(), dependencies = TRUE)"
+Rscript -e "ArchR::installExtraPackages()"
+Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip', subdir = 'cytotrace2_r', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip', build_vignettes = TRUE, dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/choisy/cutoff/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip', dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', dependencies = TRUE)"
+
