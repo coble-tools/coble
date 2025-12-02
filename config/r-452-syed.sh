@@ -21,6 +21,9 @@ conda install -y conda-forge::r-seurat --no-update-deps
 
 conda install -y conda-forge::r-units --no-update-deps
 
+conda install -y r-raster --freeze-installed
+conda install -y r-spdep --freeze-installed
+conda install -y r-magick --freeze-installed
 Rscript -e "BiocManager::install('stJoincount')"
 
 conda install -y -c conda-forge libxml2 --no-update-deps
@@ -61,7 +64,8 @@ Rscript -e "install.packages('countreg', repos='http://R-Forge.R-project.org', d
 Rscript -e "install.packages('chicane', dependencies = TRUE, repos='https://cloud.r-project.org')"
 
 conda install -y conda-forge::r-v8 --no-update-deps
-Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'cellHTS2', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"
+Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"
+Rscript -e "BiocManager::install(c('cellHTS2'))"
 
 Rscript -e "BiocManager::install(c('MAST', 'impute', 'genefu', 'fastseg'))"
 
@@ -70,7 +74,7 @@ Rscript -e "BiocManager::install('methylKit')"
 Rscript -e "install.packages(c('tidyverse', 'argparser', 'stringdist'), repos='https://cloud.r-project.org')"
 
 Rscript -e "BiocManager::install('BSgenome.Hsapiens.NCBI.GRCh38')"
-Rscript -e "devtools::install_url('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('genomation')"
 
@@ -90,7 +94,7 @@ Rscript -e "install.packages('packcircles', repos='https://cloud.r-project.org')
 # needed for ArchR
 conda install -y conda-forge::r-cairo --no-update-deps
 
-Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories(), dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories(), dependencies = TRUE)"
 
 Rscript -e "ArchR::installExtraPackages()"
 
@@ -100,11 +104,11 @@ Rscript -e "BiocManager::install('ShortRead')"
 
 conda install -y -c conda-forge r-eulerr --no-update-deps
 
-Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = TRUE)"
 
 Rscript -e "devtools::install_url('https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip', subdir='ASCAT', dependencies = FALSE)"
 
-Rscript -e "devtools::install_url('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "install.packages('clustree', repos='https://cloud.r-project.org')"
 
 Rscript -e "BiocManager::install('Chicago')"
@@ -114,11 +118,11 @@ Rscript -e "devtools::install_url('https://github.com/carmonalab/STACAS/archive/
 Rscript -e "BiocManager::install('batchelor')"
 
 # Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz')"
-Rscript -e "devtools::install_url('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip', dependencies = TRUE)"
 
 conda install -y conda-forge::r-magick --no-update-deps
 Rscript -e "BiocManager::install('GSVA')"
-Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 conda install -y conda-forge::r-gdtools --no-update-deps
 Rscript -e "BiocManager::install('pcaMethods')"
@@ -126,14 +130,14 @@ rm -rf DeconRNASeq
 git clone https://git.bioconductor.org/packages/DeconRNASeq
 R CMD INSTALL DeconRNASeq
 rm -rf DeconRNASeq
-Rscript -e "devtools::install_url('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('Rsubread')"
 
 # conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route 
 Rscript -e "install.packages('rstan', repos='https://cloud.r-project.org')"
 Rscript -e "devtools::install_url('https://github.com/stan-dev/rstantools/archive/refs/heads/master.zip', dependencies = FALSE)"
-Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('liftOver')"
 
@@ -153,10 +157,7 @@ Rscript -e "install.packages('hdf5r', repos='https://cloud.r-project.org')"
 conda install -y conda-forge::r-units --no-update-deps
 conda install -y conda-forge::r-sf --no-update-deps
 conda install -y conda-forge::r-spdep --no-update-deps
-Rscript -e "devtools::install_url('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip', dependencies = FALSE)"
-
-
-conda install -y -c bioconda pysamstats --no-update-deps # FAILED
+Rscript -e "devtools::install_url('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip', dependencies = TRUE)"
 
 Rscript -e "install.packages('LDlinkR', repos='https://cloud.r-project.org')"
 
@@ -166,9 +167,9 @@ Rscript -e "install.packages('randomForest', repos='https://cloud.r-project.org'
 Rscript -e "BiocManager::install('multiGSEA')"
 Rscript -e "devtools::install_url('http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz', dependencies = FALSE)"
 
-Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', dependencies = TRUE)"
 
-Rscript -e "devtools::install_url('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('minfi')"
 Rscript -e "BiocManager::install(c('IlluminaHumanMethylationEPICanno.ilm10b4.hg19', 'IlluminaHumanMethylationEPICmanifest', 'missMethyl', 'minfiData', 'DMRcate'))"
@@ -176,7 +177,7 @@ Rscript -e "BiocManager::install(c('IlluminaHumanMethylationEPICanno.ilm10b4.hg1
 Rscript -e "BiocManager::install('preprocessCore', configure.args='--disable-threading', force = TRUE)"
 
 Rscript -e "install.packages(c('clusterSim', 'clv'), repos='https://cloud.r-project.org')"
-Rscript -e "devtools::install_url('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "BiocManager::install('kstreet13/slingshot')"
 
@@ -184,7 +185,7 @@ Rscript -e "BiocManager::install('kstreet13/slingshot')"
 conda install -y conda-forge::r-ncdf4 --no-update-deps
 Rscript -e "install.packages(c('HiClimR', 'ccaPP', 'egg'), repos='https://cloud.r-project.org')"
 Rscript -e "BiocManager::install('sva')"
-Rscript -e "devtools::install_url('https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip', subdir = 'cytotrace2_r', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip', subdir = 'cytotrace2_r', dependencies = TRUE)"
 python -m pip install scanoramaCT
 
 conda install -y conda-forge::r-rpostgres --no-update-deps
@@ -195,7 +196,7 @@ Rscript -e "BiocManager::install('destiny')"
 Rscript -e "install.packages('openssl', repos='https://cloud.r-project.org')"
 Rscript -e "install.packages('pracma', repos='http://R-Forge.R-project.org')"
 
-Rscript -e "devtools::install_url('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 conda install -y -c conda-forge r-mcmcpack --no-update-deps
 Rscript -e "install.packages(c('mvtnorm','ellipse','coda','Matrix','Rtsne','gtools','foreach','doParallel','doSNOW','snow','lattice','MASS','bayesm','robustbase','chron','mnormt','schoolmath','RColorBrewer'), repos='https://cloud.r-project.org')"
@@ -205,13 +206,13 @@ Rscript -e "BiocManager::install('DEXSeq')"
 # for R package SCENIC
 conda install -y -c conda-forge r-arrow --no-update-deps
 Rscript -e "BiocManager::install(c('AUCell', 'RcisTarget', 'GENIE3'))"
-Rscript -e "devtools::install_url('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip', dependencies = TRUE)"
 Rscript -e "BiocManager::install('R2HTML')"
-Rscript -e "devtools::install_url('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip', build_vignettes = TRUE, dependencies = FALSE)"
-Rscript -e "devtools::install_url('https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip', build_vignettes = TRUE, dependencies = TRUE)"
+Rscript -e "devtools::install_url('https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "install.packages(c('ISOpureR', 'DiffCorr'), repos='https://cloud.r-project.org')"
 
-Rscript -e "devtools::install_url('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "devtools::install_url('https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.zip')"
 Rscript -e "BiocManager::install('ChromSCape')"
 
@@ -231,12 +232,12 @@ Rscript -e "devtools::install_url('https://github.com/mojaveazure/seurat-disk/ar
 Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')"
 
 Rscript -e "install.packages('strawr', repos='https://cloud.r-project.org')"
-Rscript -e "devtools::install_url('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip', dependencies = TRUE)"
 
 Rscript -e "install.packages(c('keras', 'ijtiff'), repos='https://cloud.r-project.org')"
 
 Rscript -e "install.packages('bbmle', repos='https://cloud.r-project.org')"
-Rscript -e "devtools::install_url('https://github.com/choisy/cutoff/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/choisy/cutoff/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "devtools::install_url('https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz', dependencies = FALSE)"
 Rscript -e "BiocManager::install('PoisonAlien/maftools')"
@@ -249,7 +250,6 @@ Rscript -e "BiocManager::install('NanoStringNCTools')"
 Rscript -e "BiocManager::install('GeomxTools')"
 Rscript -e "BiocManager::install('GeoMxWorkflows')"
 
-conda install -y conda-forge::r-maptools --no-update-deps
 Rscript -e "install.packages('openxlsx', repos='https://cloud.r-project.org')"
 conda install -y bioconda::bioconductor-cellhts2 --no-update-deps # FAILED
 
@@ -271,58 +271,26 @@ Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archiv
 
 python -m pip install radian --no-update-deps
 
-Rscript -e "devtools::install_url('https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "install.packages('seqinr', repos='https://cloud.r-project.org')"
 
-Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = FALSE)"
+Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = TRUE)"
 
 Rscript -e "devtools::install_url('https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip', dependencies = FALSE)"
 
-Rscript -e "devtools::install_url('https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip', dependencies = FALSE)"
-Rscript -e "devtools::install_url('https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip', dependencies = FALSE)"
-Rscript -e "devtools::install_url('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip', dependencies = FALSE)"
-
-Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', dependencies = FALSE)"
-
-# Added to try to fix
-Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'scater', 'celldex'))"
-
-conda install -y r-raster --freeze-installed
-conda install -y r-spdep --freeze-installed
-conda install -y r-magick --freeze-installed
-Rscript -e "BiocManager::install('stJoincount')"
-
-#conda install -y conda-forge::r-maptools --no-update-deps
-#conda install -y -c bioconda pysamstats --no-update-deps 
-#cellHTS2
-#Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')"
-
-Rscript -e "devtools::install_url('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos = BiocManager::repositories(), dependencies = TRUE)"
-Rscript -e "ArchR::installExtraPackages()"
-Rscript -e "devtools::install_url('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip', subdir = 'cytotrace2_r', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip', build_vignettes = TRUE, dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/choisy/cutoff/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "devtools::install_url('https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "devtools::install_url('https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip', dependencies = TRUE)"
 Rscript -e "devtools::install_url('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip', dependencies = TRUE)"
+
 Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', dependencies = TRUE)"
 
+# Added to try to fix
+conda install -y conda-forge::r-maptools --no-update-deps
+
+Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')"
+
+python -m pip install "setuptools>=59.0"
+python -m pip install --upgrade "Cython>=3.0.11"
+python -m pip install pysam
+python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
