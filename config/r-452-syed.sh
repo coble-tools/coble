@@ -74,7 +74,6 @@ Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingD
 # needed for ArchR and scater
 conda install -y conda-forge::r-cairo --freeze-installed
 Rscript -e "BiocManager::install(c('scater'))"
-
 Rscript -e "BiocManager::install(c('cellHTS2'))"
 
 Rscript -e "BiocManager::install(c('MAST', 'impute', 'genefu', 'fastseg'))"
