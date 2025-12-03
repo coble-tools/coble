@@ -101,8 +101,9 @@ if [ -z "$ENV_NAME" ]; then
   exit 1
 fi
 echo "DEBUG: ENV_NAME='$ENV_NAME'"
+echo "DEBUG: OVERRIDE_ENVS='$OVERRIDE_ENVS'"
 export CONDA_COBLE_ENV="$ENV_NAME"
-if [ "$OVERRIDE_ENVS" = true ]; then
+if [ "$OVERRIDE_ENVS" = "true" ]; then
   export R_LIBS_USER="${ENV_NAME}_rlibs"
   echo "Setting env variable R_LIBS_USER=$R_LIBS_USER"
   mkdir -p "$R_LIBS_USER"
@@ -134,6 +135,7 @@ echo "CMD: INPUT_RECIPE: ${INPUT_RECIPE}"
 echo "CMD: RESULTS_DIR: ${RESULTS_DIR}"
 echo "CMD: ENV_NAME: ${ENV_NAME}"
 echo "CMD: SKIP_ERRORS: ${SKIP_ERRORS}"
+echo "CMD: OVERRIDE_ENVS: ${OVERRIDE_ENVS}"
 echo "#################################################"
 
 start_time=$(date +%s)
@@ -155,7 +157,7 @@ conda_exe="conda"
 echo "Using conda executable: $conda_exe"
 echo "Conda version: $($conda_exe --version)"
 CONDA_PKGS_DIRS="${ENV_NAME}_pkgs"
-if [ "$OVERRIDE_ENVS" = true ]; then
+if [ "$OVERRIDE_ENVS" = "true" ]; then
   export CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS
   echo "Setting env variable CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS"
   mkdir -p "$CONDA_PKGS_DIRS"
