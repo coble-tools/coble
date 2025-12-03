@@ -506,10 +506,7 @@ while IFS= read -r line || [ -n "$line" ]; do
     echo "Activation line being run before starting execution:"    
     echo "$ $expanded_line"
     eval "$line"      
-    echo "###################################################"
-    echo "The R lib paths are:"
-    eval "Rscript -e '.libPaths()'"
-    echo "###################################################"
+    echo "###################################################"    
   elif [ "$started" = true ]; then
     if [ "$is_blank" = true ] || [ "$is_comment" = true ]; then
       echo "$line"
@@ -570,6 +567,8 @@ conda env export --no-builds --file "$conda_yml"
 r_packages="$RESULTS_DIR/r-packages.txt"
 echo "Exporting R packages to $r_packages"
 Rscript -e "installed <- as.data.frame(installed.packages()[,c('Package','Version')]); write.table(installed, file='$r_packages', sep='\t', row.names=FALSE, col.names=TRUE, quote=FALSE)"
+# can I append to the end of this the paths?
+Rscript -e "cat('\n# R library paths used in this environment:\n'); cat(.libPaths(), sep='\n')" >> "$r_packages"
 # Python PACKAGES
 python_packages="$RESULTS_DIR/python-packages.txt"
 echo "Exporting Python packages to $python_packages"
