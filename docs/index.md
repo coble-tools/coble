@@ -40,6 +40,19 @@ COBLE is a tool to build and manage conda environments, developed by the RSE tea
    ```
    This is optional; you can hardcode paths if preferred.
 
+
+## Activating the environment
+To activate the created environment, use:
+```bash
+conda activate ./envs/r-452
+```
+If you choose to override the R_LIBS_USER and CONDA_PKGS_DIRS, ensure these environment variables are set accordingly before activating the environment:
+```bash
+export R_LIBS_USER="./envs/r-452_rlibs"
+export CONDA_PKGS_DIRS="./envs/r-452_pkgs"
+conda activate ./envs/r-452
+```
+
 ## What This Does
 - Builds a conda environment and installs R/Python packages.
 - Exits on error, allowing you to fix and rerun from the last fail point.

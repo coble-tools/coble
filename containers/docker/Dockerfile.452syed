@@ -67,8 +67,7 @@ RUN bash code/coble-recipe-bash.sh \
        --env "$ENVS_DIR" \
        --r-version "$R_VERSION" \
        --python-version "$PYTHON_VERSION" \
-       --skip-errors \
-       --override-envs
+       --skip-errors
 
 # Verify environment was created and check structure
 RUN echo "=== Checking envs directory ===" && \

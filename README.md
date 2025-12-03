@@ -30,6 +30,17 @@
    ```
 This is not a requirement, they can be hardcoded, but this option is there for flexibility.
 
+## Activating the environment
+To activate the created environment, use:
+```bash
+conda activate ./envs/r-452
+```
+If you choose to override the R_LIBS_USER and CONDA_PKGS_DIRS, ensure these environment variables are set accordingly before activating the environment:
+```bash
+export R_LIBS_USER="./envs/r-452_rlibs"
+export CONDA_PKGS_DIRS="./envs/r-452_pkgs"
+conda activate ./envs/r-452
+```
 ## What This Does
 - Builds a conda environment and installs R/Python packages.  
 - Exits on error and allows you to fix and rerun from last fail point.   

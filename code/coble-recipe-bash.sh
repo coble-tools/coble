@@ -507,6 +507,9 @@ while IFS= read -r line || [ -n "$line" ]; do
     echo "$ $expanded_line"
     eval "$line"      
     echo "###################################################"
+    echo "The R lib paths are:"
+    eval "Rscript -e '.libPaths()'"
+    echo "###################################################"
   elif [ "$started" = true ]; then
     if [ "$is_blank" = true ] || [ "$is_comment" = true ]; then
       echo "$line"
