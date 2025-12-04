@@ -10,7 +10,8 @@ INPUT_RECIPE=""
 RESULTS_DIR=""
 ENV_NAME=""
 SKIP_ERRORS=false
-OVERRIDE_ENVS=false
+OVERRIDE_R=false
+OVERRIDE_PKGS=false
 
 # Set default R and Python versions
 COBLE_R_VERSION="4.5.2"
@@ -30,7 +31,8 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --r-version VERSION     R version to use (default: $COBLE_R_VERSION)"
   echo "  --python-version VERSION Python version to use (default: $COBLE_PYTHON_VERSION)"
   echo "  --skip-errors           Continue processing even if errors are detected"
-  echo "  --override-envs         Override R_LIBS_USER and CONDA_PKGS_DIRS to isolate environments"
+  echo "  --override-r            Override R_LIBS_USER to isolate R package installations"
+  echo "  --override-pkgs         Override CONDA_PKGS_DIRS to isolate conda package cache"
   exit 0
 fi
 
@@ -62,8 +64,12 @@ while [[ $# -gt 0 ]]; do
       SKIP_ERRORS=true
       shift 1
       ;;
-    --override-envs)
-      OVERRIDE_ENVS=true
+    --override-r)
+      OVERRIDE_R=true
+      shift 1
+      ;;
+    --override-pkgs)
+      OVERRIDE_PKGS=true
       shift 1
       ;;
     --version)
@@ -101,9 +107,10 @@ if [ -z "$ENV_NAME" ]; then
   exit 1
 fi
 echo "DEBUG: ENV_NAME='$ENV_NAME'"
-echo "DEBUG: OVERRIDE_ENVS='$OVERRIDE_ENVS'"
+echo "DEBUG: OVERRIDE_R='$OVERRIDE_R'"
+echo "DEBUG: OVERRIDE_PKGS='$OVERRIDE_PKGS'"
 export CONDA_COBLE_ENV="$ENV_NAME"
-if [ "$OVERRIDE_ENVS" = "true" ]; then
+if [ "$OVERRIDE_R" = "true" ]; then
   export R_LIBS_USER="${ENV_NAME}_rlibs"
   echo "Setting env variable R_LIBS_USER=$R_LIBS_USER"
   mkdir -p "$R_LIBS_USER"
@@ -135,7 +142,8 @@ echo "CMD: INPUT_RECIPE: ${INPUT_RECIPE}"
 echo "CMD: RESULTS_DIR: ${RESULTS_DIR}"
 echo "CMD: ENV_NAME: ${ENV_NAME}"
 echo "CMD: SKIP_ERRORS: ${SKIP_ERRORS}"
-echo "CMD: OVERRIDE_ENVS: ${OVERRIDE_ENVS}"
+echo "CMD: OVERRIDE_R: ${OVERRIDE_R}"
+echo "CMD: OVERRIDE_PKGS: ${OVERRIDE_PKGS}"
 echo "#################################################"
 
 start_time=$(date +%s)
@@ -156,8 +164,8 @@ fi
 conda_exe="conda"
 echo "Using conda executable: $conda_exe"
 echo "Conda version: $($conda_exe --version)"
-CONDA_PKGS_DIRS="${ENV_NAME}_pkgs"
-if [ "$OVERRIDE_ENVS" = "true" ]; then
+if [ "$OVERRIDE_PKGS" = "true" ]; then
+  CONDA_PKGS_DIRS="${ENV_NAME}_pkgs"
   export CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS
   echo "Setting env variable CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS"
   mkdir -p "$CONDA_PKGS_DIRS"
