@@ -3,7 +3,7 @@
 # --results results/r-452-syed \
 # --input config/r-452-syed.sh \
 # --env ./envs/r-452-syed \
-# --skip-errors --override-envs
+# --skip-errors --override-r --override-pkgs
 
 conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}
@@ -299,10 +299,3 @@ Rscript -e "devtools::install_url('https://github.com/jinworks/CellChat/archive/
 Rscript -e "install.packages('maptools', repos='https://cloud.r-project.org', dependencies = TRUE)"
 Rscript -e "install.packages('immunarch', repos='https://cloud.r-project.org')" # error but it seems ok
 
-
-
-#####################
-conda install -y davidaknowles::r-leafcutter --freeze-installed
-Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', dependencies = TRUE)"
-Rscript -e "devtools::install_url('https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip', dependencies = TRUE)"
