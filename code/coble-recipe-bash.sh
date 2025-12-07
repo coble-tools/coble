@@ -9,10 +9,9 @@ COBLE_SCRIPT_VERSION="0.1.0"  # Increment manually when releasing a new script v
 INPUT_RECIPE=""
 RESULTS_DIR=""
 ENV_NAME=""
-ENV_TYPE="n"
 SKIP_ERRORS=false
-OVERRIDE_R=false
-OVERRIDE_PKGS=false
+OVERRIDE_ENVS=false
+KEEP_LOGS=false
 
 # Set default R and Python versions
 COBLE_R_VERSION="4.5.2"
@@ -32,8 +31,7 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]] || [[ "$*" == *"--help"* ]] || [
   echo "  --r-version VERSION     R version to use (default: $COBLE_R_VERSION)"
   echo "  --python-version VERSION Python version to use (default: $COBLE_PYTHON_VERSION)"
   echo "  --skip-errors           Continue processing even if errors are detected"
-  echo "  --override-r            Override R_LIBS_USER to isolate R package installations"
-  echo "  --override-pkgs         Override CONDA_PKGS_DIRS to isolate conda package cache"
+  echo "  --override-envs         Override R_LIBS_USER and CONDA_PKGS_DIRS to isolate environments"
   exit 0
 fi
 
@@ -65,12 +63,12 @@ while [[ $# -gt 0 ]]; do
       SKIP_ERRORS=true
       shift 1
       ;;
-    --override-r)
-      OVERRIDE_R=true
+    --override-envs)
+      OVERRIDE_ENVS=true
       shift 1
       ;;
-    --override-pkgs)
-      OVERRIDE_PKGS=true
+    --keep-logs)
+      KEEP_LOGS=true
       shift 1
       ;;
     --version)
@@ -107,17 +105,9 @@ if [ -z "$ENV_NAME" ]; then
   echo "Error: --env environment name is required"
   exit 1
 fi
-# if the ENV_NAME is a path then it must be absolute
-if [[ "$ENV_NAME" == */* ]] && [[ "$ENV_NAME" != /* ]]; then
-  ENV_TYPE="p"  
-fi
 echo "DEBUG: ENV_NAME='$ENV_NAME'"
-echo "DEBUG: ENV_TYPE='$ENV_TYPE'"
-echo "DEBUG: OVERRIDE_R='$OVERRIDE_R'"
-echo "DEBUG: OVERRIDE_PKGS='$OVERRIDE_PKGS'"
 export CONDA_COBLE_ENV="$ENV_NAME"
-export CONDA_COBLE_TYPE="$ENV_TYPE"
-if [ "$OVERRIDE_R" = "true" ]; then
+if [ "$OVERRIDE_ENVS" = true ]; then
   export R_LIBS_USER="${ENV_NAME}_rlibs"
   echo "Setting env variable R_LIBS_USER=$R_LIBS_USER"
   mkdir -p "$R_LIBS_USER"
@@ -130,11 +120,14 @@ mkdir -p $RESULTS_DIR
 OUTPUT_FILE="$RESULTS_DIR/coble-stdout.log"
 ERROR_FILE="$RESULTS_DIR/coble-stderr.log"
 # I want them to be cleaned each time not appended
-if [ $(wc -l < "$ERROR_FILE") -gt 1 ]; then
-  cp "$ERROR_FILE" "$ERROR_FILE.$(date +%s).log"
-fi
-if [ $(wc -l < "$OUTPUT_FILE") -gt 1 ]; then
-  cp "$OUTPUT_FILE" "$OUTPUT_FILE.$(date +%s).log"  
+# but only if it says KEEP_LOGS
+if [ "$KEEP_LOGS" = true ]; then
+  if [ $(wc -l < "$ERROR_FILE") -gt 1 ]; then
+    cp "$ERROR_FILE" "$ERROR_FILE.$(date +%s).log"
+  fi
+  if [ $(wc -l < "$OUTPUT_FILE") -gt 1 ]; then
+    cp "$OUTPUT_FILE" "$OUTPUT_FILE.$(date +%s).log"
+  fi
 fi
 > "$OUTPUT_FILE"
 > "$ERROR_FILE"
@@ -149,9 +142,91 @@ echo "CMD: INPUT_RECIPE: ${INPUT_RECIPE}"
 echo "CMD: RESULTS_DIR: ${RESULTS_DIR}"
 echo "CMD: ENV_NAME: ${ENV_NAME}"
 echo "CMD: SKIP_ERRORS: ${SKIP_ERRORS}"
-echo "CMD: OVERRIDE_R: ${OVERRIDE_R}"
-echo "CMD: OVERRIDE_PKGS: ${OVERRIDE_PKGS}"
+echo "CMD: KEEP_LOGS: ${KEEP_LOGS}"
 echo "#################################################"
+
+# Convert a YAML file to a recipe file (key=value pairs)
+convert_yaml_to_recipe() {
+  local yaml_file="$1"
+  local recipe_file="$2"
+  local coble_mode="bash"
+
+  # empty the recipe file
+  > "$recipe_file"
+
+  # loop through each line of the yaml file and convert to key=value pairs
+  while IFS= read -r line; do
+    # Skip comments and blank lines
+    if [[ "$line" =~ ^# ]] || [[ -z "$line" ]]; then
+      continue
+    fi
+    # remove indentation and recognise if the directive is create:, packages:, conda:, r:, bioc:, pip:
+    trimmed_line="${line#"${line%%[![:space:]]*}"}"
+    # add the triummed line to the recipe file with appropriate formatting
+    if [[ "$trimmed_line" =~ ^create: ]]; then
+      coble_mode="create"
+    elif [[ "$trimmed_line" =~ ^packages: ]]; then
+      coble_mode="packages"
+    elif [[ "$trimmed_line" =~ ^conda: ]]; then
+      coble_mode="conda"
+    elif [[ "$trimmed_line" =~ ^r: ]]; then
+      coble_mode="r"
+    elif [[ "$trimmed_line" =~ ^bioc: ]]; then
+      coble_mode="bioc"
+    elif [[ "$trimmed_line" =~ ^pip: ]]; then
+      coble_mode="pip"
+    elif [[ "$trimmed_line" =~ ^channels: ]]; then
+      coble_mode="channels"
+    elif [[ "$trimmed_line" =~ ^r-github: ]]; then
+      coble_mode="r-github"
+    elif [[ "$trimmed_line" =~ ^r-url: ]]; then
+      coble_mode="r-url"
+    elif [[ "$trimmed_line" =~ ^bash: ]]; then
+      coble_mode="bash"
+    else
+      # it's a package line, determine which section we are in
+      # take off the - and any leading spaces
+      if [[ "$line" =~ ^[[:space:]]+-[[:space:]]* ]]; then
+        package_name=$(echo "$trimmed_line" | sed 's/^-[[:space:]]*//')
+        package_name="$(echo "$package_name" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+        if [[ "$coble_mode" == "create" ]]; then
+          echo "conda create -y -n $ENV_NAME -c conda-forge r-base=$COBLE_R_VERSION python=$COBLE_PYTHON_VERSION" >> "$recipe_file"
+        elif [[ "$coble_mode" == "channels" ]]; then        
+          echo "conda config --add channels $package_name" >> "$recipe_file"
+        elif [[ "$coble_mode" == "conda" ]]; then
+          echo "conda install -y $package_name --no-update-deps" >> "$recipe_file"
+        elif [[ "$coble_mode" == "r" ]]; then
+          echo "coble@r@$package_name" >> "$recipe_file"
+        elif [[ "$coble_mode" == "bioc" ]]; then
+          echo "coble@bioc@$package_name" >> "$recipe_file"
+        elif [[ "$coble_mode" == "pip" ]]; then
+          echo "python -m pip install $package_name" >> "$recipe_file"
+        elif [[ "$coble_mode" == "bash" ]]; then
+          echo "$package_name" >> "$recipe_file"  
+        elif [[ "$coble_mode" == "r-github" ]]; then
+          echo "Rscript -e \"devtools::install_github('$package_name')\"" >> "$recipe_file"  
+        elif [[ "$coble_mode" == "r-url" ]]; then
+          echo "Rscript -e \"devtools::install_url('$package_name', dependencies=FALSE)\"" >> "$recipe_file"
+        fi
+
+      fi    
+    fi
+  done < "$yaml_file"
+
+    
+}
+
+if [[ "$INPUT_RECIPE" == *.yaml || "$INPUT_RECIPE" == *.yml ]]; then  
+  echo "Converting YAML recipe $INPUT_RECIPE to bash recipe"
+  converted_recipe="$RESULTS_DIR/converted-recipe.sh"
+  convert_yaml_to_recipe "$INPUT_RECIPE" "$converted_recipe"
+  if [ $? -ne 0 ]; then
+    echo "Error converting YAML to recipe."
+    exit 1
+  fi
+  INPUT_RECIPE="$converted_recipe"
+  echo "Converted recipe saved to $INPUT_RECIPE"
+fi
 
 start_time=$(date +%s)
 #################################################
@@ -171,8 +246,8 @@ fi
 conda_exe="conda"
 echo "Using conda executable: $conda_exe"
 echo "Conda version: $($conda_exe --version)"
-if [ "$OVERRIDE_PKGS" = "true" ]; then
-  CONDA_PKGS_DIRS="${ENV_NAME}_pkgs"
+CONDA_PKGS_DIRS="${ENV_NAME}_pkgs"
+if [ "$OVERRIDE_ENVS" = true ]; then
   export CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS
   echo "Setting env variable CONDA_PKGS_DIRS=$CONDA_PKGS_DIRS"
   mkdir -p "$CONDA_PKGS_DIRS"
@@ -184,8 +259,6 @@ conda config --get pkgs_dirs
 conda config --show-sources
 conda config --show > "$RESULTS_DIR/.condarc_backup"
 conda config --show-sources > "$RESULTS_DIR/.conda-config-sources.txt"
-echo "conda deactivate"
-conda deactivate
 #################################################
 RECIPE_FILE="$RESULTS_DIR/recipe.sh"
 # Check if it exists, if not create it with header
@@ -221,21 +294,6 @@ else
   echo "# ==============================================" >> "$DONE_FILE"
   echo "# Appending COBLE done log on $(date)" from "$INPUT_RECIPE" >> "$DONE_FILE"    
   echo "Appended done file at $DONE_FILE"
-fi
-echo
-
-FAILED_FILE="$RESULTS_DIR/failed.txt"
-# Check if it exists, if not create it with header
-if [ ! -f "$FAILED_FILE" ]; then  
-  echo "# ==============================================" >> "$FAILED_FILE"  
-  echo "# Generated COBLE failed log on $(date)" > "$FAILED_FILE"  
-  echo "# Input recipe file: $INPUT_RECIPE" >> "$FAILED_FILE"  
-  echo "# ==============================================" >> "$FAILED_FILE"  
-  echo "Created failed file at $FAILED_FILE"
-else  
-  echo "# ==============================================" >> "$FAILED_FILE"
-  echo "# Appending COBLE failed log on $(date)" from "$INPUT_RECIPE" >> "$FAILED_FILE"    
-  echo "Appended failed file at $FAILED_FILE"
 fi
 echo
 
@@ -427,14 +485,12 @@ check_for_errors() {
 }
 clean_logs() {
   # clean logs with each install  
-  if [ $(wc -l < "$ERROR_FILE") -gt 1 ]; then
+  if [ "$KEEP_LOGS" = true ]; then
     cp "$ERROR_FILE" "$ERROR_FILE.$(date +%s).log"
-    > "$ERROR_FILE"  
-  fi
-  if [ $(wc -l < "$OUTPUT_FILE") -gt 1 ]; then
     cp "$OUTPUT_FILE" "$OUTPUT_FILE.$(date +%s).log"
-    > "$OUTPUT_FILE"  
-  fi
+  fi  
+  > "$ERROR_FILE"    
+  > "$OUTPUT_FILE"    
 }
 ################################################################################
 check_if_line_exists() {
@@ -470,13 +526,21 @@ is_blank=false
 is_activation_line=false
 last_stdout_line=0
 last_stderr_line=0
-line_number=0
 while IFS= read -r line || [ -n "$line" ]; do  
   line=$(echo "$line" | envsubst)
-  line_number=$((line_number + 1))
   expanded_line=$line
   line_exists=false
-    
+  
+  # Keep the error log a reasonable size    
+  #if [ $(wc -l < "$ERROR_FILE") -gt 1000 ]; then
+  #  cp "$ERROR_FILE" "$ERROR_FILE.$(date +%s)"
+  #  > "$ERROR_FILE"
+  #fi
+  #if [ $(wc -l < "$OUTPUT_FILE") -gt 1000 ]; then
+  #  cp "$OUTPUT_FILE" "$OUTPUT_FILE.$(date +%s)"
+  #  > "$OUTPUT_FILE"
+  #fi
+  
   # Skip blank lines when trimmed
   trimmed_line="${line#"${line%%[![:space:]]*}"}"
   trimmed_line="${trimmed_line%"${trimmed_line##*[![:space:]]}"}"
@@ -521,7 +585,7 @@ while IFS= read -r line || [ -n "$line" ]; do
     echo "Activation line being run before starting execution:"    
     echo "$ $expanded_line"
     eval "$line"      
-    echo "###################################################"    
+    echo "###################################################"
   elif [ "$started" = true ]; then
     if [ "$is_blank" = true ] || [ "$is_comment" = true ]; then
       echo "$line"
@@ -549,19 +613,13 @@ while IFS= read -r line || [ -n "$line" ]; do
       if [ $is_error -eq 0 ]; then
         echo "Error detected after executing line: $expanded_line"
         echo "Skipping error as per --skip-errors flag."      
-        echo "# WARNING: Error detected but skipping as per --skip-errors flag at $(date) after executing line:" >> "$RECIPE_FILE" 
-        echo "# WARNING: Error on LINE $line_number at $(date) after executing line:" >> "$FAILED_FILE"               
-        echo "$expanded_line" >> "$FAILED_FILE"
+        echo "# WARNING: Error detected but skipping as per --skip-errors flag at $(date) after executing line:" >> "$RECIPE_FILE"        
       fi      
       if [[ "$expanded_line" != *"coble@"* ]]; then
         echo "$expanded_line" >> "$RECIPE_FILE"      
       fi
-      time_taken=$((end_time_line - start_time_line))
-      hours=$((time_taken / 3600))
-      minutes=$(((time_taken % 3600) / 60))
-      seconds=$((time_taken % 60))
-      echo "#    time taken for line: ${hours}h ${minutes}m ${seconds}s."
-      echo "#    time taken for line: ${hours}h ${minutes}m ${seconds}s." >> "$RECIPE_FILE"
+      echo "#    time taken for line: $((end_time_line - start_time_line)) seconds."
+      echo "#    time taken for line: $((end_time_line - start_time_line)) seconds." >> "$RECIPE_FILE"
     fi
   else
     if [ "$is_comment" = true ] && [ "$started" = true ]; then      
@@ -582,8 +640,6 @@ conda env export --no-builds --file "$conda_yml"
 r_packages="$RESULTS_DIR/r-packages.txt"
 echo "Exporting R packages to $r_packages"
 Rscript -e "installed <- as.data.frame(installed.packages()[,c('Package','Version')]); write.table(installed, file='$r_packages', sep='\t', row.names=FALSE, col.names=TRUE, quote=FALSE)"
-# can I append to the end of this the paths?
-Rscript -e "cat('\n# R library paths used in this environment:\n'); cat(.libPaths(), sep='\n')" >> "$r_packages"
 # Python PACKAGES
 python_packages="$RESULTS_DIR/python-packages.txt"
 echo "Exporting Python packages to $python_packages"
@@ -592,14 +648,10 @@ pip freeze > "$python_packages"
 
 echo "###################################################################"
 echo "All steps completed successfully at $(date)."
-time_taken=$(($(date +%s) - $start_time))
-hours=$((time_taken / 3600))
-minutes=$(((time_taken % 3600) / 60))
-seconds=$((time_taken % 60))
-echo "Time taken: ${hours}h ${minutes}m ${seconds}s."
+echo "Time taken: $(($(date +%s) - $start_time)) seconds."
 echo "###################################################################"
 
 echo "###################################################################" >> "$RECIPE_FILE"
 echo "# All steps completed successfully at $(date)." >> "$RECIPE_FILE"
-echo "Time taken: ${hours}h ${minutes}m ${seconds}s." >> "$RECIPE_FILE"
+echo "# Time taken: $(($(date +%s) - $start_time)) seconds." >> "$RECIPE_FILE"
 echo "###################################################################" >> "$RECIPE_FILE"
