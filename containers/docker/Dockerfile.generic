@@ -59,12 +59,9 @@ ENV MAMBA_NO_BANNER=1
 
 # Create directory structure
 RUN mkdir -p code results logs envs config
-
 # Install coble from GitHub
-RUN git clone https://github.com/ICR-RSE-Group/coble.git /tmp/coble && \
-    cp -r /tmp/coble/code/* /app/code/ && \
-    chmod +x /app/code/*.sh && \
-    rm -rf /tmp/coble
+COPY code ./code
+COPY config ./config
 
 # Download or copy user's recipe file
 RUN if [ -n "$RECIPE_URL" ]; then \
@@ -128,5 +125,22 @@ RUN echo '#!/bin/bash' > /app/activate_conda.sh && \
 RUN conda clean -afy
 
 ENV SINGULARITY_SHELL=/app/activate_env.sh
+
+# Auto-activate the environment for root and non-root users
+RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate $ENVS_DIR" >> /root/.bashrc && \
+    echo "source /opt/conda/etc/profile.d/conda.sh && conda activate $ENVS_DIR" >> /etc/skel/.bashrc
+
+# Add a Message of the Day (MOTD)
+RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
+    echo '║        COBLE Container v0.1                                  ║' >> /etc/motd && \
+    echo '║        (c) ICR 2025 RSE and BCRDS                            ║' >> /etc/motd && \
+    echo '║        For help, see: /app/README.md                         ║' >> /etc/motd && \
+    echo '║        - /app/README.md                                      ║' >> /etc/motd && \
+    echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
+    echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \
+    echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd    
+# Ensure the message is shown on shell startup
+RUN echo "cat /etc/motd" >> /root/.bashrc && \
+    echo "cat /etc/motd" >> /etc/skel/.bashrc
 
 CMD ["/bin/bash"]
