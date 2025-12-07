@@ -122,6 +122,14 @@ RUN echo '#!/bin/bash' > /app/activate_conda.sh && \
     echo "if [ -d $ENVS_DIR ]; then conda activate $ENVS_DIR; fi" >> /app/activate_conda.sh && \
     chmod +x /app/activate_conda.sh
 
+
+# Create a wrapper script to activate conda and run a command
+RUN echo '#!/bin/bash' > /app/activate_and_run.sh && \
+    echo 'source /opt/conda/etc/profile.d/conda.sh' >> /app/activate_and_run.sh && \
+    echo 'conda activate $ENVS_DIR' >> /app/activate_and_run.sh && \
+    echo 'exec "$@"' >> /app/activate_and_run.sh && \
+    chmod +x /app/activate_and_run.sh
+
 RUN conda clean -afy
 
 ENV SINGULARITY_SHELL=/app/activate_env.sh

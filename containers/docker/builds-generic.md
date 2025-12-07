@@ -28,8 +28,13 @@ docker run --rm -it icrsc/coble:452clean
 ```bash
 docker save icrsc/coble:452clean -o coble-452clean.tar
 singularity build coble-452clean.sif docker-archive://coble-452clean.tar
+
+#To run interactively
 singularity shell coble-452clean.sif
 source /app/activate_conda.sh
+
+# To execute a command or script (with environment activated)
+singularity exec coble-452clean.sif /app/activate_and_run.sh /path/to/yourscript.sh
 ```
 ---
 
@@ -64,4 +69,7 @@ singularity build coble-452syed.sif docker-archive://coble-452syed.tar
 singularity shell coble-452syed.sif
 # Then inside the container shell, activate the environment:
 source /app/activate_conda.sh
+
+# To execute a command or script (with environment activated)
+singularity exec coble-452syed.sif /app/activate_and_run.sh /path/to/yourscript.sh
 ```
