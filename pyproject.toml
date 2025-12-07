@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coble"
+version = "0.1.0"
+description = "COnda BuiLdEr for reproducible bioinformatics environments"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Rachel Alcraft", email = "rachel.alcraft@icr.ac.uk"}
+]
+keywords = ["conda", "bioinformatics", "reproducibility", "docker", "singularity"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/ICR-RSE-Group/coble"
+Documentation = "https://github.com/ICR-RSE-Group/coble"
+Repository = "https://github.com/ICR-RSE-Group/coble"
+Issues = "https://github.com/ICR-RSE-Group/coble/issues"
+
+[project.scripts]
+coble = "coble.cli:main"
+coble-build = "coble.cli:build"
+
+[tool.setuptools]
+packages = ["coble"]
+
+[tool.setuptools.package-data]
+coble = ["code/*.sh", "config/*.sh", "config/*.yml"]
