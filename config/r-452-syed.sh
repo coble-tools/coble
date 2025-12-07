@@ -5,7 +5,7 @@
 # --env ./envs/r-452-syed \
 # --skip-errors --override-r --override-pkgs
 
-conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
+conda create -y -${CONDA_COBLE_TYPE} ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}
 
 # This needs to be early on to allow pysamstats to build (don't know why to be investigated)

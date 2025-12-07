@@ -1,6 +1,6 @@
 05/12/25
 -[ ] make it recognise either ENV_NAME or ENVS_DIR for prefix, or make it more explicirly ENV_NAME or PREFIX
--[ ] genericbase docker image!!!
+-[x] genericbase docker image!!!
 -[ ] Add a find or order list to try, eg straight, r-, r, bioc-, bioc, 
 -[ ] Put yaml back with R: Biocmanager: Pip: and Coble: (which tries)
 -[ ] Make it pip install and download ONLY the 3 files that are relevant in the code folder. scripts and docker. Oh also configs then and docker. url.
