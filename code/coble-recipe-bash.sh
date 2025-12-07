@@ -9,6 +9,7 @@ COBLE_SCRIPT_VERSION="0.1.0"  # Increment manually when releasing a new script v
 INPUT_RECIPE=""
 RESULTS_DIR=""
 ENV_NAME=""
+ENV_TYPE="n"
 SKIP_ERRORS=false
 OVERRIDE_R=false
 OVERRIDE_PKGS=false
@@ -106,10 +107,16 @@ if [ -z "$ENV_NAME" ]; then
   echo "Error: --env environment name is required"
   exit 1
 fi
+# if the ENV_NAME is a path then it must be absolute
+if [[ "$ENV_NAME" == */* ]] && [[ "$ENV_NAME" != /* ]]; then
+  ENV_TYPE="p"  
+fi
 echo "DEBUG: ENV_NAME='$ENV_NAME'"
+echo "DEBUG: ENV_TYPE='$ENV_TYPE'"
 echo "DEBUG: OVERRIDE_R='$OVERRIDE_R'"
 echo "DEBUG: OVERRIDE_PKGS='$OVERRIDE_PKGS'"
 export CONDA_COBLE_ENV="$ENV_NAME"
+export CONDA_COBLE_TYPE="$ENV_TYPE"
 if [ "$OVERRIDE_R" = "true" ]; then
   export R_LIBS_USER="${ENV_NAME}_rlibs"
   echo "Setting env variable R_LIBS_USER=$R_LIBS_USER"
