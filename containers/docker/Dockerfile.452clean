@@ -60,7 +60,7 @@ RUN echo "channels:" > /app/.condarc && \
 # Set conda environment variables
 ENV CONDARC=/app/.condarc
 
-RUN bash code/coble-recipe-bash.sh \
+RUN bash code/coble.sh \
        --results "$RESULTS_DIR" \
        --input "$CONFIG_FILE" \
        --env "$ENVS_DIR" \

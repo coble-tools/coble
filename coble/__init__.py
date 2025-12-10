@@ -20,5 +20,5 @@ def get_script_path(script_name):
     return os.path.join(SCRIPTS_DIR, script_name)
 
 # Export commonly used paths
-COBLE_RECIPE_BASH = get_script_path('coble-recipe-bash.sh')
+COBLE_RECIPE_BASH = get_script_path('coble.sh')
 COBLE_RECIPE_SLURM = get_script_path('coble-recipe-slurm.sh')

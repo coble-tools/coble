@@ -14,7 +14,7 @@ This guide explains how to create a conda package for your bash scripts and uplo
 Place your scripts in a directory, e.g.:
 ```
 yourtool/
-  coble-recipe-bash.sh
+  coble.sh
   coble-recipe-slurm.sh
   meta.yaml
 ```
@@ -32,7 +32,7 @@ source:
 build:
   number: 0
   script:
-    - chmod +x coble-recipe-bash.sh
+    - chmod +x coble.sh
     - chmod +x coble-recipe-slurm.sh
 
 requirements:

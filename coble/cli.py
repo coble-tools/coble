@@ -61,7 +61,7 @@ def build(args):
     script_path = coble.COBLE_RECIPE_BASH
     
     if not os.path.exists(script_path):
-        print(f"Error: coble-recipe-bash.sh not found at {script_path}", file=sys.stderr)
+        print(f"Error: coble.sh not found at {script_path}", file=sys.stderr)
         sys.exit(1)
     
     if not os.path.exists(args.input):

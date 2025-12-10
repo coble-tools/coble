@@ -89,7 +89,7 @@ ENV CONDARC=/app/.condarc
 
 # Build the environment if recipe exists
 RUN if [ -f /app/config/recipe.sh ]; then \
-        bash /app/code/coble-recipe-bash.sh \
+        bash /app/code/coble.sh \
             --results "$RESULTS_DIR" \
             --input /app/config/recipe.sh \
             --env "$ENVS_DIR" \

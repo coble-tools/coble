@@ -20,7 +20,7 @@ FROM icrsc/coble:base
 COPY my-recipe.sh /app/config/recipe.sh
 
 # Build the environment
-RUN coble-recipe-bash.sh \
+RUN coble.sh \
     --input /app/config/recipe.sh \
     --env /app/envs/myenv \
     --r-version 4.5.2 \

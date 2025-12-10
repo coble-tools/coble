@@ -28,5 +28,5 @@ echo "############################################"
 
 source ~/.bashrc
 
-bash code/coble-recipe-bash.sh "$@"
+bash code/coble.sh "$@"
 exit $?

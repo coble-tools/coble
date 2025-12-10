@@ -6,7 +6,7 @@ Syed's: git clone https://oauth2:glpat-e7cEyx7RyzQ8xqwfF8Sw@git.icr.ac.uk/sc-rse
 
 cd coble
 
-Change email address in code/coble-recipe-bash.sh
+Change email address in code/coble.sh
 
 Run the test that errors to correct and get email
 sbatch --mail-user $USER code/coble-recipe-slurm.sh --results results/tst --input config/tst.sh --env ./envs/tst
