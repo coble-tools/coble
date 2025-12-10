@@ -1,5 +1,5 @@
 # Recipe for building Syed's 4.5.2 using his exact recipe
-# sbatch --mail-user user.name@icr.ac.uk code/coble-recipe-slurm.sh \
+# sbatch --mail-user user.name@icr.ac.uk code/coble-slurm.sh \
 # --results results/r-452-syed \
 # --input config/r-452-syed.sh \
 # --env ./envs/r-452-syed \

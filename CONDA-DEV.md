@@ -15,7 +15,7 @@ Place your scripts in a directory, e.g.:
 ```
 yourtool/
   coble.sh
-  coble-recipe-slurm.sh
+  coble-slurm.sh
   meta.yaml
 ```
 
@@ -33,7 +33,7 @@ build:
   number: 0
   script:
     - chmod +x coble.sh
-    - chmod +x coble-recipe-slurm.sh
+    - chmod +x coble-slurm.sh
 
 requirements:
   run:

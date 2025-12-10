@@ -1,5 +1,5 @@
 # Recipe for building clean 4.5.2
-# code/coble-recipe-slurm.sh --results results/r-452-clean --input config/r-452-clean.sh --env ./envs/r-452-clean --skip-errors --override-envs
+# code/coble-slurm.sh --results results/r-452-clean --input config/r-452-clean.sh --env ./envs/r-452-clean --skip-errors --override-envs
 
 conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}

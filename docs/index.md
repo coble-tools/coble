@@ -6,14 +6,14 @@ COBLE is a tool to build and manage conda environments, developed by the RSE tea
 
 ## How to Run
 
-1. **Edit your email address** in `code/coble-recipe-slurm.sh`:
+1. **Edit your email address** in `code/coble-slurm.sh`:
    
    Put your own email address so you get SLURM notifications.
 
 2. **Submit your build job** with one command:
    ```bash
    sbatch --mail-user=your.email@domain.com \
-   code/coble-recipe-slurm.sh \
+   code/coble-slurm.sh \
    --results results/r-452 \
    --input config/r-452.sh \
    --env ./envs/r-452 \

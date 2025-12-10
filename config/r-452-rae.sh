@@ -1,5 +1,5 @@
 # recipe for building Syed's 4.5.2
-# sbatch --mail-user rachel.alcraft@icr.ac.uk code/coble-recipe-slurm.sh --results results/r-452-rae --input config/r-452-rae.sh --env ./envs/r-452-rae --skip-errors --override-envs
+# sbatch --mail-user rachel.alcraft@icr.ac.uk code/coble-slurm.sh --results results/r-452-rae --input config/r-452-rae.sh --env ./envs/r-452-rae --skip-errors --override-envs
 
 conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
 conda activate ${CONDA_COBLE_ENV}

@@ -21,4 +21,4 @@ def get_script_path(script_name):
 
 # Export commonly used paths
 COBLE_RECIPE_BASH = get_script_path('coble.sh')
-COBLE_RECIPE_SLURM = get_script_path('coble-recipe-slurm.sh')
+COBLE_RECIPE_SLURM = get_script_path('coble-slurm.sh')

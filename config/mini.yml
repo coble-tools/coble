@@ -1,6 +1,6 @@
 ##############################################################################
 # YAML format for COBLE configuration
-# code/coble-recipe-slurm.sh --results results/miniyml --input config/mini.yml --env miniyml --skip-errors
+# code/coble.sh --results results/miniyml --input config/mini.yml --env miniyml --skip-errors
 ##############################################################################
 coble:
   create:

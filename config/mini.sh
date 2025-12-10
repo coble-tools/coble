@@ -1,6 +1,6 @@
 ##############################################################################
 # Test script to show correcting and re-running
-# sbatch code/coble-recipe-slurm.sh --results results/tst --input config/tst.sh --env ./envs/tst
+# sbatch code/coble-slurm.sh --results results/tst --input config/tst.sh --env ./envs/tst
 ##############################################################################
 echo "# CONDA_COBLE_ENV=${CONDA_COBLE_ENV}"
 echo "# CONDA_PKGS_DIRS=${CONDA_PKGS_DIRS}"

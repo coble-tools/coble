@@ -1,8 +1,8 @@
 # recipe for building Syed's 4.5.2
 
-# sbatch code/coble-recipe-slurm.sh --results results/r-mini --input config/r-mini.sh --env ./envs/r-mini
+# sbatch code/coble-slurm.sh --results results/r-mini --input config/r-mini.sh --env ./envs/r-mini
 
-# code/coble-recipe-slurm.sh --results results/r-mini --input config/r-mini.sh --env r-mini
+# code/coble-slurm.sh --results results/r-mini --input config/r-mini.sh --env r-mini
 
 rm -rf ./envs/r-mini
 rm -rf ./pkgs/r-mini
