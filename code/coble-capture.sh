@@ -24,7 +24,7 @@ PIP_FREEZE_TXT="$RESULTS_DIR/cap-pip-freeze.txt"
 R_PACKAGES_TXT="$RESULTS_DIR/cap-r-packages.txt"
 
 AGGREGATE_TMP="$RESULTS_DIR/coble-capture.tmp"
-AGGREGATE_TXT="$RESULTS_DIR/coble-capture.txt"
+AGGREGATE_TXT="$RESULTS_DIR/coble-capture.yml"
 
 echo "Capturing conda environment to $RESULTS_DIR"
 
@@ -87,12 +87,17 @@ while IFS= read -r line; do
 	ver=$(echo "$line" | awk '{print $2}')
 	src=$(echo "$line" | awk '{print $4}')
 	if [[ "$pkg" == r-* ]]; then
-		manager="r-conda"
+		manager="conda-r"
 		pkg_no_r=${pkg#r-}
 		pkgver="$pkg_no_r=$ver"
 		echo -e "$manager\t$pkgver\t$src\t" >> "$AGGREGATE_TMP"
 	else
-		pkgver="$pkg=$ver"
+			# Only add =version if version is not blank or 0
+			if [[ -z "$ver" || "$ver" == "0" ]]; then
+				pkgver="$pkg"
+			else
+				pkgver="$pkg=$ver"
+			fi
 		echo -e "conda\t$pkgver\t$src\t" >> "$AGGREGATE_TMP"
 	fi
 done < "$CONDA_LIST_TXT"
@@ -116,14 +121,26 @@ if [ -f "$R_PACKAGES_TXT" ]; then
 			path="$user/$repo/$sha"
 			pkgver="$pkg=$ver"
 			echo -e "r-github\t$pkgver\tgithub\t$path" >> "$AGGREGATE_TMP"
-		else
+		elif [[ "$line" == *Bioconductor* ]]; then
+            # Bioconductor packages
+            pkg=$(echo -e "$line" | cut -f1)
+            ver=$(echo -e "$line" | cut -f2)
+            src="Bioconductor"
+            path=""
+            pkgver="$pkg=$ver"
+            echo -e "package-bioc\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+        else
 			# R columns: Package\tVersion\tSource\tRemoteType\tRemoteRepo\tRemoteUsername\tRemoteRef\tRemoteSha
 			pkg=$(echo -e "$line" | cut -f1)
 			ver=$(echo -e "$line" | cut -f2)
 			src=$(echo -e "$line" | cut -f3)
 			path=$(echo -e "$line" | cut -f8)
+			# Set to blank if NA
+			[[ "$ver" == "NA" ]] && ver=""
+			[[ "$src" == "NA" ]] && src=""
+			[[ "$path" == "NA" ]] && path=""
 			pkgver="$pkg=$ver"
-			echo -e "r-package\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+			echo -e "package-r\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
 		fi
 	done < "$R_PACKAGES_TXT"
 fi
@@ -137,10 +154,25 @@ while IFS= read -r line; do
 		src=$(echo "$line" | cut -d'@' -f2- | xargs)
 		path="$src"
 		if [[ "$src" == *git* ]]; then
-			# If git, set version to 0 if not present, source to github
+			# If git, set version to 0 if not present, detect VCS host
 			ver="0"
-			pkgver="$pkg=$ver"
-			echo -e "pip\t$pkgver\tgithub\t$path" >> "$AGGREGATE_TMP"
+			# Detect host from URL
+			vcs_host="github"
+			if [[ "$src" == *gitlab* ]]; then
+				vcs_host="gitlab"
+			elif [[ "$src" == *bitbucket* ]]; then
+				vcs_host="bitbucket"
+			elif [[ "$src" == *sourcehut* ]]; then
+				vcs_host="sourcehut"
+			elif [[ "$src" == *azure* ]]; then
+				vcs_host="azure"
+			fi
+			if [[ -z "$ver" || "$ver" == "0" ]]; then
+				pkgver="$pkg"
+			else
+				pkgver="$pkg=$ver"
+			fi
+			echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$AGGREGATE_TMP"
 		else
 			ver=""
 			pkgver="$pkg=$ver"
@@ -159,40 +191,70 @@ done < "$PIP_FREEZE_TXT"
 echo "Interim aggregated package list at $AGGREGATE_TMP"
 
 # Now take the file created and reorrange it nicely
-sort -k1,1 -k2,2 "$AGGREGATE_TMP" > "$AGGREGATE_TXT"
 
-# Move the first occurrence of r-conda base and conda python to the top as 'language' entries, but only if not already present
-TMP_LANGS="$RESULTS_DIR/coble-capture-langs.txt"
-TMP_OTHER="$RESULTS_DIR/coble-capture-other.txt"
-found_r=0
-found_py=0
-has_r=0
-has_py=0
-# Check if language lines already exist
-if grep -q -P '^language\tr-base=' "$AGGREGATE_TXT"; then has_r=1; fi
-if grep -q -P '^language\tpython=' "$AGGREGATE_TXT"; then has_py=1; fi
-head -n1 "$AGGREGATE_TXT" > "$TMP_LANGS"  # Copy header
-tail -n +2 "$AGGREGATE_TXT" | while IFS=$'\t' read -r manager pkg src path; do
-	if [[ "$manager" == "r-conda" && "$pkg" == base=* && $found_r -eq 0 && $has_r -eq 0 ]]; then
-		echo -e "language\tr-base=${pkg#base=}\t\t" >> "$TMP_LANGS"
-		found_r=1
+# Sort to a new tmp file, do not overwrite input
+TMP_SORTED="$RESULTS_DIR/coble-capture-sorted.tmp"
+sort -k1,1 -k2,2 "$AGGREGATE_TMP" > "$TMP_SORTED"
+
+# Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
+R_BASE_VERSION=""
+PYTHON_VERSION=""
+while IFS=$'\t' read -r manager pkg src path; do
+    if [[ "$manager" == "conda-r" && "$pkg" == base=* ]]; then
+        R_BASE_VERSION="r-base=${pkg#base=}"
+    elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
+        PYTHON_VERSION="python=${pkg#python=}"
+    fi
+done < "$AGGREGATE_TMP"
+echo "Detected r-conda base version: $R_BASE_VERSION"
+echo "Detected conda python version: $PYTHON_VERSION"
+
+# in the AGGREGATE_TXT file add the langaues to the top
+{
+    echo -e "#COBLE:Reproducible environment capture, (c) ICR 2025"
+    echo -e ""
+    echo -e "coble:"
+    echo -e ""
+    echo -e "channels:"
+    echo -e "  - conda-forge"
+    echo -e "  - bioconda"
+    echo -e ""
+    echo -e "languages:"
+    if [[ -n "$R_BASE_VERSION" ]]; then
+        echo -e "  - $R_BASE_VERSION"
+    fi
+    if [[ -n "$PYTHON_VERSION" ]]; then
+        echo -e "  - $PYTHON_VERSION"
+    fi    
+} > "$AGGREGATE_TXT"
+
+# Now lloop through the sorted file and keep as a variable the current mananager
+current_manager=""
+header_skipped=false
+while IFS=$'\t' read -r manager pkg src path; do
+	if ! $header_skipped; then
+		header_skipped=true
 		continue
 	fi
-	if [[ "$manager" == "conda" && "$pkg" == python=* && $found_py -eq 0 && $has_py -eq 0 ]]; then
-		echo -e "language\tpython=${pkg#python=}\t\t" >> "$TMP_LANGS"
-		found_py=1
+	if [[ "$manager" != "$current_manager" ]]; then
+		# New manager section
+		echo -e "" >> "$AGGREGATE_TXT"
+		echo -e "$manager:" >> "$AGGREGATE_TXT"
+		current_manager="$manager"
+	fi
+	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
+	if [[ "$pkg" == _* ]] || [[ "$pkg" =~ (linux|windows|osx|darwin|unix|system) ]] || [[ "$src" == *System/Manual* ]] || [[ "$pkg" == python=* ]]; then
 		continue
 	fi
-	# Skip any subsequent r-conda base or conda python
-	if [[ ("$manager" == "r-conda" && "$pkg" == base=*) || ("$manager" == "conda" && "$pkg" == python=*) ]]; then
-		continue
+	outline=""
+	if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" ]]; then
+		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
+	elif [[ -n "$path" ]]; then
+		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
+	else
+		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
 	fi
-	echo -e "$manager\t$pkg\t$src\t$path" >> "$TMP_OTHER"
-done
-tail -n +2 "$TMP_LANGS" > "$TMP_LANGS.body"
-cat "$TMP_LANGS" "$TMP_LANGS.body" "$TMP_OTHER" > "$AGGREGATE_TXT.new"
-mv "$AGGREGATE_TXT.new" "$AGGREGATE_TXT"
-rm -f "$TMP_LANGS" "$TMP_LANGS.body" "$TMP_OTHER"
+done < "$TMP_SORTED"
 
 
 

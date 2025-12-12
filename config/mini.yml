@@ -15,7 +15,8 @@ coble:
     r:
       - biocmanager
       - knitr
-      - lme4      
+      - lme4
+      - easypar     
     bioc:
       - fgsea
     pip:

@@ -22,3 +22,6 @@ cap-r-packages.txt
 coble-capture.tmp
 coble-capture.txt
 requirements.txt
+coble-capture.yml
+coble-capture-sorted.tmp
+coble-capture-reproduce.sh
