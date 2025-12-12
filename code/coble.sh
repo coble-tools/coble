@@ -643,7 +643,7 @@ Rscript -e "installed <- as.data.frame(installed.packages()[,c('Package','Versio
 # Python PACKAGES
 python_packages="$RESULTS_DIR/python-packages.txt"
 echo "Exporting Python packages to $python_packages"
-pip freeze > "$python_packages"
+python -m pip freeze > "$python_packages"
 
 
 echo "###################################################################"

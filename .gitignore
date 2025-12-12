@@ -16,3 +16,9 @@ containers/singularity/*
 !containers/singularity/.gitkeep
 *.sif
 *.tar
+cap-conda-packages.txt
+cap-pip-freeze.txt
+cap-r-packages.txt
+coble-capture.tmp
+coble-capture.txt
+requirements.txt
