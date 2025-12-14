@@ -12,61 +12,109 @@
 #################################################################################
 
 
-# Usage: ./coble-capture.sh [results_dir]
+
+# Usage: ./coble-capture.sh [--env ENV] [--output DIR]
+
+# Default values
+ENV_INPUT=""
+RESULTS_DIR="."
+
+show_help() {
+	echo "Usage: $0 [--env ENV] [--output DIR]"
+	echo "  --env ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
+	echo "  --output DIR   Specify output directory (optional, default: .)"
+	echo "  -h, --help     Show this help message and exit"
+}
+
+while [[ $# -gt 0 ]]; do
+	key="$1"
+	case $key in
+		--env)
+			ENV_INPUT="$2"
+			shift; shift
+			;;
+		--output)
+			RESULTS_DIR="$2"
+			shift; shift
+			;;
+		-h|--help)
+			show_help
+			exit 0
+			;;
+		*)
+			# Unknown arg, treat as positional output dir for backward compatibility
+			if [[ -z "$RESULTS_DIR_SET" ]]; then
+				RESULTS_DIR="$1"
+				RESULTS_DIR_SET=1
+				shift
+			else
+				shift
+			fi
+			;;
+	esac
+done
 
 echo "Capturing conda environment to $RESULTS_DIR"
 
-# Define output filenames
-RESULTS_DIR="${1:-.}"
-mkdir -p "$RESULTS_DIR"
-CONDA_LIST_TXT="$RESULTS_DIR/cap-conda-packages.txt"
-PIP_FREEZE_TXT="$RESULTS_DIR/cap-pip-freeze.txt"
-R_PACKAGES_TXT="$RESULTS_DIR/cap-r-packages.txt"
+# Parse named arguments
+# Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
+if [[ -z "$ENV_INPUT" ]]; then
+	ENV_FORMATTED=""
+elif [[ "$ENV_INPUT" == */* ]]; then
+	ENV_FORMATTED="--prefix $ENV_INPUT"
+else
+	ENV_FORMATTED="--name $ENV_INPUT"
+fi
 
-AGGREGATE_TMP="$RESULTS_DIR/coble-capture.tmp"
+echo "Using conda environment argument: $ENV_FORMATTED"
+
+
+# Define output filenames
+mkdir -p "$RESULTS_DIR"
+TMP_CONDA_LIST_TXT="$RESULTS_DIR/tmp_cap-conda-packages.txt"
+TMP_PIP_FREEZE_TXT="$RESULTS_DIR/tmp_cap-pip-freeze.txt"
+TMP_R_PACKAGES_TXT="$RESULTS_DIR/tmp_cap-r-packages.txt"
+TMP_AGGREGATE="$RESULTS_DIR/tmp_coble-capture.tmp"
+TMP_SORTED="$RESULTS_DIR/tmp_coble-capture-sorted.tmp"
 AGGREGATE_TXT="$RESULTS_DIR/coble-capture.yml"
 
 echo "Capturing conda environment to $RESULTS_DIR"
 
 # List all conda packages
-conda list > "$CONDA_LIST_TXT"
+conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
-python -m pip freeze > "$PIP_FREEZE_TXT"
+conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
 
 # List all R packages with version and source
-if command -v Rscript &>/dev/null; then
-	Rscript -e '
+conda run $ENV_FORMATTED Rscript -e '
 		ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
 		fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
 		get_info <- function(pkg, lib) {
-		  desc_file <- file.path(lib, pkg, "DESCRIPTION")
-		  info <- setNames(rep(NA_character_, length(fields)), fields)
-		  if (file.exists(desc_file)) {
-			desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
-			if (!is.null(desc)) {
-			  info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
-			  for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
+			desc_file <- file.path(lib, pkg, "DESCRIPTION")
+			info <- setNames(rep(NA_character_, length(fields)), fields)
+			if (file.exists(desc_file)) {
+				desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
+				if (!is.null(desc)) {
+					info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
+					for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
+				}
+			} else {
+				info["Source"] <- "System/Manual"
 			}
-		  } else {
-			info["Source"] <- "System/Manual"
-		  }
-		  info
+			info
 		}
 		if (nrow(ip) > 0) {
-		  infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
-		  ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
-		  write.table(ip[, c("Package", "Version", fields)], file="'$R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
+			infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
+			ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
+			write.table(ip[, c("Package", "Version", fields)], file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
 		} else {
-		  write.table(data.frame(Package=character(), Version=character(), Source=character(),
-							 RemoteType=character(), RemoteRepo=character(), RemoteUsername=character(),
-							 RemoteRef=character(), RemoteSha=character()),
-					  file="'$R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
+			write.table(data.frame(Package=character(), Version=character(), Source=character(),
+												 RemoteType=character(), RemoteRepo=character(), RemoteUsername=character(),
+												 RemoteRef=character(), RemoteSha=character()),
+									file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
 		}
-	'
-else
-	echo -e "Rscript not found in environment" > "$R_PACKAGES_TXT"
-fi
+' || echo -e "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
 
 
 # Clear the aggregate file at the start
@@ -74,7 +122,7 @@ fi
 > "$AGGREGATE_TXT"
 
 # Write header (combine package and version)
-echo -e "Manager\tPackage\tSource\tPath" > "$AGGREGATE_TMP"
+echo -e "Manager\tPackage\tSource\tPath" > "$TMP_AGGREGATE"
 
 # Process conda packages (skip lines containing 'pypi' and comments/headers)
 while IFS= read -r line; do
@@ -100,7 +148,7 @@ while IFS= read -r line; do
 			fi
 		echo -e "conda\t$pkgver\t$src\t" >> "$AGGREGATE_TMP"
 	fi
-done < "$CONDA_LIST_TXT"
+done < "$TMP_CONDA_LIST_TXT"
 
 # Process R packages (skip header)
 if [ -f "$R_PACKAGES_TXT" ]; then
@@ -142,7 +190,7 @@ if [ -f "$R_PACKAGES_TXT" ]; then
 			pkgver="$pkg=$ver"
 			echo -e "package-r\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
 		fi
-	done < "$R_PACKAGES_TXT"
+	done < "$TMP_R_PACKAGES_TXT"
 fi
 
 # Process pip freeze (skip lines containing 'file://')
@@ -186,15 +234,14 @@ while IFS= read -r line; do
 		pkgver="$pkg=$ver"
 		echo -e "pip\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
 	fi
-done < "$PIP_FREEZE_TXT"
+done < "$TMP_PIP_FREEZE_TXT"
 
-echo "Interim aggregated package list at $AGGREGATE_TMP"
+echo "Interim aggregated package list at $TMP_AGGREGATE"
 
 # Now take the file created and reorrange it nicely
 
 # Sort to a new tmp file, do not overwrite input
-TMP_SORTED="$RESULTS_DIR/coble-capture-sorted.tmp"
-sort -k1,1 -k2,2 "$AGGREGATE_TMP" > "$TMP_SORTED"
+sort -k1,1 -k2,2 "$TMP_AGGREGATE" > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
 R_BASE_VERSION=""
@@ -205,7 +252,7 @@ while IFS=$'\t' read -r manager pkg src path; do
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
         PYTHON_VERSION="python=${pkg#python=}"
     fi
-done < "$AGGREGATE_TMP"
+done < "$TMP_AGGREGATE"
 echo "Detected r-conda base version: $R_BASE_VERSION"
 echo "Detected conda python version: $PYTHON_VERSION"
 
@@ -255,6 +302,9 @@ while IFS=$'\t' read -r manager pkg src path; do
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
 	fi
 done < "$TMP_SORTED"
+
+# Clean up temporary files
+rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"
 
 
 

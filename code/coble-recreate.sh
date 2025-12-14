@@ -1,26 +1,64 @@
 #!/usr/bin/env bash
 # Reproduce a conda environment from a captured coble-capture.yml file
 
-# first input is conda name or prefix
-CONDA_ENV_NAME="$1"
-# check for name or prefix depending on / presence
-if [[ "$CONDA_ENV_NAME" == *"/"* ]]; then
-    CONDA_ENV_ARG="--prefix $CONDA_ENV_NAME"
+
+
+# Usage: ./coble-recreate.sh [--env ENV] [--input YAML_FILE]
+
+# Default values
+
+ENV_INPUT=""
+YAML_FILE="./coble-capture.yml"
+
+# Parse named arguments
+    echo "Usage: $0 [--env ENV] [--input YAML_FILE]"
+    echo "  --env ENV        Specify conda environment name or prefix (optional)"
+    echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
+    echo "  -h, --help       Show this help message and exit"
+}
+
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        --env)
+            ENV_INPUT="$2"
+            shift; shift
+            ;;
+        --input)
+            YAML_FILE="$2"
+            shift; shift
+            ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+
+
+# Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name or --prefix
+if [[ -z "$ENV_INPUT" ]]; then
+    ENV_FORMATTED=""
+elif [[ "$ENV_INPUT" == */* ]]; then
+    ENV_FORMATTED="--prefix $ENV_INPUT"
 else
-    CONDA_ENV_ARG="--name $CONDA_ENV_NAME"
+    ENV_FORMATTED="--name $ENV_INPUT"
 fi
 
-# second input is the yaml file
-YAML_FILE="$2"
-if [[ ! -f "$YAML_FILE" ]]; then
-    echo "Error: YAML file '$YAML_FILE' not found."
+if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
+    echo "Error: YAML file not found: $YAML_FILE"
     exit 1
 fi
 
-# output is a recipe file for conda env create
-RECIPE_FILE="${YAML_FILE%.yml}-reproduce.sh"
 
-# Usage: ./coble-reproduce.sh [coble-capture.yml]
+# output is a recipe file for conda env create (always in current directory)
+RECIPE_FILE="${YAML_FILE##*/}"
+RECIPE_FILE="${RECIPE_FILE%.yml}-reproduce.sh"
+
 echo "Reproducing conda environment from $YAML_FILE"
 
 # We first want to go through and find the "languages"
