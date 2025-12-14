@@ -6,9 +6,10 @@
 
 # Default values
 
-ENV_INPUT="COBLE"
-YAML_FILE="./coble-capture.yml"
-RECIPE_FILE="./coble-reproduce.sh"
+ENV_INPUT="coble"
+YAML_FILE=""
+RECIPE_FILE=""
+ENV_NAME=""
 
 # Parse named arguments
 show_help() {
@@ -51,9 +52,29 @@ if [[ -z "$ENV_INPUT" ]]; then
     ENV_FORMATTED=""
 elif [[ "$ENV_INPUT" == */* ]]; then
     ENV_FORMATTED="--prefix $ENV_INPUT"
+    # take of the last / for the name
+    ENV_NAME="${ENV_INPUT##*/}"
 else
     ENV_FORMATTED="--name $ENV_INPUT"
+    ENV_NAME="$ENV_INPUT"
 fi
+
+if [[ -z "$YAML_FILE" ]]; then
+    # if an env-name was entered, use that for the recipe file name
+    YAML_FILE="./coble-capture-$ENV_NAME.yml"
+fi
+
+if [[ -z "$RECIPE_FILE" ]]; then
+    # if an env-name was entered, use that for the recipe file name
+    RECIPE_FILE="./coble-recipe-$ENV_NAME.sh"
+fi
+
+# Now show all the inputs
+echo "[coble-recipise] Using inputs:"
+echo "  ENV_INPUT: $ENV_INPUT"
+echo "  YAML_FILE: $YAML_FILE"
+echo "  RECIPE_FILE: $RECIPE_FILE"
+
 
 if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     echo "Error: YAML file not found: $YAML_FILE"
@@ -61,7 +82,9 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
 fi
 
 
+
 # output is a recipe file for conda env create (always in current directory)
+echo "Recipising conda environment from coble yaml file $YAML_FILE"
 RECIPE_FILE="${YAML_FILE##*/}"
 RECIPE_FILE="${RECIPE_FILE%.yml}-reproduce.sh"
 

@@ -88,12 +88,12 @@ echo "[coble-capture] Using conda environment argument: $ENV_FORMATTED"
 
 # Define output filenames
 mkdir -p "$RESULTS_DIR"
-TMP_CONDA_LIST_TXT="$RESULTS_DIR/tmp_cap-conda-packages.txt"
-TMP_PIP_FREEZE_TXT="$RESULTS_DIR/tmp_cap-pip-freeze.txt"
-TMP_R_PACKAGES_TXT="$RESULTS_DIR/tmp_cap-r-packages.txt"
-TMP_AGGREGATE="$RESULTS_DIR/tmp_coble-capture.tmp"
-TMP_SORTED="$RESULTS_DIR/tmp_coble-capture-sorted.tmp"
-AGGREGATE_TXT="$RESULTS_DIR/coble-capture.yml"
+TMP_CONDA_LIST_TXT="$RESULTS_DIR/coble_tmp_conda-packages-$ENV_NAME.txt"
+TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
+TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
+TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-capture-$ENV_NAME.tmp"
+TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-capture-sorted-$ENV_NAME.tmp"
+AGGREGATE_TXT="$RESULTS_DIR/coble-capture-$ENV_NAME.yml"
 CLEAN_UP_TMPS=0
 
 echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
@@ -283,13 +283,19 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 
 # in the AGGREGATE_TXT file add the langaues to the top
 {
-	echo -e "#COBLE:Reproducible environment capture, (c) ICR 2025"
+	CAPTURE_DATE=$(date '+%Y-%m-%d')
+	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
+	CAPTURE_USER=$(whoami)
+	echo -e "# COBLE:Reproducible environment capture, (c) ICR 2025"
+	echo -e "# Capture date: $CAPTURE_DATE"
+	echo -e "# Capture time: $CAPTURE_TIME"
+	echo -e "# Capture user: $CAPTURE_USER"
 	echo -e ""
 	echo -e "coble:"
 	echo -e ""
 	echo -e "  - environment: $ENV_NAME"
-    echo -e ""
-    echo -e "channels:"
+	echo -e ""
+	echo -e "channels:"
 	echo -e "  - conda-forge"
 	echo -e "  - bioconda"
 	echo -e ""
