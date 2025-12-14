@@ -1,32 +1,40 @@
+
 #!/usr/bin/env bash
-# Reproduce a conda environment from a captured coble-capture.yml file
+# coble-recreate.sh: Recreate an environment from a YAML or recipe shell script
 
 
+# Usage: ./coble-recreate.sh [--env ENV] [--input INPUT_FILE] [--output CAPTURE_FILE]
 
-# Usage: ./coble-recreate.sh [--env ENV] [--input YAML_FILE]
+ENV_OUTPUT=""
+INPUT_FILE=""
+CAPTURE_FILE=""
+NEW_ENV=""
+LOG_FILE=""
+TIME_FILE=""
+KEEP_LOGS=1
 
-# Default values
 
-ENV_INPUT=""
-YAML_FILE="./coble-capture.yml"
-
-# Parse named arguments
 show_help() {
-    echo "Usage: $0 [--env ENV] [--input YAML_FILE]"
-    echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
+    echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE]"    
+    echo "  --env NEW_ENV Overwrite to a new environment from the generated recipe script"
+    echo "  --input INPUT    Specify input YAML or recipe shell script (required)"
+    echo "  --output CAPTURE Specify output capture file (optional, for future use)"    
     echo "  -h, --help       Show this help message and exit"
 }
 
 while [[ $# -gt 0 ]]; do
     key="$1"
-    case $key in
-        --env)
-            ENV_INPUT="$2"
+    case $key in        
+        --input)
+            INPUT_FILE="$2"
             shift; shift
             ;;
-        --input)
-            YAML_FILE="$2"
+        --output)
+            CAPTURE_FILE="$2"
+            shift; shift
+            ;;
+        --env)
+            NEW_ENV="$2"
             shift; shift
             ;;
         -h|--help)
@@ -40,115 +48,143 @@ while [[ $# -gt 0 ]]; do
 done
 
 
-
-# Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name or --prefix
-if [[ -z "$ENV_INPUT" ]]; then
-    ENV_FORMATTED=""
-elif [[ "$ENV_INPUT" == */* ]]; then
-    ENV_FORMATTED="--prefix $ENV_INPUT"
-else
-    ENV_FORMATTED="--name $ENV_INPUT"
-fi
-
-if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
-    echo "Error: YAML file not found: $YAML_FILE"
+if [[ -z "$NEW_ENV" ]]; then
+    echo "[coble-recreate] Error: --env NEW_ENV is required." >&2
+    show_help
     exit 1
 fi
 
+NEW_ENV_NAME=""
+NEW_ENV_ARG=""
+if [[ "$NEW_ENV" == */* ]]; then
+    NEW_ENV_NAME="${NEW_ENV##*/}"
+    NEW_ENV_ARG="--prefix $NEW_ENV"
+else
+    NEW_ENV_NAME="$NEW_ENV"
+    NEW_ENV_ARG="--name $NEW_ENV"
+fi
 
-# output is a recipe file for conda env create (always in current directory)
-RECIPE_FILE="${YAML_FILE##*/}"
-RECIPE_FILE="${RECIPE_FILE%.yml}-reproduce.sh"
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "[coble-recreate] Error: Input file not found: $INPUT_FILE" >&2
+    exit 1
+fi
 
-echo "Reproducing conda environment from $YAML_FILE"
+if [[ -z "$CAPTURE_FILE" ]]; then
+    # if no input file provided default to ./coble-capture-$NEW_ENV_NAME.yml
+    CAPTURE_FILE="${INPUT_FILE##*/}"
+    CAPTURE_FILE="${CAPTURE_FILE%.yml}-$NEW_ENV_NAME.yml"
+fi
 
-# We first want to go through and find the "languages"
-# the languages: section, we just want to pull out the conda and r packages
-# then we can build a conda create command
+LOG_FILE="${INPUT_FILE##*/}"
+LOG_FILE="${LOG_FILE%.yml}.log"
+TIME_FILE="${LOG_FILE%.log}.time"
+# Clear previous log file and tike file
+: > "$LOG_FILE"
+: > "$TIME_FILE"
+# Redirect stdout and stderr to log file
+exec > >(tee -a "$LOG_FILE") 2>&1
 
-recipe_line="conda create $CONDA_ENV_ARG -y"
+echo "[coble-recreate] Log file: $LOG_FILE"
+# log time date user
+date "[coble-recreate] Started at %Y-%m-%d %H:%M:%S"
+echo "[coble-recreate] User: $(whoami)"
+echo ""
+echo "[coble-recreate] Starting recreate process..."
+echo "[coble-recreate] Input file: $INPUT_FILE"
+if [[ -n "$NEW_ENV" ]]; then
+    echo "[coble-recreate] New environment override: $NEW_ENV"
+fi
 
-CURRENT_SECTION=""
-while IFS= read -r line; do
-    # Trim leading/trailing whitespace
-    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "languages:" ]]; then
-        CURRENT_SECTION="languages"
-    elif [[ "$line" == "channels:" ]]; then
-        CURRENT_SECTION="channels"
-    elif [[ -z "$line" ]]; then
-        CURRENT_SECTION=""
-    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then
-        recipe_line+=" ${line#- }"        
+# Detect file type
+case "$INPUT_FILE" in
+    *.yml|*.yaml)
+        # YAML input: generate recipe script
+        RECIPE_FILE="${INPUT_FILE##*/}"
+        RECIPE_FILE="${RECIPE_FILE%.yml}-$NEW_ENV_NAME-recipe.sh"
+        echo "[coble-recreate] Detected YAML input. Generating recipe script: $RECIPE_FILE"
+        # Call coble-recipise.sh to generate the recipe
+        script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        "$script_dir/coble-recipise.sh" --env "$NEW_ENV" --input "$INPUT_FILE" --output "$RECIPE_FILE"
+        echo "[coble-recreate] Recipe script generated: $RECIPE_FILE"        
+        ;;
+    *.sh)
+        # Shell script input: would run directly (not yet implemented)
+        echo "[coble-recreate] Detected shell script input: $INPUT_FILE"        
+        ;;
+    *)
+        echo "[coble-recreate] Error: Unknown input file type: $INPUT_FILE" >&2
+        exit 2
+        ;;
+esac
+
+# run each line of the recipe line by line
+echo "[coble-recreate] Executing recipe script: $RECIPE_FILE"
+total_lines=$(wc -l < "$RECIPE_FILE")
+current_line=0
+while IFS= read -r line || [[ -n "$line" ]]; do    
+    # Copy the last log file to LOG_FILE_date and start a new one
+    # but only if it has more than 10 lines
+    line_count=$(wc -l < "$LOG_FILE")
+    if [[ $line_count -gt 3 ]]; then
+        if [[ $KEEP_LOGS -eq 1 ]]; then
+            cp "$LOG_FILE" "${LOG_FILE%.log}.log_${current_line}_${total_lines}.log"            
+        fi        
+        : > "$LOG_FILE"
     fi
-done < "$YAML_FILE"
-
-
-# Clear the aggregate file at the start
-> "$RECIPE_FILE"
-# shebang
-echo "#!/usr/bin/env bash" >> "$RECIPE_FILE"
-echo "" >> "$RECIPE_FILE"
-echo "$recipe_line" >> "$RECIPE_FILE"
-
-CURRENT_SECTION=""
-while IFS= read -r line; do
-    # Trim leading/trailing whitespace
-    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "channels:" ]]; then
-        CURRENT_SECTION="channels"
-    elif [[ -z "$line" ]]; then
-        CURRENT_SECTION=""
-    elif [[ "$CURRENT_SECTION" == "channels" && "$line" == "-"* ]]; then
-        echo "Adding channel: ${line#- }"
-        echo "conda config $CONDA_ENV_ARG --add channels ${line#- }" >> "$RECIPE_FILE"
+    current_line=$((current_line + 1))
+    # Skip empty lines and comments
+    if [[ -z "$line" || "$line" == \#* ]]; then
+        continue
     fi
-done < "$YAML_FILE"
-
-CURRENT_SECTION=""
-while IFS= read -r line; do
-    # Trim leading/trailing whitespace
-    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "conda-r:" || "$line" == "conda:" || "$line" == "r-package:" || "$line" == "r-github:" || "$line" == "package-r:" || "$line" == "package-bioc:" ]]; then
-        CURRENT_SECTION="$line"
-    elif [[ -z "$line" ]]; then
-        CURRENT_SECTION=""
-    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
-        pkg_entry="${line#- }"
-        IFS='@' read -r pkg src path <<< "$pkg_entry"
-        IFS='=' read -r pkg_name ver <<< "$pkg"
-        if [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"
-            echo "conda install $CONDA_ENV_ARG -y r-$pkg -c $src" >> "$RECIPE_FILE"
-        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"
-            echo "conda install $CONDA_ENV_ARG -y $pkg -c $src" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"            
-            if [[ -n "$ver" && "$src" == "CRAN"* ]]; then
-                # Use CRAN archive tarball URL for versioned CRAN packages
-                echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/${pkg_name}/${pkg_name}_${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
-            elif [[ "$src" == "R-FORGE"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\")'" >> "$RECIPE_FILE"
-            else
-                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://cloud.r-project.org\")'" >> "$RECIPE_FILE"
-            fi
-        elif [[ "$CURRENT_SECTION" == "r-github:" ]]; then
-            echo "Installing R package from GitHub: $pkg from $path"
-            echo "Rscript -e 'devtools::install_github(\"$path\")'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then
-            echo "Installing Bioconductor package: $pkg"
-            echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\")'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then
-            echo "Installing pip package: $pkg_name $ver from $src"
-            if [[ -n "$ver" ]]; then
-                echo "pip install ${pkg_name}==${ver}" >> "$RECIPE_FILE"
-            else
-                echo "pip install ${pkg_name}" >> "$RECIPE_FILE"
-            fi
-        fi
+    echo "[coble-recreate] Running ($current_line/$total_lines):"    
+    echo "[coble-recreate] System info"
+    echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
+    echo "[coble-recreate] Disk usage:"
+    df -h .
+    echo "[coble-recreate] Memory usage:"
+    if command -v free >/dev/null; then
+        free -h
+    elif command -v vm_stat >/dev/null; then
+        vm_stat
+    else
+        echo "No memory info command found"
     fi
-done < "$YAML_FILE"
+    echo "#####################################################"
+    echo "$line"
+    echo "#####################################################"
+    # export to the TIME_FILE the start time
+    START_TIME=$(date +%s)
+    echo "" >> "$TIME_FILE"
+    echo "[coble-recreate] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
+    echo $line >> "$TIME_FILE"    
+    eval "$line"
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+    echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+    echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+    echo "#####################################################"
+    if [[ $? -ne 0 ]]; then
+        echo "[coble-recreate] Error: Command failed: $line" >&2
+        exit 3
+    fi
+done < "$RECIPE_FILE"
+
+echo "[coble-recreate] Recreate process completed."
+echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
+
+if [[ -n "$CAPTURE_FILE" ]]; then
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    "$script_dir/coble-capture.sh" --env "$NEW_ENV" --output "$CAPTURE_FILE"            
+    echo "[coble-recreate] Environment captured to: $CAPTURE_FILE"
+else
+    echo "[coble-recreate] No capture file specified, skipping capture."
+fi
+
+
+echo "[coble-recreate] Finished at $(date '+%Y-%m-%d %H:%M:%S')"
+
+
+
 
 
 

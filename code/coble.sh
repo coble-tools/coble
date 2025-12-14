@@ -13,10 +13,10 @@ fi
 show_help() {
 	echo "Usage: $0 <command> [options]"
 	echo "  capture   Capture the current environment (calls coble-capture.sh)"
-	echo "  recreate  Recreate an environment from a capture (calls coble-recreate.sh)"
+	echo "  recreate/create  Recreate an environment from a capture (calls coble-recreate.sh)"
 	echo "Example:"
 	echo "  $0 capture [options]"
-	echo "  $0 recreate [options]"
+	echo "  $0 recreate/create [options]"
 }
 
 # Global help option
@@ -34,7 +34,7 @@ if [[ "$1" == "capture" ]]; then
 fi
 
 # If the first argument is 'recreate', call coble-recreate.sh and exit
-if [[ "$1" == "recreate" ]]; then
+if [[ "$1" == "recreate" || "$1" == "create" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-recreate.sh" "${@:2}"
 	exit $?

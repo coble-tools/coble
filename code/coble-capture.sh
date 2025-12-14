@@ -22,7 +22,7 @@ RESULTS_DIR="."
 show_help() {
 	echo "Usage: $0 [--env ENV] [--output DIR]"
 	echo "  --env ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-	echo "  --output DIR   Specify output directory (optional, default: .)"
+	echo "  --output DIR   Specify output directory (optional, default: .)"    
 	echo "  -h, --help     Show this help message and exit"
 }
 
@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
 			shift; shift
 			;;
 		--output)
-			RESULTS_DIR="$2"
+			RESULTS_DIR="$2"            
 			shift; shift
 			;;
 		-h|--help)
@@ -94,7 +94,7 @@ TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-capture-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-capture-sorted-$ENV_NAME.tmp"
 AGGREGATE_TXT="$RESULTS_DIR/coble-capture-$ENV_NAME.yml"
-CLEAN_UP_TMPS=0
+CLEAN_UP_TMPS=1
 
 echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
 conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
@@ -170,7 +170,7 @@ while IFS= read -r line; do
 done < "$TMP_CONDA_LIST_TXT"
 
 # Process R packages (skip header)
-if [ -f "$R_PACKAGES_TXT" ]; then
+if [ -f "$TMP_R_PACKAGES_TXT" ]; then
 	header_skipped=false
 	while IFS= read -r line; do
 		if ! $header_skipped; then
@@ -289,7 +289,7 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	echo -e "# COBLE:Reproducible environment capture, (c) ICR 2025"
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
-	echo -e "# Capture user: $CAPTURE_USER"
+	echo -e "# Captured by: $CAPTURE_USER"
 	echo -e ""
 	echo -e "coble:"
 	echo -e ""
@@ -308,18 +308,24 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	fi
 	echo -e ""
 	echo -e "flags:"
-	echo -e "  - dependencies: False"
-	echo -e "  - upgrades: False"
+	echo -e "  - dependencies: False"	
 } > "$AGGREGATE_TXT"
 
 # Now lloop through the sorted file and keep as a variable the current mananager
 current_manager=""
 header_skipped=false
+declare -A seen_pkgver
 while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
 		header_skipped=true
 		continue
 	fi
+	# Deduplicate by pkgver (case-insensitive)
+	pkgver_key="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
+	if [[ -n "${seen_pkgver[$pkgver_key]}" ]]; then
+		continue
+	fi
+	seen_pkgver[$pkgver_key]=1
 	if [[ "$manager" != "$current_manager" ]]; then
 		# New manager section
 		echo -e "" >> "$AGGREGATE_TXT"
@@ -327,7 +333,11 @@ while IFS=$'\t' read -r manager pkg src path; do
 		current_manager="$manager"
 	fi
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
-	if [[ "$pkg" == _* ]] || [[ "$pkg" =~ (linux|windows|osx|darwin|unix|system) ]] || [[ "$src" == *System/Manual* ]] || [[ "$pkg" == python=* ]]; then
+	if [[ "$pkg" == _* ]] || \
+	[[ "$pkg" =~ (linux|windows|osx|darwin|unix|system) ]] || \
+	[[ "$src" == *System/Manual* ]] || \
+	[[ "$pkg" == *base=* ]] || \
+	[[ "$pkg" == python=* ]]; then
 		continue
 	fi
 	outline=""

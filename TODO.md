@@ -1,10 +1,15 @@
 14/12/25
--[ ] Flags implement for upgrades and deps
+-[x] Flags implement for upgrades and deps
 -[ ] env name hiearchy of inputs established
--[ ] Split into capture, recipise and recreate scripts
+-[x] Split into capture, recipise and recreate scripts
 -[ ] Ensure r, bioc, pip and conda work as well as pip giuthub and r githum and r url
--[ ]  Make a test that does those things
+-[ ] Make a test that does those things
 -[ ] Add to conda as a private package
+-[x] remove duplicates
+-[ ] Put back the error parsing and logging and the ability to exit.
+-[ ] I have completely lost the function to resume from where last left off.
+-[ ] Struggling to get rid of the TOCs
+
 
 05/12/25
 -[ ] make it recognise either ENV_NAME or ENVS_DIR for prefix, or make it more explicirly ENV_NAME or PREFIX
