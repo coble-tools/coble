@@ -42,8 +42,10 @@ while [[ $# -gt 0 ]]; do
 			exit 0
 			;;
 		*)
-			# Unknown argument, ignore
-			shift
+			# Unknown argument, show help and exit
+			echo "[coble-capture] Error: Unknown argument: $1" >&2
+			show_help
+			exit 1
 			;;
 	esac
 done
@@ -53,18 +55,36 @@ echo "[coble-capture] Capturing conda environment to $RESULTS_DIR"
 # Parse named arguments
 # Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
 if [[ -z "$ENV_INPUT" ]]; then
-    ACTIVE_ENV_NAME=$(echo "$CONDA_DEFAULT_ENV")
-    ACTIVE_PREFIX=$(echo "$CONDA_PREFIX")
-    echo "[coble-capture] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
-	ENV_FORMATTED=""
+	ACTIVE_ENV_NAME=$(echo "$CONDA_DEFAULT_ENV")
+	ACTIVE_PREFIX=$(echo "$CONDA_PREFIX")
+	if [[ -z "$ACTIVE_ENV_NAME" ]]; then
+		echo "[coble-capture] Error: No conda environment is currently activated and none was specified." >&2
+		echo "[coble-capture] Please activate a conda environment or use --env to specify one." >&2
+		exit 2
+	fi
+	echo "[coble-capture] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
+	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
+	ENV_NAME="$ACTIVE_ENV_NAME"
 elif [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
+    # take of the last / for the name
+    ENV_NAME="${ENV_INPUT##*/}"    
+	# Check if the prefix directory exists and contains conda-meta
+	if [[ ! -d "$ENV_INPUT" || ! -d "$ENV_INPUT/conda-meta" ]]; then
+		echo "[coble-capture] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
+		exit 2
+	fi
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
+    ENV_NAME="$ENV_INPUT"   
+	# Check if the environment name exists in conda env list
+	if ! conda env list | awk '{print $1}' | grep -qx "$ENV_INPUT"; then
+		echo "[coble-capture] Error: The specified environment name does not exist: $ENV_INPUT" >&2
+		exit 2
+	fi
 fi
 
 echo "[coble-capture] Using conda environment argument: $ENV_FORMATTED"
-
 
 # Define output filenames
 mkdir -p "$RESULTS_DIR"
@@ -267,7 +287,9 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	echo -e ""
 	echo -e "coble:"
 	echo -e ""
-	echo -e "channels:"
+	echo -e "  - environment: $ENV_NAME"
+    echo -e ""
+    echo -e "channels:"
 	echo -e "  - conda-forge"
 	echo -e "  - bioconda"
 	echo -e ""

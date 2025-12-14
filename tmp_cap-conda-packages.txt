@@ -1,3 +1,0 @@
-# packages in environment at /home/ralcraft/.conda/envs/tst1:
-#
-# Name                     Version          Build            Channel
