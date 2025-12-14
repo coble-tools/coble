@@ -25,6 +25,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	exit 0
 fi
 
+
 # If the first argument is 'capture', call coble-capture.sh and exit
 if [[ "$1" == "capture" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -36,6 +37,13 @@ fi
 if [[ "$1" == "recreate" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-recreate.sh" "${@:2}"
+	exit $?
+fi
+
+# If the first argument is 'recipise', call coble-recipise.sh and exit
+if [[ "$1" == "recipise" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-recipise.sh" "${@:2}"
 	exit $?
 fi
 

@@ -42,23 +42,20 @@ while [[ $# -gt 0 ]]; do
 			exit 0
 			;;
 		*)
-			# Unknown arg, treat as positional output dir for backward compatibility
-			if [[ -z "$RESULTS_DIR_SET" ]]; then
-				RESULTS_DIR="$1"
-				RESULTS_DIR_SET=1
-				shift
-			else
-				shift
-			fi
+			# Unknown argument, ignore
+			shift
 			;;
 	esac
 done
 
-echo "Capturing conda environment to $RESULTS_DIR"
+echo "[coble-capture] Capturing conda environment to $RESULTS_DIR"
 
 # Parse named arguments
 # Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
 if [[ -z "$ENV_INPUT" ]]; then
+    ACTIVE_ENV_NAME=$(echo "$CONDA_DEFAULT_ENV")
+    ACTIVE_PREFIX=$(echo "$CONDA_PREFIX")
+    echo "[coble-capture] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
 	ENV_FORMATTED=""
 elif [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
@@ -66,7 +63,7 @@ else
 	ENV_FORMATTED="--name $ENV_INPUT"
 fi
 
-echo "Using conda environment argument: $ENV_FORMATTED"
+echo "[coble-capture] Using conda environment argument: $ENV_FORMATTED"
 
 
 # Define output filenames
@@ -77,16 +74,18 @@ TMP_R_PACKAGES_TXT="$RESULTS_DIR/tmp_cap-r-packages.txt"
 TMP_AGGREGATE="$RESULTS_DIR/tmp_coble-capture.tmp"
 TMP_SORTED="$RESULTS_DIR/tmp_coble-capture-sorted.tmp"
 AGGREGATE_TXT="$RESULTS_DIR/coble-capture.yml"
+CLEAN_UP_TMPS=0
 
-echo "Capturing conda environment to $RESULTS_DIR"
-
-# List all conda packages
+echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
 conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
+
+echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze > $TMP_PIP_FREEZE_TXT"
 conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
 
 # List all R packages with version and source
+echo "[coble-capture] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
 conda run $ENV_FORMATTED Rscript -e '
 		ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
 		fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
@@ -118,7 +117,7 @@ conda run $ENV_FORMATTED Rscript -e '
 
 
 # Clear the aggregate file at the start
-> "$AGGREGATE_TMP"
+> "$TMP_AGGREGATE"
 > "$AGGREGATE_TXT"
 
 # Write header (combine package and version)
@@ -138,7 +137,7 @@ while IFS= read -r line; do
 		manager="conda-r"
 		pkg_no_r=${pkg#r-}
 		pkgver="$pkg_no_r=$ver"
-		echo -e "$manager\t$pkgver\t$src\t" >> "$AGGREGATE_TMP"
+		echo -e "$manager\t$pkgver\t$src\t" >> "$TMP_AGGREGATE"
 	else
 			# Only add =version if version is not blank or 0
 			if [[ -z "$ver" || "$ver" == "0" ]]; then
@@ -146,7 +145,7 @@ while IFS= read -r line; do
 			else
 				pkgver="$pkg=$ver"
 			fi
-		echo -e "conda\t$pkgver\t$src\t" >> "$AGGREGATE_TMP"
+		echo -e "conda\t$pkgver\t$src\t" >> "$TMP_AGGREGATE"
 	fi
 done < "$TMP_CONDA_LIST_TXT"
 
@@ -168,7 +167,7 @@ if [ -f "$R_PACKAGES_TXT" ]; then
 			# Compose path as username/repo/sha
 			path="$user/$repo/$sha"
 			pkgver="$pkg=$ver"
-			echo -e "r-github\t$pkgver\tgithub\t$path" >> "$AGGREGATE_TMP"
+			echo -e "r-github\t$pkgver\tgithub\t$path" >> "$TMP_AGGREGATE"
 		elif [[ "$line" == *Bioconductor* ]]; then
             # Bioconductor packages
             pkg=$(echo -e "$line" | cut -f1)
@@ -176,7 +175,7 @@ if [ -f "$R_PACKAGES_TXT" ]; then
             src="Bioconductor"
             path=""
             pkgver="$pkg=$ver"
-            echo -e "package-bioc\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+            echo -e "package-bioc\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
         else
 			# R columns: Package\tVersion\tSource\tRemoteType\tRemoteRepo\tRemoteUsername\tRemoteRef\tRemoteSha
 			pkg=$(echo -e "$line" | cut -f1)
@@ -188,7 +187,7 @@ if [ -f "$R_PACKAGES_TXT" ]; then
 			[[ "$src" == "NA" ]] && src=""
 			[[ "$path" == "NA" ]] && path=""
 			pkgver="$pkg=$ver"
-			echo -e "package-r\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+			echo -e "package-r\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 		fi
 	done < "$TMP_R_PACKAGES_TXT"
 fi
@@ -197,6 +196,12 @@ fi
 while IFS= read -r line; do
 	[[ "$line" == *file://* ]] && continue
 	# pip freeze: pkg==ver or pkg @ git+url or pkg @ ...
+    # clean line and conrinue of blanks
+    line=$(echo "$line" | xargs)
+    if [[ -z "$line" ]]; then
+        continue
+    fi
+
 	if [[ "$line" == *" @ "* ]]; then
 		pkg=$(echo "$line" | cut -d' ' -f1)
 		src=$(echo "$line" | cut -d'@' -f2- | xargs)
@@ -220,11 +225,11 @@ while IFS= read -r line; do
 			else
 				pkgver="$pkg=$ver"
 			fi
-			echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$AGGREGATE_TMP"
+			echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
 		else
 			ver=""
 			pkgver="$pkg=$ver"
-			echo -e "pip\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+			echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 		fi
 	else
 		pkg=$(echo "$line" | cut -d'=' -f1)
@@ -232,11 +237,11 @@ while IFS= read -r line; do
 		src="pypi"
 		path=""
 		pkgver="$pkg=$ver"
-		echo -e "pip\t$pkgver\t$src\t$path" >> "$AGGREGATE_TMP"
+		echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 	fi
 done < "$TMP_PIP_FREEZE_TXT"
 
-echo "Interim aggregated package list at $TMP_AGGREGATE"
+echo "[coble-capture] Interim aggregated package list at $TMP_AGGREGATE"
 
 # Now take the file created and reorrange it nicely
 
@@ -253,26 +258,30 @@ while IFS=$'\t' read -r manager pkg src path; do
         PYTHON_VERSION="python=${pkg#python=}"
     fi
 done < "$TMP_AGGREGATE"
-echo "Detected r-conda base version: $R_BASE_VERSION"
-echo "Detected conda python version: $PYTHON_VERSION"
+echo "[coble-capture] Detected r-conda base version: $R_BASE_VERSION"
+echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 
 # in the AGGREGATE_TXT file add the langaues to the top
 {
-    echo -e "#COBLE:Reproducible environment capture, (c) ICR 2025"
-    echo -e ""
-    echo -e "coble:"
-    echo -e ""
-    echo -e "channels:"
-    echo -e "  - conda-forge"
-    echo -e "  - bioconda"
-    echo -e ""
-    echo -e "languages:"
-    if [[ -n "$R_BASE_VERSION" ]]; then
-        echo -e "  - $R_BASE_VERSION"
-    fi
-    if [[ -n "$PYTHON_VERSION" ]]; then
-        echo -e "  - $PYTHON_VERSION"
-    fi    
+	echo -e "#COBLE:Reproducible environment capture, (c) ICR 2025"
+	echo -e ""
+	echo -e "coble:"
+	echo -e ""
+	echo -e "channels:"
+	echo -e "  - conda-forge"
+	echo -e "  - bioconda"
+	echo -e ""
+	echo -e "languages:"
+	if [[ -n "$R_BASE_VERSION" ]]; then
+		echo -e "  - $R_BASE_VERSION"
+	fi
+	if [[ -n "$PYTHON_VERSION" ]]; then
+		echo -e "  - $PYTHON_VERSION"
+	fi
+	echo -e ""
+	echo -e "flags:"
+	echo -e "  - dependencies: False"
+	echo -e "  - upgrades: False"
 } > "$AGGREGATE_TXT"
 
 # Now lloop through the sorted file and keep as a variable the current mananager
@@ -304,7 +313,18 @@ while IFS=$'\t' read -r manager pkg src path; do
 done < "$TMP_SORTED"
 
 # Clean up temporary files
-rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"
+if [[ $CLEAN_UP_TMPS -eq 1 ]]; then
+    echo "[coble-capture] Cleaning up temporary files..."
+    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
+elif [[ $CLEAN_UP_TMPS -eq 0 ]]; then
+    echo "[coble-capture] Temporary files retained for inspection:"
+    echo "  $TMP_CONDA_LIST_TXT"
+    echo "  $TMP_PIP_FREEZE_TXT"
+    echo "  $TMP_R_PACKAGES_TXT"
+    echo "  $TMP_AGGREGATE"
+    echo "  $TMP_SORTED"
+fi
 
+echo "[coble-capture] Capture complete. Output written to $AGGREGATE_TXT"
 
 

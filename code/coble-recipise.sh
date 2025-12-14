@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
-# Reproduce a conda environment from a captured coble-capture.yml file
+# Turn a captured yaml file into a coble recipe script
 
 
-
-# Usage: ./coble-recreate.sh [--env ENV] [--input YAML_FILE]
+# Usage: ./coble-recipise.sh [--env ENV] [--input YAML_FILE] [--output RECIPE]
 
 # Default values
 
-ENV_INPUT=""
+ENV_INPUT="COBLE"
 YAML_FILE="./coble-capture.yml"
+RECIPE_FILE="./coble-reproduce.sh"
 
 # Parse named arguments
 show_help() {
-    echo "Usage: $0 [--env ENV] [--input YAML_FILE]"
+    echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
     echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
+    echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-capture-reproduce.sh)"
     echo "  -h, --help       Show this help message and exit"
 }
 
@@ -27,6 +28,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --input)
             YAML_FILE="$2"
+            shift; shift
+            ;;
+        --output)
+            RECIPE_FILE="$2"
             shift; shift
             ;;
         -h|--help)
@@ -60,7 +65,7 @@ fi
 RECIPE_FILE="${YAML_FILE##*/}"
 RECIPE_FILE="${RECIPE_FILE%.yml}-reproduce.sh"
 
-echo "Reproducing conda environment from $YAML_FILE"
+echo "Recipising conda environment from coble yaml file $YAML_FILE"
 
 # We first want to go through and find the "languages"
 # the languages: section, we just want to pull out the conda and r packages
@@ -109,22 +114,27 @@ CURRENT_SECTION=""
 while IFS= read -r line; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "conda-r:" || "$line" == "conda:" || "$line" == "r-package:" || "$line" == "r-github:" || "$line" == "package-r:" || "$line" == "package-bioc:" ]]; then
+    if [[ "$line" == "flags:" \
+        || "$line" == "conda-r:" \
+        || "$line" == "conda:" \
+        || "$line" == "r-package:" \
+        || "$line" == "r-github:" \
+        || "$line" == "package-r:" \
+        || "$line" == "pip:" \
+        || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
+        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name ver <<< "$pkg"
-        if [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"
+        if [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
             echo "conda install $CONDA_ENV_ARG -y r-$pkg -c $src" >> "$RECIPE_FILE"
-        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"
+        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
             echo "conda install $CONDA_ENV_ARG -y $pkg -c $src" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then
-            echo "Installing R package: $pkg_name $ver from $src"            
+        elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             if [[ -n "$ver" && "$src" == "CRAN"* ]]; then
                 # Use CRAN archive tarball URL for versioned CRAN packages
                 echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/${pkg_name}/${pkg_name}_${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
@@ -133,20 +143,19 @@ while IFS= read -r line; do
             else
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://cloud.r-project.org\")'" >> "$RECIPE_FILE"
             fi
-        elif [[ "$CURRENT_SECTION" == "r-github:" ]]; then
-            echo "Installing R package from GitHub: $pkg from $path"
+        elif [[ "$CURRENT_SECTION" == "r-github:" ]]; then            
             echo "Rscript -e 'devtools::install_github(\"$path\")'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then
-            echo "Installing Bioconductor package: $pkg"
+        elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then            
             echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\")'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then
-            echo "Installing pip package: $pkg_name $ver from $src"
+        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then            
             if [[ -n "$ver" ]]; then
                 echo "pip install ${pkg_name}==${ver}" >> "$RECIPE_FILE"
             else
                 echo "pip install ${pkg_name}" >> "$RECIPE_FILE"
             fi
         fi
+    else
+        echo "[conda-recipise] Ignoring line: $line"
     fi
 done < "$YAML_FILE"
 
