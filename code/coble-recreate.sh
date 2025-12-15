@@ -1,9 +1,9 @@
 
 #!/usr/bin/env bash
 # coble-recreate.sh: Recreate an environment from a YAML or recipe shell script
-
-
 # Usage: ./coble-recreate.sh [--env ENV] [--input INPUT_FILE] [--output CAPTURE_FILE]
+
+source "$(conda info --base)/etc/profile.d/conda.sh"
 
 ENV_OUTPUT=""
 INPUT_FILE=""
@@ -11,14 +11,15 @@ CAPTURE_FILE=""
 NEW_ENV=""
 LOG_FILE=""
 TIME_FILE=""
-KEEP_LOGS=1
-
+KEEP_LOGS=0
+OUTDIR="."
 
 show_help() {
-    echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE]"    
+    echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
     echo "  --env NEW_ENV Overwrite to a new environment from the generated recipe script"
     echo "  --input INPUT    Specify input YAML or recipe shell script (required)"
     echo "  --output CAPTURE Specify output capture file (optional, for future use)"    
+    echo "  --outdir OUTDIR  Specify output directory for recipe file (optional)"
     echo "  -h, --help       Show this help message and exit"
 }
 
@@ -35,6 +36,14 @@ while [[ $# -gt 0 ]]; do
             ;;
         --env)
             NEW_ENV="$2"
+            shift; shift
+            ;;
+        --debug)
+            KEEP_LOGS=1
+            shift; 
+            ;;
+        --outdir)
+            OUTDIR="$2"
             shift; shift
             ;;
         -h|--help)
@@ -68,27 +77,29 @@ if [[ ! -f "$INPUT_FILE" ]]; then
     echo "[coble-recreate] Error: Input file not found: $INPUT_FILE" >&2
     exit 1
 fi
-
+mkdir -p "$OUTDIR"
+base_name="${INPUT_FILE##*/}"
+base_name_noext="${base_name%.*}"
 if [[ -z "$CAPTURE_FILE" ]]; then
-    # if no input file provided default to ./coble-capture-$NEW_ENV_NAME.yml
-    CAPTURE_FILE="${INPUT_FILE##*/}"
-    CAPTURE_FILE="${CAPTURE_FILE%.yml}-$NEW_ENV_NAME.yml"
+    # if no input file provided default to ./coble-capture-$NEW_ENV_NAME.yml    
+    CAPTURE_FILE="coble-capture-${NEW_ENV_NAME}.yml"
 fi
+CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
 
-LOG_FILE="${INPUT_FILE##*/}"
-LOG_FILE="${LOG_FILE%.yml}.log"
-ERROR_FILE="${LOG_FILE%.log}.err"
-TIME_FILE="${LOG_FILE%.log}.time"
+LOG_FILE="$OUTDIR/${base_name_noext}-capture.log"
+ERROR_FILE="$OUTDIR/${base_name_noext}-capture.err"
+TIME_FILE="$OUTDIR/${base_name_noext}-capture.time"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"
+: > "$ERROR_FILE"
 # Redirect stdout and stderr to log file
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"
 echo "[coble-recreate] Log file: $ERROR_FILE"
 
 # log time date user
-date "[coble-recreate] Started at %Y-%m-%d %H:%M:%S"
+echo "[coble-recreate] Started at $(date '+%Y-%m-%d %H:%M:%S')"
 echo "[coble-recreate] User: $(whoami)"
 echo ""
 echo "[coble-recreate] Starting recreate process..."
@@ -101,12 +112,16 @@ fi
 case "$INPUT_FILE" in
     *.yml|*.yaml)
         # YAML input: generate recipe script
-        RECIPE_FILE="${INPUT_FILE##*/}"
-        RECIPE_FILE="${RECIPE_FILE%.yml}-$NEW_ENV_NAME-recipe.sh"
+        RECIPE_FILE="${INPUT_FILE##*/}"        
         echo "[coble-recreate] Detected YAML input. Generating recipe script: $RECIPE_FILE"
         # Call coble-recipise.sh to generate the recipe
         script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-        "$script_dir/coble-recipise.sh" --env "$NEW_ENV" --input "$INPUT_FILE" --output "$RECIPE_FILE"
+        recipise_args=(--env "$NEW_ENV" --input "$INPUT_FILE" --output "$RECIPE_FILE" --outdir "$OUTDIR")
+        if [[ -n "$OUTDIR" ]]; then
+            recipise_args+=(--outdir "$OUTDIR")
+        fi
+        "$script_dir/coble-recipise.sh" "${recipise_args[@]}"
+        RECIPE_FILE="$OUTDIR/${RECIPE_FILE%.yml}-$NEW_ENV_NAME-recipe.sh"
         echo "[coble-recreate] Recipe script generated: $RECIPE_FILE"        
         ;;
     *.sh)
@@ -179,11 +194,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 done < "$RECIPE_FILE"
 
 echo "[coble-recreate] Recreate process completed."
-echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
 
+####################################### CAPTURE ENVIRONMENT SECTION #######################################
+# Capture the environment to a YAML file for future use
+echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
+"$script_dir/coble-capture.sh" "${capture_args[@]}"
 if [[ -n "$CAPTURE_FILE" ]]; then
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    "$script_dir/coble-capture.sh" --env "$NEW_ENV" --output "$CAPTURE_FILE"            
     echo "[coble-recreate] Environment captured to: $CAPTURE_FILE"
 else
     echo "[coble-recreate] No capture file specified, skipping capture."

@@ -1,8 +1,8 @@
 
-
-conda activate build-conda
+conda create -n build-conda
 conda activate build-conda
 conda install -c conda-forge requests conda-build anaconda-client conda-index
+
 
 # In installing locally
 conda install --use-local my-bash-utility
@@ -17,6 +17,6 @@ anaconda login #rachelSA # K!d25
 # /path/to/conda-bld/noarch/my-bash-utility-1.0.0-0.tar.bz2
 
 anaconda upload /home/ralcraft/miniconda3/conda-bld/noarch/coble-0.0.1-0.conda
-anaconda upload --private /home/ralcraft/miniconda3/conda-bld/noarch/coble-0.0.1-0.conda
+anaconda upload --private /home/ralcraft/miniconda3/conda-bld/noarch/coble-0.0.2-1.conda
 
 conda install -c your-username my-bash-utility

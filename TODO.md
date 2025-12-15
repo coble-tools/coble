@@ -4,6 +4,9 @@ Need to parse out logs
 Need to create a set og configs from publictions ot web, sylver, nanostring cosmx, random one: https://github.com/MICS-Lab/novae  
 Need to make it a provate conda package
 change script to do conda activate and have the name in it explicitly as it is an output of the build.
+recipe is wrong name file 
+needs to be put in a specific folder
+versions don; work for r
 
 
 14/12/25

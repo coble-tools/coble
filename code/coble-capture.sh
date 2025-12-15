@@ -13,16 +13,17 @@
 
 
 
-# Usage: ./coble-capture.sh [--env ENV] [--output DIR]
+# Usage: ./coble-capture.sh [--env ENV] [--outdir DIR]
 
 # Default values
 ENV_INPUT=""
 RESULTS_DIR="."
 
+
 show_help() {
-	echo "Usage: $0 [--env ENV] [--output DIR]"
+	echo "Usage: $0 [--env ENV] [--outdir DIR]"
 	echo "  --env ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-	echo "  --output DIR   Specify output directory (optional, default: .)"    
+	echo "  --outdir DIR   Specify output directory (optional, default: .)"    
 	echo "  -h, --help     Show this help message and exit"
 }
 
@@ -33,7 +34,7 @@ while [[ $# -gt 0 ]]; do
 			ENV_INPUT="$2"
 			shift; shift
 			;;
-		--output)
+		--outdir)
 			RESULTS_DIR="$2"            
 			shift; shift
 			;;
