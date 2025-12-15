@@ -77,14 +77,16 @@ fi
 
 LOG_FILE="${INPUT_FILE##*/}"
 LOG_FILE="${LOG_FILE%.yml}.log"
+ERROR_FILE="${LOG_FILE%.log}.err"
 TIME_FILE="${LOG_FILE%.log}.time"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"
 # Redirect stdout and stderr to log file
-exec > >(tee -a "$LOG_FILE") 2>&1
-
+exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"
+echo "[coble-recreate] Log file: $ERROR_FILE"
+
 # log time date user
 date "[coble-recreate] Started at %Y-%m-%d %H:%M:%S"
 echo "[coble-recreate] User: $(whoami)"
@@ -130,6 +132,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             cp "$LOG_FILE" "${LOG_FILE%.log}.log_${current_line}_${total_lines}.log"            
         fi        
         : > "$LOG_FILE"
+    fi
+    line_count=$(wc -l < "$ERROR_FILE")
+    if [[ $line_count -gt 3 ]]; then
+        if [[ $KEEP_LOGS -eq 1 ]]; then
+            cp "$ERROR_FILE" "${ERROR_FILE%.err}.err_${current_line}_${total_lines}.err"            
+        fi        
+        : > "$ERROR_FILE"
     fi
     current_line=$((current_line + 1))
     # Skip empty lines and comments

@@ -1,0 +1,31 @@
+{% set name = "coble" %}
+{% set version = "0.0.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ..  # Path to your source code
+
+build:
+  number: 1
+  noarch: generic  # Use this for bash scripts (platform-independent)
+
+requirements:
+  run:
+    - bash
+
+test:
+  commands:
+    - test -f $PREFIX/bin/coble  # Just check the file exists
+    - test -f $PREFIX/bin/coble-capture.sh  # Just check the file exists
+
+about:
+  home: https://github.com/yourusername/my-bash-utility
+  license: MIT
+  license_file: LICENSE
+  summary: 'A brief description of your utility'
+  description: |
+    A longer description of what your utility does
+  dev_url: https://github.com/yourusername/my-bash-utility

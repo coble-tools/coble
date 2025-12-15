@@ -29,3 +29,4 @@ coble-capture-reproduce.sh
 *.time
 coble-capture-*-recipe.sh
 coble-capture-*.yml
+*.err

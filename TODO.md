@@ -1,3 +1,11 @@
+15/12/25
+Keep logs needs to be a param that defaults to no
+Need to parse out logs
+Need to create a set og configs from publictions ot web, sylver, nanostring cosmx, random one: https://github.com/MICS-Lab/novae  
+Need to make it a provate conda package
+change script to do conda activate and have the name in it explicitly as it is an output of the build.
+
+
 14/12/25
 -[x] Flags implement for upgrades and deps
 -[ ] env name hiearchy of inputs established
