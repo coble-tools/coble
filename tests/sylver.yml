@@ -6,13 +6,11 @@ channels:
   - conda-forge
   - bioconda
 
-languages:  
-  - r-base=3.6.0
-
 flags:
   - dependencies: True
 
 package-r:
+  - base=3.6.0
   - affy=1.64.0
   - hsentrezgcdf=18
   - cdsrmodels=0.1.0

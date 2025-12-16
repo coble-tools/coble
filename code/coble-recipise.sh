@@ -77,8 +77,8 @@ if [[ -z "$RECIPE_FILE" ]]; then
     base_name="${YAML_FILE##*/}"
     base_name_noext="${base_name%.*}"
     RECIPE_FILE="${base_name_noext}-recipe.sh"
+    RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
 fi
-RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
 : > "$RECIPE_FILE"
 
 
@@ -198,7 +198,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 # Use CRAN archive tarball URL for versioned CRAN packages
-                echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/${pkg_name}/${pkg_name}_${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
+                if [[ "$pkg_name" == "base" ]]
+                    #https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz                
+                    int_v=3
+                    echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/base/R-${int_v}/R-${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
+                else
+                    echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/${pkg_name}/${pkg_name}_${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
+                fi
             elif [[ "$src" == "R-FORGE"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
             else

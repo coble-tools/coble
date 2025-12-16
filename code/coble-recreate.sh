@@ -16,11 +16,12 @@ OUTDIR="."
 
 show_help() {
     echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
-    echo "  --env NEW_ENV Overwrite to a new environment from the generated recipe script"
-    echo "  --input INPUT    Specify input YAML or recipe shell script (required)"
-    echo "  --output CAPTURE Specify output capture file (optional, for future use)"    
-    echo "  --outdir OUTDIR  Specify output directory for recipe file (optional)"
-    echo "  -h, --help       Show this help message and exit"
+    echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
+    echo "  --input    INPUT    Specify input YAML or recipe shell script (required)"
+    echo "  --output   CAPTURE Specify output capture file (optional, for future use)"    
+    echo "  --outdir   OUTDIR  Specify output directory for recipe file (optional)"
+    echo "  --debug    Keep interim logs for debugging (optional)"
+    echo "  -h,--help  Show this help message and exit"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -85,6 +86,7 @@ if [[ -z "$CAPTURE_FILE" ]]; then
     CAPTURE_FILE="coble-capture-${NEW_ENV_NAME}.yml"
 fi
 CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
+RECIPE_FILE="$OUTDIR/coble-capture-${NEW_ENV_NAME}.sh"
 
 LOG_FILE="$OUTDIR/${base_name_noext}-capture.log"
 ERROR_FILE="$OUTDIR/${base_name_noext}-capture.err"
@@ -93,6 +95,8 @@ TIME_FILE="$OUTDIR/${base_name_noext}-capture.time"
 : > "$LOG_FILE"
 : > "$TIME_FILE"
 : > "$ERROR_FILE"
+: > "$RECIPE_FILE"
+: > "$CAPTURE_FILE"
 # Redirect stdout and stderr to log file
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"
@@ -111,8 +115,7 @@ fi
 # Detect file type
 case "$INPUT_FILE" in
     *.yml|*.yaml)
-        # YAML input: generate recipe script
-        RECIPE_FILE="${INPUT_FILE##*/}"        
+        # YAML input: generate recipe script        
         echo "[coble-recreate] Detected YAML input. Generating recipe script: $RECIPE_FILE"
         # Call coble-recipise.sh to generate the recipe
         script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -120,8 +123,7 @@ case "$INPUT_FILE" in
         if [[ -n "$OUTDIR" ]]; then
             recipise_args+=(--outdir "$OUTDIR")
         fi
-        "$script_dir/coble-recipise.sh" "${recipise_args[@]}"
-        RECIPE_FILE="$OUTDIR/${RECIPE_FILE%.yml}-$NEW_ENV_NAME-recipe.sh"
+        "$script_dir/coble-recipise.sh" "${recipise_args[@]}"        
         echo "[coble-recreate] Recipe script generated: $RECIPE_FILE"        
         ;;
     *.sh)
@@ -134,6 +136,8 @@ case "$INPUT_FILE" in
         ;;
 esac
 
+echo "[coble-recreate] Deactivating existing envs"
+conda deactivate
 # run each line of the recipe line by line
 echo "[coble-recreate] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")
@@ -160,7 +164,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ -z "$line" || "$line" == \#* ]]; then
         continue
     fi
-    echo "[coble-recreate] Running ($current_line/$total_lines):"    
+    echo "[coble-recreate] Running $current_line/$total_lines:"    
     echo "[coble-recreate] System info"
     echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
     echo "[coble-recreate] Disk usage:"
@@ -199,7 +203,11 @@ echo "[coble-recreate] Recreate process completed."
 # Capture the environment to a YAML file for future use
 echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
+if [[ $KEEP_LOGS -eq 1 ]]; then
+    capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR" --debug)
+else
+    capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
+fi
 "$script_dir/coble-capture.sh" "${capture_args[@]}"
 if [[ -n "$CAPTURE_FILE" ]]; then
     echo "[coble-recreate] Environment captured to: $CAPTURE_FILE"

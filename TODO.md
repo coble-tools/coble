@@ -7,6 +7,7 @@ change script to do conda activate and have the name in it explicitly as it is a
 recipe is wrong name file 
 needs to be put in a specific folder
 versions don; work for r
+sylver get that working, the file paths not quiote  make removal of all interim files the deauly (recipe and capture only)
 
 
 14/12/25

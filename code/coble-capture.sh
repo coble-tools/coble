@@ -11,20 +11,22 @@
 #
 #################################################################################
 
-
+source "$(conda info --base)/etc/profile.d/conda.sh"
 
 # Usage: ./coble-capture.sh [--env ENV] [--outdir DIR]
 
 # Default values
 ENV_INPUT=""
 RESULTS_DIR="."
-
+KEEP_LOGS=0
 
 show_help() {
 	echo "Usage: $0 [--env ENV] [--outdir DIR]"
-	echo "  --env ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-	echo "  --outdir DIR   Specify output directory (optional, default: .)"    
-	echo "  -h, --help     Show this help message and exit"
+	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
+	echo "  --outdir  DIR   Specify output directory (optional, default: .)"    	
+    echo "  --debug   Keep interim logs for debugging (optional)"
+    echo "  --output  RECIPE  Specify output recipe file (optional, default: ./coble-capture-reproduce.sh)"
+    echo "  -h,--help Show this help message and exit"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -38,6 +40,10 @@ while [[ $# -gt 0 ]]; do
 			RESULTS_DIR="$2"            
 			shift; shift
 			;;
+        --debug)
+            KEEP_LOGS=1
+            shift; 
+            ;;
 		-h|--help)
 			show_help
 			exit 0
@@ -75,6 +81,8 @@ elif [[ "$ENV_INPUT" == */* ]]; then
 		echo "[coble-capture] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
 		exit 2
 	fi
+    echo "Activating environment: $ENV_INPUT"
+    conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
     ENV_NAME="$ENV_INPUT"   
@@ -83,6 +91,8 @@ else
 		echo "[coble-capture] Error: The specified environment name does not exist: $ENV_INPUT" >&2
 		exit 2
 	fi
+    echo "Activating environment: $ENV_INPUT"
+    conda activate $ENV_INPUT
 fi
 
 echo "[coble-capture] Using conda environment argument: $ENV_FORMATTED"
@@ -95,7 +105,7 @@ TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-capture-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-capture-sorted-$ENV_NAME.tmp"
 AGGREGATE_TXT="$RESULTS_DIR/coble-capture-$ENV_NAME.yml"
-CLEAN_UP_TMPS=1
+
 
 echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
 conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
@@ -103,37 +113,50 @@ conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
 # Capture pip freeze output for provenance (e.g., GitHub installs)
 
 echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze > $TMP_PIP_FREEZE_TXT"
-conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
+if conda run $ENV_FORMATTED python --version &> /dev/null 2>&1; then
+    conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
+else
+    echo "Python not available in conda environment"
+fi
 
 # List all R packages with version and source
 echo "[coble-capture] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
 conda run $ENV_FORMATTED Rscript -e '
-		ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
-		fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
-		get_info <- function(pkg, lib) {
-			desc_file <- file.path(lib, pkg, "DESCRIPTION")
-			info <- setNames(rep(NA_character_, length(fields)), fields)
-			if (file.exists(desc_file)) {
-				desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
-				if (!is.null(desc)) {
-					info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
-					for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
-				}
-			} else {
-				info["Source"] <- "System/Manual"
-			}
-			info
-		}
-		if (nrow(ip) > 0) {
-			infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
-			ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
-			write.table(ip[, c("Package", "Version", fields)], file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
-		} else {
-			write.table(data.frame(Package=character(), Version=character(), Source=character(),
-												 RemoteType=character(), RemoteRepo=character(), RemoteUsername=character(),
-												 RemoteRef=character(), RemoteSha=character()),
-									file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
-		}
+    # Get conda environment path
+    conda_prefix <- Sys.getenv("CONDA_PREFIX")
+    
+    # Only look at packages in the conda environment
+    if (conda_prefix != "") {
+        conda_lib_path <- file.path(conda_prefix, "lib", "R", "library")
+        .libPaths(conda_lib_path)  # Set to ONLY conda environment
+    }
+    
+    ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
+    fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
+    get_info <- function(pkg, lib) {
+        desc_file <- file.path(lib, pkg, "DESCRIPTION")
+        info <- setNames(rep(NA_character_, length(fields)), fields)
+        if (file.exists(desc_file)) {
+            desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
+            if (!is.null(desc)) {
+                info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
+                for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
+            }
+        } else {
+            info["Source"] <- "System/Manual"
+        }
+        info
+    }
+    if (nrow(ip) > 0) {
+        infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
+        ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
+        write.table(ip[, c("Package", "Version", fields)], file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
+    } else {
+        write.table(data.frame(Package=character(), Version=character(), Source=character(),
+                             RemoteType=character(), RemoteRepo=character(), RemoteUsername=character(),
+                             RemoteRef=character(), RemoteSha=character()),
+                    file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
+    }
 ' || echo -e "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
 
 
@@ -352,16 +375,16 @@ while IFS=$'\t' read -r manager pkg src path; do
 done < "$TMP_SORTED"
 
 # Clean up temporary files
-if [[ $CLEAN_UP_TMPS -eq 1 ]]; then
+if [[ $KEEP_LOGS -eq 0 ]]; then
     echo "[coble-capture] Cleaning up temporary files..."
     rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
-elif [[ $CLEAN_UP_TMPS -eq 0 ]]; then
+elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "[coble-capture] Temporary files retained for inspection:"
     echo "  $TMP_CONDA_LIST_TXT"
     echo "  $TMP_PIP_FREEZE_TXT"
     echo "  $TMP_R_PACKAGES_TXT"
-    echo "  $TMP_AGGREGATE"
     echo "  $TMP_SORTED"
+    echo "  $TMP_AGGREGATE"    
 fi
 
 echo "[coble-capture] Capture complete. Output written to $AGGREGATE_TXT"
