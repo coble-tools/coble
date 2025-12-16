@@ -129,7 +129,7 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # We first want to go through and find the "languages"
 # the languages: section, we just want to pull out the conda and r packages
 # then we can build a conda create command
-languages_line="conda create ${CONDA_ENV} -y -c conda-forge"
+languages_line="conda create ${CONDA_ENV} -y -c conda-forge -c defaults -c r"
 CURRENT_SECTION="COBLE"
 while IFS= read -r line; do
     # Trim leading/trailing whitespace
@@ -191,14 +191,20 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         IFS='=' read -r pkg_name ver <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format        
         if [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
-            echo "conda install -y 'r-$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            if [[ "$src" == "" ]]; then
+                src="conda-forge"
+            fi
+            echo "conda install --solver=classic -y 'r-$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
         elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
-            echo "conda install -y '$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            if [[ "$src" == "" ]]; then
+                src="conda-forge"
+            fi
+            echo "conda install --solver=classic -y '$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 # Use CRAN archive tarball URL for versioned CRAN packages
-                if [[ "$pkg_name" == "base" ]]
+                if [[ "$pkg_name" == "base" ]]; then
                     #https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz                
                     int_v=3
                     echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/base/R-${int_v}/R-${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"

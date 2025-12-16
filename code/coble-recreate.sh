@@ -13,6 +13,7 @@ LOG_FILE=""
 TIME_FILE=""
 KEEP_LOGS=0
 OUTDIR="."
+EXIT_ON_ERROR=0
 
 show_help() {
     echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
@@ -21,6 +22,7 @@ show_help() {
     echo "  --output   CAPTURE Specify output capture file (optional, for future use)"    
     echo "  --outdir   OUTDIR  Specify output directory for recipe file (optional)"
     echo "  --debug    Keep interim logs for debugging (optional)"
+    echo "  --exit-on-error  Exit on first error (not default behavior)"
     echo "  -h,--help  Show this help message and exit"
 }
 
@@ -41,6 +43,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --debug)
             KEEP_LOGS=1
+            shift; 
+            ;;
+        --exit-on-error)
+            EXIT_ON_ERROR=1
             shift; 
             ;;
         --outdir)
@@ -90,7 +96,7 @@ RECIPE_FILE="$OUTDIR/coble-capture-${NEW_ENV_NAME}.sh"
 
 LOG_FILE="$OUTDIR/${base_name_noext}-capture.log"
 ERROR_FILE="$OUTDIR/${base_name_noext}-capture.err"
-TIME_FILE="$OUTDIR/${base_name_noext}-capture.time"
+TIME_FILE="$OUTDIR/${base_name_noext}-capture-summary.txt"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"
@@ -188,6 +194,20 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     eval "$line"
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
+    # Now run the error checking on the log and err files
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE" "$EXIT_ON_ERROR"
+    err_code=$?
+    if [[ $err_code -eq 0 ]]; then
+        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+    else        
+        echo "!!!!! Error detected Aborting due to exit setting !!!!!"
+        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+        exit 1
+    fi
+
     echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
     echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
     echo "#####################################################"
@@ -203,11 +223,11 @@ echo "[coble-recreate] Recreate process completed."
 # Capture the environment to a YAML file for future use
 echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
 if [[ $KEEP_LOGS -eq 1 ]]; then
-    capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR" --debug)
-else
-    capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
+    capture_args+=(--debug)
 fi
+
 "$script_dir/coble-capture.sh" "${capture_args[@]}"
 if [[ -n "$CAPTURE_FILE" ]]; then
     echo "[coble-recreate] Environment captured to: $CAPTURE_FILE"

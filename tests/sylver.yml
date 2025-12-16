@@ -4,25 +4,34 @@ coble:
 
 channels:
   - conda-forge
+  - r
   - bioconda
+  - defaults
+
+languages:
+- r-base=3.6.0
 
 flags:
   - dependencies: True
 
-package-r:
-  - base=3.6.0
-  - affy=1.64.0
-  - hsentrezgcdf=18
-  - cdsrmodels=0.1.0
-  - limma=3.42.2
-  - effsize=0.8.1
-  - magrittr=2.0.1
-  - tidyverse=1.3.1
-  - fgsea=1.12.0
-  - ggplots=2_3.3.5
-  - ggrepel=0.9.1
-  - org.Hs.eg.db=3.10.0
-  - VennDiagram=1.6.20
-  - survival=3.2-11
-  - GSVA=1.34.0
+#conda-r:
+#  - BiocManager
+
+#package-r:  
+#  - affy=1.64.0
+#  - hsentrezgcdf=18
+#  - cdsrmodels=0.1.0
+#  - limma=3.42.2
+#  - effsize=0.8.1
+#  - magrittr=2.0.1
+#  - tidyverse=1.3.1
+#  - fgsea=1.12.0
+#  - ggplots=2_3.3.5
+#  - ggrepel=0.9.1
+#  - org.Hs.eg.db=3.10.0
+#  - VennDiagram=1.6.20
+#  - survival=3.2-11
+
+#package-bioc:
+#  - GSVA=1.34.0
 

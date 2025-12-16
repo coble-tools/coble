@@ -1,0 +1,73 @@
+
+[coble-recreate] Start time: 2025-12-16 21:15:40 10/25
+source "$(conda info --base)/etc/profile.d/conda.sh"
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:15:41
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-16 21:15:41
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-16 21:15:41 11/25
+source ~/.bashrc
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:15:41
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-16 21:15:41
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-16 21:15:41 15/25
+conda create --name sylver -y -c conda-forge -c defaults -c r 'r-base=3.6.0'
+    # ERROR: Found 'LibMambaUnsatisfiableError' in stderr: LibMambaUnsatisfiableError: Encountered problems while solving:
+[coble-errors] Errors were found during recreation. Please review the recipe file: tests/output/sylver/sylver-capture-summary.txt
+[coble-recreate] End time: 2025-12-16 21:16:13
+[coble-recreate] Duration: 32s
+[coble-recreate] End time: 2025-12-16 21:16:13
+[coble-recreate] Duration: 32s
+
+[coble-recreate] Start time: 2025-12-16 21:16:13 16/25
+conda activate sylver
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:14
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-16 21:16:14
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-16 21:16:14 19/25
+conda config --remove-key channels
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:15
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-16 21:16:15
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-16 21:16:15 20/25
+conda config --add channels conda-forge
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:16
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-16 21:16:16
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-16 21:16:16 21/25
+conda config --add channels r
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:17
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-16 21:16:17
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-16 21:16:17 22/25
+conda config --add channels bioconda
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:19
+[coble-recreate] Duration: 2s
+[coble-recreate] End time: 2025-12-16 21:16:19
+[coble-recreate] Duration: 2s
+
+[coble-recreate] Start time: 2025-12-16 21:16:19 23/25
+conda config --add channels defaults
+[coble-errors] No errors found during recreation.
+[coble-recreate] End time: 2025-12-16 21:16:18
+[coble-recreate] Duration: -1s
+[coble-recreate] End time: 2025-12-16 21:16:18
+[coble-recreate] Duration: -1s

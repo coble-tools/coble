@@ -1,3 +1,0 @@
-# packages in environment at /home/ralcraft/.conda/envs/sylver:
-#
-# Name                     Version          Build            Channel
