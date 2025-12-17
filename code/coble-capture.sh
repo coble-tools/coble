@@ -297,9 +297,9 @@ R_BASE_VERSION=""
 PYTHON_VERSION=""
 while IFS=$'\t' read -r manager pkg src path; do
     if [[ "$manager" == "conda-r" && "$pkg" == base=* ]]; then
-        R_BASE_VERSION="r-base=${pkg#base=}"
+        R_BASE_VERSION="r-base=${pkg#base=}@$src"
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
-        PYTHON_VERSION="python=${pkg#python=}"
+        PYTHON_VERSION="python=${pkg#python=}@$src"
     fi
 done < "$TMP_AGGREGATE"
 echo "[coble-capture] Detected r-conda base version: $R_BASE_VERSION"

@@ -130,20 +130,20 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # the languages: section, we just want to pull out the conda and r packages
 # then we can build a conda create command
 languages_line="conda create ${CONDA_ENV} -y -c conda-forge -c defaults -c r"
-CURRENT_SECTION="COBLE"
-while IFS= read -r line; do
-    # Trim leading/trailing whitespace
-    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "languages:" ]]; then
-        CURRENT_SECTION="languages"
-    elif [[ "$line" == "channels:" ]]; then
-        CURRENT_SECTION="channels"          
-    elif [[ -z "$line" ]]; then
-        CURRENT_SECTION=""
-    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then
-        languages_line+=" '${line#- }'"        
-    fi
-done < "$YAML_FILE"
+CURRENT_SECTION="bash"
+#while IFS= read -r line; do
+#    # Trim leading/trailing whitespace
+#    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+#    if [[ "$line" == "languages:" ]]; then
+#        CURRENT_SECTION="languages"
+#    elif [[ "$line" == "channels:" ]]; then
+#        CURRENT_SECTION="channels"          
+#    elif [[ -z "$line" ]]; then
+#        CURRENT_SECTION=""
+#    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then
+#        languages_line+=" '${line#- }'"        
+#    fi
+#done < "$YAML_FILE"
 echo "$languages_line" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
@@ -174,6 +174,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"    
     if [[ "$line" == "flags:" \
+        || "$line" == "channels:" \
+        || "$line" == "languages:" \
         || "$line" == "conda-r:" \
         || "$line" == "conda:" \
         || "$line" == "r-package:" \
@@ -181,6 +183,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "package-r:" \
         || "$line" == "pip:" \
         || "$line" == "bash:" \
+        || "$line" == "find:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
         echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"    
@@ -190,16 +193,28 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name ver <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format        
-        if [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
+        if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
+            continue
+        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                        
+            if [[ "$pkg_name" == "r-base" ]]; then                    
+                if [[ "$src" == "" ]]; then
+                    echo "conda install $pkg_name=$ver" >> "$RECIPE_FILE"
+                else
+                    echo "conda install -c $src $pkg_name=$ver" >> "$RECIPE_FILE"
+                fi
+            elif [[ "$pkg_name" == "python" ]]; then
+                echo "Python $pkg $src $path $pkg_name $ver" >> "$RECIPE_FILE"
+            fi
+        elif [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
             fi
-            echo "conda install --solver=classic -y 'r-$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            echo "conda install -y 'r-$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
         elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
             fi
-            echo "conda install --solver=classic -y '$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
+            echo "conda install -y '$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
@@ -247,6 +262,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
             fi        
+        elif [[ "$CURRENT_SECTION" == "find:" ]]; then
+            script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+            # Build arguments array
+            find_args=("$pkg_name" "$version" "$src" "")
+            # Call and capture return value
+            recipe_line=$("$script_dir/coble-find.sh" "${find_args[@]}")
+            # Use the return value
+            echo "[conda-find] Recipe: $recipe_line"
+            echo "$recipe_line" >> "$RECIPE_FILE"
         fi
     else                
         if [[ -n "$line" ]]; then

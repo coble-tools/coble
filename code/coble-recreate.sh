@@ -184,8 +184,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         echo "No memory info command found"
     fi
     echo "#####################################################"
-    echo "$line"
-    echo "#####################################################"
+    echo "$line"    
     # export to the TIME_FILE the start time
     START_TIME=$(date +%s)
     echo "" >> "$TIME_FILE"

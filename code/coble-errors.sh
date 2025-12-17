@@ -13,9 +13,6 @@ DONE_FILE="$OUTPUT_FILE"
 RECIPE_FILE="$OUTPUT_FILE"
 EXIT_ON_ERROR="$4"
 
-echo "### Starting error check for coble capture files ###" 
-
-
 # convert to int if it is blank  
 found_errors=false
 
@@ -107,8 +104,6 @@ if [[ "$found_errors" == true ]]; then
         echo "[coble-errors] Exiting due to --exit-on-error flag. Forcing exit!!!!!" >> "$DONE_FILE"                        
         exit 1
     fi
-else
-    echo "[coble-errors] No errors found during recreation." >> "$DONE_FILE"                    
 fi
 
 

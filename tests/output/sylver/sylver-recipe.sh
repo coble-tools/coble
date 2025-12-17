@@ -3,7 +3,7 @@
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
 # Capture date: 2025-12-17
-# Capture time: 07:55:49 GMT
+# Capture time: 12:41:23 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -25,4 +25,13 @@ conda config --add channels defaults
 # INSTALL SECTION FOR CONDA
 conda install -c r r-base=3.6.0
 conda install -y 'r-BiocManager' -c conda-forge  --no-update-deps
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/affy/affy_1.64.0.tar.gz", repos = NULL, type = "source")'
+unknown
+unknown
+conda install -c bioconda bioconductor-limma
+conda install -c conda-forge r-effsize
+conda install -c conda-forge r-magrittr
+conda install -c conda-forge r-tidyverse
+conda install -y 'r-BiocManager' -c conda-forge  --no-update-deps
+conda install -y 'r-BiocManager' -c conda-forge  --no-update-deps
+unknown
+unknown
