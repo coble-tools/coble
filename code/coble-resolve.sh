@@ -85,14 +85,14 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
-        echo "[coble-resolve] Processing entry: $pkg_entry"
+        echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION"
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name version <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format                
         if [[ "$CURRENT_SECTION" == "find:" ]]; then        
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
-            find_args=("$pkg_name" "$version" "$src" "")
+            find_args=(--pkg "$pkg_name" --version "$version")
             # Call and capture return value
             mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
             pkg_manager="${result[0]}"
@@ -103,14 +103,21 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
                 echo "# Unknown package: $origline" >> "$YAML_FILE"
             else            
                 # Use the return value
+                echo "[coble-resolve] Manager: $pkg_manager"
                 echo "[coble-resolve] Recipe: $recipe_line"
+                echo "[coble-resolve] Yaml: $yaml_line"                
                 if [[ pkg_manager != LAST_SECTION ]]; then
                     echo "" >> "$YAML_FILE"    
-                    echo "$pkg_manager:" >> "$YAML_FILE"    
-                    CURRENT_SECTION="$pkg_manager:"
-                fi                
-                echo "# $origline" >> "$YAML_FILE"
-                echo "$yaml_line" >> "$YAML_FILE"
+                    echo "$pkg_manager" >> "$YAML_FILE"    
+                    LAST_SECTION="$pkg_manager"
+                fi
+                if [[ $manager == "unknown" ]]; then
+                    echo "# unknown: $origline" >> "$YAML_FILE"
+                else
+                    echo "$yaml_line" >> "$YAML_FILE"
+                    echo "$recipe_line" >> "$YAML_FILE"
+                fi
+                
             fi
         else
             echo "$origline" >> "$YAML_FILE"

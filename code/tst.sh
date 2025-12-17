@@ -9,26 +9,11 @@ skip_variants=false
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --pkg)
-      pkg="$2"
-      shift 2
-      ;;
-    --version)
-      ver="$2"
-      shift 2
-      ;;
-    --all)
-      all=true
-      shift
-      ;;
-    --skip-variants)
-      skip_variants=true
-      shift
-      ;;
-    *)
-      echo "Unknown option: $1"
-      exit 1
-      ;;
+    --pkg) pkg="$2"; shift 2 ;;
+    --version) ver="$2"; shift 2 ;;
+    --all) all=true; shift ;;
+    --skip-variants) skip_variants=true; shift ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
   esac
 done
 
@@ -39,98 +24,91 @@ fi
 
 echo "Searching for package: $pkg (version: ${ver:-any})"
 
-# Helper: check and optionally exit
+# Helper: print results and install command
 check_and_print() {
-  local source=$1
-  local output=$2
-  pkg_ver=$pkg
-  if [[ $ver != "" ]]; then
-      pkg_ver+="=$ver"
-  fi
-  if [[ -n "$output" ]]; then
+    local source=$1
+    local pkg_name=$2
+    local pkg_ver=$3
+
+    if [[ -z "$pkg_name" ]]; then return; fi
+
     echo "$source:"
-    echo "$output"
-    case $source in
-      "Conda (bioconda)")
-        echo "  Install: conda install -c bioconda $pkg_ver"
-        ;;
-      "Conda (conda-forge)")
-        echo "  Install: conda install -c conda-forge $pkg_ver"
-        ;;
-      "Conda (r)")
-        echo "  Install: conda install -c r $pkg_ver"
-        ;;
-      "CRAN")
-        echo "  Install: Rscript -e 'install.packages(\"$pkg\", repos=\"https://cran.r-project.org\")'"
-        ;;
-      "CRAN (archive)")
-        echo "  Install: Rscript -e 'devtools::install_version(\"$pkg\", version=\"$ver\", repos=\"http://cran.us.r-project.org\")'"
-        ;;
-      Bioconductor*)
-        echo "  Install: Rscript -e 'BiocManager::install(\"$pkg\")'"
-        ;;
-    esac
-    if [[ $all == false ]]; then
-      exit 0
+    if [[ -n "$pkg_ver" ]]; then
+        echo "  $pkg_name $pkg_ver"
+    else
+        echo "  $pkg_name"
     fi
-  fi
+
+    case $source in
+        "Conda (bioconda)")
+            [[ -n "$pkg_ver" ]] && echo "  Install: conda install -c bioconda $pkg_name=$pkg_ver" || echo "  Install: conda install -c bioconda $pkg_name"
+            ;;
+        "Conda (conda-forge)")
+            [[ -n "$pkg_ver" ]] && echo "  Install: conda install -c conda-forge $pkg_name=$pkg_ver" || echo "  Install: conda install -c conda-forge $pkg_name"
+            ;;
+        "Conda (r)")
+            [[ -n "$pkg_ver" ]] && echo "  Install: conda install -c r $pkg_name=$pkg_ver" || echo "  Install: conda install -c r $pkg_name"
+            ;;
+        "CRAN")
+            echo "  Install: Rscript -e 'install.packages(\"$pkg_name\", repos=\"https://cran.r-project.org\")'"
+            ;;
+        "CRAN (archive)")
+            echo "  Install: Rscript -e 'devtools::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\")'"
+            ;;
+        Bioconductor*)
+            echo "  Install: Rscript -e 'BiocManager::install(\"$pkg_name\")'"
+            ;;
+    esac
+
+    if [[ $all == false ]]; then exit 0; fi
 }
 
-
-# Priority order
+# Variants
 variants=("$pkg")
-if [[ "$skip_variants" != true ]]; then 
-    variants+=("r-$pkg" "bioconductor-$pkg") 
+if [[ "$skip_variants" != true ]]; then
+    variants+=("r-$pkg" "bioconductor-$pkg")
 fi
 
-for variant in "${variants[@]}"; do 
-    echo "Checking variant: $variant"
+for variant in "${variants[@]}"; do
+    echo "[coble-find] Checking variant: $variant"
 
-    # --- Conda (bioconda) ---
-    bioconda=$(curl -s "https://api.anaconda.org/package/bioconda/$variant" | \
-    grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
-    awk -v p="$variant" -v v="$ver" '{if (v=="" || tolower($1)==tolower(v)) print "  " tolower(p) " " $1}' | head -n1)
-    check_and_print "Conda (bioconda)" "$bioconda"
-
-    # --- Conda (conda-forge) ---
-    condaforge=$(curl -s "https://api.anaconda.org/package/conda-forge/$variant" | \
-    grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
-    awk -v p="$variant" -v v="$ver" '{if (v=="" || tolower($1)==tolower(v)) print "  " tolower(p) " " $1}' | head -n1)
-    check_and_print "Conda (conda-forge)" "$condaforge"
-
-    # --- Conda (r) ---
-    condar=$(curl -s "https://api.anaconda.org/package/r/$variant" | \
-    grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
-    awk -v p="$variant" -v v="$ver" '{if (v=="" || tolower($1)==tolower(v)) print "  " tolower(p) " " $1}' | head -n1)
-    check_and_print "Conda (r)" "$condar"
+    for channel in bioconda conda-forge r; do
+        version=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
+                  grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | head -n1)
+        if [[ -n "$version" ]]; then
+            check_and_print "Conda ($channel)" "$variant" "$version"
+        fi
+    done
 done
 
-# --- CRAN ---
-cran=$(curl -s https://cran.r-project.org/src/contrib/PACKAGES | \
+# CRAN current
+echo "[coble-find] Checking CRAN"
+cran_line=$(curl -s https://cran.r-project.org/src/contrib/PACKAGES | \
 awk -v p="$pkg" -v v="$ver" '
   /^Package:/ {pkgname=$2}
   /^Version:/ {pkgver=$2}
   tolower(pkgname)==tolower(p) {
-    if (v=="" || tolower(pkgver)==tolower(v)) {print "  " pkgname " " pkgver}
+    if (v=="" || tolower(pkgver)==tolower(v)) {print pkgname " " pkgver}
   }
 ')
-check_and_print "CRAN" "$cran"
+if [[ -n "$cran_line" ]]; then
+    IFS=' ' read -r pkg_name pkg_ver <<< "$cran_line"
+    check_and_print "CRAN" "$pkg_name" "$pkg_ver"
+fi
 
-# --- CRAN archive ---
-# --- CRAN archive (case-insensitive) ---
+# CRAN archive
 for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pkg:0:1} | tr '[:lower:]' '[:upper:]')${pkg:1}"; do
+  echo "[coble-find] Checking candidate $candidate"
   url="https://cran.r-project.org/src/contrib/Archive/$candidate/"
-  cran_archive=$(curl -s "$url" | \
-  grep -Eo "${candidate}_[0-9][^ ]*\.tar\.gz" | \
-  sed -E "s/${candidate}_//; s/\.tar\.gz//" | \
-  awk -v p="$pkg" -v v="$ver" '
-    {if (v=="" || tolower($1)==tolower(v)) {print "  " p " " $1; exit}}
-  ')
-  check_and_print "CRAN (archive)" "$cran_archive"
+  pkg_entry=$(curl -s "$url" | grep -Eo '[A-Za-z0-9]+_[0-9][^"]*\.tar\.gz' | head -n1)
+  if [[ -n "$pkg_entry" ]]; then
+    IFS='_' read -r pkg_name verpart <<< "$pkg_entry"
+    pkg_ver=${verpart%.tar.gz}
+    check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver"
+  fi
 done
 
-
-# --- Bioconductor current categories ---
+# Bioconductor current
 declare -A bioc_variants=(
   ["main"]="https://bioconductor.org/packages/release/bioc/VIEWS"
   ["experiment"]="https://bioconductor.org/packages/release/data/experiment/VIEWS"
@@ -140,45 +118,50 @@ declare -A bioc_variants=(
 
 for category in "${!bioc_variants[@]}"; do
   url="${bioc_variants[$category]}"
-  bio=$(curl -s "$url" | \
+  bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" '
     /^Package:/ {pkgname=$2}
     /^Version:/ {
       if (tolower(pkgname)==tolower(p)) {
         pkgver=$2
         if (v=="" || tolower(pkgver)==tolower(v)) {
-          print "  " pkgname " " pkgver
+          print pkgname " " pkgver
           exit
         }
       }
     }
   ')
-  check_and_print "Bioconductor ($category)" "$bio"
+  if [[ -n "$bio_line" ]]; then
+    IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
+    check_and_print "Bioconductor ($category)" "$pkg_name" "$pkg_ver"
+  fi
 done
 
-# --- Bioconductor archives ---
+# Bioconductor archives
 archive_releases=("3.14" "3.12" "3.10")
-
 for rel in "${archive_releases[@]}"; do
   url="https://bioconductor.org/packages/${rel}/bioc/VIEWS"
-  bio=$(curl -s "$url" | \
+  bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" -v r="$rel" '
     /^Package:/ {pkg=$2}
     /^Version:/ {
       if (tolower(pkg)==tolower(p)) {
         ver=$2
         if (v=="" || tolower(ver)==tolower(v)) {
-          print "  " pkg " " ver " (archived in " r ")"
+          print pkg " " ver
           exit
         }
       }
     }
   ')
-  check_and_print "Bioconductor archive" "$bio"
+  if [[ -n "$bio_line" ]]; then
+    IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
+    check_and_print "Bioconductor archive ($rel)" "$pkg_name" "$pkg_ver"
+  fi
 done
 
-# --- R-Forge ---
+# R-Forge
 rforge=$(curl -s "https://r-forge.r-project.org/R/?group_id=0" | grep -i "$pkg")
-check_and_print "R-Forge" "$rforge"
+check_and_print "R-Forge" "$pkg" ""
 
-echo "not found"
+echo "[coble-find] completed"

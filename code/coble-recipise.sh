@@ -177,6 +177,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "channels:" \
         || "$line" == "languages:" \
         || "$line" == "conda-r:" \
+        || "$line" == "conda-bioc:" \
         || "$line" == "conda:" \
         || "$line" == "r-package:" \
         || "$line" == "r-github:" \
@@ -265,12 +266,22 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
-            find_args=("$pkg_name" "$version" "$src" "")
+            find_args=(--pkg "$pkg_name" --version "$version")
             # Call and capture return value
-            recipe_line=$("$script_dir/coble-find.sh" "${find_args[@]}")
-            # Use the return value
-            echo "[conda-find] Recipe: $recipe_line"
-            echo "$recipe_line" >> "$RECIPE_FILE"
+            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
+            pkg_manager="${result[0]}"
+            recipe_line="${result[1]}"
+            yaml_line="${result[2]}"
+            if [[ $pkg_manager == "unknown" ]]; then
+                echo "[coble-resolve] Unknown: $line"
+                echo "# Unknown package: $line" >> "$RECIPE_FILE"
+            else            
+                # Use the return value
+                echo "[coble-resolve] Manager: $pkg_manager"
+                echo "[coble-resolve] Recipe: $recipe_line"
+                echo "[coble-resolve] Yaml: $yaml_line"                                
+                echo "$recipe_line" >> "$RECIPE_FILE"                               
+            fi
         fi
     else                
         if [[ -n "$line" ]]; then
