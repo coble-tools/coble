@@ -17,7 +17,7 @@ show_help() {
     echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
     echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
-    echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-capture-reproduce.sh)"
+    echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  --outdir OUTDIR  Specify output directory for recipe file (optional, default: .)"
     echo "  -h, --help       Show this help message and exit"
 }
@@ -67,7 +67,7 @@ fi
 
 if [[ -z "$YAML_FILE" ]]; then
     # if an env-name was entered, use that for the recipe file name
-    YAML_FILE="./coble-capture-$ENV_NAME.yml"
+    YAML_FILE="./coble-captured-$ENV_NAME.yml"
 fi
 
 
@@ -96,8 +96,8 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
 fi
 
 UPDATE_CONDA="--no-update-deps"
-DEPS_CONDA="--no-deps"
-DEPS_PYTHON="--no-deps"
+DEPS_CONDA=""
+DEPS_PYTHON=""
 DEPS_R="FALSE"
 
 
@@ -129,7 +129,7 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # We first want to go through and find the "languages"
 # the languages: section, we just want to pull out the conda and r packages
 # then we can build a conda create command
-languages_line="conda create ${CONDA_ENV} -y -c conda-forge -c defaults -c r"
+languages_line="conda create ${CONDA_ENV} -y"
 CURRENT_SECTION="bash"
 #while IFS= read -r line; do
 #    # Trim leading/trailing whitespace
@@ -199,23 +199,27 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                        
             if [[ "$pkg_name" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install $pkg_name=$ver" >> "$RECIPE_FILE"
+                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 else
-                    echo "conda install -c $src $pkg_name=$ver" >> "$RECIPE_FILE"
-                fi
-            elif [[ "$pkg_name" == "python" ]]; then
-                echo "Python $pkg $src $path $pkg_name $ver" >> "$RECIPE_FILE"
-            fi
+                    echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                fi                
+            elif [[ "$pkg_name" == "python" ]]; then                    
+                if [[ "$src" == "" ]]; then
+                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                else
+                    echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                fi                
+            fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
             fi
-            echo "conda install -y 'r-$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            echo "conda install -y -c $src 'r-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
         elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
             fi
-            echo "conda install -y '$pkg' -c $src $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
+            echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
@@ -239,34 +243,47 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
             echo "[conda-recipise] Processing pip package: $pkg_name, version: $ver"
             if [[ -n "$ver" ]]; then
-                echo "python -m pip install ${pkg_name}==${ver} $DEPS_PYTHON" >> "$RECIPE_FILE"
+                echo "python -m pip install '${pkg_name}==${ver}' $DEPS_PYTHON" >> "$RECIPE_FILE"
             else
                 echo "python -m pip install ${pkg_name} $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
-            echo "Running bash command: $pkg"
-            echo "$pkg" >> "$RECIPE_FILE"
+            echo "[conda-recipise] Adding bash command: $pkg_entry"
+            echo "$pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
             echo "[conda-recipise] Processing flag: $pkg_entry"
             directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"            
             value=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: $value"
-            if [[ "$directive" == "dependencies" && "$value" == "true" ]]; then                
+            echo "[conda-recipise] Directive: $directive, Value: $value"            
+            if [[ "$directive,," == "dependencies" && "$value,," == "true" ]]; then                
                 echo "[conda-recipise] (default) Will install dependencies"
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "$directive" == "dependencies" && "$value" == "false" ]]; then                
+            elif [[ "$directive,," == "dependencies" && "$value,," == "false" ]]; then                
                 echo "[conda-recipise] (!not default) Will NOT install dependencies"
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
+            elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then
+                echo "[conda-recipise] Build-tools will be included"
+                echo "" >> "$RECIPE_FILE"
+                echo "# Including build tools for source installations" >> "$RECIPE_FILE"
+                # Install compiler toolchain for R                                
+                echo "conda install -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make -y" >>  "$RECIPE_FILE"
+                # Common tool chain for compilation            
+                echo "conda install -y -c conda-forge make pkg-config" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
+            echo "[conda-recipise] Finding: $pkg_name, version: $ver, source: $src"
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
-            find_args=(--pkg "$pkg_name" --version "$version")
+            find_args=(--pkg "$pkg_name" --version "$ver")
             # Call and capture return value
             mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
             pkg_manager="${result[0]}"
@@ -280,7 +297,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "[coble-resolve] Manager: $pkg_manager"
                 echo "[coble-resolve] Recipe: $recipe_line"
                 echo "[coble-resolve] Yaml: $yaml_line"                                
-                echo "$recipe_line" >> "$RECIPE_FILE"                               
+                echo "${recipe_line}" >> "$RECIPE_FILE"                              
             fi
         fi
     else                

@@ -35,14 +35,16 @@ check_and_print() {
     local pkg_name=$2
     local pkg_ver=$3
     local pkg_orig=$4
-    local channel=$5
+    local ver_orig=$5
+    local channel=$6
+    local bioc_ver=$7
 
     if [[ -z "$pkg_name" ]]; then return; fi
 
     name_ver="$pkg_name"
 
     echo "$source" >&2
-    if [[ -n "$pkg_ver" ]]; then
+    if [[ -n "$pkg_ver" && -n "$ver" ]]; then
         echo "  $pkg_name $pkg_ver" >&2
         name_ver="$pkg_name=$pkg_ver"
     else
@@ -55,7 +57,7 @@ check_and_print() {
             manager="conda-bioc:"
             ;;
         "Conda (conda-forge)")
-            recipe_line = "conda install -y -c $channel '$name_ver'"
+            recipe_line="conda install -y -c $channel '$name_ver'"
             manager="conda:"
             ;;
         "Conda (r)")
@@ -63,18 +65,19 @@ check_and_print() {
             manager="conda-r:"
             ;;
         "CRAN")
-            recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=\"https://cran.r-project.org\")'"
+            recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=\"https://cran.r-project.org\", dependencies=TRUE)'"
             manager="cran:"
             ;;
         "CRAN (archive)")
-            recipe_line="Rscript -e 'devtools::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\")'"
+            recipe_line="Rscript -e 'devtools::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\", dependencies=TRUE)'"
             manager="cran:"
             ;;
         Bioconductor*)
             if [[ -n "$pkg_ver" ]]; then
-                recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", version=\"$pkg_ver\")'"
+                #recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE)'"
+                recipe_line="Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE, repos=BiocManager::repositories())'"
             else
-                recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\")'"
+                recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", dependencies=TRUE)'"
             fi
             manager="bioconductor:"
             ;;
@@ -112,13 +115,23 @@ for variant in "${variants[@]}"; do
     echo "[coble-find] Checking variant: $variant" >&2
     manager="${VARIANT_MANAGERS[$variant]}"
     
-    # Fixed: either remove this check or complete it
-    if [[ -n "$variant" ]]; then  # Check if variant is not empty
+    if [[ -n "$variant" ]]; then
         for channel in bioconda conda-forge r; do
-            version=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
-                      grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | head -n1)
+            # Get all versions from API
+            versions=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
+                      grep -o '"version": *"[^"]*"' | cut -d'"' -f4)
+            
+            if [[ -n "$ver" ]]; then
+                # Look for specific version requested
+                version=$(echo "$versions" | grep -x "$ver" | head -n1)
+            else
+                # Get latest/first version if no version specified
+                version=$(echo "$versions" | head -n1)
+            fi
+            
             if [[ -n "$version" ]]; then
-                check_and_print "$manager" "$variant" "$version" "$pkg" "$channel"
+                echo "[coble-find] Found $variant version $version in channel $channel" >&2
+                check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
             fi
         done
     fi
@@ -135,17 +148,31 @@ awk -v p="$pkg" -v v="$ver" '
 ')
 if [[ -n "$cran_line" ]]; then
     IFS=' ' read -r pkg_name pkg_ver <<< "$cran_line"
-    check_and_print "CRAN" "$pkg_name" "$pkg_ver" "$pkg" "$channel"
+    check_and_print "CRAN" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
 fi
 
 for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pkg:0:1} | tr '[:lower:]' '[:upper:]')${pkg:1}"; do
-  echo "[coble-find] Checking candidate $candidate" >&2
+  echo "[coble-find] Checking CRAN archive candidate $candidate" >&2
   url="https://cran.r-project.org/src/contrib/Archive/$candidate/"
-  pkg_entry=$(curl -s "$url" | grep -Eo '[A-Za-z0-9]+_[0-9][^"]*\.tar\.gz' | head -n1)
+  
+  if [[ -n "$ver" ]]; then
+    # Look for specific version in archive
+    pkg_entry=$(curl -s "$url" | grep -Eo "${candidate}_${ver}\.tar\.gz" | head -n1)
+  else
+    # Get first available version
+    pkg_entry=$(curl -s "$url" | grep -Eo '[A-Za-z0-9]+_[0-9][^"]*\.tar\.gz' | head -n1)
+  fi
+  
   if [[ -n "$pkg_entry" ]]; then
     IFS='_' read -r pkg_name verpart <<< "$pkg_entry"
     pkg_ver=${verpart%.tar.gz}
-    check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver" "$pkg" "$channel"
+    
+    # Only proceed if version matches what was requested (or no version specified)
+    if [[ -z "$ver" ]] || [[ "$pkg_ver" == "$ver" ]]; then
+      check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
+    else
+      echo "[coble-find] Skipping CRAN archive $pkg_ver (requested $ver)" >&2
+    fi
   fi
 done
 
@@ -175,7 +202,7 @@ for category in "${!bioc_variants[@]}"; do
   ')
   if [[ -n "$bio_line" ]]; then
     IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
-    check_and_print "Bioconductor ($category)" "$pkg_name" "$pkg_ver" "$pkg" "$channel"
+    check_and_print "Bioconductor ($category)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
   fi
 done
 
@@ -198,14 +225,14 @@ for rel in "${archive_releases[@]}"; do
   ')
   if [[ -n "$bio_line" ]]; then
     IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
-    check_and_print "Bioconductor archive ($rel)" "$pkg_name" "$pkg_ver" "$pkg" "$channel"
+    check_and_print "Bioconductor archive ($rel)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
   fi
 done
 
 echo "[coble-find] Checking r-forge" >&2
 rforge=$(curl -s "https://r-forge.r-project.org/R/?group_id=0" | grep -i "$pkg")
 if [[ -n "$rforge" ]]; then
-    check_and_print "R-Forge" "$pkg" "" "$pkg" "$channel"
+    check_and_print "R-Forge" "$pkg" "" "$pkg" "$ver" "$channel"
 fi
 
 echo "not found" >&2

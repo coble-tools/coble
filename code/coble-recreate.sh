@@ -88,15 +88,15 @@ mkdir -p "$OUTDIR"
 base_name="${INPUT_FILE##*/}"
 base_name_noext="${base_name%.*}"
 if [[ -z "$CAPTURE_FILE" ]]; then
-    # if no input file provided default to ./coble-capture-$NEW_ENV_NAME.yml    
-    CAPTURE_FILE="coble-capture-${NEW_ENV_NAME}.yml"
+    # if no input file provided default to ./coble-captured-$NEW_ENV_NAME.yml    
+    CAPTURE_FILE="coble-captured-${NEW_ENV_NAME}.yml"
 fi
 CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
-RECIPE_FILE="$OUTDIR/coble-capture-${NEW_ENV_NAME}.sh"
+RECIPE_FILE="$OUTDIR/coble-reciped-${NEW_ENV_NAME}.sh"
 
-LOG_FILE="$OUTDIR/${base_name_noext}-capture.log"
-ERROR_FILE="$OUTDIR/${base_name_noext}-capture.err"
-TIME_FILE="$OUTDIR/${base_name_noext}-capture-summary.txt"
+LOG_FILE="$OUTDIR/${base_name_noext}-captured.log"
+ERROR_FILE="$OUTDIR/${base_name_noext}-captured.err"
+TIME_FILE="$OUTDIR/${base_name_noext}-captured-summary.txt"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"

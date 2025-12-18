@@ -43,6 +43,7 @@ error_patterns=(
 "Killed" 
 "LibMambaUnsatisfiableError" 
 "Error in loadNamespace(x)"
+"there is no package"
 )
 done_patterns=(
 "DONE ("   

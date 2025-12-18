@@ -1,0 +1,151 @@
+# COBLE:Reproducible environment capture, (c) ICR 2025
+# Capture date: 2025-12-18
+# Capture time: 12:16:26 GMT
+# Captured by: ralcraft
+
+coble:
+
+  - environment: scomatic
+
+channels:
+  - conda-forge
+  - bioconda
+
+languages:
+  - r-base=3.6.1@r
+  - python=3.7.16@defaults
+
+flags:
+  - dependencies: False
+
+conda:
+  - about-time=3.1.1@conda-forge
+  - backports.zoneinfo=0.2.1@conda-forge
+  - backports=1.0@conda-forge
+  - bcftools=1.3.1@bioconda
+  - bedtools=2.27.1@bioconda
+  - bwidget=1.10.1@defaults
+  - bzip2=1.0.8@defaults
+  - ca-certificates=2025.12.2@defaults
+  - cairo=1.18.4@defaults
+  - certifi=2024.8.30@conda-forge
+  - curl=7.69.1@defaults
+  - datamash=1.9@conda-forge
+  - expat=2.7.3@defaults
+  - fontconfig=2.14.1@defaults
+  - freetype=2.13.3@defaults
+  - fribidi=1.0.10@defaults
+  - glib-tools=2.84.4@defaults
+  - glib=2.84.4@defaults
+  - graphite2=1.3.14@defaults
+  - gsl=2.4@defaults
+  - harfbuzz=4.3.0@defaults
+  - htslib=1.3.1@bioconda
+  - icu=58.2@defaults
+  - jinja2=3.1.4@conda-forge
+  - jpeg=9f@defaults
+  - krb5=1.17.1@defaults
+  - lerc=4.0.0@defaults
+  - libblas=3.9.0@conda-forge
+  - libcblas=3.9.0@conda-forge
+  - libcurl=7.69.1@defaults
+  - libdeflate=1.22@defaults
+  - libedit=3.1.20230828@defaults
+  - libexpat=2.7.3@defaults
+  - libffi=3.4.4@defaults
+  - libgcc-ng=15.2.0@defaults
+  - libgcc=15.2.0@defaults
+  - libgfortran-ng=7.5.0@defaults
+  - libgfortran4=7.5.0@defaults
+  - libgfortran5=15.2.0@defaults
+  - libglib=2.84.4@defaults
+  - libgomp=15.2.0@defaults
+  - libiconv=1.16@defaults
+  - liblapack=3.9.0@conda-forge
+  - libopenblas=0.3.25@conda-forge
+  - libpng=1.6.50@defaults
+  - libsanitizer=15.2.0@defaults
+  - libssh2=1.10.0@defaults
+  - libstdcxx-ng=15.2.0@defaults
+  - libstdcxx=15.2.0@defaults
+  - libtiff=4.7.1@defaults
+  - libuuid=1.41.5@defaults
+  - libxcb=1.17.0@defaults
+  - libxml2=2.9.14@defaults
+  - lz4-c=1.9.4@defaults
+  - make=4.4.1@conda-forge
+  - markupsafe=2.1.1@conda-forge
+  - ncurses=6.5@defaults
+  - numpy=1.21.6@conda-forge
+  - openssl=1.1.1w@defaults
+  - pandas=1.3.5@conda-forge
+  - pango=1.50.7@defaults
+  - pcre2=10.46@defaults
+  - pcre=8.45@defaults
+  - pip=22.3.1@defaults
+  - pixman=0.46.4@defaults
+  - pkg-config=0.29.2@conda-forge
+  - pthread-stubs=0.3@defaults
+  - pybedtools=0.8.1@bioconda
+  - pysam=0.9.1@bioconda
+  - python-dateutil=2.9.0@conda-forge
+  - python-tzdata=2024.2@conda-forge
+  - python_abi=3.7@conda-forge
+  - pytz-deprecation-shim=0.1.0.post0@conda-forge
+  - pytz=2024.2@conda-forge
+  - readline=8.3@defaults
+  - rpy2=2.9.4@conda-forge
+  - samtools=1.3.1@bioconda
+  - scipy=1.7.3@conda-forge
+  - setuptools=59.8.0@conda-forge
+  - simplegeneric=0.8.1@conda-forge
+  - six=1.16.0@conda-forge
+  - sqlite=3.51.0@defaults
+  - tk=8.6.15@defaults
+  - tktable=2.10@defaults
+  - tzdata=2025b@defaults
+  - tzlocal=4.2@conda-forge
+  - wheel=0.38.4@defaults
+  - xorg-libx11=1.8.12@defaults
+  - xorg-libxau=1.0.12@defaults
+  - xorg-libxdmcp=1.1.5@defaults
+  - xorg-libxext=1.3.6@defaults
+  - xorg-libxrender=0.9.12@defaults
+  - xorg-xorgproto=2024.1@defaults
+  - xz=5.6.4@defaults
+  - zlib=1.2.13@defaults
+  - zstd=1.5.6@defaults
+
+conda-r:
+  - assertthat=0.2.1@conda-forge
+  - bit64=4.0.5@conda-forge
+  - bit=4.0.4@conda-forge
+  - blob=1.2.1@conda-forge
+  - cachem=1.0.5@conda-forge
+  - cli=2.5.0@conda-forge
+  - crayon=1.4.1@conda-forge
+  - dbi=1.1.1@conda-forge
+  - dbplyr=2.1.1@conda-forge
+  - dplyr=1.0.6@conda-forge
+  - ellipsis=0.3.2@conda-forge
+  - fansi=0.4.2@conda-forge
+  - fastmap=1.1.0@conda-forge
+  - generics=0.1.0@conda-forge
+  - glue=1.4.2@conda-forge
+  - lifecycle=1.0.0@conda-forge
+  - magrittr=2.0.1@conda-forge
+  - memoise=2.0.0@conda-forge
+  - pillar=1.6.1@conda-forge
+  - pkgconfig=2.0.3@conda-forge
+  - plogr=0.2.0@conda-forge
+  - purrr=0.3.4@conda-forge
+  - r6=2.5.0@conda-forge
+  - rcpp=1.0.6@conda-forge
+  - rlang=0.4.11@conda-forge
+  - rsqlite=2.2.5@conda-forge
+  - tibble=3.1.2@conda-forge
+  - tidyselect=1.1.1@conda-forge
+  - utf8=1.2.1@conda-forge
+  - vctrs=0.3.8@conda-forge
+  - vgam=1.1_5@conda-forge
+  - withr=2.4.2@conda-forge

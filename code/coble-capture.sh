@@ -25,7 +25,7 @@ show_help() {
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
 	echo "  --outdir  DIR   Specify output directory (optional, default: .)"    	
     echo "  --debug   Keep interim logs for debugging (optional)"
-    echo "  --output  RECIPE  Specify output recipe file (optional, default: ./coble-capture-reproduce.sh)"
+    echo "  --output  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  -h,--help Show this help message and exit"
 }
 
@@ -102,13 +102,13 @@ mkdir -p "$RESULTS_DIR"
 TMP_CONDA_LIST_TXT="$RESULTS_DIR/coble_tmp_conda-packages-$ENV_NAME.txt"
 TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
 TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
-TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-capture-$ENV_NAME.tmp"
-TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-capture-sorted-$ENV_NAME.tmp"
-AGGREGATE_TXT="$RESULTS_DIR/coble-capture-$ENV_NAME.yml"
+TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
+TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted-$ENV_NAME.tmp"
+AGGREGATE_TXT="$RESULTS_DIR/coble-captured-$ENV_NAME.yml"
 
 
 echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
-conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
+conda list $ENV_FORMATTED --show-channel-urls> "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
 
@@ -339,6 +339,7 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 current_manager=""
 header_skipped=false
 declare -A seen_pkgver
+my_find_list=()
 while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
 		header_skipped=true
@@ -359,7 +360,7 @@ while IFS=$'\t' read -r manager pkg src path; do
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
 	if [[ "$pkg" == _* ]] || \
 	[[ "$pkg" =~ (linux|windows|osx|darwin|unix|system) ]] || \
-	[[ "$src" == *System/Manual* ]] || \
+	#[[ "$src" == *System/Manual* ]] || \
 	[[ "$pkg" == *base=* ]] || \
 	[[ "$pkg" == python=* ]]; then
 		continue
@@ -369,10 +370,23 @@ while IFS=$'\t' read -r manager pkg src path; do
 		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
 	elif [[ -n "$path" ]]; then
 		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
-	else
+	elif [[ "$src" == "System/Manual" ]]; then        
+        my_find_list+=("$pkg")
+    else
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
 	fi
 done < "$TMP_SORTED"
+
+# Check if list has items and write out
+if [[ ${#my_find_list[@]} -gt 0 ]]; then
+    echo "" >> "$AGGREGATE_TXT"
+    echo "find:" >> "$AGGREGATE_TXT"
+    for pkg in "${my_find_list[@]}"; do
+        echo "  - $pkg" >> "$AGGREGATE_TXT"
+    done
+fi
+
+
 
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
