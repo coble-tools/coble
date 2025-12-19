@@ -7,13 +7,11 @@
 # Default values
 
 YAML_FILE=""
-KEEP_LOGS=0
 
 # Parse named arguments
 show_help() {
     echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"    
-    echo "  --input YAML     Specify input YAML file - it will be updated where there is a find"
-    echo "  --debug          Keep backup files"
+    echo "  --input YAML     Specify input YAML file - it will be updated where there is a find"    
     echo "  -h, --help       Show this help message and exit"
 }
 
@@ -23,10 +21,6 @@ while [[ $# -gt 0 ]]; do
         --input)
             YAML_FILE="$2"
             shift; shift
-            ;;
-        --debug)
-            KEEP_LOGS=1
-            shift;
             ;;        
         -h|--help)
             show_help
@@ -45,13 +39,12 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     exit 1    
 fi
 
-YAML_BACKUP="$YAML_FILE".backup
-cp $YAML_FILE $YAML_BACKUP
+YAML_RESOLVED="$YAML_FILE".resolved.yml
 
 # Now show all the inputs
 echo "[coble-refind] Using inputs:"
-echo "  YAML_FILE: $YAML_FILE"
-echo "  YAML_BACKUP: $YAML_BACKUP"
+echo "  IN YAML: $YAML_FILE"
+echo "  OUT YAML: $YAML_RESOLVED"
 
 # output is a recipe file for conda env create (always in current directory)
 echo "[coble-refind] Finding any required packages and in place replacing..."
@@ -69,7 +62,7 @@ echo "[coble-refind] Finding any required packages and in place replacing..."
 	echo -e "# by: $CAPTURE_USER"    
     echo "#######################################"        
     echo ""
-} > "$YAML_FILE"
+} > "$YAML_RESOLVED"
 
 CURRENT_SECTION=""
 LAST_SECTION=""
@@ -82,7 +75,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION"        
     elif [[ -n "$CURRENT_SECTION" && "$line" == *":"* ]]; then
         CURRENT_SECTION=""
-        echo "$origline" >> "$YAML_FILE"
+        echo "$origline" >> "$YAML_RESOLVED"
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
         echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION"
@@ -100,33 +93,33 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             yaml_line="${result[2]}"
             if [[ $pkg_manager == "unknown" ]]; then
                 echo "[coble-resolve] Unknown: $origline"
-                echo "# Unknown package: $origline" >> "$YAML_FILE"
+                echo "# Unknown package: $origline" >> "$YAML_RESOLVED"
             else            
                 # Use the return value
                 echo "[coble-resolve] Manager: $pkg_manager"
                 echo "[coble-resolve] Recipe: $recipe_line"
                 echo "[coble-resolve] Yaml: $yaml_line"                
-                if [[ pkg_manager != LAST_SECTION ]]; then
-                    echo "" >> "$YAML_FILE"    
-                    echo "$pkg_manager" >> "$YAML_FILE"    
+                if [[ "$pkg_manager" != "$LAST_SECTION" ]]; then
+                    echo "" >> "$YAML_RESOLVED"    
+                    echo "$pkg_manager" >> "$YAML_RESOLVED"    
                     LAST_SECTION="$pkg_manager"
                 fi
                 if [[ $manager == "unknown" ]]; then
-                    echo "# unknown: $origline" >> "$YAML_FILE"
+                    echo "# unknown: $origline" >> "$YAML_RESOLVED"
                 else
-                    echo "$yaml_line" >> "$YAML_FILE"
-                    echo "$recipe_line" >> "$YAML_FILE"
+                    echo "$yaml_line" >> "$YAML_RESOLVED"
+                    #echo "$recipe_line" >> "$YAML_RESOLVED"
                 fi
                 
             fi
         else
-            echo "$origline" >> "$YAML_FILE"
+            echo "$origline" >> "$YAML_RESOLVED"
         fi    
     else
-        echo "$origline" >> "$YAML_FILE"
+        echo "$origline" >> "$YAML_RESOLVED"
     fi
-done < "$YAML_BACKUP"
-echo "[coble-resolve] Recipe generation complete: $RECIPE_FILE"
+done < "$YAML_FILE"
+echo "[coble-resolve] Resolved generation complete: $YAML_RESOLVED"
 
 
 

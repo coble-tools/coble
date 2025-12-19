@@ -94,9 +94,9 @@ fi
 CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
 RECIPE_FILE="$OUTDIR/coble-reciped-${NEW_ENV_NAME}.sh"
 
-LOG_FILE="$OUTDIR/${base_name_noext}-captured.log"
-ERROR_FILE="$OUTDIR/${base_name_noext}-captured.err"
-TIME_FILE="$OUTDIR/${base_name_noext}-captured-summary.txt"
+LOG_FILE="$OUTDIR/${base_name_noext}.log"
+ERROR_FILE="$OUTDIR/${base_name_noext}.err"
+TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"
@@ -117,6 +117,11 @@ echo "[coble-recreate] Input file: $INPUT_FILE"
 if [[ -n "$NEW_ENV" ]]; then
     echo "[coble-recreate] New environment override: $NEW_ENV"
 fi
+
+# Start the summary log
+echo "------------------------------------------------" >> "$TIME_FILE"
+echo "[coble-recreate] Summary log started at $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
+echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type
 case "$INPUT_FILE" in
@@ -236,6 +241,9 @@ fi
 
 
 echo "[coble-recreate] Finished at $(date '+%Y-%m-%d %H:%M:%S')"
+echo "------------------------------------------------" >> "$TIME_FILE"
+echo "[coble-recreate] Finished at $(date '+%Y-%m-%d %H:%M:%S') " >> "$TIME_FILE"
+echo "------------------------------------------------" >> "$TIME_FILE"
 
 
 

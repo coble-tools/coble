@@ -74,10 +74,11 @@ fi
 # Set RECIPE_FILE if not provided, and prepend OUTDIR
 mkdir -p "$OUTDIR"
 if [[ -z "$RECIPE_FILE" ]]; then
-    base_name="${YAML_FILE##*/}"
-    base_name_noext="${base_name%.*}"
-    RECIPE_FILE="${base_name_noext}-recipe.sh"
-    RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
+    #base_name="${YAML_FILE##*/}"
+    #base_name_noext="${base_name%.*}"
+    #RECIPE_FILE="${base_name_noext}-recipe.sh"
+    #RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
+    RECIPE_FILE="$YAML_FILE".recipe.sh
 fi
 : > "$RECIPE_FILE"
 
@@ -98,7 +99,7 @@ fi
 UPDATE_CONDA="--no-update-deps"
 DEPS_CONDA=""
 DEPS_PYTHON=""
-DEPS_R="FALSE"
+DEPS_R="TRUE"
 
 
 # output is a recipe file for conda env create (always in current directory)
@@ -152,6 +153,8 @@ echo "[coble-recipise] Clearing default channels."
 echo "# Channels section" >> "$RECIPE_FILE"
 echo "conda config --remove-key channels" >> "$RECIPE_FILE"
 
+################# WE PASS THROUGH A FEW TIMES FOR DIFFERENT REASONS #################
+### 01 CHANNEL CHecking ###
 CURRENT_SECTION=""
 while IFS= read -r line; do
     # Trim leading/trailing whitespace
@@ -167,6 +170,8 @@ while IFS= read -r line; do
         echo "conda config --add channels $channel_name" >> "$RECIPE_FILE"
     fi
 done < "$YAML_FILE"
+
+### 02 MAIN TRANSLATION ###
 echo "" >> "$RECIPE_FILE"
 echo "# INSTALL SECTION FOR CONDA" >> "$RECIPE_FILE"
 CURRENT_SECTION=""
@@ -181,13 +186,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "conda:" \
         || "$line" == "r-package:" \
         || "$line" == "r-github:" \
+        || "$line" == "r-url:" \
         || "$line" == "package-r:" \
         || "$line" == "pip:" \
         || "$line" == "bash:" \
         || "$line" == "find:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
-        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"    
+        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"            
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
         echo "[conda-recipise] Processing entry: $pkg_entry"
@@ -201,36 +207,41 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 else
+                    if [[ "$src" != "conda-forge" ]]; then
+                      src="conda-forge -c $src"
+                    fi
                     echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 fi                
             elif [[ "$pkg_name" == "python" ]]; then                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"                
                 else
+                    if [[ "$src" != "conda-forge" ]]; then
+                      src="conda-forge -c $src"
+                    fi
                     echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 fi                
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:"  ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
+            elif [[ "$src" != "conda-forge" ]]; then
+                src="conda-forge -c $src"
             fi
             echo "conda install -y -c $src 'r-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "conda-bioc:"  ]]; then                        
+            echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
         elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
+            elif [[ "$src" != "conda-forge" ]]; then
+                src="conda-forge -c $src"
             fi
             echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
-            if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                # Use CRAN archive tarball URL for versioned CRAN packages
-                if [[ "$pkg_name" == "base" ]]; then
-                    #https://cran.r-project.org/src/base/R-3/R-3.6.0.tar.gz                
-                    int_v=3
-                    echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/base/R-${int_v}/R-${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
-                else
-                    echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/${pkg_name}/${pkg_name}_${ver}.tar.gz\", repos = NULL, type = \"source\")'" >> "$RECIPE_FILE"
-                fi
+            if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then                
+                echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'"                
             elif [[ "$src" == "R-FORGE"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
             else
@@ -238,6 +249,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         elif [[ "$CURRENT_SECTION" == "r-github:" ]]; then            
             echo "Rscript -e 'devtools::install_github(\"$path\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
+            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then            
             echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
@@ -271,7 +284,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including build tools for source installations" >> "$RECIPE_FILE"
                 # Install compiler toolchain for R                                
-                echo "conda install -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make -y" >>  "$RECIPE_FILE"
+                echo "conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make r-remotes" >>  "$RECIPE_FILE"
+                echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite" >> "$RECIPE_FILE"
                 # Common tool chain for compilation            
                 echo "conda install -y -c conda-forge make pkg-config" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"

@@ -41,9 +41,16 @@ if [[ "$1" == "recreate" || "$1" == "create" ]]; then
 fi
 
 # If the first argument is 'recipise', call coble-recipise.sh and exit
-if [[ "$1" == "recipise" ]]; then
+if [[ "$1" == "recipise" || "$1" == "recipe" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-recipise.sh" "${@:2}"
+	exit $?
+fi
+
+# If the first argument is 'resolve' or find, call coble-resolve.sh and exit
+if [[ "$1" == "resolve" || "$1" == "find" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-resolve.sh" "${@:2}"
 	exit $?
 fi
 

@@ -50,27 +50,28 @@ check_and_print() {
     else
         echo "  $pkg_orig" >&2
     fi
+    yaml_line="  - $pkg_orig"
 
     case $source in
         "Conda (bioconda)")
-            recipe_line="conda install -y -c $channel '$name_ver'"
+            recipe_line="conda install -y -c conda-forge -c $channel '$name_ver' --no-update-deps"
             manager="conda-bioc:"
             ;;
         "Conda (conda-forge)")
-            recipe_line="conda install -y -c $channel '$name_ver'"
+            recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             manager="conda:"
             ;;
         "Conda (r)")
-            recipe_line="conda install -y -c $channel '$name_ver'"
+            recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             manager="conda-r:"
             ;;
         "CRAN")
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=\"https://cran.r-project.org\", dependencies=TRUE)'"
-            manager="cran:"
+            manager="r-package:"
             ;;
         "CRAN (archive)")
-            recipe_line="Rscript -e 'devtools::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\", dependencies=TRUE)'"
-            manager="cran:"
+            recipe_line="Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\", dependencies=TRUE)'"
+            manager="r-package:"
             ;;
         Bioconductor*)
             if [[ -n "$pkg_ver" ]]; then
@@ -85,9 +86,14 @@ check_and_print() {
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\",\"http://cran.r-project.org\"), dependencies=TRUE)'"
             manager="rforge:"
             ;;
+        "r-url")
+            recipe_line="Rscript -e 'remotes::install_url(\"$channel\", dependencies=TRUE)'"
+            manager="r-url:"
+            yaml_line="  - $channel"
+            ;;
     esac
 
-    yaml_line="  - $pkg_name"
+    
     [[ -n "$pkg_ver" ]] && yaml_line+="=$pkg_ver"
 
     if [[ $all == false ]]; then
@@ -97,8 +103,9 @@ check_and_print() {
         exit 0
     fi
 }
-
-
+###################################################################
+### SEARCHING conda ######################
+###################################################################
 # Build variants and map
 variants=("$pkg")
 VARIANT_MANAGERS["$pkg"]="Conda (conda-forge)"
@@ -136,6 +143,10 @@ for variant in "${variants[@]}"; do
         done
     fi
 done
+
+###################################################################
+### SEARCHING r cran ######################
+###################################################################
 
 echo "[coble-find] Checking CRAN" >&2
 cran_line=$(curl -s https://cran.r-project.org/src/contrib/PACKAGES | \
@@ -175,6 +186,10 @@ for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pk
     fi
   fi
 done
+
+###################################################################
+### SEARCHING bioconductor ######################
+###################################################################
 
 echo "[coble-find] Checking Bioconductor" >&2
 declare -A bioc_variants=(
@@ -229,12 +244,40 @@ for rel in "${archive_releases[@]}"; do
   fi
 done
 
+###################################################################
+### SEARCHING r-forge ######################
+###################################################################
 echo "[coble-find] Checking r-forge" >&2
 rforge=$(curl -s "https://r-forge.r-project.org/R/?group_id=0" | grep -i "$pkg")
 if [[ -n "$rforge" ]]; then
     check_and_print "R-Forge" "$pkg" "" "$pkg" "$ver" "$channel"
 fi
 
+###################################################################
+### SEARCHING github ######################
+###################################################################
+echo "[coble-find] Checking github" >&2
+search_github_repo() {
+  local q="$1"
+  local url="https://api.github.com/search/repositories?q=${q}"
+  echo "[coble-find] Searching url $url" >&2
+
+  # Collect all repo URLs that match
+  local results
+  results=$(curl -s "$url" \
+    | grep -o '"html_url": *"https://github.com/[^"]\+/[^"]\+"' \
+    | cut -d'"' -f4 \
+    | grep -E "/${q}$|/${q}/" \
+    | paste -sd "," -)
+
+  # Return concatenated string or empty
+  if [[ -n "$results" ]]; then
+     check_and_print "r-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"  
+  fi
+}
+search_github_repo $pkg
+
+###############################################################
 echo "not found" >&2
 
 # If we reach here without exiting, still emit the three stdout lines (empty)
