@@ -1,0 +1,25 @@
+
+Navigate somewhere sensible
+
+Rachel's: git clone https://oauth2:glpat-HiiKpi_nfoPv1rPscyZq@git.icr.ac.uk/sc-rse/group/collaborations/bcrbioin/coble.git
+Syed's: git clone https://oauth2:glpat-e7cEyx7RyzQ8xqwfF8Sw@git.icr.ac.uk/sc-rse/group/collaborations/bcrbioin/coble.git
+
+cd coble
+
+Change email address in code/coble.sh
+
+Run the test that errors to correct and get email
+sbatch --mail-user $USER code/coble-slurm.sh --results results/tst --input config/tst.sh --env ./envs/tst
+correct error
+Run again
+Look at output, envs and results and logs
+
+Now kick off real thing
+sbatch code/coble-slurm.sh --results results/r-452 --input config/r-452.sh --env ./envs/r-452
+
+
+
+
+
+
+

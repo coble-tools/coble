@@ -1,0 +1,349 @@
+
+[coble-recreate] Start time: 2025-12-18 12:11:18 10/47
+source "$(conda info --base)/etc/profile.d/conda.sh"
+[coble-recreate] End time: 2025-12-18 12:11:19
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:11:19
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:11:19 11/47
+source ~/.bashrc
+[coble-recreate] End time: 2025-12-18 12:11:19
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-18 12:11:19
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-18 12:11:19 15/47
+conda create --name scomatic -y
+[coble-recreate] End time: 2025-12-18 12:11:58
+[coble-recreate] Duration: 37s
+[coble-recreate] End time: 2025-12-18 12:11:58
+[coble-recreate] Duration: 37s
+
+[coble-recreate] Start time: 2025-12-18 12:11:58 16/47
+conda activate scomatic
+[coble-recreate] End time: 2025-12-18 12:11:58
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-18 12:11:58
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-18 12:11:58 19/47
+conda config --remove-key channels
+[coble-recreate] End time: 2025-12-18 12:11:59
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:11:59
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:11:59 20/47
+conda config --add channels conda-forge
+[coble-recreate] End time: 2025-12-18 12:12:00
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:12:00
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:12:00 21/47
+conda config --add channels bioconda
+[coble-recreate] End time: 2025-12-18 12:12:01
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:12:01
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:12:01 22/47
+conda config --add channels r
+[coble-recreate] End time: 2025-12-18 12:12:02
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:12:02
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:12:02 23/47
+conda config --add channels defaults
+[coble-recreate] End time: 2025-12-18 12:12:03
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:12:03
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:12:03 26/47
+conda install -y -c r 'r-base=3.6.1'
+      _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main 
+      _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu 
+      _r-mutex           r/linux-64::_r-mutex-1.0.0-anacondar_1 
+      binutils_impl_lin~ pkgs/main/linux-64::binutils_impl_linux-64-2.44-h4b9a079_2 
+      binutils_linux-64  pkgs/main/linux-64::binutils_linux-64-2.44-hc03a8fd_2 
+      bwidget            pkgs/main/linux-64::bwidget-1.10.1-h9eba36c_0 
+      bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6 
+      ca-certificates    pkgs/main/linux-64::ca-certificates-2025.12.2-h06a4308_0 
+      cairo              pkgs/main/linux-64::cairo-1.18.4-h44eff21_0 
+      curl               pkgs/main/linux-64::curl-7.69.1-hbc83047_0 
+      expat              pkgs/main/linux-64::expat-2.7.3-h7354ed3_4 
+      fontconfig         pkgs/main/linux-64::fontconfig-2.14.1-h52c9d5c_1 
+      freetype           pkgs/main/linux-64::freetype-2.13.3-h4a9f257_0 
+      fribidi            pkgs/main/linux-64::fribidi-1.0.10-h7b6447c_0 
+      gcc_impl_linux-64  pkgs/main/linux-64::gcc_impl_linux-64-15.2.0-h36674fd_7 
+      gcc_linux-64       pkgs/main/linux-64::gcc_linux-64-15.2.0-h1ca4c6b_12 
+      gfortran_impl_lin~ pkgs/main/linux-64::gfortran_impl_linux-64-15.2.0-h9a99ed0_7 
+      gfortran_linux-64  pkgs/main/linux-64::gfortran_linux-64-15.2.0-h8bab554_12 
+      glib               pkgs/main/linux-64::glib-2.84.4-h5bdd934_0 
+      glib-tools         pkgs/main/linux-64::glib-tools-2.84.4-h8875d55_0 
+      graphite2          pkgs/main/linux-64::graphite2-1.3.14-h295c915_1 
+      gsl                pkgs/main/linux-64::gsl-2.4-h14c3975_4 
+      gxx_impl_linux-64  pkgs/main/linux-64::gxx_impl_linux-64-15.2.0-h6e002af_7 
+      gxx_linux-64       pkgs/main/linux-64::gxx_linux-64-15.2.0-h94d4220_12 
+      harfbuzz           pkgs/main/linux-64::harfbuzz-4.3.0-hf52aaf7_1 
+      icu                pkgs/main/linux-64::icu-58.2-he6710b0_3 
+      jpeg               pkgs/main/linux-64::jpeg-9f-h5ce9db8_0 
+      kernel-headers_li~ pkgs/main/noarch::kernel-headers_linux-64-4.18.0-h3108a97_1 
+      krb5               pkgs/main/linux-64::krb5-1.17.1-h173b8e3_0 
+      ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h153f514_2 
+      lerc               pkgs/main/linux-64::lerc-4.0.0-h6a678d5_0 
+      libcurl            pkgs/main/linux-64::libcurl-7.69.1-h20c2e04_0 
+      libdeflate         pkgs/main/linux-64::libdeflate-1.22-h5eee18b_0 
+      libedit            pkgs/main/linux-64::libedit-3.1.20230828-h5eee18b_0 
+      libexpat           pkgs/main/linux-64::libexpat-2.7.3-h7354ed3_4 
+      libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_1 
+      libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_7 
+      libgcc-devel_linu~ pkgs/main/noarch::libgcc-devel_linux-64-15.2.0-hcb64138_107 
+      libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_7 
+      libgfortran-ng     pkgs/main/linux-64::libgfortran-ng-7.5.0-ha8ba4b0_17 
+      libgfortran4       pkgs/main/linux-64::libgfortran4-7.5.0-ha8ba4b0_17 
+      libgfortran5       pkgs/main/linux-64::libgfortran5-15.2.0-hc633d37_7 
+      libglib            pkgs/main/linux-64::libglib-2.84.4-h77a78f3_0 
+      libgomp            pkgs/main/linux-64::libgomp-15.2.0-h4751f2c_7 
+      libiconv           pkgs/main/linux-64::libiconv-1.16-h5eee18b_3 
+      libpng             pkgs/main/linux-64::libpng-1.6.50-h2ed474d_0 
+      libsanitizer       pkgs/main/linux-64::libsanitizer-15.2.0-h56912e6_7 
+      libssh2            pkgs/main/linux-64::libssh2-1.10.0-h37d81fd_2 
+      libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_7 
+      libstdcxx-devel_l~ pkgs/main/noarch::libstdcxx-devel_linux-64-15.2.0-hcb64138_107 
+      libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-15.2.0-hc03a8fd_7 
+      libtiff            pkgs/main/linux-64::libtiff-4.7.1-h029b1ac_0 
+      libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0 
+      libwebp-base       pkgs/main/linux-64::libwebp-base-1.6.0-hb7bb969_0 
+      libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0 
+      libxml2            pkgs/main/linux-64::libxml2-2.9.14-h74e7548_0 
+      lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1 
+      make               pkgs/main/linux-64::make-4.2.1-h1bed415_1 
+      ncurses            pkgs/main/linux-64::ncurses-6.5-h7934f7d_0 
+      openssl            pkgs/main/linux-64::openssl-1.1.1w-h7f8727e_0 
+      pango              pkgs/main/linux-64::pango-1.50.7-h05da053_0 
+      pcre               pkgs/main/linux-64::pcre-8.45-h295c915_0 
+      pcre2              pkgs/main/linux-64::pcre2-10.46-hf426167_0 
+      pip                pkgs/main/noarch::pip-25.3-pyhc872135_0 
+      pixman             pkgs/main/linux-64::pixman-0.46.4-h7934f7d_0 
+      pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1 
+      python             pkgs/main/linux-64::python-3.11.5-h7a1cb2a_0 
+      r-base             r/linux-64::r-base-3.6.1-haffb61f_2 
+      readline           pkgs/main/linux-64::readline-8.3-hc2a1206_0 
+      setuptools         pkgs/main/linux-64::setuptools-80.9.0-py311h06a4308_0 
+      sqlite             pkgs/main/linux-64::sqlite-3.51.0-h2a70700_0 
+      sysroot_linux-64   pkgs/main/noarch::sysroot_linux-64-2.28-h3108a97_1 
+      tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0 
+      tktable            pkgs/main/linux-64::tktable-2.10-hfce700a_2 
+      tzdata             pkgs/main/noarch::tzdata-2025b-h04d1e81_0 
+      wheel              pkgs/main/linux-64::wheel-0.45.1-py311h06a4308_0 
+      xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1 
+      xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0 
+      xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0 
+      xorg-libxext       pkgs/main/linux-64::xorg-libxext-1.3.6-h9b100fa_0 
+      xorg-libxrender    pkgs/main/linux-64::xorg-libxrender-0.9.12-h9b100fa_0 
+      xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1 
+      xz                 pkgs/main/linux-64::xz-5.6.4-h5eee18b_1 
+      zlib               pkgs/main/linux-64::zlib-1.2.13-hd233ad5_2 
+      zstd               pkgs/main/linux-64::zstd-1.5.6-hc292b87_0 
+[coble-recreate] End time: 2025-12-18 12:12:26
+[coble-recreate] Duration: 21s
+[coble-recreate] End time: 2025-12-18 12:12:26
+[coble-recreate] Duration: 21s
+
+[coble-recreate] Start time: 2025-12-18 12:12:26 27/47
+conda install -y 'python=3.7'
+      certifi            pkgs/main/linux-64::certifi-2022.12.7-py37h06a4308_0 
+      pip                pkgs/main/noarch::pip-25.3-pyhc872135~ --> pkgs/main/linux-64::pip-22.3.1-py37h06a4308_0 
+      pip                pkgs/main/noarch::pip-25.3-pyhc872135~ --> pkgs/main/linux-64::pip-22.3.1-py37h06a4308_0 
+[coble-recreate] End time: 2025-12-18 12:12:41
+[coble-recreate] Duration: 14s
+[coble-recreate] End time: 2025-12-18 12:12:41
+[coble-recreate] Duration: 14s
+
+[coble-recreate] Start time: 2025-12-18 12:12:41 30/47
+conda install -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make -y
+      certifi            pkgs/main/linux-64::certifi-2022.12.7~ --> conda-forge/noarch::certifi-2024.8.30-pyhd8ed1ab_0 
+      certifi            pkgs/main/linux-64::certifi-2022.12.7~ --> conda-forge/noarch::certifi-2024.8.30-pyhd8ed1ab_0 
+[coble-recreate] End time: 2025-12-18 12:12:53
+[coble-recreate] Duration: 12s
+[coble-recreate] End time: 2025-12-18 12:12:53
+[coble-recreate] Duration: 12s
+
+[coble-recreate] Start time: 2025-12-18 12:12:53 31/47
+conda install -y -c conda-forge make pkg-config
+      pkg-config         conda-forge/linux-64::pkg-config-0.29.2-h4bc722e_1009 
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 13s
+
+[coble-recreate] Start time: 2025-12-18 12:13:06 32/47
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-18 12:13:06 33/47
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-18 12:13:06 34/47
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-18 12:13:06
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-18 12:13:06 36/47
+conda install -y -c bioconda 'pysam=0.16.0.1' --no-update-deps
+    # ERROR: Found 'LibMambaUnsatisfiableError' in stderr: LibMambaUnsatisfiableError: Encountered problems while solving:
+[coble-errors] Errors were found during recreation. Please review the recipe file: tests/output/scomatic/scomatic-captured-summary.txt
+[coble-recreate] End time: 2025-12-18 12:13:19
+[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-18 12:13:19
+[coble-recreate] Duration: 13s
+
+[coble-recreate] Start time: 2025-12-18 12:13:19 37/47
+conda install -y -c conda-forge 'samtools' --no-update-deps
+      samtools           bioconda/linux-64::samtools-1.5-1 
+[coble-recreate] End time: 2025-12-18 12:13:32
+[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-18 12:13:32
+[coble-recreate] Duration: 13s
+
+[coble-recreate] Start time: 2025-12-18 12:13:32 38/47
+conda install -y -c conda-forge 'datamash' --no-update-deps
+      datamash           conda-forge/linux-64::datamash-1.9-hb9d3cd8_0 
+[coble-recreate] End time: 2025-12-18 12:13:44
+[coble-recreate] Duration: 11s
+[coble-recreate] End time: 2025-12-18 12:13:44
+[coble-recreate] Duration: 11s
+
+[coble-recreate] Start time: 2025-12-18 12:13:44 39/47
+conda install -y -c conda-forge 'bedtools' --no-update-deps
+      bedtools           bioconda/linux-64::bedtools-2.27.1-h9a82719_5 
+[coble-recreate] End time: 2025-12-18 12:13:56
+[coble-recreate] Duration: 11s
+[coble-recreate] End time: 2025-12-18 12:13:56
+[coble-recreate] Duration: 11s
+
+[coble-recreate] Start time: 2025-12-18 12:13:56 40/47
+conda install -y -c conda-forge 'about-time=3.1.1' --no-update-deps
+      about-time         conda-forge/noarch::about-time-3.1.1-pyhd8ed1ab_0 
+[coble-recreate] End time: 2025-12-18 12:14:11
+[coble-recreate] Duration: 15s
+[coble-recreate] End time: 2025-12-18 12:14:11
+[coble-recreate] Duration: 15s
+
+[coble-recreate] Start time: 2025-12-18 12:14:11 41/47
+conda install -y -c conda-forge 'numpy=1.21.6' --no-update-deps
+      libblas            conda-forge/linux-64::libblas-3.9.0-28_h59b9bed_openblas 
+      libcblas           conda-forge/linux-64::libcblas-3.9.0-28_he106b2a_openblas 
+      liblapack          conda-forge/linux-64::liblapack-3.9.0-28_h7ac8fdf_openblas 
+      libopenblas        conda-forge/linux-64::libopenblas-0.3.28-pthreads_h94d23a6_0 
+      numpy              conda-forge/linux-64::numpy-1.21.6-py37h976b520_0 
+      python_abi         conda-forge/linux-64::python_abi-3.7-2_cp37m 
+[coble-recreate] End time: 2025-12-18 12:14:25
+[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-18 12:14:25
+[coble-recreate] Duration: 13s
+
+[coble-recreate] Start time: 2025-12-18 12:14:25 42/47
+conda install -y -c conda-forge 'pandas=1.3.5' --no-update-deps
+      pandas             conda-forge/linux-64::pandas-1.3.5-py37he8f5f7f_0 
+      python-dateutil    conda-forge/noarch::python-dateutil-2.9.0-pyhd8ed1ab_0 
+      pytz               conda-forge/noarch::pytz-2024.2-pyhd8ed1ab_0 
+      six                conda-forge/noarch::six-1.16.0-pyh6c4a22f_0 
+[coble-recreate] End time: 2025-12-18 12:14:48
+[coble-recreate] Duration: 22s
+[coble-recreate] End time: 2025-12-18 12:14:48
+[coble-recreate] Duration: 22s
+
+[coble-recreate] Start time: 2025-12-18 12:14:48 43/47
+conda install -y -c bioconda 'pybedtools=0.8.1' --no-update-deps
+      bcftools           bioconda/linux-64::bcftools-1.3.1-h5bf99c6_7 
+      htslib             bioconda/linux-64::htslib-1.3.1-hcad73aa_2 
+      pybedtools         bioconda/linux-64::pybedtools-0.8.1-py37h8270d21_2 
+      pysam              bioconda/linux-64::pysam-0.9.1-py37h9a72128_8 
+[coble-recreate] End time: 2025-12-18 12:15:04
+[coble-recreate] Duration: 16s
+[coble-recreate] End time: 2025-12-18 12:15:04
+[coble-recreate] Duration: 16s
+
+[coble-recreate] Start time: 2025-12-18 12:15:04 44/47
+conda install -y -c conda-forge 'rpy2=2.9.4' --no-update-deps
+      backports          conda-forge/noarch::backports-1.0-pyhd8ed1ab_4 
+      backports.zoneinfo conda-forge/linux-64::backports.zoneinfo-0.2.1-py37h540881e_5 
+      jinja2             conda-forge/noarch::jinja2-3.1.4-pyhd8ed1ab_0 
+      markupsafe         conda-forge/linux-64::markupsafe-2.1.1-py37h540881e_1 
+      python-tzdata      conda-forge/noarch::python-tzdata-2024.2-pyhd8ed1ab_0 
+      pytz-deprecation-~ conda-forge/linux-64::pytz-deprecation-shim-0.1.0.post0-py37h89c1867_2 
+      r-assertthat       conda-forge/noarch::r-assertthat-0.2.1-r36h6115d3f_2 
+      r-bit              conda-forge/linux-64::r-bit-4.0.4-r36hcfec24a_0 
+      r-bit64            conda-forge/linux-64::r-bit64-4.0.5-r36hcfec24a_0 
+      r-blob             conda-forge/noarch::r-blob-1.2.1-r36h6115d3f_1 
+      r-cachem           conda-forge/linux-64::r-cachem-1.0.5-r36hcfec24a_0 
+      r-cli              conda-forge/noarch::r-cli-2.5.0-r36hc72bb7e_0 
+      r-crayon           conda-forge/noarch::r-crayon-1.4.1-r36hc72bb7e_0 
+      r-dbi              conda-forge/noarch::r-dbi-1.1.1-r36hc72bb7e_0 
+      r-dbplyr           conda-forge/noarch::r-dbplyr-2.1.1-r36hc72bb7e_0 
+      r-dplyr            conda-forge/linux-64::r-dplyr-1.0.6-r36h03ef668_1 
+      r-ellipsis         conda-forge/linux-64::r-ellipsis-0.3.2-r36hcfec24a_0 
+      r-fansi            conda-forge/linux-64::r-fansi-0.4.2-r36hcfec24a_0 
+      r-fastmap          conda-forge/linux-64::r-fastmap-1.1.0-r36h03ef668_0 
+      r-generics         conda-forge/noarch::r-generics-0.1.0-r36hc72bb7e_0 
+      r-glue             conda-forge/linux-64::r-glue-1.4.2-r36hcfec24a_0 
+      r-lifecycle        conda-forge/noarch::r-lifecycle-1.0.0-r36hc72bb7e_0 
+      r-magrittr         conda-forge/linux-64::r-magrittr-2.0.1-r36hcfec24a_1 
+      r-memoise          conda-forge/noarch::r-memoise-2.0.0-r36hc72bb7e_0 
+      r-pillar           conda-forge/noarch::r-pillar-1.6.1-r36hc72bb7e_0 
+      r-pkgconfig        conda-forge/noarch::r-pkgconfig-2.0.3-r36h6115d3f_1 
+      r-plogr            conda-forge/noarch::r-plogr-0.2.0-r36h6115d3f_1003 
+      r-purrr            conda-forge/linux-64::r-purrr-0.3.4-r36hcfec24a_1 
+      r-r6               conda-forge/noarch::r-r6-2.5.0-r36hc72bb7e_0 
+      r-rcpp             conda-forge/linux-64::r-rcpp-1.0.6-r36h03ef668_0 
+      r-rlang            conda-forge/linux-64::r-rlang-0.4.11-r36hcfec24a_0 
+      r-rsqlite          conda-forge/linux-64::r-rsqlite-2.2.5-r36h03ef668_0 
+      r-tibble           conda-forge/linux-64::r-tibble-3.1.2-r36hcfec24a_0 
+      r-tidyselect       conda-forge/linux-64::r-tidyselect-1.1.1-r36hc72bb7e_0 
+      r-utf8             conda-forge/linux-64::r-utf8-1.2.1-r36hcfec24a_0 
+      r-vctrs            conda-forge/linux-64::r-vctrs-0.3.8-r36hcfec24a_1 
+      r-withr            conda-forge/noarch::r-withr-2.4.2-r36hc72bb7e_0 
+      rpy2               conda-forge/linux-64::rpy2-2.9.4-py37r36hd767a1f_3 
+      simplegeneric      conda-forge/noarch::simplegeneric-0.8.1-py_1 
+      tzlocal            conda-forge/linux-64::tzlocal-4.2-py37h89c1867_1 
+[coble-recreate] End time: 2025-12-18 12:15:30
+[coble-recreate] Duration: 20s
+[coble-recreate] End time: 2025-12-18 12:15:30
+[coble-recreate] Duration: 20s
+
+[coble-recreate] Start time: 2025-12-18 12:15:30 45/47
+conda install -y -c conda-forge 'scipy=1.7.3' --no-update-deps
+      scipy              conda-forge/linux-64::scipy-1.7.3-py37hf2a6cf1_0 
+[coble-recreate] End time: 2025-12-18 12:15:57
+[coble-recreate] Duration: 26s
+[coble-recreate] End time: 2025-12-18 12:15:57
+[coble-recreate] Duration: 26s
+
+[coble-recreate] Start time: 2025-12-18 12:15:57 46/47
+python -m pip install 'numpy-groupies=0.9.14'
+[coble-recreate] End time: 2025-12-18 12:15:58
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-18 12:15:58
+[coble-recreate] Duration: 1s
+
+[coble-recreate] Start time: 2025-12-18 12:15:58 47/47
+conda install -y -c conda-forge 'r-VGAM' --no-update-deps
+      r-vgam             conda-forge/linux-64::r-vgam-1.1_5-r36h859d828_0 
+[coble-recreate] End time: 2025-12-18 12:16:14
+[coble-recreate] Duration: 15s
+[coble-recreate] End time: 2025-12-18 12:16:14
+[coble-recreate] Duration: 15s

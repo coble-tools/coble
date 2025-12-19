@@ -1,0 +1,17 @@
+coble:
+
+  - environment: tst2
+
+channels:
+  - conda-forge
+  - bioconda
+
+languages:
+  - r-base=4.5.2
+  - python=3.14.0
+
+flags:
+  - dependencies: False
+
+pip:
+  - requests

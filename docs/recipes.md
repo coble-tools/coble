@@ -55,7 +55,7 @@ If you want the script to continue running even when some commands fail, you can
 **Example usage:**
 
 ```bash
-sbatch code/coble-recipe-slurm.sh --results results/myrun --input config/myrecipe.sh --env ./envs/myenv --skip-errors
+sbatch code/coble-slurm.sh --results results/myrun --input config/myrecipe.sh --env ./envs/myenv --skip-errors
 ```
 
 Choose the mode that best fits your workflow: strict fail-fast for reproducibility and debugging, or skip-errors for exploratory or batch builds.
@@ -71,7 +71,7 @@ When you pass `--override-envs`, COBLE will use local a package dir for r and co
 **Example usage:**
 
 ```bash
-sbatch code/coble-recipe-slurm.sh --results results/myrun --input config/myrecipe.sh --env ./envs/myenv --override-envs
+sbatch code/coble-slurm.sh --results results/myrun --input config/myrecipe.sh --env ./envs/myenv --override-envs
 ```
 
 If you do not specify this flag, COBLE will use the defaults. The .condarc settings are saved in the results folder.

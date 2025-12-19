@@ -1,3 +1,28 @@
+15/12/25
+Keep logs needs to be a param that defaults to no
+Need to parse out logs
+Need to create a set og configs from publictions ot web, sylver, nanostring cosmx, random one: https://github.com/MICS-Lab/novae  
+Need to make it a provate conda package
+change script to do conda activate and have the name in it explicitly as it is an output of the build.
+recipe is wrong name file 
+needs to be put in a specific folder
+versions don; work for r
+sylver get that working, the file paths not quiote  make removal of all interim files the deauly (recipe and capture only)
+
+
+14/12/25
+-[x] Flags implement for upgrades and deps
+-[ ] env name hiearchy of inputs established
+-[x] Split into capture, recipise and recreate scripts
+-[ ] Ensure r, bioc, pip and conda work as well as pip giuthub and r githum and r url
+-[ ] Make a test that does those things
+-[ ] Add to conda as a private package
+-[x] remove duplicates
+-[ ] Put back the error parsing and logging and the ability to exit.
+-[ ] I have completely lost the function to resume from where last left off.
+-[ ] Struggling to get rid of the TOCs
+
+
 05/12/25
 -[ ] make it recognise either ENV_NAME or ENVS_DIR for prefix, or make it more explicirly ENV_NAME or PREFIX
 -[x] genericbase docker image!!!

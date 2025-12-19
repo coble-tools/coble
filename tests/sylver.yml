@@ -1,0 +1,56 @@
+# https://www.nature.com/articles/s41588-025-02108-2#code-availability
+coble:
+  - environment: sylver
+
+channels:
+  - conda-forge
+  - r
+  - bioconda
+  - defaults
+
+languages:
+- r-base=3.6.0@r
+
+flags:
+  - dependencies: True
+  - build-tools: true
+
+conda-r:
+  - BiocManager
+
+bash:
+  - Rscript -e 'BiocManager::install(version = "3.10")'
+
+conda-bioc:
+  - fgsea=1.12.0
+
+find:
+  - ashr
+  - ranger
+  - readr
+  - tidyverse
+  - useful
+  - WGCNA
+
+r-url:
+  #- cdsrmodels=0.1.0
+  - https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
+
+find:  
+  # https://academic.oup.com/nar/article/33/20/e175/1082585?login=true#19599326
+  #- hsentrezgcdf=18  
+  - hsentrezgcdf  
+  - cdsr_models
+  - limma=3.42.2
+  - effsize=0.8.1
+  - magrittr=2.0.1
+  - tidyverse=1.3.1  
+  #- ggplots=2_3.3.5
+  - ggplot2=3.3.5
+  - ggrepel=0.9.1
+  - org.Hs.eg.db=3.10.0
+  - VennDiagram=1.6.20
+  - survival=3.2-11
+  - affy=1.64.0
+  - GSVA=1.34.0
+
