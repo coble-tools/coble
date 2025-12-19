@@ -39,7 +39,7 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     exit 1    
 fi
 
-YAML_RESOLVED="$YAML_FILE".resolved.yml
+YAML_RESOLVED="$YAML_FILE".found.yml
 
 # Now show all the inputs
 echo "[coble-refind] Using inputs:"
