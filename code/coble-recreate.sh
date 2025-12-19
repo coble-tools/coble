@@ -153,6 +153,7 @@ conda deactivate
 echo "[coble-recreate] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")
 current_line=0
+buffer=""
 while IFS= read -r line || [[ -n "$line" ]]; do    
     # Copy the last log file to LOG_FILE_date and start a new one
     # but only if it has more than 10 lines
@@ -175,6 +176,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ -z "$line" || "$line" == \#* ]]; then
         continue
     fi
+
+    # If line ends with backslash, strip it and keep accumulating 
+    if [[ $line == *\\ ]]; then 
+      buffer+="${line%\\} " 
+      continue 
+    else 
+      buffer+="$line" 
+    fi
+
     echo "[coble-recreate] Running $current_line/$total_lines:"    
     echo "[coble-recreate] System info"
     echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
@@ -189,13 +199,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         echo "No memory info command found"
     fi
     echo "#####################################################"
-    echo "$line"    
+    echo "$buffer"    
     # export to the TIME_FILE the start time
     START_TIME=$(date +%s)
     echo "" >> "$TIME_FILE"
     echo "[coble-recreate] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
-    echo $line >> "$TIME_FILE"    
-    eval "$line"
+    echo $buffer >> "$TIME_FILE"    
+    eval "$buffer"
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
     # Now run the error checking on the log and err files
@@ -216,9 +226,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
-        echo "[coble-recreate] Error: Command failed: $line" >&2
+        echo "[coble-recreate] Error: Command failed: $buffer" >&2
         exit 3
     fi
+    # Reset buffer for the next command 
+    buffer=""
 done < "$RECIPE_FILE"
 
 echo "[coble-recreate] Recreate process completed."

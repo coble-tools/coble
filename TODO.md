@@ -1,3 +1,23 @@
+19/12/25
+Meeting with Syed
+He wants it to be the simplest thing possible for a user.
+They make a yaml file i the way we suggest.
+If they don;t know they use find at the bottom.
+For everything if it is wrong it stops and tells them it is wrong straight away so they are forced to fix the yaml before anythong else.
+Simplest case and also make the inputs simple
+manager:
+  - pkg=version@source
+
+manager as in conda or r-package
+source as in a channel or a url or a local path
+
+Use case is that you can't expect to be able to do everythong but can tell the user what they need to do.
+
+2 r versions won;t work for example.
+
+
+
+######################
 15/12/25
 Keep logs needs to be a param that defaults to no
 Need to parse out logs

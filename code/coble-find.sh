@@ -50,12 +50,14 @@ check_and_print() {
     else
         echo "  $pkg_orig" >&2
     fi
-    yaml_line="  - $pkg_orig"
+    #yaml_line="  - $pkg_orig"
+    yaml_line="  - $pkg_name"
 
     case $source in
         "Conda (bioconda)")
             recipe_line="conda install -y -c conda-forge -c $channel '$name_ver' --no-update-deps"
-            manager="conda-bioc:"
+            #manager="conda-bioc:"
+            manager="conda:"
             ;;
         "Conda (conda-forge)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
@@ -63,7 +65,8 @@ check_and_print() {
             ;;
         "Conda (r)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
-            manager="conda-r:"
+            #manager="conda-r:"
+            manager="conda:"
             ;;
         "CRAN")
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=\"https://cran.r-project.org\", dependencies=TRUE)'"
@@ -95,6 +98,7 @@ check_and_print() {
 
     
     [[ -n "$pkg_ver" ]] && yaml_line+="=$pkg_ver"
+    [[ -n "$channel" ]] && yaml_line+="@$channel"
 
     if [[ $all == false ]]; then
         echo "$manager"

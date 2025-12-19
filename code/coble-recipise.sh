@@ -193,7 +193,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "find:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
-        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"            
+        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"  
+        # remove a trailing \ if needed
+        sed -i '${s/\\$//}' "$RECIPE_FILE"
+
+        if [[ "$line" != "channels:" ]]; then
+          echo "" >> "$RECIPE_FILE"
+          echo "# $line" >> "$RECIPE_FILE"
+        fi
+        if [[ "$line" == conda* ]]; then
+          echo "conda install -y -c conda-forge -c bioconda $DEPS_CONDA $UPDATE_CONDA \\" >> "$RECIPE_FILE"
+        fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
         echo "[conda-recipise] Processing entry: $pkg_entry"
@@ -206,19 +216,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ "$pkg_name" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
-                else
-                    if [[ "$src" != "conda-forge" ]]; then
-                      src="conda-forge -c $src"
-                    fi
+                else                    
                     echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 fi                
             elif [[ "$pkg_name" == "python" ]]; then                    
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"                
-                else
-                    if [[ "$src" != "conda-forge" ]]; then
-                      src="conda-forge -c $src"
-                    fi
+                else                    
                     echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
                 fi                
             fi            
@@ -228,16 +232,19 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "$src" != "conda-forge" ]]; then
                 src="conda-forge -c $src"
             fi
-            echo "conda install -y -c $src 'r-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            #echo "conda install -y -c $src 'r-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            echo "'r-$pkg' \\" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "conda-bioc:"  ]]; then                        
-            echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            #echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            echo "'bioconductor-$pkg' \\" >> "$RECIPE_FILE"
         elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
             if [[ "$src" == "" ]]; then
                 src="conda-forge"
             elif [[ "$src" != "conda-forge" ]]; then
                 src="conda-forge -c $src"
             fi
-            echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
+            #echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
+             echo "'$pkg' \\" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then                
@@ -268,7 +275,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"            
             value=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: $value"            
+            echo "[conda-recipise] Directive: $directive, Value: $value"    
+            echo "# Flag: Directive: $directive, Value: $value" >> "$RECIPE_FILE" 
             if [[ "$directive,," == "dependencies" && "$value,," == "true" ]]; then                
                 echo "[conda-recipise] (default) Will install dependencies"
                 DEPS_CONDA=""
@@ -286,6 +294,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 # Install compiler toolchain for R                                
                 echo "conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make r-remotes" >>  "$RECIPE_FILE"
                 echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite" >> "$RECIPE_FILE"
+                echo "conda install -y -c conda-forge -c bioconda r-preprocesscore bioconductor-vsn"
                 # Common tool chain for compilation            
                 echo "conda install -y -c conda-forge make pkg-config" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
