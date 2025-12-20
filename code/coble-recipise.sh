@@ -1,8 +1,25 @@
 #!/usr/bin/env bash
+
 # Turn a captured yaml file into a coble recipe script
 
+##############
+# success=$(coble-recipise.sh --input YAML_FILE --output RECIPE --env ENV
+##############
+# Inputs ----
+# 1. --input yamlfile
+# 2. --env environment name or path
+# 3. --output recipe file
+# 4. --outdir output log files directory
+# Outputs ----
+# --stdout --
+# 1. success=Y/N
+# --filesystem --
+# 1. recipe file
+# 2. log files in outdir
 
-# Usage: ./coble-recipise.sh [--env ENV] [--input YAML_FILE] [--output RECIPE]
+###############
+
+echo 
 
 # Default values
 
@@ -12,8 +29,11 @@ RECIPE_FILE=""
 ENV_NAME=""
 OUTDIR="."
 
+echo "[coble-recipise] Starting recipise process..." >&2
+
 # Parse named arguments
 show_help() {
+    echo "----- coble recipise help ----------"
     echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
     echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
@@ -51,8 +71,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-
-
 # Set CONDA_ENV: blank if ENV_INPUT is empty, otherwise --name or --prefix
 if [[ -z "$ENV_INPUT" ]]; then
     CONDA_ENV=""
@@ -70,6 +88,11 @@ if [[ -z "$YAML_FILE" ]]; then
     YAML_FILE="./coble-captured-$ENV_NAME.yml"
 fi
 
+if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
+    echo "Error: YAML file not found: $YAML_FILE" >&2
+    echo "N"
+    exit 1
+fi
 
 # Set RECIPE_FILE if not provided, and prepend OUTDIR
 mkdir -p "$OUTDIR"
@@ -82,19 +105,11 @@ if [[ -z "$RECIPE_FILE" ]]; then
 fi
 : > "$RECIPE_FILE"
 
-
-
 # Now show all the inputs
-echo "[coble-recipise] Using inputs:"
-echo "  ENV_INPUT: $ENV_INPUT"
-echo "  YAML_FILE: $YAML_FILE"
-echo "  RECIPE_FILE: $RECIPE_FILE"
-
-
-if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
-    echo "Error: YAML file not found: $YAML_FILE"
-    exit 1
-fi
+echo "[coble-recipise] Using inputs:" >&2
+echo "  ENV_INPUT: $ENV_INPUT" >&2
+echo "  YAML_FILE: $YAML_FILE" >&2
+echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
 DEPS_CONDA=""
@@ -103,8 +118,8 @@ DEPS_R="TRUE"
 
 
 # output is a recipe file for conda env create (always in current directory)
-echo "[coble-recipise] Recipising conda environment from coble yaml file $YAML_FILE"
-echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
+echo "[coble-recipise] Recipising conda environment from coble yaml file $YAML_FILE" >&2
+echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE" >&2
 
 # Clear the aggregate file at the start
 {
@@ -157,17 +172,19 @@ echo "$languages_line" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 
-echo "[coble-recipise] Clearing default channels."      
+echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
 echo "conda config --remove-key channels" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
 if [[ $r_count -gt 1 ]]; then
-    echo "Error: More than one R version specified in languages section."
+    echo "Error: More than one R version specified in languages section." >&2
+    echo "N"
     exit 1
 fi
 if [[ $python_count -gt 1 ]]; then
-    echo "Error: More than one Python version specified in languages section."
+    echo "Error: More than one Python version specified in languages section." >&2
+    echo "N"
     exit 1
 fi
 
@@ -183,7 +200,7 @@ while IFS= read -r line; do
     elif [[ "$CURRENT_SECTION" == "channels" && "$line" == "-"* ]]; then
         # remove trailing and leading white space
         channel_name="$(echo -e "${line#- }" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-        echo "[coble-recipise] Adding channel: $channel_name"
+        echo "[coble-recipise] Adding channel: $channel_name" >&2
         echo "conda config --add channels $channel_name" >> "$RECIPE_FILE"
     fi
 done < "$YAML_FILE"
@@ -213,7 +230,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bioc-package:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
-        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION"  
+        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
@@ -226,7 +243,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
-        echo "[conda-recipise] Processing entry: $pkg_entry"
+        echo "[conda-recipise] Processing entry: $pkg_entry" >&2
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name ver <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format        
@@ -266,9 +283,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             #echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
              echo "'$pkg' \\" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
-            echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src"
+            echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src" >&2
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then                
-                echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'"                
+                echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
             elif [[ "$src" == "R-FORGE"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
             else
@@ -281,7 +298,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then            
             echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
-            echo "[conda-recipise] Processing pip package: $pkg_name, version: $ver"
+            echo "[conda-recipise] Processing pip package: $pkg_name, version: $ver" >&2
             pip_pkg="$pkg_name"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
             if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
@@ -293,27 +310,27 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "python -m pip install $pip_pkg $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
-            echo "[conda-recipise] Adding bash command: $pkg_entry"
+            echo "[conda-recipise] Adding bash command: $pkg_entry" >&2
             echo "$pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
-            echo "[conda-recipise] Processing flag: $pkg_entry"
+            echo "[conda-recipise] Processing flag: $pkg_entry" >&2
             directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"            
             value=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: $value"    
+            echo "[conda-recipise] Directive: $directive, Value: $value" >&2    
             echo "# Flag: Directive: $directive, Value: $value" >> "$RECIPE_FILE" 
             if [[ "$directive,," == "dependencies" && "$value,," == "true" ]]; then                
-                echo "[conda-recipise] (default) Will install dependencies"
+                echo "[conda-recipise] (default) Will install dependencies" >&2
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
             elif [[ "$directive,," == "dependencies" && "$value,," == "false" ]]; then                
-                echo "[conda-recipise] (!not default) Will NOT install dependencies"
+                echo "[conda-recipise] (!not default) Will NOT install dependencies" >&2
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
             elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then
-                echo "[conda-recipise] Build-tools will be included"
+                echo "[conda-recipise] Build-tools will be included" >&2
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including build tools for source installations" >> "$RECIPE_FILE"
                 # Install compiler toolchain for R                                
@@ -329,7 +346,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
-            echo "[conda-recipise] Finding: $pkg_name, version: $ver, source: $src"
+            echo "[conda-recipise] Finding: $pkg_name, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
             find_args=(--pkg "$pkg_name" --version "$ver")
@@ -339,23 +356,25 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"
             if [[ $pkg_manager == "unknown" ]]; then
-                echo "[coble-resolve] Unknown: $line"
+                echo "[coble-resolve] Unknown: $line" >&2
                 echo "# Unknown package: $line" >> "$RECIPE_FILE"
             else            
                 # Use the return value
-                echo "[coble-resolve] Manager: $pkg_manager"
-                echo "[coble-resolve] Recipe: $recipe_line"
-                echo "[coble-resolve] Yaml: $yaml_line"                                
+                echo "[coble-resolve] Manager: $pkg_manager" >&2
+                echo "[coble-resolve] Recipe: $recipe_line" >&2
+                echo "[coble-resolve] Yaml: $yaml_line" >&2                                
                 echo "${recipe_line}" >> "$RECIPE_FILE"                              
             fi
         fi
     else                
         if [[ -n "$line" ]]; then
-            echo "[conda-recipise] Ignoring line: $line"
+            echo "[conda-recipise] Ignoring line: $line" >&2
         fi
     fi
 done < "$YAML_FILE"
-echo "[conda-recipise] Recipe generation complete: $RECIPE_FILE"
+echo "[conda-recipise] Recipe generation complete: $RECIPE_FILE" >&2
+echo "" >> "$RECIPE_FILE"
+echo "Y"
 
 
 

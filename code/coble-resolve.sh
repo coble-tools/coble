@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
-# Turn a captured yaml file into a coble recipe script
+
+##############
+# finds=$(coble-resolve.sh --input my.yml)
+##############
+# Inputs ----
+# 1. --input yamlfile
+# Outputs ----
+# --stdout --
+# 1. success=Y/N
+# --filesystem --
+# 1. yamlfile
+# 2. yamlfile.backup.yml
+###############
 
 
-# Usage: ./coble-recipise.sh [--env ENV] [--input YAML_FILE] [--output RECIPE]
+# Usage: ./coble-resolve.sh --input YAML_FILE
 
 # Default values
 
@@ -10,11 +22,15 @@ YAML_FILE=""
 
 # Parse named arguments
 show_help() {
-    echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"    
-    echo "  --input YAML     Specify input YAML file - it will be updated where there is a find"    
+    echo "----- coble resolve help ----------"    
+    echo "Usage: $0 --input YAML_FILE"    
+    echo "  --input YAML     Specify input YAML file - it will be updated where there is a find"
     echo "  -h, --help       Show this help message and exit"
+    echo "------------------------------------"
+    echo "OUTPUT- return value Y/N: Y if a find was changed to a package manager"    
+    echo "------------------------------------"
 }
-
+finds=N
 while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in        
@@ -35,7 +51,7 @@ done
 
 if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     # exit as the whole point is to change the yaml file
-    echo "[coble-refind] !!!error no yaml input please --input YAML"
+    echo "[coble-refind] !!!error no yaml input please --input YAML" >&2
     exit 1    
 fi
 
@@ -44,12 +60,12 @@ YAML_BACKUP="$YAML_FILE".backup.yml
 cp "$YAML_FILE" "$YAML_BACKUP"
 
 # Now show all the inputs
-echo "[coble-refind] Using inputs:"
-echo "  IN YAML: $YAML_FILE"
-echo "  BACKUP YAML: $YAML_BACKUP"
+echo "[coble-refind] Using inputs:" >&2
+echo "  IN YAML: $YAML_FILE" >&2
+echo "  BACKUP YAML: $YAML_BACKUP" >&2
 
 # output is a recipe file for conda env create (always in current directory)
-echo "[coble-refind] Finding any required packages and in place replacing..."
+echo "[coble-refind] Finding any required packages and in place replacing..." >&2
 
 # Clear the aggregate file at the start	
 # Clear the aggregate file at the start
@@ -74,17 +90,18 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
     if [[ "$line" == "find:"
         ]]; then
         CURRENT_SECTION="$line"
-        echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION"        
+        echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION" >&2        
     elif [[ -n "$CURRENT_SECTION" && "$line" == *":"* ]]; then
         CURRENT_SECTION=""
         echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
-        echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION"
+        echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION" >&2
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name version <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format                
-        if [[ "$CURRENT_SECTION" == "find:" ]]; then        
+        if [[ "$CURRENT_SECTION" == "find:" ]]; then
+            finds=Y
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
             find_args=(--pkg "$pkg_name" --version "$version")
@@ -94,19 +111,19 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"
             if [[ $pkg_manager == "unknown" ]]; then
-                echo "[coble-resolve] Unknown: $origline"
+                echo "[coble-resolve] Unknown: $origline" >&2
                 echo "# Unknown package: $origline" >> "$YAML_FILE"
             else            
                 # Use the return value
-                echo "[coble-resolve] Manager: $pkg_manager"
-                echo "[coble-resolve] Recipe: $recipe_line"
-                echo "[coble-resolve] Yaml: $yaml_line"                
+                echo "[coble-resolve] Manager: $pkg_manager" >&2
+                echo "[coble-resolve] Recipe: $recipe_line" >&2
+                echo "[coble-resolve] Yaml: $yaml_line" >&2                
                 if [[ "$pkg_manager" != "$LAST_SECTION" ]]; then
                     echo "" >> "$YAML_FILE"    
                     echo "$pkg_manager" >> "$YAML_FILE"    
                     LAST_SECTION="$pkg_manager"
                 fi
-                if [[ $manager == "unknown" ]]; then
+                if [[ $pkg_manager == "unknown" ]]; then
                     echo "# unknown: $origline" >> "$YAML_FILE"
                 else
                     echo "$yaml_line" >> "$YAML_FILE"                    
@@ -120,7 +137,13 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         echo "$origline" >> "$YAML_FILE"
     fi
 done < "$YAML_BACKUP"
-echo "[coble-resolve] Resolved generation complete: $YAML_FILE"
+if [[ $finds == "Y" ]]; then
+    echo "[coble-resolve] Finds were resolved, please check the yml output: $YAML_FILE" >&2
+else
+    echo "[coble-resolve] No finds were resolved, yaml unchanged: $YAML_FILE" >&2
+fi
+echo $finds #this is the output Y/N
+
 
 
 

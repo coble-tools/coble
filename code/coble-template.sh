@@ -1,4 +1,4 @@
-#!
+#!/usr/bin/env bash
 
 ##############
 # success=$(coble-template.sh my.yml)
@@ -161,3 +161,5 @@ if [[ "$FLAVOUR" =~ ^(find)$ ]]; then
     echo "  - cdsr_models" >> "$YAML_FILE"     
     echo "" >> "$YAML_FILE"
 fi
+
+echo "Y"
