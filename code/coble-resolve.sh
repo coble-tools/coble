@@ -39,12 +39,14 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     exit 1    
 fi
 
-YAML_RESOLVED="$YAML_FILE".found.yml
+YAML_BACKUP="$YAML_FILE".backup.yml
+# copy to backup
+cp "$YAML_FILE" "$YAML_BACKUP"
 
 # Now show all the inputs
 echo "[coble-refind] Using inputs:"
 echo "  IN YAML: $YAML_FILE"
-echo "  OUT YAML: $YAML_RESOLVED"
+echo "  BACKUP YAML: $YAML_BACKUP"
 
 # output is a recipe file for conda env create (always in current directory)
 echo "[coble-refind] Finding any required packages and in place replacing..."
@@ -62,7 +64,7 @@ echo "[coble-refind] Finding any required packages and in place replacing..."
 	echo -e "# by: $CAPTURE_USER"    
     echo "#######################################"        
     echo ""
-} > "$YAML_RESOLVED"
+} > "$YAML_FILE"
 
 CURRENT_SECTION=""
 LAST_SECTION=""
@@ -75,7 +77,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION"        
     elif [[ -n "$CURRENT_SECTION" && "$line" == *":"* ]]; then
         CURRENT_SECTION=""
-        echo "$origline" >> "$YAML_RESOLVED"
+        echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
         echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION"
@@ -93,33 +95,32 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             yaml_line="${result[2]}"
             if [[ $pkg_manager == "unknown" ]]; then
                 echo "[coble-resolve] Unknown: $origline"
-                echo "# Unknown package: $origline" >> "$YAML_RESOLVED"
+                echo "# Unknown package: $origline" >> "$YAML_FILE"
             else            
                 # Use the return value
                 echo "[coble-resolve] Manager: $pkg_manager"
                 echo "[coble-resolve] Recipe: $recipe_line"
                 echo "[coble-resolve] Yaml: $yaml_line"                
                 if [[ "$pkg_manager" != "$LAST_SECTION" ]]; then
-                    echo "" >> "$YAML_RESOLVED"    
-                    echo "$pkg_manager" >> "$YAML_RESOLVED"    
+                    echo "" >> "$YAML_FILE"    
+                    echo "$pkg_manager" >> "$YAML_FILE"    
                     LAST_SECTION="$pkg_manager"
                 fi
                 if [[ $manager == "unknown" ]]; then
-                    echo "# unknown: $origline" >> "$YAML_RESOLVED"
+                    echo "# unknown: $origline" >> "$YAML_FILE"
                 else
-                    echo "$yaml_line" >> "$YAML_RESOLVED"
-                    #echo "$recipe_line" >> "$YAML_RESOLVED"
+                    echo "$yaml_line" >> "$YAML_FILE"                    
                 fi
                 
             fi
         else
-            echo "$origline" >> "$YAML_RESOLVED"
+            echo "$origline" >> "$YAML_FILE"
         fi    
     else
-        echo "$origline" >> "$YAML_RESOLVED"
+        echo "$origline" >> "$YAML_FILE"
     fi
-done < "$YAML_FILE"
-echo "[coble-resolve] Resolved generation complete: $YAML_RESOLVED"
+done < "$YAML_BACKUP"
+echo "[coble-resolve] Resolved generation complete: $YAML_FILE"
 
 
 
