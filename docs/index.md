@@ -1,14 +1,20 @@
-# COBLE Workflow Overview
+<img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
+
+# COBLE: COnda BuiLdEr
+
+COBLE is a tool to build and manage conda environments, developed by the RSE team at the ICR.
+
+## COBLE Workflow Overview
 
 This page describes the basic workflow for using the COBLE environment creation tool.
 
-## Basic Command
+### Basic Command
 
 ```
 coble create --input my.yml --env my-env --outdir tmp-out
 ```
 
-## Workflow Steps
+### Workflow Steps
 
 1. **Find Block Resolution**
    - The tool first processes any packages listed in the `find:` block of your YAML file.
