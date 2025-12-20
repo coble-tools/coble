@@ -3,7 +3,7 @@
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
 # Capture date: 2025-12-19
-# Capture time: 13:26:13 GMT
+# Capture time: 21:08:26 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda

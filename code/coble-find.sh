@@ -57,15 +57,21 @@ check_and_print() {
         "Conda (bioconda)")
             recipe_line="conda install -y -c conda-forge -c $channel '$name_ver' --no-update-deps"
             #manager="conda-bioc:"
-            manager="conda:"
+            manager="conda:"            
             ;;
         "Conda (conda-forge)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             manager="conda:"
+            if [[ "$name_ver" == r-base* || "$name_ver" == python* ]]; then
+              manager="languages:"            
+            fi
             ;;
         "Conda (r)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             #manager="conda-r:"
+            if [[ "$name_ver" == r-base* || "$name_ver" == python* ]]; then
+              manager="languages:"            
+            fi
             manager="conda:"
             ;;
         "CRAN")

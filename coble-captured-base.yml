@@ -1,0 +1,153 @@
+# COBLE:Reproducible environment capture, (c) ICR 2025
+# Capture date: 2025-12-19
+# Capture time: 20:55:34 GMT
+# Captured by: ralcraft
+
+coble:
+
+  - environment: base
+
+channels:
+  - conda-forge
+  - bioconda
+
+languages:
+  - python=3.13.11@defaults
+
+flags:
+  - dependencies: False
+
+conda:
+  - anaconda-anon-usage=0.7.5@defaults
+  - anaconda-auth=0.12.3@defaults
+  - annotated-types=0.6.0@defaults
+  - archspec=0.2.5@defaults
+  - boltons=25.0.0@defaults
+  - brotlicffi=1.2.0.0@defaults
+  - bzip2=1.0.8@defaults
+  - c-ares=1.34.5@defaults
+  - ca-certificates=2025.12.2@defaults
+  - certifi=2025.11.12@defaults
+  - cffi=2.0.0@defaults
+  - charset-normalizer=3.4.4@defaults
+  - click=8.2.1@defaults
+  - conda-anaconda-telemetry=0.3.0@defaults
+  - conda-anaconda-tos=0.2.2@defaults
+  - conda-content-trust=0.2.0@defaults
+  - conda-libmamba-solver=25.11.0@defaults
+  - conda-package-handling=2.4.0@defaults
+  - conda-package-streaming=0.12.0@defaults
+  - conda=25.11.1@defaults
+  - cpp-expected=1.1.0@defaults
+  - cryptography=46.0.3@defaults
+  - dbus=1.16.2@defaults
+  - distro=1.9.0@defaults
+  - expat=2.7.3@defaults
+  - fmt=11.2.0@defaults
+  - frozendict=2.4.6@defaults
+  - gettext=0.21.0@defaults
+  - icu=73.1@defaults
+  - idna=3.11@defaults
+  - jansson=2.14@defaults
+  - jaraco.classes=3.4.0@defaults
+  - jaraco.context=6.0.0@defaults
+  - jaraco.functools=4.1.0@defaults
+  - jeepney=0.7.1@defaults
+  - jsonpatch=1.33@defaults
+  - jsonpointer=3.0.0@defaults
+  - keyring=25.7.0@defaults
+  - libarchive=3.8.2@defaults
+  - libcurl=8.16.0@defaults
+  - libev=4.33@defaults
+  - libexpat=2.7.3@defaults
+  - libffi=3.4.4@defaults
+  - libgcc-ng=15.2.0@defaults
+  - libgcc=15.2.0@defaults
+  - libgomp=15.2.0@defaults
+  - libiconv=1.16@defaults
+  - libidn2=2.3.8@defaults
+  - libmamba=2.3.2@defaults
+  - libmambapy=2.3.2@defaults
+  - libmpdec=4.0.0@defaults
+  - libnghttp2=1.67.1@defaults
+  - libsolv=0.7.30@defaults
+  - libssh2=1.11.1@defaults
+  - libstdcxx-ng=15.2.0@defaults
+  - libstdcxx=15.2.0@defaults
+  - libunistring=1.3@defaults
+  - libuuid=1.41.5@defaults
+  - libxcb=1.17.0@defaults
+  - libxml2=2.13.9@defaults
+  - libzlib=1.3.1@defaults
+  - lz4-c=1.9.4@defaults
+  - markdown-it-py=4.0.0@defaults
+  - mdurl=0.1.2@defaults
+  - menuinst=2.4.2@defaults
+  - more-itertools=10.8.0@defaults
+  - msgpack-python=1.1.1@defaults
+  - ncurses=6.5@defaults
+  - nlohmann_json=3.11.2@defaults
+  - openssl=3.0.18@defaults
+  - packaging=25.0@defaults
+  - pcre2=10.46@defaults
+  - pip=25.3@defaults
+  - pkce=1.0.3@defaults
+  - platformdirs=4.5.0@defaults
+  - pluggy=1.5.0@defaults
+  - pthread-stubs=0.3@defaults
+  - pybind11-abi=5@defaults
+  - pycosat=0.6.6@defaults
+  - pycparser=2.23@defaults
+  - pydantic-core=2.41.5@defaults
+  - pydantic-settings=2.12.0@defaults
+  - pydantic=2.12.4@defaults
+  - pygments=2.19.2@defaults
+  - pyjwt=2.10.1@defaults
+  - pysocks=1.7.1@defaults
+  - python-dotenv=1.1.0@defaults
+  - python_abi=3.13@defaults
+  - readchar=4.2.1@defaults
+  - readline=8.3@defaults
+  - reproc-cpp=14.2.4@defaults
+  - reproc=14.2.4@defaults
+  - requests=2.32.5@defaults
+  - rich=14.2.0@defaults
+  - ruamel.yaml.clib=0.2.14@defaults
+  - ruamel.yaml=0.18.16@defaults
+  - secretstorage=3.4.0@defaults
+  - semver=3.0.4@defaults
+  - setuptools=80.9.0@defaults
+  - shellingham=1.5.4@defaults
+  - simdjson=3.10.1@defaults
+  - sqlite=3.51.0@defaults
+  - tk=8.6.15@defaults
+  - tomli=2.2.1@defaults
+  - tqdm=4.67.1@defaults
+  - truststore=0.10.1@defaults
+  - typer-slim-standard=0.20.0@defaults
+  - typer-slim=0.20.0@defaults
+  - typer=0.20.0@defaults
+  - typing-extensions=4.15.0@defaults
+  - typing-inspection=0.4.2@defaults
+  - typing_extensions=4.15.0@defaults
+  - urllib3=2.6.1@defaults
+  - wheel=0.45.1@defaults
+  - xorg-libx11=1.8.12@defaults
+  - xorg-libxau=1.0.12@defaults
+  - xorg-libxdmcp=1.1.5@defaults
+  - xorg-xorgproto=2024.1@defaults
+  - xz=5.6.4@defaults
+  - yaml-cpp=0.8.0@defaults
+  - zlib=1.3.1@defaults
+  - zstandard=0.24.0@defaults
+  - zstd=1.5.7@defaults
+
+pip:
+  - PyYAML=6.0.3
+  - gitalma@github@git+https://github.com/ICR-RSE-Group/gitalma.git@6191c534049851d4a5a1c73672489499d232907e
+  - numpy=2.3.5
+  - pandas=2.3.3
+  - python-dateutil=2.9.0.post0
+  - pytz=2025.2
+  - six=1.17.0
+  - tzdata=2025.3

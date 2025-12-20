@@ -13,7 +13,7 @@ LOG_FILE=""
 TIME_FILE=""
 KEEP_LOGS=0
 OUTDIR="."
-EXIT_ON_ERROR=0
+EXIT_ON_ERROR=1
 
 show_help() {
     echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
@@ -22,7 +22,7 @@ show_help() {
     echo "  --output   CAPTURE Specify output capture file (optional, for future use)"    
     echo "  --outdir   OUTDIR  Specify output directory for recipe file (optional)"
     echo "  --debug    Keep interim logs for debugging (optional)"
-    echo "  --exit-on-error  Exit on first error (not default behavior)"
+    echo "  --skip-errors  Exit on first error (not default behavior)"
     echo "  -h,--help  Show this help message and exit"
 }
 
@@ -45,8 +45,8 @@ while [[ $# -gt 0 ]]; do
             KEEP_LOGS=1
             shift; 
             ;;
-        --exit-on-error)
-            EXIT_ON_ERROR=1
+        --skip-errors)
+            EXIT_ON_ERROR=0
             shift; 
             ;;
         --outdir)

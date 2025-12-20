@@ -1,6 +1,6 @@
 # COBLE:Reproducible environment capture, (c) ICR 2025
 # Capture date: 2025-12-19
-# Capture time: 13:41:12 GMT
+# Capture time: 21:08:04 GMT
 # Captured by: ralcraft
 
 coble:
@@ -49,7 +49,7 @@ conda:
   - jpeg=9f@defaults
   - krb5=1.16.4@defaults
   - lerc=4.0.0@defaults
-  - libblas=3.9.0@conda-forge
+  - libblas=3.11.0@conda-forge
   - libcurl=7.67.0@defaults
   - libdeflate=1.22@defaults
   - libedit=3.1.20230828@defaults
@@ -62,8 +62,8 @@ conda:
   - libgfortran5=15.2.0@defaults
   - libgomp=15.2.0@defaults
   - libiconv=1.18@conda-forge
-  - liblapack=3.9.0@conda-forge
-  - libopenblas=0.3.28@conda-forge
+  - liblapack=3.11.0@conda-forge
+  - libopenblas=0.3.30@defaults
   - libpng=1.6.50@defaults
   - libsanitizer=15.2.0@defaults
   - libssh2=1.10.0@defaults
@@ -77,7 +77,7 @@ conda:
   - make=4.4.1@conda-forge
   - ncurses=6.5@defaults
   - openssl=1.1.1w@defaults
-  - pandoc=2.19.2@conda-forge
+  - pandoc=3.8.3@conda-forge
   - pango=1.42.4@defaults
   - pcre=8.45@defaults
   - pixman=0.46.4@defaults
@@ -201,7 +201,7 @@ conda-r:
   - reprex=2.0.0@conda-forge
   - reshape2=1.4.4@conda-forge
   - rlang=0.4.11@conda-forge
-  - rmarkdown=2.8@conda-forge
+  - rmarkdown=1.12@defaults
   - rprojroot=2.0.2@conda-forge
   - rsqlite=2.2.5@conda-forge
   - rstudioapi=0.13@conda-forge

@@ -2,8 +2,8 @@
 
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
-# Capture date: 2025-12-19
-# Capture time: 21:03:51 GMT
+# Capture date: 2025-12-20
+# Capture time: 16:50:43 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -12,20 +12,16 @@ source ~/.bashrc
 #######################################
 
 
-conda create --name sylver3 -y
-conda activate sylver3
+conda create --name tst -y
+conda activate tst
 
 # Channels section
 conda config --remove-key channels
-conda config --add channels conda-forge
-conda config --add channels r
-conda config --add channels bioconda
-conda config --add channels defaults
 
 # INSTALL SECTION FOR CONDA
 
 # languages:
-conda install -y -c r 'r-base=3.6.0'
+conda install -y 'python=3.14.0'
 
 # flags:
 # Flag: Directive: dependencies, Value: true
@@ -42,20 +38,8 @@ ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_6
 
 # conda:
 conda install -y -c conda-forge -c bioconda  --no-update-deps \
-'r-BiocManager=1.30.4' \
-'r-tidyverse=1.3.1' \
-'r-effsize=0.8.1' \
-'r-magrittr=2.0.1' \
-'r-tidyverse=1.3.1' \
-'r-ggplot2' \
-'r-ggrepel=0.9.1' \
-'r-VennDiagram=1.6.20' \
-'bioconductor-affy=1.64.0' \
-'bioconductor-fgsea=1.12.0' \
-'bioconductor-GSVA=1.34.0' \
-'bioconductor-org.Hs.eg.db=3.10.0' 
+'pandas' 
 
-# r-package:
-
-# r-url:
-Rscript -e 'remotes::install_url("https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip", dependencies=TRUE)'
+# pip:
+python -m pip install numpy 
+python -m pip install git+https://github.com/ICR-RSE-Group/gitalma.git 

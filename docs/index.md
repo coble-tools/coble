@@ -1,72 +1,48 @@
-<img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
+# COBLE Workflow Overview
 
-# COBLE: COnda BuiLdEr
+This page describes the basic workflow for using the COBLE environment creation tool.
 
-COBLE is a tool to build and manage conda environments, developed by the RSE team at the ICR.
+## Basic Command
 
-## How to Run
-
-1. **Edit your email address** in `code/coble-slurm.sh`:
-   
-   Put your own email address so you get SLURM notifications.
-
-2. **Submit your build job** with one command:
-   ```bash
-   sbatch --mail-user=your.email@domain.com \
-   code/coble-slurm.sh \
-   --results results/r-452 \
-   --input config/r-452.sh \
-   --env ./envs/r-452 \
-   --r-version 4.5.2 \
-   --python-version 3.14.0 \
-   --skip-errors \
-   --override-envs
-   ```
-   Adjust the paths as needed for your results, input, environment. 
-   Some of the arguments are optional, some required:
-    - `--results`: Directory to store logs and outputs (required)
-    - `--input`: Configuration script for the environment (required)
-    - `--env`: Path to the conda environment to create/use (required)
-    - `--r-version`: R version to install (optional, default: 4.5.2)
-    - `--python-version`: Python version to install (optional, default: 3.14.0)
-    - `--skip-errors`: Continue processing even if errors are detected (optional, default is to stop)
-    - `--override-envs`: Override R_LIBS_USER and CONDA_PKGS_DIRS to isolate environments locally next to the prefix (optional, default is not to override)
-
-   The environment is passed as a prefix path and set as the `CONDA_COBLE_ENV` variable for use in config scripts. 
-   Example usage in scripts:
-   ```bash
-   conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0
-   conda activate ${CONDA_COBLE_ENV}
-   ```
-   This is optional; you can hardcode paths if preferred.
-
-
-## Activating the environment
-To activate the created environment, use:
-```bash
-conda activate ./envs/r-452
 ```
-If you choose to override the R_LIBS_USER and CONDA_PKGS_DIRS, ensure these environment variables are set accordingly before activating the environment:
-```bash
-export R_LIBS_USER="./envs/r-452_rlibs"
-export CONDA_PKGS_DIRS="./envs/r-452_pkgs"
-conda activate ./envs/r-452
+coble create --input my.yml --env my-env --outdir tmp-out
 ```
 
-## What This Does
-- Builds a conda environment and installs R/Python packages.
-- Exits on error, allowing you to fix and rerun from the last fail point.
-- Logs output to the results directory.
-- Sends an email if the job fails.
+## Workflow Steps
 
-## Output Structure
-- Results directory contains:
-  - `coble-stdout.log`: Standard output log
-  - `coble-stderr.log`: Standard error log
-  - `recipe.sh`: The generated recipe script
-  - `done.txt`: Log of completed R library installs
-- Environment-specific directories for installed packages and R libraries.
+1. **Find Block Resolution**
+   - The tool first processes any packages listed in the `find:` block of your YAML file.
+   - You will be prompted to review and confirm these packages before proceeding.
+   - The YAML file is updated in place based on your input.
 
-## Requirements
-- SLURM cluster
-- Conda installed and initialized
+2. **Recipe Generation**
+   - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your YAML in the outdir.
+
+
+3. **Recipe Execution**
+    - No further prompting, the tool then executes the generated recipe script to create the environment.
+    - By default, the process will exit immediately if any errors are encountered, allowing you to correct issues and re-run as needed.
+    - You can override this behavior and continue on errors by passing the `--skip-errors` flag.
+
+---
+
+## Further Information
+
+- The environment (`--env`) can be either a name or a folder path. COBLE will automatically use `--name` or `--prefix` as appropriate.
+- If you specify more than one R or more than one Python version in the language block, COBLE will complain and refuse to continue. Otherwise, it will create a special language block in the YAML.
+- To generate a starter template, run:
+
+   ```
+   coble template --input tst.yml
+   ```
+   This will create a template YAML file you can edit.
+
+- There are four template flavours, selectable with `--flavour`:
+   - `mixed` (default)
+   - `R`
+   - `python`
+   - `find`
+
+You can activate a flavour by passing `--flavour <type>` to the template command.
+
+---

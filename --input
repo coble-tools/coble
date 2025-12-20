@@ -1,0 +1,46 @@
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2025
+# Capture date: 2025-12-20
+# Capture time: 09:23:09 GMT
+# Captured by: ralcraft
+#######################################
+
+coble:
+
+  - environment: coble-env
+
+channels:
+  - conda-forge
+  - bioconda
+  - r
+  - defaults
+
+languages:
+  - python=3.14.0
+  - r=4.5.2
+
+flags:
+  - dependencies: False
+  - build-tools: True
+
+conda:
+  - devtools
+
+r-conda:
+  - tidyverse
+
+bioc-conda:
+  - affy
+
+r-package:
+  - survival
+
+bioc-package:
+  - limma
+
+r-github:
+  - seedgeorge/SQUEAK
+
+pip:
+  - numpy
+

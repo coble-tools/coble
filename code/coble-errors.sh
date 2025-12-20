@@ -102,7 +102,7 @@ fi
 if [[ "$found_errors" == true ]]; then
     echo "[coble-errors] Errors were found during recreation. Please review the recipe file: $RECIPE_FILE" >> "$DONE_FILE"                    
     if [[ "$EXIT_ON_ERROR" == "1" ]]; then
-        echo "[coble-errors] Exiting due to --exit-on-error flag. Forcing exit!!!!!" >> "$DONE_FILE"                        
+        echo "[coble-errors] Exiting due to --skip-errors flag. Forcing exit!!!!!" >> "$DONE_FILE"                        
         exit 1
     fi
 fi
