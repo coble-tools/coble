@@ -10,7 +10,7 @@
 # 1. success=Y/N
 # --filesystem --
 # 1. yamlfile
-# 2. yamlfile.backup.yml
+# 2. yamlfile.bak1.yml
 ###############
 
 
@@ -55,7 +55,16 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     exit 1    
 fi
 
-YAML_BACKUP="$YAML_FILE".backup.yml
+
+# Now check the second line, if the 'yml' is already coble resolved, exit
+second_line=$(sed -n '2p' "$YAML_FILE")
+if [[ "$second_line" == "## COBLE:"* && "$second_line" == *Resolved* ]]; then
+    echo "[coble-refind] YAML already coble resolved, exiting: $YAML_FILE" >&2
+    echo N
+    exit 0
+fi
+
+YAML_BACKUP="$YAML_FILE".bak1.yml
 # copy to backup
 cp "$YAML_FILE" "$YAML_BACKUP"
 
@@ -66,20 +75,17 @@ echo "  BACKUP YAML: $YAML_BACKUP" >&2
 
 # output is a recipe file for conda env create (always in current directory)
 echo "[coble-refind] Finding any required packages and in place replacing..." >&2
-
-# Clear the aggregate file at the start	
+	
 # Clear the aggregate file at the start
 {	    
     echo "#######################################"    
-    echo -e "# COBLE:Reproducible environment yaml, (c) ICR 2025"    
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	
-	echo -e "# date: $CAPTURE_DATE"
-	echo -e "# time: $CAPTURE_TIME"
-	echo -e "# by: $CAPTURE_USER"    
-    echo "#######################################"        
-    echo ""
+    echo -e "## COBLE:Reproducible environment (c) ICR 2025. Resolved"        	    
+    echo -e "##    Resolved - On: $CAPTURE_DATE" at $CAPTURE_TIME" by $CAPTURE_USER"        	    
+    echo "#######################################"    
+    echo "" 
 } > "$YAML_FILE"
 
 CURRENT_SECTION=""

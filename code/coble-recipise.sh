@@ -3,7 +3,9 @@
 # Turn a captured yaml file into a coble recipe script
 
 ##############
-# success=$(coble-recipise.sh --input YAML_FILE --output RECIPE --env ENV
+mapfile -t result < <("$script_dir/coble-recipise.sh --input YAML_FILE --output RECIPE --env ENV")
+success="${result[0]}"
+recipe_file="${result[1]}"            
 ##############
 # Inputs ----
 # 1. --input yamlfile
@@ -13,6 +15,7 @@
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
+# 2. recipefile path
 # --filesystem --
 # 1. recipe file
 # 2. log files in outdir
@@ -145,7 +148,7 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 languages_line="conda create ${CONDA_ENV} -y"
 CURRENT_SECTION="bash"
 r_count=0
-python_count=1
+python_count=0
 while IFS= read -r line; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
@@ -155,12 +158,29 @@ while IFS= read -r line; do
         CURRENT_SECTION="channels"          
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
-    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then
-        if [[ "$line" == *"r="* ]]; then
+    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then    
+        if [[ "$line" == *"r-"* ]]; then
             r_count=$((r_count + 1))
-        elif [[ "$line" == *"python="* ]]; then
+            echo "[conda-recipise] R-langauges: $r_count" >2
+        elif [[ "$line" == *"python"* ]]; then
             python_count=$((python_count + 1))
         fi
+        # pkg_entry="${line#- }"
+        # IFS='@' read -r pkg src path <<< "$pkg_entry"
+        # IFS='=' read -r pkg_name ver <<< "$pkg"
+        # if [[ "$pkg_name" == "r-base" ]]; then                    
+        #     if [[ "$src" == "" ]]; then                
+        #         languages_line+=" '$pkg_name=$ver'"
+        #     else                                    
+        #         languages_line+=" '$pkg_name=$ver'"
+        #     fi                
+        # elif [[ "$pkg_name" == "python" ]]; then                    
+        #     if [[ "$src" == "" ]]; then                
+        #         languages_line+=" '$pkg_name=$ver'"
+        #     else                                    
+        #         languages_line+=" '$pkg_name=$ver'"
+        #     fi                
+        # fi            
         #languages_line+=" '${line#- }'"        
     fi
 done < "$YAML_FILE"
@@ -170,17 +190,20 @@ echo "" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "conda config --remove-key channels" >> "$RECIPE_FILE"
+echo "conda config --env --remove-key channels" >> "$RECIPE_FILE"
+echo "conda config --env --set channel_priority strict" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
 if [[ $r_count -gt 1 ]]; then
     echo "Error: More than one R version specified in languages section." >&2
     echo "N"
+    echo "$RECIPE_FILE"
     exit 1
 fi
 if [[ $python_count -gt 1 ]]; then
     echo "Error: More than one Python version specified in languages section." >&2
     echo "N"
+    echo "$RECIPE_FILE"
     exit 1
 fi
 
@@ -197,7 +220,7 @@ while IFS= read -r line; do
         # remove trailing and leading white space
         channel_name="$(echo -e "${line#- }" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
         echo "[coble-recipise] Adding channel: $channel_name" >&2
-        echo "conda config --add channels $channel_name" >> "$RECIPE_FILE"
+        echo "conda config --env --add channels $channel_name" >> "$RECIPE_FILE"
     fi
 done < "$YAML_FILE"
 
@@ -245,7 +268,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         # For flags, parse directive and value from 'directive = value' format        
         if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
             continue
-        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                    
+        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                
             if [[ "$pkg_name" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
@@ -329,10 +352,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "[conda-recipise] Build-tools will be included" >&2
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including build tools for source installations" >> "$RECIPE_FILE"
-                # Install compiler toolchain for R                                
-                echo "conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make" >>  "$RECIPE_FILE"
-                echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes" >> "$RECIPE_FILE"
-                echo "conda install -y -c conda-forge -c bioconda r-preprocesscore bioconductor-vsn" >> "$RECIPE_FILE"
+                if [[ $r_count -gt 0 ]]; then
+                    # Install compiler toolchain for R                                                    
+                    echo "conda install -y -c conda-forge gsl nlopt" >>  "$RECIPE_FILE"
+                    echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials" >> "$RECIPE_FILE"
+                    #echo "conda install -y -c conda-forge -c bioconda bioconductor-preprocesscore bioconductor-vsn" >> "$RECIPE_FILE"
+                fi
                                 
                 # Common tool chain for compilation            
                 echo "conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make pkg-config" >> "$RECIPE_FILE"                                
@@ -364,13 +389,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     else                
         if [[ -n "$line" ]]; then
-            echo "[conda-recipise] Ignoring line: $line" >&2
+            #echo "[conda-recipise] Ignoring line: $line" >&2
+            contnue
         fi
     fi
 done < "$YAML_FILE"
 echo "[conda-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
+echo "$RECIPE_FILE"
 
 
 

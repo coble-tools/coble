@@ -70,11 +70,11 @@ fi
 
 # echo languages 
 echo "languages:" >> "$YAML_FILE"
-if [[ "$FLAVOUR" =~ ^(R|mixed)$ ]]; then
-    echo "  - r=4.5.2" >> "$YAML_FILE"
+if [[ "$FLAVOUR" =~ ^(r|mixed)$ ]]; then
+    echo "  - r-base=4.4.2@conda-forge" >> "$YAML_FILE"
 fi
 if [[ "$FLAVOUR" =~ ^(python|mixed)$ ]]; then
-    echo "  - python=3.14.0" >> "$YAML_FILE"
+    echo "  - python=3.13.1@conda-forge" >> "$YAML_FILE"
 fi
 echo "" >> "$YAML_FILE"
 
@@ -86,13 +86,6 @@ echo "" >> "$YAML_FILE"
 
 # echo environments plus help
 # CONDA
-if [[ "$FLAVOUR" =~ ^(r|mixed)$ ]]; then
-    echo "conda:" >> "$YAML_FILE"
-    echo "  - devtools" >> "$YAML_FILE"
-    echo "  - remotes" >> "$YAML_FILE"
-    echo "" >> "$YAML_FILE"
-fi
-
 if [[ "$FLAVOUR" =~ ^(python|mixed)$ ]]; then
     echo "conda:" >> "$YAML_FILE"
     echo "  - pandas" >> "$YAML_FILE"
@@ -103,11 +96,13 @@ if [[ "$FLAVOUR" =~ ^(r|mixed)$ ]]; then
     # R-CONDA
     echo "r-conda:" >> "$YAML_FILE"
     echo "  - tidyverse" >> "$YAML_FILE"
+    echo "  - devtools" >> "$YAML_FILE"
+    echo "  - remotes" >> "$YAML_FILE"
     echo "" >> "$YAML_FILE"
 
     # BIOC-CONDA
     echo "bioc-conda:" >> "$YAML_FILE"
-    echo "  - affy" >> "$YAML_FILE"
+    echo "  - affy@bioconductor" >> "$YAML_FILE"
     echo "" >> "$YAML_FILE"    
 
     # R-PACKAGE

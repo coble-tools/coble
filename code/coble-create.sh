@@ -3,26 +3,26 @@
 # Execute a recipe script line by line to create an environment
 
 ##############
-# success=$(coble-create.sh --input YAML_FILE --output RECIPE --env ENV
+# success=$(coble-create.sh --recipe RECIPE_FILE --env ENV --outdir OUTDIR)
 ##############
 # Inputs ----
 # 1. --recipe recipe file
 # 2. --env environment name or path
-# 3. --capture capture file
 # 4. --outdir output log files directory
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
 # --filesystem --
-# 1. cature file
-# 2. log files in outdir
+# 1. Conda environment
+# 2. capture file
+# 3. log files in outdir
 ###############
 
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
 ENV_OUTPUT=""
-INPUT_FILE=""
 CAPTURE_FILE=""
+RECIPE_FILE=""
 NEW_ENV=""
 LOG_FILE=""
 TIME_FILE=""
@@ -31,10 +31,9 @@ OUTDIR="."
 EXIT_ON_ERROR=1
 
 show_help() {
-    echo "Usage: $0  --env NEW_ENV [--input INPUT_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
+    echo "Usage: $0  --env NEW_ENV [--recipe RECIPE_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
     echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
-    echo "  --input    INPUT    Specify input YAML or recipe shell script (required)"
-    echo "  --output   CAPTURE Specify output capture file (optional, for future use)"    
+    echo "  --recipe    RECIPE    Specify input recipe shell script (required)"    
     echo "  --outdir   OUTDIR  Specify output directory for recipe file (optional)"
     echo "  --debug    Keep interim logs for debugging (optional)"
     echo "  --skip-errors  Exit on first error (not default behavior)"
@@ -44,8 +43,8 @@ show_help() {
 while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in        
-        --input)
-            INPUT_FILE="$2"
+        --recipe)
+            RECIPE_FILE="$2"
             shift; shift
             ;;
         --output)
@@ -95,19 +94,16 @@ else
     NEW_ENV_ARG="--name $NEW_ENV"
 fi
 
-if [[ ! -f "$INPUT_FILE" ]]; then
-    echo "[coble-recreate] Error: Input file not found: $INPUT_FILE" >&2
+if [[ ! -f "$RECIPE_FILE" ]]; then
+    echo "[coble-recreate] Error: Input recipe file not found: $RECIPE_FILE" >&2
     exit 1
 fi
 mkdir -p "$OUTDIR"
-base_name="${INPUT_FILE##*/}"
+base_name="${RECIPE_FILE##*/}"
 base_name_noext="${base_name%.*}"
-if [[ -z "$CAPTURE_FILE" ]]; then
-    # if no input file provided default to ./coble-captured-$NEW_ENV_NAME.yml    
-    CAPTURE_FILE="coble-captured-${NEW_ENV_NAME}.yml"
-fi
+
+CAPTURE_FILE="coble-captured-${NEW_ENV_NAME}.yml"
 CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
-RECIPE_FILE="$OUTDIR/coble-reciped-${NEW_ENV_NAME}.sh"
 
 LOG_FILE="$OUTDIR/${base_name_noext}.log"
 ERROR_FILE="$OUTDIR/${base_name_noext}.err"
@@ -116,9 +112,11 @@ TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
 : > "$LOG_FILE"
 : > "$TIME_FILE"
 : > "$ERROR_FILE"
-: > "$RECIPE_FILE"
 : > "$CAPTURE_FILE"
 # Redirect stdout and stderr to log file
+echo "[coble-create] REDIRECTED STDOUT to Log file: $LOG_FILE"
+echo "[coble-create] REDIRECTED STDERR to Log file: $ERROR_FILE"
+
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"
 echo "[coble-recreate] Log file: $ERROR_FILE"
@@ -139,25 +137,14 @@ echo "[coble-recreate] Summary log started at $(date '+%Y-%m-%d %H:%M:%S')" >> "
 echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type
-case "$INPUT_FILE" in
-    *.yml|*.yaml)
-        # YAML input: generate recipe script        
-        echo "[coble-recreate] Detected YAML input. Generating recipe script: $RECIPE_FILE"
-        # Call coble-recipise.sh to generate the recipe
-        script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-        recipise_args=(--env "$NEW_ENV" --input "$INPUT_FILE" --output "$RECIPE_FILE" --outdir "$OUTDIR")
-        if [[ -n "$OUTDIR" ]]; then
-            recipise_args+=(--outdir "$OUTDIR")
-        fi
-        "$script_dir/coble-recipise.sh" "${recipise_args[@]}"        
-        echo "[coble-recreate] Recipe script generated: $RECIPE_FILE"        
-        ;;
+case "$RECIPE_FILE" in    
     *.sh)
-        # Shell script input: would run directly (not yet implemented)
-        echo "[coble-recreate] Detected shell script input: $INPUT_FILE"        
+        # Shell script input: would run directly (not yet implemented)        
+        RECIPE_FILE="$RECIPE_FILE"
         ;;
     *)
-        echo "[coble-recreate] Error: Unknown input file type: $INPUT_FILE" >&2
+        echo "[coble-create] Error: Unknown input file type: $RECIPE_FILE" >&2
+        echo N
         exit 2
         ;;
 esac
