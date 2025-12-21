@@ -16,13 +16,9 @@
 # --filesystem --
 # 1. recipe file
 # 2. log files in outdir
-
 ###############
 
-echo 
-
 # Default values
-
 ENV_INPUT="coble"
 YAML_FILE=""
 RECIPE_FILE=""

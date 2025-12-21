@@ -1,3 +1,15 @@
+
+
+20/12/25
+I need to ensure the channels are correct, decide do I alwayse use the ones in the env or pass in each command?
+string or flexible?
+I also need to sort out inputs, --recipe or --yaml or input?
+Maybe either recipe or yaml is given? or recipe is given it is copied to a fixed place and used otherwise that fixed place is the given recipe for the capture.
+So a restriction is made that to "create" you cannot pass both yaml and recipe only one or the other. No I don;t like that.
+To create you pass input, it detects if it is yaml or recipe and then creates recipe for the recipse and create stages. And passes --recipe there explicitly not input soince it has to be.
+coble-rationalise - implement it is empty at the moment
+
+ 
 19/12/25
 Meeting with Syed
 He wants it to be the simplest thing possible for a user.

@@ -5,6 +5,7 @@
 ##############
 # Inputs ----
 # 1. --input yamlfile
+# 2. --flavour find/python/r/mixed
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
