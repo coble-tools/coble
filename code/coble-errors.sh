@@ -51,6 +51,8 @@ done_patterns=(
 "noarch::"  
 "Successfully installed" 
 "** this is package"
+"Requirement already satisfied" 
+"All requested packages already installed" 
 )
 # Ensure done messages are only reported once
 mapfile -t done_lines < "$DONE_FILE"

@@ -1,15 +1,17 @@
-
+23/12/25
+-[ ] Need to implement an updater now
+-[ ] Need to create the basics of a web app for icr
+-[ ] Make a basic dependency viewer for the web app using the summary txt format. For conda packages take the 
 
 20/12/25
-I need to ensure the channels are correct, decide do I alwayse use the ones in the env or pass in each command?
+- [x] I need to ensure the channels are correct, decide do I alwayse use the ones in the env or pass in each command?
 string or flexible?
-I also need to sort out inputs, --recipe or --yaml or input?
-Maybe either recipe or yaml is given? or recipe is given it is copied to a fixed place and used otherwise that fixed place is the given recipe for the capture.
-So a restriction is made that to "create" you cannot pass both yaml and recipe only one or the other. No I don;t like that.
+-[ ] I also need to sort out inputs, --recipe or --yaml or input?
+-[ ] Maybe either recipe or yaml is given? or recipe is given it is copied to a fixed place and used otherwise that fixed place is the given recipe for the capture.
+-[ ] So a restriction is made that to "create" you cannot pass both yaml and recipe only one or the other. No I don;t like that.
 To create you pass input, it detects if it is yaml or recipe and then creates recipe for the recipse and create stages. And passes --recipe there explicitly not input soince it has to be.
-coble-rationalise - implement it is empty at the moment
+-[ ] coble-rationalise - implement it is empty at the moment
 
- 
 19/12/25
 Meeting with Syed
 He wants it to be the simplest thing possible for a user.
@@ -24,22 +26,21 @@ manager as in conda or r-package
 source as in a channel or a url or a local path
 
 Use case is that you can't expect to be able to do everythong but can tell the user what they need to do.
-
 2 r versions won;t work for example.
 
 
 
 ######################
 15/12/25
-Keep logs needs to be a param that defaults to no
-Need to parse out logs
-Need to create a set og configs from publictions ot web, sylver, nanostring cosmx, random one: https://github.com/MICS-Lab/novae  
-Need to make it a provate conda package
-change script to do conda activate and have the name in it explicitly as it is an output of the build.
-recipe is wrong name file 
-needs to be put in a specific folder
-versions don; work for r
-sylver get that working, the file paths not quiote  make removal of all interim files the deauly (recipe and capture only)
+-[x] Keep logs needs to be a param that defaults to no
+-[x] Need to parse out logs
+-[x] Need to create a set og configs from publictions ot web, sylver, nanostring cosmx, random one: https://github.com/MICS-Lab/novae  
+-[x] Need to make it a provate conda package
+-[x] change script to do conda activate and have the name in it explicitly as it is an output of the build.
+-[x] recipe is wrong name file 
+-[x] needs to be put in a specific folder
+-[x] versions don; work for r
+-[x] sylver get that working, the file paths not quiote  make removal of all interim files the deauly (recipe and capture only)
 
 
 14/12/25
