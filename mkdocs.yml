@@ -63,5 +63,4 @@ nav:
     - Conda Build: overview.md
     - Docker Build: docker-build.md
     - Container Environments: container-env.md          
-  - About:
-    - License: license.md
+  - About: about.md
