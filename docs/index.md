@@ -2,7 +2,7 @@
 
 # COBLE: COnda BuiLdEr
 
-COBLE is a tool to build and manage conda environments, developed by the RSE team at the ICR.
+COBLE is a tool to build and manage conda environments, developed at the Institute of Cancer Research by the Research Software Engineering team for, and with, the Breast Cancer Research Data Science group.
 
 ## COBLE Workflow Overview
 
@@ -11,7 +11,7 @@ This page describes the basic workflow for using the COBLE environment creation 
 ### Basic Command
 
 ```
-coble create --input my.yml --env my-env --outdir tmp-out
+coble build --input my.yml --env my-env
 ```
 
 ### Workflow Steps
