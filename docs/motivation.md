@@ -6,7 +6,7 @@ Scientific reprodicibility is a known crisis and the environments in which code 
 
 Additionally, for a lab's own environment, and especially on HPC systems, it can take up to 8 hours to build an environment with over 200 libraries, each with their own dependencies. Every new version of R can change the dependency order, making the process unpredictable and fragile. If an environment is lost or corrupted, it can take days to rebuild, causing significant delays in research. 
 
-These is a critical issue for reproducible science, where the ability to recreate an environment exactly from a publication or within a lab is essential for verifying results and sharing methods.
+These are critical issues for reproducible science, where the ability to recreate an environment exactly from a publication or within a lab is essential for verifying results and sharing methods.
 
 ## What COBLE Solves
 - **One step creation of mixed conda environment from yaml spec:** COBLE enables environments to be rebuilt with a minimum user-friendly spec, prompting for any errors so they can be corrected quickly.
