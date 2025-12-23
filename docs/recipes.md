@@ -4,6 +4,8 @@ COBLE recipes are simple bash scripts that define the steps to build your enviro
 
 ## SYLVER
 
+# https://github.com/KChen-lab/Monopogen
+
 ## Mixed latest bioinformatics
 
 ## PySamStats

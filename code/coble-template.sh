@@ -61,10 +61,11 @@ echo "" >> "$YAML_FILE"
 #echo channels
 if [[ "$FLAVOUR" =~ ^(find|r|python|mixed)$ ]]; then
     echo "channels:" >> "$YAML_FILE"
-    echo "  - conda-forge" >> "$YAML_FILE"
-    echo "  - bioconda" >> "$YAML_FILE"
-    echo "  - r" >> "$YAML_FILE"
+    echo "# note the reverse order of priority" >> "$YAML_FILE"
     echo "  - defaults" >> "$YAML_FILE"
+    echo "  - r" >> "$YAML_FILE"
+    echo "  - bioconda" >> "$YAML_FILE"
+    echo "  - conda-forge" >> "$YAML_FILE"            
     echo "" >> "$YAML_FILE"
 fi
 
@@ -102,7 +103,7 @@ if [[ "$FLAVOUR" =~ ^(r|mixed)$ ]]; then
 
     # BIOC-CONDA
     echo "bioc-conda:" >> "$YAML_FILE"
-    echo "  - affy@bioconductor" >> "$YAML_FILE"
+    echo "  - affy@bioconda" >> "$YAML_FILE"
     echo "" >> "$YAML_FILE"    
 
     # R-PACKAGE
@@ -156,6 +157,12 @@ if [[ "$FLAVOUR" =~ ^(find)$ ]]; then
     echo "  - limma=3.42.2" >> "$YAML_FILE"  
     echo "  - cdsr_models" >> "$YAML_FILE"     
     echo "" >> "$YAML_FILE"
+fi
+
+if [[ "$FLAVOUR" =~ ^(452)$ ]]; then
+    # copy file in same dir as this script to YAML_FILE
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/452.yml" "$YAML_FILE"    
 fi
 
 echo "Y"

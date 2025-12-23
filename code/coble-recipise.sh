@@ -160,8 +160,7 @@ while IFS= read -r line; do
         CURRENT_SECTION=""
     elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then    
         if [[ "$line" == *"r-"* ]]; then
-            r_count=$((r_count + 1))
-            echo "[conda-recipise] R-langauges: $r_count" >2
+            r_count=$((r_count + 1))            
         elif [[ "$line" == *"python"* ]]; then
             python_count=$((python_count + 1))
         fi
@@ -258,7 +257,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "conda install -y -c conda-forge -c bioconda $DEPS_CONDA $UPDATE_CONDA \\" >> "$RECIPE_FILE"
+          echo "conda install -y $DEPS_CONDA $UPDATE_CONDA \\" >> "$RECIPE_FILE"
         fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
@@ -268,69 +267,6 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         # For flags, parse directive and value from 'directive = value' format        
         if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
             continue
-        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                
-            if [[ "$pkg_name" == "r-base" ]]; then                    
-                if [[ "$src" == "" ]]; then
-                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
-                else                    
-                    echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
-                fi                
-            elif [[ "$pkg_name" == "python" ]]; then                    
-                if [[ "$src" == "" ]]; then
-                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"                
-                else                    
-                    echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
-                fi                
-            fi            
-        elif [[ "$CURRENT_SECTION" == "conda-r:" || "$CURRENT_SECTION" == "r-conda:"  ]]; then            
-            if [[ "$src" == "" ]]; then
-                src="conda-forge"
-            elif [[ "$src" != "conda-forge" ]]; then
-                src="conda-forge -c $src"
-            fi
-            #echo "conda install -y -c $src 'r-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
-            echo "'r-$pkg' \\" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "conda-bioc:" || "$CURRENT_SECTION" == "bioc-conda:"  ]]; then                        
-            #echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
-            echo "'bioconductor-$pkg' \\" >> "$RECIPE_FILE"
-        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
-            if [[ "$src" == "" ]]; then
-                src="conda-forge"
-            elif [[ "$src" != "conda-forge" ]]; then
-                src="conda-forge -c $src"
-            fi
-            #echo "conda install -y -c $src '$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"        
-             echo "'$pkg' \\" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-r:" ]]; then            
-            echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src" >&2
-            if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then                
-                echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-            elif [[ "$src" == "R-FORGE"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-            else
-                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-            fi
-        elif [[ "$CURRENT_SECTION" == "r-github:" ]]; then            
-            echo "Rscript -e 'devtools::install_github(\"$path\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
-            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "package-bioc:" ]]; then            
-            echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
-            echo "[conda-recipise] Processing pip package: $pkg_name, version: $ver" >&2
-            pip_pkg="$pkg_name"
-            # If the package name contains 'https' and does not start with 'git', prepend 'git+'
-            if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
-                pip_pkg="git+$pip_pkg"
-            fi
-            if [[ -n "$ver" ]]; then
-                echo "python -m pip install '${pip_pkg}==${ver}' $DEPS_PYTHON" >> "$RECIPE_FILE"
-            else
-                echo "python -m pip install $pip_pkg $DEPS_PYTHON" >> "$RECIPE_FILE"
-            fi        
-        elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
-            echo "[conda-recipise] Adding bash command: $pkg_entry" >&2
-            echo "$pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
             echo "[conda-recipise] Processing flag: $pkg_entry" >&2
             directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
@@ -357,15 +293,79 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "conda install -y -c conda-forge gsl nlopt" >>  "$RECIPE_FILE"
                     echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials" >> "$RECIPE_FILE"
                     #echo "conda install -y -c conda-forge -c bioconda bioconductor-preprocesscore bioconductor-vsn" >> "$RECIPE_FILE"
-                fi
-                                
+                fi 
+                # common tool chain for graphics c library stack
+                echo "conda install -y -c conda-forge librsvg cairo freetype expat fontconfig" >> "$RECIPE_FILE"
                 # Common tool chain for compilation            
-                echo "conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make pkg-config" >> "$RECIPE_FILE"                                
+                echo "conda install -y -c conda-forge protobuf libprotobuf openssl cython bzip2 xz libcurl zlib gcc_linux-64 gxx_linux-64 gfortran_linux-64 make cmake pkg-config c-compiler cxx-compiler" >> "$RECIPE_FILE"                                
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
             fi        
+        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                
+            if [[ "$pkg_name" == "r-base" ]]; then                    
+                if [[ "$src" == "" ]]; then
+                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                else                    
+                    echo "conda install -y -c $src '$pkg_name=$ver'" >> "$RECIPE_FILE"
+                fi                
+            elif [[ "$pkg_name" == "python" ]]; then                    
+                if [[ "$src" == "" ]]; then
+                    echo "conda install -y '$pkg_name=$ver'" >> "$RECIPE_FILE"                
+                else                    
+                    echo "conda install -y '$src::$pkg_name=$ver'" >> "$RECIPE_FILE"
+                fi                
+            fi            
+        elif [[ "$CURRENT_SECTION" == "conda-r:" || "$CURRENT_SECTION" == "r-conda:"  ]]; then            
+            if [[ "$src" != "" ]]; then
+                echo "'$src::r-$pkg' \\" >> "$RECIPE_FILE"
+            else
+                echo "'r-$pkg' \\" >> "$RECIPE_FILE"
+            fi                        
+        elif [[ "$CURRENT_SECTION" == "conda-bioc:" || "$CURRENT_SECTION" == "bioc-conda:"  ]]; then                        
+            #echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+            if [[ "$src" != "" ]]; then
+                echo "'$src::bioconductor-$pkg' \\" >> "$RECIPE_FILE"
+            else
+                echo "'bioconductor-$pkg' \\" >> "$RECIPE_FILE"
+            fi                                    
+        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
+            if [[ "$src" != "" ]]; then
+                echo "'$src::$pkg' \\" >> "$RECIPE_FILE"
+            else
+                echo "'$pkg' \\" >> "$RECIPE_FILE"
+            fi                                                            
+        elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then            
+            echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src" >&2
+            if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then                
+                echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            elif [[ "$src" == "R-FORGE"* ]]; then
+                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            else
+                echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            fi
+        elif [[ "$CURRENT_SECTION" == "r-github:" || "$CURRENT_SECTION" == "github-r:" ]]; then            
+            echo "Rscript -e 'devtools::install_github(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
+            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
+            echo "Rscript -e 'BiocManager::install(\"${pkg%%=*}\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
+            echo "[conda-recipise] Processing pip package: $pkg_name, version: $ver" >&2
+            pip_pkg="$pkg_name"
+            # If the package name contains 'https' and does not start with 'git', prepend 'git+'
+            if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
+                pip_pkg="git+$pip_pkg"
+            fi
+            if [[ -n "$ver" ]]; then
+                echo "python -m pip install '${pip_pkg}==${ver}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            else
+                echo "python -m pip install $pip_pkg $DEPS_PYTHON" >> "$RECIPE_FILE"
+            fi        
+        elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
+            echo "[conda-recipise] Adding bash command: $pkg_entry" >&2
+            echo "$pkg_entry" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
             echo "[conda-recipise] Finding: $pkg_name, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -390,7 +390,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     else                
         if [[ -n "$line" ]]; then
             #echo "[conda-recipise] Ignoring line: $line" >&2
-            contnue
+            continue
         fi
     fi
 done < "$YAML_FILE"

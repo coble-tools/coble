@@ -27,8 +27,8 @@ stdout_patterns=(
 "Could not solve for environment specs"
 )  
 error_patterns=(
-"had non-zero exit status" 
-"exit" 
+#"had non-zero exit status" 
+"* removing" 
 "fatal" 
 "EnvironmentNotWritableError"     
 "Rscript: command not found"     

@@ -146,6 +146,7 @@ echo "[coble-recreate] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")
 current_line=0
 buffer=""
+BEGIN_TIME=$(date +%s)
 while IFS= read -r line || [[ -n "$line" ]]; do    
     # Copy the last log file to LOG_FILE_date and start a new one
     # but only if it has more than 10 lines
@@ -212,10 +213,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
         echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
         exit 1
-    fi
-
-    echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-    echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+    fi    
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
         echo "[coble-recreate] Error: Command failed: $buffer" >&2
@@ -225,6 +223,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     # Reset buffer for the next command 
     buffer=""
 done < "$RECIPE_FILE"
+END_TIME=$(date +%s)
+DURATION=$((END_TIME - BEGIN_TIME))
+echo "--------------------------------------" >> "$TIME_FILE"    
+echo "[coble-recreate] Recipe created at: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+echo "[coble-recreate] Recipe took: ${DURATION}s" >> "$TIME_FILE"
+echo "--------------------------------------" >> "$TIME_FILE"        
 
 echo "[coble-recreate] Recreate process completed." >&2
 # clear the log diversions and return stdout and stderr to normal

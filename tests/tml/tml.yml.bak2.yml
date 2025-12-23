@@ -1,12 +1,12 @@
 #######################################
 ## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-23 at 09:18:35 GMT by ralcraft
+##    Resolved - On: 2025-12-23 at 20:40:32 GMT by ralcraft
 #######################################
 
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2025
 # Created date: 2025-12-23
-# Created time: 09:18:22 GMT
+# Created time: 20:40:12 GMT
 # Created by: ralcraft
 #######################################
 
@@ -15,12 +15,14 @@ coble:
   - environment: coble-env
 
 channels:
-  - conda-forge
-  - bioconda
-  - r
+# note the reverse order of priority
   - defaults
+  - r
+  - bioconda
+  - conda-forge
 
 languages:
+  - r-base=4.4.2@conda-forge
   - python=3.13.1@conda-forge
 
 flags:
@@ -29,6 +31,27 @@ flags:
 
 conda:
   - pandas
+
+r-conda:
+  - tidyverse
+  - devtools
+  - remotes
+
+bioc-conda:
+  - affy@bioconda
+
+r-package:
+  - survival
+  - countreg@r-forge
+
+bioc-package:
+  - limma
+
+r-github:
+  - seedgeorge/SQUEAK
+
+r-url:
+  - https://github.com/choisy/cutoff/archive/refs/heads/master.zip
 
 pip:
   - numpy

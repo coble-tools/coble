@@ -43,20 +43,32 @@ bash:
   - python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
 
 r-conda:
-  - data.table    
+  - data.table
+  - stringi
+  - plyr
+  - sitmo
+  - rcpp  
   - seurat
   - units
   - raster
   - spdep
-  - magick  
-  - conquer   
+  - magick
+  - rcpparmadillo 
+  - conquer 
+  - minqa
   - lme4
-  - gifski        
+  - gifski  
+  - tzdb 
+  - vroom 
+  - readr 
+  - readxl 
+  - rcppannoy
   - glmnet
   - rjson
   - interp
   - v8
-  - cairo  
+  - cairo
+  - gdtools
   - flextable
     
 bioc-package:
@@ -93,10 +105,6 @@ r-package:
   - gplots
   - drc
   - chicane
-  - tidyverse
-  - reshape
-  - TeachingDemos
-  - harmony
 
 r-forge:
   - countreg
@@ -114,15 +122,26 @@ bioc-package:
   - viper
   - dorothea
   - aracne.networks
-  - scDblFinder  
-  - VariantAnnotation  
+  - scDblFinder
+  - biomaRt
+  - rtracklayer
+  - GenomicFeatures
+  - BSgenome
+  - VariantAnnotation
+  - ensembldb
   - biovizBase
   - Gviz
-  - GenomicInteractions    
+  - GenomicInteractions
+  - multtest
+  - GSEABase
+  - reshape
+  - TeachingDemos
+  - tidyverse
   - SingleR
   - scran
   - celldex
-  - MAST  
+  - MAST
+  - impute
   - genefu
   - fastseg
   - methylKit
@@ -131,9 +150,11 @@ bioc-package:
   - ggbio
   - TxDb.Hsapiens.UCSC.hg38.knownGene
   - EnsDb.Hsapiens.v86
+  - harmony
   - infercnv
   - ShortRead
-  - Chicago  
+  - Chicago
+  - pcaMethods
   - Rsubread
   - batchelor
   - liftOver
