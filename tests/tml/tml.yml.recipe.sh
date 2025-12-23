@@ -3,7 +3,7 @@
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
 # Capture date: 2025-12-23
-# Capture time: 20:40:32 GMT
+# Capture time: 21:23:14 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -27,7 +27,6 @@ conda config --env --add channels conda-forge
 
 # languages:
 conda install -y -c conda-forge 'r-base=4.4.2'
-conda install -y 'conda-forge::python=3.13.1'
 
 # flags:
 # Flag: Directive: dependencies, Value: true
@@ -43,10 +42,6 @@ ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-con
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
 
 
-# conda:
-conda install -y  --no-update-deps \
-'pandas' 
-
 # r-conda:
 conda install -y  --no-update-deps \
 'r-tidyverse' \
@@ -55,11 +50,10 @@ conda install -y  --no-update-deps \
 
 # bioc-conda:
 conda install -y  --no-update-deps \
-'bioconda::bioconductor-affy' 
+'bioconductor-affy' 
 
 # r-package:
 Rscript -e 'install.packages("survival", repos="https://cloud.r-project.org", dependencies=TRUE)'
-Rscript -e 'install.packages("countreg", repos="https://cloud.r-project.org", dependencies=TRUE)'
 
 # bioc-package:
 Rscript -e 'BiocManager::install("limma", dependencies=TRUE)'
@@ -69,8 +63,4 @@ Rscript -e 'devtools::install_github("seedgeorge/SQUEAK", dependencies=TRUE)'
 
 # r-url:
 Rscript -e 'remotes::install_url("https://github.com/choisy/cutoff/archive/refs/heads/master.zip", dependencies=TRUE)'
-
-# pip:
-python -m pip install numpy 
-python -m pip install git+https://github.com/ICR-RSE-Group/gitalma.git 
 

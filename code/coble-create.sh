@@ -104,8 +104,9 @@ TIME_FILE="${RECIPE_FILE}.summary.txt"
 : > "$TIME_FILE"
 : > "$ERROR_FILE"
 # Redirect stdout and stderr to log file
-echo "[coble-create] REDIRECTED STDOUT to Log file: $LOG_FILE"
-echo "[coble-create] REDIRECTED STDERR to Log file: $ERROR_FILE"
+echo "[coble-create] Redirected STDOUT to file: $LOG_FILE" >&2
+echo "[coble-create] Redirected STDERR to file: $ERROR_FILE" >&2
+echo "[coble-create] Summary recorded at $TIME_FILE" >&2
 
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"

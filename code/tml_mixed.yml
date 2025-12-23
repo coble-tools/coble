@@ -15,10 +15,14 @@ channels:
 
 languages:
   - r-base=4.4.2@conda-forge
+  - python=3.13.1@conda-forge
 
 flags:
   - dependencies: True
   - build-tools: True
+
+conda:
+  - pandas
 
 r-conda:
   - tidyverse
@@ -26,11 +30,11 @@ r-conda:
   - remotes
 
 bioc-conda:
-  - affy
+  - affy@bioconda
 
 r-package:
-  - survival  
-
+  - survival
+  
 bioc-package:
   - limma
 
@@ -39,4 +43,8 @@ r-github:
 
 r-url:
   - https://github.com/choisy/cutoff/archive/refs/heads/master.zip
+
+pip:
+  - numpy
+  - https://github.com/ICR-RSE-Group/gitalma.git
 
