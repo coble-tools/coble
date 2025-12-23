@@ -3,12 +3,11 @@
 # Execute a recipe script line by line to create an environment
 
 ##############
-# success=$(coble-create.sh --recipe RECIPE_FILE --env ENV --outdir OUTDIR)
+# success=$(coble-create.sh --recipe RECIPE_FILE --env ENV)
 ##############
 # Inputs ----
 # 1. --recipe recipe file
 # 2. --env environment name or path
-# 4. --outdir output log files directory
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
@@ -21,7 +20,6 @@
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
 ENV_OUTPUT=""
-CAPTURE_FILE=""
 RECIPE_FILE=""
 NEW_ENV=""
 LOG_FILE=""
@@ -31,10 +29,9 @@ OUTDIR="."
 EXIT_ON_ERROR=1
 
 show_help() {
-    echo "Usage: $0  --env NEW_ENV [--recipe RECIPE_FILE] [--output CAPTURE_FILE] [--outdir OUTDIR]"    
+    echo "Usage: $0  --env NEW_ENV --recipe RECIPE_FILE"    
     echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
-    echo "  --recipe    RECIPE    Specify input recipe shell script (required)"    
-    echo "  --outdir   OUTDIR  Specify output directory for recipe file (optional)"
+    echo "  --recipe    RECIPE    Specify input recipe shell script (required)"        
     echo "  --debug    Keep interim logs for debugging (optional)"
     echo "  --skip-errors  Exit on first error (not default behavior)"
     echo "  -h,--help  Show this help message and exit"
@@ -46,11 +43,7 @@ while [[ $# -gt 0 ]]; do
         --recipe)
             RECIPE_FILE="$2"
             shift; shift
-            ;;
-        --output)
-            CAPTURE_FILE="$2"
-            shift; shift
-            ;;
+            ;;        
         --env)
             NEW_ENV="$2"
             shift; shift
@@ -62,11 +55,7 @@ while [[ $# -gt 0 ]]; do
         --skip-errors)
             EXIT_ON_ERROR=0
             shift; 
-            ;;
-        --outdir)
-            OUTDIR="$2"
-            shift; shift
-            ;;
+            ;;        
         -h|--help)
             show_help
             exit 0
@@ -102,17 +91,18 @@ mkdir -p "$OUTDIR"
 base_name="${RECIPE_FILE##*/}"
 base_name_noext="${base_name%.*}"
 
-CAPTURE_FILE="coble-captured-${NEW_ENV_NAME}.yml"
-CAPTURE_FILE="$OUTDIR/${CAPTURE_FILE}"
+#LOG_FILE="$OUTDIR/${base_name_noext}.log"
+#ERROR_FILE="$OUTDIR/${base_name_noext}.err"
+#TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
 
-LOG_FILE="$OUTDIR/${base_name_noext}.log"
-ERROR_FILE="$OUTDIR/${base_name_noext}.err"
-TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
+LOG_FILE="${RECIPE_FILE}.log"
+ERROR_FILE="${RECIPE_FILE}.err"
+TIME_FILE="${RECIPE_FILE}.summary.txt"
+
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$TIME_FILE"
 : > "$ERROR_FILE"
-: > "$CAPTURE_FILE"
 # Redirect stdout and stderr to log file
 echo "[coble-create] REDIRECTED STDOUT to Log file: $LOG_FILE"
 echo "[coble-create] REDIRECTED STDERR to Log file: $ERROR_FILE"

@@ -2,6 +2,14 @@
 
 COBLE recipes are simple bash scripts that define the steps to build your environment. You can use any valid bash command in a recipe, giving you full flexibility to customize your build process.
 
+## SYLVER
+
+## Mixed latest bioinformatics
+
+## PySamStats
+
+## Custom R
+
 ## General Guidelines
 
 - **Environment Variables:**  

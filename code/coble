@@ -87,9 +87,10 @@ if [[ "$1" == "build" ]]; then
 	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
 	echo "[coble-create] Creation result: $result" >&2
 	
-	echo "[coble-create 4/4] Created env, proceeding to capture." >&2
-	"$script_dir/coble-capture.sh" "${@:2}"
-	
+	echo "[coble-create 4/4] Created env, proceeding to capture." >&2	
+	recipe_dir="$(dirname "$recipe_file")"
+	result=$("$script_dir/coble-capture.sh" --outdir "$recipe_dir" "${@:2}")
+		
 	echo "[coble-create] Environment creation complete." >&2
 	exit $?
 fi

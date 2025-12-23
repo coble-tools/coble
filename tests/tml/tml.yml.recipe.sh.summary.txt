@@ -1,78 +1,78 @@
 ------------------------------------------------
-[coble-recreate] Summary log started at 2025-12-23 08:31:01
+[coble-recreate] Summary log started at 2025-12-23 09:20:59
 ------------------------------------------------
 
-[coble-recreate] Start time: 2025-12-23 08:31:01 10/49
+[coble-recreate] Start time: 2025-12-23 09:20:59 10/49
 source "$(conda info --base)/etc/profile.d/conda.sh"
-[coble-recreate] End time: 2025-12-23 08:31:02
+[coble-recreate] End time: 2025-12-23 09:21:00
 [coble-recreate] Duration: 1s
-[coble-recreate] End time: 2025-12-23 08:31:02
+[coble-recreate] End time: 2025-12-23 09:21:00
 [coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-23 08:31:02 11/49
+[coble-recreate] Start time: 2025-12-23 09:21:00 11/49
 source ~/.bashrc
-[coble-recreate] End time: 2025-12-23 08:31:02
+[coble-recreate] End time: 2025-12-23 09:21:00
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:02
+[coble-recreate] End time: 2025-12-23 09:21:00
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:02 15/49
+[coble-recreate] Start time: 2025-12-23 09:21:00 15/49
 conda create --name tml -y
-[coble-recreate] End time: 2025-12-23 08:31:15
-[coble-recreate] Duration: 12s
-[coble-recreate] End time: 2025-12-23 08:31:15
-[coble-recreate] Duration: 12s
+[coble-recreate] End time: 2025-12-23 09:21:11
+[coble-recreate] Duration: 10s
+[coble-recreate] End time: 2025-12-23 09:21:11
+[coble-recreate] Duration: 10s
 
-[coble-recreate] Start time: 2025-12-23 08:31:15 16/49
+[coble-recreate] Start time: 2025-12-23 09:21:11 16/49
 conda activate tml
-[coble-recreate] End time: 2025-12-23 08:31:15
+[coble-recreate] End time: 2025-12-23 09:21:11
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:15
+[coble-recreate] End time: 2025-12-23 09:21:11
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:15 19/49
+[coble-recreate] Start time: 2025-12-23 09:21:11 19/49
 conda config --env --remove-key channels
-[coble-recreate] End time: 2025-12-23 08:31:16
+[coble-recreate] End time: 2025-12-23 09:21:12
 [coble-recreate] Duration: 1s
-[coble-recreate] End time: 2025-12-23 08:31:16
+[coble-recreate] End time: 2025-12-23 09:21:12
 [coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-23 08:31:16 20/49
+[coble-recreate] Start time: 2025-12-23 09:21:12 20/49
 conda config --env --set channel_priority strict
-[coble-recreate] End time: 2025-12-23 08:31:16
+[coble-recreate] End time: 2025-12-23 09:21:13
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:16
+[coble-recreate] End time: 2025-12-23 09:21:13
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:16 21/49
+[coble-recreate] Start time: 2025-12-23 09:21:13 21/49
 conda config --env --add channels conda-forge
-[coble-recreate] End time: 2025-12-23 08:31:17
-[coble-recreate] Duration: 1s
-[coble-recreate] End time: 2025-12-23 08:31:17
-[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-23 09:21:13
+[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-23 09:21:13
+[coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:17 22/49
+[coble-recreate] Start time: 2025-12-23 09:21:13 22/49
 conda config --env --add channels bioconda
-[coble-recreate] End time: 2025-12-23 08:31:18
-[coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:18
-[coble-recreate] Duration: 0s
+[coble-recreate] End time: 2025-12-23 09:21:14
+[coble-recreate] Duration: 1s
+[coble-recreate] End time: 2025-12-23 09:21:14
+[coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-23 08:31:18 23/49
+[coble-recreate] Start time: 2025-12-23 09:21:14 23/49
 conda config --env --add channels r
-[coble-recreate] End time: 2025-12-23 08:31:18
+[coble-recreate] End time: 2025-12-23 09:21:14
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:18
+[coble-recreate] End time: 2025-12-23 09:21:14
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:18 24/49
+[coble-recreate] Start time: 2025-12-23 09:21:14 24/49
 conda config --env --add channels defaults
-[coble-recreate] End time: 2025-12-23 08:31:19
+[coble-recreate] End time: 2025-12-23 09:21:15
 [coble-recreate] Duration: 1s
-[coble-recreate] End time: 2025-12-23 08:31:19
+[coble-recreate] End time: 2025-12-23 09:21:15
 [coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-23 08:31:19 29/49
+[coble-recreate] Start time: 2025-12-23 09:21:12 29/49
 conda install -y -c conda-forge 'python=3.13.1'
       _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge 
       _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu 
@@ -99,12 +99,12 @@ conda install -y -c conda-forge 'python=3.13.1'
       tk                 conda-forge/linux-64::tk-8.6.13-noxft_ha0e22de_103 
       tzdata             conda-forge/noarch::tzdata-2025c-h8577fbf_0 
       zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6 
-[coble-recreate] End time: 2025-12-23 08:31:32
-[coble-recreate] Duration: 12s
-[coble-recreate] End time: 2025-12-23 08:31:32
-[coble-recreate] Duration: 12s
+[coble-recreate] End time: 2025-12-23 09:21:26
+[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-23 09:21:26
+[coble-recreate] Duration: 13s
 
-[coble-recreate] Start time: 2025-12-23 08:31:32 36/49
+[coble-recreate] Start time: 2025-12-23 09:21:26 36/49
 conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make pkg-config
       binutils_impl_lin~ conda-forge/linux-64::binutils_impl_linux-64-2.45-default_hfdba357_104 
       binutils_linux-64  conda-forge/linux-64::binutils_linux-64-2.45-default_h4852527_104 
@@ -123,33 +123,33 @@ conda install -y -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 make
       make               conda-forge/linux-64::make-4.4.1-hb9d3cd8_2 
       pkg-config         conda-forge/linux-64::pkg-config-0.29.2-h4bc722e_1009 
       sysroot_linux-64   conda-forge/noarch::sysroot_linux-64-2.39-hc4b9eeb_5 
-[coble-recreate] End time: 2025-12-23 08:31:40
-[coble-recreate] Duration: 8s
-[coble-recreate] End time: 2025-12-23 08:31:40
-[coble-recreate] Duration: 8s
+[coble-recreate] End time: 2025-12-23 09:21:37
+[coble-recreate] Duration: 10s
+[coble-recreate] End time: 2025-12-23 09:21:37
+[coble-recreate] Duration: 10s
 
-[coble-recreate] Start time: 2025-12-23 08:31:40 37/49
+[coble-recreate] Start time: 2025-12-23 09:21:37 37/49
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:41 38/49
+[coble-recreate] Start time: 2025-12-23 09:21:37 38/49
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:41 39/49
+[coble-recreate] Start time: 2025-12-23 09:21:37 39/49
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:41
+[coble-recreate] End time: 2025-12-23 09:21:37
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:41 44/49
+[coble-recreate] Start time: 2025-12-23 09:21:37 44/49
 conda install -y -c conda-forge -c bioconda --no-update-deps 'pandas'
       libblas            conda-forge/linux-64::libblas-3.11.0-5_h4a7cf45_openblas 
       libcblas           conda-forge/linux-64::libcblas-3.11.0-5_h0358290_openblas 
@@ -162,22 +162,22 @@ conda install -y -c conda-forge -c bioconda --no-update-deps 'pandas'
       python-tzdata      conda-forge/noarch::python-tzdata-2025.3-pyhd8ed1ab_0 
       pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0 
       six                conda-forge/noarch::six-1.17.0-pyhe01879c_1 
-[coble-recreate] End time: 2025-12-23 08:31:55
-[coble-recreate] Duration: 13s
-[coble-recreate] End time: 2025-12-23 08:31:55
-[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-23 09:21:48
+[coble-recreate] Duration: 10s
+[coble-recreate] End time: 2025-12-23 09:21:48
+[coble-recreate] Duration: 10s
 
-[coble-recreate] Start time: 2025-12-23 08:31:55 47/49
+[coble-recreate] Start time: 2025-12-23 09:21:48 47/49
 python -m pip install numpy
-[coble-recreate] End time: 2025-12-23 08:31:55
+[coble-recreate] End time: 2025-12-23 09:21:48
 [coble-recreate] Duration: 0s
-[coble-recreate] End time: 2025-12-23 08:31:55
+[coble-recreate] End time: 2025-12-23 09:21:48
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-23 08:31:55 48/49
+[coble-recreate] Start time: 2025-12-23 09:21:48 48/49
 python -m pip install git+https://github.com/ICR-RSE-Group/gitalma.git
     Successfully installed certifi-2025.11.12 charset_normalizer-3.4.4 gitalma-1.2.0 idna-3.11 pyyaml-6.0.3 requests-2.32.5 urllib3-2.6.2
-[coble-recreate] End time: 2025-12-23 08:32:01
+[coble-recreate] End time: 2025-12-23 09:21:54
 [coble-recreate] Duration: 5s
-[coble-recreate] End time: 2025-12-23 08:32:01
+[coble-recreate] End time: 2025-12-23 09:21:54
 [coble-recreate] Duration: 5s
