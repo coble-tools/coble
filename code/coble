@@ -64,9 +64,10 @@ if [[ "$1" == "create" ]]; then
 	
 	echo "[coble-create 3/4] Created recipe, proceeding to creation." >&2
 	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
+	echo "[coble-create] Creation result: $result" >&2
 	
 	echo "[coble-create 4/4] Created env, proceeding to capture." >&2
-	#"$script_dir/coble-capture.sh" "${@:2}"
+	"$script_dir/coble-capture.sh" "${@:2}"
 	
 	echo "[coble-create] Environment creation complete." >&2
 	exit $?

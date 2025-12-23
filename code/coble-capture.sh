@@ -49,10 +49,7 @@ while [[ $# -gt 0 ]]; do
 			exit 0
 			;;
 		*)
-			# Unknown argument, show help and exit
-			echo "[coble-capture] Error: Unknown argument: $1" >&2
-			show_help
-			exit 1
+			shift
 			;;
 	esac
 done
@@ -121,7 +118,11 @@ fi
 
 # List all R packages with version and source
 echo "[coble-capture] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
-conda run $ENV_FORMATTED Rscript -e '
+# if Rscript is in the environment, run the Rscript to get package info
+if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
+	echo "    R is not available in conda environment"
+else
+	conda run $ENV_FORMATTED Rscript -e '
     # Get conda environment path
     conda_prefix <- Sys.getenv("CONDA_PREFIX")
     
@@ -158,7 +159,7 @@ conda run $ENV_FORMATTED Rscript -e '
                     file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
     }
 ' || echo -e "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
-
+fi
 
 # Clear the aggregate file at the start
 > "$TMP_AGGREGATE"

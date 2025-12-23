@@ -229,36 +229,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
         echo "[coble-recreate] Error: Command failed: $buffer" >&2
+        echo N
         exit 3
     fi
     # Reset buffer for the next command 
     buffer=""
 done < "$RECIPE_FILE"
 
-echo "[coble-recreate] Recreate process completed."
-
-####################################### CAPTURE ENVIRONMENT SECTION #######################################
-# Capture the environment to a YAML file for future use
-echo "[coble-recreate] Capturing environment to file: $CAPTURE_FILE"
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-capture_args=(--env "$NEW_ENV" --outdir "$OUTDIR")
-if [[ $KEEP_LOGS -eq 1 ]]; then
-    capture_args+=(--debug)
-fi
-
-"$script_dir/coble-capture.sh" "${capture_args[@]}"
-if [[ -n "$CAPTURE_FILE" ]]; then
-    echo "[coble-recreate] Environment captured to: $CAPTURE_FILE"
-else
-    echo "[coble-recreate] No capture file specified, skipping capture."
-fi
-
-
-echo "[coble-recreate] Finished at $(date '+%Y-%m-%d %H:%M:%S')"
-echo "------------------------------------------------" >> "$TIME_FILE"
-echo "[coble-recreate] Finished at $(date '+%Y-%m-%d %H:%M:%S') " >> "$TIME_FILE"
-echo "------------------------------------------------" >> "$TIME_FILE"
-
+echo "[coble-recreate] Recreate process completed." >&2
+# clear the log diversions and return stdout and stderr to normal
+exec >&- 2>&-
+echo Y
 
 
 

@@ -1,13 +1,13 @@
 #######################################
 ## COBLE:Reproducible environment (c) ICR 2025. Resolved + Ordered
-##    Ordered - On: 2025-12-21 at 21:43:35 GMT by ralcraft
-##    Resolved - On: 2025-12-21 at 21:43:35 GMT by ralcraft
+##    Ordered - On: 2025-12-23 at 08:31:00 GMT by ralcraft
+##    Resolved - On: 2025-12-23 at 08:31:00 GMT by ralcraft
 #######################################
 
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2025
-# Created date: 2025-12-21
-# Created time: 21:43:32 GMT
+# Created date: 2025-12-23
+# Created time: 08:30:56 GMT
 # Created by: ralcraft
 #######################################
 
@@ -22,30 +22,16 @@ channels:
   - defaults
 
 languages:
-  - r-base=4.4.2@conda-forge
+  - python=3.13.1@conda-forge
 
 flags:
   - dependencies: True
   - build-tools: True
 
-r-conda:
-  - tidyverse
-  - devtools
-  - remotes
+conda:
+  - pandas
 
-bioc-conda:
-  - affy@bioconductor
-
-r-package:
-  - survival
-  - countreg@r-forge
-
-bioc-package:
-  - limma
-
-r-github:
-  - seedgeorge/SQUEAK
-
-r-url:
-  - https://github.com/choisy/cutoff/archive/refs/heads/master.zip
+pip:
+  - numpy
+  - https://github.com/ICR-RSE-Group/gitalma.git
 

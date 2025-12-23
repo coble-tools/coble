@@ -54,11 +54,14 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
-  - Motivation: motivation.md
-  - Recipes: recipes.md
-  - Conda Build: overview.md
-  - Docker Build: docker-build.md
-  - Container Environments: container-env.md          
+  - Overview:
+    - Home: index.md
+    - Motivation: motivation.md
+  - COBLE:
+    - Recipes: recipes.md
+  - Containers: 
+    - Conda Build: overview.md
+    - Docker Build: docker-build.md
+    - Container Environments: container-env.md          
   - About:
     - License: license.md

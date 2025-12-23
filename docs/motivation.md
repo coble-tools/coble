@@ -1,18 +1,23 @@
 # Motivation and Problem Statement
 
-Building complex R and Python environments for scientific computing is a major challenge, especially on HPC systems. For large projects, it can take up to 8 hours to build an environment with over 200 libraries, each with their own dependencies. Every new version of R can change the dependency order, making the process unpredictable and fragile.
+Building complex R and Python environments for scientific computing is a major challenge.
 
-If an environment is lost or corrupted, it can take days to rebuild, causing significant delays in research. This is a critical issue for reproducible science, where the ability to recreate an environment exactly is essential for verifying results and sharing methods.
+Scientific reprodicibility is a known crisis and the environments in which code runs are hard to reproduce. Despite the best intentions of the authors, versions become oue of date, rely on unspecified dependencies, are archived, disappear, seemed obvious to the authros but not others that they resided in r-forge rather than cran... Being able to reproduce an environment from a publication methods or from a code repositiry would considerably enhance people's experience of working with and reproducing others code.
+
+Additionally, for a lab's own environment, and especially on HPC systems, it can take up to 8 hours to build an environment with over 200 libraries, each with their own dependencies. Every new version of R can change the dependency order, making the process unpredictable and fragile. If an environment is lost or corrupted, it can take days to rebuild, causing significant delays in research. 
+
+These is a critical issue for reproducible science, where the ability to recreate an environment exactly from a publication or within a lab is essential for verifying results and sharing methods.
 
 ## What COBLE Solves
-- **Automated, repeatable builds:** COBLE enables environments to be rebuilt on a regular basis, ensuring that the process is always testable and up-to-date.
+- **One step creation of mixed conda environment from yaml spec:** COBLE enables environments to be rebuilt with a minimum user-friendly spec, prompting for any errors so they can be corrected quickly.
+- **Repeatable builds:** COBLE enables environments to be rebuilt on a regular basis, ensuring that the process is always testable and up-to-date.
 - **Dependency management:** Handles complex dependency trees and changing package orders across R versions.
 - **Disaster recovery:** Rapidly recreates environments if they are lost, minimizing downtime on HPC clusters.
 - **Reproducibility:** Supports the core principle of reproducible science by making environments recreatable, not just once, but continuously.
 - **Reusability:** By making the build scripts and resulting environments available, others can reuse and adapt them for their own work.
 - **Containerization:** Builds Docker and Singularity images, making environments portable and shareable across different systems.
 
-COBLE is designed to make robust, reproducible, and reusable scientific environments a reality, saving time and supporting best practices in computational research.
+COBLE is designed to make robust, reproducible, and reusable scientific environments, saving time and supporting best practices in computational research.
 
 ## Evolving Environments and Recipe Rationalization
 
