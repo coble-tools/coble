@@ -110,8 +110,8 @@ echo "  ENV_INPUT: $ENV_INPUT" >&2
 echo "  YAML_FILE: $YAML_FILE" >&2
 echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
-#UPDATE_CONDA="--no-update-deps"
-UPDATE_CONDA=""
+UPDATE_CONDA="--no-update-deps"
+#UPDATE_CONDA=""
 DEPS_CONDA=""
 DEPS_PYTHON=""
 DEPS_R="TRUE"
@@ -289,10 +289,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
             elif [[ "$directive,," == "updates" && "$value,," == "true" ]]; then
-                echo "[conda-recipise] (default) Will update dependencies (not base languages)" >&2
+                echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
             elif [[ "$directive,," == "updates" && "$value,," == "false" ]]; then                
-                echo "[conda-recipise] (!not default) Will NOT update dependencies" >&2
+                echo "[conda-recipise] (default) Will not update dependencies" >&2
                 UPDATE_CONDA="--no-update-deps"                
             elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then
                 echo "[conda-recipise] Build-tools will be included" >&2

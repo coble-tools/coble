@@ -24,8 +24,7 @@ languages:
   - python=3.8@conda-forge
 
 flags:
-  - dependencies: True
-  - updates: True
+  - dependencies: True  
   - build-tools: True
   
 conda:
