@@ -1,7 +1,7 @@
 #######################################
 ## COBLE:Reproducible environment (c) ICR 2025. Resolved + Ordered
-##    Ordered - On: 2025-12-23 at 22:22:14 GMT by ralcraft
-##    Resolved - On: 2025-12-23 at 22:22:13 GMT by ralcraft
+##    Ordered - On: 2025-12-24 at 15:22:01 GMT by ralcraft
+##    Resolved - On: 2025-12-24 at 15:21:34 GMT by ralcraft
 #######################################
 
 #######################################
@@ -45,6 +45,7 @@ bash:
 r-conda:
   - data.table
   - stringi
+  - rsvg
   - plyr
   - sitmo
   - rcpp  
@@ -70,6 +71,7 @@ r-conda:
   - cairo
   - gdtools
   - flextable
+  - rstanarm
     
 bioc-package:
   - fgsea

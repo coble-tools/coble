@@ -1,7 +1,8 @@
 23/12/25
 -[ ] Need to implement an updater now
 -[ ] Need to create the basics of a web app for icr
--[ ] Make a basic dependency viewer for the web app using the summary txt format. For conda packages take the 
+-[ ] Make a basic dependency viewer for the web app using the summary txt format. 
+ - the dep viewer also wants a count parser so for every new install we can see if it has already been installed.
 
 20/12/25
 - [x] I need to ensure the channels are correct, decide do I alwayse use the ones in the env or pass in each command?

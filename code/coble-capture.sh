@@ -121,44 +121,14 @@ echo "[coble-capture] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PAC
 # if Rscript is in the environment, run the Rscript to get package info
 if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
 	echo "    R is not available in conda environment"
-else
-	conda run $ENV_FORMATTED Rscript -e '
-    # Get conda environment path
-    conda_prefix <- Sys.getenv("CONDA_PREFIX")
-    
-    # Only look at packages in the conda environment
-    if (conda_prefix != "") {
-        conda_lib_path <- file.path(conda_prefix, "lib", "R", "library")
-        .libPaths(conda_lib_path)  # Set to ONLY conda environment
-    }
-    
-    ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
-    fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
-    get_info <- function(pkg, lib) {
-        desc_file <- file.path(lib, pkg, "DESCRIPTION")
-        info <- setNames(rep(NA_character_, length(fields)), fields)
-        if (file.exists(desc_file)) {
-            desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
-            if (!is.null(desc)) {
-                info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
-                for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
-            }
-        } else {
-            info["Source"] <- "System/Manual"
-        }
-        info
-    }
-    if (nrow(ip) > 0) {
-        infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
-        ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
-        write.table(ip[, c("Package", "Version", fields)], file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
-    } else {
-        write.table(data.frame(Package=character(), Version=character(), Source=character(),
-                             RemoteType=character(), RemoteRepo=character(), RemoteUsername=character(),
-                             RemoteRef=character(), RemoteSha=character()),
-                    file="'$TMP_R_PACKAGES_TXT'", row.names=FALSE, sep="\t", quote=FALSE)
-    }
-' || echo -e "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
+else    
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	RSCRIPT="$script_dir/coble-capture-r.R"
+	if conda run $ENV_FORMATTED Rscript "$RSCRIPT"; then
+        echo "R script completed successfully"
+    else
+        echo "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
+    fi
 fi
 
 # Clear the aggregate file at the start

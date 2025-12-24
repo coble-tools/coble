@@ -8,6 +8,8 @@ Here follows some common errors, why and how to fix them.
 
 # Conda dependencies
 
+the main languaes are pinned
+
 
 # New R version - bioconductor not built
 

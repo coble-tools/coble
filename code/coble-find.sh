@@ -43,15 +43,15 @@ check_and_print() {
 
     name_ver="$pkg_name"
 
-    echo "$source" >&2
+    echo "[coble-found] $source, $pkg_name, $pkg_ver, $pkg_orig, $ver_orig, $channel, $bioc_ver" >&2
+    
     if [[ -n "$pkg_ver" && -n "$ver" ]]; then
         echo "  $pkg_name $pkg_ver" >&2
         name_ver="$pkg_name=$pkg_ver"
     else
-        echo "  $pkg_orig" >&2
-    fi
-    #yaml_line="  - $pkg_orig"
-    yaml_line="  - $pkg_name"
+        name_ver="$pkg_name"         
+    fi    
+    yaml_line="  - $name_ver"
 
     case $source in
         "Conda (bioconda)")
@@ -82,6 +82,10 @@ check_and_print() {
             recipe_line="Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$pkg_ver\", repos=\"http://cran.us.r-project.org\", dependencies=TRUE)'"
             manager="r-package:"
             ;;
+        "PyPI")
+            recipe_line="python -m pip install $name_ver"
+            manager="pip:"
+            ;;
         Bioconductor*)
             if [[ -n "$pkg_ver" ]]; then
                 #recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE)'"
@@ -94,6 +98,7 @@ check_and_print() {
         "R-Forge")
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\",\"http://cran.r-project.org\"), dependencies=TRUE)'"
             manager="rforge:"
+            channel="r-forge"
             ;;
         "r-url")
             recipe_line="Rscript -e 'remotes::install_url(\"$channel\", dependencies=TRUE)'"
@@ -102,8 +107,7 @@ check_and_print() {
             ;;
     esac
 
-    
-    [[ -n "$pkg_ver" ]] && yaml_line+="=$pkg_ver"
+        
     [[ -n "$channel" ]] && yaml_line+="@$channel"
 
     if [[ $all == false ]]; then
@@ -124,6 +128,9 @@ if [[ "$skip_variants" != true ]]; then
     variants+=("r-$pkg")
     VARIANT_MANAGERS["r-$pkg"]="Conda (r)"
     
+    variants+=("r-r$pkg")
+    VARIANT_MANAGERS["r-r$pkg"]="Conda (r)"
+
     variants+=("bioconductor-$pkg")
     VARIANT_MANAGERS["bioconductor-$pkg"]="Conda (bioconda)"
 fi
@@ -169,7 +176,7 @@ awk -v p="$pkg" -v v="$ver" '
 ')
 if [[ -n "$cran_line" ]]; then
     IFS=' ' read -r pkg_name pkg_ver <<< "$cran_line"
-    check_and_print "CRAN" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
+    check_and_print "CRAN" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "CRAN"
 fi
 
 for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pkg:0:1} | tr '[:lower:]' '[:upper:]')${pkg:1}"; do
@@ -190,7 +197,7 @@ for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pk
     
     # Only proceed if version matches what was requested (or no version specified)
     if [[ -z "$ver" ]] || [[ "$pkg_ver" == "$ver" ]]; then
-      check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
+      check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "CRAN"
     else
       echo "[coble-find] Skipping CRAN archive $pkg_ver (requested $ver)" >&2
     fi
@@ -260,9 +267,18 @@ done
 echo "[coble-find] Checking r-forge" >&2
 rforge=$(curl -s "https://r-forge.r-project.org/R/?group_id=0" | grep -i "$pkg")
 if [[ -n "$rforge" ]]; then
-    check_and_print "R-Forge" "$pkg" "" "$pkg" "$ver" "$channel"
+    check_and_print "R-Forge" "$pkg" "" "$pkg" "$ver" "R-FORGE"
 fi
 
+
+###################################################################
+### SEARCHING pypi ######################
+###################################################################
+echo "[coble-find] Checking pypi" >&2
+pypi=$(curl -s "https://pypi.org/pypi/$pkg/json")
+if [[ -n "$pypi" ]]; then
+    check_and_print "PyPI" "$pkg" "" "$pkg" "$ver" ""
+fi
 ###################################################################
 ### SEARCHING github ######################
 ###################################################################

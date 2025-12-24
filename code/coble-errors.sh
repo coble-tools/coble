@@ -17,98 +17,84 @@ EXIT_ON_ERROR="$4"
 found_errors=false
 
 #### ERRORS TO CHECK FOR #########
+
 # Patterns for log matching
 stdout_patterns=(
-"is uninstallable because there are no viable options" 
-"does not exist" 
-"Encountered problems while solving" 
-"nothing provides" 
-"please re-install it" 
-"Could not solve for environment specs"
-)  
+    "is uninstallable because there are no viable options"
+    "does not exist"
+    "Encountered problems while solving"
+    "nothing provides"
+    "please re-install it"
+    "Could not solve for environment specs"
+    "Failed to build" 
+)
 error_patterns=(
-#"had non-zero exit status" 
-"* removing" 
-"fatal" 
-"EnvironmentNotWritableError"     
-"Rscript: command not found"     
-"is not available for this version of R"
-"EnvironmentLocationNotFound" 
-"CondaValueError" 
-"ERROR: failed to lock directory" 
-"trying to use CRAN without setting a mirror"     
-"API rate limit exceeded" 
-"The channel is not accessible or is invalid" 
-"PackagesNotFoundError" 
-"Killed" 
-"LibMambaUnsatisfiableError" 
-"Error in loadNamespace(x)"
-"there is no package"
+    "* removing"
+    "fatal"
+    "EnvironmentNotWritableError"
+    "Rscript: command not found"
+    "is not available for this version of R"
+    "EnvironmentLocationNotFound"
+    "CondaValueError"
+    "ERROR: failed to lock directory"
+    "trying to use CRAN without setting a mirror"
+    "API rate limit exceeded"
+    "The channel is not accessible or is invalid"
+    "PackagesNotFoundError"
+    "Killed"
+    "LibMambaUnsatisfiableError"
+    "Error in loadNamespace(x)"
+    "there is no package"
+    "Failed to build" 
 )
 done_patterns=(
-"DONE ("   
-"linux-64::" 
-"noarch::"  
-"Successfully installed" 
-"** this is package"
-"Requirement already satisfied" 
-"All requested packages already installed" 
+    "DONE ("
+    "linux-64::"
+    "noarch::"
+    "Successfully installed"
+    "** this is package"
+    "Requirement already satisfied"
+    "All requested packages already installed"
 )
-# Ensure done messages are only reported once
-mapfile -t done_lines < "$DONE_FILE"
 
-if [ -f "$OUTPUT_FILE" ]; then
-while IFS= read -r log_line; do
-    for pattern in "${stdout_patterns[@]}"; do
-    if echo "$log_line" | grep -qi "$pattern"; then
-        echo "    # ERROR: Found '$pattern' in stdout: $log_line" >> "$RECIPE_FILE"
-        found_errors=true          
-    fi
-    done
-    for pattern in "${done_patterns[@]}"; do
-    if echo "$log_line" | grep -qi "$pattern"; then          
-        # change - always output as we have a clean set of logs with each install
-        #if [[ ! " ${done_lines[*]} " =~ " $log_line " ]]; then            
-        echo "    $log_line" >> "$DONE_FILE"                    
-        #fi
-    fi
-    done
-done < "$CAPTURE_LOG_FILE"
-fi            
+# Write patterns to temp files
+stdout_pat_file=$(mktemp)
+error_pat_file=$(mktemp)
+done_pat_file=$(mktemp)
+printf "%s\n" "${stdout_patterns[@]}" > "$stdout_pat_file"
+printf "%s\n" "${error_patterns[@]}" > "$error_pat_file"
+printf "%s\n" "${done_patterns[@]}" > "$done_pat_file"
+
+# Grep for stdout patterns in log file
+
+if [ -f "$CAPTURE_LOG_FILE" ]; then
+    while read -r match; do
+        echo "    # ERROR: From stdout found: $match" >> "$RECIPE_FILE"
+        found_errors=true
+    done < <(grep -F -f "$stdout_pat_file" "$CAPTURE_LOG_FILE")
+    while read -r match; do
+        echo "    $match" >> "$DONE_FILE"
+    done < <(grep -F -f "$done_pat_file" "$CAPTURE_LOG_FILE")
+fi
+
+# Grep for error patterns in error file
+
 if [ -f "$CAPTURE_ERR_FILE" ]; then
-while IFS= read -r err_line; do
-    for pattern in "${error_patterns[@]}"; do
-    if echo "$err_line" | grep -qi "$pattern"; then
-        echo "    # ERROR: Found '$pattern' in stderr: $err_line" >> "$RECIPE_FILE"
-        found_errors=true          
-        # if it is a PackagesNotFoundError I want to report the next 2 lines as well
-        if [[ "$pattern" == "PackagesNotFoundError"* ]]; then
-        read -r next_line1
-        echo "    # ERROR: $next_line1" >> "$RECIPE_FILE"
-        read -r next_line2
-        echo "    # ERROR: $next_line2" >> "$RECIPE_FILE"
-        fi
-    fi
-    done
-    for pattern in "${done_patterns[@]}"; do
-    if echo "$err_line" | grep -qi "$pattern"; then          
-        # change - always output as we have a clean set of logs with each install
-        #if [[ ! " ${done_lines[*]} " =~ " $err_line " ]]; then            
-        echo "    $err_line" >> "$DONE_FILE"                    
-        #fi
-    fi
-    done
-done < "$CAPTURE_ERR_FILE"
+    while read -r match; do
+        echo "    # ERROR: from stderr found: $match" >> "$RECIPE_FILE"
+        found_errors=true        
+    done < <(grep -F -f "$error_pat_file" "$CAPTURE_ERR_FILE")
+    while read -r match; do
+        echo "    $match" >> "$DONE_FILE"
+    done < <(grep -F -f "$done_pat_file" "$CAPTURE_ERR_FILE")
 fi
-    
+
+# Clean up temp files
+rm -f "$stdout_pat_file" "$error_pat_file" "$done_pat_file"
 if [[ "$found_errors" == true ]]; then
-    echo "[coble-errors] Errors were found during recreation. Please review the recipe file: $RECIPE_FILE" >> "$DONE_FILE"                    
-    if [[ "$EXIT_ON_ERROR" == "1" ]]; then
-        echo "[coble-errors] Exiting due to --skip-errors flag. Forcing exit!!!!!" >> "$DONE_FILE"                        
-        exit 1
-    fi
+    echo "[coble-errors] Errors were found during recreation. Please review the recipe file: $RECIPE_FILE" >> "$DONE_FILE"    
+    exit 1    
+else
+    exit 0
 fi
-
-
-
 

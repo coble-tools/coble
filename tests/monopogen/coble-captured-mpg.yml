@@ -1,0 +1,17 @@
+# COBLE:Reproducible environment capture, (c) ICR 2025
+# Capture date: 2025-12-24
+# Capture time: 21:47:07 GMT
+# Captured by: ralcraft
+
+coble:
+
+  - environment: mpg
+
+channels:
+  - conda-forge
+  - bioconda
+
+languages:
+
+flags:
+  - dependencies: False

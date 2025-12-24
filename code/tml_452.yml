@@ -64,6 +64,7 @@ r-conda:
   - cairo
   - gdtools
   - flextable
+  - rstanarm
     
 bioc-package:
   - fgsea

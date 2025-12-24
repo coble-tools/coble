@@ -2,8 +2,8 @@
 
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
-# Capture date: 2025-12-23
-# Capture time: 22:22:14 GMT
+# Capture date: 2025-12-24
+# Capture time: 22:59:57 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -37,10 +37,23 @@ conda install -y 'conda-forge::python=3.14.0'
 conda install -y -c conda-forge gsl nlopt
 conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials
 conda install -y -c conda-forge librsvg cairo freetype expat fontconfig
-conda install -y -c conda-forge protobuf libprotobuf openssl cython bzip2 xz libcurl zlib gcc_linux-64 gxx_linux-64 gfortran_linux-64 make cmake pkg-config c-compiler cxx-compiler
+conda install -y -c conda-forge libxcrypt sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler
+conda install -y -c conda-forge make cmake pkg-config protobuf libprotobuf openssl cython bzip2 xz libcurl zlib
+# Compiler symlinks for R packages
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-c++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+# Set compiler flags for R package compilation
+export CFLAGS="-I$CONDA_PREFIX/include"
+export CXXFLAGS="-I$CONDA_PREFIX/include"
+export CPPFLAGS="-I$CONDA_PREFIX/include"
+export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
 
 
 # bash:
@@ -48,7 +61,7 @@ python -m pip install "setuptools>=59.0"
 python -m pip install --upgrade "Cython>=3.0.11"
 
 # conda:
-conda install -y  --no-update-deps \
+conda install -y   \
 'numpy' 
 
 # pip:
@@ -59,9 +72,10 @@ export CFLAGS="-Wno-error=incompatible-pointer-types"
 python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
 
 # r-conda:
-conda install -y  --no-update-deps \
+conda install -y   \
 'r-data.table' \
 'r-stringi' \
+'r-rsvg' \
 'r-plyr' \
 'r-sitmo' \
 'r-rcpp' \
@@ -86,7 +100,8 @@ conda install -y  --no-update-deps \
 'r-v8' \
 'r-cairo' \
 'r-gdtools' \
-'r-flextable' 
+'r-flextable' \
+'r-rstanarm' 
 
 # bioc-package:
 Rscript -e 'BiocManager::install("fgsea", dependencies=TRUE)'

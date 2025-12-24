@@ -148,10 +148,65 @@ total_lines=$(wc -l < "$RECIPE_FILE")
 current_line=0
 buffer=""
 BEGIN_TIME=$(date +%s)
+
+# function to run error checking after each command#
+# Usage: run_line "some command or line"
+run_line() {
+    local line="$1"
+    # TODO: implement logic to process $line
+    echo "[coble-recreate] Running $current_line/$total_lines:"    
+    echo "[coble-recreate] System info"
+    echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
+    echo "[coble-recreate] Disk usage:"
+    df -h .
+    echo "[coble-recreate] Memory usage:"
+    if command -v free >/dev/null; then
+        free -h
+    elif command -v vm_stat >/dev/null; then
+        vm_stat
+    else
+        echo "No memory info command found"
+    fi
+    echo "#####################################################"
+    echo "$buffer"    
+    # export to the TIME_FILE the start time
+    START_TIME=$(date +%s)
+    echo "" >> "$TIME_FILE"
+    echo "[coble-recreate] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
+    echo $buffer >> "$TIME_FILE"    
+    eval "$buffer"
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+    # Now run the error checking on the log and err files
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE"
+    err_code=$?    
+    if [[ $err_code -eq 0 ]]; then
+        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+    elif [[ "$EXIT_ON_ERROR" == "1" ]]; then
+        echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$DONE_FILE"
+        exit 1
+    else 
+        echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$DONE_FILE"
+        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"            
+    fi    
+    echo "#####################################################"
+    if [[ $? -ne 0 ]]; then
+        echo "[coble-recreate] Error: Command failed: $buffer" >&2
+        echo N
+        exit 3
+    fi
+}
+
+
+
+
 while IFS= read -r line || [[ -n "$line" ]]; do    
     # Copy the last log file to LOG_FILE_date and start a new one
-    # but only if it has more than 10 lines
-    line_count=$(wc -l < "$LOG_FILE")
+    # but only if it has more than 10 lines    
+    line_count=$(wc -l < "$LOG_FILE")    
     if [[ $line_count -gt 3 ]]; then
         if [[ $KEEP_LOGS -eq 1 ]]; then
             cp "$LOG_FILE" "${LOG_FILE%.log}.log_${current_line}_${total_lines}.log"            
@@ -178,52 +233,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     else 
       buffer+="$line" 
     fi
-
-    echo "[coble-recreate] Running $current_line/$total_lines:"    
-    echo "[coble-recreate] System info"
-    echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
-    echo "[coble-recreate] Disk usage:"
-    df -h .
-    echo "[coble-recreate] Memory usage:"
-    if command -v free >/dev/null; then
-        free -h
-    elif command -v vm_stat >/dev/null; then
-        vm_stat
-    else
-        echo "No memory info command found"
-    fi
-    echo "#####################################################"
-    echo "$buffer"    
-    # export to the TIME_FILE the start time
-    START_TIME=$(date +%s)
-    echo "" >> "$TIME_FILE"
-    echo "[coble-recreate] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
-    echo $buffer >> "$TIME_FILE"    
-    eval "$buffer"
-    END_TIME=$(date +%s)
-    DURATION=$((END_TIME - START_TIME))
-    # Now run the error checking on the log and err files
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE" "$EXIT_ON_ERROR"
-    err_code=$?
-    if [[ $err_code -eq 0 ]]; then
-        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
-    else        
-        echo "!!!!! Error detected Aborting due to exit setting !!!!!"
-        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
-        exit 1
-    fi    
-    echo "#####################################################"
-    if [[ $? -ne 0 ]]; then
-        echo "[coble-recreate] Error: Command failed: $buffer" >&2
-        echo N
-        exit 3
-    fi
+    # Run the accumulated command
+    run_line "$buffer"    
     # Reset buffer for the next command 
     buffer=""
 done < "$RECIPE_FILE"
+# It needs to recognise if it has a final command to run without a newline
+if [[ -n "$buffer" ]]; then
+    run_line "$buffer"
+    buffer=""
+fi
+
 END_TIME=$(date +%s)
 DURATION=$((END_TIME - BEGIN_TIME))
 echo "--------------------------------------" >> "$TIME_FILE"    

@@ -36,6 +36,9 @@ bash:
   - export CFLAGS="-Wno-error=incompatible-pointer-types"
   - python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
 
+find: 
+  - rsvg
+
 r-conda:
   - data.table
   - stringi
@@ -64,6 +67,7 @@ r-conda:
   - cairo
   - gdtools
   - flextable
+  - rstanarm
     
 bioc-package:
   - fgsea
