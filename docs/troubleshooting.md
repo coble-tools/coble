@@ -30,3 +30,5 @@ rm -rf /home/ralcraft/miniconda/pkgs/r-base-4.4.2-hc737e89_2
 ```
 
 
+# API limit
+[coble-find][debug] github python search result: {"message":"API rate limit exceeded for ...

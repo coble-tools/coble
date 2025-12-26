@@ -115,7 +115,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             [[ -n "$src" ]] && find_args+=(--source "$src")
             [[ -n "$path" ]] && find_args+=(--path "$path")
             # output the request to the yaml
-            echo "$origline" >> "$YAML_FILE"
+            echo "# $origline" >> "$YAML_FILE"
             # Call and capture return value
             mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
             pkg_manager="${result[0]}"

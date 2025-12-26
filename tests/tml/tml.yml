@@ -1,6 +1,6 @@
 #######################################
 ## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-26 at 12:07:55 GMT by ralcraft
+##    Resolved - On: 2025-12-26 at 13:54:07 GMT by ralcraft
 #######################################
 
 #######################################
@@ -19,34 +19,64 @@ flags:
   - dependencies: True
   - build-tools: True
 find:
-  - countreg  
-  found - r-package:
+#   - countreg  
+found|r-package:
   - countreg@r-forge
-  found - r-url:
-  - https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip@https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip
+found|r-url:
+  - countreg@https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip
 
-  - r-base=4.1.0
-  found - languages:
-  - r-base=4.1.0@conda-forge
+#   - r-base=4.5.2
+found|languages:
+  - r-base=4.5.2@conda-forge
 
-  - devtools  
-  found - conda:
+#   - r-base=3.6.0
+found|languages:
+  - r-base=3.6.0@r
+
+#   - devtools  
+found|conda:
   - devtools@conda-forge
-  found - conda:
+found|conda:
   - r-devtools@conda-forge
-  found - conda:
+found|conda:
   - r-devtools@r
-  found - r-package:
+found|r-package:
   - devtools@CRAN
-  found - r-package:
+found|r-package:
   - devtools@CRAN
-  found - pip:
+found|pip:
   - devtools
-  found - r-url:
-  - https://github.com/r-lib/devtools,https://github.com/flutter/devtools,https://github.com/replayio/devtools,https://github.com/vuejs/devtools,https://github.com/nuxt/devtools/archive/refs/heads/master.zip@https://github.com/r-lib/devtools,https://github.com/flutter/devtools,https://github.com/replayio/devtools,https://github.com/vuejs/devtools,https://github.com/nuxt/devtools/archive/refs/heads/master.zip
+found|r-url:
+  - devtools@https://github.com/r-lib/devtools,https://github.com/cran/devtools/archive/refs/heads/master.zip
+found|pip:
+  - devtools@https://github.com/secretflow/devtools/archive/refs/heads/master.zip
 
-  - cdsr_models
-  found - r-url:
-  - https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
+#   - cdsr_models
+found|r-url:
+  - cdsr_models@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
 
+#   - SQUEAK
+found|pip:
+  - SQUEAK
 
+#   - gitalma
+
+#   - car
+found|conda:
+  - r-car@bioconda
+found|conda:
+  - r-car@conda-forge
+found|conda:
+  - r-car@r
+found|r-package:
+  - car@CRAN
+found|r-package:
+  - car@CRAN
+found|r-package:
+  - car@r-forge
+found|r-url:
+  - car@https://github.com/cran/car/archive/refs/heads/master.zip
+found|pip:
+  - car@https://github.com/mitre-attack/car/archive/refs/heads/master.zip
+
+  

@@ -105,7 +105,12 @@ check_and_print() {
         "r-url")
             recipe_line="Rscript -e 'remotes::install_url(\"$channel\", dependencies=TRUE)'"
             manager="r-url:"
-            yaml_line="  - $channel"
+            yaml_line="  - $pkg_name"
+            ;;        
+        "python-url")
+            recipe_line="python -m pip install $channel"
+            manager="pip:"
+            yaml_line="  - $pkg_name"
             ;;
     esac
 
@@ -116,7 +121,7 @@ check_and_print() {
         #echo "$manager"
         #echo "$recipe_line"
         #echo "$yaml_line"
-        echo "  found - $manager" >> "$YAML_FILE"        
+        echo "found|$manager" >> "$YAML_FILE"        
         echo "$yaml_line" >> "$YAML_FILE"
         #exit 0
     fi        
@@ -310,12 +315,12 @@ if [[ -n "$pypi" ]]; then
     check_and_print "PyPI" "$pkg" "" "$pkg" "$ver" ""
 fi
 ###################################################################
-### SEARCHING github ######################
+### SEARCHING github R ######################
 ###################################################################
-echo "[coble-find] Checking github" >&2
+echo "[coble-find] Checking github R" >&2
 search_github_repo() {
   local q="$1"
-  local url="https://api.github.com/search/repositories?q=${q}"
+  local url="https://api.github.com/search/repositories?q=${q}+language:R"
   echo "[coble-find] Searching url $url" >&2
 
   # Collect all repo URLs that match
@@ -332,5 +337,32 @@ search_github_repo() {
   fi
 }
 search_github_repo $pkg
+###################################################################
+### SEARCHING github python ######################
+###################################################################
+echo "[coble-find] Checking github python" >&2
+search_github_python() {
+  local q="$1"
+  local url="https://api.github.com/search/repositories?q=${q}+language:python"
+  echo "[coble-find] Searching url $url" >&2
+  curled=$(curl -s "$url")
+  echo "[coble-find][debug] github python search result: $curled" >&2
+
+  # Collect all repo URLs that match
+  local results
+  results=$(echo "$curled" \
+    | grep -o '"html_url": *"https://github.com/[^"]\+/[^"]\+"' \
+    | cut -d'"' -f4 \
+    | grep -E "/${q}$|/${q}/" \
+    | paste -sd "," -)
+
+  # Return concatenated string or empty
+  if [[ -n "$results" ]]; then
+     check_and_print "python-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"  
+  else:
+      echo "[coble-find] No github python repo found for $q gives $result" >&2
+  fi
+}
+search_github_python $pkg
 ###############################################################
 

@@ -1,6 +1,6 @@
 #######################################
 ## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-26 at 11:07:01 GMT by ralcraft
+##    Resolved - On: 2025-12-26 at 13:45:27 GMT by ralcraft
 #######################################
 
 #######################################
@@ -18,8 +18,14 @@ channels:
 flags:
   - dependencies: True
   - build-tools: True
-pip:
-  - countreg
+r-package:
+  - countreg@r-forge
 languages:
-  - r-base=4.1.0@conda-forge
+  - r-base=4.5.2@conda-forge
+conda:
+  - devtools@conda-forge
+  - r-devtools@conda-forge
+r-url:
+  - cdsr_models@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
 
+  
