@@ -100,10 +100,8 @@ r-package:
   - gplots
   - drc
   - chicane
-
-r-forge:
-  - countreg
-  
+  - countreg@r-forge
+    
 bioc-package:
   - scater
   - cellHTS2

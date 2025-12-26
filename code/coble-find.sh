@@ -97,7 +97,7 @@ check_and_print() {
             ;;
         "R-Forge")
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\",\"http://cran.r-project.org\"), dependencies=TRUE)'"
-            manager="rforge:"
+            manager="r-package:"
             channel="r-forge"
             ;;
         "r-url")

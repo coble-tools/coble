@@ -367,7 +367,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             echo "[conda-recipise] Processing R package: $pkg_name, version: $ver, source: $src" >&2
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 echo "Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"            
-            elif [[ "$src" == "R-FORGE"* ]]; then
+            elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
             else
                 echo "Rscript -e 'install.packages(\"${pkg_name}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"

@@ -19,4 +19,14 @@ the main languaes are pinned
 
 # Missing compiler tools
 
+# Error message about package correcption
+```
+SafetyError: The package for r-base located at /home/ralcraft/miniconda/pkgs/r-base-4.4.2-hc737e89_2
+appears to be corrupted. The path 'lib/R/doc/html/packages.html'
+```
+Delete the corrupted package it will be recreated:
+```
+rm -rf /home/ralcraft/miniconda/pkgs/r-base-4.4.2-hc737e89_2
+```
+
 

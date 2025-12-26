@@ -3,17 +3,40 @@
 #######################################
 
 coble:
+
   - environment: coble-env
+
 channels:
 # note the reverse order of priority
   - defaults
   - r
   - bioconda
   - conda-forge
+
+languages:
+  - python=3.14.0
+
 flags:
   - dependencies: True
   - build-tools: True
-find:
-  - countreg  
-  - r-base=4.1.0
+
+r-conda:
+  - tidyverse
+  - devtools
+  - remotes
+
+bioc-conda:
+  - affy
+
+r-package:
+  - survival  
+
+bioc-package:
+  - limma
+
+r-github:
+  - seedgeorge/SQUEAK
+
+r-url:
+  - https://github.com/choisy/cutoff/archive/refs/heads/master.zip
 

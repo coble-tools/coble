@@ -37,6 +37,9 @@ done
 # Convert FLAVOUR to lower case for consistency
 FLAVOUR="${FLAVOUR,,}"
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+mkdir -p "$(dirname "$YAML_FILE")"
+
 # copy file in same dir as this script to YAML_FILE
 if [[ "$FLAVOUR" =~ ^(452)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -53,6 +56,15 @@ elif [[ "$FLAVOUR" =~ ^(python)$ ]]; then
 elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_find.yml" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(pin)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_pin.yml" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_sylver.yml" "$YAML_FILE"
+else
+    echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
+    exit 1
 fi
 
 echo "Y"
