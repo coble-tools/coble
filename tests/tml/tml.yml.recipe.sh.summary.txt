@@ -1,58 +1,18 @@
 ------------------------------------------------
-[coble-recreate] Summary log started at 2025-12-26 11:07:16
+[coble-recreate] Summary log started at 2025-12-26 11:17:16
 ------------------------------------------------
 
-[coble-recreate] Start time: 2025-12-26 11:07:16 10/60
+[coble-recreate] Start time: 2025-12-26 11:17:17 10/60
 source "$(conda info --base)/etc/profile.d/conda.sh"
-[coble-recreate] End time: 2025-12-26 11:07:16
+[coble-recreate] End time: 2025-12-26 11:17:17
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 11:07:16 11/60
+[coble-recreate] Start time: 2025-12-26 11:17:17 11/60
 source ~/.bashrc
-[coble-recreate] End time: 2025-12-26 11:07:16
+[coble-recreate] End time: 2025-12-26 11:17:17
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 11:07:16 15/60
+[coble-recreate] Start time: 2025-12-26 11:17:17 15/60
 conda create --name tml -y
-[coble-recreate] End time: 2025-12-26 11:07:26
-[coble-recreate] Duration: 10s
-
-[coble-recreate] Start time: 2025-12-26 11:07:26 16/60
-conda activate tml
-[coble-recreate] End time: 2025-12-26 11:07:26
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 11:07:26 19/60
-conda config --env --remove-key channels
-[coble-recreate] End time: 2025-12-26 11:07:26
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 11:07:26 20/60
-conda config --env --set channel_priority strict
-[coble-recreate] End time: 2025-12-26 11:07:27
-[coble-recreate] Duration: 1s
-
-[coble-recreate] Start time: 2025-12-26 11:07:27 21/60
-conda config --env --add channels defaults
-[coble-recreate] End time: 2025-12-26 11:07:27
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 11:07:27 22/60
-conda config --env --add channels r
-[coble-recreate] End time: 2025-12-26 11:07:27
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 11:07:27 23/60
-conda config --env --add channels bioconda
-[coble-recreate] End time: 2025-12-26 11:07:28
-[coble-recreate] Duration: 1s
-
-[coble-recreate] Start time: 2025-12-26 11:07:28 24/60
-conda config --env --add channels conda-forge
-[coble-recreate] End time: 2025-12-26 11:07:28
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 11:07:28 29/60
-conda install -y -c conda-forge 'r-base=4.1.0'
-[coble-recreate] End time: 2025-12-26 11:07:33
-[coble-recreate] Duration: 5s
+[coble-recreate] End time: 2025-12-26 11:17:20
+[coble-recreate] Duration: 3s

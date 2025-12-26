@@ -97,6 +97,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         ]]; then
         CURRENT_SECTION="$line"
         echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION" >&2        
+        echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == *":"* ]]; then
         CURRENT_SECTION=""
         echo "$origline" >> "$YAML_FILE"
@@ -110,7 +111,11 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             finds=Y
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
-            find_args=(--pkg "$pkg_name" --version "$version")
+            find_args=(--pkg "$pkg_name" --version "$version" --input "$YAML_FILE")
+            [[ -n "$src" ]] && find_args+=(--source "$src")
+            [[ -n "$path" ]] && find_args+=(--path "$path")
+            # output the request to the yaml
+            echo "$origline" >> "$YAML_FILE"
             # Call and capture return value
             mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
             pkg_manager="${result[0]}"

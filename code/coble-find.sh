@@ -7,6 +7,7 @@ pkg=""
 ver=""
 all=false
 skip_variants=false
+YAML_FILE=""
 
 # declare associative array once at the top of your script 
 declare -A VARIANT_MANAGERS
@@ -18,6 +19,7 @@ while [[ $# -gt 0 ]]; do
     --version) ver="$2"; shift 2 ;;
     --all) all=true; shift ;;
     --skip-variants) skip_variants=true; shift ;;
+    --input) YAML_FILE="$2"; shift 2 ;; 
     *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
 done
@@ -95,8 +97,8 @@ check_and_print() {
             fi
             manager="bioconductor:"
             ;;
-        "R-Forge")
-            recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\",\"http://cran.r-project.org\"), dependencies=TRUE)'"
+        "r-forge")
+            recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\"), dependencies=TRUE)'"
             manager="r-package:"
             channel="r-forge"
             ;;
@@ -111,11 +113,13 @@ check_and_print() {
     [[ -n "$channel" ]] && yaml_line+="@$channel"
 
     if [[ $all == false ]]; then
-        echo "$manager"
-        echo "$recipe_line"
-        echo "$yaml_line"
-        exit 0
-    fi
+        #echo "$manager"
+        #echo "$recipe_line"
+        #echo "$yaml_line"
+        echo "  found - $manager" >> "$YAML_FILE"        
+        echo "$yaml_line" >> "$YAML_FILE"
+        #exit 0
+    fi        
 }
 ###################################################################
 ### SEARCHING conda ######################
@@ -265,17 +269,43 @@ done
 ### SEARCHING r-forge ######################
 ###################################################################
 echo "[coble-find] Checking r-forge" >&2
-rforge=$(curl -s "https://r-forge.r-project.org/R/?group_id=0" | grep -i "$pkg")
-if [[ -n "$rforge" ]]; then
-    check_and_print "R-Forge" "$pkg" "" "$pkg" "$ver" "R-FORGE"
+
+rforge-check() {
+    local pkg=$1
+    local code=$(curl -sL -o /dev/null -w "%{http_code}" "https://r-forge.r-project.org/projects/${pkg}/")
+    if [ "$code" = "200" ]; then
+        echo "✓ Found: https://r-forge.r-project.org/projects/${pkg}/"
+    else
+        echo ""
+    fi
+}
+
+# Improved R-Forge package detection: look for tarballs in the contrib directory
+echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
+rforge_pkg=$(rforge-check "$pkg")
+echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
+if [[ -n "$rforge_pkg" ]]; then
+  check_and_print "r-forge" "$pkg" "" "$pkg" "$ver" "r-forge"
 fi
 
 
 ###################################################################
 ### SEARCHING pypi ######################
 ###################################################################
+pypi-check() {
+    local pkg=$1
+    local code=$(curl -sL -o /dev/null -w "%{http_code}" "https://pypi.org/pypi/$pkg/json")
+    if [ "$code" = "200" ]; then
+        echo "✓ Found: https://r-forge.r-project.org/projects/${pkg}/"
+    else
+        echo ""
+    fi
+}
+
 echo "[coble-find] Checking pypi" >&2
-pypi=$(curl -s "https://pypi.org/pypi/$pkg/json")
+#pypi=$(curl -s "https://pypi.org/pypi/$pkg/json")
+pypi=$(pypi-check "$pkg")
+echo "[coble-find][debug] pypi='$pypi'" >&2
 if [[ -n "$pypi" ]]; then
     check_and_print "PyPI" "$pkg" "" "$pkg" "$ver" ""
 fi
@@ -302,11 +332,5 @@ search_github_repo() {
   fi
 }
 search_github_repo $pkg
-
 ###############################################################
-echo "not found" >&2
 
-# If we reach here without exiting, still emit the three stdout lines (empty)
-echo "unknown"
-echo "$recipe_line"
-echo "$yaml_line"

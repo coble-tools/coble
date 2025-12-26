@@ -1,23 +1,52 @@
 #######################################
-## COBLE:Reproducible environment (c) ICR 2025. Resolved + Ordered
+## COBLE:Reproducible environment (c) ICR 2025. Resolved
+##    Resolved - On: 2025-12-26 at 12:07:55 GMT by ralcraft
 #######################################
+
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2025
+#######################################
+
 coble:
   - environment: coble-env
-
 channels:
 # note the reverse order of priority
   - defaults
   - r
   - bioconda
   - conda-forge
-
-languages:
-  - r-base=4.1.0@conda-forge
-
 flags:
   - dependencies: True
   - build-tools: True
+find:
+  - countreg  
+  found - r-package:
+  - countreg@r-forge
+  found - r-url:
+  - https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip@https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip
 
-pip:
-  - countreg
+  - r-base=4.1.0
+  found - languages:
+  - r-base=4.1.0@conda-forge
+
+  - devtools  
+  found - conda:
+  - devtools@conda-forge
+  found - conda:
+  - r-devtools@conda-forge
+  found - conda:
+  - r-devtools@r
+  found - r-package:
+  - devtools@CRAN
+  found - r-package:
+  - devtools@CRAN
+  found - pip:
+  - devtools
+  found - r-url:
+  - https://github.com/r-lib/devtools,https://github.com/flutter/devtools,https://github.com/replayio/devtools,https://github.com/vuejs/devtools,https://github.com/nuxt/devtools/archive/refs/heads/master.zip@https://github.com/r-lib/devtools,https://github.com/flutter/devtools,https://github.com/replayio/devtools,https://github.com/vuejs/devtools,https://github.com/nuxt/devtools/archive/refs/heads/master.zip
+
+  - cdsr_models
+  found - r-url:
+  - https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
+
 

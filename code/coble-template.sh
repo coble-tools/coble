@@ -67,4 +67,4 @@ else
     exit 1
 fi
 
-echo "Y"
+echo "[coble-template] Created template YAML: $YAML_FILE" >&2

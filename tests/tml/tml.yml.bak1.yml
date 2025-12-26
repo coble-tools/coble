@@ -16,4 +16,6 @@ flags:
 find:
   - countreg  
   - r-base=4.1.0
+  - devtools  
+  - cdsr_models
 
