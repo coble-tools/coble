@@ -1,27 +1,23 @@
 #######################################
-## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-26 at 11:00:11 GMT by ralcraft
+## COBLE:Reproducible environment (c) ICR 2025. Resolved + Ordered
 #######################################
-
-#######################################
-# COBLE:Reproducible environment yaml, (c) ICR 2025
-#######################################
-
 coble:
   - environment: coble-env
+
 channels:
 # note the reverse order of priority
   - defaults
   - r
   - bioconda
   - conda-forge
+
+languages:
+  - r-base=4.1.0@conda-forge
+
 flags:
   - dependencies: True
   - build-tools: True
 
 pip:
   - countreg
-
-languages:
-  - r-base=4.1.0@conda-forge
 

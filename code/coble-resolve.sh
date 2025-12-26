@@ -125,7 +125,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
                 echo "[coble-resolve] Recipe: $recipe_line" >&2
                 echo "[coble-resolve] Yaml: $yaml_line" >&2                
                 if [[ "$pkg_manager" != "$LAST_SECTION" ]]; then
-                    echo "" >> "$YAML_FILE"    
+                    #echo "" >> "$YAML_FILE"    
                     echo "$pkg_manager" >> "$YAML_FILE"    
                     LAST_SECTION="$pkg_manager"
                 fi

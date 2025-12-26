@@ -72,6 +72,10 @@ second_line=$(sed -n '2p' "$YAML_FILE")
 declare -A SECTION_MAP
 CURRENT_FLAG=""
 while IFS= read -r line || [[ -n "$line" ]]; do
+# if line is empty skip
+    if [[ -z "$line" ]]; then
+        continue
+    fi 
     # Check if the line is a flag (ends with ':')
     if [[ "$line" =~ ^[a-zA-Z0-9_-]+:$ ]]; then
         CURRENT_FLAG="${line%:}"  # Remove the colon

@@ -3,7 +3,7 @@
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
 # Capture date: 2025-12-26
-# Capture time: 10:59:27 GMT
+# Capture time: 11:07:15 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -33,6 +33,8 @@ conda install -y -c conda-forge 'r-base=4.1.0'
 # Flag: Directive: build-tools, Value: true
 
 # Including build tools for source installations
+conda install -y -c conda-forge gsl nlopt
+conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials
 conda install -y -c conda-forge librsvg cairo freetype expat fontconfig
 conda install -y -c conda-forge libxcrypt sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler
 conda install -y -c conda-forge make cmake pkg-config protobuf libprotobuf openssl cython bzip2 xz libcurl zlib

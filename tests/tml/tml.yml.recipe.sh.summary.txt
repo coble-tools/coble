@@ -1,169 +1,58 @@
 ------------------------------------------------
-[coble-recreate] Summary log started at 2025-12-26 10:59:28
+[coble-recreate] Summary log started at 2025-12-26 11:07:16
 ------------------------------------------------
 
-[coble-recreate] Start time: 2025-12-26 10:59:28 10/58
+[coble-recreate] Start time: 2025-12-26 11:07:16 10/60
 source "$(conda info --base)/etc/profile.d/conda.sh"
-[coble-recreate] End time: 2025-12-26 10:59:28
+[coble-recreate] End time: 2025-12-26 11:07:16
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:28 11/58
+[coble-recreate] Start time: 2025-12-26 11:07:16 11/60
 source ~/.bashrc
-[coble-recreate] End time: 2025-12-26 10:59:28
+[coble-recreate] End time: 2025-12-26 11:07:16
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:28 15/58
+[coble-recreate] Start time: 2025-12-26 11:07:16 15/60
 conda create --name tml -y
-[coble-recreate] End time: 2025-12-26 10:59:38
+[coble-recreate] End time: 2025-12-26 11:07:26
 [coble-recreate] Duration: 10s
 
-[coble-recreate] Start time: 2025-12-26 10:59:38 16/58
+[coble-recreate] Start time: 2025-12-26 11:07:26 16/60
 conda activate tml
-[coble-recreate] End time: 2025-12-26 10:59:38
+[coble-recreate] End time: 2025-12-26 11:07:26
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:38 19/58
+[coble-recreate] Start time: 2025-12-26 11:07:26 19/60
 conda config --env --remove-key channels
-[coble-recreate] End time: 2025-12-26 10:59:38
+[coble-recreate] End time: 2025-12-26 11:07:26
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:38 20/58
+[coble-recreate] Start time: 2025-12-26 11:07:26 20/60
 conda config --env --set channel_priority strict
-[coble-recreate] End time: 2025-12-26 10:59:39
+[coble-recreate] End time: 2025-12-26 11:07:27
 [coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-26 10:59:39 21/58
+[coble-recreate] Start time: 2025-12-26 11:07:27 21/60
 conda config --env --add channels defaults
-[coble-recreate] End time: 2025-12-26 10:59:39
+[coble-recreate] End time: 2025-12-26 11:07:27
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:39 22/58
+[coble-recreate] Start time: 2025-12-26 11:07:27 22/60
 conda config --env --add channels r
-[coble-recreate] End time: 2025-12-26 10:59:40
+[coble-recreate] End time: 2025-12-26 11:07:27
+[coble-recreate] Duration: 0s
+
+[coble-recreate] Start time: 2025-12-26 11:07:27 23/60
+conda config --env --add channels bioconda
+[coble-recreate] End time: 2025-12-26 11:07:28
 [coble-recreate] Duration: 1s
 
-[coble-recreate] Start time: 2025-12-26 10:59:40 23/58
-conda config --env --add channels bioconda
-[coble-recreate] End time: 2025-12-26 10:59:40
-[coble-recreate] Duration: 0s
-
-[coble-recreate] Start time: 2025-12-26 10:59:40 24/58
+[coble-recreate] Start time: 2025-12-26 11:07:28 24/60
 conda config --env --add channels conda-forge
-[coble-recreate] End time: 2025-12-26 10:59:40
+[coble-recreate] End time: 2025-12-26 11:07:28
 [coble-recreate] Duration: 0s
 
-[coble-recreate] Start time: 2025-12-26 10:59:40 29/58
+[coble-recreate] Start time: 2025-12-26 11:07:28 29/60
 conda install -y -c conda-forge 'r-base=4.1.0'
-    _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
-    _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
-    _r-mutex           conda-forge/noarch::_r-mutex-1.0.1-anacondar_1
-    binutils_impl_lin~ conda-forge/linux-64::binutils_impl_linux-64-2.39-he00db2b_1
-    binutils_linux-64  conda-forge/linux-64::binutils_linux-64-2.39-h5fc0e48_13
-    bwidget            conda-forge/linux-64::bwidget-1.10.1-ha770c72_1
-    bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_8
-    c-ares             conda-forge/linux-64::c-ares-1.34.6-hb03c661_0
-    ca-certificates    conda-forge/noarch::ca-certificates-2025.11.12-hbd8a1cb_0
-    cairo              conda-forge/linux-64::cairo-1.16.0-h6cf1ce9_1008
-    curl               conda-forge/linux-64::curl-7.86.0-h2283fc2_1
-    expat              conda-forge/linux-64::expat-2.7.3-hecca717_0
-    font-ttf-dejavu-s~ conda-forge/noarch::font-ttf-dejavu-sans-mono-2.37-hab24e00_0
-    font-ttf-inconsol~ conda-forge/noarch::font-ttf-inconsolata-3.000-h77eed37_0
-    font-ttf-source-c~ conda-forge/noarch::font-ttf-source-code-pro-2.038-h77eed37_0
-    font-ttf-ubuntu    conda-forge/noarch::font-ttf-ubuntu-0.83-h77eed37_3
-    fontconfig         conda-forge/linux-64::fontconfig-2.14.2-h14ed4e7_0
-    fonts-conda-ecosy~ conda-forge/noarch::fonts-conda-ecosystem-1-0
-    fonts-conda-forge  conda-forge/noarch::fonts-conda-forge-1-hc364b38_1
-    freetype           conda-forge/linux-64::freetype-2.12.1-h267a509_2
-    fribidi            conda-forge/linux-64::fribidi-1.0.16-hb03c661_0
-    gcc_impl_linux-64  conda-forge/linux-64::gcc_impl_linux-64-9.5.0-h99780fb_19
-    gcc_linux-64       conda-forge/linux-64::gcc_linux-64-9.5.0-h4258300_13
-    gettext            conda-forge/linux-64::gettext-0.25.1-h3f43e3d_1
-    gettext-tools      conda-forge/linux-64::gettext-tools-0.25.1-h3f43e3d_1
-    gfortran_impl_lin~ conda-forge/linux-64::gfortran_impl_linux-64-9.5.0-hf1096a2_19
-    gfortran_linux-64  conda-forge/linux-64::gfortran_linux-64-9.5.0-hdb51d14_13
-    graphite2          conda-forge/linux-64::graphite2-1.3.14-hecca717_2
-    gsl                conda-forge/linux-64::gsl-2.6-he838d99_2
-    gxx_impl_linux-64  conda-forge/linux-64::gxx_impl_linux-64-9.5.0-h99780fb_19
-    gxx_linux-64       conda-forge/linux-64::gxx_linux-64-9.5.0-h43f449f_13
-    harfbuzz           conda-forge/linux-64::harfbuzz-3.1.1-h83ec7ef_0
-    icu                conda-forge/linux-64::icu-68.2-h9c3ff4c_0
-    jpeg               conda-forge/linux-64::jpeg-9e-h0b41bf4_3
-    kernel-headers_li~ conda-forge/noarch::kernel-headers_linux-64-6.12.0-he073ed8_5
-    keyutils           conda-forge/linux-64::keyutils-1.6.3-hb9d3cd8_0
-    krb5               conda-forge/linux-64::krb5-1.19.3-h08a2579_0
-    ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.39-hcc3a1bd_1
-    lerc               conda-forge/linux-64::lerc-4.0.0-h0aef613_1
-    libasprintf        conda-forge/linux-64::libasprintf-0.25.1-h3f43e3d_1
-    libasprintf-devel  conda-forge/linux-64::libasprintf-devel-0.25.1-h3f43e3d_1
-    libblas            conda-forge/linux-64::libblas-3.11.0-5_h4a7cf45_openblas
-    libcblas           conda-forge/linux-64::libcblas-3.11.0-5_h0358290_openblas
-    libcurl            conda-forge/linux-64::libcurl-7.86.0-h2283fc2_1
-    libdeflate         conda-forge/linux-64::libdeflate-1.14-h166bdaf_0
-    libedit            conda-forge/linux-64::libedit-3.1.20250104-pl5321h7949ede_0
-    libev              conda-forge/linux-64::libev-4.33-hd590300_2
-    libexpat           conda-forge/linux-64::libexpat-2.7.3-hecca717_0
-    libffi             conda-forge/linux-64::libffi-3.5.2-h9ec8514_0
-    libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_16
-    libgcc-devel_linu~ conda-forge/linux-64::libgcc-devel_linux-64-9.5.0-h0a57e50_19
-    libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_16
-    libgettextpo       conda-forge/linux-64::libgettextpo-0.25.1-h3f43e3d_1
-    libgettextpo-devel conda-forge/linux-64::libgettextpo-devel-0.25.1-h3f43e3d_1
-    libgfortran        conda-forge/linux-64::libgfortran-15.2.0-h69a702a_16
-    libgfortran-ng     conda-forge/linux-64::libgfortran-ng-15.2.0-h69a702a_16
-    libgfortran5       conda-forge/linux-64::libgfortran5-15.2.0-h68bc16d_16
-    libglib            conda-forge/linux-64::libglib-2.74.1-h7a41b64_0
-    libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_16
-    libiconv           conda-forge/linux-64::libiconv-1.18-h3b78370_2
-    liblapack          conda-forge/linux-64::liblapack-3.11.0-5_h47877c9_openblas
-    liblzma            conda-forge/linux-64::liblzma-5.8.1-hb9d3cd8_2
-    liblzma-devel      conda-forge/linux-64::liblzma-devel-5.8.1-hb9d3cd8_2
-    libnghttp2         conda-forge/linux-64::libnghttp2-1.58.0-h47da74e_1
-    libopenblas        conda-forge/linux-64::libopenblas-0.3.30-pthreads_h94d23a6_4
-    libpng             conda-forge/linux-64::libpng-1.6.43-h2797004_0
-    libsanitizer       conda-forge/linux-64::libsanitizer-9.5.0-h2f262e1_19
-    libssh2            conda-forge/linux-64::libssh2-1.11.0-h0841786_0
-    libstdcxx          conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_16
-    libstdcxx-devel_l~ conda-forge/linux-64::libstdcxx-devel_linux-64-9.5.0-h0a57e50_19
-    libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_16
-    libtiff            conda-forge/linux-64::libtiff-4.4.0-h82bc61c_5
-    libuuid            conda-forge/linux-64::libuuid-2.41.3-h5347b49_0
-    libwebp-base       conda-forge/linux-64::libwebp-base-1.6.0-hd42ef1d_0
-    libxcb             conda-forge/linux-64::libxcb-1.17.0-h8a09558_0
-    libxml2            conda-forge/linux-64::libxml2-2.9.12-h72842e0_0
-    libzlib            conda-forge/linux-64::libzlib-1.2.13-h4ab18f5_6
-    make               conda-forge/linux-64::make-4.4.1-hb9d3cd8_2
-    ncurses            conda-forge/linux-64::ncurses-6.5-h2d0b736_3
-    openssl            conda-forge/linux-64::openssl-3.6.0-h26f9b46_0
-    pango              conda-forge/linux-64::pango-1.48.10-h54213e6_2
-    pcre2              conda-forge/linux-64::pcre2-10.37-hc3806b6_1
-    pixman             conda-forge/linux-64::pixman-0.46.4-h54a6638_1
-    pthread-stubs      conda-forge/linux-64::pthread-stubs-0.4-hb9d3cd8_1002
-    r-base             conda-forge/linux-64::r-base-4.1.0-hb67fd72_2
-    readline           conda-forge/linux-64::readline-8.3-h853b02a_0
-    sed                conda-forge/linux-64::sed-4.9-h6688a6e_0
-    sysroot_linux-64   conda-forge/noarch::sysroot_linux-64-2.39-hc4b9eeb_5
-    tk                 conda-forge/linux-64::tk-8.6.13-noxft_h4845f30_101
-    tktable            conda-forge/linux-64::tktable-2.10-h8d826fa_7
-    tzdata             conda-forge/noarch::tzdata-2025c-h8577fbf_0
-    xorg-libice        conda-forge/linux-64::xorg-libice-1.1.2-hb9d3cd8_0
-    xorg-libsm         conda-forge/linux-64::xorg-libsm-1.2.6-he73a12e_0
-    xorg-libx11        conda-forge/linux-64::xorg-libx11-1.8.12-h4f16b4b_0
-    xorg-libxau        conda-forge/linux-64::xorg-libxau-1.0.12-hb03c661_1
-    xorg-libxdmcp      conda-forge/linux-64::xorg-libxdmcp-1.1.5-hb03c661_1
-    xorg-libxext       conda-forge/linux-64::xorg-libxext-1.3.6-hb9d3cd8_0
-    xorg-libxrender    conda-forge/linux-64::xorg-libxrender-0.9.12-hb9d3cd8_0
-    xorg-libxt         conda-forge/linux-64::xorg-libxt-1.3.1-hb9d3cd8_0
-    xz                 conda-forge/linux-64::xz-5.8.1-hbcc6ac9_2
-    xz-gpl-tools       conda-forge/linux-64::xz-gpl-tools-5.8.1-hbcc6ac9_2
-    xz-tools           conda-forge/linux-64::xz-tools-5.8.1-hb9d3cd8_2
-    zlib               conda-forge/linux-64::zlib-1.2.13-h4ab18f5_6
-    zstd               conda-forge/linux-64::zstd-1.5.6-ha6fb4c9_0
-[coble-recreate] End time: 2025-12-26 10:59:53
-[coble-recreate] Duration: 13s
-
-[coble-recreate] Start time: 2025-12-26 10:59:53 36/58
-conda install -y -c conda-forge librsvg cairo freetype expat fontconfig
-    gdk-pixbuf         conda-forge/linux-64::gdk-pixbuf-2.42.8-hff1cb4f_1
-    librsvg            conda-forge/linux-64::librsvg-2.52.5-hc3c00ef_1
-[coble-recreate] End time: 2025-12-26 11:00:06
-[coble-recreate] Duration: 13s
+[coble-recreate] End time: 2025-12-26 11:07:33
+[coble-recreate] Duration: 5s
