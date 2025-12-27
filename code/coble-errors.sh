@@ -27,6 +27,7 @@ stdout_patterns=(
     "please re-install it"
     "Could not solve for environment specs"
     "Failed to build" 
+    "packages failed:"
 )
 error_patterns=(
     #"* removing"
@@ -46,6 +47,7 @@ error_patterns=(
     "Error in loadNamespace(x)"
     "there is no package"
     "Failed to build" 
+    "packages failed:"
 )
 done_patterns=(
     "DONE ("

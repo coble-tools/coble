@@ -16,8 +16,8 @@ flags:
   - dependencies: True
   - build-tools: True
 
-# Special installs outside of conda for awkward pysamstats package
 bash:
+# Special installs outside of conda for awkward pysamstats package
   - python -m pip install "setuptools>=59.0"
   - python -m pip install --upgrade "Cython>=3.0.11"
   - python -m pip install pysam
@@ -38,7 +38,7 @@ r-conda:
   - sitmo
   - seurat
   - units
-  
+
 r-conda:
   - raster
   - spdep
@@ -51,20 +51,20 @@ conda:
   - pypandoc
   - boost-cpp
 r-conda:
-  - r-xml
-  - r-xlconnect
-  - r-xml2
-  - r-testthat
-  - r-systemfonts
-  - r-ragg
+  - xml
+  - xlconnect
+  - xml2
+  - testthat
+  - systemfonts
+  - ragg
 
 conda:
 # for fonts to work otherwise default unix ones are DejaVu
   - fonts-conda-ecosystem 
   - mscorefonts 
 r-conda:
-  - r-nloptr 
-  - r-polyclip
+  - nloptr 
+  - polyclip
 bioc-package:  
   - limma
   - vsn
@@ -72,31 +72,78 @@ bioc-package:
   - org.Hs.eg.db
   - org.Mm.eg.db
 
-# conda install -y -c conda-forge r-tzdb r-vroom r-readr r-readxl r-rcppannoy r-glmnet --freeze-installed
+r-conda:
+   - tzdb
+  - vroom
+  - readr
+  - readxl
+  - rcppannoy
+  - glmnet
 
-# Rscript -e "install.packages('gdata', repos='https://cloud.r-project.org')"
-# Rscript -e "devtools::install_url('https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz', dependencies = FALSE)"
+r-package:
+  - gdata
 
-# Rscript -e "install.packages(c('bedr', 'SIMMS', 'haven', 'foreign', 'spatstat'), repos='https://cloud.r-project.org')"
+r-url:
+  - https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz
 
-# # required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
-# Rscript -e "devtools::install_url('https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip', dependencies = FALSE)"
+r-package:
+  - bedr
+  - SIMMS
+  - haven
+  - foreign
+  - spatstat
 
+r-url:
+# required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
+  - https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip
+
+r-conda:
 # # these wont install happily from install.packages (needed for FactoMineR)
-# conda install -y -c conda-forge r-rcpparmadillo r-conquer r-minqa --freeze-installed
+  - rcpparmadillo
+  - conquer
+  - minqa
+  - lme4
+r-package:
+  - FactoMineR
+  - factoextra
 
-# conda install -y conda-forge::r-lme4 --freeze-installed
-# Rscript -e "install.packages(c('FactoMineR', 'factoextra'), repos='https://cloud.r-project.org')"
+r-package:
+  - knitr
+  - rmarkdown
+  - inline
 
-# Rscript -e "install.packages(c('knitr', 'rmarkdown', 'inline'), repos='https://cloud.r-project.org')"
+r-conda:
+  - rjson
+  - interp
+bioc-package:
+  - biomaRt
+  - rtracklayer
+  - GenomicFeatures
+  - BSgenome
+  - VariantAnnotation
+  - ensembldb
+  - biovizBase
+  - Gviz
+  - GenomicInteractions
 
-# conda install -y -c conda-forge r-rjson r-interp --freeze-installed
-# Rscript -e "BiocManager::install(c('biomaRt', 'rtracklayer',  'GenomicFeatures', 'BSgenome', 'VariantAnnotation', 'ensembldb', 'biovizBase', 'Gviz', 'GenomicInteractions'))"
+r-package:
+  - distributions3
+  - mboost
+  - AER
+  - brglm2
+  - flexmix
+  - modelsummary
+  - nonnest2
+  - tinytest
+  - knitr
+  - UpSetR
+  - plotrix
+  - gplots
+  - drc
 
-# Rscript -e "install.packages(c('distributions3', 'mboost', 'AER', 'brglm2', 'flexmix', 'modelsummary', 'nonnest2', 'tinytest', 'knitr', 'UpSetR', 'plotrix', 'gplots', 'drc'), repos='https://cloud.r-project.org')"
-
-# Rscript -e "install.packages('countreg', repos='http://R-Forge.R-project.org', dependencies = TRUE)"
-# Rscript -e "install.packages('chicane', dependencies = TRUE, repos='https://cloud.r-project.org')"
+r-package:
+  - countreg@r-forge
+  - chicane
 
 # conda install -y conda-forge::r-v8 --freeze-installed
 # Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'celldex'))"

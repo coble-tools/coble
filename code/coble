@@ -19,6 +19,9 @@ show_help() {
 	echo "  $0 recreate/create [options]"
 }
 
+start_time=$(date +%s)
+echo "[coble] Starting coble at $(date)" >&2
+
 # Global help option
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	show_help
@@ -96,6 +99,12 @@ if [[ "$1" == "build" ]]; then
 	result=$("$script_dir/coble-capture.sh" --outdir "$recipe_dir" --output "$capture_file" "${@:2}")
 		
 	echo "[coble-create] Environment creation complete." >&2
+	end_time=$(date +%s)
+	duration=$((end_time - start_time))
+	hours=$((duration / 3600))
+	minutes=$(((duration % 3600) / 60))
+	seconds=$((duration % 60))
+	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
 	exit $?
 fi
 

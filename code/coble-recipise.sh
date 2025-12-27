@@ -111,7 +111,7 @@ echo "  YAML_FILE: $YAML_FILE" >&2
 echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
-#UPDATE_CONDA=""
+NCPUS="4"
 DEPS_CONDA=""
 DEPS_PYTHON=""
 DEPS_R="TRUE"
@@ -279,6 +279,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "$directive,," == "updates" && "$value,," == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
+            elif [[ "$directive,," == "ncpus" ]]; then
+                echo "[conda-recipise] Ncpus specified as $value" >&2
+                NCPUS="$value"
             elif [[ "$directive,," == "updates" && "$value,," == "false" ]]; then                
                 echo "[conda-recipise] (default) Will not update dependencies" >&2
                 UPDATE_CONDA="--no-update-deps"                
@@ -356,18 +359,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then            
             echo "[conda-recipise] Processing R package: $pkg_only, version: $ver, source: $src" >&2
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"            
+                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-github:" || "$CURRENT_SECTION" == "github-r:" ]]; then            
-            echo "Rscript -e 'devtools::install_github(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'devtools::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
-            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=4)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
             echo "[conda-recipise] Processing pip package: $pkg_only, version: $ver" >&2
             pip_pkg="$pkg"
@@ -400,12 +403,16 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${recipe_line}" >> "$RECIPE_FILE"                              
             fi
         fi
-    else                
-        if [[ -n "$line" ]]; then
-            #echo "[conda-recipise] Ignoring line: $line" >&2
-            # remove a trailing \ if needed
-            sed -i '${s/\\$//}' "$RECIPE_FILE"
-            continue
+    else                                
+        # remove a trailing \ if needed
+        sed -i '${s/\\$//}' "$RECIPE_FILE"
+        # if it is a comment
+        if [[ "$line" == \#* ]]; then
+            echo "[conda-recipise] Adding comment: $line" >&2
+            echo "$line" >> "$RECIPE_FILE"
+        # if line is a space we preserve it
+        elif [[ -z "$line" ]]; then
+            echo "" >> "$RECIPE_FILE"        
         fi
     fi
 done < "$YAML_FILE"

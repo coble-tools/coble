@@ -68,7 +68,7 @@ done
 
 
 if [[ -z "$NEW_ENV" ]]; then
-    echo "[coble-recreate] Error: --env NEW_ENV is required." >&2
+    echo "[coble-create] Error: --env NEW_ENV is required." >&2
     show_help
     exit 1
 fi
@@ -84,7 +84,7 @@ else
 fi
 
 if [[ ! -f "$RECIPE_FILE" ]]; then
-    echo "[coble-recreate] Error: Input recipe file not found: $RECIPE_FILE" >&2
+    echo "[coble-create] Error: Input recipe file not found: $RECIPE_FILE" >&2
     exit 1
 fi
 mkdir -p "$OUTDIR"
@@ -109,22 +109,22 @@ echo "[coble-create] Redirected STDERR to file: $ERROR_FILE" >&2
 echo "[coble-create] Summary recording at $TIME_FILE" >&2
 
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
-echo "[coble-recreate] Log file: $LOG_FILE"
-echo "[coble-recreate] Log file: $ERROR_FILE"
+echo "[coble-create] Log file: $LOG_FILE"
+echo "[coble-create] Log file: $ERROR_FILE"
 
 # log time date user
-echo "[coble-recreate] Started at $(date '+%Y-%m-%d %H:%M:%S')"
-echo "[coble-recreate] User: $(whoami)"
+echo "[coble-create] Started at $(date '+%Y-%m-%d %H:%M:%S')"
+echo "[coble-create] User: $(whoami)"
 echo ""
-echo "[coble-recreate] Starting recreate process..."
-echo "[coble-recreate] Input file: $INPUT_FILE"
+echo "[coble-create] Starting create process..."
+echo "[coble-create] Input file: $INPUT_FILE"
 if [[ -n "$NEW_ENV" ]]; then
-    echo "[coble-recreate] New environment override: $NEW_ENV"
+    echo "[coble-create] New environment override: $NEW_ENV"
 fi
 
 # Start the summary log
 echo "------------------------------------------------" >> "$TIME_FILE"
-echo "[coble-recreate] Summary log started at $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
+echo "[coble-create] Summary log started at $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
 echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type
@@ -140,10 +140,10 @@ case "$RECIPE_FILE" in
         ;;
 esac
 
-echo "[coble-recreate] Deactivating existing envs"
+echo "[coble-create] Deactivating existing envs"
 conda deactivate
 # run each line of the recipe line by line
-echo "[coble-recreate] Executing recipe script: $RECIPE_FILE"
+echo "[coble-create] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")
 current_line=0
 buffer=""
@@ -154,12 +154,12 @@ BEGIN_TIME=$(date +%s)
 run_line() {
     local line="$1"
     # TODO: implement logic to process $line
-    echo "[coble-recreate] Running $current_line/$total_lines:"    
-    echo "[coble-recreate] System info"
-    echo "[coble-recreate] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
-    echo "[coble-recreate] Disk usage:"
+    echo "[coble-create] Running $current_line/$total_lines:"    
+    echo "[coble-create] System info"
+    echo "[coble-create] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
+    echo "[coble-create] Disk usage:"
     df -h .
-    echo "[coble-recreate] Memory usage:"
+    echo "[coble-create] Memory usage:"
     if command -v free >/dev/null; then
         free -h
     elif command -v vm_stat >/dev/null; then
@@ -172,7 +172,7 @@ run_line() {
     # export to the TIME_FILE the start time
     START_TIME=$(date +%s)
     echo "" >> "$TIME_FILE"
-    echo "[coble-recreate] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
+    echo "[coble-create] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
     echo $buffer >> "$TIME_FILE"    
     eval "$buffer"
     END_TIME=$(date +%s)
@@ -182,19 +182,19 @@ run_line() {
     "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE"
     err_code=$?    
     if [[ $err_code -eq 0 ]]; then
-        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"    
+        echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
     elif [[ "$EXIT_ON_ERROR" == "1" ]]; then
         echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$DONE_FILE"
         exit 1
     else 
         echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$DONE_FILE"
-        echo "[coble-recreate] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-recreate] Duration: ${DURATION}s" >> "$TIME_FILE"            
+        echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+        echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"            
     fi    
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
-        echo "[coble-recreate] Error: Command failed: $buffer" >&2
+        echo "[coble-create] Error: Command failed: $buffer" >&2
         echo N
         exit 3
     fi
@@ -246,12 +246,17 @@ fi
 
 END_TIME=$(date +%s)
 DURATION=$((END_TIME - BEGIN_TIME))
+hours=$((DURATION / 3600))
+minutes=$(((DURATION % 3600) / 60))
+seconds=$((DURATION % 60))
+
+
 echo "--------------------------------------" >> "$TIME_FILE"    
-echo "[coble-recreate] Recipe created at: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-echo "[coble-recreate] Recipe took: ${DURATION}s" >> "$TIME_FILE"
+echo "[coble-create] Recipe created at: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+echo "[coble-create] Recipe took: ${hours}h ${minutes}m ${seconds}s" >> "$TIME_FILE"
 echo "--------------------------------------" >> "$TIME_FILE"        
 
-echo "[coble-recreate] Recreate process completed." >&2
+echo "[coble-create] Recreate process completed." >&2
 # clear the log diversions and return stdout and stderr to normal
 exec >&- 2>&-
 echo Y
