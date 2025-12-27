@@ -156,8 +156,13 @@ while IFS= read -r line; do
 	ver=$(echo "$line" | awk '{print $2}')
 	src=$(echo "$line" | awk '{print $4}')
 	if [[ "$pkg" == r-* ]]; then
-		manager="conda-r"
+		manager="r-conda"
 		pkg_no_r=${pkg#r-}
+		pkgver="$pkg_no_r=$ver"
+		echo -e "$manager\t$pkgver\t$src\t" >> "$TMP_AGGREGATE"
+	elif [[ "$pkg" == bioconductor-* ]]; then
+		manager="bioc-conda"
+		pkg_no_r=${pkg#bioconductor-}
 		pkgver="$pkg_no_r=$ver"
 		echo -e "$manager\t$pkgver\t$src\t" >> "$TMP_AGGREGATE"
 	else
@@ -274,11 +279,11 @@ sort -k1,1 -k2,2 "$TMP_AGGREGATE" > "$TMP_SORTED"
 R_BASE_VERSION=""
 PYTHON_VERSION=""
 while IFS=$'\t' read -r manager pkg src path; do
-    if [[ "$manager" == "conda-r" && "$pkg" == base=* ]]; then
+    if [[ "$manager" == "r-conda" && "$pkg" == base=* ]]; then
         R_BASE_VERSION="r-base=${pkg#base=}@$src"
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
-        PYTHON_VERSION="python=${pkg#python=}@$src"
-    fi
+        PYTHON_VERSION="python=${pkg#python=}@$src"    
+	fi
 done < "$TMP_AGGREGATE"
 echo "[coble-capture] Detected r-conda base version: $R_BASE_VERSION"
 echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
@@ -288,7 +293,7 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)
-	echo -e "# COBLE:Reproducible environment capture, (c) ICR 2025"
+	echo -e "# COBLE:capture, (c) ICR 2025"
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"

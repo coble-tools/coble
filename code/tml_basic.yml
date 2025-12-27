@@ -16,7 +16,6 @@ conda:
   - pandas
 r-conda:
   - tidyverse
-r-package:
   - ggplot2
-pip:
-  - requests
+bioc-conda:
+  - fgsea

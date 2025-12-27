@@ -56,9 +56,12 @@ markdown_extensions:
 nav:
   - Overview:
     - Home: index.md
-    - Motivation: motivation.md
+    - Motivation: motivation.md  
   - COBLE:
-    - Recipes: recipes.md
+    - Workflow: overview.md
+  - Recipes:
+    - Overview: recipes.md
+    - Basic: recipes/basic.md
   - Containers: 
     - Conda Build: overview.md
     - Docker Build: docker-build.md

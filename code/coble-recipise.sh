@@ -125,19 +125,19 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 {
 	echo "#!/usr/bin/env bash"
     echo ""
-    echo "#######################################"
-    echo -e "# COBLE:Reproducible environment recipe, (c) ICR 2025"    
+    echo "#####################################################"
+    echo -e "# COBLE:recipe, (c) ICR 2025"    
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"
-    echo "#######################################"
+    echo "#####################################################"
     echo -e "# source bashrc for conda"
     echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
     echo -e "source ~/.bashrc"
-    echo "#######################################"
+    echo "#####################################################"
     echo ""
     #echo "CONDA_ENV='$CONDA_ENV' # Change this value to your desired conda environment name or prefix"
     echo ""
@@ -216,6 +216,9 @@ while IFS= read -r line; do
         CURRENT_SECTION="channels"
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
+    # any line with a : at start is a new section
+    elif [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        CURRENT_SECTION=""    
     elif [[ "$CURRENT_SECTION" == "channels" && "$line" == "-"* ]]; then
         # remove trailing and leading white space
         channel_name="$(echo -e "${line#- }" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
@@ -418,10 +421,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     else                
         if [[ -n "$line" ]]; then
             #echo "[conda-recipise] Ignoring line: $line" >&2
+            # remove a trailing \ if needed
+            sed -i '${s/\\$//}' "$RECIPE_FILE"
             continue
         fi
     fi
 done < "$YAML_FILE"
+# remove a trailing \ if needed
+sed -i '${s/\\$//}' "$RECIPE_FILE"
+
 echo "[conda-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"

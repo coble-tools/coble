@@ -57,8 +57,8 @@ fi
 
 
 # Now check the second line, if the 'yml' is already coble resolved, exit
-second_line=$(sed -n '2p' "$YAML_FILE")
-if [[ "$second_line" == "## COBLE:"* && "$second_line" == *Resolved* ]]; then
+first_line=$(sed -n '1p' "$YAML_FILE")
+if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Resolved* ]]; then
     echo "[coble-refind] YAML already coble resolved, exiting: $YAML_FILE" >&2
     echo N
     exit 0
@@ -77,15 +77,13 @@ echo "  BACKUP YAML: $YAML_BACKUP" >&2
 echo "[coble-refind] Finding any required packages and in place replacing..." >&2
 	
 # Clear the aggregate file at the start
-{	    
-    echo "#######################################"    
+{	        
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	
-    echo -e "## COBLE:Reproducible environment (c) ICR 2025. Resolved"        	    
-    echo -e "##    Resolved - On: $CAPTURE_DATE" at $CAPTURE_TIME" by $CAPTURE_USER"        	    
-    echo "#######################################"    
-    echo "" 
+    echo -e "##!COBLE: Resolved"        	    
+    #echo -e "##    Resolved - On: $CAPTURE_DATE" at $CAPTURE_TIME" by $CAPTURE_USER"        	    
+    #echo "#######################################"        
 } > "$YAML_FILE"
 
 CURRENT_SECTION=""

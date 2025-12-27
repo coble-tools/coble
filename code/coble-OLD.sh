@@ -135,15 +135,15 @@ exec > >(tee -a "$OUTPUT_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "Redirecting stdout to $OUTPUT_FILE"
 echo "Redirecting stderr to $ERROR_FILE"
 
-echo "#################################################"
+echo "#####################################################"
 echo "Recipe coble environment creation script started at $(date)"
-echo "#################################################"
+echo "#####################################################"
 echo "CMD: INPUT_RECIPE: ${INPUT_RECIPE}"
 echo "CMD: RESULTS_DIR: ${RESULTS_DIR}"
 echo "CMD: ENV_NAME: ${ENV_NAME}"
 echo "CMD: SKIP_ERRORS: ${SKIP_ERRORS}"
 echo "CMD: KEEP_LOGS: ${KEEP_LOGS}"
-echo "#################################################"
+echo "#####################################################"
 
 # Convert a YAML file to a recipe file (key=value pairs)
 convert_yaml_to_recipe() {

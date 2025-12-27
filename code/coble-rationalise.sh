@@ -40,9 +40,10 @@ if [[ -z "$YAML_FILE" ]]; then
     exit 1
 fi
 
-# Now check the second line, if the 'yml' is already coble rationalised, exit
-second_line=$(sed -n '2p' "$YAML_FILE")
-if [[ "$second_line" == "## COBLE:"* && "$second_line" == *Ordered* ]]; then
+
+# Now check the first line, if the 'yml' is already coble rationalised, exit
+first_line=$(sed -n '1p' "$YAML_FILE")
+if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Ordered* ]]; then
     echo "[coble-rationalise] YAML already coble ordered, exiting: $YAML_FILE" >&2
     echo Y
     exit 0
@@ -53,15 +54,13 @@ BACKUP_FILE="${YAML_FILE}.bak2.yml"
 cp "$YAML_FILE" "$BACKUP_FILE"
 
 # init with basic time date ############################################
-second_line=$(sed -n '2p' "$YAML_FILE")
+first_line=$(sed -n '1p' "$YAML_FILE")
 # Clear the aggregate file at the start
 {	
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
-	CAPTURE_USER=$(whoami)	
-    echo "#######################################"            
-    echo -e "$second_line + Ordered"    
-    echo "#######################################"            
+	CAPTURE_USER=$(whoami)	    
+    echo -e "$first_line + Ordered"            
 } > "$YAML_FILE"
 
 
@@ -101,33 +100,83 @@ done
 
 # now go through it and write out the sections in the desired order #
 # only some sections need to be in the desired order the rest as they came
+# Rationalise YAML: extract only the first occurrence of each DESIRED_START section, error on duplicates, write rest as-is
 DESIRED_START=(
-    "coble"    
+    "coble"
     "channels"
     "languages"
     "flags"
 )
 
-OTHER_SECTIONS=()
+declare -A FOUND_SECTIONS
+declare -A SECTION_CONTENT
 
+CURRENT_SECTION=""
+CURRENT_CONTENT=""
+
+# Read the file and extract first occurrence of each DESIRED_START section
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        section_name="${BASH_REMATCH[1]}"
+        # If we were collecting a section, store it
+        if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
+            if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
+                SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
+            fi
+        fi
+        CURRENT_CONTENT=""
+        CURRENT_SECTION="$section_name"
+        # If this is a DESIRED_START section
+        for desired in "${DESIRED_START[@]}"; do
+            if [[ "$section_name" == "$desired" ]]; then
+                if [[ -n "${FOUND_SECTIONS[$section_name]}" ]]; then
+                    echo "[coble-rationalise] ERROR: Duplicate section '$section_name' found in $YAML_FILE" >&2
+                    echo "N"
+                    exit 1
+                fi
+                FOUND_SECTIONS[$section_name]=1
+            fi
+        done
+        CURRENT_CONTENT="$line"$'\n'
+    else
+        CURRENT_CONTENT+="$line"$'\n'
+    fi
+done < "$BACKUP_FILE"
+# Store last section
+if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
+    if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
+        SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
+    fi
+fi
+
+# Write DESIRED_START sections in order
 for section in "${DESIRED_START[@]}"; do
-    if [[ -n "${SECTION_MAP[$section]}" ]]; then
-        echo "$section:" >> "$YAML_FILE"
-        echo "${SECTION_MAP[$section]}" >> "$YAML_FILE"
-        unset SECTION_MAP["$section"]
-    else    
-        OTHER_SECTIONS+=("$section")
+    if [[ -n "${SECTION_CONTENT[$section]}" ]]; then
+        printf "%s" "${SECTION_CONTENT[$section]}" >> "$YAML_FILE"
     fi
 done
-# Now append the remaining sections in their original order
-for section in "${!SECTION_MAP[@]}"; do
-    echo "$section:" >> "$YAML_FILE"
-    echo "${SECTION_MAP[$section]}" >> "$YAML_FILE"
-done
 
-
-
-
+# Write the rest of the file, skipping DESIRED_START sections
+SKIP_SECTION=0
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        section_name="${BASH_REMATCH[1]}"
+        SKIP_SECTION=0
+        for desired in "${DESIRED_START[@]}"; do
+            if [[ "$section_name" == "$desired" ]]; then
+                SKIP_SECTION=1
+                break
+            fi
+        done
+    fi
+    if [[ $SKIP_SECTION -eq 0 ]]; then
+        # if the line starts ##!COBLE skip it
+        if [[ "$line" == "##!COBLE"* ]]; then
+            continue
+        fi
+        printf "%s\n" "$line" >> "$YAML_FILE"
+    fi
+done < "$BACKUP_FILE"
 
 
 echo "[coble-reordered] Rationalisation complete: $YAML_FILE" >&2
