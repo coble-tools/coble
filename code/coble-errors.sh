@@ -29,7 +29,7 @@ stdout_patterns=(
     "Failed to build" 
 )
 error_patterns=(
-    "* removing"
+    #"* removing"
     "fatal"
     "EnvironmentNotWritableError"
     "Rscript: command not found"
@@ -52,7 +52,7 @@ done_patterns=(
     "linux-64::"
     "noarch::"
     "Successfully installed"
-    "** this is package"
+    #"** this is package"
     "Requirement already satisfied"
     "All requested packages already installed"
 )

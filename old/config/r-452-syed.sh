@@ -21,7 +21,7 @@ conda install -y -c conda-forge r-devtools gcc_linux-64 gxx_linux-64 --freeze-in
 conda install -y r-data.table --freeze-installed
 Rscript -e "BiocManager::install('fgsea',force=TRUE)"
 
-conda install -y -c conda-forge r-stringi r-rcpp r-plyr r- culate r-sitmo --freeze-installed
+conda install -y -c conda-forge r-stringi r-rcpp r-plyr r-reticulate r-sitmo --freeze-installed
 
 conda install -y conda-forge::r-seurat --freeze-installed
 

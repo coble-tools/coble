@@ -47,26 +47,15 @@ if [[ "$FLAVOUR" =~ ^(basic)$ ]]; then
 elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_versions.yml" "$YAML_FILE"    
+elif [[ "$FLAVOUR" =~ ^(bioinf)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_bioinf.yml" "$YAML_FILE"    
 
 
-elif [[ "$FLAVOUR" =~ ^(452)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_452.yml" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(r)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_r.yml" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(mixed)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_mixed.yml" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(python)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_python.yml" "$YAML_FILE"
+
 elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_find.yml" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(pin)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_pin.yml" "$YAML_FILE"
 elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_sylver.yml" "$YAML_FILE"

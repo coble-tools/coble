@@ -1,10 +1,10 @@
-# Basic COBLE recipe
+# Basic COBLE Recipe
 
 The basic template for a coble environment has the major package managers that you are likely to need in a simple environment. To get the template, and then to create the environment, simply:
 
 ```bash
 coble template --input basic/basic.yml --flavour basic
-coble build --inpit basic/basic.yml --env coble-basic-env
+coble build --input basic/basic.yml --env coble-basic-env
 ```
 
 The environment is set to the given R and python versions and allows the other versions to be found accordingly. By default the conda intsalls are done with `--no-update-deps` so there is no risk of the R or python version changing during set up.

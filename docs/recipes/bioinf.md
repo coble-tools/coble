@@ -1,14 +1,12 @@
-# COBLE Recipe with Versions
+# Complex Bioinformatics Lab Environment
 
-Sometimes versions are specified either explicitly or in ranges. An example of a package on github with an environment with specified versions is [Monopogen](https://github.com/KChen-lab/Monopogen).
+In this very large bioinformatics recipe the only versions s[ecified are for R and python and the rest will be appropriately found. The same environment will be upgraded when appropriate and the new versions resolved. For that reason more packages are installed through bioconductor than through conda as they are not always up-todate when a new version of R comes out.
 
-`Dou J, Tan Y, Kock KH, Wang J, Cheng X, Tan LM, Han KY, Hon CC, Park WY, Shin JW, Jin H, H Chen, L Ding, S Prabhakar, N Navin. K Chen. Single-nucleotide variant calling in single-cell sequencing data with Monopogen. Nature Biotechnology. 2023 Aug 17:1-0`
-
-To replicate some of the environment with given versions:
+To replicate - but be warned it takes 8 hours to build.
 
 ```bash
-coble template --input versions/versions.yml --flavour versions
-coble build --input versions/versions.yml --env coble-versions-env
+coble template --input bioinf/bioinf.yml --flavour bioinf
+coble build --input bioinf/bioinf.yml --env coble-bioinf-env
 ```
 ### Input recipe yaml
 ```yaml

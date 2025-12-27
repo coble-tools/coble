@@ -159,6 +159,8 @@ while IFS= read -r line; do
         CURRENT_SECTION="channels"          
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
+    elif [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        CURRENT_SECTION=""
     elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then    
         if [[ "$line" == *"r-"* ]]; then
             r_count=$((r_count + 1))            
@@ -293,8 +295,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 # common tool chain for graphics c library stack
                 echo "conda install -y -c conda-forge librsvg cairo freetype expat fontconfig" >> "$RECIPE_FILE"
                 # Common tool chain for compilation                            
-                echo "conda install -y -c conda-forge libxcrypt sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >> "$RECIPE_FILE"
-                echo "conda install -y -c conda-forge make cmake pkg-config protobuf libprotobuf openssl cython bzip2 xz libcurl zlib" >> "$RECIPE_FILE"
+                echo "conda install -y -c conda-forge libxcrypt libxml2 libcurl libpng libtiff sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >> "$RECIPE_FILE"
+                echo "conda install -y -c conda-forge make cmake pkg-config protobuf libprotobuf openssl cython bzip2 xz zlib" >> "$RECIPE_FILE"
                 echo "# Compiler symlinks for R packages" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
@@ -313,6 +315,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"
                 echo "export CFLAGS=\"-Wno-error=incompatible-pointer-types\"" >> "$RECIPE_FILE"
+                #echo "export XML_CONFIG=\"pkg-config libxml-2.0\"" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                
@@ -364,7 +367,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
             echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=4)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
             echo "[conda-recipise] Processing pip package: $pkg_only, version: $ver" >&2
             pip_pkg="$pkg"
