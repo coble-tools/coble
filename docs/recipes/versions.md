@@ -44,4 +44,4 @@ pip:
   - scipy=1.16.3
 ```
 
-In the output you can see that numpy has been installed by conda rather than pip - it will have been installed by both but the environment putrs a priority on the conda version and avoids duplication for resukts.
+In the output you can see that numpy has been installed by conda rather than pip - it will have been installed by both but the environment puts a priority on the conda version and avoids duplication in resuts.
