@@ -326,6 +326,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"
+                echo "export CFLAGS=\"-Wno-error=incompatible-pointer-types\"" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                

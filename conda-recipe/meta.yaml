@@ -18,8 +18,7 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/bin/coble  # Just check the file exists
-    - test -f $PREFIX/bin/coble-capture.sh  # Just check the file exists
+    - test -f $PREFIX/bin/coble  # Just check the file exists    
 
 about:
   home: https://github.com/yourusername/my-bash-utility

@@ -1,9 +1,4 @@
 #######################################
-## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-26 at 13:54:07 GMT by ralcraft
-#######################################
-
-#######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2025
 #######################################
 
@@ -19,64 +14,12 @@ flags:
   - dependencies: True
   - build-tools: True
 find:
-#   - countreg  
-found|r-package:
-  - countreg@r-forge
-found|r-url:
-  - countreg@https://github.com/r-forge/countreg,https://github.com/timbulwidodostp/countreg/archive/refs/heads/master.zip
-
-#   - r-base=4.5.2
-found|languages:
-  - r-base=4.5.2@conda-forge
-
-#   - r-base=3.6.0
-found|languages:
-  - r-base=3.6.0@r
-
-#   - devtools  
-found|conda:
-  - devtools@conda-forge
-found|conda:
-  - r-devtools@conda-forge
-found|conda:
-  - r-devtools@r
-found|r-package:
-  - devtools@CRAN
-found|r-package:
-  - devtools@CRAN
-found|pip:
-  - devtools
-found|r-url:
-  - devtools@https://github.com/r-lib/devtools,https://github.com/cran/devtools/archive/refs/heads/master.zip
-found|pip:
-  - devtools@https://github.com/secretflow/devtools/archive/refs/heads/master.zip
-
-#   - cdsr_models
-found|r-url:
-  - cdsr_models@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
-
-#   - SQUEAK
-found|pip:
+  - countreg  
+  - r-base=4.5.2
+  - r-base=3.6.0
+  - devtools  
+  - cdsr_models
   - SQUEAK
-
-#   - gitalma
-
-#   - car
-found|conda:
-  - r-car@bioconda
-found|conda:
-  - r-car@conda-forge
-found|conda:
-  - r-car@r
-found|r-package:
-  - car@CRAN
-found|r-package:
-  - car@CRAN
-found|r-package:
-  - car@r-forge
-found|r-url:
-  - car@https://github.com/cran/car/archive/refs/heads/master.zip
-found|pip:
-  - car@https://github.com/mitre-attack/car/archive/refs/heads/master.zip
-
+  - gitalma
+  - car
   

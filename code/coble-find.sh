@@ -102,9 +102,9 @@ check_and_print() {
             manager="r-package:"
             channel="r-forge"
             ;;
-        "r-url")
-            recipe_line="Rscript -e 'remotes::install_url(\"$channel\", dependencies=TRUE)'"
-            manager="r-url:"
+        "r-github")
+            recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
+            manager="r-github:"
             yaml_line="  - $pkg_name"
             ;;        
         "python-url")
@@ -326,14 +326,14 @@ search_github_repo() {
   # Collect all repo URLs that match
   local results
   results=$(curl -s "$url" \
-    | grep -o '"html_url": *"https://github.com/[^"]\+/[^"]\+"' \
+    | grep -o '"full_name": *"https://github.com/[^"]\+/[^"]\+"' \
     | cut -d'"' -f4 \
     | grep -E "/${q}$|/${q}/" \
     | paste -sd "," -)
 
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
-     check_and_print "r-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"  
+     check_and_print "r-github" "$pkg" "" "$pkg" "" "${results}"  
   fi
 }
 search_github_repo $pkg

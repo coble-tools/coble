@@ -3,7 +3,7 @@
 #######################################
 # COBLE:Reproducible environment recipe, (c) ICR 2025
 # Capture date: 2025-12-26
-# Capture time: 13:49:16 GMT
+# Capture time: 14:01:07 GMT
 # Captured by: ralcraft
 #######################################
 # source bashrc for conda
@@ -26,7 +26,7 @@ conda config --env --add channels conda-forge
 # INSTALL SECTION FOR CONDA
 
 # languages:
-conda install -y -c conda-forge 'r-base=4.5.2'
+conda install -y -c conda-forge 'r-base=4.4.2'
 
 # flags:
 # Flag: Directive: dependencies, Value: true
@@ -55,14 +55,25 @@ export CPPFLAGS="-I$CONDA_PREFIX/include"
 export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
 
 
-# conda:
-conda install -y  --no-update-deps \
-'conda-forge::devtools' \
-'conda-forge::r-devtools' 
+# bioc-package:
+Rscript -e 'BiocManager::install("limma", dependencies=TRUE)'
 
 # r-url:
-Rscript -e 'remotes::install_url("cdsr_models@https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip", dependencies=TRUE)'
+Rscript -e 'remotes::install_url("https://github.com/choisy/cutoff/archive/refs/heads/master.zip", dependencies=TRUE)'
+
+# bioc-conda:
+conda install -y  --no-update-deps \
+'bioconductor-affy' 
+
+# r-github:
+Rscript -e 'devtools::install_github("seedgeorge/SQUEAK", dependencies=TRUE)'
+
+# r-conda:
+conda install -y  --no-update-deps \
+'r-tidyverse' \
+'r-devtools' \
+'r-remotes' 
 
 # r-package:
-Rscript -e 'install.packages("countreg", repos="https://R-Forge.R-project.org", dependencies=TRUE)'
+Rscript -e 'install.packages("survival", repos="https://cloud.r-project.org", dependencies=TRUE)'
 
