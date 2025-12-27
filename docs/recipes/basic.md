@@ -15,10 +15,6 @@ Once created, there is a capture file with the specific versions of all the libr
 
 During creation there are some outputs, for the given input `myinput.yml`:
 
-
-
-
-
 ### Input recipe yaml
 ```yaml
 #####################################################
@@ -44,5 +40,3 @@ r-package:
 pip:
   - requests
 ```
-
-### Output capture yaml

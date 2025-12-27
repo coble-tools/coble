@@ -44,6 +44,11 @@ mkdir -p "$(dirname "$YAML_FILE")"
 if [[ "$FLAVOUR" =~ ^(basic)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_basic.yml" "$YAML_FILE"    
+elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_versions.yml" "$YAML_FILE"    
+
+
 elif [[ "$FLAVOUR" =~ ^(452)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_452.yml" "$YAML_FILE"    

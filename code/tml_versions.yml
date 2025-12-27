@@ -1,0 +1,22 @@
+#####################################################
+# COBLE:Reproducible environment: VERSIONS, (c) ICR 2025
+#####################################################
+coble:
+  - environment: coble-env-versions
+channels:
+# note the reverse order of priority
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+languages:
+  - python=3.13.1@conda-forge
+  - r-base=4.3.1@conda-forge
+conda:
+  - pandas>=1.2.3@conda-forge
+  - pysam>=0.16.0.1@bioconda  
+r-conda:
+  - ggplot2
+pip:
+  - NumPy>=1.19.5
+  - sciPy>=1.6.3

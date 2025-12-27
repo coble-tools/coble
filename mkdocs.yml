@@ -62,6 +62,7 @@ nav:
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
+    - Versions: recipes/versions.md
   - Containers: 
     - Conda Build: overview.md
     - Docker Build: docker-build.md
