@@ -13,7 +13,17 @@ channels:
 
 languages:
   - python=3.13.1@conda-forge
+  - r-base=4.3.1@conda-forge
 
 conda:
   - pandas
+
+pip:
+  - requests
+
+r-conda:
+  - tidyverse
+
+r-package:
+  - ggplot2
 
