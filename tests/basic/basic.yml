@@ -1,0 +1,19 @@
+#######################################
+## COBLE:Reproducible environment (c) ICR 2025. Resolved + Ordered
+#######################################
+coble:
+  - environment: coble-env-basic
+
+channels:
+# note the reverse order of priority
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+
+languages:
+  - python=3.13.1@conda-forge
+
+conda:
+  - pandas
+

@@ -19,6 +19,7 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 ENV_INPUT=""
 RESULTS_DIR="."
 KEEP_LOGS=0
+AGGREGATE_TXT=""
 
 show_help() {
 	echo "Usage: $0 [--env ENV] [--outdir DIR]"
@@ -38,6 +39,10 @@ while [[ $# -gt 0 ]]; do
 			;;
 		--outdir)
 			RESULTS_DIR="$2"            
+			shift; shift
+			;;
+		--output)
+			AGGREGATE_TXT="$2"			
 			shift; shift
 			;;
         --debug)
@@ -101,7 +106,9 @@ TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
 TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted-$ENV_NAME.tmp"
-AGGREGATE_TXT="$RESULTS_DIR/coble-captured-$ENV_NAME.yml"
+if [[ -z "$AGGREGATE_TXT" ]]; then
+    AGGREGATE_TXT="$RESULTS_DIR/coble-captured-$ENV_NAME.yml"
+fi
 
 
 echo "[coble-capture] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"

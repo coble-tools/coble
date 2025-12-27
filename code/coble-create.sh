@@ -106,7 +106,7 @@ TIME_FILE="${RECIPE_FILE}.summary.txt"
 # Redirect stdout and stderr to log file
 echo "[coble-create] Redirected STDOUT to file: $LOG_FILE" >&2
 echo "[coble-create] Redirected STDERR to file: $ERROR_FILE" >&2
-echo "[coble-create] Summary recorded at $TIME_FILE" >&2
+echo "[coble-create] Summary recording at $TIME_FILE" >&2
 
 exec > >(tee -a "$LOG_FILE") 2> >(tee -a "$ERROR_FILE" >&2)
 echo "[coble-recreate] Log file: $LOG_FILE"
@@ -255,6 +255,7 @@ echo "[coble-recreate] Recreate process completed." >&2
 # clear the log diversions and return stdout and stderr to normal
 exec >&- 2>&-
 echo Y
+exit 0
 
 
 
