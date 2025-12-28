@@ -209,11 +209,19 @@ r-conda:
   - pdftools  
   - s2  
   - sf  
-r-url:
-  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
+bioc-package:
+  - chromVAR
+  - ComplexHeatmap
+  - motifmatchr
+  - slingshot
+  - grr
+# r-conda:
+#  - TFMPvalue
+#r-url:
+#  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
 
-bash:
-  - Rscript -e "ArchR::installExtraPackages()"
+#bash:
+#  - Rscript -e "ArchR::installExtraPackages()"
 
 r-url:
   - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
