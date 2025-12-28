@@ -226,6 +226,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         continue
     fi
 
+    # if the line starts with a # ignore it    
+    if [[ -z "$line" || "$line" == \#* ]]; then        
+        continue
+    fi
     # If line ends with backslash, strip it and keep accumulating 
     if [[ $line == *\\ ]]; then 
       buffer+="${line%\\} " 

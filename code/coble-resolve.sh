@@ -101,7 +101,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
-        echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION" >&2
+        #echo "[coble-resolve] Processing entry: $pkg_entry $CURRENT_SECTION" >&2
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_name version <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format                

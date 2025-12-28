@@ -15,13 +15,14 @@ languages:
 flags:
   - dependencies: True
   - build-tools: True
+  - ncpus: 8
 
 bash:
-# Special installs outside of conda for awkward pysamstats package
+  - # Special installs outside of conda for awkward pysamstats package  
   - python -m pip install "setuptools>=59.0"
   - python -m pip install --upgrade "Cython>=3.0.11"
   - python -m pip install pysam
-  - python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
+  - CFLAGS="-Wno-error=incompatible-pointer-types" CPPFLAGS="-Wno-error=incompatible-pointer-types" python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
 
 r-conda:
   - biocmanager
@@ -58,8 +59,8 @@ r-conda:
   - systemfonts
   - ragg
 
-conda:
 # for fonts to work otherwise default unix ones are DejaVu
+conda:
   - fonts-conda-ecosystem 
   - mscorefonts 
 r-conda:
@@ -93,12 +94,12 @@ r-package:
   - foreign
   - spatstat
 
-r-url:
 # required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
+r-url:
   - https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip
 
+# these wont install happily from install.packages (needed for FactoMineR)
 r-conda:
-# # these wont install happily from install.packages (needed for FactoMineR)
   - rcpparmadillo
   - conquer
   - minqa

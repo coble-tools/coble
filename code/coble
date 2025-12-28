@@ -90,6 +90,13 @@ if [[ "$1" == "build" ]]; then
 	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
 	if [[ $? -ne 0 ]]; then		 
 		echo "[coble-create] Error in environment creation, please review logs before resuming." >&2
+
+		end_time=$(date +%s)
+	    duration=$((end_time - start_time))
+	    hours=$((duration / 3600))
+	    minutes=$(((duration % 3600) / 60))
+	    seconds=$((duration % 60))
+	    echo "[coble-create] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
 		exit 0
 	fi
 	

@@ -242,7 +242,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
         if [[ "$line" != "channels:" ]]; then
-          echo "" >> "$RECIPE_FILE"
+          #echo "" >> "$RECIPE_FILE"
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
@@ -253,7 +253,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         #fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
         pkg_entry="${line#- }"
-        echo "[conda-recipise] Processing entry: $pkg_entry" >&2
+        #echo "[conda-recipise] Processing entry: $pkg_entry" >&2
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_only ver <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format        
@@ -265,59 +265,72 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"            
             value=$(echo "$value" | tr '[:upper:]' '[:lower:]')
             echo "[conda-recipise] Directive: $directive, Value: $value" >&2    
-            echo "# Flag: Directive: $directive, Value: $value" >> "$RECIPE_FILE" 
+            echo "# Flag: Directive: $directive, Value: $value" >> "$RECIPE_FILE"             
             if [[ "$directive,," == "dependencies" && "$value,," == "true" ]]; then                
                 echo "[conda-recipise] (default) Will install dependencies" >&2
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "$directive,," == "dependencies" && "$value,," == "false" ]]; then                
+            elif [[ "${directive,,}" == "dependencies" && "$value,," == "false" ]]; then                
                 echo "[conda-recipise] (!not default) Will NOT install dependencies" >&2
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
-            elif [[ "$directive,," == "updates" && "$value,," == "true" ]]; then
+            elif [[ "${directive,,}" == "updates" && "$value,," == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
-            elif [[ "$directive,," == "ncpus" ]]; then
+            elif [[ "${directive,,}" == "ncpus" ]]; then
                 echo "[conda-recipise] Ncpus specified as $value" >&2
                 NCPUS="$value"
-            elif [[ "$directive,," == "updates" && "$value,," == "false" ]]; then                
+                echo "[conda-recipise] = $NCPUS" >&2
+            elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                
                 echo "[conda-recipise] (default) Will not update dependencies" >&2
                 UPDATE_CONDA="--no-update-deps"                
             elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then
                 echo "[conda-recipise] Build-tools will be included" >&2
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including build tools for source installations" >> "$RECIPE_FILE"
-                if [[ $r_count -gt 0 ]]; then
-                    # Install compiler toolchain for R                                                    
-                    echo "conda install -y -c conda-forge gsl nlopt" >>  "$RECIPE_FILE"
-                    echo "conda install -y -c conda-forge -c bioconda r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials" >> "$RECIPE_FILE"
-                    #echo "conda install -y -c conda-forge -c bioconda bioconductor-preprocesscore bioconductor-vsn" >> "$RECIPE_FILE"
-                fi 
-                # common tool chain for graphics c library stack
-                echo "conda install -y -c conda-forge librsvg cairo freetype expat fontconfig" >> "$RECIPE_FILE"
-                # Common tool chain for compilation                            
-                echo "conda install -y -c conda-forge libxcrypt libxml2 libcurl libpng libtiff sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >> "$RECIPE_FILE"
-                echo "conda install -y -c conda-forge make cmake pkg-config protobuf libprotobuf openssl cython bzip2 xz zlib" >> "$RECIPE_FILE"
-                echo "# Compiler symlinks for R packages" >> "$RECIPE_FILE"
+                if [[ $r_count -gt 0 ]]; then                
+                    echo "# Essential r packages" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials" >>  "$RECIPE_FILE"                                        
+                    echo "# Essential r geo-spatial libraries" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge gdal proj geos" >>  "$RECIPE_FILE"                                        
+                    echo "# Essential r mathematical libraries" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge gsl nlopt udunits2 hdf5" >>  "$RECIPE_FILE"                                        
+                    echo "# Essential r image libraries" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg librsvg-devel r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
+                fi
+                if [[ $python_count -gt 0 ]]; then
+                    echo "# Essential python packages" >> "$RECIPE_FILE"                
+                    echo "conda install -y --no-update-deps -c conda-forge cython" >> "$RECIPE_FILE"
+                fi
+                echo "# Language compile tools" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                echo "# Language build tools" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "# Language core system libraries" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
+                echo "# Language XML/data libraries" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge 'libxml2>=2.12,<2.15' libcurl protobuf libprotobuf" >>  "$RECIPE_FILE"
+                
+                echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"                
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-c++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-cc" >> "$RECIPE_FILE"
-                # Generic fallbacks
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+
+                echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                                                
                 # Add to your recipe file BEFORE running R installs
                 echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
+                #echo "export CFLAGS=\"-I\$CONDA_PREFIX/include -Wno-error=incompatible-pointer-types\"" >> "$RECIPE_FILE"
                 echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"
-                echo "export CFLAGS=\"-Wno-error=incompatible-pointer-types\"" >> "$RECIPE_FILE"
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                
                 #echo "export XML_CONFIG=\"pkg-config libxml-2.0\"" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
             fi        
@@ -357,7 +370,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "'$pkg' \\" >> "$RECIPE_FILE"
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then            
-            echo "[conda-recipise] Processing R package: $pkg_only, version: $ver, source: $src" >&2
+            echo "[conda-recipise] Processing R package: $pkg_only, version: $ver, source: $src ncpus:$NCPUS" >&2
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
@@ -408,7 +421,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         sed -i '${s/\\$//}' "$RECIPE_FILE"
         # if it is a comment
         if [[ "$line" == \#* ]]; then
-            echo "[conda-recipise] Adding comment: $line" >&2
+            #echo "[conda-recipise] Transferring comment: $line" >&2
             echo "$line" >> "$RECIPE_FILE"
         # if line is a space we preserve it
         elif [[ -z "$line" ]]; then

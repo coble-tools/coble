@@ -26,8 +26,7 @@ stdout_patterns=(
     "nothing provides"
     "please re-install it"
     "Could not solve for environment specs"
-    "Failed to build" 
-    "packages failed:"
+    "Failed to build"     
 )
 error_patterns=(
     #"* removing"
