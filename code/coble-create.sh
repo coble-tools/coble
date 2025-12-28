@@ -173,7 +173,7 @@ run_line() {
     START_TIME=$(date +%s)
     echo "" >> "$TIME_FILE"
     echo "[coble-create] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
-    echo $buffer >> "$TIME_FILE"    
+    echo "install: $buffer" >> "$TIME_FILE"    
     eval "$buffer"
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
