@@ -298,7 +298,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Essential r mathematical libraries" >> "$RECIPE_FILE"
                     echo "conda install -y --no-update-deps -c conda-forge gsl nlopt udunits2 hdf5" >>  "$RECIPE_FILE"                                        
                     echo "# Essential r image libraries" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg librsvg-devel r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
+                    echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                

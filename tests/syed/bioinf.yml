@@ -147,19 +147,36 @@ r-package:
   - countreg@r-forge
   - chicane
 
-# conda install -y conda-forge::r-v8 --freeze-installed
-# Rscript -e "BiocManager::install(c('multtest', 'GSEABase', 'reshape', 'TeachingDemos', 'tidyverse', 'SingleR', 'scran', 'celldex'))"
+r-conda:
+  - v8
+bioc-package:  
+  - multtest
+  - GSEABase
+  - reshape
+  - TeachingDemos
+  - tidyverse
+  - SingleR
+  - scran
+  - celldex
 
 # # needed for ArchR and scater
-# conda install -y conda-forge::r-cairo --freeze-installed
-# Rscript -e "BiocManager::install(c('scater'))"
-# Rscript -e "BiocManager::install(c('cellHTS2'))"
+r-conda:
+  - cairo
+bioc-package:
+  - scater
+  - cellHTS2
 
-# Rscript -e "BiocManager::install(c('MAST', 'impute', 'genefu', 'fastseg'))"
+bioc-package:  
+  - MAST
+  - impute
+  - genefu
+  - fastseg
+  - methylKit
 
-# Rscript -e "BiocManager::install('methylKit')"
-
-# Rscript -e "install.packages(c('tidyverse', 'argparser', 'stringdist'), repos='https://cloud.r-project.org')"
+r-package:
+  - tidyverse
+  - argparser
+  - stringdist
 
 # Rscript -e "BiocManager::install('BSgenome.Hsapiens.NCBI.GRCh38')"
 # Rscript -e "devtools::install_url('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', dependencies = TRUE)"
