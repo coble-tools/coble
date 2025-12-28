@@ -381,7 +381,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "r-github:" || "$CURRENT_SECTION" == "github-r:" ]]; then            
             echo "Rscript -e 'devtools::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
-            echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            if [[ -n "$src" ]]; then
+                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, subdir=$src, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            else
+                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            fi
+            
         elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
             echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       

@@ -59,12 +59,14 @@ nav:
     - Motivation: motivation.md  
   - COBLE:
     - Workflow: overview.md
+    - hpc-cluster: hpc.md
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
     - Versions: recipes/versions.md
   - Containers: 
-    - Conda Build: overview.md
+    - Containers: containers.md
     - Docker Build: docker-build.md
+    - Singularity: singularity.md
     - Container Environments: container-env.md          
   - About: about.md
