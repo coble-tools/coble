@@ -10,15 +10,15 @@ flowchart LR
 		DLT[Find recipe delta]
 	end
 	subgraph "Environment creation"
-        CRE[Create conda environment]
-		ERR{Error free?}
+        CRE[Create conda environment]		
 		CAP[Capture environment libs and versions]	
 	end
+	INP --> REC
 	REC --> UPD_BLD{update or build?}
 	UPD_BLD -- Update --> DLT
 	UPD_BLD -- Build --> CRE
 	DLT --> CRE	
-	CRE --> ERR
+	CRE --> ERR{Error free?}
 	ERR -- No --> INP
 	ERR -- Yes --> CAP
 ```
