@@ -32,3 +32,9 @@ rm -rf /home/ralcraft/miniconda/pkgs/r-base-4.4.2-hc737e89_2
 
 # API limit
 github python search result: {"message":"API rate limit exceeded for ...}
+Set a github PAT access token in your bashrc. Append to the end:
+
+```bash
+export GITHUB_PAT="ghp_your-bash-token"
+```
+

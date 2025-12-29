@@ -64,6 +64,7 @@ nav:
   - COBLE:
     - Workflow: overview.md
     - hpc-cluster: hpc.md
+    - icr-cluster: icr.md
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
