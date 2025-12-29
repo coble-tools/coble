@@ -234,7 +234,7 @@ r-package:
 r-url:
   - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
 
-r-package:
+bioc-package:
   - ShortRead
 
 r-conda:
