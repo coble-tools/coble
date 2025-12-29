@@ -185,10 +185,10 @@ run_line() {
         echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
     elif [[ "$EXIT_ON_ERROR" == "1" ]]; then
-        echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$DONE_FILE"
+        echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
         exit 1
     else 
-        echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$DONE_FILE"
+        echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$TIME_FILE"
         echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"            
     fi    
