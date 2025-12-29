@@ -4,12 +4,12 @@ Below is a basic Mermaid flowchart you can use in MkDocs:
 
 ```mermaid
 flowchart TD
-	A[input.cbl] --> B{update or build?}
-	B -- Build --> C[Clean recorded logs to start again]
-	B -- Update --> D[Generate recipe delta]
-	C --> D	
-	D --> E{Is it working?}
-	E -- No --> A
-	E -- Yes --> F[Create conda environment]
-	F --> G[Capture environment libs and versions]
+	INP[input.cbl] --> REC[Make recipe]
+	REC --> UPD_BLD{update or build?}
+	UPD_BLD -- Update --> DLT[Find recipe delta]
+	UPD_BLD -- Build --> CRE[Create conda environment]
+	DLT --> CRE	
+	CRE --> ERR{Error free?}
+	ERR -- No --> INP
+	ERR -- Yes --> CAP[Capture environment libs and versions]	
 ```
