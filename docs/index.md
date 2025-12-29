@@ -54,7 +54,7 @@ You can activate a flavour by passing `--flavour <type>` to the template command
 ## Further Information
 
 - The environment (`--env`) can be either a name or a folder path. COBLE will automatically use `--name` or `--prefix` as appropriate.
-- If you specify more than one R or more than one Python version in the language block, COBLE will complain and refuse to continue. Otherwise, it will create a special language block in the YAML.
+- If you specify more than one R or more than one Python version in the language block, COBLE will complain and refuse to continue. Otherwise, it will create a special language block in the cbl.
 
 
 
