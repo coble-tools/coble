@@ -23,25 +23,6 @@ flowchart LR
 	ERR -- Yes --> CAP
 ```
 
-```mermaid
-flowchart LR
-    subgraph "COBLE Workflow"
-        subgraph "Recipe Creation"
-            A[Write cbl definition]
-            B[Convert to recipe]
-        end
-        subgraph "Create environment"
-            C[Creation]            
-        end
-		subgraph "Capture environment"            
-            D[Capture]
-        end
-    end
-    
-    B --> UPD_BLD{update or build?}
-    D --> E[Deploy]
-```
-
 ## log and output files
 **Inputs**  
 - **input.cbl** - The input definiton of the environment  
