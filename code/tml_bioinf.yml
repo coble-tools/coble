@@ -108,6 +108,9 @@ r-package:
   - FactoMineR
   - factoextra
 
+r-conda:
+  - gifski
+  - otelsdk
 r-package:
   - knitr
   - rmarkdown
