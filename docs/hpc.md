@@ -9,7 +9,7 @@ If using directly from git you will have a path to the coble script, if in conda
 Assuming you have a recipe file at `myrecipe.yml` and want to create a conda environemtn in the prefix locaiton `./myenv` then:
 ```bash
 sbatch -o my.log -e my.err --time 12:00:00 --wrap \
-"coble build --input myrecipe.yml --env ./myenv"
+"coble build --input myrecipe.cbl --env ./myenv"
 ```
 
 

@@ -7,8 +7,8 @@ Sometimes versions are specified either explicitly or in ranges. An example of a
 To replicate some of the environment with given versions:
 
 ```bash
-coble template --input versions/versions.yml --flavour versions
-coble build --input versions/versions.yml --env coble-versions-env
+coble template --input versions/versions.cbl --flavour versions
+coble build --input versions/versions.cbl --env coble-versions-env
 ```
 ### Input recipe yaml
 ```yaml

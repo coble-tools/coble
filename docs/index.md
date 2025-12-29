@@ -11,7 +11,7 @@ This page describes the basic workflow for using the COBLE environment creation 
 ### Basic Command
 
 ```
-coble build --input my.yml --env my-env
+coble build --input my.cbl --env my-env
 ```
 
 ### Workflow Steps
@@ -23,7 +23,6 @@ coble build --input my.yml --env my-env
 
 2. **Recipe Generation**
    - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your YAML in the outdir.
-
 
 3. **Recipe Execution**
     - No further prompting, the tool then executes the generated recipe script to create the environment.
@@ -37,15 +36,16 @@ coble build --input my.yml --env my-env
 - To generate a starter template, run:
 
    ```
-   coble template --input tst.yml
+   coble template --input tst.cbl --flavour ???
    ```
-   This will create a template YAML file you can edit.
+   This will create a template cbl input file you can edit.
 
-- There are four template flavours, selectable with `--flavour`:
-   - `mixed` (default)
-   - `R`
-   - `python`
-   - `find`
+- There are five template flavours, selectable with `--flavour`:
+   - `basic` (default)  
+   - `bioinf` (very complex)  
+   - `fix` (fix - tutorial on fixing)  
+   - `sylver` (publication tutorial)  
+   - `versions` (shows specifying versions)  
 
 You can activate a flavour by passing `--flavour <type>` to the template command.
 

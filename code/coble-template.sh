@@ -14,7 +14,7 @@
 ###############
 
 YAML_FILE=""
-FLAVOUR="mixed"
+FLAVOUR="basic"
 
 # Parse arguments ########################################################
 show_help() {
@@ -43,22 +43,19 @@ mkdir -p "$(dirname "$YAML_FILE")"
 # copy file in same dir as this script to YAML_FILE
 if [[ "$FLAVOUR" =~ ^(basic)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_basic.yml" "$YAML_FILE"    
+    cp "$script_dir/tml_basic.cbl" "$YAML_FILE"    
 elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_versions.yml" "$YAML_FILE"    
+    cp "$script_dir/tml_versions.cbl" "$YAML_FILE"    
 elif [[ "$FLAVOUR" =~ ^(bioinf)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_bioinf.yml" "$YAML_FILE"    
-
-
-
+    cp "$script_dir/tml_bioinf.cbl" "$YAML_FILE"    
 elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_find.yml" "$YAML_FILE"
+    cp "$script_dir/tml_fix.cbl" "$YAML_FILE"
 elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_sylver.yml" "$YAML_FILE"
+    cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
 else
     echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
     exit 1
