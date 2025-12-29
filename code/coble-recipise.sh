@@ -102,6 +102,11 @@ if [[ -z "$RECIPE_FILE" ]]; then
     #RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
     RECIPE_FILE="$YAML_FILE".recipe.sh
 fi
+# if recipe file already exists copy it
+if [[ -f "$RECIPE_FILE" ]]; then
+    cp "$RECIPE_FILE" "$RECIPE_FILE".old.sh
+    echo "[coble-recipise] Existing recipe file backed up to: $RECIPE_FILE.old.sh" >&2    
+fi
 : > "$RECIPE_FILE"
 
 # Now show all the inputs

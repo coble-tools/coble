@@ -1,4 +1,6 @@
-##!COBLE: Resolved + Ordered
+##########################################################
+# COBLE: Complex Bioinformatics Example, (c) ICR 2025
+##########################################################
 coble:
   - environment: coble-env-bioinf
 channels:
@@ -15,9 +17,6 @@ flags:
   - build-tools: True
   - ncpus: 8
 
-##########################################################
-# COBLE: Complex Bioinformatics Example, (c) ICR 2025
-##########################################################
 bash:
   - # Special installs outside of conda for awkward pysamstats package  
   - python -m pip install "setuptools>=59.0"
@@ -109,7 +108,13 @@ r-package:
   - FactoMineR
   - factoextra
 
+conda:
+  - patch
+r-conda:
+  - gifski  
 r-package:
+  - TFMPvalue
+  - otelsdk
   - knitr
   - rmarkdown
   - inline
@@ -216,6 +221,8 @@ bioc-package:
   - motifmatchr
   - slingshot
   - grr
+# r-conda:
+#  - TFMPvalue
 #r-url:
 #  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
 

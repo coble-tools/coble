@@ -1,13 +1,4 @@
-##!COBLE: Resolved
-#######################################
-## COBLE:Reproducible environment (c) ICR 2025. Resolved
-##    Resolved - On: 2025-12-25 at 10:14:29 GMT by ralcraft
-#######################################
-
-#######################################
-# COBLE:Reproducible environment yaml, (c) ICR 2025
-#######################################
-
+##RAE
 coble:
 
   - environment: coble-env
@@ -25,9 +16,6 @@ flags:
   - dependencies: True
   - build-tools: True
 
-languages:
-  - r-base=4.1.0@conda-forge
-
 find:
 #   - TFMPvalue
 found|conda:
@@ -42,8 +30,47 @@ found|r-package:
   - TFMPvalue@CRAN
 
 
-pip:
-  - countreg
+
+#   - countreg
+found|r-package:
+  - countreg@r-forge
+
+#   - rust
+found|conda:
+  - rust@conda-forge
+found|conda:
+  - r-rust@r
+found|r-package:
+  - rust@CRAN
+found|r-package:
+  - rust@CRAN
+found|pip:
+  - rust
+
+#   - patch
+found|conda:
+  - patch@conda-forge
+found|pip:
+  - patch
+
+#   - gifski
+found|conda:
+  - gifski@conda-forge
+found|conda:
+  - r-gifski@conda-forge
+found|conda:
+  - r-gifski@r
+found|r-package:
+  - gifski@CRAN
+found|r-package:
+  - gifski@CRAN
+
+#   - otelsdk
+found|r-package:
+  - otelsdk@CRAN
+found|r-package:
+  - otelsdk@CRAN
+
 
 
 

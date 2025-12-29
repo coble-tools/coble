@@ -57,11 +57,20 @@ fi
 
 
 # Now check the second line, if the 'yml' is already coble resolved, exit
-first_line=$(sed -n '1p' "$YAML_FILE")
-if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Resolved* ]]; then
-    echo "[coble-refind] YAML already coble resolved, exiting: $YAML_FILE" >&2
+#first_line=$(sed -n '1p' "$YAML_FILE")
+#if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Resolved* ]]; then
+#    echo "[coble-refind] YAML already coble resolved, exiting: $YAML_FILE" >&2
+#    echo N
+#    exit 0
+#fi
+
+# First check if there are any 'find:' entries OR any 'found|'' 
+if ! grep -qE '^[[:space:]]*find:' "$YAML_FILE" && ! grep -qE '^[[:space:]]*found\|' "$YAML_FILE"; then
+    echo "[coble-find] No find: or found| entries found, already resolved: $YAML_FILE" >&2
     echo N
     exit 0
+else
+    echo "[coble-find] find: or found| entries found, proceeding to resolve: $YAML_FILE" >&2
 fi
 
 YAML_BACKUP="$YAML_FILE".bak1.yml
@@ -69,19 +78,19 @@ YAML_BACKUP="$YAML_FILE".bak1.yml
 cp "$YAML_FILE" "$YAML_BACKUP"
 
 # Now show all the inputs
-echo "[coble-refind] Using inputs:" >&2
+echo "[coble-find] Using inputs:" >&2
 echo "  IN YAML: $YAML_FILE" >&2
 echo "  BACKUP YAML: $YAML_BACKUP" >&2
 
 # output is a recipe file for conda env create (always in current directory)
-echo "[coble-refind] Finding any required packages and in place replacing..." >&2
+echo "[coble-find] Finding any required packages and in place replacing..." >&2
 	
 # Clear the aggregate file at the start
 {	        
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	
-    echo -e "##!COBLE: Resolved"        	    
+    #echo -e "##!COBLE: Resolved"        	    
     #echo -e "##    Resolved - On: $CAPTURE_DATE" at $CAPTURE_TIME" by $CAPTURE_USER"        	    
     #echo "#######################################"        
 } > "$YAML_FILE"
@@ -95,6 +104,10 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
         ]]; then
         CURRENT_SECTION="$line"
         echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION" >&2        
+        echo "$origline" >> "$YAML_FILE"
+    elif [[ "$line" == "found|"* ]]; then
+        CURRENT_SECTION=""
+        echo "[coble-resolve] found| entry: $CURRENT_SECTION" >&2        
         echo "$origline" >> "$YAML_FILE"
     elif [[ -n "$CURRENT_SECTION" && "$line" == *":"* ]]; then
         CURRENT_SECTION=""
@@ -150,8 +163,11 @@ if [[ $finds == "Y" ]]; then
     echo "[coble-resolve] Finds were resolved, please check the yml output: $YAML_FILE" >&2
 else
     echo "[coble-resolve] No finds were resolved, yaml unchanged: $YAML_FILE" >&2
+    echo "[coble-resolve] But find: or found| still present in file: $YAML_FILE" >&2
 fi
-echo $finds #this is the output Y/N
+# this tells it that find: or found| are in the file
+echo Y 
+exit
 
 
 

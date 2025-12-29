@@ -42,13 +42,52 @@ fi
 
 
 # Now check the first line, if the 'yml' is already coble rationalised, exit
-first_line=$(sed -n '1p' "$YAML_FILE")
-if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Ordered* ]]; then
+#first_line=$(sed -n '1p' "$YAML_FILE")
+#if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Ordered* ]]; then
+#    echo "[coble-rationalise] YAML already coble ordered, exiting: $YAML_FILE" >&2
+#    echo Y
+#    exit 0
+#fi
+
+# check if the first tags are in the desired order #
+# coble:
+# channels:
+# languages:
+# flags:
+
+count=0
+coble_count=0
+channels_count=0
+languages_count=0
+flags_count=0
+ok=true
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        section_name="${BASH_REMATCH[1]}"
+    if [[ "$section_name" != "coble" &&  ]]; then
+        count=$((count + 1))
+        coble_count=$count
+    elif [[ "$section_name" == "channels" ]]; then
+        count=$((count + 1))
+        channels_count=$count
+    elif [[ "$section_name" == "languages" ]]; then
+        count=$((count + 1))
+        languages_count=$count
+    elif [[ "$section_name" == "flags" ]]; then
+        count=$((count + 1))
+        flags_count=$count            
+    fi
+done < "$YAML_FILE"
+if [[ $coble_count -ne 1 || $channels_count -ne 2 || $languages_count -ne 3 || $flags_count -ne 4 ]]; then
+    ok=false
+fi
+
+if [[ "$ok" == true ]]; then
     echo "[coble-rationalise] YAML already coble ordered, exiting: $YAML_FILE" >&2
     echo Y
     exit 0
 fi
-
+  
 # Copy to backup
 BACKUP_FILE="${YAML_FILE}.bak2.yml"
 cp "$YAML_FILE" "$BACKUP_FILE"

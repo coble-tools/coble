@@ -1,135 +1,877 @@
 Package	Version	Source	RemoteType	RemoteRepo	RemoteUsername	RemoteRef	RemoteSha
+abind	1.4-8	CRAN	NA	NA	NA	NA	NA
+actuar	3.3-6	CRAN	NA	NA	NA	NA	NA
+ade4	1.7-23	CRAN	NA	NA	NA	NA	NA
+AER	1.2-15	CRAN	NA	NA	NA	NA	NA
+affy	1.88.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+affydata	1.58.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+affyio	1.80.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+aggregation	1.0.1	CRAN	NA	NA	NA	NA	NA
+AIMS	1.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.base	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.matrix	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.ranges	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.sce	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.schemas	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+alabaster.se	1.10.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+altdoc	0.7.0	CRAN	NA	NA	NA	NA	NA
+amap	0.8-20	CRAN	NA	NA	NA	NA	NA
+Amelia	1.8.3	CRAN	NA	NA	NA	NA	NA
+annotate	1.88.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+AnnotationDbi	1.72.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+AnnotationFilter	1.34.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+AnnotationForge	1.52.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+AnnotationHub	4.0.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+ape	5.8-1	CRAN	NA	NA	NA	NA	NA
+argparse	2.3.1	CRAN	NA	NA	NA	NA	NA
+argparser	0.7.2	CRAN	NA	NA	NA	NA	NA
+arrow	22.0.0.1	CRAN	NA	NA	NA	NA	NA
+AsioHeaders	1.30.2-1	CRAN	NA	NA	NA	NA	NA
 askpass	1.2.1	CRAN	NA	NA	NA	NA	NA
 assertthat	0.2.1	CRAN	NA	NA	NA	NA	NA
+assorthead	1.4.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+audio	0.1-12	CRAN	NA	NA	NA	NA	NA
+babelgene	22.9	CRAN	NA	NA	NA	NA	NA
 backports	1.5.0	CRAN	NA	NA	NA	NA	NA
-base	4.3.1	System/Manual	NA	NA	NA	NA	NA
+base	4.5.2	System/Manual	NA	NA	NA	NA	NA
 base64enc	0.1-3	CRAN	NA	NA	NA	NA	NA
-BH	1.87.0-1	CRAN	NA	NA	NA	NA	NA
-BiocParallel	1.36.0	System/Manual	NA	NA	NA	NA	NA
+base64url	1.4	CRAN	NA	NA	NA	NA	NA
+bayesplot	1.15.0	CRAN	NA	NA	NA	NA	NA
+bayestestR	0.17.0	CRAN	NA	NA	NA	NA	NA
+BayesX	0.3-3	CRAN	NA	NA	NA	NA	NA
+bbmle	1.0.25.1	CRAN	NA	NA	NA	NA	NA
+bdsmatrix	1.3-7	CRAN	NA	NA	NA	NA	NA
+beachmat	2.26.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+bedr	1.1.3	CRAN	NA	NA	NA	NA	NA
+beepr	2.0	CRAN	NA	NA	NA	NA	NA
+beeswarm	0.4.0	CRAN	NA	NA	NA	NA	NA
+betareg	3.2-4	CRAN	NA	NA	NA	NA	NA
+BH	1.90.0-1	CRAN	NA	NA	NA	NA	NA
+bigD	0.3.1	CRAN	NA	NA	NA	NA	NA
+bigmemory	4.6.4	CRAN	NA	NA	NA	NA	NA
+bigmemory.sri	0.1.8	CRAN	NA	NA	NA	NA	NA
+Biobase	2.70.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocBaseUtils	1.12.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocFileCache	3.0.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocGenerics	0.56.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocIO	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+biocmake	1.2.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocManager	1.30.27	CRAN	NA	NA	NA	NA	NA
+BiocNeighbors	2.4.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocParallel	1.44.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocSingular	1.26.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocStyle	2.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BiocVersion	3.22.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+biomaRt	2.66.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+Biostrings	2.78.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+biovizBase	1.58.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 bit	4.6.0	CRAN	NA	NA	NA	NA	NA
 bit64	4.6.0-1	CRAN	NA	NA	NA	NA	NA
+bitops	1.0-9	CRAN	NA	NA	NA	NA	NA
+blme	1.0-6	CRAN	NA	NA	NA	NA	NA
 blob	1.2.4	CRAN	NA	NA	NA	NA	NA
-broom	1.0.9	CRAN	NA	NA	NA	NA	NA
+bluster	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BMisc	1.4.8	CRAN	NA	NA	NA	NA	NA
+bookdown	0.46	CRAN	NA	NA	NA	NA	NA
+boot	1.3-32	CRAN	NA	NA	NA	NA	NA
+bootstrap	2019.6	CRAN	NA	NA	NA	NA	NA
+breastCancerMAINZ	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+breastCancerNKI	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+breastCancerTRANSBIG	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+breastCancerUNT	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+breastCancerUPP	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+breastCancerVDX	1.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+brew	1.0-10	CRAN	NA	NA	NA	NA	NA
+brglm	0.7.3	CRAN	NA	NA	NA	NA	NA
+brglm2	1.0.1	CRAN	NA	NA	NA	NA	NA
+bridgesampling	1.2-1	CRAN	NA	NA	NA	NA	NA
+brio	1.1.5	CRAN	NA	NA	NA	NA	NA
+brms	2.23.0	CRAN	NA	NA	NA	NA	NA
+Brobdingnag	1.2-9	CRAN	NA	NA	NA	NA	NA
+broom	1.0.11	CRAN	NA	NA	NA	NA	NA
+broom.mixed	0.2.9.6	CRAN	NA	NA	NA	NA	NA
+BSgenome	1.78.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+BSgenome.Cfamiliaris.UCSC.canFam3	1.4.0	System/Manual	NA	NA	NA	NA	NA
+BSgenome.Hsapiens.1000genomes.hs37d5	0.99.1	System/Manual	NA	NA	NA	NA	NA
+BSgenome.Hsapiens.NCBI.GRCh38	1.3.1000	System/Manual	NA	NA	NA	NA	NA
+BSgenome.Hsapiens.UCSC.hg19	1.4.3	System/Manual	NA	NA	NA	NA	NA
+BSgenome.Hsapiens.UCSC.hg38	1.4.5	System/Manual	NA	NA	NA	NA	NA
+BSgenome.Mmusculus.UCSC.mm10	1.4.3	System/Manual	NA	NA	NA	NA	NA
 bslib	0.9.0	CRAN	NA	NA	NA	NA	NA
+ca	0.71.1	CRAN	NA	NA	NA	NA	NA
 cachem	1.1.0	CRAN	NA	NA	NA	NA	NA
+Cairo	1.7-0	CRAN	NA	NA	NA	NA	NA
 callr	3.7.6	CRAN	NA	NA	NA	NA	NA
+car	3.1-3	CRAN	NA	NA	NA	NA	NA
+carData	3.0-5	CRAN	NA	NA	NA	NA	NA
+caret	7.0-1	CRAN	NA	NA	NA	NA	NA
+Category	2.76.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+caTools	1.18.3	CRAN	NA	NA	NA	NA	NA
+celldex	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 cellranger	1.1.0	CRAN	NA	NA	NA	NA	NA
+chandwich	1.1.6	CRAN	NA	NA	NA	NA	NA
+checkmate	2.3.3	CRAN	NA	NA	NA	NA	NA
+chicane	0.1.8	CRAN	NA	NA	NA	NA	NA
+chromote	0.5.1	CRAN	NA	NA	NA	NA	NA
+chron	2.3-62	CRAN	NA	NA	NA	NA	NA
+cigarillo	1.0.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+circlize	0.4.17	CRAN	NA	NA	NA	NA	NA
+class	7.3-23	CRAN	NA	NA	NA	NA	NA
+classInt	0.4-11	CRAN	NA	NA	NA	NA	NA
+cleanrmd	0.1.1	CRAN	NA	NA	NA	NA	NA
 cli	3.6.5	CRAN	NA	NA	NA	NA	NA
 clipr	0.8.0	CRAN	NA	NA	NA	NA	NA
+clock	0.7.3	CRAN	NA	NA	NA	NA	NA
+clonevol	0.99.11	System/Manual	url	NA	NA	NA	NA
+clubSandwich	0.6.1	CRAN	NA	NA	NA	NA	NA
+cluster	2.1.8.1	CRAN	NA	NA	NA	NA	NA
+coda	0.19-4.1	CRAN	NA	NA	NA	NA	NA
 codetools	0.2-20	CRAN	NA	NA	NA	NA	NA
-colorspace	2.1-1	CRAN	NA	NA	NA	NA	NA
-compiler	4.3.1	System/Manual	NA	NA	NA	NA	NA
+coin	1.4-3	CRAN	NA	NA	NA	NA	NA
+collapse	2.1.5	CRAN	NA	NA	NA	NA	NA
+colorspace	2.1-2	CRAN	NA	NA	NA	NA	NA
+colourpicker	1.3.0	CRAN	NA	NA	NA	NA	NA
+combinat	0.0-8	CRAN	NA	NA	NA	NA	NA
+commonmark	2.0.0	CRAN	NA	NA	NA	NA	NA
+compiler	4.5.2	System/Manual	NA	NA	NA	NA	NA
+CompQuadForm	1.4.4	CRAN	NA	NA	NA	NA	NA
 conflicted	1.2.0	CRAN	NA	NA	NA	NA	NA
+conquer	1.3.3	CRAN	NA	NA	NA	NA	NA
+copynumber	1.15.0	System/Manual	url	NA	NA	NA	NA
+correlation	0.8.8	CRAN	NA	NA	NA	NA	NA
+corrplot	0.95	CRAN	NA	NA	NA	NA	NA
+countreg	0.3-0	R-Forge	NA	NA	NA	NA	NA
+covr	3.6.5	CRAN	NA	NA	NA	NA	NA
 cowplot	1.2.0	CRAN	NA	NA	NA	NA	NA
 cpp11	0.5.2	CRAN	NA	NA	NA	NA	NA
 crayon	1.5.3	CRAN	NA	NA	NA	NA	NA
+credentials	2.0.3	CRAN	NA	NA	NA	NA	NA
+crosstalk	1.2.2	CRAN	NA	NA	NA	NA	NA
+crul	1.6.0	CRAN	NA	NA	NA	NA	NA
+cubature	2.1.4-1	CRAN	NA	NA	NA	NA	NA
 curl	7.0.0	CRAN	NA	NA	NA	NA	NA
+cvar	0.6	CRAN	NA	NA	NA	NA	NA
 data.table	1.17.8	CRAN	NA	NA	NA	NA	NA
-datasets	4.3.1	System/Manual	NA	NA	NA	NA	NA
+data.tree	1.2.0	CRAN	NA	NA	NA	NA	NA
+datasets	4.5.2	System/Manual	NA	NA	NA	NA	NA
+datawizard	1.3.0	CRAN	NA	NA	NA	NA	NA
 DBI	1.2.3	CRAN	NA	NA	NA	NA	NA
 dbplyr	2.5.1	CRAN	NA	NA	NA	NA	NA
-digest	0.6.37	CRAN	NA	NA	NA	NA	NA
+dbscan	1.2.4	CRAN	NA	NA	NA	NA	NA
+dcurver	0.9.3	CRAN	NA	NA	NA	NA	NA
+DelayedArray	0.36.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+DelayedMatrixStats	1.32.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+deldir	2.0-4	CRAN	NA	NA	NA	NA	NA
+dendextend	1.19.1	CRAN	NA	NA	NA	NA	NA
+DEoptimR	1.1-4	CRAN	NA	NA	NA	NA	NA
+Deriv	4.2.0	CRAN	NA	NA	NA	NA	NA
+desc	1.4.3	CRAN	NA	NA	NA	NA	NA
+DESeq2	1.50.2	Bioconductor 3.22	NA	NA	NA	NA	NA
+detectseparation	0.3	CRAN	NA	NA	NA	NA	NA
+devtools	2.4.6	CRAN	NA	NA	NA	NA	NA
+dfidx	0.2-0	CRAN	NA	NA	NA	NA	NA
+diagram	1.6.5	CRAN	NA	NA	NA	NA	NA
+DiagrammeR	1.0.11	CRAN	NA	NA	NA	NA	NA
+dichromat	2.0-0.1	CRAN	NA	NA	NA	NA	NA
+did	2.3.0	CRAN	NA	NA	NA	NA	NA
+diffobj	0.3.6	CRAN	NA	NA	NA	NA	NA
+digest	0.6.39	CRAN	NA	NA	NA	NA	NA
+diptest	0.77-2	CRAN	NA	NA	NA	NA	NA
+dir.expiry	1.18.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+DirichletMultinomial	1.52.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+distributional	0.5.0	CRAN	NA	NA	NA	NA	NA
+distributions3	0.2.3	CRAN	NA	NA	NA	NA	NA
+DistributionUtils	0.6-2	CRAN	NA	NA	NA	NA	NA
+DNAcopy	1.84.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+doBy	4.7.1	CRAN	NA	NA	NA	NA	NA
+doParallel	1.0.17	CRAN	NA	NA	NA	NA	NA
+doRNG	1.8.6.2	CRAN	NA	NA	NA	NA	NA
+dotCall64	1.2	CRAN	NA	NA	NA	NA	NA
+downlit	0.4.5	CRAN	NA	NA	NA	NA	NA
 dplyr	1.1.4	CRAN	NA	NA	NA	NA	NA
+dqrng	0.3.2	CRAN	NA	NA	NA	NA	NA
+drc	3.0-1	CRAN	NA	NA	NA	NA	NA
+DRDID	1.2.3	CRAN	NA	NA	NA	NA	NA
+dreamerr	1.5.0	CRAN	NA	NA	NA	NA	NA
+DT	0.34.0	CRAN	NA	NA	NA	NA	NA
 dtplyr	1.3.2	CRAN	NA	NA	NA	NA	NA
+dygraphs	1.1.1.6	CRAN	NA	NA	NA	NA	NA
+dynamicTreeCut	1.63-1	CRAN	NA	NA	NA	NA	NA
+dynlm	0.3-6	CRAN	NA	NA	NA	NA	NA
+e1071	1.7-17	CRAN	NA	NA	NA	NA	NA
+Ecdat	0.4.7	CRAN	NA	NA	NA	NA	NA
+edgeR	4.8.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+effects	4.2-4	CRAN	NA	NA	NA	NA	NA
+egg	0.4.5	CRAN	NA	NA	NA	NA	NA
+ellipse	0.5.0	CRAN	NA	NA	NA	NA	NA
 ellipsis	0.3.2	CRAN	NA	NA	NA	NA	NA
+emdbook	1.3.14	CRAN	NA	NA	NA	NA	NA
+emmeans	2.0.1	CRAN	NA	NA	NA	NA	NA
+enrichwith	0.4.0	CRAN	NA	NA	NA	NA	NA
+EnsDb.Hsapiens.v86	2.99.0	System/Manual	NA	NA	NA	NA	NA
+ensembldb	2.34.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+estimability	1.5.1	CRAN	NA	NA	NA	NA	NA
+estimatr	1.0.6	CRAN	NA	NA	NA	NA	NA
 evaluate	1.0.5	CRAN	NA	NA	NA	NA	NA
-fansi	1.0.6	CRAN	NA	NA	NA	NA	NA
+exdex	1.2.3	CRAN	NA	NA	NA	NA	NA
+ExperimentHub	3.0.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+expint	0.1-9	CRAN	NA	NA	NA	NA	NA
+factoextra	1.0.7	CRAN	NA	NA	NA	NA	NA
+FactoInvestigate	1.9	CRAN	NA	NA	NA	NA	NA
+FactoMineR	2.12	CRAN	NA	NA	NA	NA	NA
+Factoshiny	2.7	CRAN	NA	NA	NA	NA	NA
+fansi	1.0.7	CRAN	NA	NA	NA	NA	NA
+faraway	1.0.9	CRAN	NA	NA	NA	NA	NA
 farver	2.1.2	CRAN	NA	NA	NA	NA	NA
+fastcluster	1.3.0	CRAN	NA	NA	NA	NA	NA
+fastDummies	1.7.5	CRAN	NA	NA	NA	NA	NA
+fastglm	0.0.4	CRAN	NA	NA	NA	NA	NA
+fastICA	1.2-7	CRAN	NA	NA	NA	NA	NA
 fastmap	1.2.0	CRAN	NA	NA	NA	NA	NA
 fastmatch	1.1-6	CRAN	NA	NA	NA	NA	NA
-fgsea	1.28.0	System/Manual	NA	NA	NA	NA	NA
+fastseg	1.56.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+fBasics	4052.98	CRAN	NA	NA	NA	NA	NA
+feather	0.4.0	CRAN	NA	NA	NA	NA	NA
+fGarch	4052.93	CRAN	NA	NA	NA	NA	NA
+fgsea	1.36.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+fields	17.1	CRAN	NA	NA	NA	NA	NA
+filehash	2.4-6	CRAN	NA	NA	NA	NA	NA
+filelock	1.0.3	CRAN	NA	NA	NA	NA	NA
+findpython	1.0.9	CRAN	NA	NA	NA	NA	NA
+fitdistrplus	1.2-4	CRAN	NA	NA	NA	NA	NA
+fixest	0.13.2	CRAN	NA	NA	NA	NA	NA
+flashClust	1.01-2	CRAN	NA	NA	NA	NA	NA
+flexmix	2.3-20	CRAN	NA	NA	NA	NA	NA
+flextable	0.9.10	CRAN	NA	NA	NA	NA	NA
+FNN	1.1.4.1	CRAN	NA	NA	NA	NA	NA
 fontawesome	0.5.3	CRAN	NA	NA	NA	NA	NA
-forcats	1.0.0	CRAN	NA	NA	NA	NA	NA
+fontBitstreamVera	0.1.1	CRAN	NA	NA	NA	NA	NA
+fontLiberation	0.1.0	CRAN	NA	NA	NA	NA	NA
+fontquiver	0.2.1	CRAN	NA	NA	NA	NA	NA
+forcats	1.0.1	CRAN	NA	NA	NA	NA	NA
+foreach	1.5.2	CRAN	NA	NA	NA	NA	NA
+forecast	8.24.0	CRAN	NA	NA	NA	NA	NA
+foreign	0.8-90	CRAN	NA	NA	NA	NA	NA
 formatR	1.14	CRAN	NA	NA	NA	NA	NA
+Formula	1.2-5	CRAN	NA	NA	NA	NA	NA
+fracdiff	1.5-3	CRAN	NA	NA	NA	NA	NA
 fs	1.6.6	CRAN	NA	NA	NA	NA	NA
+furrr	0.3.1	CRAN	NA	NA	NA	NA	NA
 futile.logger	1.4.3	CRAN	NA	NA	NA	NA	NA
 futile.options	1.0.1	CRAN	NA	NA	NA	NA	NA
+future	1.68.0	CRAN	NA	NA	NA	NA	NA
+future.apply	1.20.1	CRAN	NA	NA	NA	NA	NA
+gamlss	5.5-0	CRAN	NA	NA	NA	NA	NA
+gamlss.data	6.0-7	CRAN	NA	NA	NA	NA	NA
+gamlss.dist	6.1-1	CRAN	NA	NA	NA	NA	NA
+gamlss.tr	5.1-9	CRAN	NA	NA	NA	NA	NA
 gargle	1.6.0	CRAN	NA	NA	NA	NA	NA
+gbm	2.2.2	CRAN	NA	NA	NA	NA	NA
+gbRd	0.4.12	CRAN	NA	NA	NA	NA	NA
+gbutils	0.5.1	CRAN	NA	NA	NA	NA	NA
+gclus	1.3.3	CRAN	NA	NA	NA	NA	NA
+gdata	3.0.1	CRAN	NA	NA	NA	NA	NA
+gdtools	0.4.4	CRAN	NA	NA	NA	NA	NA
+genefilter	1.92.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+genefu	2.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GeneMeta	1.82.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GeneralizedHyperbolic	0.8-7	CRAN	NA	NA	NA	NA	NA
 generics	0.1.4	CRAN	NA	NA	NA	NA	NA
-ggplot2	3.5.2	CRAN	NA	NA	NA	NA	NA
+genomation	1.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenomeInfoDb	1.46.2	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenomicAlignments	1.46.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenomicFeatures	1.62.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenomicInteractions	1.44.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenomicRanges	1.62.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+GenSA	1.1.15	CRAN	NA	NA	NA	NA	NA
+GEOquery	2.78.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+gert	2.2.0	CRAN	NA	NA	NA	NA	NA
+getopt	1.20.4	CRAN	NA	NA	NA	NA	NA
+GGally	2.4.0	CRAN	NA	NA	NA	NA	NA
+ggbeeswarm	0.7.3	CRAN	NA	NA	NA	NA	NA
+ggbio	1.58.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+ggdist	3.3.3	CRAN	NA	NA	NA	NA	NA
+ggforce	0.5.0	CRAN	NA	NA	NA	NA	NA
+ggiraph	0.9.2	CRAN	NA	NA	NA	NA	NA
+ggplot2	4.0.1	CRAN	NA	NA	NA	NA	NA
+ggpubr	0.6.2	CRAN	NA	NA	NA	NA	NA
+ggrastr	1.0.2	CRAN	NA	NA	NA	NA	NA
+ggrepel	0.9.6	CRAN	NA	NA	NA	NA	NA
+ggridges	0.5.7	CRAN	NA	NA	NA	NA	NA
+ggsci	4.2.0	CRAN	NA	NA	NA	NA	NA
+ggseqlogo	0.2.2	CRAN	NA	NA	NA	NA	NA
+ggsignif	0.6.4	CRAN	NA	NA	NA	NA	NA
+ggstats	0.12.0	CRAN	NA	NA	NA	NA	NA
+ggthemes	5.2.0	CRAN	NA	NA	NA	NA	NA
+gh	1.5.0	CRAN	NA	NA	NA	NA	NA
+gifski	1.32.0-2	CRAN	NA	NA	NA	NA	NA
+gistr	0.9.0	CRAN	NA	NA	NA	NA	NA
+gitcreds	0.1.2	CRAN	NA	NA	NA	NA	NA
+glmmTMB	1.1.13	CRAN	NA	NA	NA	NA	NA
+glmnet	4.1-10	CRAN	NA	NA	NA	NA	NA
+GlobalOptions	0.1.3	CRAN	NA	NA	NA	NA	NA
+globals	0.18.0	CRAN	NA	NA	NA	NA	NA
 glue	1.8.0	CRAN	NA	NA	NA	NA	NA
+gmp	0.7-5	CRAN	NA	NA	NA	NA	NA
+GO.db	3.22.0	System/Manual	NA	NA	NA	NA	NA
+goftest	1.2-3	CRAN	NA	NA	NA	NA	NA
 googledrive	2.1.2	CRAN	NA	NA	NA	NA	NA
 googlesheets4	1.1.2	CRAN	NA	NA	NA	NA	NA
-graphics	4.3.1	System/Manual	NA	NA	NA	NA	NA
-grDevices	4.3.1	System/Manual	NA	NA	NA	NA	NA
-grid	4.3.1	System/Manual	NA	NA	NA	NA	NA
+googleVis	0.7.3	CRAN	NA	NA	NA	NA	NA
+GOstats	2.76.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+gower	1.0.2	CRAN	NA	NA	NA	NA	NA
+GPArotation	2025.3-1	CRAN	NA	NA	NA	NA	NA
+gplots	3.3.0	CRAN	NA	NA	NA	NA	NA
+graph	1.88.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+graphics	4.5.2	System/Manual	NA	NA	NA	NA	NA
+grDevices	4.5.2	System/Manual	NA	NA	NA	NA	NA
+grid	4.5.2	System/Manual	NA	NA	NA	NA	NA
+gridBase	0.4-7	CRAN	NA	NA	NA	NA	NA
+gridExtra	2.3	CRAN	NA	NA	NA	NA	NA
+gridSVG	1.7-7	CRAN	NA	NA	NA	NA	NA
+GSEABase	1.72.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+gss	2.2-10	CRAN	NA	NA	NA	NA	NA
+gsubfn	0.7	CRAN	NA	NA	NA	NA	NA
+gt	1.2.0	CRAN	NA	NA	NA	NA	NA
 gtable	0.3.6	CRAN	NA	NA	NA	NA	NA
+gtExtras	0.6.1	CRAN	NA	NA	NA	NA	NA
+gtools	3.9.5	CRAN	NA	NA	NA	NA	NA
+Gviz	1.54.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+gypsum	1.6.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+h5mread	1.2.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+hardhat	1.4.2	CRAN	NA	NA	NA	NA	NA
+harmony	1.2.4	CRAN	NA	NA	NA	NA	NA
 haven	2.5.5	CRAN	NA	NA	NA	NA	NA
+HDF5Array	1.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+hdf5r	1.3.12	CRAN	NA	NA	NA	NA	NA
+heatmaply	1.6.0	CRAN	NA	NA	NA	NA	NA
+here	1.0.2	CRAN	NA	NA	NA	NA	NA
+hexbin	1.28.5	CRAN	NA	NA	NA	NA	NA
+hgu133plus2.db	3.13.0	System/Manual	NA	NA	NA	NA	NA
+hgu95av2.db	3.13.0	System/Manual	NA	NA	NA	NA	NA
+hgu95av2cdf	2.18.0	System/Manual	NA	NA	NA	NA	NA
+HiddenMarkov	1.8-14	CRAN	NA	NA	NA	NA	NA
 highr	0.11	CRAN	NA	NA	NA	NA	NA
-hms	1.1.3	CRAN	NA	NA	NA	NA	NA
-htmltools	0.5.8.1	CRAN	NA	NA	NA	NA	NA
+Hmisc	5.2-4	CRAN	NA	NA	NA	NA	NA
+hms	1.1.4	CRAN	NA	NA	NA	NA	NA
+htmlTable	2.4.3	CRAN	NA	NA	NA	NA	NA
+htmltools	0.5.9	CRAN	NA	NA	NA	NA	NA
+htmlwidgets	1.6.4	CRAN	NA	NA	NA	NA	NA
+httpcode	0.3.0	CRAN	NA	NA	NA	NA	NA
+httptest2	1.2.2	CRAN	NA	NA	NA	NA	NA
+httpuv	1.6.16	CRAN	NA	NA	NA	NA	NA
 httr	1.4.7	CRAN	NA	NA	NA	NA	NA
+httr2	1.2.2	CRAN	NA	NA	NA	NA	NA
+humanStemCell	0.50.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+hunspell	3.0.6	CRAN	NA	NA	NA	NA	NA
+huxtable	5.8.0	CRAN	NA	NA	NA	NA	NA
+hwriter	1.3.2.1	CRAN	NA	NA	NA	NA	NA
+iC10	2.0.2	CRAN	NA	NA	NA	NA	NA
+iC10TrainingData	2.0.1	CRAN	NA	NA	NA	NA	NA
+ica	1.0-3	CRAN	NA	NA	NA	NA	NA
 ids	1.0.1	CRAN	NA	NA	NA	NA	NA
-isoband	0.2.7	CRAN	NA	NA	NA	NA	NA
+igraph	2.2.1	CRAN	NA	NA	NA	NA	NA
+impute	1.84.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+indelsig.tools.lib	0.1.0	System/Manual	github	indelsig.tools.lib	Nik-Zainal-Group	HEAD	d0bdb9b554dd3b63bcfecd75f58486bd54b3142d
+ineq	0.2-13	CRAN	NA	NA	NA	NA	NA
+infercnv	1.26.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+ini	0.3.1	CRAN	NA	NA	NA	NA	NA
+inline	0.3.21	CRAN	NA	NA	NA	NA	NA
+insight	1.4.4	CRAN	NA	NA	NA	NA	NA
+InteractionSet	1.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+interp	1.1-6	CRAN	NA	NA	NA	NA	NA
+inum	1.0-5	CRAN	NA	NA	NA	NA	NA
+ipred	0.9-15	CRAN	NA	NA	NA	NA	NA
+IRanges	2.44.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+IRdisplay	1.1	System/Manual	NA	NA	NA	NA	NA
+IRkernel	1.3.2	CRAN	NA	NA	NA	NA	NA
+irlba	2.3.5.1	CRAN	NA	NA	NA	NA	NA
+isoband	0.3.0	CRAN	NA	NA	NA	NA	NA
+iterators	1.0.14	CRAN	NA	NA	NA	NA	NA
+ivreg	0.6-5	CRAN	NA	NA	NA	NA	NA
+JASPAR2016	1.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+jomo	2.7-6	CRAN	NA	NA	NA	NA	NA
+jose	1.2.1	CRAN	NA	NA	NA	NA	NA
+jpeg	0.1-11	CRAN	NA	NA	NA	NA	NA
 jquerylib	0.1.4	CRAN	NA	NA	NA	NA	NA
 jsonlite	2.0.0	CRAN	NA	NA	NA	NA	NA
-knitr	1.50	CRAN	NA	NA	NA	NA	NA
+jsonvalidate	1.5.0	CRAN	NA	NA	NA	NA	NA
+juicyjuice	0.1.0	CRAN	NA	NA	NA	NA	NA
+JuliaCall	0.17.6	CRAN	NA	NA	NA	NA	NA
+kableExtra	1.4.0	CRAN	NA	NA	NA	NA	NA
+kangar00	1.4.2	CRAN	NA	NA	NA	NA	NA
+katex	1.5.0	CRAN	NA	NA	NA	NA	NA
+KEGGREST	1.50.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+kernlab	0.9-33	CRAN	NA	NA	NA	NA	NA
+KernSmooth	2.23-26	CRAN	NA	NA	NA	NA	NA
+knitr	1.51	CRAN	NA	NA	NA	NA	NA
+ks	1.15.1	CRAN	NA	NA	NA	NA	NA
 labeling	0.4.3	CRAN	NA	NA	NA	NA	NA
+labelled	2.16.0	CRAN	NA	NA	NA	NA	NA
 lambda.r	1.2.4	CRAN	NA	NA	NA	NA	NA
+later	1.4.4	CRAN	NA	NA	NA	NA	NA
 lattice	0.22-7	CRAN	NA	NA	NA	NA	NA
+latticeExtra	0.6-31	CRAN	NA	NA	NA	NA	NA
+lava	1.8.2	CRAN	NA	NA	NA	NA	NA
+lavaan	0.6-21	CRAN	NA	NA	NA	NA	NA
+lazyeval	0.2.2	CRAN	NA	NA	NA	NA	NA
+leaps	3.2	CRAN	NA	NA	NA	NA	NA
+leidenbase	0.1.36	CRAN	NA	NA	NA	NA	NA
+lfe	3.1.1	CRAN	NA	NA	NA	NA	NA
+libcoin	1.0-10	CRAN	NA	NA	NA	NA	NA
 lifecycle	1.0.4	CRAN	NA	NA	NA	NA	NA
+limma	3.66.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+limSolve	2.0.1	CRAN	NA	NA	NA	NA	NA
+listenv	0.10.0	CRAN	NA	NA	NA	NA	NA
+litedown	0.9	CRAN	NA	NA	NA	NA	NA
+lme4	1.1-38	CRAN	NA	NA	NA	NA	NA
+lmtest	0.9-40	CRAN	NA	NA	NA	NA	NA
+lobstr	1.1.3	CRAN	NA	NA	NA	NA	NA
+locfit	1.5-9.12	CRAN	NA	NA	NA	NA	NA
+logging	0.10-108	CRAN	NA	NA	NA	NA	NA
+logspline	2.1.22	CRAN	NA	NA	NA	NA	NA
+longmemo	1.1-4	CRAN	NA	NA	NA	NA	NA
+loo	2.9.0	CRAN	NA	NA	NA	NA	NA
+lpSolve	5.6.23	CRAN	NA	NA	NA	NA	NA
+lpSolveAPI	5.5.2.0-17.14	CRAN	NA	NA	NA	NA	NA
+lsa	0.73.3	CRAN	NA	NA	NA	NA	NA
 lubridate	1.9.4	CRAN	NA	NA	NA	NA	NA
-magrittr	2.0.3	CRAN	NA	NA	NA	NA	NA
-MASS	7.3-60.0.1	CRAN	NA	NA	NA	NA	NA
-Matrix	1.6-5	CRAN	NA	NA	NA	NA	NA
+magick	2.9.0	CRAN	NA	NA	NA	NA	NA
+magrittr	2.0.4	CRAN	NA	NA	NA	NA	NA
+maps	3.4.3	CRAN	NA	NA	NA	NA	NA
+marginaleffects	0.31.0	CRAN	NA	NA	NA	NA	NA
+markdown	2.0	CRAN	NA	NA	NA	NA	NA
+MASS	7.3-65	CRAN	NA	NA	NA	NA	NA
+MAST	1.36.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+mathjaxr	2.0-0	CRAN	NA	NA	NA	NA	NA
+Matrix	1.7-4	CRAN	NA	NA	NA	NA	NA
+MatrixGenerics	1.22.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+MatrixModels	0.5-4	CRAN	NA	NA	NA	NA	NA
+matrixStats	1.5.0	CRAN	NA	NA	NA	NA	NA
+maxLik	1.5-2.1	CRAN	NA	NA	NA	NA	NA
+mboost	2.9-11	CRAN	NA	NA	NA	NA	NA
+mbrglm	0.0.1	CRAN	NA	NA	NA	NA	NA
+mclust	6.1.2	CRAN	NA	NA	NA	NA	NA
 memoise	2.0.1	CRAN	NA	NA	NA	NA	NA
-methods	4.3.1	System/Manual	NA	NA	NA	NA	NA
-mgcv	1.9-3	CRAN	NA	NA	NA	NA	NA
+metap	1.13	CRAN	NA	NA	NA	NA	NA
+metapod	1.18.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+methods	4.5.2	System/Manual	NA	NA	NA	NA	NA
+methylKit	1.36.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+mgcv	1.9-4	CRAN	NA	NA	NA	NA	NA
+mice	3.19.0	CRAN	NA	NA	NA	NA	NA
+microbenchmark	1.5.0	CRAN	NA	NA	NA	NA	NA
+microRNA	1.68.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 mime	0.13	CRAN	NA	NA	NA	NA	NA
+miniUI	0.1.2	CRAN	NA	NA	NA	NA	NA
+minqa	1.2.8	CRAN	NA	NA	NA	NA	NA
+mirt	1.45.1	CRAN	NA	NA	NA	NA	NA
+miscTools	0.6-28	CRAN	NA	NA	NA	NA	NA
+missMDA	1.20	CRAN	NA	NA	NA	NA	NA
+mitml	0.4-5	CRAN	NA	NA	NA	NA	NA
+mitools	2.4	CRAN	NA	NA	NA	NA	NA
+mlbench	2.1-6	CRAN	NA	NA	NA	NA	NA
+mlogit	1.1-3	CRAN	NA	NA	NA	NA	NA
+mnormt	2.1.1	CRAN	NA	NA	NA	NA	NA
+mockery	0.4.5	CRAN	NA	NA	NA	NA	NA
+mockr	0.2.2	CRAN	NA	NA	NA	NA	NA
+ModelMetrics	1.2.2.2	CRAN	NA	NA	NA	NA	NA
 modelr	0.1.11	CRAN	NA	NA	NA	NA	NA
+modelsummary	2.5.0	CRAN	NA	NA	NA	NA	NA
+modeltools	0.2-24	CRAN	NA	NA	NA	NA	NA
+MplusAutomation	1.2	CRAN	NA	NA	NA	NA	NA
+msigdbr	25.1.1	CRAN	NA	NA	NA	NA	NA
+multcomp	1.4-29	CRAN	NA	NA	NA	NA	NA
+multcompView	0.1-10	CRAN	NA	NA	NA	NA	NA
+multicool	1.0.1	CRAN	NA	NA	NA	NA	NA
+multtest	2.66.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 munsell	0.5.1	CRAN	NA	NA	NA	NA	NA
+mutoss	0.1-13	CRAN	NA	NA	NA	NA	NA
+mvtnorm	1.3-3	CRAN	NA	NA	NA	NA	NA
+nabor	0.5.0	CRAN	NA	NA	NA	NA	NA
+NanoStringNorm	1.2.1.1	CRAN	url	NA	NA	NA	NA
+nleqslv	3.3.5	CRAN	NA	NA	NA	NA	NA
 nlme	3.1-168	CRAN	NA	NA	NA	NA	NA
-openssl	2.3.3	CRAN	NA	NA	NA	NA	NA
-parallel	4.3.1	System/Manual	NA	NA	NA	NA	NA
-pillar	1.11.0	CRAN	NA	NA	NA	NA	NA
+nloptr	2.2.1	CRAN	NA	NA	NA	NA	NA
+NMF	0.28	CRAN	NA	NA	NA	NA	NA
+nnet	7.3-20	CRAN	NA	NA	NA	NA	NA
+NNLM	0.4.4	System/Manual	github	NNLM	linxihui	HEAD	65303c99d1059ca90cdbabeaf872521717037255
+nnls	1.6	CRAN	NA	NA	NA	NA	NA
+nonnest2	0.5-8	CRAN	NA	NA	NA	NA	NA
+np	0.60-18	CRAN	NA	NA	NA	NA	NA
+numDeriv	2016.8-1.1	CRAN	NA	NA	NA	NA	NA
+nycflights13	1.0.2	CRAN	NA	NA	NA	NA	NA
+officer	0.7.2	CRAN	NA	NA	NA	NA	NA
+OpenMx	2.22.10	CRAN	NA	NA	NA	NA	NA
+openssl	2.3.4	CRAN	NA	NA	NA	NA	NA
+openxlsx	4.2.8.1	CRAN	NA	NA	NA	NA	NA
+ordinal	2023.12-4.1	CRAN	NA	NA	NA	NA	NA
+org.Hs.eg.db	3.22.0	System/Manual	NA	NA	NA	NA	NA
+org.Mm.eg.db	3.22.0	System/Manual	NA	NA	NA	NA	NA
+OrganismDbi	1.52.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+otel	0.2.0	CRAN	NA	NA	NA	NA	NA
+otelsdk	0.2.2	CRAN	NA	NA	NA	NA	NA
+packcircles	0.3.7	CRAN	NA	NA	NA	NA	NA
+packrat	0.9.3	CRAN	NA	NA	NA	NA	NA
+paletteer	1.6.0	CRAN	NA	NA	NA	NA	NA
+pamr	1.57	CRAN	NA	NA	NA	NA	NA
+pan	1.9	CRAN	NA	NA	NA	NA	NA
+pander	0.6.6	CRAN	NA	NA	NA	NA	NA
+pandoc	0.2.0	CRAN	NA	NA	NA	NA	NA
+parallel	4.5.2	System/Manual	NA	NA	NA	NA	NA
+parallelDist	0.2.7	CRAN	NA	NA	NA	NA	NA
+parallelly	1.46.0	CRAN	NA	NA	NA	NA	NA
+parameters	0.28.3	CRAN	NA	NA	NA	NA	NA
+partykit	1.2-24	CRAN	NA	NA	NA	NA	NA
+patchwork	1.3.2	CRAN	NA	NA	NA	NA	NA
+pbapply	1.7-4	CRAN	NA	NA	NA	NA	NA
+pbdZMQ	0.3-14	CRAN	NA	NA	NA	NA	NA
+pbivnorm	0.6.0	CRAN	NA	NA	NA	NA	NA
+pbkrtest	0.5.5	CRAN	NA	NA	NA	NA	NA
+pdftools	3.6.0	CRAN	NA	NA	NA	NA	NA
+performance	0.15.3	CRAN	NA	NA	NA	NA	NA
+permute	0.9-8	CRAN	NA	NA	NA	NA	NA
+PFAM.db	3.22.0	System/Manual	NA	NA	NA	NA	NA
+pheatmap	1.0.13	CRAN	NA	NA	NA	NA	NA
+phyclust	0.1-34	CRAN	NA	NA	NA	NA	NA
+pillar	1.11.1	CRAN	NA	NA	NA	NA	NA
+pixmap	0.4-14	CRAN	NA	NA	NA	NA	NA
+pkgbuild	1.4.8	CRAN	NA	NA	NA	NA	NA
 pkgconfig	2.0.3	CRAN	NA	NA	NA	NA	NA
+pkgdown	2.2.0	CRAN	NA	NA	NA	NA	NA
+pkgload	1.4.1	CRAN	NA	NA	NA	NA	NA
+PKI	0.1-15	CRAN	NA	NA	NA	NA	NA
+plm	2.6-7	CRAN	NA	NA	NA	NA	NA
+plogr	0.2.0	CRAN	NA	NA	NA	NA	NA
+plotly	4.11.0	CRAN	NA	NA	NA	NA	NA
+plotrix	3.8-13	CRAN	NA	NA	NA	NA	NA
+plyr	1.8.9	CRAN	NA	NA	NA	NA	NA
+png	0.1-8	CRAN	NA	NA	NA	NA	NA
+PoissonBinomial	1.2.7	CRAN	NA	NA	NA	NA	NA
+polyclip	1.10-7	CRAN	NA	NA	NA	NA	NA
+polynom	1.4-1	CRAN	NA	NA	NA	NA	NA
+PolyPhen.Hsapiens.dbSNP131	1.0.2	System/Manual	NA	NA	NA	NA	NA
+posterior	1.6.1	CRAN	NA	NA	NA	NA	NA
+pracma	2.4.6	CRAN	NA	NA	NA	NA	NA
+praise	1.0.0	CRAN	NA	NA	NA	NA	NA
+preprocessCore	1.72.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 prettyunits	1.2.0	CRAN	NA	NA	NA	NA	NA
+prismatic	1.1.2	CRAN	NA	NA	NA	NA	NA
+pROC	1.19.0.1	CRAN	NA	NA	NA	NA	NA
 processx	3.8.6	CRAN	NA	NA	NA	NA	NA
+prodlim	2025.04.28	CRAN	NA	NA	NA	NA	NA
+profileModel	0.6.1	CRAN	NA	NA	NA	NA	NA
+profvis	0.4.0	CRAN	NA	NA	NA	NA	NA
 progress	1.2.3	CRAN	NA	NA	NA	NA	NA
+progressr	0.18.0	CRAN	NA	NA	NA	NA	NA
+promises	1.5.0	CRAN	NA	NA	NA	NA	NA
+ProtGenerics	1.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+proto	1.0.0	CRAN	NA	NA	NA	NA	NA
+proxy	0.4-28	CRAN	NA	NA	NA	NA	NA
+pryr	0.1.6	CRAN	NA	NA	NA	NA	NA
 ps	1.9.1	CRAN	NA	NA	NA	NA	NA
-purrr	1.1.0	CRAN	NA	NA	NA	NA	NA
+pscl	1.5.9	CRAN	NA	NA	NA	NA	NA
+psych	2.5.6	CRAN	NA	NA	NA	NA	NA
+purrr	1.2.0	CRAN	NA	NA	NA	NA	NA
+pwalign	1.6.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+qap	0.1-2	CRAN	NA	NA	NA	NA	NA
+qpdf	1.4.1	CRAN	NA	NA	NA	NA	NA
+qqconf	1.3.2	CRAN	NA	NA	NA	NA	NA
+quadprog	1.5-8	CRAN	NA	NA	NA	NA	NA
+quantmod	0.4.28	CRAN	NA	NA	NA	NA	NA
+quantreg	6.1	CRAN	NA	NA	NA	NA	NA
+quarto	1.5.1	CRAN	NA	NA	NA	NA	NA
+QuickJSR	1.8.1	CRAN	NA	NA	NA	NA	NA
+qvalue	2.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+R.cache	0.17.0	CRAN	NA	NA	NA	NA	NA
+R.methodsS3	1.8.2	CRAN	NA	NA	NA	NA	NA
+R.oo	1.27.1	CRAN	NA	NA	NA	NA	NA
+R.utils	2.13.0	CRAN	NA	NA	NA	NA	NA
+r2d2	1.0.2	CRAN	NA	NA	NA	NA	NA
 R6	2.6.1	CRAN	NA	NA	NA	NA	NA
 ragg	1.5.0	CRAN	NA	NA	NA	NA	NA
+randomForest	4.7-1.2	CRAN	NA	NA	NA	NA	NA
+randomForestSRC	3.4.5	CRAN	NA	NA	NA	NA	NA
+randomizr	1.0.0	CRAN	NA	NA	NA	NA	NA
+RANN	2.6.2	CRAN	NA	NA	NA	NA	NA
 rappdirs	0.3.3	CRAN	NA	NA	NA	NA	NA
+raster	3.6-32	CRAN	NA	NA	NA	NA	NA
+RBGL	1.86.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+rbibutils	2.4	CRAN	NA	NA	NA	NA	NA
+rbokeh	0.5.2	CRAN	NA	NA	NA	NA	NA
+RCircos	1.2.2	CRAN	NA	NA	NA	NA	NA
+rcmdcheck	1.4.0	CRAN	NA	NA	NA	NA	NA
 RColorBrewer	1.1-3	CRAN	NA	NA	NA	NA	NA
 Rcpp	1.1.0	CRAN	NA	NA	NA	NA	NA
-readr	2.1.5	CRAN	NA	NA	NA	NA	NA
+RcppAnnoy	0.0.22	CRAN	NA	NA	NA	NA	NA
+RcppArmadillo	15.2.3-1	CRAN	NA	NA	NA	NA	NA
+RcppEigen	0.3.4.0.2	CRAN	NA	NA	NA	NA	NA
+RcppHNSW	0.6.0	CRAN	NA	NA	NA	NA	NA
+RcppML	0.3.7	CRAN	NA	NA	NA	NA	NA
+RcppParallel	5.1.11-1	CRAN	NA	NA	NA	NA	NA
+RcppProgress	0.4.2	CRAN	NA	NA	NA	NA	NA
+RcppRoll	0.3.1	CRAN	NA	NA	NA	NA	NA
+RcppTOML	0.2.3	CRAN	NA	NA	NA	NA	NA
+RCurl	1.98-1.17	CRAN	NA	NA	NA	NA	NA
+Rdatasets	0.0.1	CRAN	NA	NA	NA	NA	NA
+Rdpack	2.6.4	CRAN	NA	NA	NA	NA	NA
+reactable	0.4.5	CRAN	NA	NA	NA	NA	NA
+reactome.db	1.94.0	System/Manual	NA	NA	NA	NA	NA
+reactR	0.6.1	CRAN	NA	NA	NA	NA	NA
+readr	2.1.6	CRAN	NA	NA	NA	NA	NA
 readxl	1.4.5	CRAN	NA	NA	NA	NA	NA
+recipes	1.3.1	CRAN	NA	NA	NA	NA	NA
+reformulas	0.4.3	CRAN	NA	NA	NA	NA	NA
+registry	0.5-1	CRAN	NA	NA	NA	NA	NA
 rematch	2.0.0	CRAN	NA	NA	NA	NA	NA
 rematch2	2.1.2	CRAN	NA	NA	NA	NA	NA
+remotes	2.5.0	CRAN	NA	NA	NA	NA	NA
+rentrez	1.2.4	CRAN	NA	NA	NA	NA	NA
+renv	1.1.5	CRAN	NA	NA	NA	NA	NA
+ReportingTools	2.50.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+repr	1.1.7	CRAN	NA	NA	NA	NA	NA
 reprex	2.1.1	CRAN	NA	NA	NA	NA	NA
+reshape	0.8.10	CRAN	NA	NA	NA	NA	NA
+reshape2	1.4.5	CRAN	NA	NA	NA	NA	NA
+ResidualMatrix	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+restfulr	0.0.16	CRAN	NA	NA	NA	NA	NA
+reticulate	1.44.1	CRAN	NA	NA	NA	NA	NA
+revdbayes	1.5.5	CRAN	NA	NA	NA	NA	NA
+rex	1.2.1	CRAN	NA	NA	NA	NA	NA
+rgl	1.3.31	CRAN	NA	NA	NA	NA	NA
+Rgraphviz	2.54.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+rhdf5	2.54.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+rhdf5filters	1.22.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+Rhdf5lib	1.32.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+RhpcBLASctl	0.23-42	CRAN	NA	NA	NA	NA	NA
+Rhtslib	3.6.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+Rigraphlib	1.2.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+rjags	4-17	CRAN	NA	NA	NA	NA	NA
+rJava	1.0-11	CRAN	NA	NA	NA	NA	NA
+rjson	0.2.23	CRAN	NA	NA	NA	NA	NA
+rjsoncons	1.3.2	CRAN	NA	NA	NA	NA	NA
 rlang	1.1.6	CRAN	NA	NA	NA	NA	NA
-rmarkdown	2.29	CRAN	NA	NA	NA	NA	NA
+rmarkdown	2.30	CRAN	NA	NA	NA	NA	NA
+rmeta	3.0	CRAN	NA	NA	NA	NA	NA
+rngtools	1.5.2	CRAN	NA	NA	NA	NA	NA
+robustbase	0.99-6	CRAN	NA	NA	NA	NA	NA
+ROCR	1.0-11	CRAN	NA	NA	NA	NA	NA
+ROI	1.0-1	CRAN	NA	NA	NA	NA	NA
+ROI.plugin.lpsolve	1.0-2	CRAN	NA	NA	NA	NA	NA
+roxygen2	7.3.3	CRAN	NA	NA	NA	NA	NA
+rpart	4.1.24	CRAN	NA	NA	NA	NA	NA
+rpf	1.0.15	CRAN	NA	NA	NA	NA	NA
+rprojroot	2.1.1	CRAN	NA	NA	NA	NA	NA
+Rsamtools	2.26.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+rsconnect	1.7.0	CRAN	NA	NA	NA	NA	NA
+Rsolnp	2.0.1	CRAN	NA	NA	NA	NA	NA
+RSpectra	0.16-2	CRAN	NA	NA	NA	NA	NA
+RSQLite	2.4.5	CRAN	NA	NA	NA	NA	NA
+rstan	2.32.7	CRAN	NA	NA	NA	NA	NA
+rstanarm	2.32.2	CRAN	NA	NA	NA	NA	NA
+rstantools	2.5.0	CRAN	NA	NA	NA	NA	NA
+rstatix	0.7.3	CRAN	NA	NA	NA	NA	NA
 rstudioapi	0.17.1	CRAN	NA	NA	NA	NA	NA
+rsvd	1.0.5	CRAN	NA	NA	NA	NA	NA
+rsvg	2.6.1	CRAN	NA	NA	NA	NA	NA
+rtracklayer	1.70.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+Rtsne	0.17	CRAN	NA	NA	NA	NA	NA
+rugarch	1.5-4	CRAN	NA	NA	NA	NA	NA
+RUnit	0.4.33.1	CRAN	NA	NA	NA	NA	NA
+rust	1.4.3	CRAN	NA	NA	NA	NA	NA
+rversions	3.0.0	CRAN	NA	NA	NA	NA	NA
 rvest	1.0.5	CRAN	NA	NA	NA	NA	NA
+s2	1.1.9	CRAN	NA	NA	NA	NA	NA
+S4Arrays	1.10.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+S4Vectors	0.48.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+S7	0.2.1	CRAN	NA	NA	NA	NA	NA
+sampleSelection	1.2-12	CRAN	NA	NA	NA	NA	NA
+sandwich	3.1-1	CRAN	NA	NA	NA	NA	NA
 sass	0.4.10	CRAN	NA	NA	NA	NA	NA
+ScaledMatrix	1.18.0	Bioconductor 3.22	NA	NA	NA	NA	NA
 scales	1.4.0	CRAN	NA	NA	NA	NA	NA
-selectr	0.4-2	CRAN	NA	NA	NA	NA	NA
+scater	1.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+scattermore	1.2	CRAN	NA	NA	NA	NA	NA
+scatterplot3d	0.3-44	CRAN	NA	NA	NA	NA	NA
+scran	1.38.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+scrapper	1.4.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+scRNAseq	2.24.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+sctransform	0.4.2	CRAN	NA	NA	NA	NA	NA
+scuttle	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+secretbase	1.0.5	CRAN	NA	NA	NA	NA	NA
+selectr	0.5-1	CRAN	NA	NA	NA	NA	NA
+Seqinfo	1.0.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+seqLogo	1.76.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+seqPattern	1.42.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+seriation	1.5.8	CRAN	NA	NA	NA	NA	NA
+sessioninfo	1.2.3	CRAN	NA	NA	NA	NA	NA
+Seurat	5.4.0	CRAN	NA	NA	NA	NA	NA
+SeuratObject	5.3.0	CRAN	NA	NA	NA	NA	NA
+sf	1.0-23	CRAN	NA	NA	NA	NA	NA
+shape	1.4.6.1	CRAN	NA	NA	NA	NA	NA
+shapefiles	0.7.2	CRAN	NA	NA	NA	NA	NA
+shiny	1.12.1	CRAN	NA	NA	NA	NA	NA
+shinydashboard	0.7.3	CRAN	NA	NA	NA	NA	NA
+shinyjqui	0.4.1	CRAN	NA	NA	NA	NA	NA
+shinyjs	2.1.0	CRAN	NA	NA	NA	NA	NA
+shinystan	2.7.0	CRAN	NA	NA	NA	NA	NA
+shinythemes	1.2.0	CRAN	NA	NA	NA	NA	NA
+showtext	0.9-7	CRAN	NA	NA	NA	NA	NA
+showtextdb	3.0	CRAN	NA	NA	NA	NA	NA
+SIFT.Hsapiens.dbSNP132	1.0.2	System/Manual	NA	NA	NA	NA	NA
+SIFT.Hsapiens.dbSNP137	1.0.0	System/Manual	NA	NA	NA	NA	NA
+Signac	1.16.0	CRAN	NA	NA	NA	NA	NA
+signature.tools.lib	2.5.0	System/Manual	url	NA	NA	NA	NA
+SimDesign	2.22	CRAN	NA	NA	NA	NA	NA
+SIMMS	1.3.2	CRAN	NA	NA	NA	NA	NA
+SingleCellExperiment	1.32.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+SingleR	2.12.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+sitmo	2.0.2	CRAN	NA	NA	NA	NA	NA
+SkewHyperbolic	0.4-2	CRAN	NA	NA	NA	NA	NA
+slam	0.1-55	CRAN	NA	NA	NA	NA	NA
+sn	2.1.1	CRAN	NA	NA	NA	NA	NA
 snow	0.4-4	CRAN	NA	NA	NA	NA	NA
-splines	4.3.1	System/Manual	NA	NA	NA	NA	NA
-stats	4.3.1	System/Manual	NA	NA	NA	NA	NA
-stats4	4.3.1	System/Manual	NA	NA	NA	NA	NA
-stringi	1.8.4	CRAN	NA	NA	NA	NA	NA
-stringr	1.5.2	CRAN	NA	NA	NA	NA	NA
+SnowballC	0.7.1	CRAN	NA	NA	NA	NA	NA
+snowflakeauth	0.2.0	CRAN	NA	NA	NA	NA	NA
+SNPlocs.Hsapiens.dbSNP144.GRCh37	0.99.20	System/Manual	NA	NA	NA	NA	NA
+snpStats	1.60.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+softImpute	1.4-3	CRAN	NA	NA	NA	NA	NA
+sourcetools	0.1.7-1	CRAN	NA	NA	NA	NA	NA
+sp	2.2-0	CRAN	NA	NA	NA	NA	NA
+spam	2.11-1	CRAN	NA	NA	NA	NA	NA
+SparseArray	1.10.8	Bioconductor 3.22	NA	NA	NA	NA	NA
+SparseM	1.84-2	CRAN	NA	NA	NA	NA	NA
+sparseMatrixStats	1.22.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+sparsevctrs	0.3.5	CRAN	NA	NA	NA	NA	NA
+spatial	7.3-18	CRAN	NA	NA	NA	NA	NA
+SpatialExperiment	1.20.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+spatstat	3.5-0	CRAN	NA	NA	NA	NA	NA
+spatstat.data	3.1-9	CRAN	NA	NA	NA	NA	NA
+spatstat.explore	3.6-0	CRAN	NA	NA	NA	NA	NA
+spatstat.geom	3.6-1	CRAN	NA	NA	NA	NA	NA
+spatstat.linnet	3.4-0	CRAN	NA	NA	NA	NA	NA
+spatstat.model	3.5-0	CRAN	NA	NA	NA	NA	NA
+spatstat.random	3.4-3	CRAN	NA	NA	NA	NA	NA
+spatstat.sparse	3.1-0	CRAN	NA	NA	NA	NA	NA
+spatstat.univar	3.1-5	CRAN	NA	NA	NA	NA	NA
+spatstat.utils	3.2-0	CRAN	NA	NA	NA	NA	NA
+spd	2.0-1	CRAN	NA	NA	NA	NA	NA
+spData	2.3.4	CRAN	NA	NA	NA	NA	NA
+spdep	1.4-1	CRAN	NA	NA	NA	NA	NA
+spelling	2.3.2	CRAN	NA	NA	NA	NA	NA
+splines	4.5.2	System/Manual	NA	NA	NA	NA	NA
+sqldf	0.4-11	CRAN	NA	NA	NA	NA	NA
+SQUAREM	2021.1	CRAN	NA	NA	NA	NA	NA
+stabledist	0.7-2	CRAN	NA	NA	NA	NA	NA
+stabs	0.6-4	CRAN	NA	NA	NA	NA	NA
+StanHeaders	2.32.10	CRAN	NA	NA	NA	NA	NA
+statmod	1.5.1	CRAN	NA	NA	NA	NA	NA
+stats	4.5.2	System/Manual	NA	NA	NA	NA	NA
+stats4	4.5.2	System/Manual	NA	NA	NA	NA	NA
+stJoincount	1.12.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+stringdist	0.9.15	CRAN	NA	NA	NA	NA	NA
+stringi	1.8.7	CRAN	NA	NA	NA	NA	NA
+stringmagic	1.2.0	CRAN	NA	NA	NA	NA	NA
+stringr	1.6.0	CRAN	NA	NA	NA	NA	NA
+strucchange	1.5-4	CRAN	NA	NA	NA	NA	NA
+styler	1.11.0	CRAN	NA	NA	NA	NA	NA
+SummarizedExperiment	1.40.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+SuppDists	1.1-9.9	CRAN	NA	NA	NA	NA	NA
+survcomp	1.60.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+survey	4.4-8	CRAN	NA	NA	NA	NA	NA
+survival	3.8-3	CRAN	NA	NA	NA	NA	NA
+survivalROC	1.0.3.1	CRAN	NA	NA	NA	NA	NA
+svglite	2.2.2	CRAN	NA	NA	NA	NA	NA
 sys	3.4.3	CRAN	NA	NA	NA	NA	NA
-systemfonts	1.2.3	CRAN	NA	NA	NA	NA	NA
-tcltk	4.3.1	System/Manual	NA	NA	NA	NA	NA
-textshaping	0.3.7	CRAN	NA	NA	NA	NA	NA
+sysfonts	0.8.9	CRAN	NA	NA	NA	NA	NA
+systemfit	1.1-30	CRAN	NA	NA	NA	NA	NA
+systemfonts	1.3.1	CRAN	NA	NA	NA	NA	NA
+tables	0.9.33	CRAN	NA	NA	NA	NA	NA
+targets	1.11.4	CRAN	NA	NA	NA	NA	NA
+tcltk	4.5.2	System/Manual	NA	NA	NA	NA	NA
+tcltk2	1.6.1	CRAN	NA	NA	NA	NA	NA
+TeachingDemos	2.13	CRAN	NA	NA	NA	NA	NA
+tensor	1.5.1	CRAN	NA	NA	NA	NA	NA
+tensorA	0.36.2.1	CRAN	NA	NA	NA	NA	NA
+terra	1.8-86	CRAN	NA	NA	NA	NA	NA
+testit	0.15	CRAN	NA	NA	NA	NA	NA
+testthat	3.3.1	CRAN	NA	NA	NA	NA	NA
+texreg	1.39.5	CRAN	NA	NA	NA	NA	NA
+textshaping	1.0.4	CRAN	NA	NA	NA	NA	NA
+TFisher	0.2.0	CRAN	NA	NA	NA	NA	NA
+TH.data	1.1-5	CRAN	NA	NA	NA	NA	NA
+threejs	0.3.4	CRAN	NA	NA	NA	NA	NA
 tibble	3.3.0	CRAN	NA	NA	NA	NA	NA
-tidyr	1.3.1	CRAN	NA	NA	NA	NA	NA
+tictoc	1.2.1	CRAN	NA	NA	NA	NA	NA
+tidyr	1.3.2	CRAN	NA	NA	NA	NA	NA
 tidyselect	1.2.1	CRAN	NA	NA	NA	NA	NA
+tidySEM	0.2.9	CRAN	NA	NA	NA	NA	NA
 tidyverse	2.0.0	CRAN	NA	NA	NA	NA	NA
+tikzDevice	0.12.6	CRAN	NA	NA	NA	NA	NA
 timechange	0.3.0	CRAN	NA	NA	NA	NA	NA
-tinytex	0.57	CRAN	NA	NA	NA	NA	NA
-tools	4.3.1	System/Manual	NA	NA	NA	NA	NA
+timeDate	4051.111	CRAN	NA	NA	NA	NA	NA
+timeSeries	4052.112	CRAN	NA	NA	NA	NA	NA
+tinysnapshot	0.2.0	CRAN	NA	NA	NA	NA	NA
+tinytable	0.15.2	CRAN	NA	NA	NA	NA	NA
+tinytest	1.4.1	CRAN	NA	NA	NA	NA	NA
+tinytex	0.58	CRAN	NA	NA	NA	NA	NA
+tkrplot	0.0-30	CRAN	NA	NA	NA	NA	NA
+TMB	1.9.19	CRAN	NA	NA	NA	NA	NA
+tools	4.5.2	System/Manual	NA	NA	NA	NA	NA
+topmodels	0.3-0	R-Forge	NA	NA	NA	NA	NA
+triebeard	0.4.1	CRAN	NA	NA	NA	NA	NA
+truncnorm	1.0-9	CRAN	NA	NA	NA	NA	NA
+truncreg	0.2-5	CRAN	NA	NA	NA	NA	NA
+trust	0.1-8	CRAN	NA	NA	NA	NA	NA
+tseries	0.10-58	CRAN	NA	NA	NA	NA	NA
+TSP	1.2.6	CRAN	NA	NA	NA	NA	NA
+TTR	0.24.4	CRAN	NA	NA	NA	NA	NA
+tweenr	2.0.3	CRAN	NA	NA	NA	NA	NA
+TxDb.Hsapiens.UCSC.hg19.knownGene	3.22.1	System/Manual	NA	NA	NA	NA	NA
+TxDb.Hsapiens.UCSC.hg38.knownGene	3.22.0	System/Manual	NA	NA	NA	NA	NA
 tzdb	0.5.0	CRAN	NA	NA	NA	NA	NA
+ucminf	1.2.2	CRAN	NA	NA	NA	NA	NA
+UCSC.utils	1.6.1	Bioconductor 3.22	NA	NA	NA	NA	NA
+units	1.0-0	CRAN	NA	NA	NA	NA	NA
+UpSetR	1.4.0	CRAN	NA	NA	NA	NA	NA
+urca	1.3-4	CRAN	NA	NA	NA	NA	NA
+urlchecker	1.0.1	CRAN	NA	NA	NA	NA	NA
+urltools	1.7.3.1	CRAN	NA	NA	NA	NA	NA
+usethis	3.2.1	CRAN	NA	NA	NA	NA	NA
 utf8	1.2.6	CRAN	NA	NA	NA	NA	NA
-utils	4.3.1	System/Manual	NA	NA	NA	NA	NA
+utils	4.5.2	System/Manual	NA	NA	NA	NA	NA
 uuid	1.2-1	CRAN	NA	NA	NA	NA	NA
+uwot	0.2.4	CRAN	NA	NA	NA	NA	NA
+V8	8.0.1	CRAN	NA	NA	NA	NA	NA
+VariantAnnotation	1.56.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+vars	1.6-1	CRAN	NA	NA	NA	NA	NA
 vctrs	0.6.5	CRAN	NA	NA	NA	NA	NA
+vegan	2.7-2	CRAN	NA	NA	NA	NA	NA
+VennDiagram	1.7.3	CRAN	NA	NA	NA	NA	NA
+VGAM	1.1-14	CRAN	NA	NA	NA	NA	NA
+vipor	0.4.7	CRAN	NA	NA	NA	NA	NA
+viridis	0.6.5	CRAN	NA	NA	NA	NA	NA
 viridisLite	0.4.2	CRAN	NA	NA	NA	NA	NA
-vroom	1.6.5	CRAN	NA	NA	NA	NA	NA
+visNetwork	2.1.4	CRAN	NA	NA	NA	NA	NA
+vroom	1.6.7	CRAN	NA	NA	NA	NA	NA
+vsn	3.78.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+waldo	0.6.2	CRAN	NA	NA	NA	NA	NA
+webshot	0.5.5	CRAN	NA	NA	NA	NA	NA
+webshot2	0.1.2	CRAN	NA	NA	NA	NA	NA
+websocket	1.4.4	CRAN	NA	NA	NA	NA	NA
+wesanderson	0.3.7	CRAN	NA	NA	NA	NA	NA
+whisker	0.4.1	CRAN	NA	NA	NA	NA	NA
 withr	3.0.2	CRAN	NA	NA	NA	NA	NA
-xfun	0.53	CRAN	NA	NA	NA	NA	NA
-xml2	1.3.6	CRAN	NA	NA	NA	NA	NA
-yaml	2.3.10	CRAN	NA	NA	NA	NA	NA
+wk	0.9.5	CRAN	NA	NA	NA	NA	NA
+wrswoR	1.2.0	CRAN	NA	NA	NA	NA	NA
+xfun	0.55	CRAN	NA	NA	NA	NA	NA
+XLConnect	1.2.2	CRAN	NA	NA	NA	NA	NA
+XML	3.99-0.20	CRAN	NA	NA	NA	NA	NA
+xml2	1.5.1	CRAN	NA	NA	NA	NA	NA
+xopen	1.0.1	CRAN	NA	NA	NA	NA	NA
+xtable	1.8-4	CRAN	NA	NA	NA	NA	NA
+xts	0.14.1	CRAN	NA	NA	NA	NA	NA
+XVector	0.50.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+yaml	2.3.12	CRAN	NA	NA	NA	NA	NA
+zinbwave	1.32.0	Bioconductor 3.22	NA	NA	NA	NA	NA
+zip	2.3.3	CRAN	NA	NA	NA	NA	NA
+zoo	1.8-15	CRAN	NA	NA	NA	NA	NA

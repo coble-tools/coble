@@ -140,8 +140,8 @@ case "$RECIPE_FILE" in
         ;;
 esac
 
-echo "[coble-create] Deactivating existing envs"
-conda deactivate
+#echo "[coble-create] Deactivating existing envs"
+#conda deactivate
 # run each line of the recipe line by line
 echo "[coble-create] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")

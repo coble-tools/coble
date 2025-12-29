@@ -30,6 +30,7 @@ if [[ -z "$pkg" ]]; then
 fi
 
 echo "[coble-find] ~~~ Searching for package: $pkg (version: ${ver:-any}) ~~~" >&2
+echo "[coble-find] ~~~ $all ~~~ $skip_variants ~~~ $YAML_FILE ~~~" >&2
 
 # Helper: print results and install command
 check_and_print() {

@@ -108,10 +108,13 @@ r-package:
   - FactoMineR
   - factoextra
 
+conda:
+  - patch
 r-conda:
-  - gifski
-  - otelsdk
+  - gifski  
 r-package:
+  - TFMPvalue
+  - otelsdk
   - knitr
   - rmarkdown
   - inline

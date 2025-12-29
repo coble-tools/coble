@@ -1,0 +1,19 @@
+# COBLE:capture, (c) ICR 2025
+# Capture date: 2025-12-29
+# Capture time: 08:54:19 GMT
+# Captured by: ralcraft
+
+coble:
+
+  - environment: myenv
+
+channels:
+  - defaults
+  - r
+  - bioconda
+  - conda-forge
+
+languages:
+
+flags:
+  - dependencies: False
