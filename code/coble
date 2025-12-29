@@ -63,7 +63,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	
 	done_recipe="$recipe_file".done.sh
 	summary_file="$recipe_file.summary.txt"
-	capture_file="$recipe_file.capture.yml"
+	capture_file="$recipe_file.capture.cbl"
 	
 	if [[ "$1" == "build" ]]; then
 	    echo "[*coble 3/5] Created recipe, rebuilding environment." >&2

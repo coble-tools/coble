@@ -35,7 +35,7 @@ show_help() {
     echo "----- coble recipise help ----------"
     echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.yml)"
+    echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.cbl)"
     echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  --outdir OUTDIR  Specify output directory for recipe file (optional, default: .)"
     echo "  -h, --help       Show this help message and exit"
