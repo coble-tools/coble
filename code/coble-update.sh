@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "[coble-update]" >&2
-
 # Default values
 done_recipe=""
 new_recipe=""

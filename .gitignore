@@ -43,3 +43,4 @@ tests/tml/tml.yml.bak2.yml
 myenv/*
 
 xold/*
+tests/*

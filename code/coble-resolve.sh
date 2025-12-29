@@ -103,7 +103,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
     if [[ "$line" == "find:"
         ]]; then
         CURRENT_SECTION="$line"
-        echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION" >&2        
+        #echo "[coble-resolve] Package manager changing to: $CURRENT_SECTION" >&2        
         echo "$origline" >> "$YAML_FILE"
     elif [[ "$line" == "found|"* ]]; then
         CURRENT_SECTION=""

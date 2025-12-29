@@ -207,14 +207,18 @@ run_line() {
     if [[ $err_code -eq 0 ]]; then
         echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
-    elif [[ "$EXIT_ON_ERROR" == "1" ]]; then
-        echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
-        exit 1
-    else 
-        echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$TIME_FILE"
-        echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"            
-    fi    
+    else
+        # the last install failed so remove it from done file
+        sed -i '' -e '$s/^/# /' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/# /' "$RECIPE_DONE_FILE"                
+        if [[ "$EXIT_ON_ERROR" == "1" ]]; then
+            echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
+            exit 1
+        else 
+            echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$TIME_FILE"
+            echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+            echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"            
+        fi    
+    fi
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
         echo "[coble-create] Error: Command failed: $buffer" >&2
