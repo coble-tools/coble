@@ -104,6 +104,7 @@ mkdir -p "$RESULTS_DIR"
 TMP_CONDA_LIST_TXT="$RESULTS_DIR/coble_tmp_conda-packages-$ENV_NAME.txt"
 TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
 TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
+TMP2_R="r-packages-for-coble.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted-$ENV_NAME.tmp"
 if [[ -z "$AGGREGATE_TXT" ]]; then
@@ -376,7 +377,7 @@ fi
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
     echo "[coble-capture] Cleaning up temporary files..."
-    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
+    rm -f "$TMP2_R" "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
 elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "[coble-capture] Temporary files retained for inspection:"
     echo "  $TMP_CONDA_LIST_TXT"
@@ -384,6 +385,7 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "  $TMP_R_PACKAGES_TXT"
     echo "  $TMP_SORTED"
     echo "  $TMP_AGGREGATE"    
+	echo "  $TMP2_R"
 fi
 
 echo "[coble-capture] Capture complete. Output written to $AGGREGATE_TXT"

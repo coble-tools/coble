@@ -26,7 +26,8 @@ get_info <- function(pkg, lib) {
 }
 
 # Get output filename from environment variable
-output_file <- Sys.getenv("OUTPUT_FILE", "r-packages.txt")
+# make a temp file for the r packages
+output_file <- "r-packages-for-coble.txt"
 
 if (nrow(ip) > 0) {
     infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))

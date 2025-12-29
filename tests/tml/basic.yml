@@ -1,4 +1,6 @@
-##!COBLE: Resolved + Ordered
+#####################################################
+# COBLE:Reproducible environment: BASIC, (c) ICR 2025
+#####################################################
 coble:
   - environment: coble-env-basic
 channels:
@@ -10,13 +12,8 @@ channels:
 languages:
   - python=3.13.1@conda-forge
   - r-base=4.3.1@conda-forge
-#####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2025
-#####################################################
 conda:
   - pandas
 r-conda:
   - tidyverse
   - ggplot2
-bioc-conda:
-  - fgsea

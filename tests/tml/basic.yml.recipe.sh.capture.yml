@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2025
-# Capture date: 2025-12-28
-# Capture time: 21:08:02 GMT
+# Capture date: 2025-12-29
+# Capture time: 14:29:06 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,10 +19,6 @@ languages:
 
 flags:
   - dependencies: False
-
-bioc-conda:
-  - biocparallel=1.36.0@bioconda
-  - fgsea=1.28.0@bioconda
 
 conda:
   - bwidget=1.10.1@conda-forge
@@ -131,7 +127,6 @@ r-conda:
   - assertthat=0.2.1@conda-forge
   - backports=1.5.0@conda-forge
   - base64enc=0.1_3@conda-forge
-  - bh=1.87.0_1@conda-forge
   - bit64=4.6.0_1@conda-forge
   - bit=4.6.0@conda-forge
   - blob=1.2.4@conda-forge
@@ -142,10 +137,8 @@ r-conda:
   - cellranger=1.1.0@conda-forge
   - cli=3.6.5@conda-forge
   - clipr=0.8.0@conda-forge
-  - codetools=0.2_20@conda-forge
   - colorspace=2.1_1@conda-forge
   - conflicted=1.2.0@conda-forge
-  - cowplot=1.2.0@conda-forge
   - cpp11=0.5.2@conda-forge
   - crayon=1.5.3@conda-forge
   - curl=7.0.0@conda-forge
@@ -160,13 +153,9 @@ r-conda:
   - fansi=1.0.6@conda-forge
   - farver=2.1.2@conda-forge
   - fastmap=1.2.0@conda-forge
-  - fastmatch=1.1_6@conda-forge
   - fontawesome=0.5.3@conda-forge
   - forcats=1.0.0@conda-forge
-  - formatr=1.14@conda-forge
   - fs=1.6.6@conda-forge
-  - futile.logger=1.4.3@conda-forge
-  - futile.options=1.0.1@conda-forge
   - gargle=1.6.0@conda-forge
   - generics=0.1.4@conda-forge
   - ggplot2=3.5.2@conda-forge
@@ -185,7 +174,6 @@ r-conda:
   - jsonlite=2.0.0@conda-forge
   - knitr=1.50@conda-forge
   - labeling=0.4.3@conda-forge
-  - lambda.r=1.2.4@conda-forge
   - lattice=0.22_7@conda-forge
   - lifecycle=1.0.4@conda-forge
   - lubridate=1.9.4@conda-forge
@@ -210,7 +198,6 @@ r-conda:
   - ragg=1.5.0@conda-forge
   - rappdirs=0.3.3@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
-  - rcpp=1.1.0@conda-forge
   - readr=2.1.5@conda-forge
   - readxl=1.4.5@conda-forge
   - rematch2=2.1.2@conda-forge
@@ -223,7 +210,6 @@ r-conda:
   - sass=0.4.10@conda-forge
   - scales=1.4.0@conda-forge
   - selectr=0.4_2@conda-forge
-  - snow=0.4_4@conda-forge
   - stringi=1.8.4@conda-forge
   - stringr=1.5.2@conda-forge
   - sys=3.4.3@conda-forge

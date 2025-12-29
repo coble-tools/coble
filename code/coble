@@ -9,6 +9,9 @@ else
 	install_context="github"
 fi
 # Optionally, you can use $install_context in help or logic
+# Detect operating system
+os_type="$(uname)"
+echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 
 show_help() {
 	echo "Usage: $0 <command> [options]"
@@ -35,42 +38,21 @@ if [[ "$1" == "template" ]]; then
 	exit $?
 fi
 
-# If the first argument is 'capture', call coble-capture.sh and exit
-if [[ "$1" == "capture" ]]; then
-	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	"$script_dir/coble-capture.sh" "${@:2}"
-	exit $?
-fi
-
-# If the first argument is 'recipise', call coble-recipise.sh and exit
-if [[ "$1" == "recipise" || "$1" == "recipe" ]]; then
-	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	"$script_dir/coble-recipise.sh" "${@:2}"
-	exit $?
-fi
-
-# If the first argument is 'resolve' or find, call coble-resolve.sh and exit
-if [[ "$1" == "resolve" || "$1" == "find" ]]; then
-	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	"$script_dir/coble-resolve.sh" "${@:2}"	
-	exit $?
-fi
-
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
 if [[ "$1" == "build" || "$1" == "update" ]]; then	
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
-	echo "[coble-create 1/4] Resolving yml..." >&2
+	echo "[coble-create 1/5] Resolving yml..." >&2
 	finds=$("$script_dir/coble-resolve.sh" "${@:2}")
 	if [[ "$finds" == "Y" ]]; then
 		echo "[coble-create] Finds were resolved, please check the yml input before resuming." >&2
 		exit 0
 	fi	
 	
-	echo "[coble-create 2/4] Resolved yml, proceeding to rationalise." >&2
+	echo "[coble-create 2/5] Resolved yml, proceeding to rationalise." >&2
 	success=$("$script_dir/coble-rationalise.sh" "${@:2}")
 				
-	echo "[coble-create 2/4] Rationalised yml, proceeding to recipise." >&2	
+	echo "[coble-create 2/5] Rationalised yml, proceeding to recipise." >&2	
 	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"
@@ -79,19 +61,38 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		exit 0
 	fi	
 	
-	if [[ "$1" == "update" ]]; then	
-        echo "[coble-create 2.5/4] Created recipe, proceeding to make update portion." >&2
-		old_recipe="$recipe_file".old.sh
-		new_recipe="$recipe_file"
-		update_success=$("$script_dir/coble-update.sh" --old-recipe "$old_recipe" --new-recipe "$new_recipe")
-		if [[ $? -ne 0 ]]; then		 
-			echo "[coble-create] Error in updating recipe, please review logs before resuming." >&2
-			exit 0
+	done_recipe="$recipe_file".done.sh
+	summary_file="$recipe_file.summary.txt"
+	capture_file="$recipe_file.capture.yml"
+	
+	if [[ "$1" == "build" ]]; then
+	    echo "[coble-create 3/5] Created recipe, rebuilding environment." >&2
+	    : > "$done_recipe"
+		: > "$summary_file"
+	elif [[ "$1" == "update" ]]; then	
+	    if [[ ! -f "$done_recipe" ]]; then
+			: > "$done_recipe"
+			: > "$summary_file"			
+			echo "[coble-create 3/5] Created recipe, building environment." >&2
+		else
+		    
+			echo "[coble-create 3/5] Created recipe, updating environment." >&2
 		fi
-		recipe_file="$new_recipe".update.sh		
+	else
+		echo "[coble-create] Unknown command: $1" >&2
+		exit 1
 	fi
+		
+	
+	
 
-	echo "[coble-create 3/4] Created recipe, proceeding to creation." >&2
+	update_success=$("$script_dir/coble-update.sh" --done-recipe "$done_recipe" --all-recipe "$recipe_file")
+	if [[ $? -ne 0 ]]; then		 
+		echo "[coble-create] Error in updating recipe, please review logs before resuming." >&2
+		exit 0
+	fi		
+	echo "[coble-create 4/5] Created recipe, proceeding to creation." >&2
+	recipe_file="$recipe_file".delta.sh
 	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
 	if [[ $? -ne 0 ]]; then		 
 		echo "[coble-create] Error in environment creation, please review logs before resuming." >&2
@@ -105,9 +106,8 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		exit 0
 	fi
 	
-	echo "[coble-create 4/4] Created env, proceeding to capture." >&2	
-	recipe_dir="$(dirname "$recipe_file")"
-	capture_file="$recipe_file.capture.yml"
+	echo "[coble-create 5/5] Created env, proceeding to capture." >&2	
+	recipe_dir="$(dirname "$recipe_file")"	
 	result=$("$script_dir/coble-capture.sh" --outdir "$recipe_dir" --output "$capture_file" "${@:2}")
 		
 	echo "[coble-create] Environment creation complete." >&2

@@ -21,6 +21,7 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 
 ENV_OUTPUT=""
 RECIPE_FILE=""
+RECIPE_DONE_FILE=""
 NEW_ENV=""
 LOG_FILE=""
 TIME_FILE=""
@@ -95,14 +96,29 @@ base_name_noext="${base_name%.*}"
 #ERROR_FILE="$OUTDIR/${base_name_noext}.err"
 #TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
 
-LOG_FILE="${RECIPE_FILE}.log"
-ERROR_FILE="${RECIPE_FILE}.err"
-TIME_FILE="${RECIPE_FILE}.summary.txt"
+
+
+# if the files have "delta.sh" in them then take it out
+if [[ "$RECIPE_FILE" == *.delta.sh ]]; then
+    LOG_FILE="${RECIPE_FILE%.delta.sh}.log"
+    ERROR_FILE="${RECIPE_FILE%.delta.sh}.err"
+    TIME_FILE="${RECIPE_FILE%.delta.sh}.summary.txt"
+    RECIPE_DONE_FILE="${RECIPE_FILE%.delta.sh}.done.sh"
+else
+    LOG_FILE="${RECIPE_FILE}.log"
+    ERROR_FILE="${RECIPE_FILE}.err"
+    TIME_FILE="${RECIPE_FILE}.summary.txt"
+    RECIPE_DONE_FILE="${RECIPE_FILE}.done.sh"
+fi
 
 # Clear previous log file and tike file
 : > "$LOG_FILE"
-: > "$TIME_FILE"
 : > "$ERROR_FILE"
+CAPTURE_DATE=$(date '+%Y-%m-%d')
+CAPTURE_TIME=$(date '+%H:%M:%S %Z')
+CAPTURE_USER=$(whoami)	
+echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$RECIPE_DONE_FILE"
+echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$TIME_FILE"
 # Redirect stdout and stderr to log file
 echo "[coble-create] Redirected STDOUT to file: $LOG_FILE" >&2
 echo "[coble-create] Redirected STDERR to file: $ERROR_FILE" >&2
@@ -140,8 +156,8 @@ case "$RECIPE_FILE" in
         ;;
 esac
 
-#echo "[coble-create] Deactivating existing envs"
-#conda deactivate
+echo "[coble-create] Deactivating existing envs"
+conda deactivate
 # run each line of the recipe line by line
 echo "[coble-create] Executing recipe script: $RECIPE_FILE"
 total_lines=$(wc -l < "$RECIPE_FILE")
@@ -206,6 +222,7 @@ run_line() {
 while IFS= read -r line || [[ -n "$line" ]]; do    
     # Copy the last log file to LOG_FILE_date and start a new one
     # but only if it has more than 10 lines    
+    echo "$line" >> "$RECIPE_DONE_FILE"
     line_count=$(wc -l < "$LOG_FILE")    
     if [[ $line_count -gt 3 ]]; then
         if [[ $KEEP_LOGS -eq 1 ]]; then
