@@ -14,6 +14,23 @@ flowchart LR
 	ERR -- Yes --> CAP[Capture environment libs and versions]	
 ```
 
+```mermaid
+flowchart LR
+    subgraph "COBLE Workflow"
+        subgraph "Local Development"
+            A[Write Recipe]
+            B[Test Locally]
+        end
+        subgraph "HPC Cluster"
+            C[Submit Job]
+            D[Build Package]
+        end
+    end
+    
+    B --> C
+    D --> E[Deploy]
+```
+
 ## log and output files
 Inputs
 ```bash
