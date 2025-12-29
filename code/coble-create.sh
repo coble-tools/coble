@@ -88,6 +88,13 @@ if [[ ! -f "$RECIPE_FILE" ]]; then
     echo "[coble-create] Error: Input recipe file not found: $RECIPE_FILE" >&2
     exit 1
 fi
+
+# if the recipe file is empty then exit
+if [[ ! -s "$RECIPE_FILE" ]]; then
+    echo "[coble-create]: No updates, recipe file is empty: $RECIPE_FILE" >&2
+    exit 0
+fi
+
 mkdir -p "$OUTDIR"
 base_name="${RECIPE_FILE##*/}"
 base_name_noext="${base_name%.*}"

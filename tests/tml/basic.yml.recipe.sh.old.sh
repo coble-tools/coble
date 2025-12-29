@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2025
 # Capture date: 2025-12-29
-# Capture time: 14:28:00 GMT
+# Capture time: 14:43:26 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -38,4 +38,7 @@ conda install -y  --no-update-deps \
 conda install -y  --no-update-deps \
 'r-tidyverse' \
 'r-ggplot2' 
+# pip:
+python -m pip install 'requests' 
+python -m pip install 'numpy' 
 

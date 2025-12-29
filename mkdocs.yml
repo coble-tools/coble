@@ -51,7 +51,8 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - toc:
-      permalink: true
+      permalink: true    
+  - pymdownx.mermaid
 
 nav:
   - Overview:

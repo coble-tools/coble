@@ -17,3 +17,6 @@ conda:
 r-conda:
   - tidyverse
   - ggplot2
+pip:
+  - requests
+  - numpy

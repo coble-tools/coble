@@ -35,3 +35,15 @@ conda activate ./myenv
 conda activate ./myenv
 # Adding to env captured by ralcraft on 2025-12-29 at 14:28:47 GMT
 conda activate ./myenv
+# Adding to env captured by ralcraft on 2025-12-29 at 14:35:22 GMT
+conda activate ./myenv
+# Adding to env captured by ralcraft on 2025-12-29 at 14:36:01 GMT
+conda activate ./myenv
+python -m pip install 'requests' 
+
+# Adding to env captured by ralcraft on 2025-12-29 at 14:41:14 GMT
+# Adding to env captured by ralcraft on 2025-12-29 at 14:41:30 GMT
+# Adding to env captured by ralcraft on 2025-12-29 at 14:43:27 GMT
+conda activate ./myenv
+python -m pip install 'numpy' 
+

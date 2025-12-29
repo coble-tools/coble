@@ -70,3 +70,8 @@ while IFS= read -r line; do
         new=false      
     fi
 done < "$all_recipe"
+
+# if update recipe only contains an activate line then empty it
+if [[ $(wc -l < "$update_recipe") -le 1 ]]; then
+    : > "$update_recipe"
+fi
