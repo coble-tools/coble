@@ -18,13 +18,28 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/bin/coble  # Just check the file exists    
+    - test -f $PREFIX/bin/coble  # Just check the files exist
+    - test -f $PREFIX/bin/coble-capture.sh
+    - test -f $PREFIX/bin/coble-errors.sh
+    - test -f $PREFIX/bin/coble-rationalise.sh
+    - test -f $PREFIX/bin/coble-resolve.sh
+    - test -f $PREFIX/bin/coble-update.sh
+    - test -f $PREFIX/bin/coble-tml_bioinf.sh
+    - test -f $PREFIX/bin/coble-tml_sylver.sh
+    - test -f $PREFIX/bin/coble-capture-r.R
+    - test -f $PREFIX/bin/coble-create.sh
+    - test -f $PREFIX/bin/coble-find.sh
+    - test -f $PREFIX/bin/coble-recipise.sh
+    - test -f $PREFIX/bin/coble-template.sh
+    - test -f $PREFIX/bin/coble-tml_basic.sh
+    - test -f $PREFIX/bin/coble-tml_fix.sh
+    - test -f $PREFIX/bin/coble-tml_versions.sh
 
 about:
-  home: https://github.com/yourusername/my-bash-utility
+  home: https://icr-rse-group.github.io/coble/
   license: MIT
   license_file: LICENSE
-  summary: 'A brief description of your utility'
+  summary: 'COBLE: COnda BuiLdEr'
   description: |
-    A longer description of what your utility does
-  dev_url: https://github.com/yourusername/my-bash-utility
+    A utility to help build conda environments for reproducibility in research software.
+  dev_url: https://github.com/ICR-RSE-Group/coble

@@ -6,9 +6,25 @@ Generally it is best to install with conda if possible, and then install.package
 
 Here follows some common errors, why and how to fix them.  
 
+# Initial errors
+Sometimes initial errors indicate you are trying to create a conda environment on top of an old one. Do some aggressive cleaning, e.g.
+```bash
+# First, make sure you're NOT in the environment
+conda deactivate
+# Delete the environment
+conda env remove -n my-env
+# Or use the full path:
+conda env remove -p /path/to/my-env
+# And/Or use the file path
+rm -rf /path/to/my-env
+# Verify it's gone
+conda env list
+``` 
+
 # Conda dependencies
 
-the main languaes are pinned
+
+
 
 
 # New R version - bioconductor not built

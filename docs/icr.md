@@ -17,10 +17,9 @@ update --input mycoble.cbl --env ./env-cbl
 
 ## SLURM
 ```bash
-/data/rds/DIT/SCICOM/SCRSE/shared/apps/coble
-
 sbatch -o my.log -e my.err --time 12:00:00 -c 4 --wrap \
-"/data/rds/DIT/SCICOM/SCRSE/shared/apps/coble/code/coble update --input mycoble.cbl --env ./env-cbl"
+"/data/rds/DIT/SCICOM/SCRSE/shared/apps/coble/code/coble \
+update --input mycoble.cbl --env ./env-cbl"
 ```
 
 
