@@ -209,7 +209,9 @@ run_line() {
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
     else
         # the last install failed so remove it from done file
-        sed -i '' -e '$s/^/# /' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/# /' "$RECIPE_DONE_FILE"                
+        sed -i '' -e '$d' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$d' "$RECIPE_DONE_FILE"
+        sed -i '' -e '$s/^/#/' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/#/' "$RECIPE_DONE_FILE"
+        echo "# Removed final line due to error" >> "$RECIPE_DONE_FILE"        
         if [[ "$EXIT_ON_ERROR" == "1" ]]; then
             echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
             exit 1

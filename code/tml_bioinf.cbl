@@ -211,16 +211,18 @@ r-url:
 r-package:
   - packcircles
 
-r-conda:
-  - pdftools  
-  - s2  
-  - sf  
-bioc-package:
-  - chromVAR
-  - ComplexHeatmap
-  - motifmatchr
-  - slingshot
-  - grr
+#r-conda:
+#  - pdftools  
+#  - s2  
+#  - sf  
+#bioc-conda:
+#  - tfbstools
+#bioc-package:
+#  - chromVAR
+#  - ComplexHeatmap
+#  - motifmatchr
+#  - slingshot
+#  - grr
 # r-conda:
 #  - TFMPvalue
 #r-url:
