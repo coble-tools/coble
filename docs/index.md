@@ -36,16 +36,17 @@ coble build --input my.cbl --env my-env
 - To generate a starter template, run:
 
    ```
-   coble template --input tst.cbl --flavour ???
+   coble recipe --input tst.cbl --flavour ???
    ```
    This will create a template cbl input file you can edit.
 
 - There are five template flavours, selectable with `--flavour`:
    - `basic` (default)  
    - `bioinf` (very complex)  
-   - `fix` (fix - tutorial on fixing)  
+   - `fix` (tutorial on fixing)  
    - `sylver` (publication tutorial)  
    - `versions` (shows specifying versions)  
+   - `bash` (pure bash example)  
 
 You can activate a flavour by passing `--flavour <type>` to the template command.
 

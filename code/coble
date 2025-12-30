@@ -31,8 +31,8 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	exit 0
 fi
 
-# If the first argument is 'template', call coble-template.sh and exit
-if [[ "$1" == "template" ]]; then
+# If the first argument is 'recipe', call coble-template.sh and exit
+if [[ "$1" == "recipe" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-template.sh" "${@:2}"
 	exit $?

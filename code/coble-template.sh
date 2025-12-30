@@ -18,9 +18,9 @@ FLAVOUR="basic"
 
 # Parse arguments ########################################################
 show_help() {
-    echo "----- coble template help ----------"    
+    echo "----- coble recipe help ----------"    
     echo "Usage: $0 --input YAML_FILE"    
-    echo "  --input     YAML                    Specify input YAML file - it will be populated with this versions example template"    
+    echo "  --input     CBL                    Specify input CBL file - it will be populated with this versions example template"    
     echo "  --flavour   find/python/r/mixed     Type of environment to create (default: mixed)"
     echo "  -h, --help  Show this help message and exit"
     echo "------------------------------------"    
@@ -56,6 +56,9 @@ elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then
 elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(bash)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_bash.cbl" "$YAML_FILE"
 else
     echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
     exit 1

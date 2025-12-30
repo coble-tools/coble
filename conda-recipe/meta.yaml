@@ -17,7 +17,10 @@ requirements:
     - bash
 
 test:
+  source_files:
+    - ../tests/conda/tests.sh
   commands:
+    - bash tests.sh
     - test -f $PREFIX/bin/coble  # Just check the files exist
     - test -f $PREFIX/bin/coble-capture.sh
     - test -f $PREFIX/bin/coble-errors.sh
@@ -34,7 +37,7 @@ test:
     - test -f $PREFIX/bin/coble-tml_basic.sh
     - test -f $PREFIX/bin/coble-tml_fix.sh
     - test -f $PREFIX/bin/coble-tml_versions.sh
-
+    
 about:
   home: https://icr-rse-group.github.io/coble/
   license: MIT

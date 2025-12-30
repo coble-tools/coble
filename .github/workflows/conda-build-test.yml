@@ -1,0 +1,42 @@
+name: Build and Test Coble Conda Recipe
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-test-conda:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+
+      - name: Build conda recipe
+        run: |
+          conda install conda-build -y
+          conda build conda-recipe
+
+      - name: Create test environment from built package
+        run: |
+          PKG_PATH=$(conda build conda-recipe --output)
+          conda create -y -n test-coble "$PKG_PATH"
+
+      - name: Run coble tests in test environment
+        shell: bash -l {0}
+        run: |
+          conda activate test-coble
+          # Example: run a test script or command
+          if [ -f tests/test.sh ]; then
+            bash tests/test.sh
+          else
+            echo "No test.sh found, please add tests to tests/test.sh"
+          fi

@@ -256,7 +256,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
         #fi      
-    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]]; then
+    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:" ]]; then
         pkg_entry="${line#- }"
         #echo "[conda-recipise] Processing entry: $pkg_entry" >&2
         IFS='@' read -r pkg src path <<< "$pkg_entry"

@@ -20,6 +20,7 @@ cp code/coble-template.sh $PREFIX/bin/coble-template.sh
 cp code/tml_basic.cbl $PREFIX/bin/coble-tml_basic.sh
 cp code/tml_fix.cbl $PREFIX/bin/coble-tml_fix.sh
 cp code/tml_versions.cbl $PREFIX/bin/coble-tml_versions.sh
+cp code/tml_bash.cbl $PREFIX/bin/coble-tml_bash.sh
 
 # Make them executable
 chmod +x $PREFIX/bin/coble
@@ -38,3 +39,4 @@ chmod +x $PREFIX/bin/coble-template.sh
 chmod +x $PREFIX/bin/coble-tml_basic.sh
 chmod +x $PREFIX/bin/coble-tml_fix.sh
 chmod +x $PREFIX/bin/coble-tml_versions.sh
+chmod +x $PREFIX/bin/coble-tml_bash.sh
