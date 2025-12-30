@@ -1,25 +1,18 @@
-#######################################
-# COBLE:Reproducible environment yaml, (c) ICR 2025
-#######################################
-
+#####################################################
+# COBLE:Reproducible environment: BASIC, (c) ICR 2025
+#####################################################
 coble:
-  - environment: coble-env
+  - environment: coble-env-bash
 channels:
 # note the reverse order of priority
   - defaults
   - r
   - bioconda
   - conda-forge
-flags:
-  - dependencies: True
-  - build-tools: True
-find:
-  - countreg  
-  - r-base=4.5.2
-  - r-base=3.6.0
-  - devtools  
-  - cdsr_models
-  - SQUEAK
-  - gitalma
-  - car
-  
+languages:
+  - python=3.13.1@conda-forge
+  - r-base=4.3.1@conda-forge
+bash:
+python -m pip install pandas
+Rscript -e "install.packages('tidyverse', repos='https://cloud.r-project.org/')"
+  - Rscript -e "install.packages('ggplot2', repos='https://cloud.r-project.org/')"

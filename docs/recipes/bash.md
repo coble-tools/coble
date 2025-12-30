@@ -1,27 +1,20 @@
-# Basic COBLE Recipe
+# Bash COBLE Recipe
 
-The basic template for a coble environment has the major package managers that you are likely to need in a simple environment. To get the template, and then to create the environment, simply:
+The bash template os just to deoonstarte that you can free form bash as you like in the recipe file. You are best to keep the initial headers for channel and perhaps build tools if you are using a conda environment.
+
 
 ```bash
-coble recipe --input basic/basic.cbl --flavour basic
-coble build --input basic/basic.cbl --env coble-basic-env
+coble recipe --input bash.cbl --flavour bash
+coble build --input bash.cbl --env coble-bash-env
 ```
 
-The environment is set to the given R and python versions and allows the other versions to be found accordingly. By default the conda intsalls are done with `--no-update-deps` so there is no risk of the R or python version changing during set up.
-
-For a simple environment you can modify this to suit your needs.  
-
-Once created, there is a capture file with the specific versions of all the libraries loaded in the environment.
-
-During creation there are some outputs, for the given input `myinput.cbl`:
-
 ### Input recipe yaml
+Note this shows the `  - ` is removed so you can have it or not for the bash lines.
+If you write the bash like this the "delta" bash script will work for updates, ensuring only different lines are run.
+
 ```yaml
-#####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2025
-#####################################################
 coble:
-  - environment: coble-env-basic
+  - environment: coble-env-bash
 channels:
 # note the reverse order of priority
   - defaults
@@ -31,12 +24,8 @@ channels:
 languages:
   - python=3.13.1@conda-forge
   - r-base=4.3.1@conda-forge
-conda:
-  - pandas
-r-conda:
-  - tidyverse
-r-package:
-  - ggplot2
-pip:
-  - requests
+bash:
+python -m pip install pandas
+Rscript -e "install.packages('tidyverse', repos='https://cloud.r-project.org/')"
+  - Rscript -e "install.packages('ggplot2', repos='https://cloud.r-project.org/')"
 ```

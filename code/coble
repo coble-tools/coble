@@ -15,11 +15,12 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 
 show_help() {
 	echo "Usage: $0 <command> [options]"
-	echo "  capture   Capture the current environment (calls coble-capture.sh)"
-	echo "  recreate/create  Recreate an environment from a capture (calls coble-recreate.sh)"
+	echo "  recipe   get a starter recipe of 5 given options"
+	echo "  build    build the conda enviroment from scratch clean"
+	echo "  update   update an existing environment from the changes to the recipe input"
 	echo "Example:"
-	echo "  $0 capture [options]"
-	echo "  $0 recreate/create [options]"
+	echo "  $0 recipe --input my.cbl --flavour basic"
+	echo "  $0 build --input my.cbl --env my-env"
 }
 
 start_time=$(date +%s)
