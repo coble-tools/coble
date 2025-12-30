@@ -34,10 +34,7 @@ coble-capture-*.yml
 *bak2.yml
 *.yml.recipe.sh
 *.yml.recipe.sh.summary.txt
-
-
 local/*
 myenv/*
-
 xold/*
-
+tutorials/*

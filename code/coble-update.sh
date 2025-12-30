@@ -59,6 +59,8 @@ while IFS= read -r line; do
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "ln -sf"* ]]; then        
         echo "$line" >> "$update_recipe"                
+    elif [[ "$line" == "conda config --env --set"* ]]; then        
+        echo "$line" >> "$update_recipe"                        
     elif ! grep -Fxq "$line" "$done_recipe"; then        
         new=true        
     fi

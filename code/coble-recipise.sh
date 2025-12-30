@@ -120,6 +120,7 @@ NCPUS="4"
 DEPS_CONDA=""
 DEPS_PYTHON=""
 DEPS_R="TRUE"
+PRIORITY="strict"
 
 
 # output is a recipe file for conda env create (always in current directory)
@@ -181,7 +182,7 @@ echo "" >> "$RECIPE_FILE"
 echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
 echo "conda config --env --remove-key channels" >> "$RECIPE_FILE"
-echo "conda config --env --set channel_priority strict" >> "$RECIPE_FILE"
+echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
 if [[ $r_count -gt 1 ]]; then
@@ -288,6 +289,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "[conda-recipise] Ncpus specified as $value" >&2
                 NCPUS="$value"
                 echo "[conda-recipise] = $NCPUS" >&2
+            elif [[ "${directive,,}" == "priority" ]]; then
+                echo "[conda-recipise] Channel priority specified as $value" >&2
+                PRIORITY="$value"                
+                echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                
                 echo "[conda-recipise] (default) Will not update dependencies" >&2
                 UPDATE_CONDA="--no-update-deps"                

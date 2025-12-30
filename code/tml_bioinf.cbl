@@ -9,13 +9,15 @@ channels:
   - r
   - bioconda
   - conda-forge
-languages:
-  - r-base=4.5.2@conda-forge
-  - python=3.14.0@conda-forge
+
 flags:
   - dependencies: True
   - build-tools: True
   - ncpus: 8
+
+languages:
+  - r-base=4.5.2@conda-forge
+  - python=3.14.0@conda-forge
 
 bash:
   - # Special installs outside of conda for awkward pysamstats package  

@@ -33,8 +33,6 @@ languages:
   - r-base=4.3.1@conda-forge
 conda:
   - pandas
-r-conda:
-  - tidyverse
 r-package:
   - ggplot2
 pip:

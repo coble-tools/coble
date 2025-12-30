@@ -15,11 +15,4 @@ flags:
   - build-tools: True
 find:
   - countreg  
-  - r-base=4.5.2
-  - r-base=3.6.0
-  - devtools  
-  - cdsr_models
-  - SQUEAK
-  - gitalma
-  - car
-  
+  - r-base=4.4.2

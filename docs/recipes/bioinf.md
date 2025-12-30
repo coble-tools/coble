@@ -10,5 +10,5 @@ coble build --input bioinf.cbl --env coble-bioinf-env
 ```
 
 ### Input recipe yaml
-The input cbl file is 508 lines long so not included here but can be found on github here:  
+The input cbl file is 508 lines long so not included here but can be found on github:  
 [bioinf.cbl](https://github.com/ICR-RSE-Group/coble/blob/main/code/tml_bioinf.cbl)  

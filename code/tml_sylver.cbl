@@ -13,11 +13,12 @@ channels:
   - bioconda
   - conda-forge
 
-languages:
-
 flags:
   - dependencies: True
   - build-tools: True
+  - priority: flexible
+
+languages:
 
 find:
   - r-base=3.6.0

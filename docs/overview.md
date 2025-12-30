@@ -56,7 +56,7 @@ flowchart LR
 **Logs and tracking**  
 - **input.cbl.recipe.sh.log** - each bash line cleans the log file so you can track the current stdout  
 - **input.cbl.recipe.sh.err** - each bash line cleans the err file so you can track the current stderr  
-- **input.cbl.recipe.sh.summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This are output along with the timings  
+- **input.cbl.recipe.sh.summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
 **Catured environment**  
 - **input.cbl.recipe.sh.capture.cml** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
 

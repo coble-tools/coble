@@ -14,8 +14,7 @@ languages:
   - r-base=4.3.1@conda-forge
 conda:
   - pandas
-r-conda:
-  - tidyverse
+r-conda:  
   - ggplot2
 bioc-conda:
   - fgsea

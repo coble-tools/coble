@@ -50,7 +50,7 @@ elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then
 elif [[ "$FLAVOUR" =~ ^(bioinf)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_bioinf.cbl" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then    
+elif [[ "$FLAVOUR" =~ ^(fix)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_fix.cbl" "$YAML_FILE"
 elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    

@@ -96,7 +96,7 @@ check_and_print() {
             else
                 recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", dependencies=TRUE)'"
             fi
-            manager="bioconductor:"
+            manager="bioc-package:"
             ;;
         "r-forge")
             recipe_line="Rscript -e 'install.packages(\"$pkg_name\", repos=c(\"http://R-Forge.R-project.org\"), dependencies=TRUE)'"

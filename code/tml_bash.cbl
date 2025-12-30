@@ -14,5 +14,4 @@ languages:
   - r-base=4.3.1@conda-forge
 bash:
 python -m pip install pandas
-Rscript -e "install.packages('tidyverse', repos='https://cloud.r-project.org/')"
   - Rscript -e "install.packages('ggplot2', repos='https://cloud.r-project.org/')"
