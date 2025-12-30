@@ -113,7 +113,7 @@ conda:
 r-conda:
   - gifski  
 r-package:
-  - TFMPvalue
+  #- TFMPvalue
   - otelsdk
   - knitr
   - rmarkdown
