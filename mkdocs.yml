@@ -60,6 +60,7 @@ markdown_extensions:
 nav:
   - Overview:
     - Home: index.md
+    - Installation: install.md
     - Motivation: motivation.md  
   - COBLE:
     - Workflow: overview.md
