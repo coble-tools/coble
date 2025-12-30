@@ -40,7 +40,3 @@ chmod +x $PREFIX/bin/coble-tml_basic.sh
 chmod +x $PREFIX/bin/coble-tml_fix.sh
 chmod +x $PREFIX/bin/coble-tml_versions.sh
 chmod +x $PREFIX/bin/coble-tml_bash.sh
-
-# Copy and executable the tests
-cp tests/conda/tests.sh $PREFIX/bin/tests.sh
-chmod +x $PREFIX/bin/tests.sh
