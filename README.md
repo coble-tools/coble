@@ -1,14 +1,14 @@
 # COBLE: COnda BuiLdEr
-`COBLE - COnda BuiLdEr: Build and manage conda environments`
+`COBLE - COnda BuiLdEr: Build and manage conda environments`  
 Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.  
 *Contacts: Rachel Alcraft, Syed Haider*  
 
 ---  
 
 Documentation:
-[GitHub Docs Site](https://icr-rse-group.github.io/coble/)
-[GitHub repo](https://github.com/ICR-RSE-Group/coble)
-[GitHub Issues](https://github.com/ICR-RSE-Group/coble/issues)
+- GitHub Docs Site: [icr-rse-group.github.io/coble/](https://icr-rse-group.github.io/coble/)  
+- GitHub repo: [github.com/ICR-RSE-Group/coble](https://github.com/ICR-RSE-Group/coble)  
+- GitHub Issues: [github.com/ICR-RSE-Group/coble/issues](https://github.com/ICR-RSE-Group/coble/issues)  
 
 ---  
 
