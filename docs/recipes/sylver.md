@@ -21,15 +21,20 @@ For details, see relevant sections in Methods.
 ## Methods info
 Further info in [methods](https://www.nature.com/articles/s41588-025-02108-2#Sec2):  
 ```text
-DNA methylation data (level 3 β values)—were downloaded from http://gdac.broadinstitute.org (release 28 January 2016). 
+DNA methylation data (level 3 β values)—were downloaded from 
+http://gdac.broadinstitute.org (release 28 January 2016). 
 
 Statistics and reproducibility
-All analyses were performed in R statistical programming environment (v.3.6.0, except where stated as v.4.1.0). No data 
-were excluded from the analyses unless stated otherwise.
+All analyses were performed in R statistical programming environment 
+(v.3.6.0, except where stated as v.4.1.0). No data were excluded 
+from the analyses unless stated otherwise.
 
-For each TSG, two-class comparison of the genome-wide CRISPR–Cas9 screen data was performed between these two groups 
-(defective and proficient) using linear regression (function: cdsrmodels::run_lm_stats_limma) as implemented by the 
-Broad Institute’s Cancer Data Science team for these datasets (R package: cdsrmodels, v.0.1.0; R v.4.1.0)
+For each TSG, two-class comparison of the genome-wide CRISPR–Cas9 
+screen data was performed between these two groups 
+(defective and proficient) using linear regression 
+(function: cdsrmodels::run_lm_stats_limma) as implemented by the 
+Broad Institute’s Cancer Data Science team for these datasets 
+(R package: cdsrmodels, v.0.1.0; R v.4.1.0)
 ```
 
 ---  
