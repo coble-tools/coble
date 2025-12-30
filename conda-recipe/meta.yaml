@@ -16,11 +16,9 @@ requirements:
   run:
     - bash
 
-test:
-  source_files:
-    - tests/conda/tests.sh
+test:  
   commands:
-    - bash tests.sh
+    - bash $PREFIX/bin/tests.sh
     - test -f $PREFIX/bin/coble  # Just check the files exist
     - test -f $PREFIX/bin/coble-capture.sh
     - test -f $PREFIX/bin/coble-errors.sh
