@@ -152,7 +152,8 @@ r-package:
   - chicane
 
 r-conda:
-  - v8
+  - v8  
+  - arrow
 bioc-package:  
   - multtest
   - GSEABase
@@ -396,8 +397,6 @@ bioc-package:
 - DEXSeq
 
 # # for R package SCENIC
-r-conda:
-  - arrow
 bioc-package:
   - AUCell
   - RcisTarget
