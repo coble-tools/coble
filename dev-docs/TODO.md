@@ -1,3 +1,14 @@
+30/12/25
+-[ ] conda exe make an option?
+-[ ] change coble-web to use pyviz
+-[ ] make the docker for coble-web
+-[ ] create a docker version of coble, and singularity
+-[ ] ensure installation from capture
+-[ ] prepare for conda-forge
+-[ ] add a dry run?
+-[ ] Make pinning work?
+-[ ] in coble-web satisfactoruly make dependncy viewer
+
 23/12/25
 -[ ] Need to implement an updater now
 -[ ] Need to create the basics of a web app for icr
