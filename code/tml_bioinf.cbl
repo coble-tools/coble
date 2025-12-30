@@ -232,6 +232,8 @@ r-package:
 #bash:
 #  - Rscript -e "ArchR::installExtraPackages()"
 
+r-conda:
+  - grr
 r-url:
   - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
 
