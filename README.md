@@ -31,4 +31,4 @@ When installed through conda the utility and all the scripts are in the path so 
 git clone git@github.com:ICR-RSE-Group/coble.git
 coble/code/coble -h 
 ```
-You need to add the folder coble/cide to the path or refer to the coble utility script by full or relative path.
+You need to add the folder coble/code to the path or refer to the coble utility script by full or relative path.
