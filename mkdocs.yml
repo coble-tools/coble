@@ -78,8 +78,5 @@ nav:
     - CountReg(Fix): recipes/countreg.md
     - Troubleshooting: troubleshooting.md
   - Containers: 
-    - Containers: containers.md
-    - Docker Build: docker-build.md
-    - Singularity: singularity.md
-    - Container Environments: container-env.md          
+    - Containers: containers.md    
   - About: about.md
