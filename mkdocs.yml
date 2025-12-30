@@ -68,7 +68,14 @@ nav:
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
+    - Bash: recipes/bash.md
     - Versions: recipes/versions.md
+    - Bioinformatics: recipes/bioinf.md
+  - Tutorials:
+    - Overview: tutorial.md
+    - SYLVER(Find): recipes/sylver.md
+    - CountReg(Fix): recipes/countreg.md
+    - Troubleshooting: troubleshooting.md
   - Containers: 
     - Containers: containers.md
     - Docker Build: docker-build.md
