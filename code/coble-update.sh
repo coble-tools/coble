@@ -55,6 +55,10 @@ while IFS= read -r line; do
     line_over+=("${line}")                    
     if [[ "$line" == "conda activate"* ]]; then        
         echo "$line" >> "$update_recipe"                
+    elif [[ "$line" == "export "* ]]; then        
+        echo "$line" >> "$update_recipe"                
+    elif [[ "$line" == "ln -sf"* ]]; then        
+        echo "$line" >> "$update_recipe"                
     elif ! grep -Fxq "$line" "$done_recipe"; then        
         new=true        
     fi

@@ -54,3 +54,39 @@ Set a github PAT access token in your bashrc. Append to the end:
 export GITHUB_PAT="ghp_your-bash-token"
 ```
 
+
+# GLIBC compatibility issues (HPC)
+```bash
+Error: package or namespace load failed for 'arrow' in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV/CBL/env-cbl/lib/R/library/00LOCK-arrow/00new/arrow/libs/arrow.so':
+  /data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV/CBL/env-cbl/lib/R/library/00LOCK-arrow/00new/arrow/libs/arrow.so: 
+  undefined symbol: __libc_single_threaded
+Error: loading failed
+Execution halted
+ERROR: loading failed
+* removing '/data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV/CBL/env-cbl/lib/R/library/arrow'
+```
+To skip an unneeded dependency load the package manually, or use conda:
+```yaml
+bash:
+  - Rscipe -e 'install.packages("tidyverse", dependencies = c("Depends", "Imports"))'
+r-conda:
+  - arrow
+```
+
+# Missing header files (archived versions)
+Trying to install an archived version for backwards compatibility can be hard. e.g. maptools is retired along with its dependecies. Modern installations of sp do not have header files so to get the installation you need to install version 1.6.0
+
+```bash
+using C compiler: ‘x86_64-conda-linux-gnu-cc (conda-forge gcc 15.2.0-16) 15.2.0’
+using C++ compiler: ‘x86_64-conda-linux-gnu-c++ (conda-forge gcc 15.2.0-16) 15.2.0’
+In file included from init.c:3:
+rgeos.h:59:10: fatal error: sp.h: No such file or directory
+   59 | #include "sp.h"
+      |          ^~~~~~
+compilation terminated.
+make: *** [/home/ralcraft/miniconda/envs/452/lib/R/etc/Makeconf:204: init.o] Error 1
+ERROR: compilation failed for package ‘rgeos’
+```
+I had to keep tryuing version sof sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
+

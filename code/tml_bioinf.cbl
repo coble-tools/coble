@@ -498,8 +498,11 @@ r-url:
   - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
   - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
 
-# Added to try to fix
-r-package:
-  - maptools
+# Maptools is deprecated and I did a fix to memory allocation
+conda:
+  - geos
+r-url:
+  - https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz  
+  - https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz
+  - https://github.com/rachelicr/r-maptools/archive/refs/heads/main.zip
   
-

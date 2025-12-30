@@ -27,6 +27,7 @@ stdout_patterns=(
     "please re-install it"
     "Could not solve for environment specs"
     "Failed to build"     
+    "ERROR: compilation failed" 
 )
 error_patterns=(
     #"* removing"
@@ -47,6 +48,7 @@ error_patterns=(
     "there is no package"
     "Failed to build" 
     "packages failed:"
+    "ERROR: compilation failed" 
 )
 done_patterns=(    
     "Successfully installed"

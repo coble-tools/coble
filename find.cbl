@@ -1,15 +1,14 @@
 find:  
-#   - TFMPvalue
+#   - sp
 found|conda:
-  - r-TFMPvalue@bioconda
+  - r-sp@conda-forge
 found|conda:
-  - r-TFMPvalue@conda-forge
-found|conda:
-  - r-TFMPvalue@r
+  - r-sp@r
 found|r-package:
-  - TFMPvalue@CRAN
+  - sp@CRAN
 found|r-package:
-  - TFMPvalue@CRAN
+  - sp@CRAN
+found|pip:
+  - sp
 
-#   -  TFBSTools
 
