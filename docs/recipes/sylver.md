@@ -47,16 +47,16 @@ Assume you have will use e.g. `tutorials/sylver` and want to create an inital re
 coble recipe --input tutorials/sylver/sylver.cbl --flavour sylver
 ```
 This has creates the `cbl` file at `sylver.cbl` with the usual beginning of channels and flags along with a large find section transcribed from the publication:
+Note that defaults is the higherst priority in the strict channel order due to decommissioned versions that are required by R-3.6.0.
 ```yaml
 coble:
   - environment: coble-env
-
 channels:
-# note the reverse order of priority
-  - defaults
+# note the reverse order of priority. T
   - r
   - bioconda
   - conda-forge
+  - defaults
 
 languages:
 
@@ -109,11 +109,11 @@ coble:
   - environment: coble-env
 
 channels:
-# note the reverse order of priority
-  - defaults
+# note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
+  - defaults
 
 languages:
 
@@ -258,11 +258,11 @@ Each section has been commented, and there is a `found|packagemanager` we can ed
 coble:
   - environment: coble-env
 channels:
-# note the reverse order of priority
-  - defaults
+# note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
+  - defaults
 languages:
   - r-base=3.6.0@r
   - r-base=4.1.0@conda-forge
@@ -293,11 +293,11 @@ We can see that cdsr_models was not found, and I can neaten the conda installs t
 coble:
   - environment: coble-env
 channels:
-# note the reverse order of priority
-  - defaults
+# note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
+  - defaults
 flags:
   - dependencies: True
   - build-tools: True  
@@ -344,8 +344,4 @@ Now we are running we can track the logs.
 - **sylver.cbl.recipe.sh.log** - each bash install cleans and runs here so you can track the stdout  
 - **sylver.cbl.recipe.sh.err** - each bash line cleans the err file so you can track the current stderr  
 - **sylver.cbl.recipe.sh.summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings so you can keep an eye on the entire install here.
-
-
-
-
 

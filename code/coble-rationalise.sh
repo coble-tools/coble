@@ -64,18 +64,19 @@ ok=true
 while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
         section_name="${BASH_REMATCH[1]}"
-    if [[ "$section_name" != "coble" &&  ]]; then
-        count=$((count + 1))
-        coble_count=$count
-    elif [[ "$section_name" == "channels" ]]; then
-        count=$((count + 1))
-        channels_count=$count
-    elif [[ "$section_name" == "languages" ]]; then
-        count=$((count + 1))
-        languages_count=$count
-    elif [[ "$section_name" == "flags" ]]; then
-        count=$((count + 1))
-        flags_count=$count            
+        if [[ "$section_name" == "coble" ]]; then
+            count=$((count + 1))
+            coble_count=$count
+        elif [[ "$section_name" == "channels" ]]; then
+            count=$((count + 1))
+            channels_count=$count
+        elif [[ "$section_name" == "languages" ]]; then
+            count=$((count + 1))
+            languages_count=$count
+        elif [[ "$section_name" == "flags" ]]; then
+            count=$((count + 1))
+            flags_count=$count            
+        fi
     fi
 done < "$YAML_FILE"
 if [[ $coble_count -ne 1 || $channels_count -ne 2 || $languages_count -ne 3 || $flags_count -ne 4 ]]; then

@@ -252,7 +252,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "conda install -y $DEPS_CONDA $UPDATE_CONDA \\" >> "$RECIPE_FILE"
+          echo "conda install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
         fi      
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
@@ -268,21 +268,21 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
             echo "[conda-recipise] Processing flag: $pkg_entry" >&2
             directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
-            value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"            
-            value=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: $value" >&2    
-            echo "# Flag: Directive: $directive, Value: $value" >> "$RECIPE_FILE"             
-            if [[ "$directive,," == "dependencies" && "$value,," == "true" ]]; then                
+            value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')
+            echo "[conda-recipise] Directive: $directive, Value: $value_lower" >&2    
+            echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+            if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                
                 echo "[conda-recipise] (default) Will install dependencies" >&2
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "${directive,,}" == "dependencies" && "$value,," == "false" ]]; then                
+            elif [[ "${directive,,}" == "dependencies" && "$value_lower,," == "false" ]]; then                
                 echo "[conda-recipise] (!not default) Will NOT install dependencies" >&2
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
-            elif [[ "${directive,,}" == "updates" && "$value,," == "true" ]]; then
+            elif [[ "${directive,,}" == "updates" && "$value_lower,," == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
             elif [[ "${directive,,}" == "ncpus" ]]; then
@@ -308,7 +308,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Essential r mathematical libraries" >> "$RECIPE_FILE"
                     echo "conda install -y --no-update-deps -c conda-forge gsl nlopt udunits2 hdf5" >>  "$RECIPE_FILE"                                        
                     echo "# Essential r image libraries" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
+                    echo "conda install -y --no-update-deps -c conda-forge 'libuuid>=1.0.3,<2.0' libpng libtiff libjpeg-turbo librsvg r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
@@ -321,7 +321,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
                 echo "# Language XML/data libraries" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge 'libxml2>=2.12,<2.15' libcurl protobuf libprotobuf" >>  "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge libcurl protobuf libprotobuf" >>  "$RECIPE_FILE"
                 
                 echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"

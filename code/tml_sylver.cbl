@@ -7,19 +7,18 @@ coble:
   - environment: coble-env
 
 channels:
-# note the reverse order of priority
-  - defaults
+# note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
+  - defaults
+
+languages:
 
 flags:
   - dependencies: True
   - build-tools: True
-  - priority: flexible
-
-languages:
-
+  
 find:
   - r-base=3.6.0
   - r-base=4.1.0

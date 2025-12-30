@@ -264,7 +264,7 @@ while IFS= read -r line; do
 		ver=$(echo "$line" | cut -d'=' -f3)
 		src="pypi"
 		path=""
-		pkgver="$pkg=$ver"
+		pkgver="$pkg==$ver"
 		echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 	fi
 done < "$TMP_PIP_FREEZE_TXT"
@@ -318,10 +318,10 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	fi
 	echo -e ""
 	echo -e "flags:"
-	echo -e "  - dependencies: False"	
+	echo -e "  - dependencies: False"
 } > "$AGGREGATE_TXT"
 
-# Now lloop through the sorted file and keep as a variable the current mananager
+# Now loop through the sorted file and keep as a variable the current mananager
 current_manager=""
 header_skipped=false
 declare -A seen_pkgver
