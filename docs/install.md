@@ -1,61 +1,24 @@
-<img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
+# COBLE Installation
 
-# COBLE: COnda BuiLdEr
+Installation can be done through conda or github.
 
-COBLE is a tool to build and manage conda environments, developed at the Institute of Cancer Research by the *Research Software Engineering* team for, and with, the *Breast Cancer Research Data Science* group.
-
-## COBLE Workflow Overview
-
-This page describes the basic workflow for using the COBLE environment creation tool.
-
-### Basic Command
-
+## Conda Installation
+```bash
+# In your chosen conda environment, or in base:
+conda install rachelsa::coble
+# Test it
+coble -h
 ```
-coble build --input my.cbl --env my-env
+When installed through conda the utility and all the scripts are in the path so you can refer to it as `coble` wherever you are.
+
+
+## Github installation
+```bash
+git clone git@github.com:ICR-RSE-Group/coble.git
+coble/code/coble -h 
 ```
+You need to add the folder coble/cide to the path or refer to the coble utility script by full or relative path.
 
-### Workflow Steps
-
-1. **Find Block Resolution**
-   - The tool first processes any packages listed in the `find:` block of your YAML file.
-   - You will be prompted to review and confirm these packages before proceeding.
-   - The YAML file is updated in place based on your input.
-
-2. **Recipe Generation**
-   - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your YAML in the outdir.
-
-3. **Recipe Execution**
-    - No further prompting, the tool then executes the generated recipe script to create the environment.
-    - By default, the process will exit immediately if any errors are encountered, allowing you to correct issues and re-run as needed.
-    - You can override this behavior and continue on errors by passing the `--skip-errors` flag.
-
----
-
-## Template generation
-
-- To generate a starter template, run:
-
-   ```
-   coble recipe --input tst.cbl --flavour ???
-   ```
-   This will create a template cbl input file you can edit.
-
-- There are five template flavours, selectable with `--flavour`:
-   - `basic` (default)  
-   - `bioinf` (very complex)  
-   - `fix` (tutorial on fixing)  
-   - `sylver` (publication tutorial)  
-   - `versions` (shows specifying versions)  
-   - `bash` (pure bash example)  
-
-You can activate a flavour by passing `--flavour <type>` to the template command.
-
----  
-
-## Further Information
-
-- The environment (`--env`) can be either a name or a folder path. COBLE will automatically use `--name` or `--prefix` as appropriate.
-- If you specify more than one R or more than one Python version in the language block, COBLE will complain and refuse to continue. Otherwise, it will create a special language block in the cbl.
 
 
 

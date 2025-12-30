@@ -4,58 +4,42 @@
 
 COBLE is a tool to build and manage conda environments, developed at the Institute of Cancer Research by the *Research Software Engineering* team for, and with, the *Breast Cancer Research Data Science* group.
 
-## COBLE Workflow Overview
+### Overview
 
-This page describes the basic workflow for using the COBLE environment creation tool.
+The recipe definition of the environment you want can be composed of 4 main package managers:
+- R package installation
+- Bioconductor package installation
+- Conda package installation
+- Pip package installation
+Archive installation and github instllation also possible, along with raw bash commands for anythong bespoke. There are flags to include the most common build tools and environment variables automatically to simplify the setup.
 
-### Basic Command
-
+A simple recipe could look like this (file is `my-recipe.cbl`):
+```yaml
+coble:
+  - environment: coble-env-versions
+channels:
+  - bioconda
+  - conda-forge
+languages:
+  - python=3.13.1@conda-forge
+  - r-base=4.3.1@conda-forge
+conda:  
+  - pysam
+r-package:
+  - ggplot2
+pip:
+  - NumPy  
 ```
-coble build --input my.cbl --env my-env
+
+To build this there are 2 commands, either `build` or `update`. If you want to add to an existing environment use `update`, to completely clean and start again use `build`. As environments evolve you may be using `update` which will crertate a "delta" file and only install udpates, but ensure that `build` works in full so that the environment can be recreated if needed.
+
+```bash
+coble update --input my-recipe.cbl --env my-env
 ```
-
-### Workflow Steps
-
-1. **Find Block Resolution**
-   - The tool first processes any packages listed in the `find:` block of your YAML file.
-   - You will be prompted to review and confirm these packages before proceeding.
-   - The YAML file is updated in place based on your input.
-
-2. **Recipe Generation**
-   - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your YAML in the outdir.
-
-3. **Recipe Execution**
-    - No further prompting, the tool then executes the generated recipe script to create the environment.
-    - By default, the process will exit immediately if any errors are encountered, allowing you to correct issues and re-run as needed.
-    - You can override this behavior and continue on errors by passing the `--skip-errors` flag.
-
----
-
-## Template generation
-
-- To generate a starter template, run:
-
-   ```
-   coble recipe --input tst.cbl --flavour ???
-   ```
-   This will create a template cbl input file you can edit.
-
-- There are five template flavours, selectable with `--flavour`:
-   - `basic` (default)  
-   - `bioinf` (very complex)  
-   - `fix` (tutorial on fixing)  
-   - `sylver` (publication tutorial)  
-   - `versions` (shows specifying versions)  
-   - `bash` (pure bash example)  
-
-You can activate a flavour by passing `--flavour <type>` to the template command.
 
 ---  
 
-## Further Information
+## Additional Information
 
 - The environment (`--env`) can be either a name or a folder path. COBLE will automatically use `--name` or `--prefix` as appropriate.
 - If you specify more than one R or more than one Python version in the language block, COBLE will complain and refuse to continue. Otherwise, it will create a special language block in the cbl.
-
-
-

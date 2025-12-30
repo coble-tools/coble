@@ -6,7 +6,7 @@ Assuming you want to create your cbl input file at `mycoble.cbl` and want to cre
 
 ```bash
 /data/rds/DIT/SCICOM/SCRSE/shared/apps/coble/code/coble \
-template --input mycoble.cbl --flavour basic
+recipe --input mycoble.cbl --flavour basic
 ```
 
 ## BASH

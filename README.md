@@ -1,65 +1,34 @@
 # COBLE: COnda BuiLdEr
-`COBLE - COnda BuiLdEr: Build and manage conda environments from the RSE team at the ICR`  
+`COBLE - COnda BuiLdEr: Build and manage conda environments`
+Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.  
+*Contacts: Rachel Alcraft, Syed Haider*  
 
-## How to Run
+---  
 
-1. **Edit your email address** in `code/coble-slurm.sh`:
-   
-   Put your own email address so you get SLURM notifications.
+Documentation:
+[GitHub Docs Site](https://icr-rse-group.github.io/coble/)
+[GitHub repo](https://github.com/ICR-RSE-Group/coble)
+[GitHub Issues](https://github.com/ICR-RSE-Group/coble/issues)
 
-2. **Submit your build job** with one command:
-   ```bash
-   sbatch --mail-user=your.email@domain.com \
-   code/coble-slurm.sh \
-   --results results/r-452 \
-   --input config/r-452.sh \
-   --env ./envs/r-452 \
-   --r-version 4.5.2 \
-   --python-version 3.14.0 \
-   --skip-errors \
-   --override-envs
+---  
 
-   ```
-   Change the paths if you want different results, input, environment, or package locations.  
-   There is an assumption that you will be isolating your environmnts and want to set the pkg enviroment variable and use prefix rather than name environments.  
-  
-3. Be aware that the environment is passed in as a prefic path, and then is set as an environment variable `CONDA_COBLE_ENV` for use in the config script. This makes the scripts re-usable when creating additional environments. In the scripts the environments are like:
-   ```
-   conda create -y -p ${CONDA_COBLE_ENV} r-base=4.5.2 python=3.14.0    
-   conda activate ${CONDA_COBLE_ENV}
-   ```
-This is not a requirement, they can be hardcoded, but this option is there for flexibility.
+## Installation
 
-## Activating the environment
-To activate the created environment, use:
+Installation can be done through conda or github.
+
+### Conda Installation
 ```bash
-conda activate ./envs/r-452
+# In your chosen conda environment, or in base:
+conda install rachelsa::coble
+# Test it
+coble -h
 ```
-If you choose to override the R_LIBS_USER and CONDA_PKGS_DIRS, ensure these environment variables are set accordingly before activating the environment:
+When installed through conda the utility and all the scripts are in the path so you can refer to it as `coble` wherever you are.
+
+
+### Github installation
 ```bash
-export R_LIBS_USER="./envs/r-452_rlibs"
-export CONDA_PKGS_DIRS="./envs/r-452_pkgs"
-conda activate ./envs/r-452
+git clone git@github.com:ICR-RSE-Group/coble.git
+coble/code/coble -h 
 ```
-## What This Does
-- Builds a conda environment and installs R/Python packages.  
-- Exits on error and allows you to fix and rerun from last fail point.   
-- Logs output to the results directory.
-- Sends you an email if the job fails.  
-
-## Output structure
-- Results directory will contain:
-  - `coble-stdout.log`: Standard output log file.
-  - `coble-stderr.log`: Standard error log file.
-  - `recipe.sh`: The generated recipe script that was executed.
-  - `done.txt`: A log file indicating R libs that are logged as DONE (lib)
-- Environment as specified, but additional
-  - `${env}-pkgs` for the packages installed.
-  - `${env}-rlibs` for the R libraries installed.
-
-## Requirements
-- SLURM cluster  
-- Conda installed and initialized  
-
-
-
+You need to add the folder coble/cide to the path or refer to the coble utility script by full or relative path.
