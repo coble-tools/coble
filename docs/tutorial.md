@@ -1,24 +1,11 @@
-# Writing Recipes for COBLE
+# Using COBLE to replicate given environments
 
-COBLE recipes are simple bash scripts that define the steps to build your environment. You can also use any valid bash command in a recipe, giving you full flexibility to customize your build process. The format is based on yaml and assigning the `cbl` extension a yaml association fro colour formatting makes sense, but differs from yaml in the multiplicity so the name is different. Specifically, becuase the recipe is sequential, the same section can be repeated. The yaml like headers are commands to change package manager. Yaml itself is not used as the utility is pure bash.
+Replicating environments from manuscripts or github sites is never as easy as it appears. Various errors occur from operating system, to time and archiving to written errors. These tutorials take you through taking (some of) a specification from a publication to build an enviropnment, and trouble shooting.
 
-## Recipe generation
+## SYLVER - finding the packages
+SYLVER is a publication from the ICR with a coherent description of the code in the Code availability section:
+https://www.nature.com/articles/s41588-025-02108-2#code-availability. The [tutorial](recipes/sylver.md) takes you through finding where those packages are and building the recipe.
 
-- To generate a starter recipe, run:
 
-   ```
-   coble recipe --input tst.cbl --flavour ???
-   ```
-   This will create a recipe cbl input file you can edit.
-
-- There are five recipe flavours, selectable with `--flavour`:
-   - `basic` (default)  
-   - `bioinf` (very complex)  
-   - `fix` (tutorial on fixing)  
-   - `sylver` (publication tutorial)  
-   - `versions` (shows specifying versions)  
-   - `bash` (pure bash example)  
-
-You can activate a flavour by passing `--flavour <type>` to the recipe command.
-
----  
+## CountReg - troubleshooting errors
+Countreg throws some errors on install and this [tutorial](recipes/countreg.md) takes you though analysing the errors and fixing the recipe input.
