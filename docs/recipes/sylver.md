@@ -7,7 +7,11 @@ The tutorial takes you through finding where those packages are and building the
 ## Code availablility
 As given in the publication [code section](https://www.nature.com/articles/s41588-025-02108-2#code-availability):
 ```text
-SYLVER and analysis code was implemented with basic R (v.3.6.0) functionality using R packages affy (v.1.64.0), hsentrezgcdf (v.18), cdsrmodels (v.0.1.0; R v.4.1.0), limma (v.3.42.2), effsize (v.0.8.1), magrittr (v.2.0.1), tidyverse (v.1.3.1), fgsea (v.1.12.0), ggplots (v.2_3.3.5), ggrepel (v.0.9.1), org.Hs.eg.db (v.3.10.0), VennDiagram (v.1.6.20), survival (v.3.2-11) and GSVA (v.1.34.0). SYLVER’s customized code is freely available via Zenodo at https://doi.org/10.5281/zenodo.14685952 (ref. 46). For details, see relevant sections in Methods.
+SYLVER and analysis code was implemented with basic R (v.3.6.0) functionality using R packages affy (v.1.64.0), 
+hsentrezgcdf (v.18), cdsrmodels (v.0.1.0; R v.4.1.0), limma (v.3.42.2), effsize (v.0.8.1), magrittr (v.2.0.1), tidyverse 
+(v.1.3.1), fgsea (v.1.12.0), ggplots (v.2_3.3.5), ggrepel (v.0.9.1), org.Hs.eg.db (v.3.10.0), VennDiagram (v.1.6.20), 
+survival (v.3.2-11) and GSVA (v.1.34.0). SYLVER’s customized code is freely available via Zenodo at https://doi.org/10.
+5281/zenodo.14685952 (ref. 46). For details, see relevant sections in Methods.  
 ```
 
 ## Methods info
@@ -16,9 +20,12 @@ Further info in [methods](https://www.nature.com/articles/s41588-025-02108-2#Sec
 DNA methylation data (level 3 β values)—were downloaded from http://gdac.broadinstitute.org (release 28 January 2016). 
 
 Statistics and reproducibility
-All analyses were performed in R statistical programming environment (v.3.6.0, except where stated as v.4.1.0). No data were excluded from the analyses unless stated otherwise.
+All analyses were performed in R statistical programming environment (v.3.6.0, except where stated as v.4.1.0). No data 
+were excluded from the analyses unless stated otherwise.
 
-For each TSG, two-class comparison of the genome-wide CRISPR–Cas9 screen data was performed between these two groups (defective and proficient) using linear regression (function: cdsrmodels::run_lm_stats_limma) as implemented by the Broad Institute’s Cancer Data Science team for these datasets (R package: cdsrmodels, v.0.1.0; R v.4.1.0), 
+For each TSG, two-class comparison of the genome-wide CRISPR–Cas9 screen data was performed between these two groups 
+(defective and proficient) using linear regression (function: cdsrmodels::run_lm_stats_limma) as implemented by the 
+Broad Institute’s Cancer Data Science team for these datasets (R package: cdsrmodels, v.0.1.0; R v.4.1.0)
 ```
 
 ---  
