@@ -2,7 +2,7 @@
 
 Building complex R and Python environments for scientific computing is a major challenge.
 
-Scientific reprodicibility is a known crisis and the environments in which code runs are hard to reproduce. Despite the best intentions of the authors, versions become oue of date, rely on unspecified dependencies, are archived, disappear, seemed obvious to the authros but not others that they resided in r-forge rather than cran... Being able to reproduce an environment from a publication methods or from a code repositiry would considerably enhance people's experience of working with and reproducing others code.
+Scientific reprodicibility is a known crisis and the environments in which code runs are hard to reproduce. Despite the best intentions of the authors, versions become out of date, rely on unspecified dependencies, are archived, disappear, seemed obvious to the authors but not others that they resided in r-forge rather than cran... Being able to reproduce an environment from a publication's methods section or from a code repositiry would considerably enhance people's experience of working with, and reproducing, other's code.
 
 Additionally, for a lab's own environment, and especially on HPC systems, it can take up to 8 hours to build an environment with over 200 libraries, each with their own dependencies. Every new version of R can change the dependency order, making the process unpredictable and fragile. If an environment is lost or corrupted, it can take days to rebuild, causing significant delays in research. 
 
