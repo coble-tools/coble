@@ -2,7 +2,7 @@
 SYLVER is a publication from the ICR with a coherent description of the code in the [Code availability section](
 https://www.nature.com/articles/s41588-025-02108-2#code-availability).  
 
-The [tutorial](recipes/sylver.md) takes you through finding where those packages are and building the recipe (the goal is to build an enviroment as specified rather than run all the given code).  
+The tutorial takes you through finding where those packages are and building the recipe (the goal is to build an enviroment as specified rather than run all the given code).  
 
 ## Code availablility
 As given in the publication [code section](https://www.nature.com/articles/s41588-025-02108-2#code-availability):
