@@ -17,8 +17,6 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
-          miniforge-variant: Miniforge
-          miniforge-version: latest
 
       - name: Build conda recipe
         run: |
