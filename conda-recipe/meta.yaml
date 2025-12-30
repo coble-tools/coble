@@ -18,7 +18,7 @@ requirements:
 
 test:
   source_files:
-    - ../tests/conda/tests.sh
+    - tests/conda/tests.sh
   commands:
     - bash tests.sh
     - test -f $PREFIX/bin/coble  # Just check the files exist
