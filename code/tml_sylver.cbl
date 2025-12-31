@@ -13,12 +13,17 @@ channels:
   - conda-forge
   - defaults
 
+
 languages:
 
 flags:
   - dependencies: True
-  - build-tools: True
-  
+  - build-tools: False
+
+bash:
+  - conda config --env --add channels bioconda
+  - conda config --env --add channels conda-forge  
+
 find:
   - r-base=3.6.0
   - r-base=4.1.0

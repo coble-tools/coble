@@ -253,7 +253,7 @@ found|pip:
 #   - cdsr_models
 ```
 
-Each section has been commented, and there is a `found|packagemanager` we can edit it down to something that seems sensible on first effort. We can remove channels and let conda resolve those, and prioritise conda over package managers if we can. The languages sections starts empty, we will move r up to it.
+Each section has been commented, and there is a `found|packagemanager` we can edit it down to something that seems sensible on first effort. We can remove channels and let conda resolve those, and prioritise conda over package managers if we can. The languages sections starts empty, we will move r up to it.  We need to add a change to the channel priority after the old version of R has installed.
 ```yaml
 coble:
   - environment: coble-env
@@ -266,9 +266,12 @@ channels:
 languages:
   - r-base=3.6.0@r
   - r-base=4.1.0@conda-forge
+bash:
+  - conda config --env --add channels bioconda
+  - conda config --env --add channels conda-forge
 flags:
   - dependencies: True
-  - build-tools: True  
+  - build-tools: True    
 conda:
   - r-BiocManager  
   - r-tidyverse=1.3.1
@@ -298,15 +301,18 @@ channels:
   - bioconda
   - conda-forge
   - defaults
-flags:
-  - dependencies: True
-  - build-tools: True  
-  - priority: flexible
 languages:
   - r-base=3.6.0@r
   - r-base=4.1.0@conda-forge
+bash:
+  - conda config --env --add channels bioconda
+  - conda config --env --add channels conda-forge
+flags:
+  - dependencies: True
+  - build-tools: True    
 r-conda:
   - BiocManager  
+  - remotes # we need remotes for installs
   - tidyverse=1.3.1
   - effsize=0.8.1
   - magrittr=2.0.1
