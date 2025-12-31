@@ -13,7 +13,7 @@ channels:
 languages:
   - r-base=4.5.2@conda-forge
   - python=3.14.0@conda-forge
-  
+
 flags:
   - dependencies: True
   - build-tools: True
@@ -496,7 +496,9 @@ r-url:
   - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
   - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
   - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
-  - https://github.com/vladchimescu/lpsymphony/archive/refs/heads/master.zip
+bioc-package:
+  - lpsymphony
+r-url:  
   - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
   - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
   - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
