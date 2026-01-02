@@ -26,7 +26,7 @@ singularity shell cbl-my-env.sif
 The conda environment is pre-activated and they look like this:
 
 ### Docker
-![alt text](docker.png)
+![alt text](imgs/docker.png)
 
 ### Singularity
-![alt text](singularity.png)
+![alt text](imgs/singularity.png)
