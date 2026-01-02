@@ -24,7 +24,7 @@ cp code/tml_versions.cbl $PREFIX/bin/coble-tml_versions.sh
 cp code/tml_bash.cbl $PREFIX/bin/coble-tml_bash.sh
 # Docker and singularity
 cp code/coble-container.sh $PREFIX/bin/coble-container.sh
-cp code coble.Dockerfile $PREFIX/bin/coble.Dockerfile
+cp code/coble.Dockerfile $PREFIX/bin/coble.Dockerfile
 # readme
 cp README.md $PREFIX/bin/README.md
 
