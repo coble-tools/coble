@@ -1,35 +1,32 @@
-# Building with Docker
+# Build the basic template recipe in docker
 
-COBLE environments can be built and run inside Docker containers for portability and reproducibility. The recommended workflow is:
+## Build: basic
 
-1. **Start with a Conda recipe:**
-   - Define your environment and package requirements using COBLE and a conda-based recipe.
-   - Test and validate the environment locally with conda first.
+**Recipe:** `config/basic.cbl`
 
-2. **Build a Docker image:**
-   - Use the provided `Dockerfile` (e.g., `Dockerfile.mini`) to build a containerized version of your environment.
-   - Example build command:
-     ```bash
-     docker build -f containers/docker/Dockerfile.mini -t icrsc/coble:mini .
-     ```
-   - You can pass build arguments or environment variables as needed.
+**Build Command:**
+```bash
+docker build -f code/Dockerfile.cbl \
+  --build-arg RECIPE_CBL=config/basic.cbl \
+  --build-arg BUILD_TAG=basic \
+  -t basic-cbl .
+```
 
-3. **Run the Docker image:**
-   - Launch an interactive shell:
-     ```bash
-     docker run --rm -it icrsc/coble:mini
-     ```
-   - The environment will be activated and ready for use inside the container.
+**Run the container:**
+```bash
+docker run --rm -it basic-cbl
+```
 
-4. **Push to a registry (optional):**
-   - Share your image via Docker Hub or a private registry:
-     ```bash
-     docker push icrsc/coble:mini
-     ```
+**Singularity (optional):**
+```bash
+docker save basic-cbl -o basic-cbl.tar
+singularity build cbl-basic.sif docker-archive://basic-cbl.tar
 
-## Why start with Conda?
-- Conda ensures all dependencies are resolved and reproducible before containerization.
-- The Docker build simply wraps the conda environment, making it portable and easy to deploy.
+# To use the conda environment interactively in Singularity:
+singularity shell cbl-basic.sif
+# Then inside the container shell, activate the environment:
+source /app/activate_conda.sh
 
-## Next steps
-- Once you have a working Docker image, you can convert it to Apptainer/Singularity for HPC use (see `container-env.md`).
+# To execute a command or script (with environment activated)
+singularity exec coble-452syed.sif /app/activate_and_run.sh /path/to/yourscript.sh
+```
