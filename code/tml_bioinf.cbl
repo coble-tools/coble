@@ -491,17 +491,17 @@ r-package:
   - AsioHeaders
   - seqinr
 
-r-url:
-  - https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
-  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
-  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
-  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
-bioc-package:
-  - lpsymphony
-r-url:  
-  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
-  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
-  - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
+#r-url:
+#  - https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
+#  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
+#  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
+#  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
+#bioc-package:
+#  - lpsymphony
+#r-url:  
+#  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
+#  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
+#  - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
 
 # Maptools is deprecated and I did a fix to memory allocation
 conda:

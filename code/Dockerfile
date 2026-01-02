@@ -54,7 +54,6 @@ COPY code ./code
 
 # Recipe cbl is copied to standard location
 COPY $RECIPE_CBL /app/recipe/$BUILD_TAG.cbl
-COPY README.md /app/README.md
 
 # Create .condarc with channels
 RUN echo "channels:" > /app/.condarc && \
@@ -72,12 +71,12 @@ RUN bash /app/code/coble \
     build \    
     --input /app/recipe/$BUILD_TAG.cbl \
     $(if [ "$SKIP_ERRORS" = "true" ]; then echo "--skip-errors"; fi) \      
-    --env "coble-${BUILD_TAG}"
+    --env "coble"
 #########################################################################################
 
 # Initialize conda and set up auto-activation for Docker
 RUN conda init bash && \
-    echo "conda activate coble-${BUILD_TAG}" >> /root/.bashrc
+    echo "conda activate coble" >> /root/.bashrc
 
 # For Singularity: override host conda and activate environment
 RUN mkdir -p /.singularity.d/env && \
@@ -87,7 +86,7 @@ RUN mkdir -p /.singularity.d/env && \
     echo 'export PATH="/opt/conda/bin:$PATH"' >> /.singularity.d/env/99-conda.sh && \
     echo '. /opt/conda/etc/profile.d/conda.sh' >> /.singularity.d/env/99-conda.sh && \
     echo 'conda config --set changeps1 true' >> /.singularity.d/env/99-conda.sh && \
-    echo "conda activate coble-${BUILD_TAG} 2>/dev/null || true" >> /.singularity.d/env/99-conda.sh && \
+    echo 'conda activate coble 2>/dev/null || true' >> /.singularity.d/env/99-conda.sh && \
     echo 'if [ "$PS1" ] && [ -f /etc/motd ]; then cat /etc/motd; fi' >> /.singularity.d/env/99-conda.sh && \
     chmod +x /.singularity.d/env/99-conda.sh
 
@@ -100,7 +99,9 @@ RUN echo '╔══════════════════════�
     echo '║        For help, see:                                        ║' >> /etc/motd && \
     echo '║        - /app/README.md                                      ║' >> /etc/motd && \
     echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
-    echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \    
+    echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \
+    echo '║        ~~~~~~~~~~~~~~~~~~~~~~~~~                             ║' >> /etc/motd && \
+    echo '║        conda activate coble                                  ║' >> /etc/motd && \
     echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd    
 # Ensure the message is shown on shell startup
 RUN echo "cat /etc/motd" >> /root/.bashrc && \

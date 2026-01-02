@@ -18,9 +18,11 @@ show_help() {
 	echo "  recipe   get a starter recipe of 5 given options"
 	echo "  build    build the conda enviroment from scratch clean"
 	echo "  update   update an existing environment from the changes to the recipe input"
+	echo "  contain  Build Docker and Singularity containers from a COBLE recipe"
 	echo "Example:"
 	echo "  $0 recipe --input my.cbl --flavour basic"
 	echo "  $0 build --input my.cbl --env my-env"
+	echo "  $0 contain --input my.cbl --env my-env"
 }
 
 start_time=$(date +%s)
@@ -118,6 +120,20 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	minutes=$(((duration % 3600) / 60))
 	seconds=$((duration % 60))
 	echo "[*coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
+	exit $?
+fi
+
+# If the first argument is 'contain', call coble-container.sh and exit
+if [[ "$1" == "contain" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-container.sh" "${@:2}"
+	exit $?
+fi
+
+# If the first argument is 'contain', call coble-container.sh and exit
+if [[ "$1" == "singularity" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-container-sing.sh" "${@:2}"
 	exit $?
 fi
 
