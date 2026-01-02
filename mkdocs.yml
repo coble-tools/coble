@@ -79,4 +79,5 @@ nav:
     - Troubleshooting: troubleshooting.md
   - Containers: 
     - Containers: containers.md    
+    - Docker-Singularity: docker-build.md  
   - About: about.md
