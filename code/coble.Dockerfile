@@ -43,9 +43,34 @@ RUN apt-get update && \
         gettext \
         curl \
         git \
+        wget \                
+        # Java for rJava/xlconnect
+        default-jdk-headless \
+        # LaTeX for PDF generation in knitr/rmarkdown
+        #texlive-base \
+        #texlive-latex-extra \
+        #texlive-fonts-recommended \
+        # PDF and document processing
+        #libpoppler-cpp-dev \
+        # Additional font support
+        #fonts-liberation \
+       # fonts-dejavu-core \
+        # Might help with ImageMagick operations
+        libmagick++-dev \
+        # X11 development headers (for graphics devices)
+        libx11-dev \
+        libxt-dev \
+        # SSL/TLS for network operations
+        ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MAMBA_NO_BANNER=1
+
+# May need to set java home
+#ENV JAVA_HOME=/usr/lib/jvm/default-java
+
+# for v8 builds
+ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
 RUN mkdir -p code recipe

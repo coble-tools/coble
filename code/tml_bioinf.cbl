@@ -149,8 +149,13 @@ r-package:
   - gplots
   - drc
 
-r-package:
-  - countreg@r-forge
+flags:
+  - dependencies: NA
+r-github:
+  - r-forge/countreg@pkg
+flags:
+  - dependencies: True
+r-package:  
   - chicane
 
 r-conda:
@@ -370,7 +375,7 @@ bioc-package:
 
 r-package:
   - openssl
-  - pracma@r-forge
+  - pracma
 
 r-url:
   - https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip

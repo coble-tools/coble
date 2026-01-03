@@ -100,11 +100,15 @@ if [[ $steps == *",1,"* ]]; then
     -t "cbl-${ENV_NAME}" .
     
     echo "[coble-container] Docker build complete at image $DOCKER_TAR"
+    echo "[coble-container] To run use:"
+    echo ""
+    echo "docker run --rm -it cbl-${ENV_NAME}"
+    echo ""
 
 fi
 
 ### Singularity #######################
-if [[ $steps == *",2,"* ]]; then 
+if [[ $steps == *",2,"* ]]; then
 
     echo "[coble-container] Building Singularity image..."
 
@@ -120,6 +124,11 @@ if [[ $steps == *",2,"* ]]; then
     echo "[coble-container] ...building sif..."
     singularity build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
     echo "[coble-container] Singularity build complete at $SINGULARITY_SIF"
+    echo "[coble-container] To run use:"
+    echo ""
+    echo "singularity shell $SINGULARITY_SIF"
+    echo ""
+    echo "[coble-container] completed successfully."
 
 fi
 

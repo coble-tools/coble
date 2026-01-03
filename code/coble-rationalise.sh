@@ -144,8 +144,7 @@ done
 DESIRED_START=(
     "coble"
     "channels"
-    "languages"
-    "flags"
+    "languages"    
 )
 
 declare -A FOUND_SECTIONS

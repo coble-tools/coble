@@ -277,12 +277,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "${directive,,}" == "dependencies" && "$value_lower,," == "false" ]]; then                
+            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "false" ]]; then                
                 echo "[conda-recipise] (!not default) Will NOT install dependencies" >&2
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
-            elif [[ "${directive,,}" == "updates" && "$value_lower,," == "true" ]]; then
+            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "na" ]]; then                
+                echo "[conda-recipise] (!not default) r packages will skip suggests" >&2
+                DEPS_CONDA=""
+                DEPS_PYTHON=""
+                DEPS_R="NA"
+            elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
             elif [[ "${directive,,}" == "ncpus" ]]; then
@@ -390,10 +395,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-github:" || "$CURRENT_SECTION" == "github-r:" ]]; then            
-            echo "Rscript -e 'devtools::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            if [[ -n "$src" ]]; then
+                echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            else
+                echo "Rscript -e 'remotes::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            fi
         elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
             if [[ -n "$src" ]]; then
-                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, subdir=$src, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
                 echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
