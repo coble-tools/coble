@@ -3,7 +3,6 @@
 # Default values
 ENV_NAME=""
 INPUT_RECIPE=""
-STEPS="1,2"
 
 # Help function
 show_help() {
@@ -14,10 +13,7 @@ Build Docker and Singularity containers from COBLE recipes.
 
 OPTIONS:
     --env NAME          Name for the container environment (required)
-    --input PATH        Path to the .cbl recipe file (required)
-    --steps STEPS       Comma-separated steps to run (default: 1,2)
-                        1 = Docker build
-                        2 = Singularity build
+    --input PATH        Path to the .cbl recipe file (required)        
     -h, --help          Show this help message
 
 EXAMPLES:
@@ -43,15 +39,11 @@ while [[ $# -gt 0 ]]; do
         --input)
             INPUT_RECIPE="$2"
             shift 2
-            ;;
-        --steps)
-            STEPS="$2"
-            shift 2
-            ;;
+            ;;        
         -h|--help)
             show_help
             exit 0
-            ;;
+            ;;        
         *)
             echo "Error: Unknown option $1"
             show_help
@@ -79,7 +71,7 @@ if [[ ! -f "$INPUT_RECIPE" ]]; then
 fi
 
 # Format steps for matching
-steps=",${STEPS},"
+steps=",1,2,"
 
 # make file names
 DOCKER_TAR="cbl-${ENV_NAME}.tar"
@@ -97,6 +89,7 @@ if [[ $steps == *",1,"* ]]; then
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
     --build-arg BUILD_TAG="$ENV_NAME" \
+    --build-arg GITHUB_PAT="$GITHUB_PAT" \
     -t "cbl-${ENV_NAME}" .
     
     echo "[coble-container] Docker build complete at image $DOCKER_TAR"

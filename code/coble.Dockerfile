@@ -1,17 +1,11 @@
 ################### GENERIC COBLE DOCKERFILE ############################
-# Build with custom recipe:
-# docker build -f containers/docker/Dockerfile.generic \
-#   --build-arg RECIPE_URL=https://mysite.com/my-recipe.sh \
-#   --build-arg BUILD_TAG=my-env \
-#   --build-arg R_VERSION=4.5.2 \
-#   --build-arg PYTHON_VERSION=3.14.0 \
-#   -t myname/my-env:latest .
+# Build with local recipe:
 #
-# Or with local recipe:
-# docker build -f containers/docker/Dockerfile.generic \
-#   --build-arg RECIPE_FILE=my-local-recipe.sh \
+# docker build -f code/coble.Dockerfile \
+#   --build-arg RECIPE_CBL=my-recipe.cbl \
 #   --build-arg BUILD_TAG=my-env \
-#   -t myname/my-env:latest .
+#   --build-arg GITHUB_PAT=mytoken \
+#   -t cbl-my-env .
 #########################################################################
 
 FROM continuumio/miniconda3
@@ -21,9 +15,11 @@ WORKDIR /app
 ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
+ARG GITHUB_PAT=""
 
 # Set environment variables
 ENV COBLE_VARIANT=${BUILD_TAG}
+ENV GITHUB_PAT=${GITHUB_PAT}
 
 LABEL org.opencontainers.image.version="${BUILD_TAG}" \
     org.opencontainers.image.title="coble-${BUILD_TAG}" \
@@ -121,7 +117,7 @@ RUN conda clean -afy
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
     echo '║        COBLE Container v0.1                                  ║' >> /etc/motd && \
-    echo '║        (c) ICR 2025 RSE and BCRDS                            ║' >> /etc/motd && \
+    echo '║        (c) ICR 2026 RSE and BCRDS                            ║' >> /etc/motd && \
     echo '║        For help, see:                                        ║' >> /etc/motd && \
     echo '║        - /app/README.md                                      ║' >> /etc/motd && \
     echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
