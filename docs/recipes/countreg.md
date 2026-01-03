@@ -86,7 +86,7 @@ In install.packages("countreg", repos = "https://R-Forge.R-project.org",  :
 
 Let's find those packages
 ```bash
-coble update --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --input tutorials/countreg/countreg.cbl --env fix-env
 ```
 
 ```yaml
@@ -142,7 +142,7 @@ r-package:
 
 Run on update:
 ```bash
-coble update --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --input tutorials/countreg/countreg.cbl --env fix-env
 ```
 
 The `.delta.sh` file will show the commands being run as part of the update.
@@ -206,11 +206,11 @@ r-package:
 ```
 Run on update:
 ```bash
-coble update --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --input tutorials/countreg/countreg.cbl --env fix-env
 ```
 It works!  
 To be certian re-run from the beginning:
 
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --input tutorials/countreg/countreg.cbl --env fix-env --rebuild
 ```

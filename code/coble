@@ -16,12 +16,13 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 show_help() {
 	echo "Usage: $0 <command> [options]"
 	echo "  recipe   get a starter recipe of 5 given options"
-	echo "  build    build the conda enviroment from scratch clean"
+	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
 	echo "  update   update an existing environment from the changes to the recipe input"
 	echo "  contain  Build Docker and Singularity containers from a COBLE recipe"
 	echo "Example:"
 	echo "  $0 recipe --input my.cbl --flavour basic"
 	echo "  $0 build --input my.cbl --env my-env"
+	echo "  $0 build --input my.cbl --env my-env --rebuild"
 	echo "  $0 contain --input my.cbl --env my-env"
 }
 
@@ -43,24 +44,38 @@ fi
 
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
 if [[ "$1" == "build" || "$1" == "update" ]]; then	
+	# detect if there is a rebuild --rebuild flag in the args
+	build_action="$1"
+	if [[ " $* " == *" --rebuild "* ]]; then
+		REBUILD_FLAG="--rebuild"
+		# and remove it from the args
+		set -- "${@/--rebuild/}"
+		echo "[coble] Rebuild flag detected, will rebuild conda environment" >&2		
+		build_action="build"
+	else
+		REBUILD_FLAG=""
+		build_action="update"
+	fi
+	
+
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
-	echo "[*coble 1/5] Resolving yml..." >&2
+	echo "[coble 1/5] Resolving yml..." >&2
 	finds=$("$script_dir/coble-resolve.sh" "${@:2}")
 	if [[ "$finds" == "Y" ]]; then
-		echo "[*coble] Finds were resolved, please check the yml input before resuming." >&2
+		echo "[coble] Finds were resolved, please check the yml input before resuming." >&2
 		exit 0
 	fi	
 	
-	echo "[*coble 2/5] Resolved yml, proceeding to rationalise." >&2
+	echo "[coble 2/5] Resolved yml, proceeding to rationalise." >&2
 	success=$("$script_dir/coble-rationalise.sh" "${@:2}")
 				
-	echo "[*coble 3/5] Rationalised yml, proceeding to recipise." >&2	
+	echo "[coble 3/5] Rationalised yml, proceeding to recipise." >&2	
 	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"
 	if [[ "$success" == "N" ]]; then
-		echo "[*coble] Error in creating recipe, please correct input before resuming." >&2
+		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
 		exit 0
 	fi	
 	
@@ -68,58 +83,55 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	summary_file="$recipe_file.summary.txt"
 	capture_file="$recipe_file.capture.cbl"
 	
-	if [[ "$1" == "build" ]]; then
-	    echo "[*coble 3/5] Created recipe, rebuilding environment." >&2
+	if [[ "$build_action" == "build" ]]; then
+	    echo "[coble 3/5] Created recipe, rebuilding environment." >&2
 	    : > "$done_recipe"
 		: > "$summary_file"
-	elif [[ "$1" == "update" ]]; then	
+	elif [[ "$build_action" == "update" ]]; then	
 	    if [[ ! -f "$done_recipe" ]]; then
 			: > "$done_recipe"
 			: > "$summary_file"			
-			echo "[*coble 3/5] Created recipe, building environment." >&2
+			echo "[coble 3/5] Created recipe, building environment." >&2
 		else
 		    
-			echo "[*coble 3/5] Created recipe, updating environment." >&2
+			echo "[coble 3/5] Created recipe, updating environment." >&2
 		fi
 	else
-		echo "[*coble] Unknown command: $1" >&2
+		echo "[coble] Unknown command: $1" >&2
 		exit 1
 	fi
-		
-	
-	
-
+				
 	update_success=$("$script_dir/coble-update.sh" --done-recipe "$done_recipe" --all-recipe "$recipe_file")
 	if [[ $? -ne 0 ]]; then		 
-		echo "[*coble] Error in updating recipe, please review logs before resuming." >&2
+		echo "[coble] Error in updating recipe, please review logs before resuming." >&2
 		exit 0
 	fi		
-	echo "[*coble 4/5] Created recipe, proceeding to creation." >&2
+	echo "[coble 4/5] Created recipe, proceeding to creation." >&2
 	recipe_file="$recipe_file".delta.sh
 	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
 	if [[ $? -ne 0 ]]; then		 
-		echo "[*coble] Error in environment creation, please review logs before resuming." >&2
+		echo "[coble] Error in environment creation, please review logs before resuming." >&2
 
 		end_time=$(date +%s)
 	    duration=$((end_time - start_time))
 	    hours=$((duration / 3600))
 	    minutes=$(((duration % 3600) / 60))
 	    seconds=$((duration % 60))
-	    echo "[*coble] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
+	    echo "[coble] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
 		exit 0
 	fi
 	
-	echo "[*coble 5/5] Created env, proceeding to capture." >&2	
+	echo "[coble 5/5] Created env, proceeding to capture." >&2	
 	recipe_dir="$(dirname "$recipe_file")"	
 	result=$("$script_dir/coble-capture.sh" --outdir "$recipe_dir" --output "$capture_file" "${@:2}")
 		
-	echo "[*coble] Environment creation complete." >&2
+	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
 	duration=$((end_time - start_time))
 	hours=$((duration / 3600))
 	minutes=$(((duration % 3600) / 60))
 	seconds=$((duration % 60))
-	echo "[*coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
+	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
 	exit $?
 fi
 
@@ -137,5 +149,5 @@ if [[ "$1" == "singularity" ]]; then
 	exit $?
 fi
 
-echo "[*coble] Not a valid command provided: $1." >&2
+echo "[coble] Not a valid command provided: $1." >&2
 show_help

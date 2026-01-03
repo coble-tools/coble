@@ -31,10 +31,10 @@ pip:
   - NumPy  
 ```
 
-To build this there are 2 commands, either `build` or `update`. If you want to add to an existing environment use `update`, to completely clean and start again use `build`. As environments evolve you may be using `update` which will crertate a "delta" file and only install udpates, but ensure that `build` works in full so that the environment can be recreated if needed.
+To build this there is the command `build`. If you want to start or add to an existing environment use `build`, to completely clean and start again use `build` with the additional flag `--rebuild`. To be safe and as environments evolve using `build` ensures time saving - it create a "delta" file and only installs changes. Do ensure that `build` can be run with `--rebuild` in full so that the environment can be recreated if needed.
 
 ```bash
-coble update --input my-recipe.cbl --env my-env
+coble build --input my-recipe.cbl --env my-env
 ```
 
 ---  
