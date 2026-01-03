@@ -114,6 +114,9 @@ RUN mkdir -p /.singularity.d/env && \
 
 RUN conda clean -afy
 
+# Clear the PAT after build for security
+ENV GITHUB_PAT=
+
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
     echo '║        COBLE Container v0.1                                  ║' >> /etc/motd && \

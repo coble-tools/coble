@@ -52,6 +52,7 @@ Alternatively the steps can be done manually:
 docker build -f code/Dockerfile.cbl \
   --build-arg RECIPE_CBL=config/basic.cbl \
   --build-arg BUILD_TAG=basic \
+  --build_arg GITHUB_PAT=$GITHUB_PAT \
   -t basic-cbl .
 ```
 
