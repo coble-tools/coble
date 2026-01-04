@@ -267,10 +267,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             continue
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
             echo "[conda-recipise] Processing flag: $pkg_entry" >&2
-            directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
-            value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
+            #directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
+            #value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
+            directive="$(echo "$pkg_entry" | cut -d':' -f1)"
+            value="$(echo "$pkg_entry" | cut -d':' -f2-)"
+            directive="${directive## }"
+            value="${value## }"                            
             value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: $value_lower" >&2    
+            echo "[conda-recipise] Directive: $directive, Value: ${value}" >&2    
             echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
             if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                
                 echo "[conda-recipise] (default) Will install dependencies" >&2
@@ -288,8 +292,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_PYTHON=""
                 DEPS_R="NA"
             elif [[ "${directive,,}" == "export" ]]; then
-                echo "[conda-recipise] export environment variable $value " >&2                                
-                echo "export $value" >> "$RECIPE_FILE"
+                echo "[conda-recipise] export environment variable ${value}" >&2                                
+                echo "export ${value}" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
