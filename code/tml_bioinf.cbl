@@ -15,7 +15,7 @@ languages:
   - python=3.14.0@conda-forge
 
 flags:
-  - dependencies: True
+  - dependencies: NA
   - build-tools: True
   - ncpus: 8
 
@@ -149,12 +149,8 @@ r-package:
   - gplots
   - drc
 
-flags:
-  - dependencies: NA
 r-github:
   - r-forge/countreg@pkg
-flags:
-  - dependencies: True
 r-package:  
   - chicane
 

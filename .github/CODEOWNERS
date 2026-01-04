@@ -1,0 +1,5 @@
+# Default: own everything
+* @rachelicr @SyedHaider5 @RachelAlcraft
+
+# Exception: Rachel owns python files
+*.py @rachelicr @RachelAlcraft
