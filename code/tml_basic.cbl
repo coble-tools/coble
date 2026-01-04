@@ -12,6 +12,10 @@ channels:
 languages:
   - python=3.13.1@conda-forge
   - r-base=4.3.1@conda-forge
+flags:
+  - dependencies: NA
+  - build-tools: False
+  - export: CFLAGS="-I$CONDA_PREFIX/include"
 conda:
   - pandas
 r-conda:  
