@@ -30,9 +30,9 @@ OUTDIR="."
 EXIT_ON_ERROR=1
 
 show_help() {
-    echo "Usage: $0  --env NEW_ENV --recipe RECIPE_FILE"    
+    echo "Usage: $0  --env NEW_ENV --recipe-bash RECIPE_FILE"    
     echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
-    echo "  --recipe    RECIPE    Specify input recipe shell script (required)"        
+    echo "  --recipe-bash    RECIPE    Specify input recipe shell script (required)"        
     echo "  --debug    Keep interim logs for debugging (optional)"
     echo "  --skip-errors  Exit on first error (not default behavior)"
     echo "  -h,--help  Show this help message and exit"
@@ -41,7 +41,7 @@ show_help() {
 while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in        
-        --recipe)
+        --recipe-bash)
             RECIPE_FILE="$2"
             shift; shift
             ;;        
@@ -292,6 +292,8 @@ echo "[coble-create] Recipe took: ${hours}h ${minutes}m ${seconds}s" >> "$TIME_F
 echo "--------------------------------------" >> "$TIME_FILE"        
 
 echo "[coble-create] Recreate process completed." >&2
+echo "[coble-create] To activate the new environment, run:" >&2
+echo "    conda activate $NEW_ENV" >&2
 # clear the log diversions and return stdout and stderr to normal
 exec >&- 2>&-
 echo Y

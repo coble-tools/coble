@@ -138,7 +138,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	fi		
 	echo "[coble 4/5] Created recipe, proceeding to creation." >&2
 	recipe_file="$recipe_file".delta.sh
-	result=$("$script_dir/coble-create.sh" --recipe "$recipe_file" "${@:2}")
+	result=$("$script_dir/coble-create.sh" --recipe-bash "$recipe_file" "${@:2}")
 	if [[ $? -ne 0 ]]; then		 
 		echo "[coble] Error in environment creation, please review logs before resuming." >&2
 
