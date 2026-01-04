@@ -30,7 +30,7 @@ start_time=$(date +%s)
 
 echo '╔══════════════════════════════════════════════════════════════╗'
 echo '║        COBLE Container v0.1                                  ║'
-echo '║        (c) ICR 2026 RSE and BCRDS                            ║'
+echo '║        (c) ICR 2026 RSE and BCR-DS                           ║'
 echo '║        For help, see:                                        ║'
 echo '║        - https://icr-rse-group.github.io/coble/              ║'
 echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║'
@@ -66,21 +66,41 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		REBUILD_FLAG=""
 		build_action="update"
 	fi
-	
+
+	# detect the --envs flag which has a param afterwards like: --env my-env
+	# env_input=""
+	# if [[ " $* " == *" --env "* ]]; then
+	# 	# get the env name
+	# 	for arg in "$@"; do
+	# 		if [[ "$arg" == "--env" ]]; then
+	# 			env_input="${2}"
+	# 			break
+	# 		fi
+	# 		shift
+	# 	done
+	# 	echo "[coble] Environment name detected: $env_input" >&2		
+	# else
+	# 	echo "[coble] No --env provided, can't proceed without environment name" >&2
+	# 	exit 1
+	# fi
 
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
-	echo "[coble 1/5] Resolving yml..." >&2
+	echo "[coble 1/5] Resolving cbl..." >&2
 	finds=$("$script_dir/coble-resolve.sh" "${@:2}")
 	if [[ "$finds" == "Y" ]]; then
 		echo "[coble] Finds were resolved, please check the yml input before resuming." >&2
 		exit 0
 	fi	
 	
-	echo "[coble 2/5] Resolved yml, proceeding to rationalise." >&2
-	success=$("$script_dir/coble-rationalise.sh" "${@:2}")
+	echo "[coble 2/5] Resolved cbl, proceeding to rationalise." >&2
+	success=$("$script_dir/coble-rationalise.sh" "${@:2}")	
+	if [[ "$success" == "N" ]]; then
+		echo "[coble] CBL rationalisation failed, please check the yml input before resuming." >&2
+		exit 0
+	fi
 				
-	echo "[coble 3/5] Rationalised yml, proceeding to recipise." >&2	
+	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2	
 	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"

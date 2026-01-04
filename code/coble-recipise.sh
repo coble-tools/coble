@@ -33,9 +33,9 @@ echo "[coble-recipise] Starting recipise process..." >&2
 # Parse named arguments
 show_help() {
     echo "----- coble recipise help ----------"
-    echo "Usage: $0 [--env ENV] [--input YAML_FILE] [--output RECIPE] [--outdir OUTDIR]"
+    echo "Usage: $0 [--env ENV] [--input CBL] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --input YAML     Specify input YAML file (optional, default: ./coble-capture.cbl)"
+    echo "  --input CBL      Specify input CBL file (optional, default: ./coble-capture.cbl)"
     echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  --outdir OUTDIR  Specify output directory for recipe file (optional, default: .)"
     echo "  -h, --help       Show this help message and exit"
@@ -88,7 +88,7 @@ if [[ -z "$YAML_FILE" ]]; then
 fi
 
 if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
-    echo "Error: YAML file not found: $YAML_FILE" >&2
+    echo "Error: CBL file not found: $YAML_FILE" >&2
     echo "N"
     exit 1
 fi
@@ -112,7 +112,7 @@ fi
 # Now show all the inputs
 echo "[coble-recipise] Using inputs:" >&2
 echo "  ENV_INPUT: $ENV_INPUT" >&2
-echo "  YAML_FILE: $YAML_FILE" >&2
+echo "  CBL_FILE: $YAML_FILE" >&2
 echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
@@ -243,7 +243,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bioc-package:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
-        echo "[conda-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
+        #echo "[coble-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
@@ -258,58 +258,46 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
         #fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:" ]]; then
-        pkg_entry="${line#- }"
-        #echo "[conda-recipise] Processing entry: $pkg_entry" >&2
+        pkg_entry="${line#- }"        
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_only ver <<< "$pkg"
         # For flags, parse directive and value from 'directive = value' format        
         if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
             continue
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
-            echo "[conda-recipise] Processing flag: $pkg_entry" >&2
+            echo "[coble-recipise] Processing flag: $pkg_entry" >&2
             #directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             #value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             value="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
             value="${value## }"                            
-            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')
-            echo "[conda-recipise] Directive: $directive, Value: ${value}" >&2    
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')            
             echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-            if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                
-                echo "[conda-recipise] (default) Will install dependencies" >&2
+            if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                                
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "false" ]]; then                
-                echo "[conda-recipise] (!not default) Will NOT install dependencies" >&2
+            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "false" ]]; then                                
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
-            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "na" ]]; then                
-                echo "[conda-recipise] (!not default) r packages will skip suggests" >&2
+            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "na" ]]; then                                
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="NA"
-            elif [[ "${directive,,}" == "export" ]]; then
-                echo "[conda-recipise] export environment variable ${value}" >&2                                
+            elif [[ "${directive,,}" == "export" ]]; then                
                 echo "export ${value}" >> "$RECIPE_FILE"
-            elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then
-                echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
+            elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then                
                 UPDATE_CONDA=""                
-            elif [[ "${directive,,}" == "ncpus" ]]; then
-                echo "[conda-recipise] Ncpus specified as $value" >&2
-                NCPUS="$value"
-                echo "[conda-recipise] = $NCPUS" >&2
-            elif [[ "${directive,,}" == "priority" ]]; then
-                echo "[conda-recipise] Channel priority specified as $value" >&2
+            elif [[ "${directive,,}" == "ncpus" ]]; then                
+                NCPUS="$value"                
+            elif [[ "${directive,,}" == "priority" ]]; then                
                 PRIORITY="$value"                
                 echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
-            elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                
-                echo "[conda-recipise] (default) Will not update dependencies" >&2
+            elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                                
                 UPDATE_CONDA="--no-update-deps"                
-            elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then
-                echo "[conda-recipise] Build-tools will be included" >&2
+            elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including build tools for source installations" >> "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
@@ -392,8 +380,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             else
                 echo "'$pkg' \\" >> "$RECIPE_FILE"
             fi                                                            
-        elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then            
-            echo "[conda-recipise] Processing R package: $pkg_only, version: $ver, source: $src ncpus:$NCPUS" >&2
+        elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
@@ -416,8 +403,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             
         elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
             echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                       
-            echo "[conda-recipise] Processing pip package: $pkg_only, version: $ver" >&2
+        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                                   
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
             if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
@@ -428,11 +414,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "python -m pip install '${pkg_only}==$ver' $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi
             
-        elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
-            echo "[conda-recipise] Adding bash command: $pkg_entry" >&2
+        elif [[ "$CURRENT_SECTION" == "bash:" ]]; then            
             echo "$pkg_entry" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
-            echo "[conda-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
+            echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
             find_args=(--pkg "$pkg_only" --version "$ver")
@@ -456,8 +441,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
         # if it is a comment
-        if [[ "$line" == \#* ]]; then
-            #echo "[conda-recipise] Transferring comment: $line" >&2
+        if [[ "$line" == \#* ]]; then            
             echo "$line" >> "$RECIPE_FILE"
         # if line is a space we preserve it
         elif [[ -z "$line" ]]; then
@@ -468,7 +452,7 @@ done < "$YAML_FILE"
 # remove a trailing \ if needed
 sed -i '${s/\\$//}' "$RECIPE_FILE"
 
-echo "[conda-recipise] Recipe generation complete: $RECIPE_FILE" >&2
+echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
 echo "$RECIPE_FILE"

@@ -23,8 +23,8 @@ YAML_FILE=""
 # Parse named arguments
 show_help() {
     echo "----- coble resolve help ----------"    
-    echo "Usage: $0 --input YAML_FILE"    
-    echo "  --input YAML     Specify input YAML file - it will be updated where there is a find"
+    echo "Usage: $0 --input CBL"    
+    echo "  --input CBL      Specify input CBL file - it will be updated where there is a find"
     echo "  -h, --help       Show this help message and exit"
     echo "------------------------------------"
     echo "OUTPUT- return value Y/N: Y if a find was changed to a package manager"    
@@ -51,7 +51,7 @@ done
 
 if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     # exit as the whole point is to change the yaml file
-    echo "[coble-refind] !!!error no yaml input please --input YAML" >&2
+    echo "[coble-find] !!!error no cbl input please --input CBL" >&2
     exit 1    
 fi
 
@@ -59,7 +59,7 @@ fi
 # Now check the second line, if the 'yml' is already coble resolved, exit
 #first_line=$(sed -n '1p' "$YAML_FILE")
 #if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Resolved* ]]; then
-#    echo "[coble-refind] YAML already coble resolved, exiting: $YAML_FILE" >&2
+#    echo "[coble-refind] CBL already coble resolved, exiting: $YAML_FILE" >&2
 #    echo N
 #    exit 0
 #fi
@@ -160,9 +160,9 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
     fi
 done < "$YAML_BACKUP"
 if [[ $finds == "Y" ]]; then
-    echo "[coble-resolve] Finds were resolved, please check the yml output: $YAML_FILE" >&2
+    echo "[coble-resolve] Finds were resolved, please check the cbl output: $YAML_FILE" >&2
 else
-    echo "[coble-resolve] No finds were resolved, yaml unchanged: $YAML_FILE" >&2
+    echo "[coble-resolve] No finds were resolved, cbl unchanged: $YAML_FILE" >&2
     echo "[coble-resolve] But find: or found| still present in file: $YAML_FILE" >&2
 fi
 # this tells it that find: or found| are in the file

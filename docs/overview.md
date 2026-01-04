@@ -30,12 +30,12 @@ flowchart LR
 ## Workflow Steps
 
 1. **Find Block Resolution**
-   - The tool first processes any packages listed in the `find:` block of your YAML file.
+   - The tool first processes any packages listed in the `find:` block of your CBL file.
    - You will be prompted to review and confirm these packages before proceeding.
-   - The YAML file is updated in place based on your input.
+   - The CBL file is updated in place based on your input.
 
 2. **Recipe Generation**
-   - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your YAML in the outdir.
+   - After confirmation (or if no find required), COBLE generates a recipe file (a bash script) from your CBL in the outdir.
 
 3. **Recipe Execution**
     - No further prompting, the tool then executes the generated recipe script to create the environment.

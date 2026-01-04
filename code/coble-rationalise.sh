@@ -19,8 +19,8 @@ BACKUP_FILE=""
 # Parse arguments ########################################################
 show_help() {
     echo "----- coble rationalise help ----------"    
-    echo "Usage: $0 --input YAML_FILE"    
-    echo "  --input     YAML                    Specify input YAML file - it will be rationalised - sections moved about"
+    echo "Usage: $0 --input CBL_FILE"    
+    echo "  --input     CBL  Specify input CBL file - it will be rationalised - sections moved about"
     echo "  -h, --help  Show this help message and exit"
     echo "------------------------------------"    
 }
@@ -39,21 +39,6 @@ if [[ -z "$YAML_FILE" ]]; then
     echo "N"
     exit 1
 fi
-
-
-# Now check the first line, if the 'yml' is already coble rationalised, exit
-#first_line=$(sed -n '1p' "$YAML_FILE")
-#if [[ "$first_line" == "##!COBLE:"* && "$first_line" == *Ordered* ]]; then
-#    echo "[coble-rationalise] YAML already coble ordered, exiting: $YAML_FILE" >&2
-#    echo Y
-#    exit 0
-#fi
-
-# check if the first tags are in the desired order #
-# coble:
-# channels:
-# languages:
-# flags:
 
 count=0
 coble_count=0
@@ -79,146 +64,155 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     fi
 done < "$YAML_FILE"
-if [[ $coble_count -ne 1 || $channels_count -ne 2 || $languages_count -ne 3 || $flags_count -ne 4 ]]; then
+if [[ $coble_count -ne 1 || $channels_count -ne 2 || $languages_count -ne 3 ]]; then
     ok=false
 fi
 
 if [[ "$ok" == true ]]; then
-    echo "[coble-rationalise] YAML already coble ordered, exiting: $YAML_FILE" >&2
+    echo "[coble-rationalise] CBL already coble ordered, exiting: $YAML_FILE" >&2
     echo Y
     exit 0
+else
+    echo "[coble-rationalise] CBL not ordered, please fix before proceeding to rationalise: $YAML_FILE" >&2
+    echo "  directive order should begin:" >&2
+    echo "    coble:" >&2
+    echo "    channels:" >&2
+    echo "    languages:" >&2
+    #echo "    flags:" >&2
+    echo N
+    exit 1
 fi
   
-# Copy to backup
-BACKUP_FILE="${YAML_FILE}.bak2.yml"
-cp "$YAML_FILE" "$BACKUP_FILE"
+# # Copy to backup
+# BACKUP_FILE="${YAML_FILE}.bak2.yml"
+# cp "$YAML_FILE" "$BACKUP_FILE"
 
-# init with basic time date ############################################
-first_line=$(sed -n '1p' "$YAML_FILE")
-# Clear the aggregate file at the start
-{	
-    CAPTURE_DATE=$(date '+%Y-%m-%d')
-	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
-	CAPTURE_USER=$(whoami)	    
-    #echo -e "$first_line"            
-    echo "##!COBLE: Ordered on ${CAPTURE_DATE} at ${CAPTURE_TIME} by ${CAPTURE_USER}"
-} > "$YAML_FILE"
-
-
-# I want to build a map of flags and instructions ##########################
-# The flags are the secitons in the yml file like flag:
-# the instructions are everything that follows until the next flag:
-# The flags may not be unique so they are a list that has a list of instructions
-declare -A SECTION_MAP
-CURRENT_FLAG=""
-while IFS= read -r line || [[ -n "$line" ]]; do
-# if line is empty skip
-    if [[ -z "$line" ]]; then
-        continue
-    fi 
-    # Check if the line is a flag (ends with ':')
-    if [[ "$line" =~ ^[a-zA-Z0-9_-]+:$ ]]; then
-        CURRENT_FLAG="${line%:}"  # Remove the colon
-        # Initialize the flag in the map if not already present
-        if [[ -z "${SECTION_MAP[$CURRENT_FLAG]}" ]]; then
-            SECTION_MAP["$CURRENT_FLAG"]=""
-        fi
-    else
-        # Append the line to the current flag's instructions
-        if [[ -n "$CURRENT_FLAG" ]]; then
-            SECTION_MAP["$CURRENT_FLAG"]+="$line"$'\n'
-        fi
-    fi
-done < "$BACKUP_FILE"
-
-# can you echo out the sections for debugging?
-for key in "${!SECTION_MAP[@]}"; do
-    echo "Section: $key"
-    echo "Instructions:"
-    echo "${SECTION_MAP[$key]}"
-    echo "---------------------"
-done
-
-# now go through it and write out the sections in the desired order #
-# only some sections need to be in the desired order the rest as they came
-# Rationalise YAML: extract only the first occurrence of each DESIRED_START section, error on duplicates, write rest as-is
-DESIRED_START=(
-    "coble"
-    "channels"
-    "languages"    
-)
-
-declare -A FOUND_SECTIONS
-declare -A SECTION_CONTENT
-
-CURRENT_SECTION=""
-CURRENT_CONTENT=""
-
-# Read the file and extract first occurrence of each DESIRED_START section
-while IFS= read -r line || [[ -n "$line" ]]; do
-    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
-        section_name="${BASH_REMATCH[1]}"
-        # If we were collecting a section, store it
-        if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
-            if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
-                SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
-            fi
-        fi
-        CURRENT_CONTENT=""
-        CURRENT_SECTION="$section_name"
-        # If this is a DESIRED_START section
-        for desired in "${DESIRED_START[@]}"; do
-            if [[ "$section_name" == "$desired" ]]; then
-                if [[ -n "${FOUND_SECTIONS[$section_name]}" ]]; then
-                    echo "[coble-rationalise] ERROR: Duplicate section '$section_name' found in $YAML_FILE" >&2
-                    echo "N"
-                    exit 1
-                fi
-                FOUND_SECTIONS[$section_name]=1
-            fi
-        done
-        CURRENT_CONTENT="$line"$'\n'
-    else
-        CURRENT_CONTENT+="$line"$'\n'
-    fi
-done < "$BACKUP_FILE"
-# Store last section
-if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
-    if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
-        SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
-    fi
-fi
-
-# Write DESIRED_START sections in order
-for section in "${DESIRED_START[@]}"; do
-    if [[ -n "${SECTION_CONTENT[$section]}" ]]; then
-        printf "%s" "${SECTION_CONTENT[$section]}" >> "$YAML_FILE"
-    fi
-done
-
-# Write the rest of the file, skipping DESIRED_START sections
-SKIP_SECTION=0
-while IFS= read -r line || [[ -n "$line" ]]; do
-    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
-        section_name="${BASH_REMATCH[1]}"
-        SKIP_SECTION=0
-        for desired in "${DESIRED_START[@]}"; do
-            if [[ "$section_name" == "$desired" ]]; then
-                SKIP_SECTION=1
-                break
-            fi
-        done
-    fi
-    if [[ $SKIP_SECTION -eq 0 ]]; then
-        # if the line starts ##!COBLE skip it
-        if [[ "$line" == "##!COBLE"* ]]; then
-            continue
-        fi
-        printf "%s\n" "$line" >> "$YAML_FILE"
-    fi
-done < "$BACKUP_FILE"
+# # init with basic time date ############################################
+# first_line=$(sed -n '1p' "$YAML_FILE")
+# # Clear the aggregate file at the start
+# {	
+#     CAPTURE_DATE=$(date '+%Y-%m-%d')
+# 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
+# 	CAPTURE_USER=$(whoami)	    
+#     #echo -e "$first_line"            
+#     echo "##!COBLE: Ordered on ${CAPTURE_DATE} at ${CAPTURE_TIME} by ${CAPTURE_USER}"
+# } > "$YAML_FILE"
 
 
-echo "[coble-reordered] Rationalisation complete: $YAML_FILE" >&2
+# # I want to build a map of flags and instructions ##########################
+# # The flags are the secitons in the yml file like flag:
+# # the instructions are everything that follows until the next flag:
+# # The flags may not be unique so they are a list that has a list of instructions
+# declare -A SECTION_MAP
+# CURRENT_FLAG=""
+# while IFS= read -r line || [[ -n "$line" ]]; do
+# # if line is empty skip
+#     if [[ -z "$line" ]]; then
+#         continue
+#     fi 
+#     # Check if the line is a flag (ends with ':')
+#     if [[ "$line" =~ ^[a-zA-Z0-9_-]+:$ ]]; then
+#         CURRENT_FLAG="${line%:}"  # Remove the colon
+#         # Initialize the flag in the map if not already present
+#         if [[ -z "${SECTION_MAP[$CURRENT_FLAG]}" ]]; then
+#             SECTION_MAP["$CURRENT_FLAG"]=""
+#         fi
+#     else
+#         # Append the line to the current flag's instructions
+#         if [[ -n "$CURRENT_FLAG" ]]; then
+#             SECTION_MAP["$CURRENT_FLAG"]+="$line"$'\n'
+#         fi
+#     fi
+# done < "$BACKUP_FILE"
 
-echo "Y"
+# # can you echo out the sections for debugging?
+# for key in "${!SECTION_MAP[@]}"; do
+#     echo "Section: $key"
+#     echo "Instructions:"
+#     echo "${SECTION_MAP[$key]}"
+#     echo "---------------------"
+# done
+
+# # now go through it and write out the sections in the desired order #
+# # only some sections need to be in the desired order the rest as they came
+# # Rationalise YAML: extract only the first occurrence of each DESIRED_START section, error on duplicates, write rest as-is
+# DESIRED_START=(
+#     "coble"
+#     "channels"
+#     "languages"    
+# )
+
+# declare -A FOUND_SECTIONS
+# declare -A SECTION_CONTENT
+
+# CURRENT_SECTION=""
+# CURRENT_CONTENT=""
+
+# # Read the file and extract first occurrence of each DESIRED_START section
+# while IFS= read -r line || [[ -n "$line" ]]; do
+#     if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+#         section_name="${BASH_REMATCH[1]}"
+#         # If we were collecting a section, store it
+#         if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
+#             if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
+#                 SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
+#             fi
+#         fi
+#         CURRENT_CONTENT=""
+#         CURRENT_SECTION="$section_name"
+#         # If this is a DESIRED_START section
+#         for desired in "${DESIRED_START[@]}"; do
+#             if [[ "$section_name" == "$desired" ]]; then
+#                 if [[ -n "${FOUND_SECTIONS[$section_name]}" ]]; then
+#                     echo "[coble-rationalise] ERROR: Duplicate section '$section_name' found in $YAML_FILE" >&2
+#                     echo "N"
+#                     exit 1
+#                 fi
+#                 FOUND_SECTIONS[$section_name]=1
+#             fi
+#         done
+#         CURRENT_CONTENT="$line"$'\n'
+#     else
+#         CURRENT_CONTENT+="$line"$'\n'
+#     fi
+# done < "$BACKUP_FILE"
+# # Store last section
+# if [[ -n "$CURRENT_SECTION" && -n "$CURRENT_CONTENT" ]]; then
+#     if [[ -z "${SECTION_CONTENT[$CURRENT_SECTION]}" ]]; then
+#         SECTION_CONTENT[$CURRENT_SECTION]="$CURRENT_CONTENT"
+#     fi
+# fi
+
+# # Write DESIRED_START sections in order
+# for section in "${DESIRED_START[@]}"; do
+#     if [[ -n "${SECTION_CONTENT[$section]}" ]]; then
+#         printf "%s" "${SECTION_CONTENT[$section]}" >> "$YAML_FILE"
+#     fi
+# done
+
+# # Write the rest of the file, skipping DESIRED_START sections
+# SKIP_SECTION=0
+# while IFS= read -r line || [[ -n "$line" ]]; do
+#     if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+#         section_name="${BASH_REMATCH[1]}"
+#         SKIP_SECTION=0
+#         for desired in "${DESIRED_START[@]}"; do
+#             if [[ "$section_name" == "$desired" ]]; then
+#                 SKIP_SECTION=1
+#                 break
+#             fi
+#         done
+#     fi
+#     if [[ $SKIP_SECTION -eq 0 ]]; then
+#         # if the line starts ##!COBLE skip it
+#         if [[ "$line" == "##!COBLE"* ]]; then
+#             continue
+#         fi
+#         printf "%s\n" "$line" >> "$YAML_FILE"
+#     fi
+# done < "$BACKUP_FILE"
+
+
+# echo "[coble-reordered] Rationalisation complete: $YAML_FILE" >&2
+
+# echo "Y"

@@ -19,7 +19,6 @@ git clone git@github.com:ICR-RSE-Group/coble.git
 coble/code/coble -h 
 coble/code/coble recipe -h 
 coble/code/coble build -h 
-coble/code/coble update -h 
 ```
 You need to add the folder coble/code to the path or refer to the coble utility script by full or relative path.
 
