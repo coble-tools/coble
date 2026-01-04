@@ -100,7 +100,8 @@ first_line=$(sed -n '1p' "$YAML_FILE")
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	    
-    echo -e "$first_line + Ordered"            
+    #echo -e "$first_line"            
+    echo "##!COBLE: Ordered on ${CAPTURE_DATE} at ${CAPTURE_TIME} by ${CAPTURE_USER}"
 } > "$YAML_FILE"
 
 

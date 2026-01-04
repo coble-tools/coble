@@ -15,3 +15,4 @@ languages:
 bash:
 python -m pip install pandas
   - Rscript -e "install.packages('ggplot2', repos='https://cloud.r-project.org/')"
+pwd

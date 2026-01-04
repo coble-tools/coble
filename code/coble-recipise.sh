@@ -287,6 +287,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="NA"
+            elif [[ "${directive,,}" == "export" ]]; then
+                echo "[conda-recipise] export environment variable $value " >&2                                
+                echo "export $value" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then
                 echo "[conda-recipise] (! NOT default) Will update dependencies (not base languages)" >&2
                 UPDATE_CONDA=""                
@@ -414,9 +417,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
             if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
-                pip_pkg="git+$pip_pkg"
-            fi            
-            echo "python -m pip install '${pip_pkg}' $DEPS_PYTHON" >> "$RECIPE_FILE"                        
+                echo "python -m pip install 'git+${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            elif [[ "$pip_pkg" == https* ]]; then
+                echo "python -m pip install '${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            else
+                echo "python -m pip install '${pkg_only}==$ver' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            fi
+            
         elif [[ "$CURRENT_SECTION" == "bash:" ]]; then
             echo "[conda-recipise] Adding bash command: $pkg_entry" >&2
             echo "$pkg_entry" >> "$RECIPE_FILE"        

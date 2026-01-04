@@ -221,53 +221,57 @@ if [ -f "$TMP_R_PACKAGES_TXT" ]; then
 fi
 
 # Process pip freeze (skip lines containing 'file://')
-while IFS= read -r line; do
-	[[ "$line" == *file://* ]] && continue
-	# pip freeze: pkg==ver or pkg @ git+url or pkg @ ...
-    # clean line and conrinue of blanks
-    line=$(echo "$line" | xargs)
-    if [[ -z "$line" ]]; then
-        continue
-    fi
+# if the file exsits
+if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
+	
+	while IFS= read -r line; do
+		[[ "$line" == *file://* ]] && continue
+		# pip freeze: pkg==ver or pkg @ git+url or pkg @ ...
+		# clean line and conrinue of blanks
+		line=$(echo "$line" | xargs)
+		if [[ -z "$line" ]]; then
+			continue
+		fi
 
-	if [[ "$line" == *" @ "* ]]; then
-		pkg=$(echo "$line" | cut -d' ' -f1)
-		src=$(echo "$line" | cut -d'@' -f2- | xargs)
-		path="$src"
-		if [[ "$src" == *git* ]]; then
-			# If git, set version to 0 if not present, detect VCS host
-			ver="0"
-			# Detect host from URL
-			vcs_host="github"
-			if [[ "$src" == *gitlab* ]]; then
-				vcs_host="gitlab"
-			elif [[ "$src" == *bitbucket* ]]; then
-				vcs_host="bitbucket"
-			elif [[ "$src" == *sourcehut* ]]; then
-				vcs_host="sourcehut"
-			elif [[ "$src" == *azure* ]]; then
-				vcs_host="azure"
-			fi
-			if [[ -z "$ver" || "$ver" == "0" ]]; then
-				pkgver="$pkg"
+		if [[ "$line" == *" @ "* ]]; then
+			pkg=$(echo "$line" | cut -d' ' -f1)
+			src=$(echo "$line" | cut -d'@' -f2- | xargs)
+			path="$src"
+			if [[ "$src" == *git* ]]; then
+				# If git, set version to 0 if not present, detect VCS host
+				ver="0"
+				# Detect host from URL
+				vcs_host="github"
+				if [[ "$src" == *gitlab* ]]; then
+					vcs_host="gitlab"
+				elif [[ "$src" == *bitbucket* ]]; then
+					vcs_host="bitbucket"
+				elif [[ "$src" == *sourcehut* ]]; then
+					vcs_host="sourcehut"
+				elif [[ "$src" == *azure* ]]; then
+					vcs_host="azure"
+				fi
+				if [[ -z "$ver" || "$ver" == "0" ]]; then
+					pkgver="$pkg"
+				else
+					pkgver="$pkg=$ver"
+				fi
+				echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
 			else
+				ver=""
 				pkgver="$pkg=$ver"
+				echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 			fi
-			echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
 		else
-			ver=""
-			pkgver="$pkg=$ver"
+			pkg=$(echo "$line" | cut -d'=' -f1)
+			ver=$(echo "$line" | cut -d'=' -f3)
+			src="pypi"
+			path=""
+			pkgver="$pkg==$ver"
 			echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 		fi
-	else
-		pkg=$(echo "$line" | cut -d'=' -f1)
-		ver=$(echo "$line" | cut -d'=' -f3)
-		src="pypi"
-		path=""
-		pkgver="$pkg==$ver"
-		echo -e "pip\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
-	fi
-done < "$TMP_PIP_FREEZE_TXT"
+	done < "$TMP_PIP_FREEZE_TXT"
+fi
 
 echo "[coble-capture] Interim aggregated package list at $TMP_AGGREGATE"
 
