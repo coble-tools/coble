@@ -60,12 +60,12 @@ markdown_extensions:
 nav:
   - Overview:
     - Home: index.md
-    - Installation: install.md
-    - Motivation: motivation.md  
+    - Installation: overview/install.md
+    - Motivation: overview/motivation.md  
   - COBLE:
     - Workflow: overview.md
-    - icr-cluster: icr.md
-    - hpc-cluster: hpc.md    
+    - icr-cluster: coble/icr.md
+    - hpc-cluster: coble/hpc.md    
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
@@ -74,10 +74,10 @@ nav:
     - Bioinformatics: recipes/bioinf.md
   - Tutorials:
     - Overview: tutorial.md
-    - SYLVER(Find): recipes/sylver.md
-    - CountReg(Fix): recipes/countreg.md
+    - SYLVER(Find): tutorials/sylver.md
+    - CountReg(Fix): tutorials/countreg.md
     - Troubleshooting: troubleshooting.md
   - Containers: 
     - Containers: containers.md    
-    - Docker-Singularity: docker-build.md  
+    - Docker-Singularity: containers/docker-build.md  
   - About: about.md
