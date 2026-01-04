@@ -38,3 +38,18 @@ r-package:
 pip:
   - requests
 ```
+Outputs are:
+
+## log and output files
+
+**Interim**  
+- **myinput.cbl.recipe.sh** - the cbl transformed into a pure bash script that could be run instead  
+- **myinput.cbl.recipe.sh.delta.sh** - the change in bash that will be run (for updates and resume)  
+- **myinput.cbl.recipe.sh.done.sh** - each bash line that has  succesfull completed in the environment  
+- **myinput.cbl.recipe.sh.old.sh** - backed up when new recipe created  
+**Logs and tracking**  
+- **myinput.cbl.recipe.sh.log** - each bash line cleans the log file so you can track the current stdout  
+- **myinput.cbl.recipe.sh.err** - each bash line cleans the err file so you can track the current stderr  
+- **myinput.cbl.recipe.sh.summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
+**Catured environment**  
+- **myinput.cbl.recipe.sh.capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
