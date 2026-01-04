@@ -22,7 +22,7 @@ conda env list
 ``` 
 
 ## New R version - bioconductor not built
-You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran. Look at the tutorial for [fixing countreg](recipes/countreg.md).
+You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran. Look at the tutorial for [fixing countreg](countreg.md).
 
 ## Missing compiler tools
 Most are installed if you set the build-tools flag to true. Different versions of operating systems and code may have dependencies on old or newer compilers. This is a last resort when trying to install all possible ways fails. You can use an environment variable set through bash, or explicitly set a more permissive compiler warning like:

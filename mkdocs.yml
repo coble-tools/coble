@@ -76,7 +76,7 @@ nav:
     - Overview: tutorial.md
     - SYLVER(Find): tutorials/sylver.md
     - CountReg(Fix): tutorials/countreg.md
-    - Troubleshooting: troubleshooting.md
+    - Troubleshooting: tutorials/troubleshooting.md
   - Containers: 
     - Containers: containers.md    
     - Docker-Singularity: containers/docker-build.md  

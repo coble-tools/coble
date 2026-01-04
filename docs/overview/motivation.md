@@ -22,7 +22,7 @@ COBLE helps to make robust, reproducible, and reusable scientific environments, 
 ## Common use cases
 
 ### Building an environment from a publication
-See the [SYLVER tutorial](recipes/sylver.md) for an example of taking the written info from a publication and rapidly building a working versioned environment.  The `find` directive helps to find the package source of given libraries and the ability to mix multiple package managers in one definitions smooths the time spent in creation.
+See the [SYLVER tutorial](../tutorials/sylver.md) for an example of taking the written info from a publication and rapidly building a working versioned environment.  The `find` directive helps to find the package source of given libraries and the ability to mix multiple package managers in one definitions smooths the time spent in creation.
 
 ### Evolving Environments and Recipe Rationalization
 A common use case is that a conda environment is built up incrementally over time. For reproducibility, it is essential that all library versions remain pinned—once a package is added, its version and the order of installation must not change. This ensures that the environment can always be recreated exactly as it was.
