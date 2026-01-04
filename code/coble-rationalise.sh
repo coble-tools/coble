@@ -4,7 +4,7 @@
 # success=$(coble-rationalise.sh my.yml)
 ##############
 # Inputs ----
-# 1. --input yamlfile
+# 1. --recipe yamlfile
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
@@ -19,14 +19,14 @@ BACKUP_FILE=""
 # Parse arguments ########################################################
 show_help() {
     echo "----- coble rationalise help ----------"    
-    echo "Usage: $0 --input CBL_FILE"    
-    echo "  --input     CBL  Specify input CBL file - it will be rationalised - sections moved about"
+    echo "Usage: $0 --recipe CBL_FILE"    
+    echo "  --recipe     CBL  Specify input CBL file - it will be rationalised - sections moved about"
     echo "  -h, --help  Show this help message and exit"
     echo "------------------------------------"    
 }
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --input) YAML_FILE="$2"; shift 2 ;;    
+    --recipe) YAML_FILE="$2"; shift 2 ;;    
     -h|--help) show_help; exit 0 ;;    
     #*) echo "Unknown option: $1" >&2; exit 1 ;;
     *) shift ;;
@@ -35,7 +35,7 @@ done
 
 # Exit if not input file specified
 if [[ -z "$YAML_FILE" ]]; then
-    echo "Error: --input YAML_FILE is required." >&2
+    echo "Error: --recipe YAML_FILE is required." >&2
     echo "N"
     exit 1
 fi

@@ -4,7 +4,7 @@ The takes you through some of the frustrating messages you get on conda installa
 
 Start with getting the tutorial recipe template:
 ```bash
-coble recipe --input tutorials/countreg/countreg.cbl --flavour fix
+coble recipe --recipe tutorials/countreg/countreg.cbl --flavour fix
 ```
 
 We get back from the finds the following:
@@ -50,7 +50,7 @@ r-package:
 ```
 
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 
 Finally we exit from the installation, the `summary.txt` has this message:
@@ -86,7 +86,7 @@ In install.packages("countreg", repos = "https://R-Forge.R-project.org",  :
 
 Let's find those packages
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 
 ```yaml
@@ -142,7 +142,7 @@ r-package:
 
 Run on update:
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 
 The `.delta.sh` file will show the commands being run as part of the update.
@@ -206,11 +206,11 @@ r-package:
 ```
 Run on update:
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env
+coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 It works!  
 To be certian re-run from the beginning:
 
 ```bash
-coble build --input tutorials/countreg/countreg.cbl --env fix-env --rebuild
+coble build --inprecipeut tutorials/countreg/countreg.cbl --env fix-env --rebuild
 ```

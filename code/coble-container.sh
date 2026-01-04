@@ -13,18 +13,18 @@ Build Docker and Singularity containers from COBLE recipes.
 
 OPTIONS:
     --env NAME          Name for the container environment (required)
-    --input PATH        Path to the .cbl recipe file (required)        
+    --recipe PATH        Path to the .cbl recipe file (required)        
     -h, --help          Show this help message
 
 EXAMPLES:
     # Build both Docker and Singularity containers
-    $(basename "$0") --env basic --input config/basic.cbl
+    $(basename "$0") --env basic --recipe config/basic.cbl
 
     # Only build Docker image
-    $(basename "$0") --env basic --input config/basic.cbl --steps 1
+    $(basename "$0") --env basic --recipe config/basic.cbl --steps 1
 
     # Only build Singularity image (assumes Docker image exists)
-    $(basename "$0") --env basic --input config/basic.cbl --steps 2
+    $(basename "$0") --env basic --recipe config/basic.cbl --steps 2
 
 EOF
 }
@@ -36,7 +36,7 @@ while [[ $# -gt 0 ]]; do
             ENV_NAME="$2"
             shift 2
             ;;
-        --input)
+        --recipe)
             INPUT_RECIPE="$2"
             shift 2
             ;;        
@@ -60,7 +60,7 @@ if [[ -z "$ENV_NAME" ]]; then
 fi
 
 if [[ -z "$INPUT_RECIPE" ]]; then
-    echo "Error: --input is required"
+    echo "Error: --recipe is required"
     show_help
     exit 1
 fi

@@ -34,7 +34,7 @@ pip:
 To build this there is the command `build`. If you want to start or add to an existing environment use `build`, to completely clean and start again use `build` with the additional flag `--rebuild`. To be safe and as environments evolve using `build` ensures time saving - it create a "delta" file and only installs changes. Do ensure that `build` can be run with `--rebuild` in full so that the environment can be recreated if needed.
 
 ```bash
-coble build --input my-recipe.cbl --env my-env
+coble build --recipe my-recipe.cbl --env my-env
 ```
 
 ---  

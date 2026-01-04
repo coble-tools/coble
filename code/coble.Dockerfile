@@ -91,7 +91,7 @@ ENV CONDARC=/app/.condarc
 ######################### COBLE ##########################################################
 RUN bash /app/code/coble \            
     build \    
-    --input /app/recipe/$BUILD_TAG.cbl \
+    --recipe /app/recipe/$BUILD_TAG.cbl \
     $(if [ "$SKIP_ERRORS" = "true" ]; then echo "--skip-errors"; fi) \      
     --env "coble-${BUILD_TAG}"
 #########################################################################################

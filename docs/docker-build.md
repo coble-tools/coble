@@ -7,7 +7,7 @@ The coble utility can be called with `contain` instead of build and this builds 
 **Recipe:** `config/basic.cbl`
 **env** `my-env`
 ```bash
-coble contain --input config/basic.cbl --env my-env
+coble contain --recipe config/basic.cbl --env my-env
 ```
 This outputs:
 - `cbl-my-env.tar` a docker file

@@ -19,7 +19,7 @@ while [[ $# -gt 0 ]]; do
     --version) ver="$2"; shift 2 ;;
     --all) all=true; shift ;;
     --skip-variants) skip_variants=true; shift ;;
-    --input) YAML_FILE="$2"; shift 2 ;; 
+    --recipe) YAML_FILE="$2"; shift 2 ;; 
     *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
 done

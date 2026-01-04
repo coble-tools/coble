@@ -5,7 +5,7 @@ Docker and Singularity images build together simply using the command `contain` 
 **Recipe:** `config/basic.cbl`
 **env** `my-env`
 ```bash
-coble contain --input config/basic.cbl --env my-env
+coble contain --recipe config/basic.cbl --env my-env
 ```
 Your GITHUB_PAT authentication token [from github](https://github.com/settings/tokens) is automatically passed though ion case of any API calls to githib. You set this in your .bashrc in the usual way after creating the PAT in github from settings/ (`export GITHUB_PAT="ghp_*******************************"`) 
 

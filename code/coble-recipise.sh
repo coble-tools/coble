@@ -3,12 +3,12 @@
 # Turn a captured yaml file into a coble recipe script
 
 ##############
-#mapfile -t result < <("$script_dir/coble-recipise.sh --input YAML_FILE --output RECIPE --env ENV")
+#mapfile -t result < <("$script_dir/coble-recipise.sh --recipe YAML_FILE --output RECIPE --env ENV")
 #success="${result[0]}"
 #recipe_file="${result[1]}"            
 ##############
 # Inputs ----
-# 1. --input yamlfile
+# 1. --recipe yamlfile
 # 2. --env environment name or path
 # 3. --output recipe file
 # 4. --outdir output log files directory
@@ -33,9 +33,9 @@ echo "[coble-recipise] Starting recipise process..." >&2
 # Parse named arguments
 show_help() {
     echo "----- coble recipise help ----------"
-    echo "Usage: $0 [--env ENV] [--input CBL] [--output RECIPE] [--outdir OUTDIR]"
+    echo "Usage: $0 [--env ENV] [--recipe CBL] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --input CBL      Specify input CBL file (optional, default: ./coble-capture.cbl)"
+    echo "  --recipe CBL      Specify input CBL file (optional, default: ./coble-capture.cbl)"
     echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  --outdir OUTDIR  Specify output directory for recipe file (optional, default: .)"
     echo "  -h, --help       Show this help message and exit"
@@ -48,7 +48,7 @@ while [[ $# -gt 0 ]]; do
             ENV_INPUT="$2"
             shift; shift
             ;;
-        --input)
+        --recipe)
             YAML_FILE="$2"
             shift; shift
             ;;

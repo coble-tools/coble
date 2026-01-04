@@ -4,8 +4,8 @@ The bash template os just to deoonstarte that you can free form bash as you like
 
 
 ```bash
-coble recipe --input bash.cbl --flavour bash
-coble build --input bash.cbl --env coble-bash-env
+coble recipe --recipe bash.cbl --flavour bash
+coble build --recipe bash.cbl --env coble-bash-env
 ```
 
 ### Input recipe yaml

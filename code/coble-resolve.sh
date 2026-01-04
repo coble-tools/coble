@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 ##############
-# finds=$(coble-resolve.sh --input my.yml)
+# finds=$(coble-resolve.sh --recipe my.yml)
 ##############
 # Inputs ----
-# 1. --input yamlfile
+# 1. --recipe yamlfile
 # Outputs ----
 # --stdout --
 # 1. success=Y/N
@@ -14,7 +14,7 @@
 ###############
 
 
-# Usage: ./coble-resolve.sh --input YAML_FILE
+# Usage: ./coble-resolve.sh --recipe YAML_FILE
 
 # Default values
 
@@ -23,8 +23,8 @@ YAML_FILE=""
 # Parse named arguments
 show_help() {
     echo "----- coble resolve help ----------"    
-    echo "Usage: $0 --input CBL"    
-    echo "  --input CBL      Specify input CBL file - it will be updated where there is a find"
+    echo "Usage: $0 --recipe CBL"    
+    echo "  --recipe CBL      Specify recipe CBL file - it will be updated where there is a find"
     echo "  -h, --help       Show this help message and exit"
     echo "------------------------------------"
     echo "OUTPUT- return value Y/N: Y if a find was changed to a package manager"    
@@ -34,7 +34,7 @@ finds=N
 while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in        
-        --input)
+        --recipe)
             YAML_FILE="$2"
             shift; shift
             ;;        
@@ -51,7 +51,7 @@ done
 
 if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     # exit as the whole point is to change the yaml file
-    echo "[coble-find] !!!error no cbl input please --input CBL" >&2
+    echo "[coble-find] !!!error no cbl input please --recipe CBL" >&2
     exit 1    
 fi
 
@@ -122,7 +122,7 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             finds=Y
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
-            find_args=(--pkg "$pkg_name" --version "$version" --input "$YAML_FILE")
+            find_args=(--pkg "$pkg_name" --version "$version" --recipe "$YAML_FILE")
             [[ -n "$src" ]] && find_args+=(--source "$src")
             [[ -n "$path" ]] && find_args+=(--path "$path")
             # output the request to the yaml

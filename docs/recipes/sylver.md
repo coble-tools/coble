@@ -44,7 +44,7 @@ Broad Institute’s Cancer Data Science team for these datasets
 ### 1. Generate the initial recipe
 Assume you have will use e.g. `tutorials/sylver` and want to create an inital recipe at `sylver.cbl`. The recipe template uses the `find:` directive as we do not kow from the description where the package managers are.
 ```bash
-coble recipe --input tutorials/sylver/sylver.cbl --flavour sylver
+coble recipe --recipe tutorials/sylver/sylver.cbl --flavour sylver
 ```
 This has creates the `cbl` file at `sylver.cbl` with the usual beginning of channels and flags along with a large find section transcribed from the publication:
 Note that defaults is the higherst priority in the strict channel order due to decommissioned versions that are required by R-3.6.0.
@@ -86,7 +86,7 @@ find:
 
 To resolve these finds simply start to try to build the environment (choose an environment as a name or path, if a path `prefix` will be used automatically):
 ```bash
-coble build --input tutorials/sylver/sylver.cbl --env my-env
+coble build --recipe tutorials/sylver/sylver.cbl --env my-env
 ```
 This may take some time as the find directove looks for all possible places where the libraries may reside. It will give all the options, so we will need to decide where to take them from.  
 
@@ -335,7 +335,7 @@ bioc-package:
 
 Put the above recipe in the `sylver.cbl` file and then run again with the same command:  
 ```bash
-coble build --input tutorials/sylver/sylver.cbl --env my-env
+coble build --recipe tutorials/sylver/sylver.cbl --env my-env
 ```
 It fails :-) with the message 
 ```text
