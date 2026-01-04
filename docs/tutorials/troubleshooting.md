@@ -83,5 +83,5 @@ compilation terminated.
 make: *** [/home/ralcraft/miniconda/envs/452/lib/R/etc/Makeconf:204: init.o] Error 1
 ERROR: compilation failed for package ‘rgeos’
 ```
-I had to keep tryuing versions of sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
+I had to keep ryuing versions of sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
 
