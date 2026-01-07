@@ -95,28 +95,18 @@ if [[ ! -s "$RECIPE_FILE" ]]; then
     exit 0
 fi
 
+echo "[coble-create] Updating environment '$NEW_ENV_NAME' from recipe file: $RECIPE_FILE" >&2
+
 mkdir -p "$OUTDIR"
 base_name="${RECIPE_FILE##*/}"
 base_name_noext="${base_name%.*}"
+RESULTS_DIR="$(dirname "$RECIPE_FILE")"	
+root_file="$RESULTS_DIR/${base_name_noext}"    
 
-#LOG_FILE="$OUTDIR/${base_name_noext}.log"
-#ERROR_FILE="$OUTDIR/${base_name_noext}.err"
-#TIME_FILE="$OUTDIR/${base_name_noext}-recreated-summary.txt"
-
-
-
-# if the files have "delta.sh" in them then take it out
-if [[ "$RECIPE_FILE" == *.delta.sh ]]; then
-    LOG_FILE="${RECIPE_FILE%.delta.sh}.log"
-    ERROR_FILE="${RECIPE_FILE%.delta.sh}.err"
-    TIME_FILE="${RECIPE_FILE%.delta.sh}.summary.txt"
-    RECIPE_DONE_FILE="${RECIPE_FILE%.delta.sh}.done.sh"
-else
-    LOG_FILE="${RECIPE_FILE}.log"
-    ERROR_FILE="${RECIPE_FILE}.err"
-    TIME_FILE="${RECIPE_FILE}.summary.txt"
-    RECIPE_DONE_FILE="${RECIPE_FILE}.done.sh"
-fi
+LOG_FILE="${root_file}.log"
+ERROR_FILE="${root_file}.err"
+TIME_FILE="${root_file}_summary.txt"
+RECIPE_DONE_FILE="${root_file}.done"
 
 # Clear previous log file and tike file
 : > "$LOG_FILE"
@@ -152,7 +142,7 @@ echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type
 case "$RECIPE_FILE" in    
-    *.sh)
+    *.delta|*.sh)
         # Shell script input: would run directly (not yet implemented)        
         RECIPE_FILE="$RECIPE_FILE"
         ;;

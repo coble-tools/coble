@@ -47,16 +47,16 @@ flowchart LR
 ## log and output files
 
 **Inputs**  
-- **recipe.cbl** - The input definiton of the environment  
+- **basic.cbl** - The input definiton of the environment  
 **Interim**  
-- **recipe.cbl.recipe.sh** - the cbl transformed into a pure bash script that could be run instead  
-- **recipe.cbl.recipe.sh.delta.sh** - the change in bash that will be run (for updates and resume)  
-- **recipe.cbl.recipe.sh.done.sh** - each bash line that has  succesfull completed in the environment  
-- **recipe.cbl.recipe.sh.old.sh** - backed up when new recipe created  
+- **basic.sh** - the cbl transformed into a pure bash script that could be run instead  
+- **basic.delta** - the change in bash that will be run (for updates and resume)  
+- **basic.done** - each bash line that has  succesfull completed in the environment  
+- **basic.sh.bak** - backed up when new recipe created  
 **Logs and tracking**  
-- **recipe.cbl.recipe.sh.log** - each bash line cleans the log file so you can track the current stdout  
-- **recipe.cbl.recipe.sh.err** - each bash line cleans the err file so you can track the current stderr  
-- **recipe.cbl.recipe.sh.summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
+- **basic.log** - each bash line cleans the log file so you can track the current stdout  
+- **basic.err** - each bash line cleans the err file so you can track the current stderr  
+- **basic_summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
 **Catured environment**  
-- **recipe.cbl.recipe.sh.capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
+- **basic_capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
 

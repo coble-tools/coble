@@ -44,7 +44,7 @@ Broad Institute’s Cancer Data Science team for these datasets
 ### 1. Generate the initial recipe
 Assume you have will use e.g. `tutorials/sylver` and want to create an inital recipe at `sylver.cbl`. The recipe template uses the `find:` directive as we do not kow from the description where the package managers are.
 ```bash
-coble recipe --recipe tutorials/sylver/sylver.cbl --flavour sylver
+coble template --recipe tutorials/sylver/sylver.cbl --flavour sylver
 ```
 This has creates the `cbl` file at `sylver.cbl` with the usual beginning of channels and flags along with a large find section transcribed from the publication:
 Note that defaults is the higherst priority in the strict channel order due to decommissioned versions that are required by R-3.6.0.

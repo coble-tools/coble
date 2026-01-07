@@ -37,6 +37,14 @@ To build this there is the command `build`. If you want to start or add to an ex
 coble build --recipe my-recipe.cbl --env my-env
 ```
 
+Additional commands:
+```bash
+
+```
+# Capture an environment
+coble capture --recipe my-catured-env.cbl --env my-env
+# Get a template to start from
+coble template --recipe template-recipe.cbl --flavour basic
 ---  
 
 ## Additional Information

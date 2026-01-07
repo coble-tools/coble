@@ -30,8 +30,7 @@ coble-capture-reproduce.sh
 coble-capture-*-recipe.sh
 coble-capture-*.yml
 *.err
-*bak1.yml
-*bak2.yml
+*bak
 *.yml.recipe.sh
 *.yml.recipe.sh.summary.txt
 local/*

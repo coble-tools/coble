@@ -10,7 +10,6 @@
 # 1. success=Y/N
 # --filesystem --
 # 1. yamlfile
-# 2. yamlfile.bak2.yml
 ###############
 
 YAML_FILE=""

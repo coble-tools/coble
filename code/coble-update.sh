@@ -30,7 +30,10 @@ done
 echo "[coble-update] ~~~ Already done recipe: $done_recipe ~~~ New recipe: $all_recipe ~~~" >&2
 
 # I want to go through the new-recipe and for every row, if it is not in the old recipe I want to execute it and add it to the end of the old recipe
-update_recipe=$all_recipe.delta.sh
+base_name="${all_recipe##*/}"
+base_name_noext="${base_name%.*}"
+RESULTS_DIR="$(dirname "$all_recipe")"	
+update_recipe="$RESULTS_DIR/${base_name_noext}.delta"    
 : > "$update_recipe"
 
 

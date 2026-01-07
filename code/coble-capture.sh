@@ -13,20 +13,19 @@
 
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
-# Usage: ./coble-capture.sh [--env ENV] [--outdir DIR]
+# Usage: ./coble-capture.sh --recipe <recipe_file> [--env ENV]
 
 # Default values
 ENV_INPUT=""
-RESULTS_DIR="."
+RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
 
 show_help() {
-	echo "Usage: $0 [--env ENV] [--outdir DIR]"
-	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-	echo "  --outdir  DIR   Specify output directory (optional, default: .)"    	
-    echo "  --debug   Keep interim logs for debugging (optional)"
-    echo "  --output  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "Usage: $0 --capture <recipe_file> [--env ENV]"
+	echo "  --capture  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"	
+    echo "  --debug   Keep interim logs for debugging (optional)"    
     echo "  -h,--help Show this help message and exit"
 }
 
@@ -36,12 +35,8 @@ while [[ $# -gt 0 ]]; do
 		--env)
 			ENV_INPUT="$2"
 			shift; shift
-			;;
-		--outdir)
-			RESULTS_DIR="$2"            
-			shift; shift
-			;;
-		--output)
+			;;		
+		--capture)
 			AGGREGATE_TXT="$2"			
 			shift; shift
 			;;
@@ -59,6 +54,17 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+# if there is no results file we have to exit
+if [[ -z "$AGGREGATE_TXT" ]]; then
+	echo "[coble-capture] Error: --recipe output file must be specified." >&2
+	show_help
+	exit 1
+fi
+
+# Default results dur is the directory of the output file
+if [[ $RESULTS_DIR == "" ]]; then		
+	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"	
+fi
 echo "[coble-capture] Capturing conda environment to $RESULTS_DIR"
 
 # Parse named arguments
@@ -256,7 +262,10 @@ if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
 				else
 					pkgver="$pkg=$ver"
 				fi
-				echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
+				#echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
+				# composed of path@branch or commit
+				path,branch_or_commit=$(echo "$src" | sed -E 's/.*#(egg=[^&]+)&?(.*)/\2/')
+				echo -e "pip\t$path\t$branch_or_commit\t" >> "$TMP_AGGREGATE"
 			else
 				ver=""
 				pkgver="$pkg=$ver"

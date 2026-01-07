@@ -4,7 +4,7 @@ The takes you through some of the frustrating messages you get on conda installa
 
 Start with getting the tutorial recipe template:
 ```bash
-coble recipe --recipe tutorials/countreg/countreg.cbl --flavour fix
+coble template --recipe tutorials/countreg/countreg.cbl --flavour fix
 ```
 
 We get back from the finds the following:
@@ -145,7 +145,7 @@ Run on update:
 coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 
-The `.delta.sh` file will show the commands being run as part of the update.
+The `.delta` file will show the commands being run as part of the update.
 ```bash
 conda activate fix-env
 conda config --env --set channel_priority strict
