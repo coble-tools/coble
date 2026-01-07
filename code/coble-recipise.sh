@@ -100,12 +100,16 @@ if [[ -z "$RECIPE_FILE" ]]; then
     #base_name_noext="${base_name%.*}"
     #RECIPE_FILE="${base_name_noext}-recipe.sh"
     #RECIPE_FILE="$OUTDIR/${RECIPE_FILE}"
-    RECIPE_FILE="$YAML_FILE".recipe.sh
+    # replace dots with _
+    base_name="${YAML_FILE##*/}"
+    base_name_noext="${base_name%.*}"
+    RESULTS_DIR="$(dirname "$YAML_FILE")"	
+    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.sh"    
 fi
 # if recipe file already exists copy it
 if [[ -f "$RECIPE_FILE" ]]; then
-    cp "$RECIPE_FILE" "$RECIPE_FILE".old.sh
-    echo "[coble-recipise] Existing recipe file backed up to: $RECIPE_FILE.old.sh" >&2    
+    cp "$RECIPE_FILE" "$RECIPE_FILE".bak
+    echo "[coble-recipise] Existing recipe file backed up to: $RECIPE_FILE.bak" >&2    
 fi
 : > "$RECIPE_FILE"
 

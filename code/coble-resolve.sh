@@ -10,7 +10,7 @@
 # 1. success=Y/N
 # --filesystem --
 # 1. yamlfile
-# 2. yamlfile.bak1.yml
+# 2. yamlfile.bak
 ###############
 
 
@@ -73,7 +73,7 @@ else
     echo "[coble-find] find: or found| entries found, proceeding to resolve: $YAML_FILE" >&2
 fi
 
-YAML_BACKUP="$YAML_FILE".bak1.yml
+YAML_BACKUP="$YAML_FILE".bak
 # copy to backup
 cp "$YAML_FILE" "$YAML_BACKUP"
 

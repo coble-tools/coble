@@ -145,7 +145,7 @@ Run on update:
 coble build --recipe tutorials/countreg/countreg.cbl --env fix-env
 ```
 
-The `.delta.sh` file will show the commands being run as part of the update.
+The `.delta` file will show the commands being run as part of the update.
 ```bash
 conda activate fix-env
 conda config --env --set channel_priority strict

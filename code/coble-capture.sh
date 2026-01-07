@@ -22,8 +22,8 @@ KEEP_LOGS=0
 AGGREGATE_TXT=""
 
 show_help() {
-	echo "Usage: $0 --recipe <recipe_file> [--env ENV] [--outdir DIR]"
-	echo "  --recipe  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "Usage: $0 --capture <recipe_file> [--env ENV]"
+	echo "  --capture  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"	
     echo "  --debug   Keep interim logs for debugging (optional)"    
     echo "  -h,--help Show this help message and exit"
@@ -36,7 +36,7 @@ while [[ $# -gt 0 ]]; do
 			ENV_INPUT="$2"
 			shift; shift
 			;;		
-		--recipe)
+		--capture)
 			AGGREGATE_TXT="$2"			
 			shift; shift
 			;;
