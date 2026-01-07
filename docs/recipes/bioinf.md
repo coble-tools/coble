@@ -5,7 +5,7 @@ In this very large bioinformatics recipe the only versions specified are for R a
 To replicate - but be warned it takes 8 hours to build.
 
 ```bash
-coble recipe --recipe bioinf.cbl --flavour bioinf
+coble template --recipe bioinf.cbl --flavour bioinf
 coble build --recipe bioinf.cbl --env coble-bioinf-env
 ```
 

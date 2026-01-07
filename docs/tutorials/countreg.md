@@ -4,7 +4,7 @@ The takes you through some of the frustrating messages you get on conda installa
 
 Start with getting the tutorial recipe template:
 ```bash
-coble recipe --recipe tutorials/countreg/countreg.cbl --flavour fix
+coble template --recipe tutorials/countreg/countreg.cbl --flavour fix
 ```
 
 We get back from the finds the following:

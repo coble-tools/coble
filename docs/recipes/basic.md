@@ -3,7 +3,7 @@
 The basic template for a coble environment has the major package managers that you are likely to need in a simple environment. To get the template, and then to create the environment, simply:
 
 ```bash
-coble recipe --recipe basic/basic.cbl --flavour basic
+coble template --recipe basic/basic.cbl --flavour basic
 coble build --recipe basic/basic.cbl --env coble-basic-env
 ```
 

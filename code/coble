@@ -15,13 +15,13 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 
 show_help() {
 	echo "Usage: $0 <command> [options]"
-	echo "  recipe   get a starter recipe of 5 given options"
+	echo "  template   get a starter recipe of 5 given options"
 	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
 	echo "  update   update an existing environment from the changes to the recipe input"	
 	echo "  contain  Build Docker and Singularity containers from a COBLE recipe"
 	echo "  capture  capture the packages from an existing environment"
 	echo "Example:"
-	echo "  $0 recipe --recipe my.cbl --flavour basic"
+	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
 	echo "  $0 contain --recipe my.cbl --env my-env"
@@ -47,8 +47,8 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	exit 0
 fi
 
-# If the first argument is 'recipe', call coble-template.sh and exit
-if [[ "$1" == "recipe" ]]; then
+# If the first argument is 'template', call coble-template.sh and exit
+if [[ "$1" == "template" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-template.sh" "${@:2}"
 	exit $?
