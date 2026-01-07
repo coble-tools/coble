@@ -8,6 +8,7 @@ if [[ "$script_base" == "bin" ]]; then
 else
 	install_context="github"
 fi
+containers="conda"
 # Optionally, you can use $install_context in help or logic
 # Detect operating system
 os_type="$(uname)"
@@ -24,7 +25,7 @@ show_help() {
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
-	echo "  $0 contain --recipe my.cbl --env my-env"
+	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"	
 	echo "  $0 capture --capture my.cbl --env my-env"
 }
 
@@ -40,6 +41,24 @@ echo '╚═══════════════════════�
 
 
 echo "[coble] Starting coble at $(date)" >&2
+copied_inputs=("$@")
+container_type="conda"
+for i in "${!copied_inputs[@]}"; do
+	echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
+	if [[ "${copied_inputs[$i]}" == "--containers" ]]; then
+		next_index=$((i + 1))
+		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
+			container_type="${copied_inputs[$next_index],,}"
+		fi
+		echo "[coble] Container build flag detected: $container_type"  >&2
+		break
+	fi		
+done				
+	
+echo "[coble] Containers to build: $containers" >&2
+
+# echo out all the inputs
+echo "[coble] command entered: coble $*" >&2
 
 # Global help option
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -55,6 +74,7 @@ if [[ "$1" == "template" ]]; then
 fi
 
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
+if [[ "$container_type" == *"conda"* ]]; then	
 if [[ "$1" == "build" || "$1" == "update" ]]; then	
 	# detect if there is a rebuild --rebuild flag in the args
 	build_action="$1"
@@ -68,24 +88,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		REBUILD_FLAG=""
 		build_action="update"
 	fi
-
-	# detect the --envs flag which has a param afterwards like: --env my-env
-	# env_input=""
-	# if [[ " $* " == *" --env "* ]]; then
-	# 	# get the env name
-	# 	for arg in "$@"; do
-	# 		if [[ "$arg" == "--env" ]]; then
-	# 			env_input="${2}"
-	# 			break
-	# 		fi
-	# 		shift
-	# 	done
-	# 	echo "[coble] Environment name detected: $env_input" >&2		
-	# else
-	# 	echo "[coble] No --env provided, can't proceed without environment name" >&2
-	# 	exit 1
-	# fi
-
+	
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
 	echo "[coble 1/5] Resolving cbl..." >&2
@@ -173,12 +176,12 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	hours=$((duration / 3600))
 	minutes=$(((duration % 3600) / 60))
 	seconds=$((duration % 60))
-	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
-	exit $?
+	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2		
+fi
 fi
 
-# If the first argument is 'contain', call coble-container.sh and exit
-if [[ "$1" == "contain" ]]; then
+# If the first argument is 'contain', or 'build' with docker/singularity containers
+if [[ "$1" == "contain" ]] || [[ "$1" == "build" && ( "$container_type" == *"docker"* || "$container_type" == *"singularity"* ) ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-container.sh" "${@:2}"
 	exit $?
