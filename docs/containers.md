@@ -1,11 +1,11 @@
 # Docker and Singularity
 
-Docker and Singularity images build together simply using the command `contain` when calling coble with all other paramaters the same as `build`.
+Docker and Singularity images build together by passing in `--containers docker,singularity` to `build`. The default --containers is `conda`, all 3 can be passed in.
 
 **Recipe:** `config/basic.cbl`
 **env** `my-env`
 ```bash
-coble contain --recipe config/basic.cbl --env my-env
+coble build --recipe config/basic.cbl --env my-env --containers docker,singularity
 ```
 Your GITHUB_PAT authentication token [from github](https://github.com/settings/tokens) is automatically passed though ion case of any API calls to githib. You set this in your .bashrc in the usual way after creating the PAT in github from settings/ (`export GITHUB_PAT="ghp_*******************************"`) 
 

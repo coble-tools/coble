@@ -3,6 +3,7 @@
 # Default values
 ENV_NAME=""
 INPUT_RECIPE=""
+containers="docker,singularity"
 
 # Help function
 show_help() {
@@ -14,6 +15,7 @@ Build Docker and Singularity containers from COBLE recipes.
 OPTIONS:
     --env NAME          Name for the container environment (required)
     --recipe PATH        Path to the .cbl recipe file (required)        
+    --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
     -h, --help          Show this help message
 
 EXAMPLES:
@@ -40,6 +42,10 @@ while [[ $# -gt 0 ]]; do
             INPUT_RECIPE="$2"
             shift 2
             ;;        
+        --containers)
+            containers="$2"
+            shift 2
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -70,9 +76,6 @@ if [[ ! -f "$INPUT_RECIPE" ]]; then
     exit 1
 fi
 
-# Format steps for matching
-steps=",1,2,"
-
 # make file names
 DOCKER_TAR="cbl-${ENV_NAME}.tar"
 SINGULARITY_SIF="cbl-${ENV_NAME}.sif"
@@ -82,9 +85,9 @@ DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 
 ### Docker #######################
 
-if [[ $steps == *",1,"* ]]; then 
+if [[ $containers == *"docker"* || $containers == *"singularity"* ]]; then 
     
-    echo "[coble-container] Building Docker image..."
+    echo "[coble-docker] Building Docker image..."
     
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
@@ -92,8 +95,8 @@ if [[ $steps == *",1,"* ]]; then
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
     -t "cbl-${ENV_NAME}" .
     
-    echo "[coble-container] Docker build complete at image $DOCKER_TAR"
-    echo "[coble-container] To run use:"
+    echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
+    echo "[coble-docker] To run use:"
     echo ""
     echo "docker run --rm -it cbl-${ENV_NAME}"
     echo ""
@@ -101,27 +104,27 @@ if [[ $steps == *",1,"* ]]; then
 fi
 
 ### Singularity #######################
-if [[ $steps == *",2,"* ]]; then
+if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
 
-    echo "[coble-container] Building Singularity image..."
+    echo "[coble-singularity] Building Singularity image..."
 
-    echo "[coble-container] ...removing old tar..."
+    echo "[coble-singularity] ...removing old tar..."
     rm -rf "cbl-${ENV_NAME}.tar" || true
 
-    echo "[coble-container] ...saving Docker image to tar..."
+    echo "[coble-singularity] ...saving Docker image to tar..."
     docker save "cbl-${ENV_NAME}" -o "$DOCKER_TAR"
 
-    echo "[coble-container] ...removing old sif..."
+    echo "[coble-singularity] ...removing old sif..."
     rm -rf "$SINGULARITY_SIF" || true
 
-    echo "[coble-container] ...building sif..."
+    echo "[coble-singularity] ...building sif..."
     singularity build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
-    echo "[coble-container] Singularity build complete at $SINGULARITY_SIF"
-    echo "[coble-container] To run use:"
+    echo "[coble-singularity] Singularity build complete at $SINGULARITY_SIF"
+    echo "[coble-singularity] To run use:"
     echo ""
     echo "singularity shell $SINGULARITY_SIF"
     echo ""
-    echo "[coble-container] completed successfully."
+    echo "[coble-singularity] completed successfully."
 
 fi
 

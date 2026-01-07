@@ -2,12 +2,12 @@
 
 ## Build: basic
 
-The coble utility can be called with `contain` instead of build and this builds both a docker and a singularity image.
+The coble utility can be called with `--containers docker,singularity` which builds both a docker and a singularity image (the default is conda but all 3 can be passed in).
 
 **Recipe:** `config/basic.cbl`
 **env** `my-env`
 ```bash
-coble contain --recipe config/basic.cbl --env my-env
+coble build --recipe config/basic.cbl --env my-env --containers docker,singularity
 ```
 This outputs:
 - `cbl-my-env.tar` a docker file
