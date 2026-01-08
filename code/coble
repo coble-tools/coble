@@ -66,6 +66,14 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	exit 0
 fi
 
+# if the first command is not valid show help and exit
+valid_commands=("template" "build" "update" "contain" "capture")
+if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
+    echo "[coble] Not a valid command provided: $1." >&2
+    show_help
+    exit 1
+fi
+
 # If the first argument is 'template', call coble-template.sh and exit
 if [[ "$1" == "template" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -193,6 +201,9 @@ if [[ "$1" == "capture" ]]; then
 	"$script_dir/coble-capture.sh" "${@:2}"
 	exit $?
 fi
-
-echo "[coble] Not a valid command provided: $1." >&2
-show_help
+end_time=$(date +%s)
+duration=$((end_time - start_time))
+hours=$((duration / 3600))
+minutes=$(((duration % 3600) / 60))
+seconds=$((duration % 60))
+echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2

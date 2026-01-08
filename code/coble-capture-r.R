@@ -1,5 +1,7 @@
 # Get conda environment path
 conda_prefix <- Sys.getenv("CONDA_PREFIX")
+# get the first input for a file name
+output_file <- commandArgs(trailingOnly=TRUE)[1]
 
 # Only look at packages in the conda environment
 if (conda_prefix != "") {
@@ -24,10 +26,6 @@ get_info <- function(pkg, lib) {
     }
     info
 }
-
-# Get output filename from environment variable
-# make a temp file for the r packages
-output_file <- "r-packages-for-coble.txt"
 
 if (nrow(ip) > 0) {
     infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))

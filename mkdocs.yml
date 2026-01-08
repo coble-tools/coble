@@ -63,7 +63,8 @@ nav:
     - Installation: overview/install.md
     - Motivation: overview/motivation.md  
   - COBLE:
-    - Workflow: overview.md
+    - file-anatomy: coble/anatomy.md
+    - Workflow: coble/workflow.md
     - icr-cluster: coble/icr.md
     - hpc-cluster: coble/hpc.md    
   - Recipes:

@@ -110,7 +110,6 @@ mkdir -p "$RESULTS_DIR"
 TMP_CONDA_LIST_TXT="$RESULTS_DIR/coble_tmp_conda-packages-$ENV_NAME.txt"
 TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
 TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
-TMP2_R="r-packages-for-coble.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted-$ENV_NAME.tmp"
 if [[ -z "$AGGREGATE_TXT" ]]; then
@@ -138,7 +137,7 @@ if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
 else    
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	RSCRIPT="$script_dir/coble-capture-r.R"
-	if conda run $ENV_FORMATTED Rscript "$RSCRIPT"; then
+	if conda run $ENV_FORMATTED Rscript "$RSCRIPT" "$TMP_R_PACKAGES_TXT"; then
         echo "R script completed successfully"
     else
         echo "Rscript not found in environment" > "$TMP_R_PACKAGES_TXT"
@@ -221,7 +220,7 @@ if [ -f "$TMP_R_PACKAGES_TXT" ]; then
 			[[ "$src" == "NA" ]] && src=""
 			[[ "$path" == "NA" ]] && path=""
 			pkgver="$pkg=$ver"
-			echo -e "package-r\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
+			echo -e "r-package\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
 		fi
 	done < "$TMP_R_PACKAGES_TXT"
 fi
@@ -379,9 +378,9 @@ done < "$TMP_SORTED"
 # Check if list has items and write out
 if [[ ${#my_find_list[@]} -gt 0 ]]; then
     echo "" >> "$AGGREGATE_TXT"
-    echo "find:" >> "$AGGREGATE_TXT"
+    #echo "find:" >> "$AGGREGATE_TXT"
     for pkg in "${my_find_list[@]}"; do
-        echo "  - $pkg" >> "$AGGREGATE_TXT"
+        echo "#  - $pkg" >> "$AGGREGATE_TXT"
     done
 fi
 
@@ -390,15 +389,14 @@ fi
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
     echo "[coble-capture] Cleaning up temporary files..."
-    rm -f "$TMP2_R" "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
+    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
 elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "[coble-capture] Temporary files retained for inspection:"
     echo "  $TMP_CONDA_LIST_TXT"
     echo "  $TMP_PIP_FREEZE_TXT"
     echo "  $TMP_R_PACKAGES_TXT"
     echo "  $TMP_SORTED"
-    echo "  $TMP_AGGREGATE"    
-	echo "  $TMP2_R"
+    echo "  $TMP_AGGREGATE"    	
 fi
 
 echo "[coble-capture] Capture complete. Output written to $AGGREGATE_TXT"

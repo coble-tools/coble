@@ -40,3 +40,4 @@ tutorials/*
 config/*
 rachel.md
 .rachel.md
+old/containers/singularity/coble-mini.sif

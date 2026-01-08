@@ -313,11 +313,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "conda install -y --no-update-deps -c conda-forge gsl nlopt udunits2 hdf5" >>  "$RECIPE_FILE"                                        
                     echo "# Essential r image libraries" >> "$RECIPE_FILE"
                     echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
+                    echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
                     echo "conda install -y --no-update-deps -c conda-forge cython" >> "$RECIPE_FILE"
-                fi
+                    echo "" >> "$RECIPE_FILE"            
+                fi                                
+            elif [[ "${directive,,}" == "compile-tools" && "${value,,}" == "true" ]]; then                
+                echo "" >> "$RECIPE_FILE"
                 echo "# Language compile tools" >> "$RECIPE_FILE"
                 echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
                 echo "# Language build tools" >> "$RECIPE_FILE"
