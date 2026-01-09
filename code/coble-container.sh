@@ -85,7 +85,7 @@ DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 
 ### Docker #######################
 
-if [[ $containers == *"docker"* || $containers == *"singularity"* ]]; then 
+if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers == *"apptainer"* ]]; then 
     
     echo "[coble-docker] Building Docker image..."
     
@@ -104,27 +104,29 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* ]]; then
 fi
 
 ### Singularity #######################
-if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
+if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then    
+    package_exe=${containers,,}    
+    package_exe=$(echo "$package_exe" | tr -d ' ')
+    
+    echo "[coble-$package_exe] Building $package_exe image..."
 
-    echo "[coble-singularity] Building Singularity image..."
-
-    echo "[coble-singularity] ...removing old tar..."
+    echo "[coble-$package_exe] ...removing old tar..."
     rm -rf "cbl-${ENV_NAME}.tar" || true
 
-    echo "[coble-singularity] ...saving Docker image to tar..."
+    echo "[coble-$package_exe] ...saving Docker image to tar..."
     docker save "cbl-${ENV_NAME}" -o "$DOCKER_TAR"
 
-    echo "[coble-singularity] ...removing old sif..."
+    echo "[coble-$package_exe] ...removing old sif..."
     rm -rf "$SINGULARITY_SIF" || true
 
-    echo "[coble-singularity] ...building sif..."
-    singularity build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
-    echo "[coble-singularity] Singularity build complete at $SINGULARITY_SIF"
-    echo "[coble-singularity] To run use:"
+    echo "[coble-$package_exe] ...building sif..."
+    $package_exe build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
+    echo "[coble-$package_exe] Singularity build complete at $SINGULARITY_SIF"
+    echo "[coble-$package_exe] To run use:"
     echo ""
-    echo "singularity shell $SINGULARITY_SIF"
+    echo "$package_exe shell $SINGULARITY_SIF"
     echo ""
-    echo "[coble-singularity] completed successfully."
+    echo "[coble-$package_exe] completed successfully."
 
 fi
 
