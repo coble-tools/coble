@@ -44,12 +44,18 @@ rm -rf /home/ralcraft/miniconda/pkgs/r-base-4.4.2-hc737e89_2
 ```
 
 # API limit
-This message will haunt younif you don;t fix it properly. It is possible to get around it by installing from url and setting depednecies to False and then manually installing all dependencies. Far better in the long run to get a GitHub PAT token. The error you will seee is `{"message":"API rate limit exceeded for ...}`.  
-Best solution is to set a github PAT access token in your bashrc. Append to the end:
+The error you will seee is `{"message":"API rate limit exceeded for ...}`.  
+Or:  `HTTP error 403.
+  API rate limit exceeded for 194.81.85.147. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)`
+
+This message will haunt you if you don't fix it properly. It is possible to get around it by installing from url and setting dependencies to False and then manually installing all dependencies. Far better in the long run to get a GitHub PAT token and  set it in your bashrc.
+
+To generate a token, go to Github-Settings-Developer Settings-Personal access tokens: https://github.com/settings/tokens. Geerate a new token (classic) for general use, and the scope that you need to select is all of the first one only, "repo". Once it is generated, copy it, and put it at the bottom oif your .bashrc like this:
 
 ```bash
 export GITHUB_PAT="ghp_your-bash-token"
 ```
+When building images or conda environments, the token will be used automatically by coble to authenticate you and avoid the API limit.
 
 ## GLIBC compatibility issues (HPC)
 It would be a last resoirt for me to skip a dependency I didn;t need rather than resolve it. COBLE is punitive and will fail until the error is ressolved by you one way or another (though you can choose to use the `--skip-errors` flag).  

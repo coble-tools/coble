@@ -83,4 +83,5 @@ nav:
   - Containers: 
     - Containers: containers.md    
     - Docker-Singularity: containers/docker-build.md  
+  - Troubleshooting: tutorials/troubleshooting.md
   - About: about.md

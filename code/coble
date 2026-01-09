@@ -32,7 +32,7 @@ show_help() {
 start_time=$(date +%s)
 
 echo '╔══════════════════════════════════════════════════════════════╗'
-echo '║        COBLE Container v0.1                                  ║'
+echo '║        COBLE Reproducible Environment v0.1                   ║'
 echo '║        (c) ICR 2026 RSE and BCR-DS                           ║'
 echo '║        For help, see:                                        ║'
 echo '║        - https://icr-rse-group.github.io/coble/              ║'

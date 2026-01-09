@@ -41,3 +41,4 @@ config/*
 rachel.md
 .rachel.md
 old/containers/singularity/coble-mini.sif
+recipes/carbine_capture.cbl

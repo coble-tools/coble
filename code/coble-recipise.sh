@@ -175,6 +175,7 @@ while IFS= read -r line; do
         if [[ "$line" == *"r-"* ]]; then
             r_count=$((r_count + 1))            
         elif [[ "$line" == *"python"* ]]; then
+            exho "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
             python_count=$((python_count + 1))
         fi        
     fi
@@ -426,7 +427,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
             if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
-                echo "python -m pip install 'git+${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+                echo "python -m pip install \"git+${pkg_entry}\" $DEPS_PYTHON" >> "$RECIPE_FILE"
             elif [[ "$pip_pkg" == https* ]]; then
                 echo "python -m pip install '${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
             else

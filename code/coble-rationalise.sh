@@ -48,16 +48,16 @@ ok=true
 while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
         section_name="${BASH_REMATCH[1]}"
-        if [[ "$section_name" == "coble" ]]; then
+        if [[ "$section_name" == *"coble"* ]]; then
             count=$((count + 1))
             coble_count=$count
-        elif [[ "$section_name" == "channels" ]]; then
+        elif [[ "$section_name" == *"channels"* ]]; then
             count=$((count + 1))
             channels_count=$count
-        elif [[ "$section_name" == "languages" ]]; then
+        elif [[ "$section_name" == *"languages"* ]]; then
             count=$((count + 1))
             languages_count=$count
-        elif [[ "$section_name" == "flags" ]]; then
+        elif [[ "$section_name" == *"flags"* ]]; then
             count=$((count + 1))
             flags_count=$count            
         fi
@@ -78,6 +78,10 @@ else
     echo "    channels:" >&2
     echo "    languages:" >&2
     #echo "    flags:" >&2
+    echo "The current order is:" >&2    
+    echo "  coble: $coble_count" >&2
+    echo "  channels: $channels_count" >&2
+    echo "  languages: $languages_count" >&2    
     echo N
     exit 1
 fi

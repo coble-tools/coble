@@ -122,9 +122,12 @@ conda list $ENV_FORMATTED --show-channel-urls> "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
 
-echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze > $TMP_PIP_FREEZE_TXT"
+#echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze > $TMP_PIP_FREEZE_TXT"
+echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze | grep -v '@ file:///home/conda/feedstock_root/build_artifacts/' > $TMP_PIP_FREEZE_TXT"
+
 if conda run $ENV_FORMATTED python --version &> /dev/null 2>&1; then
-    conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
+    #conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
+    conda run $ENV_FORMATTED conda run $ENV_FORMATTED python -m pip freeze | grep -v '@ file:///home/conda/feedstock_root/build_artifacts/' > "$TMP_PIP_FREEZE_TXT"
 else
     echo "Python not available in conda environment"
 fi
@@ -228,11 +231,11 @@ fi
 # Process pip freeze (skip lines containing 'file://')
 # if the file exsits
 if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
-	
 	while IFS= read -r line; do
 		[[ "$line" == *file://* ]] && continue
+		[[ "$line" == *feedstock_root* ]] && continue
+		[[ "$line" == *build_artifacts* ]] && continue
 		# pip freeze: pkg==ver or pkg @ git+url or pkg @ ...
-		# clean line and conrinue of blanks
 		line=$(echo "$line" | xargs)
 		if [[ -z "$line" ]]; then
 			continue
@@ -243,9 +246,7 @@ if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
 			src=$(echo "$line" | cut -d'@' -f2- | xargs)
 			path="$src"
 			if [[ "$src" == *git* ]]; then
-				# If git, set version to 0 if not present, detect VCS host
 				ver="0"
-				# Detect host from URL
 				vcs_host="github"
 				if [[ "$src" == *gitlab* ]]; then
 					vcs_host="gitlab"
@@ -261,10 +262,8 @@ if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
 				else
 					pkgver="$pkg=$ver"
 				fi
-				#echo -e "pip\t$pkgver\t$vcs_host\t$path" >> "$TMP_AGGREGATE"
-				# composed of path@branch or commit
-				path,branch_or_commit=$(echo "$src" | sed -E 's/.*#(egg=[^&]+)&?(.*)/\2/')
-				echo -e "pip\t$path\t$branch_or_commit\t" >> "$TMP_AGGREGATE"
+				path_branch_or_commit="$src"
+				echo -e "pip\t$path\t$path_branch_or_commit\t" >> "$TMP_AGGREGATE"
 			else
 				ver=""
 				pkgver="$pkg=$ver"
