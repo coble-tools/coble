@@ -13,7 +13,30 @@ The recipe definition of your environment can be composed of 4 main package mana
 - Pip package installation
 Archive installation and github instllation also possible, along with raw bash commands for anythong bespoke. There are flags to include the most common build tools and environment variables automatically to simplify the setup.
 
-A simple recipe could look like this (file is `my-recipe.cbl`):
+### The Three Functions
+1. **Build**: Create or update an environment from a recipe file.
+```bash
+coble build --recipe my-recipe.cbl --env my-env
+```
+--- Optional arguments:
+- `--rebuild`: Clean and rebuild the environment from scratch.
+- `--containers`: default is conda, can be a list of containers from conda,docker,singularity/apptainer.
+
+2. **Capture**: Create a recipe file from an existing environment.
+```bash
+coble capture --recipe my-catured-env.cbl --env my-env
+```
+--- Optional arguments:
+- `--env`: Active environment is captured if not specified.
+- `--debug`: keep temporary files for each package manager for debugging.
+
+3. **Template**: Generate a template recipe file to start from.
+```bash
+coble template --recipe template-recipe.cbl --flavour basic
+```
+
+### A coble recipe file
+A simple recipe could look like this (`my-recipe.cbl`):
 ```yaml
 coble:
   - environment: coble-env-versions
@@ -37,10 +60,6 @@ To build this there is the command `build`. If you want to start or add to an ex
 coble build --recipe my-recipe.cbl --env my-env
 ```
 
-Additional commands:
-```bash
-
-```
 # Capture an environment
 coble capture --recipe my-catured-env.cbl --env my-env
 # Get a template to start from

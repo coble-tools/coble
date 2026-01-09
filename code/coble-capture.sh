@@ -208,7 +208,7 @@ if [ -f "$TMP_R_PACKAGES_TXT" ]; then
             src="Bioconductor"
             path=""
             pkgver="$pkg=$ver"
-            echo -e "package-bioc\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
+            echo -e "bioc-package\t$pkgver\t$src\t$path" >> "$TMP_AGGREGATE"
         else
 			# R columns: Package\tVersion\tSource\tRemoteType\tRemoteRepo\tRemoteUsername\tRemoteRef\tRemoteSha
 			pkg=$(echo -e "$line" | cut -f1)
@@ -283,10 +283,25 @@ fi
 
 echo "[coble-capture] Interim aggregated package list at $TMP_AGGREGATE"
 
-# Now take the file created and reorrange it nicely
+# Now take the file created and rearrange it nicely
 
 # Sort to a new tmp file, do not overwrite input
-sort -k1,1 -k2,2 "$TMP_AGGREGATE" > "$TMP_SORTED"
+# I want to sort with a specific order to the managers: conda, r-conda, bioc-conda, r-github, r-package, bioc-package, pip
+# To do this, I will add a prefix number to each manager for sorting, then remove it after sorting
+awk 'BEGIN {OFS="\t"}
+    {
+        prefix = "";
+        if ($1 == "Manager") prefix = "1_";
+        if ($1 == "conda") prefix = "2_";
+        else if ($1 == "r-conda") prefix = "3_";
+        else if ($1 == "bioc-conda") prefix = "4_";        
+        else if ($1 == "r-package") prefix = "5_";
+        else if ($1 == "bioc-package") prefix = "6_";
+        else if ($1 == "r-github") prefix = "7_";
+        else if ($1 == "pip") prefix = "8_";
+        print prefix $0;
+    }' "$TMP_AGGREGATE" | sort -k1,1 -k2,2 | sed 's/^[0-9]_//' > "$TMP_SORTED"
+#sort -k1,1 -k2,2 "$TMP_AGGREGATE" > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
 R_BASE_VERSION=""
@@ -378,7 +393,7 @@ done < "$TMP_SORTED"
 # Check if list has items and write out
 if [[ ${#my_find_list[@]} -gt 0 ]]; then
     echo "" >> "$AGGREGATE_TXT"
-    #echo "find:" >> "$AGGREGATE_TXT"
+    echo "# r-package(unknown source):" >> "$AGGREGATE_TXT"
     for pkg in "${my_find_list[@]}"; do
         echo "#  - $pkg" >> "$AGGREGATE_TXT"
     done

@@ -10,16 +10,27 @@ if (conda_prefix != "") {
 }
 
 ip <- as.data.frame(installed.packages()[, c("Package", "Version", "LibPath")])
-fields <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
+fields.check <- c("Source", "biocViews", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
+fields.out <- c("Source", "RemoteType", "RemoteRepo", "RemoteUsername", "RemoteRef", "RemoteSha")
 
 get_info <- function(pkg, lib) {
     desc_file <- file.path(lib, pkg, "DESCRIPTION")
-    info <- setNames(rep(NA_character_, length(fields)), fields)
+    info <- setNames(rep(NA_character_, length(fields.check)), fields.check)
     if (file.exists(desc_file)) {
         desc <- tryCatch(read.dcf(desc_file), error=function(e) NULL)
         if (!is.null(desc)) {
-            info["Source"] <- if ("Repository" %in% colnames(desc)) desc[1, "Repository"] else "System/Manual"
-            for (f in fields[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
+            # Set Source from Repository if present
+            if ("Repository" %in% colnames(desc)) {
+                info["Source"] <- desc[1, "Repository"]
+            } else if ("biocViews" %in% colnames(desc)) {
+                info["Source"] <- "Bioconductor (unknown method)"
+            } else {
+                info["Source"] <- "System/Manual"
+            }
+            # Fill in other fields if present
+            for (f in fields.out[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
+        } else {
+            info["Source"] <- "System/Manual"
         }
     } else {
         info["Source"] <- "System/Manual"
@@ -29,8 +40,8 @@ get_info <- function(pkg, lib) {
 
 if (nrow(ip) > 0) {
     infos <- t(mapply(get_info, ip$Package, ip$LibPath, SIMPLIFY=TRUE))
-    ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))
-    write.table(ip[, c("Package", "Version", fields)], 
+    ip <- cbind(ip, as.data.frame(infos, stringsAsFactors=FALSE))   
+    write.table(ip[, c("Package", "Version", fields.out)], 
                 file=output_file, 
                 row.names=FALSE, sep="\t", quote=FALSE)
 } else {
