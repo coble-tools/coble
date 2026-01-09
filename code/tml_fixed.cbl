@@ -12,7 +12,7 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - system-tools: True
 find:
   - countreg  
   - r-base=4.4.2

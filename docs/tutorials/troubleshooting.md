@@ -25,7 +25,9 @@ conda env list
 You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran. Look at the tutorial for [fixing countreg](countreg.md).
 
 ## Missing compiler tools
-Most are installed if you set the build-tools flag to true. Different versions of operating systems and code may have dependencies on old or newer compilers. This is a last resort when trying to install all possible ways fails. You can use an environment variable set through bash, or explicitly set a more permissive compiler warning like:
+Most are installed if you set the compile-tools and system-tools flag to true. Different versions of operating systems and code may have dependencies on old or newer compilers, so instead of just true you can specify a version eg `13.3.0`. 
+
+For more bespoke compiler issues, you can use an environment variable in the flags, or set through bash, or explicitly set a more permissive compiler warning like:
 ```bash
 bash:
   - CFLAGS="-Wno-error=incompatible-pointer-types" python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git

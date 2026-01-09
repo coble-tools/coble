@@ -18,7 +18,7 @@ languages:
 
 flags:
   - dependencies: True
-  - build-tools: True
+  - system-tools: True
 
 bash:
   - conda config --env --add channels bioconda

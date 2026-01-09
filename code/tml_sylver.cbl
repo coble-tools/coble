@@ -13,7 +13,7 @@ languages:
   - r-base=3.6.0@r
 flags:
   - dependencies: NA
-  - compile-tools: True
+  - compile-tools: 13.3.0
   - priority: strict
 bash:
   - conda config --env --add channels bioconda
@@ -34,6 +34,6 @@ bioc-conda:
   - GSVA=1.34.0
   - org.Hs.eg.db=3.10.0
 r-package:
-  - survival
+  - survival=3.2-11
 bioc-package:
   - limma=3.42.2

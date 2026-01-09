@@ -301,56 +301,65 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                                
                 UPDATE_CONDA="--no-update-deps"                
-            elif [[ "${directive,,}" == "build-tools" && "${value,,}" == "true" ]]; then                
+            elif [[ "${directive,,}" == "system-tools" && "${value,,}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
-                echo "# Including build tools for source installations" >> "$RECIPE_FILE"
+                echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
+                echo "# Essential shared packages" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
+                    echo "# System r packages" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials" >>  "$RECIPE_FILE"                                        
-                    echo "# Essential r geo-spatial libraries" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge gdal proj geos" >>  "$RECIPE_FILE"                                        
-                    echo "# Essential r mathematical libraries" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge gsl nlopt udunits2 hdf5" >>  "$RECIPE_FILE"                                        
-                    echo "# Essential r image libraries" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge libpng libtiff libjpeg-turbo librsvg r-rsvg imagemagick cairo freetype expat fontconfig harfbuzz fribidi" >>  "$RECIPE_FILE"                    
+                    echo "conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
-                    echo "conda install -y --no-update-deps -c conda-forge cython" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
                 fi                                
-            elif [[ "${directive,,}" == "compile-tools" && "${value,,}" == "true" ]]; then                
+            elif [[ "${directive,,}" == "compile-tools" ]]; then                
+                # if compile-tolls = true then add compiler installs
+                # if a version is given use the specific version
                 echo "" >> "$RECIPE_FILE"
-                echo "# Language compile tools" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 gcc_linux-64 gxx_linux-64 gfortran_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                version="${value,,}"
+                if [[ "$version" == "false" ]]; then
+                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
+                    continue
+                fi
+                if [[ "$version" == "true" ]]; then
+                    echo "[coble-recipise] Adding default compile tools to recipe." >&2
+                    echo "# Language compile tools" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                else
+                    echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
+                    echo "# Language compile tools" >> "$RECIPE_FILE"
+                    echo "conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
+                    echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                fi                                
+                # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
                 echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
-                echo "# Language XML/data libraries" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge libcurl protobuf libprotobuf" >>  "$RECIPE_FILE"
-                
+                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                
+                # symlinks
                 echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 echo "umask 0022" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-
                 echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                                                
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
                 # Add to your recipe file BEFORE running R installs
-                echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
-                #echo "export CFLAGS=\"-I\$CONDA_PREFIX/include -Wno-error=incompatible-pointer-types\"" >> "$RECIPE_FILE"
+                echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
                 echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                
-                #echo "export XML_CONFIG=\"pkg-config libxml-2.0\"" >> "$RECIPE_FILE"
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
                 echo "" >> "$RECIPE_FILE"
             fi        
         elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                

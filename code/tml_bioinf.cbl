@@ -16,7 +16,7 @@ languages:
 
 flags:
   - dependencies: NA
-  - build-tools: True
+  - system-tools: True
   - ncpus: 8
 
 bash:

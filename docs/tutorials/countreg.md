@@ -19,7 +19,8 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - compile-tools: True
+  - system-tools: True
 find:
 #   - countreg  
 found|r-package:
@@ -42,7 +43,8 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - compile-tools: True
+  - system-tools: True
 languages:
   - r-base=4.4.2
 r-package:
@@ -100,7 +102,8 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - compile-tools: True
+  - system-tools: True
 languages:
   - r-base=4.4.2
 find:
@@ -125,7 +128,8 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - compile-tools: True
+  - system-tools: True
 languages:
   - r-base=4.4.2
 r-package:
@@ -185,7 +189,8 @@ channels:
   - conda-forge
 flags:
   - dependencies: True
-  - build-tools: True
+  - compile-tools: True
+  - system-tools: True
 languages:
   - r-base=4.4.2 
 r-conda:
