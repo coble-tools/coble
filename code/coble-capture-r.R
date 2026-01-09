@@ -23,17 +23,17 @@ get_info <- function(pkg, lib) {
             if ("Repository" %in% colnames(desc)) {
                 info["Source"] <- desc[1, "Repository"]
             } else if ("biocViews" %in% colnames(desc)) {
-                info["Source"] <- "Bioconductor (unknown method)"
+                info["Source"] <- "Bioconductor"
             } else {
-                info["Source"] <- "System/Manual"
+                info["Source"] <- "System/Manual  (unknown method)"
             }
             # Fill in other fields if present
             for (f in fields.out[-1]) if (f %in% colnames(desc)) info[f] <- desc[1, f]
         } else {
-            info["Source"] <- "System/Manual"
+            info["Source"] <- "System/Manual  (unknown method)"
         }
     } else {
-        info["Source"] <- "System/Manual"
+        info["Source"] <- "System/Manual (unknown method)"
     }
     info
 }

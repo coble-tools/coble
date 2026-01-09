@@ -161,11 +161,7 @@ while IFS= read -r line; do
 	[[ "$line" =~ ^#.*$ ]] && continue
 	[[ "$line" == "" ]] && continue
 	[[ "$line" == *pypi* ]] && continue
-	# Parse: Name Version Build Channel
-    # if HAS_R is 0 then skip any r related lines
-    if [[ $HAS_R -eq 0 && ( "$line" == r-* || "$line" == bioc-* || "$line" == *-r ) ]]; then
-        continue
-    fi    
+	# Parse: Name Version Build Channel        
 	pkg=$(echo "$line" | awk '{print $1}')
 	ver=$(echo "$line" | awk '{print $2}')
 	src=$(echo "$line" | awk '{print $4}')
@@ -191,7 +187,7 @@ while IFS= read -r line; do
 done < "$TMP_CONDA_LIST_TXT"
 
 # Process R packages (skip header)
-if [ -f "$TMP_R_PACKAGES_TXT" ] && [ $HAS_R -eq 1 ]; then
+if [ -f "$TMP_R_PACKAGES_TXT" ]; then # && [ $HAS_R -eq 1 ]; then
 	header_skipped=false
 	while IFS= read -r line; do
 		if ! $header_skipped; then
@@ -310,6 +306,7 @@ awk 'BEGIN {OFS="\t"}
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
 R_BASE_VERSION=""
 PYTHON_VERSION=""
+echo "[coble-capture] Detecting R and Python base versions from $TMP_AGGREGATE ..."
 while IFS=$'\t' read -r manager pkg src path; do
     if [[ "$manager" == "r-conda" && "$pkg" == base=* ]]; then
         R_BASE_VERSION="r-base=${pkg#base=}@$src"
@@ -381,7 +378,10 @@ while IFS=$'\t' read -r manager pkg src path; do
 		echo -e "$manager:" >> "$AGGREGATE_TXT"
 		current_manager="$manager"
 	fi
-	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
+	if [[ HAS_R -eq 0 && ( "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ) ]]; then        
+        continue
+    fi
+    # Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
 	if [[ "$pkg" == _* ]] || \
 	[[ "$pkg" =~ (linux|windows|osx|darwin|unix|system) ]] || \
 	#[[ "$src" == *System/Manual* ]] || \
@@ -394,7 +394,7 @@ while IFS=$'\t' read -r manager pkg src path; do
 		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
 	elif [[ -n "$path" ]]; then
 		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
-	elif [[ "$src" == "System/Manual" ]]; then        
+	elif [[ "$src" == *"System/Manual"* ]]; then        
         my_find_list+=("$pkg")
     else
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
