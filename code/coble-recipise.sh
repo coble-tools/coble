@@ -155,6 +155,22 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 
 ################# WE PASS THROUGH A FEW TIMES FOR DIFFERENT REASONS #################
 
+# Check for python and contamination
+# echo "[coble-recipise] Checking for python path contamination." >&2      
+# for d in ~/.local/lib/python3.*; do
+#     if [ -d "$d" ]; then        
+#         if [ -d "$d/site-packages" ]; then
+#             echo "[coble-recipise] User site-packages found: $d/site-packages" >&2
+#             find "$d/site-packages" -name "*.pth" >&2
+#         else
+#             echo "DEBUG: $d has no site-packages directory" >&2
+#         fi
+#     else
+#         echo "DEBUG: Skipping non-directory or non-existent $d" >&2
+#     fi
+# done
+# echo "PYTHONPATH is: $PYTHONPATH" >&2
+# echo "" >&2
 ### 01 Language checking checking ########################################
 languages_line="conda create ${CONDA_ENV} -y"
 CURRENT_SECTION="bash"
@@ -180,6 +196,8 @@ while IFS= read -r line; do
     fi
 done < "$YAML_FILE"
 echo "$languages_line" >> "$RECIPE_FILE"
+echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 
@@ -372,8 +390,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "conda install -y -c $src '$pkg'" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
-            elif [[ "$pkg_only" == "python" ]]; then                    
-                echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+            elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg'" >> "$RECIPE_FILE"                
                 else                    

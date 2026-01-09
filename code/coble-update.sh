@@ -60,6 +60,8 @@ while IFS= read -r line; do
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "export "* ]]; then        
         echo "$line" >> "$update_recipe"                
+    elif [[ "$line" == "unset "* ]]; then        
+        echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "umask "* ]]; then        
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "ln -sf"* ]]; then        

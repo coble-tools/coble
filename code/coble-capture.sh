@@ -20,6 +20,7 @@ ENV_INPUT=""
 RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
+HAS_R=0
 
 show_help() {
 	echo "Usage: $0 --capture <recipe_file> [--env ENV]"
@@ -161,6 +162,10 @@ while IFS= read -r line; do
 	[[ "$line" == "" ]] && continue
 	[[ "$line" == *pypi* ]] && continue
 	# Parse: Name Version Build Channel
+    # if HAS_R is 0 then skip any r related lines
+    if [[ $HAS_R -eq 0 && ( "$line" == r-* || "$line" == bioc-* || "$line" == *-r ) ]]; then
+        continue
+    fi    
 	pkg=$(echo "$line" | awk '{print $1}')
 	ver=$(echo "$line" | awk '{print $2}')
 	src=$(echo "$line" | awk '{print $4}')
@@ -186,14 +191,14 @@ while IFS= read -r line; do
 done < "$TMP_CONDA_LIST_TXT"
 
 # Process R packages (skip header)
-if [ -f "$TMP_R_PACKAGES_TXT" ]; then
+if [ -f "$TMP_R_PACKAGES_TXT" ] && [ $HAS_R -eq 1 ]; then
 	header_skipped=false
 	while IFS= read -r line; do
 		if ! $header_skipped; then
 			header_skipped=true
 			continue
-		fi
-		if [[ "$line" == *github* ]]; then
+		fi		
+        if [[ "$line" == *github* ]]; then
 			# Extract fields for install_github reproducibility
 			pkg=$(echo -e "$line" | cut -f1)
 			ver=$(echo -e "$line" | cut -f2)
@@ -308,14 +313,17 @@ PYTHON_VERSION=""
 while IFS=$'\t' read -r manager pkg src path; do
     if [[ "$manager" == "r-conda" && "$pkg" == base=* ]]; then
         R_BASE_VERSION="r-base=${pkg#base=}@$src"
+        HAS_R=1
+        echo "[coble-capture] R detected in environment."
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
         PYTHON_VERSION="python=${pkg#python=}@$src"    
+        echo "[coble-capture] Python detected in environment."
 	fi
 done < "$TMP_AGGREGATE"
 echo "[coble-capture] Detected r-conda base version: $R_BASE_VERSION"
 echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 
-# in the AGGREGATE_TXT file add the langaues to the top
+# in the AGGREGATE_TXT file add the languages to the top
 {
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
@@ -329,11 +337,14 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	echo -e ""
 	echo -e "  - environment: $ENV_NAME"
 	echo -e ""
-	echo -e "channels:"
-	echo -e "  - defaults"
-	echo -e "  - r"
-	echo -e "  - bioconda"
-	echo -e "  - conda-forge"	
+	echo -e "channels:"    
+    conda config --show channels $ENV_FORMATTED | grep -E '^\s*-\s' | sed 's/^\s*-\s*//' | tac | while read -r channel; do
+        echo "  - $channel"
+    done
+	#echo -e "  - defaults"
+	#echo -e "  - r"
+	#echo -e "  - bioconda"
+	#echo -e "  - conda-forge"	
 	echo -e ""
 	echo -e "languages:"
 	if [[ -n "$R_BASE_VERSION" ]]; then
@@ -344,7 +355,8 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	fi
 	echo -e ""
 	echo -e "flags:"
-	echo -e "  - dependencies: False"
+	echo -e "  - dependencies: false"
+    echo -e "  - priority: strict"
 } > "$AGGREGATE_TXT"
 
 # Now loop through the sorted file and keep as a variable the current mananager
