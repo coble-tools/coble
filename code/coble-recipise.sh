@@ -174,8 +174,7 @@ while IFS= read -r line; do
     elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then    
         if [[ "$line" == *"r-"* ]]; then
             r_count=$((r_count + 1))            
-        elif [[ "$line" == *"python"* ]]; then
-            exho "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+        elif [[ "$line" == *"python"* ]]; then            
             python_count=$((python_count + 1))
         fi        
     fi
@@ -374,6 +373,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                    
+                echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
                 if [[ "$src" == "" ]]; then
                     echo "conda install -y '$pkg'" >> "$RECIPE_FILE"                
                 else                    
