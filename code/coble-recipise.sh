@@ -299,6 +299,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive,,}" == "priority" ]]; then                
                 PRIORITY="$value"                
                 echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
+            elif [[ "${directive,,}" == "channel" ]]; then                                          
+                echo "conda config --env --add channels $value" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                                
                 UPDATE_CONDA="--no-update-deps"                
             elif [[ "${directive,,}" == "system-tools" && "${value,,}" == "true" ]]; then                
