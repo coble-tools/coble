@@ -13,10 +13,12 @@ channels:
   - conda-forge
   - defaults
 languages:
+  - no-deps
   - r-base=3.6.0@r
 flags:
   - dependencies: false
   - build-tools: false
+  - compile-paths: true
   - priority: strict
   - channel: bioconda
   - channel: conda-forge  

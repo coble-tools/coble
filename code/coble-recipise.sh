@@ -339,7 +339,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "" >> "$RECIPE_FILE"            
                 fi                                
             elif [[ "${directive,,}" == "compile-tools" ]]; then                
-                # if compile-tolls = true then add compiler installs
+                # if compile-tools = true then add compiler installs
                 # if a version is given use the specific version
                 echo "" >> "$RECIPE_FILE"
                 version="${value,,}"
@@ -380,21 +380,52 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                echo "" >> "$RECIPE_FILE"              
+            elif [[ "${directive,,}" == "compile-paths" ]]; then                
+                # only compile-paths no installs                
                 echo "" >> "$RECIPE_FILE"
-            fi        
-        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then                                                
-            if [[ "$pkg_only" == "r-base" ]]; then                    
+                version="${value,,}"
+                if [[ "$version" == "false" ]]; then
+                    echo "[coble-recipise] Not adding compile paths to recipe." >&2
+                    continue
+                fi
+                if [[ "$version" == "true" ]]; then
+                    echo "[coble-recipise] Adding default compile paths to recipe." >&2                  
+                    # symlinks
+                    echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
+                    echo "umask 0022" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                    echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                    # Add to your recipe file BEFORE running R installs
+                    echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
+                    echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                    echo "" >> "$RECIPE_FILE"
+                fi
+            fi
+        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then    
+            if [[ "$pkg_only" == *"no-deps"* ]]; then
+                DEPS_CONDA="--no-deps"
+            elif [[ "$pkg_only" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install -y '$pkg'" >> "$RECIPE_FILE"
+                    echo "conda install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
                 else                    
-                    echo "conda install -y -c $src '$pkg'" >> "$RECIPE_FILE"
+                    echo "conda install -y ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install -y '$pkg'" >> "$RECIPE_FILE"                
+                    echo "conda install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                
                 else                    
-                    echo "conda install -y '$src::$pkg'" >> "$RECIPE_FILE"
+                    echo "conda install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
