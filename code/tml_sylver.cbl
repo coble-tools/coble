@@ -13,7 +13,7 @@ languages:
   - r-base=3.6.0@r
 flags:
   - dependencies: NA
-  - compile-tools: true
+  - compile-tools: 13.1
   - build-tools: false
   - priority: strict
   - channel: bioconda
