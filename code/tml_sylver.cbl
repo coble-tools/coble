@@ -15,9 +15,8 @@ flags:
   - dependencies: NA
   - compile-tools: 13.3.0
   - priority: strict
-bash:
-  - conda config --env --add channels bioconda
-  - conda config --env --add channels conda-forge  
+  - channel: bioconda
+  - channel: conda-forge  
 r-conda:
   - BiocManager
   - remotes
