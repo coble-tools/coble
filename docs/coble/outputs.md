@@ -34,7 +34,7 @@ bioc-conda:
 r-package:
   - dplyr
 ```
-<details>
+</details>
 
 When a coble build is run, coble creates a number of files and directories to manage the environment being built. For a recipe file called `my-recipe.cbl`. Some of them you can consider crucial outputs for the reprodicible environment, and some are interim files that help coble manage the build process. In order, these are:
 
@@ -51,6 +51,7 @@ A certain amount of formatting is required, specifically the presence of the blo
 
 ## 2) example.sh
 This is the bash script that is generated from the `cbl` file. It contains all the commands that will be run to create the environment. You can run this script directly if you want, but it is recommended to use `coble build` to ensure that the environment is created correctly with all the tracking files described here for reproduction and depency tracking. The .sh file gives you full confidence on what is taking place in the creation of yuor environment. It includes a number of additions simpified in the `cbl` file such as error checking, build tools, environment variables, channel cleaning, logging, and tracking of completed steps.
+
 <details>
 <summary>example.sh</summary>
 ```bash
@@ -129,7 +130,7 @@ conda install -y  --no-update-deps \
 # r-package:
 Rscript -e 'install.packages("dplyr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 ```
-<details>
+</details>
 
 ## 3) and 4) example.delta and example.done
 These files are used to track the progress of the build. The `example.delta` file contains the commands that are yet to be executed, while the `example.done` file contains the commands that have been successfully executed. This allows coble to resume the build process from where it left off in case of an interruption or error. If the first time there will be no delta file, and the done file will be populated with the entire contents of the bash recipe. Subsequent amendmetns will be checked against this file and only *different* commands will be included in the `.delta` file. It is the `.delta` file that is really executed. The done file is added to as the build progresses and commands complete successfully.  
@@ -137,6 +138,7 @@ These files are used to track the progress of the build. The `example.delta` fil
 
 ## 5) and 6) stdout and stderr logs: example.log and example.err
 These files capture the standard output and standard error streams of the build process. The `example.log` file contains the standard output, while the `example.err` file contains the standard error messages. These logs are useful for debugging and tracking the progress of the build. When each command starts the logs are wiped clean and recreated, so you can use these to watch the live ongoing status of the build. Additional to the messages from the package managers themselves, `COBLE` reports on memory, swapping and time, so that you are able to track any hardware and performance probelms. Conda environments can be very memory intense so it can be fristrating to find you are chasing down the wrong kind of error!
+
 <details>
 <summary>example.sh</summary>
 ```text
@@ -170,7 +172,7 @@ installing to /data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV/CBL/env-syed/lib/R/
 *** installing help indices
 ...
 ```
-<details>
+</details>
 
 ## 7) example_summary.txt
 **This is a file you will want to look at and keep**. This file provides a summary of the build process, including any errors or important information extracted from the logs. It is useful for quickly assessing the success of the build and identifying any issues that may have occurred. It tracks each line of the commands run, gives the timing for how long it took, and annotates the file with ALL the dependencies installed as a result. It is designed to parse through the log files after each package installation and extract any warnings or errors that may have occurred and summarizes them. In normal mode, any errors will cause the build process to stop with a warning to fix the poroblem, and this will be recorded here.
@@ -201,7 +203,7 @@ install: conda install -y  --no-update-deps  'r-tzdb'  'r-vroom'  'r-readr'  'r-
 [coble-create] Duration: 30s
 ...
 ```
-<details>
+</details>
 
 ## 8) example.sh.bak example.cbl.bak
 Due to the copying over of files in place, .bak files are created as backups of the previous version of the `cbl` and `sh` files before they are overwritten. This allows you to revert to the previous version if needed. You only get one chance at this so if you repeat the command quickly you will overwrite the backup! This is unlikely to be needed except in debugging scenarios.
