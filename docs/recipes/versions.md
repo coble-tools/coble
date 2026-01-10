@@ -25,7 +25,7 @@ pip:
   - sciPy>=1.6.3
 ```
 
-### Output capture yaml
+### Output frozen yaml
 
 ```yaml
 languages:
