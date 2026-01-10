@@ -7,7 +7,7 @@ COBLE recipes are simple bash scripts that define the steps to build your enviro
 - To generate a starter recipe, run:
 
    ```
-   coble recipe --recipe tst.cbl --flavour ???
+   coble template --recipe tst.cbl --flavour ???
    ```
    This will create a recipe cbl input file you can edit.
 

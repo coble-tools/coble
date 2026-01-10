@@ -47,6 +47,10 @@ print_array() {
     done
 }
 
+if [[ ! -f "$done_recipe" ]]; then  
+    : > "$done_recipe"
+fi
+
 line_over=()
 new=false
 while IFS= read -r line; do
@@ -59,6 +63,8 @@ while IFS= read -r line; do
     if [[ "$line" == "conda activate"* ]]; then        
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "export "* ]]; then        
+        echo "$line" >> "$update_recipe"                
+    elif [[ "$line" == "unset "* ]]; then        
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "umask "* ]]; then        
         echo "$line" >> "$update_recipe"                

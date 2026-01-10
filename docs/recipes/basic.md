@@ -11,7 +11,7 @@ The environment is set to the given R and python versions and allows the other v
 
 For a simple environment you can modify this to suit your needs.  
 
-Once created, there is a capture file with the specific versions of all the libraries loaded in the environment.
+Once created, there is a freeze file with the specific versions of all the libraries loaded in the environment.
 
 During creation there are some outputs, for the given input `myinput.cbl`:
 
@@ -51,5 +51,5 @@ Outputs are:
 - **myinput.log** - each bash line cleans the log file so you can track the current stdout  
 - **myinput.err** - each bash line cleans the err file so you can track the current stderr  
 - **myinput_summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
-**Catured environment**  
-- **myinput_capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
+**Frozen environment**  
+- **myinput_freeze.cbl** - The environment is frozen, all packages and libs and versions, for reproducibility this could be used to recreate the environment  

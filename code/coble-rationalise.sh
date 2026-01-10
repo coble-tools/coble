@@ -48,23 +48,26 @@ ok=true
 while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
         section_name="${BASH_REMATCH[1]}"
-        if [[ "$section_name" == "coble" ]]; then
+        if [[ "$section_name" == *"coble"* ]]; then
             count=$((count + 1))
             coble_count=$count
-        elif [[ "$section_name" == "channels" ]]; then
+        elif [[ "$section_name" == *"channels"* ]]; then
             count=$((count + 1))
             channels_count=$count
-        elif [[ "$section_name" == "languages" ]]; then
+        elif [[ "$section_name" == *"languages"* ]]; then
             count=$((count + 1))
             languages_count=$count
-        elif [[ "$section_name" == "flags" ]]; then
+        elif [[ "$section_name" == *"flags"* ]]; then
             count=$((count + 1))
             flags_count=$count            
         fi
     fi
 done < "$YAML_FILE"
-if [[ $coble_count -ne 1 || $channels_count -ne 2 || $languages_count -ne 3 ]]; then
-    ok=false
+ok=false
+if [[ $coble_count -eq 1 || $channels_count -ne 2 || $languages_count -ne 3 ]]; then
+    ok=true # can be coble, channels, languages
+elif [[ $coble_count -eq 1 || $channels_count -eq 2 || $flags_count -eq 3 || $languages_count -eq 4 ]]; then
+    ok=true # can be coble, channels, flags, languages
 fi
 
 if [[ "$ok" == true ]]; then
@@ -76,8 +79,13 @@ else
     echo "  directive order should begin:" >&2
     echo "    coble:" >&2
     echo "    channels:" >&2
+    echo "    [flags:]" >&2
     echo "    languages:" >&2
     #echo "    flags:" >&2
+    echo "The current order is:" >&2    
+    echo "  coble: $coble_count" >&2
+    echo "  channels: $channels_count" >&2
+    echo "  languages: $languages_count" >&2    
     echo N
     exit 1
 fi

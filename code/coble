@@ -20,19 +20,19 @@ show_help() {
 	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
 	echo "  update   update an existing environment from the changes to the recipe input"	
 	echo "  contain  Build Docker and Singularity containers from a COBLE recipe"
-	echo "  capture  capture the packages from an existing environment"
+	echo "  freeze  capture the packages from an existing environment"
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"	
-	echo "  $0 capture --capture my.cbl --env my-env"
+	echo "  $0 freeze --recipe my.cbl --env my-env"
 }
 
 start_time=$(date +%s)
 
 echo '╔══════════════════════════════════════════════════════════════╗'
-echo '║        COBLE Container v0.1                                  ║'
+echo '║        COBLE Reproducible Environment v0.1                   ║'
 echo '║        (c) ICR 2026 RSE and BCR-DS                           ║'
 echo '║        For help, see:                                        ║'
 echo '║        - https://icr-rse-group.github.io/coble/              ║'
@@ -44,7 +44,7 @@ echo "[coble] Starting coble at $(date)" >&2
 copied_inputs=("$@")
 container_type="conda"
 for i in "${!copied_inputs[@]}"; do
-	echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
+	#echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
 	if [[ "${copied_inputs[$i]}" == "--containers" ]]; then
 		next_index=$((i + 1))
 		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
@@ -64,6 +64,14 @@ echo "[coble] command entered: coble $*" >&2
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	show_help
 	exit 0
+fi
+
+# if the first command is not valid show help and exit
+valid_commands=("template" "build" "update" "contain" "capture" "freeze")
+if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
+    echo "[coble] Not a valid command provided: $1." >&2
+    show_help
+    exit 1
 fi
 
 # If the first argument is 'template', call coble-template.sh and exit
@@ -119,24 +127,13 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
     RESULTS_DIR="$(dirname "$recipe_file")"	    	
 	done_recipe="$RESULTS_DIR/${base_name_noext}.done"
 	summary_file="$RESULTS_DIR/${base_name_noext}_summary.txt"
-	capture_file="$RESULTS_DIR/${base_name_noext}_capture.cbl"
+	capture_file="$RESULTS_DIR/${base_name_noext}_freeze.cbl"
 	
-	if [[ "$build_action" == "build" ]]; then
+    
+    if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then
 	    echo "[coble 3/5] Created recipe, rebuilding environment." >&2
 	    : > "$done_recipe"
 		: > "$summary_file"
-	elif [[ "$build_action" == "update" ]]; then	
-	    if [[ ! -f "$done_recipe" ]]; then
-			: > "$done_recipe"
-			: > "$summary_file"			
-			echo "[coble 3/5] Created recipe, building environment." >&2
-		else
-		    
-			echo "[coble 3/5] Created recipe, updating environment." >&2
-		fi
-	else
-		echo "[coble] Unknown command: $1" >&2
-		exit 1
 	fi
 				
 	update_success=$("$script_dir/coble-update.sh" --done-recipe "$done_recipe" --all-recipe "$recipe_file")
@@ -166,9 +163,9 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		exit 0
 	fi
 	
-	echo "[coble 5/5] Created env, proceeding to capture in file $capture_file" >&2	
+	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2	
 	recipe_dir="$(dirname "$recipe_file")"	
-	result=$("$script_dir/coble-capture.sh" --capture "$capture_file" "${@:2}")
+	result=$("$script_dir/coble-capture.sh" --recipe "$capture_file" "${@:2}")
 		
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
@@ -188,11 +185,14 @@ if [[ "$1" == "contain" ]] || [[ "$1" == "build" && ( "$container_type" == *"doc
 fi
 
 # If the first argument is 'capture', call coble-capture.sh and exit
-if [[ "$1" == "capture" ]]; then
+if [[ "$1" == "capture" || "$1" == "freeze" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-capture.sh" "${@:2}"
 	exit $?
 fi
-
-echo "[coble] Not a valid command provided: $1." >&2
-show_help
+end_time=$(date +%s)
+duration=$((end_time - start_time))
+hours=$((duration / 3600))
+minutes=$(((duration % 3600) / 60))
+seconds=$((duration % 60))
+echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2

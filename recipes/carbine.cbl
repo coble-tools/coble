@@ -12,8 +12,9 @@ languages:
   - python=3.12
   - r-base=4.4.3
 flags:
-  - dependencies: True
-  - build-tools: True
+  - dependencies: NA
+  - compile-tools: True
+  - system-tools: True
   - export: QT_QPA_PLATFORM=offscreen
 pip:
   - https://github.com/stan-dev/cmdstanpy.git@develop  

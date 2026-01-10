@@ -30,7 +30,7 @@ stdout_patterns=(
     "ERROR: compilation failed" 
 )
 error_patterns=(
-    #"* removing"
+    "* removing"    
     "fatal"
     "EnvironmentNotWritableError"
     "Rscript: command not found"

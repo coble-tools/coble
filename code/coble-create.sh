@@ -115,7 +115,7 @@ CAPTURE_DATE=$(date '+%Y-%m-%d')
 CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 CAPTURE_USER=$(whoami)	
 echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$RECIPE_DONE_FILE"
-echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$TIME_FILE"
+#echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$TIME_FILE"
 # Redirect stdout and stderr to log file
 echo "[coble-create] Redirected STDOUT to file: $LOG_FILE" >&2
 echo "[coble-create] Redirected STDERR to file: $ERROR_FILE" >&2
@@ -137,7 +137,7 @@ fi
 
 # Start the summary log
 echo "------------------------------------------------" >> "$TIME_FILE"
-echo "[coble-create] Summary log started at $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
+echo "[coble-create] Summary log started by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$TIME_FILE"
 echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type

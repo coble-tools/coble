@@ -20,7 +20,7 @@ FLAVOUR="basic"
 show_help() {
     echo "----- coble recipe help ----------"    
     echo "Usage: $0 --recipe YAML_FILE"    
-    echo "  --recipe     CBL                    Specify recipe CBL file - it will be populated with this versions example template"    
+    echo "  --recipe     CBL                    Specify recipe CBL file - it will be populated with this version's example template"    
     echo "  --flavour   find/python/r/mixed     Type of environment to create (default: mixed)"
     echo "  -h, --help  Show this help message and exit"
     echo "------------------------------------"    
@@ -50,15 +50,21 @@ elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then
 elif [[ "$FLAVOUR" =~ ^(bioinf)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_bioinf.cbl" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(fix)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_fix.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
 elif [[ "$FLAVOUR" =~ ^(bash)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_bash.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then # SYLVER tutorial    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_find.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(fix)$ ]]; then # COUNTREG tutorial    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_fix.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(fixed)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_fixed.cbl" "$YAML_FILE"
 else
     echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
     exit 1

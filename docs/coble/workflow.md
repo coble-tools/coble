@@ -13,7 +13,7 @@ flowchart LR
 	end
 	subgraph "Environment creation"
         CRE[Create conda environment]		
-		CAP[Capture environment libs and versions]	
+		FRE[Freeze environment libs and versions]	
 	end
 	INP --> REC
 	REC --> UPD_BLD{update or build?}
@@ -22,7 +22,7 @@ flowchart LR
 	DLT --> CRE	
 	CRE --> ERR{Error free?}
 	ERR -- No --> INP
-	ERR -- Yes --> CAP
+	ERR -- Yes --> FRE
 ```
 
 ---  
@@ -57,6 +57,6 @@ flowchart LR
 - **basic.log** - each bash line cleans the log file so you can track the current stdout  
 - **basic.err** - each bash line cleans the err file so you can track the current stderr  
 - **basic_summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
-**Catured environment**  
-- **basic_capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
+**Frozen environment**  
+- **basic_freeze.cbl** - The environment is frozen, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
 
