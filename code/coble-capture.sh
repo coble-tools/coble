@@ -343,18 +343,18 @@ echo "[coble-capture] Detected conda python version: $PYTHON_VERSION"
 	#echo -e "  - bioconda"
 	#echo -e "  - conda-forge"	
 	echo -e ""
+	echo -e "flags:"
+	echo -e "  - dependencies: false"
+    echo -e "  - priority: flexible"
+    echo -e ""
 	echo -e "languages:"
-    echo -e "  - no-deps"
+    #echo -e "  - no-deps"
 	if [[ -n "$R_BASE_VERSION" ]]; then
 		echo -e "  - $R_BASE_VERSION"
 	fi
 	if [[ -n "$PYTHON_VERSION" ]]; then
 		echo -e "  - $PYTHON_VERSION"
 	fi
-	echo -e ""
-	echo -e "flags:"
-	echo -e "  - dependencies: false"
-    echo -e "  - priority: strict"
 } > "$AGGREGATE_TXT"
 
 # Now loop through the sorted file and keep as a variable the current mananager
@@ -376,19 +376,18 @@ while IFS=$'\t' read -r manager pkg src path; do
 	seen_pkgver[$pkgver_key]=1
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
 	if [[ "$pkg" == _* ]] || \
-	[[ "$pkg" =~ (c-compiler|windows|osx|darwin|unix|system) ]] || \
+	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
 	#[[ "$src" == *System/Manual* ]] || \
 	[[ "$pkg" == *base=* ]] || \
 	[[ "$pkg" == python=* ]]; then
 		continue
 	fi
     if [[  "$src" != "$current_channel"  && "$src" != *"unknown"*  ]]; then
-		echo -e "# should change channel to $src $pkg" >> "$AGGREGATE_TXT"		
         current_channel="$src"
     #	# New manager/channel section    
 		echo -e "" >> "$AGGREGATE_TXT"
-		echo -e "flags:" >> "$AGGREGATE_TXT"
-        echo -e "  - channel: $src" >> "$AGGREGATE_TXT"        		
+		#echo -e "flags:" >> "$AGGREGATE_TXT"
+        #echo -e "  - channel: $src" >> "$AGGREGATE_TXT"        		
 		echo -e "$manager:" >> "$AGGREGATE_TXT"
 		current_manager="$manager"			
     elif [[ "$manager" != "$current_manager" ]]; then

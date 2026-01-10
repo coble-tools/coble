@@ -287,7 +287,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
             continue
         elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
-            echo "[coble-recipise] Processing flag: $pkg_entry" >&2
+            #echo "[coble-recipise] Processing flag: $pkg_entry" >&2
             #directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             #value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
