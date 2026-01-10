@@ -17,6 +17,7 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: True
+  - compile-tools: True
   - ncpus: 8
 
 bash:
@@ -165,6 +166,7 @@ bioc-package:
   - tidyverse
   - SingleR
   - scran
+  - Rhdf5lib
   - celldex
 
 # # needed for ArchR and scater

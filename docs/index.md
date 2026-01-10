@@ -22,7 +22,7 @@ coble build --recipe my-recipe.cbl --env my-env
 - `--rebuild`: Clean and rebuild the environment from scratch.
 - `--containers`: default is conda, can be a list of containers from conda,docker,singularity/apptainer.
 
-**Freeze**: Create a recipe file from an existing environment.
+**Freeze**: Freeze an existing environment into a coble recipe file.
 ```bash
 coble freeze --frozen my-frozen-env.cbl --env my-env
 ```
@@ -32,7 +32,7 @@ coble freeze --frozen my-frozen-env.cbl --env my-env
 
 **Template**: Generate a template recipe file to start from.
 ```bash
-coble template --frozen template-recipe.cbl --flavour basic
+coble template --recipe template-recipe.cbl --flavour basic
 ```
 
 ### A coble recipe file
