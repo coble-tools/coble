@@ -8,7 +8,7 @@ This page describes the files that are output as part of a coble build. Imagine 
 <summary>example.cbl</summary>
 ```yaml
 #####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2025
+# COBLE:Reproducible environment: BASIC, (c) ICR 2026
 #####################################################
 coble:
   - environment: coble-env-basic
@@ -58,7 +58,7 @@ This is the bash script that is generated from the `cbl` file. It contains all t
 #!/usr/bin/env bash
 
 #####################################################
-# COBLE:recipe, (c) ICR 2025
+# COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-01-10
 # Capture time: 16:20:08 GMT
 # Captured by: ralcraft
@@ -84,7 +84,7 @@ conda config --env --add channels conda-forge
 
 # INSTALL SECTION FOR CONDA
 #####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2025
+# COBLE:Reproducible environment: BASIC, (c) ICR 2026
 #####################################################
 # note the reverse order of priority
 # languages:
@@ -222,7 +222,7 @@ The frozen recipe file looks a little different as it is a moment in time, and i
 <details>
 <summary>example_freeze.cbl</summary>
 ```yaml
-# COBLE:capture, (c) ICR 2025
+# COBLE:capture, (c) ICR 2026
 # Capture date: 2026-01-10
 # Capture time: 16:24:19 GMT
 # Captured by: ralcraft
