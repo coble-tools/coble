@@ -4,8 +4,10 @@ https://www.nature.com/articles/s41588-025-02108-2#code-availability).
 
 The tutorial takes you through finding where those packages are and building the recipe (the goal is to build an enviroment as specified rather than run all the given code).  
 
+<!-- 
 # Test links
 [![Video](https://img.youtube.com/vi/LJjvqBXqidI/default.jpg)](https://www.youtube.com/watch?v=LJjvqBXqidI&list=PLKk58i7WAwK7gj3oZLR9MKQ-qTjOT7_t2)
+-->
 
 ## Code availablility
 As given in the publication [code section](https://www.nature.com/articles/s41588-025-02108-2#code-availability):
