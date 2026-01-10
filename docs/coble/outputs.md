@@ -205,10 +205,10 @@ install: conda install -y  --no-update-deps  'r-tzdb'  'r-vroom'  'r-readr'  'r-
 ```
 </details>
 
-## 8) example.sh.bak example.cbl.bak
+## 8) and 9) example.sh.bak example.cbl.bak
 Due to the copying over of files in place, .bak files are created as backups of the previous version of the `cbl` and `sh` files before they are overwritten. This allows you to revert to the previous version if needed. You only get one chance at this so if you repeat the command quickly you will overwrite the backup! This is unlikely to be needed except in debugging scenarios.
 
-## 9) example_freeze.cbl
+## 10) example_freeze.cbl
 This is the frozen version of the environment. It contains all the packages and their specific versions that were installed in the environment. This file can be used to recreate the exact same environment in the future, ensuring reproducibility. It is recommended to keep this file safe as it is crucial for sharing and reproducing the environment.
 
 This file goes hand-in-hand with the original example.cbl coble recipe file and together they make a stronbg case for a reproducible environment. The original file gives the intent, the frozen file gives the exact result. You can think of them like the conda from-history and the environment.yaml, in this case there is also multiple package managers and changing enviforment variables, dpenedncies and channel priorities captured as part of the environment that could play a crucual role in both intent and reprocicibility.
