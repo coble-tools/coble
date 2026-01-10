@@ -14,7 +14,7 @@ The recipe definition of your environment can be composed of 4 main package mana
 Archive installation and github instllation also possible, along with raw bash commands for anythong bespoke. There are flags to include the most common build tools and environment variables automatically to simplify the setup.
 
 ### The Three Functions
-1. **Build**: Create or update an environment from a recipe file.
+**Build**: Create or update an environment from a recipe file.
 ```bash
 coble build --recipe my-recipe.cbl --env my-env
 ```
@@ -22,7 +22,7 @@ coble build --recipe my-recipe.cbl --env my-env
 - `--rebuild`: Clean and rebuild the environment from scratch.
 - `--containers`: default is conda, can be a list of containers from conda,docker,singularity/apptainer.
 
-2. **Freeze**: Create a recipe file from an existing environment.
+**Freeze**: Create a recipe file from an existing environment.
 ```bash
 coble freeze --recipe my-frozen-env.cbl --env my-env
 ```
@@ -30,7 +30,7 @@ coble freeze --recipe my-frozen-env.cbl --env my-env
 - `--env`: Active environment is frozen if not specified.
 - `--debug`: keep temporary files for each package manager for debugging.
 
-3. **Template**: Generate a template recipe file to start from.
+**Template**: Generate a template recipe file to start from.
 ```bash
 coble template --recipe template-recipe.cbl --flavour basic
 ```
