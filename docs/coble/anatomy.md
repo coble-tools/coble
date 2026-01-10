@@ -104,7 +104,7 @@ export VAR_NAME=VALUE
 The coble recipe file is turned into a bash recipe file, so there is no doubt for you at all what is being executed. This recipe file is executed line by line. When you make changes to the environment a delta file is created, so olnly different lines are executed. This is for the use case of creating and adapting an environment over time and ensuring it remains tracked. This is similar to `from-history` in conda, but more explicit and transparent as it is literal bash comamands, and it is handling bash and miced packages.
 
 For a coble recipe file like this:
-<detail>
+<details>
 <summary>example.cbl</summary>
 ```yaml
 #####################################################
@@ -134,10 +134,10 @@ bioc-conda:
 r-package:
   - dplyr
 ```
-</detail>
+</details>
 
 The bash recipe file would look like this:
-<detail>
+<details>
 <summary>example.sh</summary>
 ```bash
 #!/usr/bin/env bash
@@ -216,4 +216,4 @@ conda install -y  --no-update-deps \
 Rscript -e 'install.packages("dplyr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 
 ```
-</detail>
+</details>
