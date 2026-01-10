@@ -47,6 +47,10 @@ print_array() {
     done
 }
 
+if [[ ! -f "$done_recipe" ]]; then  
+    : > "$done_recipe"
+fi
+
 line_over=()
 new=false
 while IFS= read -r line; do

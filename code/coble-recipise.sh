@@ -172,7 +172,7 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # echo "PYTHONPATH is: $PYTHONPATH" >&2
 # echo "" >&2
 ### 01 Language checking checking ########################################
-languages_line="conda create ${CONDA_ENV} -y"
+languages_line="conda create --no-default-packages ${CONDA_ENV} -y"
 CURRENT_SECTION="bash"
 r_count=0
 python_count=0
@@ -337,7 +337,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
                     echo "conda install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
-                fi                                
+                fi  
+                # language build tools
+                echo "# Language build tools" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "# Language core system libraries" >> "$RECIPE_FILE"
+                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
             elif [[ "${directive,,}" == "compile-tools" ]]; then                
                 # if compile-tools = true then add compiler installs
                 # if a version is given use the specific version
@@ -357,12 +362,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     echo "conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
                     echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
-                fi                                
-                # language build tools
-                echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
-                echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                
+                fi                                                
                 # symlinks
                 echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 echo "umask 0022" >> "$RECIPE_FILE"

@@ -52,4 +52,4 @@ Outputs are:
 - **myinput.err** - each bash line cleans the err file so you can track the current stderr  
 - **myinput_summary.txt** - after each install the logs are parsed for important info eg errors or dependencies. This is output along with the timings  
 **Catured environment**  
-- **myinput_capture.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  
+- **myinput_freeze.cbl** - The environment is captured, all packages and libs and versions, for reproducibility this could be used to recreate the environment  

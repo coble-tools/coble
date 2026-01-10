@@ -79,6 +79,7 @@ else
     echo "  directive order should begin:" >&2
     echo "    coble:" >&2
     echo "    channels:" >&2
+    echo "    [flags:]" >&2
     echo "    languages:" >&2
     #echo "    flags:" >&2
     echo "The current order is:" >&2    
