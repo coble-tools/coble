@@ -1,5 +1,5 @@
 ##########################################################
-# COBLE: Complex Bioinformatics Example, (c) ICR 2025
+# COBLE: Complex Bioinformatics Example, (c) ICR 2026
 ##########################################################
 coble:
   - environment: coble-env-bioinf

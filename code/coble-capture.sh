@@ -13,7 +13,7 @@
 
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
-# Usage: ./coble-capture.sh --recipe <recipe_file> [--env ENV]
+# Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
 
 # Default values
 ENV_INPUT=""
@@ -23,12 +23,14 @@ AGGREGATE_TXT=""
 HAS_R=0
 
 show_help() {
-	echo "Usage: $0 --recipe <recipe_file> [--env ENV]"
-	echo "  --recipe  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
+	echo "  --frozen  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"	
     echo "  --debug   Keep interim logs for debugging (optional)"    
     echo "  -h,--help Show this help message and exit"
 }
+
+echo "[coble-capture] Start processing arguments..." >&2
 
 while [[ $# -gt 0 ]]; do
 	key="$1"
@@ -37,7 +39,7 @@ while [[ $# -gt 0 ]]; do
 			ENV_INPUT="$2"
 			shift; shift
 			;;		
-		--recipe)
+		--frozen)
 			AGGREGATE_TXT="$2"			
 			shift; shift
 			;;
@@ -54,19 +56,17 @@ while [[ $# -gt 0 ]]; do
 			;;
 	esac
 done
-
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
-	echo "[coble-freeze] Error: --recipe output file must be specified." >&2
+	echo "[coble-freeze] Error: --frozen output file must be specified." >&2
 	show_help
 	exit 1
 fi
-
 # Default results dur is the directory of the output file
 if [[ $RESULTS_DIR == "" ]]; then		
 	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"	
 fi
-echo "[coble-freeze] Capturing conda environment to $RESULTS_DIR"
+echo "[coble-freeze] Capturing conda environment to $RESULTS_DIR" >&2
 
 # Parse named arguments
 # Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
@@ -90,7 +90,7 @@ elif [[ "$ENV_INPUT" == */* ]]; then
 		echo "[coble-freeze] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "Activating environment: $ENV_INPUT"
+    echo "Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
@@ -100,7 +100,7 @@ else
 		echo "[coble-freeze] Error: The specified environment name does not exist: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "Activating environment: $ENV_INPUT"
+    echo "Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 fi
 
@@ -112,13 +112,10 @@ TMP_CONDA_LIST_TXT="$RESULTS_DIR/coble_tmp_conda-packages-$ENV_NAME.txt"
 TMP_PIP_FREEZE_TXT="$RESULTS_DIR/coble_tmp_pip-freeze-$ENV_NAME.txt"
 TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
-TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted-$ENV_NAME.tmp"
-if [[ -z "$AGGREGATE_TXT" ]]; then
-    AGGREGATE_TXT="$RESULTS_DIR/coble-captured-$ENV_NAME.yml"
-fi
+TMP_SORTED1="$RESULTS_DIR/coble_tmp_coble-captured-sorted1-$ENV_NAME.tmp"
+TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted2-$ENV_NAME.tmp"
 
-
-echo "[coble-freeze] Running: conda list $ENV_FORMATTED > $TMP_CONDA_LIST_TXT"
+echo "[coble-freeze] Running: conda list $ENV_FORMATTED" >&2
 conda list $ENV_FORMATTED --show-channel-urls> "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
@@ -137,7 +134,7 @@ fi
 echo "[coble-freeze] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
 # if Rscript is in the environment, run the Rscript to get package info
 if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
-	echo "    R is not available in conda environment"
+	echo "    R is not available in conda environment" >&2
 else    
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	RSCRIPT="$script_dir/coble-capture-r.R"
@@ -149,8 +146,9 @@ else
 fi
 
 # Clear the aggregate file at the start
-> "$TMP_AGGREGATE"
-> "$AGGREGATE_TXT"
+echo "[coble-freeze] Aggregating package lists into $AGGREGATE_TXT" >&2
+:> "$TMP_AGGREGATE"
+:> "$AGGREGATE_TXT"
 
 # Write header (combine package and version)
 echo -e "Manager\tPackage\tSource\tPath" > "$TMP_AGGREGATE"
@@ -300,14 +298,26 @@ awk 'BEGIN {OFS="\t"}
         else if ($1 == "r-github") prefix = "7_";
         else if ($1 == "pip") prefix = "8_";
         print prefix $0;
-    }' "$TMP_AGGREGATE" | sort -k1,1 -k2,2 | sed 's/^[0-9]_//' > "$TMP_SORTED"
-#sort -k1,1 -k2,2 "$TMP_AGGREGATE" > "$TMP_SORTED"
+    }' "$TMP_AGGREGATE" | sort -k1,1 -k2,2 | sed 's/^[0-9]_//' > "$TMP_SORTED1"
+
+#(head -1 "$TMP_SORTED1"; tail -n +2 "$TMP_SORTED1" | grep "^conda\s" | grep -E "(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)"; tail -n +2 "$TMP_SORTED1" | grep -v -E "^conda\s.*(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)") > "$TMP_SORTED"
+
+# Deduplicate assuming prioority order top to bottom, and bring critical system libs to the top
+(
+  head -1 "$TMP_SORTED1"
+  # Critical system libs first
+  tail -n +2 "$TMP_SORTED1" | grep "^conda\s" | grep -E "(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)"
+  # All other conda packages
+  tail -n +2 "$TMP_SORTED1" | grep -E "^(conda|r-conda|bioc-conda)"
+  # CRAN/Bioc packages last
+  tail -n +2 "$TMP_SORTED1" | grep -E "^(r-package|bioc-package)"
+) | awk -F'\t' 'NR==1 {print; next} {split($2, p, "="); if (!seen[p[1]]++) print}' > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
 R_BASE_VERSION=""
 PYTHON_VERSION=""
 COMPILE_VERSION=""
-echo "[coble-freeze] Detecting R and Python base versions from $TMP_AGGREGATE ..."
+echo "[coble-freeze] Detecting R and Python base versions from $TMP_AGGREGATE ..." >&2
 while IFS=$'\t' read -r manager pkg src path; do
     #echo "[coble-freeze] Checking package: $manager | $pkg | $src"
     if [[ "$manager" == "r-conda" && "$pkg" == base=* ]]; then
@@ -317,19 +327,19 @@ while IFS=$'\t' read -r manager pkg src path; do
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
         PYTHON_VERSION="python=${pkg#python=}@$src"    
         echo "[coble-freeze] Python detected in environment."
-	#elif [[ "$manager" == "conda" && ( "$pkg" == "gcc="* || "$pkg" == "gxx="* ) ]]; then        
-    #    COMPILE_VERSION="${pkg#*=}"
-    #    echo "[coble-freeze] Compile tools detected in environment."
+	elif [[ "$manager" == "conda" && ( "$pkg" == "gcc="* || "$pkg" == "gxx="* ) ]]; then        
+        COMPILE_VERSION="${pkg#*=}"
+        echo "[coble-freeze] Compile tools detected in environment."
     fi
 done < "$TMP_AGGREGATE"
-echo "[coble-freeze] Detected r-conda base version: $R_BASE_VERSION"
-echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION"
+echo "[coble-freeze] Detected r-conda base version: $R_BASE_VERSION" >&2
+echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 # in the AGGREGATE_TXT file add the languages to the top
 {
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)
-	echo -e "# COBLE:capture, (c) ICR 2025"
+	echo -e "# COBLE:capture, (c) ICR 2026"
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"
@@ -359,8 +369,12 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION"
 	if [[ -n "$PYTHON_VERSION" ]]; then
 		echo -e "  - $PYTHON_VERSION"
 	fi
-    #if [[ -n "$COMPILE_VERSION" ]]; then
-    #    echo -e "flags:"
+    # Get env vars and format for YAML
+    echo -e "flags:"
+    conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | while IFS='=' read -r key value; do
+        echo "  - export $key=\"$value\""
+    done
+    #if [[ -n "$COMPILE_VERSION" ]]; then        
     #    echo -e "  - compile-tools: $COMPILE_VERSION"
     #fi
 } > "$AGGREGATE_TXT"
@@ -429,21 +443,24 @@ if [[ ${#my_find_list[@]} -gt 0 ]]; then
     done
 fi
 
+echo "[coble-freeze] Final aggregated package list at $AGGREGATE_TXT" >&2
+
 
 
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
     echo "[coble-freeze] Cleaning up temporary files..."
-    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED"    
+    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED1" "$TMP_SORTED"    
 elif [[ $KEEP_LOGS -eq 1 ]]; then
-    echo "[coble-freeze] Temporary files retained for inspection:"
-    echo "  $TMP_CONDA_LIST_TXT"
-    echo "  $TMP_PIP_FREEZE_TXT"
-    echo "  $TMP_R_PACKAGES_TXT"
-    echo "  $TMP_SORTED"
-    echo "  $TMP_AGGREGATE"    	
+    echo "[coble-freeze] Temporary files retained for inspection:" >&2
+    echo "  $TMP_CONDA_LIST_TXT" >&2
+    echo "  $TMP_PIP_FREEZE_TXT" >&2
+    echo "  $TMP_R_PACKAGES_TXT" >&2
+    echo "  $TMP_SORTED1" >&2
+    echo "  $TMP_SORTED" >&2
+    echo "  $TMP_AGGREGATE" >&2
 fi
 
-echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT"
+echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 
 

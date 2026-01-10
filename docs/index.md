@@ -24,7 +24,7 @@ coble build --recipe my-recipe.cbl --env my-env
 
 **Freeze**: Create a recipe file from an existing environment.
 ```bash
-coble freeze --recipe my-frozen-env.cbl --env my-env
+coble freeze --frozen my-frozen-env.cbl --env my-env
 ```
 --- Optional arguments:
 - `--env`: Active environment is frozen if not specified.
@@ -32,7 +32,7 @@ coble freeze --recipe my-frozen-env.cbl --env my-env
 
 **Template**: Generate a template recipe file to start from.
 ```bash
-coble template --recipe template-recipe.cbl --flavour basic
+coble template --frozen template-recipe.cbl --flavour basic
 ```
 
 ### A coble recipe file
@@ -61,9 +61,15 @@ coble build --recipe my-recipe.cbl --env my-env
 ```
 
 # Freeze an environment
-coble freeze --recipe my-frozen-env.cbl --env my-env
+Freeze an environment and it will store the versions and the channels used to create it. This is useful for reproducibility and for sharing environments. To freeze an environment use the `freeze` command:
+```bash
+coble freeze --frozen my-frozen-env.cbl --env my-env
+```
 # Get a template to start from
+Start off from one of the pre-prepared templates to get going quickly. For example to get the basic template use:
+```bash
 coble template --recipe template-recipe.cbl --flavour basic
+```
 ---  
 
 ## Additional Information
