@@ -376,7 +376,7 @@ while IFS=$'\t' read -r manager pkg src path; do
 	seen_pkgver[$pkgver_key]=1
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
 	if [[ "$pkg" == _* ]] || \
-	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
+	[[ "$pkg" =~ (c-compiler|windows|osx|darwin|unix|system) ]] || \
 	#[[ "$src" == *System/Manual* ]] || \
 	[[ "$pkg" == *base=* ]] || \
 	[[ "$pkg" == python=* ]]; then
