@@ -136,7 +136,7 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 	echo "#!/usr/bin/env bash"
     echo ""
     echo "#####################################################"
-    echo -e "# COBLE:recipe, (c) ICR 2025"    
+    echo -e "# COBLE:recipe, (c) ICR 2026"    
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)	
@@ -248,6 +248,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"    
     if [[ "$line" == "flags:" \
+        || "$line" == "variables:" \
         || "$line" == "channels:" \
         || "$line" == "languages:" \
         || "$line" == "conda-r:" \
@@ -294,25 +295,30 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             value="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
             value="${value## }"                            
-            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')            
-            echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                        
             if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
             elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "false" ]]; then                                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
             elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "na" ]]; then                                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="NA"
             elif [[ "${directive,,}" == "export" ]]; then                
                 echo "export ${value}" >> "$RECIPE_FILE"
+                echo "conda env config vars set ${value}" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA=""                
             elif [[ "${directive,,}" == "ncpus" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 NCPUS="$value"                
             elif [[ "${directive,,}" == "priority" ]]; then                
                 PRIORITY="$value"                
@@ -320,6 +326,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive,,}" == "channel" ]]; then                                          
                 echo "conda config --env --add channels $value" >> "$RECIPE_FILE"
             elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--no-update-deps"                
             elif [[ "${directive,,}" == "system-tools" && "${value,,}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
@@ -379,7 +386,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "conda env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "conda env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "conda env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "conda env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                
                 echo "" >> "$RECIPE_FILE"              
             elif [[ "${directive,,}" == "compile-paths" ]]; then                
                 # only compile-paths no installs                
@@ -408,6 +420,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                    echo "conda env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "conda env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "conda env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "conda env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi

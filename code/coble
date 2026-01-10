@@ -26,13 +26,13 @@ show_help() {
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"	
-	echo "  $0 freeze --recipe my.cbl --env my-env"
+	echo "  $0 freeze --frozen my.cbl --env my-env"
 }
 
 start_time=$(date +%s)
 
 echo '╔══════════════════════════════════════════════════════════════╗'
-echo '║        COBLE Reproducible Environment v0.1                   ║'
+echo '║        COBLE Reproducible Environment v0.2                   ║'
 echo '║        (c) ICR 2026 RSE and BCR-DS                           ║'
 echo '║        For help, see:                                        ║'
 echo '║        - https://icr-rse-group.github.io/coble/              ║'
@@ -164,8 +164,9 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	fi
 	
 	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2	
-	recipe_dir="$(dirname "$recipe_file")"	
-	result=$("$script_dir/coble-capture.sh" --recipe "$capture_file" "${@:2}")
+    # replace --recipe existring with capture file    
+	#recipe_dir="$(dirname "$recipe_file")"	
+	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
 		
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)

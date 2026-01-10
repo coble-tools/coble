@@ -107,7 +107,7 @@ This is what we now have:
 <summary>tutorials/sylver/sylver.cbl</summary>
 ```yaml
 #######################################
-# COBLE:Reproducible environment yaml, (c) ICR 2025
+# COBLE:Reproducible environment yaml, (c) ICR 2026
 #######################################
 coble:
   - environment: coble-env

@@ -1,5 +1,5 @@
 #####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2025
+# COBLE:Reproducible environment: BASIC, (c) ICR 2026
 #####################################################
 coble:
   - environment: coble-env-basic
@@ -22,3 +22,5 @@ r-conda:
   - ggplot2
 bioc-conda:
   - fgsea
+r-package:
+  - dplyr

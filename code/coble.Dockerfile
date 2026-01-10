@@ -119,7 +119,7 @@ ENV GITHUB_PAT=
 
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
-    echo '║        COBLE Container v0.1                                  ║' >> /etc/motd && \
+    echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
     echo '║        (c) ICR 2026 RSE and BCR-DS                           ║' >> /etc/motd && \
     echo '║        For help, see:                                        ║' >> /etc/motd && \
     echo '║        - /app/README.md                                      ║' >> /etc/motd && \
