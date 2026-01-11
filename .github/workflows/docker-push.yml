@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Dockerfile with coble
         run: |
-          bash code/coble build --recipe dockerhub/${{ matrix.cbl }}.cbl --env ${{ matrix.cbl }} --containers docker --image icsrc/coble:${{ matrix.cbl }}
+          bash code/coble build --recipe dockerhub/${{ matrix.cbl }}.cbl --env ${{ matrix.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ matrix.cbl }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ matrix.cbl }}
