@@ -55,20 +55,28 @@ This has creates the `cbl` file at `sylver.cbl` with the usual beginning of chan
 Note that defaults is the higherst priority in the strict channel order due to decommissioned versions that are required by R-3.6.0.
 
 <details>
-<summary>tutorials/sylver/sylver.cbl</summary>
+<summary>sylver.cbl</summary>
 ```yaml
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2026
+#######################################
 coble:
   - environment: coble-env
 channels:
-# note the reverse order of priority. T
+# note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
   - defaults
 languages:
+  - r-base=3.6.0@r
 flags:
-  - dependencies: True
-  - build-tools: True
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge  
 find:
   - r-base=3.6.0
   - r-base=4.1.0
@@ -90,11 +98,11 @@ find:
 ```
 </details>
 
-
+Note I have already solved some aspects of this environment as the intention is to show the `find:` directive. Specifically I have fought with channels and channel order.
 
 To resolve these finds simply start to try to build the environment (choose an environment as a name or path, if a path `prefix` will be used automatically):
 ```bash
-coble build --recipe tutorials/sylver/sylver.cbl --env my-env
+coble build --recipe sylver.cbl --env my-env
 ```
 This may take some time as the find directove looks for all possible places where the libraries may reside. It will give all the options, so we will need to decide where to take them from.  
 
@@ -109,7 +117,7 @@ It will return **IN PLACE** an updated cbl file with the best efforts it could m
 ### 2. Perfecting the recipe input
 This is what we now have:
 <details>
-<summary>tutorials/sylver/sylver.cbl</summary>
+<summary>sylver.cbl</summary>
 ```yaml
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
@@ -126,8 +134,12 @@ channels:
 languages:
 
 flags:
-  - dependencies: True
-  - build-tools: True
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge  
 
 find:
 #   - r-base=3.6.0
@@ -280,8 +292,12 @@ bash:
   - conda config --env --add channels bioconda
   - conda config --env --add channels conda-forge
 flags:
-  - dependencies: True
-  - build-tools: True    
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge   
 conda:
   - r-BiocManager  
   - r-tidyverse=1.3.1
@@ -303,7 +319,7 @@ bioc-package:
 ```
 </details>
 
-We can see that cdsr_models was not found, and I can neaten the conda installs to specify biocmanager and R. I will remove cdsr_models for this tutorial (further explanation coming). The automatic prepend of r and bioconductor facilitates moving the packages around for troubleshooting or version change. Because 3.6.0 is quite old we need some flexibility in the package finding so we override the default `strict` to `flexible`.
+We can see that cdsr_models was not found, and I can neaten the conda installs to specify biocmanager and R. I will remove cdsr_models for this tutorial (further explanation coming). The automatic prepend of r and bioconductor facilitates moving the packages around for troubleshooting or version change. Because 3.6.0 is quite old we need some flexibility so we move the order around in the flags.
 
 <details>
 <summary>tutorials/sylver/sylver.cbl</summary>
@@ -319,12 +335,13 @@ channels:
 languages:
   - r-base=3.6.0@r
   - r-base=4.1.0@conda-forge
-bash:
-  - conda config --env --add channels bioconda
-  - conda config --env --add channels conda-forge
 flags:
-  - dependencies: True
-  - build-tools: True    
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge     
 r-conda:
   - BiocManager  
   - remotes # we need remotes for installs
@@ -368,6 +385,50 @@ coble template --recipe tutorials/sylver/sylver.cbl --flavour sylver
 coble build --recipe tutorials/sylver/sylver.cbl --env my-env
 ```
 
+<details>
+<summary>Final version: tutorials/sylver/sylver.cbl</summary>yaml
+```yaml
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2026
+#######################################
+coble:
+  - environment: coble-env
+channels:
+# note the reverse order of priority  
+  - r
+  - bioconda
+  - conda-forge
+  - defaults
+languages:
+  - r-base=3.6.0@r
+flags:
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge  
+r-conda:
+  - BiocManager
+  - remotes
+  - tidyverse=1.3.1
+  - effsize=0.8.1
+  - magrittr=2.0.1
+  - tidyverse=1.3.1
+  - ggplot2
+  - ggrepel=0.9.1
+  - VennDiagram=1.6.20
+bioc-conda:
+  - affy=1.64.0
+  - fgsea=1.12.0
+  - GSVA=1.34.0
+  - org.Hs.eg.db=3.10.0
+r-package:
+  - survival=3.2-11
+bioc-package:
+  - limma=3.42.2
+```
+</details>
 
 ### 4. Tracking the output logs
 Now we are running we can track the logs.   

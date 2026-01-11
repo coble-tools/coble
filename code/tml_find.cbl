@@ -1,29 +1,23 @@
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
 #######################################
-
 coble:
-
   - environment: coble-env
-
 channels:
 # note the reverse order of priority  
   - r
   - bioconda
   - conda-forge
   - defaults
-
-
 languages:
-
+  - r-base=3.6.0@r
 flags:
-  - dependencies: True
-  - system-tools: True
-
-bash:
-  - conda config --env --add channels bioconda
-  - conda config --env --add channels conda-forge  
-
+  - dependencies: NA
+  - compile-tools: 13.1
+  - build-tools: false
+  - priority: strict
+  - channel: bioconda
+  - channel: conda-forge  
 find:
   - r-base=3.6.0
   - r-base=4.1.0

@@ -31,12 +31,18 @@ channels:
 languages:
   - python=3.13.1@conda-forge
   - r-base=4.3.1@conda-forge
+flags:
+  - dependencies: NA
+  - system-tools: False
+  - compile-tools: 13.1  
 conda:
   - pandas
-r-package:
+r-conda:  
   - ggplot2
-pip:
-  - requests
+bioc-conda:
+  - fgsea
+r-package:
+  - dplyr
 ```
 Outputs are:
 
