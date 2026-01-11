@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cbl: [small]  # Add or remove cbl names as needed
+        cbl: [small, leaf]  # Add or remove cbl names as needed
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
