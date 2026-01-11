@@ -103,14 +103,14 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	finds=$("$script_dir/coble-resolve.sh" "${@:2}")
 	if [[ "$finds" == "Y" ]]; then
 		echo "[coble] Finds were resolved, please check the yml input before resuming." >&2
-		exit 0
+		exit 1
 	fi	
 	
 	echo "[coble 2/5] Resolved cbl, proceeding to rationalise." >&2
 	success=$("$script_dir/coble-rationalise.sh" "${@:2}")	
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] CBL rationalisation failed, please check the yml input before resuming." >&2
-		exit 0
+		exit 1
 	fi
 				
 	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2	
@@ -119,7 +119,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	recipe_file="${result[1]}"
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
-		exit 0
+		exit 1
 	fi	
 	
 	base_name="${recipe_file##*/}"
@@ -139,7 +139,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	update_success=$("$script_dir/coble-update.sh" --done-recipe "$done_recipe" --all-recipe "$recipe_file")
 	if [[ $? -ne 0 ]]; then		 
 		echo "[coble] Error in updating recipe, please review logs before resuming." >&2
-		exit 0
+		exit 1
 	fi		
 	
 	base_name="${recipe_file##*/}"
@@ -160,7 +160,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	    minutes=$(((duration % 3600) / 60))
 	    seconds=$((duration % 60))
 	    echo "[coble] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
-		exit 0
+		exit 1
 	fi
 	
 	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2	

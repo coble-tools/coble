@@ -64,9 +64,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     fi
 done < "$YAML_FILE"
 ok=false
-if [[ $coble_count -eq 1 || $channels_count -ne 2 || $languages_count -ne 3 ]]; then
+if [[ $coble_count -eq 1  && $channels_count -eq 2 && $languages_count -eq 3 ]]; then
     ok=true # can be coble, channels, languages
-elif [[ $coble_count -eq 1 || $channels_count -eq 2 || $flags_count -eq 3 || $languages_count -eq 4 ]]; then
+elif [[ $coble_count -eq 1 && $channels_count -eq 2 && $flags_count -eq 3 && $languages_count -eq 4 ]]; then
     ok=true # can be coble, channels, flags, languages
 fi
 

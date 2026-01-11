@@ -42,3 +42,6 @@ rachel.md
 .rachel.md
 old/containers/singularity/coble-mini.sif
 recipes/carbine_capture.cbl
+tests/fixtures/*
+!tests/fixtures/*.cbl
+tests/fixtures/*_freeze.cbl
