@@ -4,6 +4,7 @@
 ENV_NAME=""
 INPUT_RECIPE=""
 containers="docker,singularity"
+IMAGE_NAME=""
 
 # Help function
 show_help() {
@@ -16,6 +17,7 @@ OPTIONS:
     --env NAME          Name for the container environment (required)
     --recipe PATH        Path to the .cbl recipe file (required)        
     --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
+    --image NAME         Name for the Docker image (default: cbl-ENV_NAME)
     -h, --help          Show this help message
 
 EXAMPLES:
@@ -44,6 +46,10 @@ while [[ $# -gt 0 ]]; do
             ;;        
         --containers)
             containers="$2"
+            shift 2
+            ;;
+        --image)
+            IMAGE_NAME="$2"
             shift 2
             ;;
         -h|--help)
@@ -76,12 +82,17 @@ if [[ ! -f "$INPUT_RECIPE" ]]; then
     exit 1
 fi
 
+if [[ -z "$IMAGE_NAME" ]]; then
+    IMAGE_NAME="cbl-${ENV_NAME}"
+fi
+
 # make file names
-DOCKER_TAR="cbl-${ENV_NAME}.tar"
-SINGULARITY_SIF="cbl-${ENV_NAME}.sif"
+DOCKER_TAR="${IMAGE_NAME}.tar"
+SINGULARITY_SIF="${IMAGE_NAME}.sif"
 # same directory as this script/code/Dockerfile
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
+
 
 ### Docker #######################
 
@@ -93,12 +104,12 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
     --build-arg BUILD_TAG="$ENV_NAME" \
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
-    -t "cbl-${ENV_NAME}" .
+    -t "$IMAGE_NAME" .
     
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
     echo ""
-    echo "docker run --rm -it cbl-${ENV_NAME}"
+    echo "docker run --rm -it $IMAGE_NAME"
     echo ""
 
 fi
@@ -111,10 +122,10 @@ if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
     echo "[coble-$package_exe] Building $package_exe image..."
 
     echo "[coble-$package_exe] ...removing old tar..."
-    rm -rf "cbl-${ENV_NAME}.tar" || true
+    rm -rf "$DOCKER_TAR" || true
 
     echo "[coble-$package_exe] ...saving Docker image to tar..."
-    docker save "cbl-${ENV_NAME}" -o "$DOCKER_TAR"
+    docker save "$IMAGE_NAME" -o "$DOCKER_TAR"
 
     echo "[coble-$package_exe] ...removing old sif..."
     rm -rf "$SINGULARITY_SIF" || true

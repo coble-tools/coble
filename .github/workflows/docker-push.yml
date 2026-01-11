@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Dockerfile with coble
         run: |
-          bash code/coble build --recipe tests/fixtures/small.cbl --env small --containers docker
+          bash code/coble build --recipe tests/fixtures/small.cbl --env small --containers docker --image icsrc/coble:small
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
