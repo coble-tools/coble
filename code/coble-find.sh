@@ -48,7 +48,7 @@ check_and_print() {
 
     echo "[coble-found] $source, $pkg_name, $pkg_ver, $pkg_orig, $ver_orig, $channel, $bioc_ver" >&2
     
-    if [[ -n "$pkg_ver" && -n "$ver" ]]; then
+    if [[ -n "$pkg_ver" ]]; then
         echo "  $pkg_name $pkg_ver" >&2
         name_ver="$pkg_name=$pkg_ver"
     else
@@ -106,6 +106,16 @@ check_and_print() {
         "r-github")
             recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
             manager="r-github:"
+            yaml_line="  - $pkg_name"
+            ;;        
+        "c++-github")
+            recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
+            manager="?r?c++-github:"
+            yaml_line="  - $pkg_name"
+            ;;        
+        "???-github")
+            recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
+            manager="???-github:"
             yaml_line="  - $pkg_name"
             ;;        
         "python-url")
@@ -272,30 +282,6 @@ for rel in "${archive_releases[@]}"; do
 done
 
 ###################################################################
-### SEARCHING r-forge ######################
-###################################################################
-echo "[coble-find] Checking r-forge" >&2
-
-rforge-check() {
-    local pkg=$1
-    local code=$(curl -sL -o /dev/null -w "%{http_code}" "https://r-forge.r-project.org/projects/${pkg}/")
-    if [ "$code" = "200" ]; then
-        echo "✓ Found: https://r-forge.r-project.org/projects/${pkg}/"
-    else
-        echo ""
-    fi
-}
-
-# Improved R-Forge package detection: look for tarballs in the contrib directory
-echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
-rforge_pkg=$(rforge-check "$pkg")
-echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
-if [[ -n "$rforge_pkg" ]]; then
-  check_and_print "r-forge" "$pkg" "" "$pkg" "$ver" "r-forge"
-fi
-
-
-###################################################################
 ### SEARCHING pypi ######################
 ###################################################################
 pypi-check() {
@@ -339,6 +325,29 @@ search_github_repo() {
 }
 search_github_repo $pkg
 ###################################################################
+### SEARCHING github C++ ######################
+###################################################################
+echo "[coble-find] Checking github C++" >&2
+search_github_cpp() {
+  local q="$1"
+  local url="https://api.github.com/search/repositories?q=${q}+language:C%2B%2B"
+  echo "[coble-find] Searching url $url" >&2
+
+  # Collect all repo URLs that match
+  local results
+results=$(curl -s "$url" \
+  | grep -o '"full_name": *"[^"]\+"' \
+  | cut -d'"' -f4 \
+  | grep -E "/${q}$|/${q}/" \
+  | paste -sd "," -)
+
+  # Return concatenated string or empty
+  if [[ -n "$results" ]]; then
+     check_and_print "c++-github" "$pkg" "" "$pkg" "" "${results}"  
+  fi
+}
+search_github_cpp $pkg
+###################################################################
 ### SEARCHING github python ######################
 ###################################################################
 echo "[coble-find] Checking github python" >&2
@@ -365,5 +374,50 @@ search_github_python() {
   fi
 }
 search_github_python $pkg
+###################################################################
+### SEARCHING github ??? ######################
+###################################################################
+echo "[coble-find] Checking github C++" >&2
+search_github_cpp() {
+  local q="$1"
+  local url="https://api.github.com/search/repositories?q=${q}"
+  echo "[coble-find] Searching url $url" >&2
+
+  # Collect all repo URLs that match
+  local results
+  results=$(curl -s "$url" \
+  | grep -o '"full_name": *"[^"]\+"' \
+  | cut -d'"' -f4 \
+  | paste -sd "," -)
+
+  # Return concatenated string or empty
+  if [[ -n "$results" ]]; then
+     check_and_print "???-github" "$pkg" "" "$pkg" "" "${results}"  
+  fi
+}
+search_github_cpp $pkg
 ###############################################################
+
+###################################################################
+### SEARCHING r-forge ######################
+###################################################################
+echo "[coble-find] Checking r-forge" >&2
+
+rforge-check() {
+    local pkg=$1
+    local code=$(curl -sL -o /dev/null -w "%{http_code}" "https://r-forge.r-project.org/projects/${pkg}/")
+    if [ "$code" = "200" ]; then
+        echo "✓ Found: https://r-forge.r-project.org/projects/${pkg}/"
+    else
+        echo ""
+    fi
+}
+
+# Improved R-Forge package detection: look for tarballs in the contrib directory
+echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
+rforge_pkg=$(rforge-check "$pkg")
+echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
+if [[ -n "$rforge_pkg" ]]; then
+  check_and_print "r-forge" "$pkg" "" "$pkg" "$ver" "r-forge"
+fi
 

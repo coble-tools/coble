@@ -21,6 +21,7 @@ coble build --recipe my-recipe.cbl --env my-env
 --- Optional arguments:
 - `--rebuild`: Clean and rebuild the environment from scratch.
 - `--containers`: default is conda, can be a list of containers from conda,docker,singularity/apptainer.
+- `--skip-errors`: continue building even if some packages fail to install. Default behaviour os to exit and promt you to fix.
 
 **Freeze**: Freeze an existing environment into a coble recipe file.
 ```bash

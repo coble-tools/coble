@@ -8,6 +8,13 @@ Additionally, for a lab's own environment, and especially on HPC systems, it can
 
 These are critical issues for reproducible science, where the ability to recreate an environment exactly from a publication or within a lab is essential for verifying results and sharing methods.
 
+## Mixed Package Managers
+A problem with mixed package managers is the failure to manafge depencencies across them. For example, a package installed from conda may depend on a specific version of another package that is only available via pip. If the installation order is not carefully managed, this can lead to conflicts and broken environments. COBLE addresses this by allowing users to specify the exact order of installations and ensuring that dependencies are resolved correctly across all package managers used.
+
+Another problem is that as package managers and versions update, the dependencies in other package managers do not necessarily follow in synchrony. This can lead to situations where a package that worked in a previous environment build fails in a new build due to changes in dependencies that are not directly managed by the same package manager. COBLE helps mitigate this by allowing users to pin versions and manage the installation order, ensuring that environments remain stable and reproducible over time.
+
+Various suggestions and recommendations follow from these problems in these recipes, tutorials and trouble shooting guides. The optional inclusion of build tools in the environment is one such example built in to the COBLE recipe. The description of how to use strict but change channel orders, the recommendation to use Bioconductor not conda where looking for an evolving environment, but otherwise the advice to use conda where possible, and the inclusion of the `find:` directive to look for package sources.
+
 ## What COBLE Solves
 - **One step creation of mixed conda environment from cbl spec:** COBLE enables environments to be rebuilt with a minimum user-friendly spec, prompting for any errors so they can be corrected quickly.
 - **Repeatable builds:** COBLE enables environments to be rebuilt on a regular basis, ensuring that the process is always testable and up-to-date.

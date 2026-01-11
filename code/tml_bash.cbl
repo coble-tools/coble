@@ -21,7 +21,7 @@ conda install -y  -c conda-forge 'r-base=4.3.1'
 # Flag: Directive: compile-tools, Value: true
 
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64
+conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=13.1' 'gxx_linux-64=13.1' 'gfortran_linux-64=13.1'
 conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
 # Set up compiler symlinks for R package compilation - COS6 compatibility
 umask 0022

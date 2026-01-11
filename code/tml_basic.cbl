@@ -15,7 +15,7 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: False
-  - compile-tools: True  
+  - compile-tools: 13.1  
 conda:
   - pandas
 r-conda:  

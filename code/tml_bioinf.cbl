@@ -17,9 +17,9 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: True
-  - compile-tools: True
+  - compile-tools: 13.1
   - ncpus: 8
-
+  
 bash:
   - # Special installs outside of conda for awkward pysamstats package  
   - python -m pip install "setuptools>=59.0"
@@ -115,8 +115,7 @@ conda:
   - patch
 r-conda:
   - gifski  
-r-package:
-  #- TFMPvalue
+r-package:  
   - otelsdk
   - knitr
   - rmarkdown
@@ -217,25 +216,32 @@ r-url:
 r-package:
   - packcircles
 
+r-conda:
+  - pdftools  
+  - s2  
+  - sf  
 #r-conda:
-#  - pdftools  
-#  - s2  
-#  - sf  
+#  - TFMPvalue@r  
+#r-package:
+#  - TFMPvalue
 #bioc-conda:
 #  - tfbstools
 #bioc-package:
-#  - chromVAR
-#  - ComplexHeatmap
-#  - motifmatchr
-#  - slingshot
-#  - grr
-# r-conda:
-#  - TFMPvalue
-#r-url:
-#  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
-
-#bash:
-#  - Rscript -e "ArchR::installExtraPackages()"
+#  - TFBSTools
+r-github:
+  - ge11232002/TFMPvalue
+bioc-package:
+  - chromVAR
+  - ComplexHeatmap
+  - motifmatchr
+  - slingshot
+  - grr
+ r-conda:
+  - TFMPvalue
+r-url:
+  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
+bash:
+  - Rscript -e "ArchR::installExtraPackages()"
 
 r-conda:
   - grr
@@ -284,11 +290,15 @@ r-url:
 bioc-package:
   - Rsubread
 
-# # conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route 
-# Rscript -e "install.packages('rstan', repos='https://cloud.r-project.org')"
-# Rscript -e "devtools::install_url('https://github.com/stan-dev/rstantools/archive/refs/heads/master.zip', dependencies = FALSE)"
-# Rscript -e "devtools::install_url('https://github.com/davidaknowles/leafcutter/archive/refs/heads/master.zip', subdir='leafcutter', dependencies = TRUE)"
-# conda install -y davidaknowles::r-leafcutter --freeze-installed
+# conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route 
+conda:
+  - tbb<2021
+  - tbb-devel<2021
+r-package:
+  - rstan
+bash:
+  - devtools::install_github("stan-dev/rstantools")
+  - devtools::install_github("davidaknowles/leafcutter/leafcutter")
 
 bioc-package:
   - liftOver
@@ -403,7 +413,7 @@ r-package:
 bioc-package:
 - DEXSeq
 
-# # for R package SCENIC
+# for R package SCENIC
 bioc-package:
   - AUCell
   - RcisTarget
@@ -467,9 +477,7 @@ bioc-package:
 r-package:
   - openxlsx
 
-# conda install -y bioconda::bioconductor-cellhts2 --freeze-installed # FAILED
-
-# # for custom gitlab.py script to work if this R is loaded
+# for custom gitlab.py script to work if this R is loaded
 pip:
   - requests
 
@@ -494,19 +502,19 @@ r-package:
   - AsioHeaders
   - seqinr
 
-#r-url:
-#  - https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
-#  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
-#  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
-#  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
-#bioc-package:
-#  - lpsymphony
-#r-url:  
-#  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
-#  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
-#  - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
+r-url:
+  - https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
+  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
+  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
+  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
+bioc-package:
+  - lpsymphony
+r-url:  
+  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
+  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
+  - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
 
-# Maptools is deprecated and I did a fix to memory allocation
+# Maptools is deprecated but I did a fix to memory allocation
 conda:
   - geos
 r-url:
