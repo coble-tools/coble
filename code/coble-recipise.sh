@@ -516,9 +516,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Unknown package: $line" >> "$RECIPE_FILE"
             else            
                 # Use the return value
-                echo "[coble-resolve] Manager: $pkg_manager" >&2
-                echo "[coble-resolve] Recipe: $recipe_line" >&2
-                echo "[coble-resolve] Yaml: $yaml_line" >&2                                
+                #echo "[coble-resolve] Manager: $pkg_manager" >&2
+                #echo "[coble-resolve] Recipe: $recipe_line" >&2
+                #echo "[coble-resolve] Yaml: $yaml_line" >&2                                
                 echo "${recipe_line}" >> "$RECIPE_FILE"                              
             fi
         fi

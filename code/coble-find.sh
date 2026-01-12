@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "[coble-find]" >&2
+echo "[coble-find] ***********************************">&2
 
 # Default values
 pkg=""
@@ -8,6 +8,7 @@ ver=""
 all=false
 skip_variants=false
 YAML_FILE=""
+INCLUDE_R_FORGE=false # by default no as it is usually down
 
 # declare associative array once at the top of your script 
 declare -A VARIANT_MANAGERS
@@ -19,7 +20,8 @@ while [[ $# -gt 0 ]]; do
     --version) ver="$2"; shift 2 ;;
     --all) all=true; shift ;;
     --skip-variants) skip_variants=true; shift ;;
-    --recipe) YAML_FILE="$2"; shift 2 ;; 
+    --include-r-forge) INCLUDE_R_FORGE=true; shift ;;
+    --recipe) YAML_FILE="$2"; shift 2 ;;     
     *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
 done
@@ -30,7 +32,7 @@ if [[ -z "$pkg" ]]; then
 fi
 
 echo "[coble-find] ~~~ Searching for package: $pkg (version: ${ver:-any}) ~~~" >&2
-echo "[coble-find] ~~~ $all ~~~ $skip_variants ~~~ $YAML_FILE ~~~" >&2
+#echo "[coble-find] ~~~ $all ~~~ $skip_variants ~~~ $YAML_FILE ~~~" >&2
 
 # Helper: print results and install command
 check_and_print() {
@@ -156,7 +158,7 @@ if [[ "$skip_variants" != true ]]; then
 fi
 
 for variant in "${variants[@]}"; do
-    echo "[coble-find] Checking variant: $variant" >&2
+    #echo "[coble-find] Checking variant: $variant" >&2
     manager="${VARIANT_MANAGERS[$variant]}"
     
     if [[ -n "$variant" ]]; then
@@ -200,7 +202,7 @@ if [[ -n "$cran_line" ]]; then
 fi
 
 for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pkg:0:1} | tr '[:lower:]' '[:upper:]')${pkg:1}"; do
-  echo "[coble-find] Checking CRAN archive candidate $candidate" >&2
+  #echo "[coble-find] Checking CRAN archive candidate $candidate" >&2
   url="https://cran.r-project.org/src/contrib/Archive/$candidate/"
   
   if [[ -n "$ver" ]]; then
@@ -237,7 +239,7 @@ declare -A bioc_variants=(
 )
 
 for category in "${!bioc_variants[@]}"; do
-  echo "[coble-find] Checking category $category" >&2
+  #echo "[coble-find] Checking category $category" >&2
   url="${bioc_variants[$category]}"
   bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" '
@@ -260,7 +262,7 @@ done
 
 archive_releases=("3.14" "3.12" "3.10")
 for rel in "${archive_releases[@]}"; do
-  echo "[coble-find] Checking archive $rel" >&2
+  #echo "[coble-find] Checking archive $rel" >&2
   url="https://bioconductor.org/packages/${rel}/bioc/VIEWS"
   bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" -v r="$rel" '
@@ -297,14 +299,14 @@ pypi-check() {
 echo "[coble-find] Checking pypi" >&2
 #pypi=$(curl -s "https://pypi.org/pypi/$pkg/json")
 pypi=$(pypi-check "$pkg")
-echo "[coble-find][debug] pypi='$pypi'" >&2
+#echo "[coble-find][debug] pypi='$pypi'" >&2
 if [[ -n "$pypi" ]]; then
     check_and_print "PyPI" "$pkg" "" "$pkg" "$ver" ""
 fi
 ###################################################################
 ### SEARCHING github R ######################
 ###################################################################
-echo "[coble-find] Checking github R" >&2
+#echo "[coble-find] Checking github R" >&2
 search_github_repo() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}+language:R"
@@ -327,7 +329,7 @@ search_github_repo $pkg
 ###################################################################
 ### SEARCHING github C++ ######################
 ###################################################################
-echo "[coble-find] Checking github C++" >&2
+#echo "[coble-find] Checking github C++" >&2
 search_github_cpp() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}+language:C%2B%2B"
@@ -350,13 +352,13 @@ search_github_cpp $pkg
 ###################################################################
 ### SEARCHING github python ######################
 ###################################################################
-echo "[coble-find] Checking github python" >&2
+#echo "[coble-find] Checking github python" >&2
 search_github_python() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}+language:python"
   echo "[coble-find] Searching url $url" >&2
   curled=$(curl -s "$url")
-  echo "[coble-find][debug] github python search result: $curled" >&2
+  #echo "[coble-find][debug] github python search result: $curled" >&2
 
   # Collect all repo URLs that match
   local results
@@ -369,16 +371,16 @@ search_github_python() {
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
      check_and_print "python-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"  
-  else:
-      echo "[coble-find] No github python repo found for $q gives $result" >&2
+  #else
+  #    echo "[coble-find] No github python repo found for $q gives $result" >&2
   fi
 }
 search_github_python $pkg
 ###################################################################
 ### SEARCHING github ??? ######################
 ###################################################################
-echo "[coble-find] Checking github C++" >&2
-search_github_cpp() {
+#echo "[coble-find] Checking github any" >&2
+search_github_any() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}"
   echo "[coble-find] Searching url $url" >&2
@@ -395,14 +397,12 @@ search_github_cpp() {
      check_and_print "???-github" "$pkg" "" "$pkg" "" "${results}"  
   fi
 }
-search_github_cpp $pkg
+#search_github_any $pkg
 ###############################################################
 
 ###################################################################
 ### SEARCHING r-forge ######################
 ###################################################################
-echo "[coble-find] Checking r-forge" >&2
-
 rforge-check() {
     local pkg=$1
     local code=$(curl -sL -o /dev/null -w "%{http_code}" "https://r-forge.r-project.org/projects/${pkg}/")
@@ -413,6 +413,11 @@ rforge-check() {
     fi
 }
 
+if [[ "$INCLUDE_R_FORGE" != true ]]; then
+  echo "[coble-find] Skipping r-forge check as per settings" >&2
+  exit 0
+fi
+echo "[coble-find] Checking r-forge" >&2
 # Improved R-Forge package detection: look for tarballs in the contrib directory
 #echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
 rforge_pkg=$(rforge-check "$pkg")
