@@ -31,8 +31,6 @@ recipes/
 ```
  These provide the full picture of reproducibility with logs timings and errors and versions and channels.
 
-```bash
-
 ## Submission guidelines
 
 1. **Fork the Repository**: Start by forking the Coble repository to your own GitHub account.
@@ -43,4 +41,3 @@ recipes/
 6. **Submit a Pull Request**: Once you are satisfied with your recipe, submit a pull request to the main Coble repository. Provide a clear description of your recipe and any relevant details.
 7. **Review Process**: Your pull request will be reviewed by the maintainers. They may provide feedback or request changes before merging.
 8. **Reprodicibility achieved!**: Once your recipe is merged, celebrate your contribution to the COBLE community!
-````
