@@ -17,9 +17,9 @@ If you have a recipe that you would like to contribute to the Coble project, ple
 ## Testing in conda
 Before submitting your recipe, please test it in a conda environment to ensure that it works as expected. Test the receip with the build command:
 ```bash
-coble build recipes/icr-sylver/icr-sylver.cbl
+coble build -- recipe recipes/icr-sylver/icr-sylver.cbl --env icr-sylver-test
 ```
-Two of the outputs from the test run required alongside the input recipe for the pull request:
+Two of the outputs from the test are required alongside the input recipe for the pull request:
 ```
 recipes/
 └── icr-sylver/
