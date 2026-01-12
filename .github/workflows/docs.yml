@@ -1,6 +1,6 @@
 # GitHub Actions workflow for building and deploying MkDocs documentation to GitHub Pages
 
-name: Documentation
+name: Create Mkdocs Documentation
 
 on:
   push:
