@@ -200,8 +200,12 @@ done < "$YAML_FILE"
 echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
+echo "# activate environment" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
+echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
+
 
 echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
@@ -449,6 +453,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 else                    
                     echo "conda install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
+                echo "python -m site" >> "$RECIPE_FILE"
+                echo "conda env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:" || "$CURRENT_SECTION" == "r-conda:"  ]]; then            

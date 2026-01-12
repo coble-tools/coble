@@ -309,8 +309,8 @@ awk 'BEGIN {OFS="\t"}
   tail -n +2 "$TMP_SORTED1" | grep "^conda\s" | grep -E "(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)"
   # All other conda packages
   tail -n +2 "$TMP_SORTED1" | grep -E "^(conda|r-conda|bioc-conda)"
-  # CRAN/Bioc packages last
-  tail -n +2 "$TMP_SORTED1" | grep -E "^(r-package|bioc-package)"
+  # everythong else
+  tail -n +2 "$TMP_SORTED1" | grep -v -E "^(conda|r-conda|bioc-conda)"    
 ) | awk -F'\t' 'NR==1 {print; next} {split($2, p, "="); if (!seen[p[1]]++) print}' > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
@@ -389,21 +389,21 @@ while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
 		header_skipped=true
 		continue
-	fi
-	# Deduplicate by pkgver (case-insensitive)
+	fi	
+    # Deduplicate by pkgver (case-insensitive)
 	pkgver_key="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
 	if [[ -n "${seen_pkgver[$pkgver_key]}" ]]; then
 		continue
 	fi
 	seen_pkgver[$pkgver_key]=1
-	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
-	if [[ "$pkg" == _* ]] || \
+	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=	
+    if [[ "$pkg" == _* ]] || \
 	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
 	#[[ "$src" == *System/Manual* ]] || \
 	[[ "$pkg" == *base=* ]] || \
 	[[ "$pkg" == python=* ]]; then
 		continue
-	fi
+	fi    
     if [[  "$src" != "$current_channel"  && "$src" != *"unknown"*  ]]; then
         current_channel="$src"
     #	# New manager/channel section    
@@ -422,15 +422,15 @@ while IFS=$'\t' read -r manager pkg src path; do
 	if [[ HAS_R -eq 0 && ( "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ) ]]; then        
         continue
     fi    
-	outline=""
-	if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" ]]; then
-		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
+	outline=""	
+    if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" || "$src" == "pip" ]]; then
+		echo -e "  - $pkg" >> "$AGGREGATE_TXT"        
 	elif [[ -n "$path" ]]; then
-		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
+		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"        
 	elif [[ "$src" == *"System/Manual"* ]]; then        
-        my_find_list+=("$pkg")
+        my_find_list+=("$pkg")        
     else
-		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
+		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"        
 	fi
 done < "$TMP_SORTED"
 
