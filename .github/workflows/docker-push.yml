@@ -1,17 +1,18 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cbl: [small, leaf]  # Add or remove cbl names as needed
+        cbl: []  # Add or remove cbl names as needed in comma list like [small,leaf]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
