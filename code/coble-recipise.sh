@@ -172,7 +172,9 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # echo "PYTHONPATH is: $PYTHONPATH" >&2
 # echo "" >&2
 ### 01 Language checking checking ########################################
-languages_line="conda create --no-default-packages ${CONDA_ENV} -y"
+languages_line="conda env remove ${CONDA_ENV} -y 2>/dev/null || true"
+languages_line+="\nconda create --no-default-packages ${CONDA_ENV} -y"
+
 CURRENT_SECTION="bash"
 r_count=0
 python_count=0
@@ -195,7 +197,7 @@ while IFS= read -r line; do
         fi        
     fi
 done < "$YAML_FILE"
-echo "$languages_line" >> "$RECIPE_FILE"
+echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
@@ -281,9 +283,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
         #fi      
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:" ]]; then
-        pkg_entry="${line#- }"        
+        line="${line#- }"        
+        pkg_entry="${line%%#*}"  # remove comments        
+        # split the line to all the bits before the # and after
+
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_only ver <<< "$pkg"
+        
         # For flags, parse directive and value from 'directive = value' format        
         if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
             continue
@@ -500,7 +506,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             
         elif [[ "$CURRENT_SECTION" == "bash:" ]]; then            
             echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
-            echo "$pkg_entry" >> "$RECIPE_FILE"        
+            # Preserve literal \n in bash commands
+            echo "${line//\\n/\\\\n}" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
