@@ -6,14 +6,12 @@ on:
       cbl:
         description: 'Name of cbl to build (e.g. small)'
         required: true
-        default: small
+        default: 'small'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        cbl: [${{ github.event.inputs.cbl }}]
+    # No matrix needed for single input
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,7 +27,7 @@ jobs:
 
       - name: Build Dockerfile with coble
         run: |
-          bash code/coble build --recipe dockerhub/${{ matrix.cbl }}.cbl --env ${{ matrix.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ matrix.cbl }}
+          bash code/coble build --recipe dockerhub/${{ github.event.inputs.cbl }}.cbl --env ${{ github.event.inputs.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.cbl }}
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ matrix.cbl }}
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.cbl }}
