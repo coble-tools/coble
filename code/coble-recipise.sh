@@ -499,6 +499,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
             
         elif [[ "$CURRENT_SECTION" == "bash:" ]]; then            
+            echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
             echo "$pkg_entry" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "find:" ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2

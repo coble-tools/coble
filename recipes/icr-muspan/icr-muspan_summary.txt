@@ -1,0 +1,356 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-12 at 14:14:36 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-12 14:14:37 1/38
+install: source "$(conda info --base)/etc/profile.d/conda.sh"
+[coble-create] End time: 2026-01-12 14:14:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:14:37 3/38
+install: source ~/.bashrc
+[coble-create] End time: 2026-01-12 14:14:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:14:37 5/38
+install: conda create --no-default-packages --name cbl-muspan -y
+[coble-create] End time: 2026-01-12 14:15:11
+[coble-create] Duration: 34s
+
+[coble-create] Start time: 2026-01-12 14:15:11 7/38
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-12 14:15:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:15:11 8/38
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-12 14:15:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:15:11 9/38
+install: conda activate cbl-muspan
+[coble-create] End time: 2026-01-12 14:15:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:15:12 10/38
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-01-12 14:15:13
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:15:13 12/38
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-12 14:15:14
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:15:14 13/38
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-01-12 14:15:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:15:15 15/38
+install: conda config --env --add channels r
+[coble-create] End time: 2026-01-12 14:15:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:15:16 17/38
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-01-12 14:15:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:15:16 19/38
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-01-12 14:15:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:15:17 21/38
+install: conda install -y  'conda-forge::python=3.12'
+dep: # _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
+dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
+dep: # bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_8
+dep: # ca-certificates    conda-forge/noarch::ca-certificates-2026.1.4-hbd8a1cb_0
+dep: # icu                conda-forge/linux-64::icu-78.2-h33c6efd_0
+dep: # ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.45-default_hbd61a6d_105
+dep: # libexpat           conda-forge/linux-64::libexpat-2.7.3-hecca717_0
+dep: # libffi             conda-forge/linux-64::libffi-3.5.2-h9ec8514_0
+dep: # libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_16
+dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_16
+dep: # libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_16
+dep: # liblzma            conda-forge/linux-64::liblzma-5.8.1-hb9d3cd8_2
+dep: # libnsl             conda-forge/linux-64::libnsl-2.0.1-hb9d3cd8_1
+dep: # libsqlite          conda-forge/linux-64::libsqlite-3.51.2-hf4e2dac_0
+dep: # libstdcxx          conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_16
+dep: # libuuid            conda-forge/linux-64::libuuid-2.41.3-h5347b49_0
+dep: # libxcrypt          conda-forge/linux-64::libxcrypt-4.4.36-hd590300_1
+dep: # libzlib            conda-forge/linux-64::libzlib-1.3.1-hb9d3cd8_2
+dep: # ncurses            conda-forge/linux-64::ncurses-6.5-h2d0b736_3
+dep: # openssl            conda-forge/linux-64::openssl-3.6.0-h26f9b46_0
+dep: # pip                conda-forge/noarch::pip-25.3-pyh8b19718_0
+dep: # python             conda-forge/linux-64::python-3.12.12-hd63d673_1_cpython
+dep: # readline           conda-forge/linux-64::readline-8.3-h853b02a_0
+dep: # setuptools         conda-forge/noarch::setuptools-80.9.0-pyhff2d567_0
+dep: # tk                 conda-forge/linux-64::tk-8.6.13-noxft_ha0e22de_103
+dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
+dep: # wheel              conda-forge/noarch::wheel-0.45.1-pyhd8ed1ab_1
+dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
+[coble-create] End time: 2026-01-12 14:15:36
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-01-12 14:15:36 24/38
+install: conda install -y  --no-update-deps  'pip' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-01-12 14:15:50
+[coble-create] Duration: 14s
+
+[coble-create] Start time: 2026-01-12 14:15:50 29/38
+install: conda install -y  --no-update-deps  'jupyterlab'  'ipykernel'  'ipywidgets' 
+dep: # _python_abi3_supp~ conda-forge/noarch::_python_abi3_support-1.0-hd8ed1ab_2
+dep: # anyio              conda-forge/noarch::anyio-4.12.1-pyhcf101f3_0
+dep: # argon2-cffi        conda-forge/noarch::argon2-cffi-25.1.0-pyhd8ed1ab_0
+dep: # argon2-cffi-bindi~ conda-forge/linux-64::argon2-cffi-bindings-25.1.0-py312h4c3975b_2
+dep: # arrow              conda-forge/noarch::arrow-1.4.0-pyhcf101f3_0
+dep: # asttokens          conda-forge/noarch::asttokens-3.0.1-pyhd8ed1ab_0
+dep: # async-lru          conda-forge/noarch::async-lru-2.0.5-pyh29332c3_0
+dep: # attrs              conda-forge/noarch::attrs-25.4.0-pyhcf101f3_1
+dep: # babel              conda-forge/noarch::babel-2.17.0-pyhd8ed1ab_0
+dep: # backports.zstd     conda-forge/linux-64::backports.zstd-1.3.0-py312h90b7ffd_0
+dep: # beautifulsoup4     conda-forge/noarch::beautifulsoup4-4.14.3-pyha770c72_0
+dep: # bleach             conda-forge/noarch::bleach-6.3.0-pyhcf101f3_0
+dep: # bleach-with-css    conda-forge/noarch::bleach-with-css-6.3.0-h5f6438b_0
+dep: # brotli-python      conda-forge/linux-64::brotli-python-1.2.0-py312hdb49522_1
+dep: # cached-property    conda-forge/noarch::cached-property-1.5.2-hd8ed1ab_1
+dep: # cached_property    conda-forge/noarch::cached_property-1.5.2-pyha770c72_1
+dep: # certifi            conda-forge/noarch::certifi-2026.1.4-pyhd8ed1ab_0
+dep: # cffi               conda-forge/linux-64::cffi-2.0.0-py312h460c074_1
+dep: # charset-normalizer conda-forge/noarch::charset-normalizer-3.4.4-pyhd8ed1ab_0
+dep: # comm               conda-forge/noarch::comm-0.2.3-pyhe01879c_0
+dep: # cpython            conda-forge/noarch::cpython-3.12.12-py312hd8ed1ab_1
+dep: # debugpy            conda-forge/linux-64::debugpy-1.8.19-py312h372c3de_0
+dep: # decorator          conda-forge/noarch::decorator-5.2.1-pyhd8ed1ab_0
+dep: # defusedxml         conda-forge/noarch::defusedxml-0.7.1-pyhd8ed1ab_0
+dep: # exceptiongroup     conda-forge/noarch::exceptiongroup-1.3.1-pyhd8ed1ab_0
+dep: # executing          conda-forge/noarch::executing-2.2.1-pyhd8ed1ab_0
+dep: # fqdn               conda-forge/noarch::fqdn-1.5.1-pyhd8ed1ab_1
+dep: # h11                conda-forge/noarch::h11-0.16.0-pyhcf101f3_1
+dep: # h2                 conda-forge/noarch::h2-4.3.0-pyhcf101f3_0
+dep: # hpack              conda-forge/noarch::hpack-4.1.0-pyhd8ed1ab_0
+dep: # httpcore           conda-forge/noarch::httpcore-1.0.9-pyh29332c3_0
+dep: # httpx              conda-forge/noarch::httpx-0.28.1-pyhd8ed1ab_0
+dep: # hyperframe         conda-forge/noarch::hyperframe-6.1.0-pyhd8ed1ab_0
+dep: # idna               conda-forge/noarch::idna-3.11-pyhd8ed1ab_0
+dep: # importlib-metadata conda-forge/noarch::importlib-metadata-8.7.0-pyhe01879c_1
+dep: # ipykernel          conda-forge/noarch::ipykernel-7.1.0-pyha191276_0
+dep: # ipython            conda-forge/noarch::ipython-9.9.0-pyh53cf698_0
+dep: # ipython_pygments_~ conda-forge/noarch::ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0
+dep: # ipywidgets         conda-forge/noarch::ipywidgets-8.1.8-pyhd8ed1ab_0
+dep: # isoduration        conda-forge/noarch::isoduration-20.11.0-pyhd8ed1ab_1
+dep: # jedi               conda-forge/noarch::jedi-0.19.2-pyhd8ed1ab_1
+dep: # jinja2             conda-forge/noarch::jinja2-3.1.6-pyhcf101f3_1
+dep: # json5              conda-forge/noarch::json5-0.13.0-pyhd8ed1ab_0
+dep: # jsonpointer        conda-forge/noarch::jsonpointer-3.0.0-pyhcf101f3_3
+dep: # jsonschema         conda-forge/noarch::jsonschema-4.26.0-pyhcf101f3_0
+dep: # jsonschema-specif~ conda-forge/noarch::jsonschema-specifications-2025.9.1-pyhcf101f3_0
+dep: # jsonschema-with-f~ conda-forge/noarch::jsonschema-with-format-nongpl-4.26.0-hcf101f3_0
+dep: # jupyter-lsp        conda-forge/noarch::jupyter-lsp-2.3.0-pyhcf101f3_0
+dep: # jupyter_client     conda-forge/noarch::jupyter_client-8.8.0-pyhcf101f3_0
+dep: # jupyter_core       conda-forge/noarch::jupyter_core-5.9.1-pyhc90fa1f_0
+dep: # jupyter_events     conda-forge/noarch::jupyter_events-0.12.0-pyh29332c3_0
+dep: # jupyter_server     conda-forge/noarch::jupyter_server-2.17.0-pyhcf101f3_0
+dep: # jupyter_server_te~ conda-forge/noarch::jupyter_server_terminals-0.5.3-pyhd8ed1ab_1
+dep: # jupyterlab         conda-forge/noarch::jupyterlab-4.5.2-pyhd8ed1ab_0
+dep: # jupyterlab_pygmen~ conda-forge/noarch::jupyterlab_pygments-0.3.0-pyhd8ed1ab_2
+dep: # jupyterlab_server  conda-forge/noarch::jupyterlab_server-2.28.0-pyhcf101f3_0
+dep: # jupyterlab_widgets conda-forge/noarch::jupyterlab_widgets-3.0.16-pyhcf101f3_1
+dep: # keyutils           conda-forge/linux-64::keyutils-1.6.3-hb9d3cd8_0
+dep: # krb5               conda-forge/linux-64::krb5-1.21.3-h659f571_0
+dep: # lark               conda-forge/noarch::lark-1.3.1-pyhd8ed1ab_0
+dep: # libedit            conda-forge/linux-64::libedit-3.1.20250104-pl5321h7949ede_0
+dep: # libsodium          conda-forge/linux-64::libsodium-1.0.20-h4ab18f5_0
+dep: # libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_16
+dep: # markupsafe         conda-forge/linux-64::markupsafe-3.0.3-py312h8a5da7c_0
+dep: # matplotlib-inline  conda-forge/noarch::matplotlib-inline-0.2.1-pyhd8ed1ab_0
+dep: # mistune            conda-forge/noarch::mistune-3.2.0-pyhcf101f3_0
+dep: # nbclient           conda-forge/noarch::nbclient-0.10.4-pyhd8ed1ab_0
+dep: # nbconvert-core     conda-forge/noarch::nbconvert-core-7.16.6-pyhcf101f3_1
+dep: # nbformat           conda-forge/noarch::nbformat-5.10.4-pyhd8ed1ab_1
+dep: # nest-asyncio       conda-forge/noarch::nest-asyncio-1.6.0-pyhd8ed1ab_1
+dep: # notebook-shim      conda-forge/noarch::notebook-shim-0.2.4-pyhd8ed1ab_1
+dep: # overrides          conda-forge/noarch::overrides-7.7.0-pyhd8ed1ab_1
+dep: # packaging          conda-forge/noarch::packaging-25.0-pyh29332c3_1
+dep: # pandocfilters      conda-forge/noarch::pandocfilters-1.5.0-pyhd8ed1ab_0
+dep: # parso              conda-forge/noarch::parso-0.8.5-pyhcf101f3_0
+dep: # pexpect            conda-forge/noarch::pexpect-4.9.0-pyhd8ed1ab_1
+dep: # platformdirs       conda-forge/noarch::platformdirs-4.5.1-pyhcf101f3_0
+dep: # prometheus_client  conda-forge/noarch::prometheus_client-0.23.1-pyhd8ed1ab_0
+dep: # prompt-toolkit     conda-forge/noarch::prompt-toolkit-3.0.52-pyha770c72_0
+dep: # psutil             conda-forge/linux-64::psutil-7.2.1-py312h5253ce2_0
+dep: # ptyprocess         conda-forge/noarch::ptyprocess-0.7.0-pyhd8ed1ab_1
+dep: # pure_eval          conda-forge/noarch::pure_eval-0.2.3-pyhd8ed1ab_1
+dep: # pycparser          conda-forge/noarch::pycparser-2.22-pyh29332c3_1
+dep: # pygments           conda-forge/noarch::pygments-2.19.2-pyhd8ed1ab_0
+dep: # pysocks            conda-forge/noarch::pysocks-1.7.1-pyha55dd90_7
+dep: # python-dateutil    conda-forge/noarch::python-dateutil-2.9.0.post0-pyhe01879c_2
+dep: # python-fastjsonsc~ conda-forge/noarch::python-fastjsonschema-2.21.2-pyhe01879c_0
+dep: # python-gil         conda-forge/noarch::python-gil-3.12.12-hd8ed1ab_1
+dep: # python-json-logger conda-forge/noarch::python-json-logger-2.0.7-pyhd8ed1ab_0
+dep: # python-tzdata      conda-forge/noarch::python-tzdata-2025.3-pyhd8ed1ab_0
+dep: # python_abi         conda-forge/noarch::python_abi-3.12-8_cp312
+dep: # pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0
+dep: # pyyaml             conda-forge/linux-64::pyyaml-6.0.3-py312h8a5da7c_0
+dep: # pyzmq              conda-forge/linux-64::pyzmq-27.1.0-py312hfb55c3c_0
+dep: # referencing        conda-forge/noarch::referencing-0.37.0-pyhcf101f3_0
+dep: # requests           conda-forge/noarch::requests-2.32.5-pyhcf101f3_1
+dep: # rfc3339-validator  conda-forge/noarch::rfc3339-validator-0.1.4-pyhd8ed1ab_1
+dep: # rfc3986-validator  conda-forge/noarch::rfc3986-validator-0.1.1-pyh9f0ad1d_0
+dep: # rfc3987-syntax     conda-forge/noarch::rfc3987-syntax-1.1.0-pyhe01879c_1
+dep: # rpds-py            conda-forge/linux-64::rpds-py-0.30.0-py312h868fb18_0
+dep: # send2trash         conda-forge/noarch::send2trash-2.0.0-pyha191276_0
+dep: # six                conda-forge/noarch::six-1.17.0-pyhe01879c_1
+dep: # sniffio            conda-forge/noarch::sniffio-1.3.1-pyhd8ed1ab_2
+dep: # soupsieve          conda-forge/noarch::soupsieve-2.8.1-pyhd8ed1ab_0
+dep: # stack_data         conda-forge/noarch::stack_data-0.6.3-pyhd8ed1ab_1
+dep: # terminado          conda-forge/noarch::terminado-0.18.1-pyhc90fa1f_1
+dep: # tinycss2           conda-forge/noarch::tinycss2-1.5.1-pyhcf101f3_0
+dep: # tomli              conda-forge/noarch::tomli-2.4.0-pyhcf101f3_0
+dep: # tornado            conda-forge/linux-64::tornado-6.5.4-py312h961da02_0
+dep: # traitlets          conda-forge/noarch::traitlets-5.14.3-pyhd8ed1ab_1
+dep: # typing-extensions  conda-forge/noarch::typing-extensions-4.15.0-h396c80c_0
+dep: # typing_extensions  conda-forge/noarch::typing_extensions-4.15.0-pyhcf101f3_0
+dep: # typing_utils       conda-forge/noarch::typing_utils-0.1.0-pyhd8ed1ab_1
+dep: # uri-template       conda-forge/noarch::uri-template-1.3.0-pyhd8ed1ab_1
+dep: # urllib3            conda-forge/noarch::urllib3-2.6.3-pyhd8ed1ab_0
+dep: # wcwidth            conda-forge/noarch::wcwidth-0.2.14-pyhd8ed1ab_0
+dep: # webcolors          conda-forge/noarch::webcolors-25.10.0-pyhd8ed1ab_0
+dep: # webencodings       conda-forge/noarch::webencodings-0.5.1-pyhd8ed1ab_3
+dep: # websocket-client   conda-forge/noarch::websocket-client-1.9.0-pyhd8ed1ab_0
+dep: # widgetsnbextension conda-forge/noarch::widgetsnbextension-4.0.15-pyhd8ed1ab_0
+dep: # yaml               conda-forge/linux-64::yaml-0.2.5-h280c20c_3
+dep: # zeromq             conda-forge/linux-64::zeromq-4.3.5-h387f397_9
+dep: # zipp               conda-forge/noarch::zipp-3.23.0-pyhcf101f3_1
+[coble-create] End time: 2026-01-12 14:16:19
+[coble-create] Duration: 29s
+
+[coble-create] Start time: 2026-01-12 14:16:19 31/38
+install: python -m pip install https://docs.muspan.co.uk/code/latest.zip <<< EOF
+[coble-create] End time: 2026-01-12 14:16:35
+[coble-create] Duration: 16s
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-12 at 14:16:42 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-12 14:16:42 1/12
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-12 14:16:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:16:42 2/12
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-12 14:16:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:16:42 3/12
+install: conda activate cbl-muspan
+[coble-create] End time: 2026-01-12 14:16:43
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:16:43 4/12
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-12 14:16:44
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:16:44 5/12
+install: python -m pip install https://docs.muspan.co.uk/code/latest.zip << EOF
+[coble-create] End time: 2026-01-12 14:16:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:16:45 7/12
+install: y
+[coble-create] End time: 2026-01-12 14:16:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:16:45 9/12
+install: y
+[coble-create] End time: 2026-01-12 14:16:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:16:45 11/12
+install: EOF
+[coble-create] End time: 2026-01-12 14:16:45
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-12 14:16:45
+[coble-create] Recipe took: 0h 0m 3s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-12 at 14:19:16 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-12 14:19:17 1/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-12 14:19:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:19:17 2/8
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-12 14:19:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:19:17 3/8
+install: conda activate cbl-muspan
+[coble-create] End time: 2026-01-12 14:19:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:19:17 4/8
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-12 14:19:18
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-12 14:19:18 5/8
+install: printf 'GetMuSpAn
+[coble-create] End time: 2026-01-12 14:19:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:19:18 7/8
+install: SpatialBiology' | python -m pip install https://docs.muspan.co.uk/code/latest.zip << EOF
+[coble-create] End time: 2026-01-12 14:19:18
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-12 14:19:18
+[coble-create] Recipe took: 0h 0m 1s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-12 at 14:21:00 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-12 14:21:01 1/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-12 14:21:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:21:01 2/8
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-12 14:21:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:21:01 3/8
+install: conda activate cbl-muspan
+[coble-create] End time: 2026-01-12 14:21:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:21:02 4/8
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-12 14:21:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:21:02 5/8
+install: echo -e 'GetMuSpAn
+[coble-create] End time: 2026-01-12 14:21:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-12 14:21:02 7/8
+install: SpatialBiology' | python -m pip install https://docs.muspan.co.uk/code/latest.zip
+[coble-create] End time: 2026-01-12 14:21:02
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-12 14:21:02
+[coble-create] Recipe took: 0h 0m 1s
+--------------------------------------

@@ -414,9 +414,9 @@ rforge-check() {
 }
 
 # Improved R-Forge package detection: look for tarballs in the contrib directory
-echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
+#echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
 rforge_pkg=$(rforge-check "$pkg")
-echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
+#echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
 if [[ -n "$rforge_pkg" ]]; then
   check_and_print "r-forge" "$pkg" "" "$pkg" "$ver" "r-forge"
 fi
