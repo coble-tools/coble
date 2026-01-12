@@ -1,18 +1,20 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Image (Manual)
 
 on:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
   workflow_dispatch:
+    inputs:
+      cbl:
+        description: 'Comma-separated list of cbl names to build (e.g. small,leaf)'
+        required: false
+        default: ''
 
 jobs:
   build-and-push:
+    if: ${{ github.event.inputs.cbl != '' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cbl: [small]  # Add or remove cbl names as needed in comma list like [small,leaf]
+        cbl: [${{ fromJson('['''"'${{ github.event.inputs.cbl }}'"''']') }}]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
