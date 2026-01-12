@@ -45,3 +45,8 @@ recipes/carbine_capture.cbl
 tests/fixtures/*
 !tests/fixtures/*.cbl
 tests/fixtures/*_freeze.cbl
+recipes/**
+!recipes/**/
+!recipes/**/*.cbl
+!recipes/**/.dockerhub
+!recipes/**/*_summary.txt
