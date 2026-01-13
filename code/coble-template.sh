@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Convert FLAVOUR to lower case for consistency
-FLAVOUR="${FLAVOUR,,}"
+FLAVOUR=$(echo "$FLAVOUR" | tr '[:upper:]' '[:lower:]')
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p "$(dirname "$YAML_FILE")"

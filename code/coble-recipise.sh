@@ -304,41 +304,42 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             value="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
+            directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
             value="${value## }"                            
             value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                        
-            if [[ "${directive,,}" == "dependencies" && "$value_lower" == "true" ]]; then                                
+            if [[ "${directive_lower}" == "dependencies" && "$value_lower" == "true" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "false" ]]; then                                
+            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "false" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
                 DEPS_R="FALSE"            
-            elif [[ "${directive,,}" == "dependencies" && "$value_lower" == "na" ]]; then                                
+            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "na" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="NA"
-            elif [[ "${directive,,}" == "export" ]]; then                
+            elif [[ "${directive_lower}" == "export" ]]; then                
                 #echo "export ${value}" >> "$RECIPE_FILE"
                 echo "conda env config vars set ${value}" >> "$RECIPE_FILE"
-            elif [[ "${directive,,}" == "updates" && "$value_lower" == "true" ]]; then                
+            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA=""                
-            elif [[ "${directive,,}" == "ncpus" ]]; then                
+            elif [[ "${directive_lower}" == "ncpus" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 NCPUS="$value"                
-            elif [[ "${directive,,}" == "priority" ]]; then                
+            elif [[ "${directive_lower}" == "priority" ]]; then                
                 PRIORITY="$value"                
                 echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
-            elif [[ "${directive,,}" == "channel" ]]; then                                          
+            elif [[ "${directive_lower}" == "channel" ]]; then                                          
                 echo "conda config --env --add channels $value" >> "$RECIPE_FILE"
-            elif [[ "${directive,,}" == "updates" && "$value,," == "false" ]]; then                                
+            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--no-update-deps"                
-            elif [[ "${directive,,}" == "system-tools" && "${value,,}" == "true" ]]; then                
+            elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
                 echo "# Essential shared packages" >> "$RECIPE_FILE"
@@ -360,11 +361,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
-            elif [[ "${directive,,}" == "compile-tools" ]]; then                
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then                
                 # if compile-tools = true then add compiler installs
                 # if a version is given use the specific version
                 echo "" >> "$RECIPE_FILE"
-                version="${value,,}"
+                version="${value_lower}"
                 if [[ "$version" == "false" ]]; then
                     echo "[coble-recipise] Not adding compile tools to recipe." >&2
                     continue
@@ -403,10 +404,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "conda env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
                 
                 echo "" >> "$RECIPE_FILE"              
-            elif [[ "${directive,,}" == "compile-paths" ]]; then                
+            elif [[ "${directive_lower}" == "compile-paths" ]]; then                
                 # only compile-paths no installs                
                 echo "" >> "$RECIPE_FILE"
-                version="${value,,}"
+                version="${value_lower}"
                 if [[ "$version" == "false" ]]; then
                     echo "[coble-recipise] Not adding compile paths to recipe." >&2
                     continue

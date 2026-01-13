@@ -116,7 +116,7 @@ fi
 
 ### Singularity #######################
 if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then    
-    package_exe=${containers,,}    
+    package_exe=$(echo "$containers" | tr '[:upper:]' '[:lower:]')
     package_exe=$(echo "$package_exe" | tr -d ' ')
     
     echo "[coble-$package_exe] Building $package_exe image..."

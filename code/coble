@@ -48,7 +48,7 @@ for i in "${!copied_inputs[@]}"; do
 	if [[ "${copied_inputs[$i]}" == "--containers" ]]; then
 		next_index=$((i + 1))
 		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
-			container_type="${copied_inputs[$next_index],,}"
+			container_type=$(echo "${copied_inputs[$next_index]}" | tr '[:upper:]' '[:lower:]')
 		fi
 		echo "[coble] Container build flag detected: $container_type"  >&2
 		break
