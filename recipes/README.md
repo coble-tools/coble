@@ -14,6 +14,10 @@ If you have a recipe that you would like to contribute to the Coble project, ple
 - Instructions on how to use the recipe
 - Any additional information about the recipe that may be useful for users
 
+**dockerhub**  
+If you include the `.dockerhub` file for build to dockerhub, the image will be called: `icrsc/coble:icr-sylver` and available at: 
+[dockerhub/coble](https://hub.docker.com/repository/docker/icrsc/coble/general)  
+
 ## Testing in conda
 Before submitting your recipe, please test it in a conda environment to ensure that it works as expected. Test the receip with the build command:
 ```bash
