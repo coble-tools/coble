@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "[coble-find] ***********************************">&2
+echo "[coble-find] ***********************************" >&2
 
 # Default values
 pkg=""

@@ -54,6 +54,12 @@ if [[ -z "$YAML_FILE" || ! -f "$YAML_FILE" ]]; then
     echo "[coble-find] !!!error no cbl input please --recipe CBL" >&2
     exit 1    
 fi
+YAML_FINAL="$YAML_FILE"
+YAML_BACKUP="$YAML_FINAL".bak
+YAML_FILE="$YAML_FILE".tmp
+cp "$YAML_FINAL" "$YAML_FILE"
+# copy to backup
+cp "$YAML_FINAL" "$YAML_BACKUP"
 
 
 # Now check the second line, if the 'yml' is already coble resolved, exit
@@ -73,9 +79,7 @@ else
     echo "[coble-find] find: or found| entries found, proceeding to resolve: $YAML_FILE" >&2
 fi
 
-YAML_BACKUP="$YAML_FILE".bak
-# copy to backup
-cp "$YAML_FILE" "$YAML_BACKUP"
+
 
 # Now show all the inputs
 echo "[coble-find] Using inputs:" >&2
@@ -165,6 +169,9 @@ else
     echo "[coble-resolve] No finds were resolved, cbl unchanged: $YAML_FILE" >&2
     echo "[coble-resolve] But find: or found| still present in file: $YAML_FILE" >&2
 fi
+
+# Assuming we sucesfully went all the way through replace the FINSAL with the YAM:
+mv "$YAML_FILE" "$YAML_FINAL"
 # this tells it that find: or found| are in the file
 echo Y 
 exit

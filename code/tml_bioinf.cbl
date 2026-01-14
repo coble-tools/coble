@@ -521,4 +521,7 @@ r-url:
   - https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz  
   - https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz
   - https://github.com/rachelicr/r-maptools/archive/refs/heads/main.zip
+
+r-github:
+  - huayc09/SeuratExtend
   
