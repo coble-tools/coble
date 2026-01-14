@@ -11,7 +11,9 @@
 #
 #################################################################################
 
-source "$(conda info --base)/etc/profile.d/conda.sh"
+source ~/.bashrc
+#source "$(conda info --base)/etc/profile.d/conda.sh"
+#eval "$(mamba shell hook --shell=bash)"
 
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
 

@@ -17,7 +17,9 @@
 # 3. log files in outdir
 ###############
 
-source "$(conda info --base)/etc/profile.d/conda.sh"
+source ~/.bashrc
+#source "$(conda info --base)/etc/profile.d/conda.sh"
+#eval "$(mamba shell hook --shell=bash)"
 
 ENV_OUTPUT=""
 RECIPE_FILE=""
@@ -31,7 +33,7 @@ EXIT_ON_ERROR=1
 
 show_help() {
     echo "Usage: $0  --env NEW_ENV --recipe-bash RECIPE_FILE"    
-    echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
+    echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"    
     echo "  --recipe-bash    RECIPE    Specify input recipe shell script (required)"        
     echo "  --debug    Keep interim logs for debugging (optional)"
     echo "  --skip-errors  Exit on first error (not default behavior)"
@@ -48,7 +50,7 @@ while [[ $# -gt 0 ]]; do
         --env)
             NEW_ENV="$2"
             shift; shift
-            ;;
+            ;;        
         --debug)
             KEEP_LOGS=1
             shift; 

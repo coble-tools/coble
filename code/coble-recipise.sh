@@ -27,6 +27,8 @@ YAML_FILE=""
 RECIPE_FILE=""
 ENV_NAME=""
 OUTDIR="."
+CONDA_ALIAS="conda"
+CONDA_EXE="conda"
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -35,9 +37,9 @@ show_help() {
     echo "----- coble recipise help ----------"
     echo "Usage: $0 [--env ENV] [--recipe CBL] [--output RECIPE] [--outdir OUTDIR]"
     echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --recipe CBL      Specify input CBL file (optional, default: ./coble-capture.cbl)"
+    echo "  --recipe CBL     Specify input CBL file (optional, default: ./coble-capture.cbl)"
     echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
-    echo "  --outdir OUTDIR  Specify output directory for recipe file (optional, default: .)"
+    echo "  --alias exe      Specify optional alternative to conda eg mamba"
     echo "  -h, --help       Show this help message and exit"
 }
 
@@ -54,6 +56,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --output)
             RECIPE_FILE="$2"
+            shift; shift
+            ;;
+        --alias)
+            CONDA_ALIAS="$2"
             shift; shift
             ;;
         --outdir)
@@ -130,6 +136,8 @@ PRIORITY="strict"
 # output is a recipe file for conda env create (always in current directory)
 echo "[coble-recipise] Recipising conda environment from coble yaml file $YAML_FILE" >&2
 echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE" >&2
+echo "[coble-recipise] Using conda executable $CONDA_EXE: $(which $CONDA_EXE)" >&2
+echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&2
 
 # Clear the aggregate file at the start
 {
@@ -145,13 +153,16 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 	echo -e "# Captured by: $CAPTURE_USER"
     echo "#####################################################"
     echo -e "# source bashrc for conda"
-    echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
+    #echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
+    #echo 'eval "$('"$CONDA_ALIAS"' shell hook --shell=bash)"'
     echo -e "source ~/.bashrc"
-    echo "#####################################################"
-    echo ""
-    #echo "CONDA_ENV='$CONDA_ENV' # Change this value to your desired conda environment name or prefix"
-    echo ""
+    echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
+    echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
+    echo "#####################################################"    
+    echo ""    
 } > "$RECIPE_FILE"
+
+
 
 ################# WE PASS THROUGH A FEW TIMES FOR DIFFERENT REASONS #################
 
@@ -172,8 +183,8 @@ echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE"
 # echo "PYTHONPATH is: $PYTHONPATH" >&2
 # echo "" >&2
 ### 01 Language checking checking ########################################
-languages_line="conda env remove ${CONDA_ENV} -y 2>/dev/null || true"
-languages_line+="\nconda create --no-default-packages ${CONDA_ENV} -y"
+languages_line="${CONDA_EXE} env remove ${CONDA_ENV} -y 2>/dev/null || true"
+languages_line+="\n${CONDA_EXE} create --no-default-packages ${CONDA_ENV} -y"
 
 CURRENT_SECTION="bash"
 r_count=0
@@ -201,7 +212,7 @@ echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
-echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
@@ -209,8 +220,8 @@ echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "conda config --env --remove-key channels" >> "$RECIPE_FILE"
-echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --remove-key channels" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
 if [[ $r_count -gt 1 ]]; then
@@ -242,7 +253,7 @@ while IFS= read -r line; do
         # remove trailing and leading white space
         channel_name="$(echo -e "${line#- }" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
         echo "[coble-recipise] Adding channel: $channel_name" >&2
-        echo "conda config --env --add channels $channel_name" >> "$RECIPE_FILE"
+        echo "${CONDA_EXE} config --env --add channels $channel_name" >> "$RECIPE_FILE"
     fi
 done < "$YAML_FILE"
 
@@ -281,7 +292,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "conda install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
+          echo "${CONDA_EXE} install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
         fi      
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
@@ -324,7 +335,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_R="NA"
             elif [[ "${directive_lower}" == "export" ]]; then                
                 #echo "export ${value}" >> "$RECIPE_FILE"
-                echo "conda env config vars set ${value}" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
+            elif [[ "${directive_lower}" == "alias" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                CONDA_ALIAS="$value"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA=""                
@@ -333,9 +347,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 NCPUS="$value"                
             elif [[ "${directive_lower}" == "priority" ]]; then                
                 PRIORITY="$value"                
-                echo "conda config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "channel" ]]; then                                          
-                echo "conda config --env --add channels $value" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --add channels $value" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--no-update-deps"                
@@ -343,24 +357,24 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
                 echo "# Essential shared packages" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
                     echo "# System r packages" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
-                    echo "conda install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
                 fi  
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
             elif [[ "${directive_lower}" == "compile-tools" ]]; then                
                 # if compile-tools = true then add compiler installs
                 # if a version is given use the specific version
@@ -373,13 +387,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 if [[ "$version" == "true" ]]; then
                     echo "[coble-recipise] Adding default compile tools to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
                 else
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
-                    echo "conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
                 fi                                                
                 # symlinks
                 echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
@@ -398,10 +412,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
-                echo "conda env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "conda env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "conda env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "conda env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
                 
                 echo "" >> "$RECIPE_FILE"              
             elif [[ "${directive_lower}" == "compile-paths" ]]; then                
@@ -431,10 +445,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
-                    echo "conda env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "conda env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "conda env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "conda env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                    echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi
@@ -443,19 +457,19 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
                 else                    
-                    echo "conda install -y ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
-                    echo "conda install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                
                 else                    
-                    echo "conda install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
-                echo "conda env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:" || "$CURRENT_SECTION" == "r-conda:"  ]]; then            

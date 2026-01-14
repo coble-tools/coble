@@ -21,10 +21,12 @@ Archive installation and github instllation also possible, along with raw bash c
 coble build --recipe my-recipe.cbl --env my-env
 ```
 --- Optional arguments:
+- `--alias` <exe>: Can pass in an alternative solver to conda eg mamba or a path.
+- `--containers` <docker,singularity,apptainer,conda>: default is conda, comma delim list of containers.
 - `--rebuild`: Clean and rebuild the environment from scratch.
-- `--containers`: default is conda, can be a list of containers from conda,docker,singularity/apptainer.
 - `--skip-errors`: continue building even if some packages fail to install. Default behaviour os to exit and promt you to fix.
 - `--include-r-forge`: include R-Forge when looking for packages as URLs through `find:` - by default it is turned off as it is slow.
+- `--debug`: keep all interim log files.
 
 **Freeze**: Freeze an existing environment into a coble recipe file.
 ```bash
