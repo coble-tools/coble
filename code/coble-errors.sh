@@ -61,6 +61,7 @@ dep_patterns=(
     "DONE ("
     "linux-64::"
     "noarch::"    
+    " +"
 )
 
 # Write patterns to temp files
