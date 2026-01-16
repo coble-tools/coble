@@ -52,6 +52,9 @@ while [[ $# -gt 0 ]]; do
             IMAGE_NAME="$2"
             shift 2
             ;;
+        --rebuild)            
+            shift
+            ;;
         -h|--help)
             show_help
             exit 0

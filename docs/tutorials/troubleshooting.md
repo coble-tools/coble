@@ -93,3 +93,8 @@ ERROR: compilation failed for package ‘rgeos’
 ```
 I had to keep ryuing versions of sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
 
+## Conda quirks and know-how
+**update message** it can be annoying to get warning messages about updates when you just updated and the version is 0.01 out of date. You can supporess these warnings by passing a flag to the .condarc which you can do manually or by:
+```bash
+conda config --set notify_outdated_conda false
+```

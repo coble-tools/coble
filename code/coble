@@ -17,9 +17,7 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 show_help() {
 	echo "Usage: $0 <command> [options]"
 	echo "  template   get a starter recipe of 5 given options"
-	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
-	echo "  update   update an existing environment from the changes to the recipe input"	
-	echo "  contain  Build Docker and Singularity containers from a COBLE recipe"
+	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"		
 	echo "  freeze  capture the packages from an existing environment"
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
