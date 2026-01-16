@@ -1,0 +1,14 @@
+{
+    "name": "Conda + Bash 3.2",
+    "build": {
+      "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "timonwong.shellcheck",
+          "ms-python.python"
+        ]
+      }
+    }
+  }
