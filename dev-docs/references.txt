@@ -1,0 +1,265 @@
+Notes:
+1. In order to be findable in FAIR principles it seems not too hard to submit to this: https://bio.tools/register
+2. There is much entanglement between pipelines, data, results, etc so absolute clarity needs to be early.
+3. Dependencies comes up a few times as a problem.
+#####################################################################
+Most interesting
+#####################################################################
+======================================================================
+- Alser, M., Lawlor, B., Abdill, R. J., Waymost, S., Ayyala, R., Rajkumar, N., LaPierre, N., Brito, J., Ribeiro-dos-Santos, A. M., Almadhoun, N., Sarwal, V., Fırtına, C., Osinski, T., Eskin, E., Hu, Q., Strong, D. R., Kim, B.-D., Abedalthagafi, M., Mutlu, O., & Mangul, S. (2024). 
+Packaging and containerization of computational methods. Nature Protocols. https://doi.org/10.1038/S41596-024-00986-0
+journal=Nature protocols
+year=2024
+citations=18 (!)
+link=https://www.nature.com/articles/s41596-024-00986-0
+readable link=https://arxiv.org/pdf/2203.16261
+The readable link has a slightly different title but I think it is basically the same paper just not behind a paywall. 
+"The ability of many independent researchers to install and successfully run omics
+software tools supports scientific integrity by ensuring transparency and reproducibility of
+research results"
+And even more key to what COBLE targets:
+"However, omics software tools often fail when reproduction is attempted because of the many challenges 
+associated with their installation and use. Some such common challenges include the absence of standardized
+interfaces, installation procedures, and data formats; a user’s limited computational skills;
+missing dependencies; different prerequisites and restrictions for various pieces of software;
+operating system (OS) incompatibility; and lack of user permissions on the host computer."
+They compare 3 approaches: packaging, virtualisation and contanerisation. FOr packages they use the term "dependency hell".
+They evidently favour containerisation. They have no solution but say that 
+the inclusion of source code in methods doesn't help when people can't run it.
+"Scientific journals have introduced rigorous requirements for the sharing of data and
+source code; however, there are currently no effective requirements for the installability of
+published software tools and the reproducibility of results based on such tools"
+======================================================================
+- Florek, K. R., Young, E. L., Incekara, K., Libuit, K. G., & Kapsak, C. J. (2025). 
+Advantages of Software Containerization in Public Health Infectious Disease Genomic Surveillance. Emerging Infectious Diseases. https://doi.org/10.3201/EID3113.241363
+journal=Emerging infectious Diseases
+year=2025
+citations=1 (!)
+link=https://wwwnc.cdc.gov/eid/article/31/13/24-1363_article
+A tiny un-cited supplement, but it is nice in that it says how important containers were in genomics workflows in the covid response,
+specifically the StaPH-B docker.It gives times for how long it can take to install packaes vs containers and gives the nice comment:
+"Those times also assume no installation issues or conflicts with other software and dependencies, 
+a common occurrence with bioinformatics software that can stretch software deployment into days or weeks."
+======================================================================
+- Munafò, M. R., Nosek, B. A., Bishop, D., Button, K. S., Chambers, C., Sert, N. P. du, Simonsohn, U., Wagenmakers, E., Ware, J. J., & Ioannidis, J. P. A. (2017). 
+A manifesto for reproducible science. Nature Human Behaviour. https://doi.org/10.1038/S41562-016-0021
+journal=nature human behaviour
+year=2017
+citations=3,034
+link=https://www.nature.com/articles/s41562-016-0021
+"Here we argue for the adoption of measures to optimize key elements of the scientific process"
+They talk about human desire to see patterns as a confirmation bias in their results.
+The main part of interest is in Reprodicibility in the section "Promoting transparency and open science".
+"the process of making the content and process of producing evidence and claims transparent"
+COBLE: Ability to easily share, transparency and literacy of the comprehensible recipe itself, and croudsourcing recipes :-)
+======================================================================
+- Ewels, P., Peltzer, A., Fillinger, S., Patel, H. P., Alneberg, J., Wilm, A., Garcia, M., Tommaso, P. D., & Nahnsen, S. (2020). 
+The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology. https://doi.org/10.1038/S41587-020-0439-X
+journal=Nature Biotechnology
+year=2020
+citations=2,955
+link=https://www.nature.com/articles/s41587-020-0439-x
+readable link=https://www.biorxiv.org/content/10.1101/610741v1.full.pdf
+Whatever anyone thinks about nextflow, the nf-core project is a massive success in terms of widly used pipelines.
+They talk about FAIR research (findable, accessible, interoperable and reusable) and I think for COBLE the FAIR point is quite key.
+Probably what has made nf-core so succesful is findable.
+For COBLE it should all be covered: https://www.go-fair.org/fair-principles/ and we can make sure to follow the fairificaiton process.
+"The nf-core project ties in well with other communities, notable Nextflow, Bioconda and conda-forge".
+My point is to specifically not be confused with this, pipelines are fundamentally different and the singularity container sthat are involved with each 
+step of the workflow process are incredibly granular. It is sort of the opposite idea.
+======================================================================
+- Barker, M., Hong, N. C., Katz, D. S., Lamprecht, A., Martínez-Ortiz, C., Psomopoulos, F., Harrow, J., Castro, L. J., Gruenpeter, M., Martinez, P. A., Honeyman, T., Barker, M., Hong, N. C., Katz, D. S., Lamprecht, A.-L., Martinez, C. A. R., Psomopoulos, F., Harrow, J., Garcia, L., … Honeyman, T. (2022). 
+Introducing the FAIR Principles for research software. Scientific Data. https://doi.org/10.1038/S41597-022-01710-X
+journal=Nature
+year=2022
+citations=363
+link=https://www.nature.com/articles/s41597-022-01710-x
+They have some specific guidance for making Research Software FAIR and we should do so. 
+They call them the FAIR4RS principles, (for research software) and I think COBLE is very strong, as before it hinges on being findabale.
+A nature paper would help that :-) 
+They go through some specific software and how they fit in to the FAIR4RS principles.
+They mention something I did not know about, the ELIXIR Software Management Plan 
+which is in preprint in biohack-rxiv I don't know how seriously to take it: https://osf.io/preprints/biohackrxiv/k8znb_v1
+======================================================================
+- Da Veiga Leprevost, F., Grüning, B. A., Alves Aflitos, S., Röst, H. L., Uszkoreit, J., Barsnes, H., Vaudel, M., Moreno, P., Gatto, L., Weber, J., Bai, M., Jimenez, R. C., Sachsenberg, T., Pfeuffer, J., Vera Alvarez, R., Griss, J., Nesvizhskii, A. I., & Perez-Riverol, Y. (2017). 
+BioContainers: An open-source and community-driven framework for software standardization. Bioinformatics, 33(16), 2580–2582. https://doi.org/10.1093/bioinformatics/btx192
+journal=Bioinformatics
+year=2017
+citations=875
+link=https://doi.org/10.1093/bioinformatics/btx192
+"complex and integrated workflows ... creating two major challenges ...  (i) software availability and (ii) reproducible experiments."
+Their solution is github and docker.It is BioContainers, a community project. This is a crowded space.
+I think what they expect people to do is too complex.
+"Users of BioContainers can request a software container by opening an issue in the container’s repository containing information about software (name, URL or binary to be packaged). 
+A member of the BioContainers community will pick up the issue and generate the specific container."
+Not dissimilar to my idea, but mine is just a minor optional extra not the actual point of the whole thing.
+Also there is a distinct difference as these containers are designed on a package basis so the dependency nightmare is not resolved.
+It is where I find nextflow and nf-core to be difficult as they don;t solve the problems of an environment, the workflow is very granular.
+They have a concept called mulled packages which is more than one at a time.
+Many links don't work and this is so confusing.
+It maybe can't be ignored, but could be moved on from swiftly "unlike BioContainers..."
+======================================================================
+- Costa, L., Barbosa, S., & Cunha, J. (2025). 
+A framework for supporting the reproducibility of computational experiments in multiple scientific domains. Future Generation Computer Systems. https://doi.org/10.1016/J.FUTURE.2025.107924
+journal=Future Generation Computer Systems (?)
+year=2026
+citations=0
+link=https://www.sciencedirect.com/science/article/pii/S0167739X25002195?via%3Dihub
+Completely uncited but highly relevant. Possibly as it was only published Jan 2026!
+They provide a set of principles that reprodicibility tools should follow.
+The also seem to have made a website in which they claim everything is reprodicible, which is not very useful other than as a toy.
+They mention CI/CD and how it does not fully automate reprdicibilty which makes absolutely no sense at all why would it.
+But of most particular relavence:
+"To replicate and reproduce computational experiments, it is necessary to rebuild the original computing environment 
+using the original code and its dependencies, the same data, and the same script-based workflow"
+As discussed we are targetting the environment. Part 1.
+Though also as discussed I could use the bash part to include code.
+I would really like to try to make an example of SYLVER in this way.
+They say it should be easy, and yet it is difficult.
+They talk about package managers, and pip not having everything it needs.
+They have research questions about adoption of reproducibity and whether one framework could fir all.
+They talk about the automatic execution of experiments, and also something I woant to add and discuss and have mentioned
+The inclusion of a validation scripttaht easures always the same results.
+They have 10 things they thyink are neeed and they compare some tools and none of them tick all the boxes.
+Perhaps it could be nice to refer to it and be clear what COBLE is targetting, which is not all of them.
+YES - C1: Supported operating system
+YES - C2: Supported languages
+NO - C3: Supported databases, data not included
+YES - C4/C5: Automatically detects/installs dependencies (once the recipe builds) "One of the main challenges"
+TO DISCUSS c6: Automatically configures the execution of experiments
+NO: C7: Research artifacts, data elsewhere though as per aboce no reason it can'#t be dwnloaded as part of the recipe
+YES or NO?: C8: Ensuring the reprudcibiity of results, not the validitys and esxactness, but the ability to.
+YES: C9: Reproducibity across operating systems
+??? C10: Developed environment I have no idea what this means. Unless it is just a quesiton, where was it developed.
+They then pose some challenges:
+Software, the commands to run it, the data and the hardware.
+I know this is a different problem.
+Then they discuss researchers experience with reprodicibity tools.
+Specifically they address the problem of trying to reproduce computational experiments.
+They did a survey = 81% of people had heard the term "computational reprducibility".
+People say they want the data, code and dependencies made available.
+======================================================================
+- Krafczyk, M. S., Shi, A., Bhaskar, A., Marinov, D., & Stodden, V. (2021). 
+Learning from reproducing computational results: Introducing three principles and the Reproduction Package. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 379(2197), rsta.2020.0069, 20200069. https://doi.org/10.1098/rsta.2020.0069
+Journal= Philosophical Transactions of the Royal Society
+year=2021
+Citations=41 
+link=https://royalsocietypublishing.org/rsta/article/379/2197/20200069/111842/Learning-from-reproducing-computational-results
+Attempt to reproduce resiults from 7 published artciles. And derive 3 principles as a result.
+There is a definition of reprodicible given.
+Recommendation is to make the results deterministic, ie versions.
+Recommendation to declare software dependencies and their versions. Notes that things evolve.
+They recommend to package into docker or singularity. And or use conda or spack.
+And or use a build system. ie clear instructions on how software is built. COBLE is I guess also a kind of build system.
+They say to disclose resource requirements. And report the hardware used.
+They say if possible include a small test case so people know it works - this I repeat is something I think we should enforce.
+They say that following their recommended guidance has costs.
+Note for COBLE it is the opposite, it is easy to build an environment and once you have done so you can not worry about losing it!
+======================================================================
+- Pelot, N. A., Wang, B., Marshall, D., Hussain, M., Musselman, E. D., Yu, G. J., Dale, J., Baumgart, I. W., Dardani, D., Zamani, P. T., Villacreses, D. F. C., Wagenaar, J., & Grill, W. M. (2025). 
+Guidance for sharing computational models of neural stimulation: From project planning to publication. Journal of Neural Engineering. https://doi.org/10.1088/1741-2552/ADB997
+Journal=Journal of neural Engineering
+Year=2025
+citations=3
+link=https://iopscience.iop.org/article/10.1088/1741-2552/adb997
+This was surprisingly interesting. It highlights the 6 R's of reproducibility:
+Re-runnability, Repeatability, Replicability, Reusability, Reprodicibity, Readability
+It is about sharing computational models but the principles can extend to an environment to some extent.
+Specifically the idea that the black box model of reproidicibility is not the goal, pressing a button and getting the same thing out.
+But rather building something that can be used by others and expanded on. Such as a COBLE environment.
+"reusability enables the scientific community to further develop a shared model: new research questions 
+can be investigated while building from the same mathematical and theoretical foundation to maintain scientific continuity"
+There is often talk of cost of planning to share, that literally
+only 1 environment is ever built then peope are surpised it is hard to build again.
+This comes back to also disaster recovery, the cost of not being able to recreate is high.
+
+
+
+======================================================================
+#####################################################################
+Less interesting
+#####################################################################
+- Kurtzer, G. M., Sochat, V., & Bauer, M. W. (2017). 
+Singularity: Scientific containers for mobility of compute. PloS One. https://doi.org/10.1371/JOURNAL.PONE.0177459
+journal=ploS One
+year=2016
+citations=2,543
+link=https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0177459&type=printable
+This is the original presentation of singularity, now apptainer, the primary container for HPC-world.
+Not that interesting other than it offers a motivation for containers on HPC.
+======================================================================
+- Leek, J. T., & Peng, R. D. (2015). Opinion: 
+Reproducible research can still be wrong: Adopting a prevention approach. Proceedings of the National Academy of Sciences of the United States of America. https://doi.org/10.1073/PNAS.1421412111
+journal=Proceedings of the Natural Academy odf Science
+year=2015
+citations=212
+link=https://www.pnas.org/doi/full/10.1073/pnas.1421412111
+About reprodicibility and replicability
+Replicability differs: an indeendednt study with the same question witll get the same result.
+First paper I have read that gives this third criteria for repriducibity: 1 and 2 code and data availible of course.
+Number 3, the analysis needs to have been correct!!!
+Their solution to reproducibity is to have more people get it right to begin with!
+======================================================================
+
+#####################################################################
+Even less interesting
+#####################################################################
+=====================================================================
+- Baker, M. (2016). 
+1,500 scientists lift the lid on reproducibility. Nature. https://doi.org/10.1038/533452A
+journal=Nature
+citations=4,030
+link=(possibly)https://www.nature.com/news/polopoly_fs/1.19970!/menu/main/topColumns/topLeftColumn/pdf/533452a.pdf
+Mostly lab based. People want better experimental design, mentoring and statstics.
+======================================================================
+- Sansone, S.-A., McQuilton, P., Rocca-Serra, P., Gonzalez-Beltran, A., Izzo, M., Lister, A. L., & Thurston, M. (2019). 
+FAIRsharing as a community approach to standards, repositories and policies. Nature Biotechnology, 37(4), 358–367. https://doi.org/10.1038/s41587-019-0080-8
+journal=Nature Biotechnology
+year=2019
+citations=311
+link=https://www.nature.com/articles/s41587-019-0080-8
+This is supposed to interlink resources for FAIR sharing. It seems uninspiring.
+I could be wrong but doesn't seem worth any time.
+======================================================================
+- Abdill, R., Talarico, E., & Grieneisen, L. (2024). 
+A how-to guide for code-sharing in biology. PLoS Biology.
+journal=PLoS Biology
+year=2024
+citations=5
+link=https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3002815
+Too basic.
+======================================================================
+- Griego, C. D., Scotti, K. L., Terveen, E., Chan, J. M., Sheng, D., González-Espinoza, A., & Warren, C. N. (2025). 
+A libraries reproducibility hackathon: Connecting students to university research and testing the longevity of published code. F1000Research. https://doi.org/10.12688/F1000RESEARCH.156917.2
+2025. cITATIONS 0. nOT PARTICULARLY INTERESTING.
+======================================================================
+- Wratten, L., Wilm, A., & Göke, J. (2021). 
+Reproducible, scalable, and shareable analysis pipelines with bioinformatics workflow managers. Nature Methods. https://doi.org/10.1038/S41592-021-01254-9
+journal=Nat methods
+year=2021
+citations-214
+I can't find a free version of this to read sadly.
+======================================================================
+
+
+######################################################################
+As yet unsorted
+######################################################################
+
+- Blankenberg, D., Von Kuster, G., Bouvier, E., Baker, D., Afgan, E., Stoler, N., Taylor,+++ J., Nekrutenko, A., & Galaxy Team. (2014). Dissemination of scientific software with Galaxy ToolShed. Genome Biology, 15(2), 403. https://doi.org/10.1186/gb4161
+- Gruening, B., Sallou, O., Moreno, P., da Veiga Leprevost, F., Ménager, H., Søndergaard, D., Röst, H., Sachsenberg, T., O’Connor, B., Madeira, F., Dominguez Del Angel, V., Crusoe, M. R., Varma, S., Blankenberg, D., Jimenez, R. C., & Perez-Riverol, Y. (2019). Recommendations for the packaging and containerizing of bioinformatics software. F1000Research, 7, ISCB Comm J-742. https://doi.org/10.12688/f1000research.15140.2  
+- Barba, L. A. (2022). Defining the Role of Open Source Software in Research Reproducibility. Computer. https://doi.org/10.48550/ARXIV.2204.12564   
+- Baykal, P. I., Łabaj, P. P., Markowetz, F., Schriml, L. M., Stekhoven, D. J., Mangul, S., & Beerenwinkel, N. (2024). Genomic reproducibility in the bioinformatics era. Genome Biology. https://doi.org/10.1186/S13059-024-03343-2 
+- Bontemps, C., & Orozco, V. (2021). Toward a FAIR Reproducible Research. Research Papers in Economics. https://doi.org/10.1007/978-3-030-73249-3_30    
+- Eschner, S. (2025). Colony: A Framework for Reproducible and easy-to-use Data Analysis pipelines for biomedical research with Singularity Containers. Bioinformatics Advances. https://doi.org/10.1093/BIOADV/VBAF304  
+- Ewels, P., Peltzer, A., Fillinger, S., Patel, H. P., Alneberg, J., Wilm, A., Garcia, M., Tommaso, P. D., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology. https://doi.org/10.1038/S41587-020-0439-X    
+- Gelsleichter, Y. A., Banzi, R., Naudet, F., Vinatier, C., Kertész, I., & Varga, M. (2025). Survey about Barriers and Solutions for Enhancing Computational Reproducibility in Scientific Research. F1000Research. https://doi.org/10.12688/F1000RESEARCH.172013.1  
+- Gomes, D. A., Mestre, P., & Serôdio, C. (2024). INCREASING THE REPRODUCIBILITY OF SCIENTIFIC RESEARCH WORKS: A CASE STUDY USING THE ENVIRONMENT CODE-FIRST FRAMEWORK. International Journal of Professional Business Review. https://doi.org/10.26668/BUSINESSREVIEW/2024.V9I5.4662    
+- Ismail, F. N., & Amarasoma, S. (2025). Mars: Simplifying Bioinformatics Workflows Through a Containerized Approach to Tool Integration and Management. Bioinformatics Advances. https://doi.org/10.1093/BIOADV/VBAF074  
+- Keahey, K., Anderson, J., Powers, M. B., & Cooper, A. (2023). Three Pillars of Practical Reproducibility. IEEE International Conference on E-Science. https://doi.org/10.1109/E-SCIENCE58273.2023.10254846     
+- Liu, D., & Salganik, M. (2019). Successes and Struggles with Computational Reproducibility: Lessons from the Fragile Families Challenge. Socius : Sociological Research for a Dynamic World. https://doi.org/10.1177/2378023119849803    
+- Peer, L., Arguillas, F., Honeyman, T., & Miljkovic, N. (2021). Challenges of Curating for Reproducible and FAIR Research Output.   
+- Romano, J. D., & Moore, J. H. (2020). Ten simple rules for writing a paper about scientific software. PLoS Comput. Biol. https://doi.org/10.1371/JOURNAL.PCBI.1008390  
+- So, E., Yu, F., Wang, B., & Haibe‐Kains, B. (2023). Reusability report: Evaluating reproducibility and reusability of a fine-tuned model to predict drug response in cancer patient samples. Nature Machine Intelligence. https://doi.org/10.1038/S42256-023-00688-4  
+- Wilkinson, S. R., Widener, P., Oral, S., & Silva, R. F. da. (2025). Designing FAIR Workflows at OLCF: Building Scalable and Reusable Ecosystems for HPC Science. https://doi.org/10.5281/ZENODO.17290392
+ 
