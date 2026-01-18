@@ -35,7 +35,7 @@ pip:
   - scanoramaCT
   - https://github.com/ICR-RSE-Group/gitalma.git
 r-url:  
-  - https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip
+  - https://github.com/tidyverse/magrittr/archive/refs/heads/main.zip
 bash:
   - mkdir -p "HelloWorld"
 r-github:
