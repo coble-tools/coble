@@ -283,7 +283,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bioc-package:" \
         || "$line" == "package-bioc:" ]]; then
         CURRENT_SECTION="$line"
-        #echo "[coble-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
+        #echo "[debug-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
@@ -317,7 +317,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             directive="${directive## }"
             directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
             value="${value## }"                            
-            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                        
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                                    
+            #echo "[debug-recipise] Processing flag: directive: $directive_lower" >&2  
+            #echo "[debug-recipise] Processing flag: value: $value_lower" >&2  
             if [[ "${directive_lower}" == "dependencies" && "$value_lower" == "true" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
@@ -362,7 +364,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# System r packages" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-remotes r-biocmanager r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
@@ -457,9 +459,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then                    
                 if [[ "$src" == "" ]]; then
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
                 else                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    

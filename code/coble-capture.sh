@@ -304,16 +304,16 @@ awk 'BEGIN {OFS="\t"}
 
 #(head -1 "$TMP_SORTED1"; tail -n +2 "$TMP_SORTED1" | grep "^conda\s" | grep -E "(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)"; tail -n +2 "$TMP_SORTED1" | grep -v -E "^conda\s.*(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)") > "$TMP_SORTED"
 
-# Deduplicate assuming prioority order top to bottom, and bring critical system libs to the top
+# Deduplicate assuming priority order top to bottom, and bring critical system libs to the top
 (
   head -1 "$TMP_SORTED1"
   # Critical system libs first
   tail -n +2 "$TMP_SORTED1" | grep "^conda\s" | grep -E "(icu|zlib|gcc|gxx|binutils|libc|libgcc|libstdcxx)"
   # All other conda packages
   tail -n +2 "$TMP_SORTED1" | grep -E "^(conda|r-conda|bioc-conda)"
-  # everythong else
+  # everything else
   tail -n +2 "$TMP_SORTED1" | grep -v -E "^(conda|r-conda|bioc-conda)"    
-) | awk -F'\t' 'NR==1 {print; next} {split($2, p, "="); if (!seen[p[1]]++) print}' > "$TMP_SORTED"
+) | awk -F'\t' 'NR==1 {print; next} {split($2, p, "="); pkg=tolower(p[1]); if (!seen[pkg]++) print}' > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
 R_BASE_VERSION=""
@@ -360,8 +360,9 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	#echo -e "  - conda-forge"	
 	echo -e ""
 	echo -e "flags:"
+	echo -e "  - compile-paths: true"        
 	echo -e "  - dependencies: false"
-    echo -e "  - priority: flexible"        
+    echo -e "  - priority: flexible"        	
     echo -e ""
 	echo -e "languages:"
     #echo -e "  - no-deps"
@@ -372,10 +373,10 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 		echo -e "  - $PYTHON_VERSION"
 	fi
     # Get env vars and format for YAML
-    echo -e "flags:"
-    conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | while IFS='=' read -r key value; do
-        echo "  - export $key=\"$value\""
-    done
+	echo -e "flags:"
+	conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | sort | while IFS='=' read -r key value; do
+    	echo "  - export: $key=\"$value\""
+	done
     #if [[ -n "$COMPILE_VERSION" ]]; then        
     #    echo -e "  - compile-tools: $COMPILE_VERSION"
     #fi

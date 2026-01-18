@@ -65,6 +65,9 @@ elif [[ "$FLAVOUR" =~ ^(fix)$ ]]; then # COUNTREG tutorial
 elif [[ "$FLAVOUR" =~ ^(fixed)$ ]]; then    
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_fixed.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(template)$ ]]; then    
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    cp "$script_dir/tml_template.cbl" "$YAML_FILE"
 else
     echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
     exit 1
