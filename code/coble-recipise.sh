@@ -521,6 +521,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "python -m pip install \"git+${pkg_entry}\" $DEPS_PYTHON" >> "$RECIPE_FILE"
             elif [[ "$pip_pkg" == https* ]]; then
                 echo "python -m pip install '${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            elif [[ -z "$ver" ]]; then
+                echo "python -m pip install '${pkg_only}' $DEPS_PYTHON" >> "$RECIPE_FILE"
             else
                 echo "python -m pip install '${pkg_only}==$ver' $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi

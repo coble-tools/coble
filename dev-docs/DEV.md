@@ -1,12 +1,14 @@
 # Development Guide
 
-DO NOT DO ANY DEV IN GITLAB.  GitLab is a mirror of GitHub.
+There is a rev recipe with coble which you can install locally:
+```bash
+code/coble build --recipe recipes/icr-dev/icr-dev.cbl --env DEV --rebuild
+```
 
-GitLab is a Mirror
-https://git.icr.ac.uk/sc-rse/group/collaborations/bcrbioin/coble
-
-GitHub is the Main Repo
-https://github.com/ICR-RSE-Group/coble
-
-To push to GitLab do 
-git push gitlab main --force
+## Testing
+```bash
+# all the tests
+pytest tests/github
+# a specific one
+pytest tests/github/test_circle.py
+```
