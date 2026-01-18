@@ -162,26 +162,6 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     echo ""    
 } > "$RECIPE_FILE"
 
-
-
-################# WE PASS THROUGH A FEW TIMES FOR DIFFERENT REASONS #################
-
-# Check for python and contamination
-# echo "[coble-recipise] Checking for python path contamination." >&2      
-# for d in ~/.local/lib/python3.*; do
-#     if [ -d "$d" ]; then        
-#         if [ -d "$d/site-packages" ]; then
-#             echo "[coble-recipise] User site-packages found: $d/site-packages" >&2
-#             find "$d/site-packages" -name "*.pth" >&2
-#         else
-#             echo "DEBUG: $d has no site-packages directory" >&2
-#         fi
-#     else
-#         echo "DEBUG: Skipping non-directory or non-existent $d" >&2
-#     fi
-# done
-# echo "PYTHONPATH is: $PYTHONPATH" >&2
-# echo "" >&2
 ### 01 Language checking checking ########################################
 languages_line="${CONDA_EXE} env remove ${CONDA_ENV} -y 2>/dev/null || true"
 languages_line+="\n${CONDA_EXE} create --no-default-packages ${CONDA_ENV} -y"
@@ -190,11 +170,11 @@ CURRENT_SECTION="bash"
 r_count=0
 python_count=0
 while IFS= read -r line; do
-    # Trim leading/trailing whitespace
+    # Trim leading/trailing whitespace    
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "languages:" ]]; then
+    if [[ "$line" == "languages:"* ]]; then
         CURRENT_SECTION="languages"
-    elif [[ "$line" == "channels:" ]]; then
+    elif [[ "$line" == "channels:"* ]]; then
         CURRENT_SECTION="channels"          
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
@@ -237,12 +217,12 @@ if [[ $python_count -gt 1 ]]; then
     exit 1
 fi
 
-### 02 CHANNEL CHecking ########################################
+### 02 CHANNEL Checking ########################################
 CURRENT_SECTION=""
 while IFS= read -r line; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-    if [[ "$line" == "channels:" ]]; then
+    if [[ "$line" == "channels:"* ]]; then
         CURRENT_SECTION="channels"
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
@@ -264,26 +244,25 @@ CURRENT_SECTION=""
 while IFS= read -r line || [[ -n "$line" ]]; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"    
-    if [[ "$line" == "flags:" \
-        || "$line" == "variables:" \
-        || "$line" == "channels:" \
-        || "$line" == "languages:" \
-        || "$line" == "conda-r:" \
-        || "$line" == "r-conda:" \
-        || "$line" == "conda-bioc:" \
-        || "$line" == "bioc-conda:" \
-        || "$line" == "conda:" \
-        || "$line" == "r-package:" \
-        || "$line" == "package-r:" \
-        || "$line" == "r-github:" \
-        || "$line" == "r-url:" \
-        || "$line" == "pip:" \
-        || "$line" == "bash:" \
-        || "$line" == "find:" \
-        || "$line" == "bioc-package:" \
-        || "$line" == "package-bioc:" ]]; then
-        CURRENT_SECTION="$line"
-        #echo "[debug-recipise] Package manager changing to: $CURRENT_SECTION" >&2  
+    if [[ "$line" == "flags:"* \
+        || "$line" == "variables:"* \
+        || "$line" == "channels:"* \
+        || "$line" == "languages:"* \
+        || "$line" == "conda-r:"* \
+        || "$line" == "r-conda:"* \
+        || "$line" == "conda-bioc:"* \
+        || "$line" == "bioc-conda:"* \
+        || "$line" == "conda:"* \
+        || "$line" == "r-package:"* \
+        || "$line" == "package-r:"* \
+        || "$line" == "r-github:"* \
+        || "$line" == "r-url:"* \
+        || "$line" == "pip:"* \
+        || "$line" == "bash:"* \
+        || "$line" == "find:"* \
+        || "$line" == "bioc-package:"* \
+        || "$line" == "package-bioc:"* ]]; then
+        CURRENT_SECTION="$line"        
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
@@ -297,29 +276,31 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
         #fi      
-    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:" ]]; then
-        line="${line#- }"        
-        pkg_entry="${line%%#*}"  # remove comments        
+    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:"* ]]; then
+        line="${line#- }"
+        pkg_entry="${line%%#*}"  # remove comments
+        pkg_entry="${pkg_entry## }"  # remove leading whitespace
+        pkg_entry="${pkg_entry%% }"  # remove trailing whitespace
         # split the line to all the bits before the # and after
 
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_only ver <<< "$pkg"
         
         # For flags, parse directive and value from 'directive = value' format        
-        if [[ "$CURRENT_SECTION" == "channels:"  ]]; then            
+        if [[ "$CURRENT_SECTION" == "channels:"* ]]; then            
             continue
-        elif [[ "$CURRENT_SECTION" == "flags:" ]]; then
+        elif [[ "$CURRENT_SECTION" == "flags:"* ]]; then
             #echo "[coble-recipise] Processing flag: $pkg_entry" >&2
             #directive="$(echo "$pkg_entry" | cut -d':' -f1 | xargs)"
             #value="$(echo "$pkg_entry" | cut -d':' -f2- | xargs)"
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             value="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
+            directive="${directive%% }"
             directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
-            value="${value## }"                            
-            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                                    
-            #echo "[debug-recipise] Processing flag: directive: $directive_lower" >&2  
-            #echo "[debug-recipise] Processing flag: value: $value_lower" >&2  
+            value="${value## }" 
+            value="${value%% }"                                        
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                                                
             if [[ "${directive_lower}" == "dependencies" && "$value_lower" == "true" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 DEPS_CONDA=""
@@ -391,7 +372,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                else
+                elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
@@ -443,10 +424,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
                     # Add to your recipe file BEFORE running R installs
                     echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
-                    #echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+
+                    echo "${CONDA_EXE} env config vars set CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"                    
                     echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
@@ -454,7 +436,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi
-        elif [[ "$CURRENT_SECTION" == "languages:"  ]]; then    
+        elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then    
+            # trim whitespace from src
+            src="${src## }"    # remove leading spaces
+            src="${src%% }"    # remove trailing spaces
+            pkg_only="${pkg_only## }"
+            pkg_only="${pkg_only%% }"            
             if [[ "$pkg_only" == *"no-deps"* ]]; then
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then                    
@@ -466,7 +453,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
                 else                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
@@ -474,26 +461,26 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
-        elif [[ "$CURRENT_SECTION" == "conda-r:" || "$CURRENT_SECTION" == "r-conda:"  ]]; then            
+        elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then            
             if [[ "$src" != "" ]]; then
                 echo "'$src::r-$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'r-$pkg' \\" >> "$RECIPE_FILE"
             fi                        
-        elif [[ "$CURRENT_SECTION" == "conda-bioc:" || "$CURRENT_SECTION" == "bioc-conda:"  ]]; then                        
+        elif [[ "$CURRENT_SECTION" == "conda-bioc:"* || "$CURRENT_SECTION" == "bioc-conda:"*  ]]; then                        
             #echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
             if [[ "$src" != "" ]]; then
                 echo "'$src::bioconductor-$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'bioconductor-$pkg' \\" >> "$RECIPE_FILE"
             fi                                    
-        elif [[  "$CURRENT_SECTION" == "conda:" ]]; then            
+        elif [[  "$CURRENT_SECTION" == "conda:"* ]]; then            
             if [[ "$src" != "" ]]; then
                 echo "'$src::$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'$pkg' \\" >> "$RECIPE_FILE"
             fi                                                            
-        elif [[ "$CURRENT_SECTION" == "package-r:" || "$CURRENT_SECTION" == "r-package:" ]]; then                        
+        elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
@@ -501,22 +488,22 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             else
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
-        elif [[ "$CURRENT_SECTION" == "r-github:" || "$CURRENT_SECTION" == "github-r:" ]]; then            
+        elif [[ "$CURRENT_SECTION" == "r-github:"* || "$CURRENT_SECTION" == "github-r:"* ]]; then
             if [[ -n "$src" ]]; then
                 echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
                 echo "Rscript -e 'remotes::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
-        elif [[ "$CURRENT_SECTION" == "r-url:" ]]; then            
+        elif [[ "$CURRENT_SECTION" == "r-url:"* ]]; then
             if [[ -n "$src" ]]; then
                 echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
                 echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
-            
-        elif [[ "$CURRENT_SECTION" == "package-bioc:" || "$CURRENT_SECTION" == "bioc-package:" ]]; then            
+
+        elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
             echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "pip:" ]]; then                                                   
+        elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
             if [[ "$pip_pkg" == https* && "$pip_pkg" != git+* ]]; then
@@ -528,12 +515,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             else
                 echo "python -m pip install '${pkg_only}==$ver' $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi
-            
-        elif [[ "$CURRENT_SECTION" == "bash:" ]]; then            
+
+        elif [[ "$CURRENT_SECTION" == "bash:"* ]]; then
             echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
             # Preserve literal \n in bash commands
             echo "${line//\\n/\\\\n}" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "find:" ]]; then
+        elif [[ "$CURRENT_SECTION" == "find:"* ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array

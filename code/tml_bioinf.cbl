@@ -296,9 +296,9 @@ conda:
   - tbb-devel<2021
 r-package:
   - rstan
-bash:
-  - devtools::install_github("stan-dev/rstantools")
-  - devtools::install_github("davidaknowles/leafcutter/leafcutter")
+r-github::
+  - stan-dev/rstantools
+  - davidaknowles/leafcutter/leafcutter
 
 bioc-package:
   - liftOver

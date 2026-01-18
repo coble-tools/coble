@@ -45,15 +45,15 @@ channels_count=0
 languages_count=0
 flags_count=0
 ok=true
-while IFS= read -r line || [[ -n "$line" ]]; do
-    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
-        section_name="${BASH_REMATCH[1]}"
+while IFS= read -r line || [[ -n "$line" ]]; do    
+    if [[ "$line" =~ ^([a-zA-Z0-9_-]+):[[:space:]]*(#.*)?$ ]]; then
+        section_name="${BASH_REMATCH[1]}"        
         if [[ "$section_name" == *"coble"* ]]; then
             count=$((count + 1))
             coble_count=$count
         elif [[ "$section_name" == *"channels"* ]]; then
             count=$((count + 1))
-            channels_count=$count
+            channels_count=$count            
         elif [[ "$section_name" == *"languages"* ]]; then
             count=$((count + 1))
             languages_count=$count
