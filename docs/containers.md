@@ -21,8 +21,14 @@ docker load -i cbl-my-env.tar
 # Then run it
 docker run --rm -it cbl-my-env
 
+# download a singulariy image from docker
+singularity build cbl-my-env.sif docker://cbl-my-env
+
 # Singularity: run directly
 singularity shell cbl-my-env.sif
+
+# If the docker has been uploaded to dockerhub, e.g. from the coble/recipes, it can be downloaded as a sif file
+singularity build cbl-icr-small.sif docker://icrsc/coble:icr-small
 ```
 
 The conda environment is pre-activated and they look like this:

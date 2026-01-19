@@ -119,28 +119,32 @@ fi
 
 ### Singularity #######################
 if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then    
-    package_exe=$(echo "$containers" | tr '[:upper:]' '[:lower:]')
-    package_exe=$(echo "$package_exe" | tr -d ' ')
+    sing_app="singularity"
+    if [[ $containers == *"apptainer"* ]]; then
+        sing_app="apptainer"
+    fi
+    sing_app=$(echo "$sing_app" | tr '[:upper:]' '[:lower:]')
+    sing_app=$(echo "$sing_app" | tr -d ' ')
     
-    echo "[coble-$package_exe] Building $package_exe image..."
+    echo "[coble-$sing_app] Building $sing_app image..."
 
-    echo "[coble-$package_exe] ...removing old tar..."
+    echo "[coble-$sing_app] ...removing old tar..."
     rm -rf "$DOCKER_TAR" || true
 
-    echo "[coble-$package_exe] ...saving Docker image to tar..."
+    echo "[coble-$sing_app] ...saving Docker image to tar..."
     docker save "$IMAGE_NAME" -o "$DOCKER_TAR"
 
-    echo "[coble-$package_exe] ...removing old sif..."
+    echo "[coble-$sing_app] ...removing old sif..."
     rm -rf "$SINGULARITY_SIF" || true
 
-    echo "[coble-$package_exe] ...building sif..."
-    $package_exe build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
-    echo "[coble-$package_exe] Singularity build complete at $SINGULARITY_SIF"
-    echo "[coble-$package_exe] To run use:"
+    echo "[coble-$sing_app] ...building sif..."    
+    $sing_app build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
+    echo "[coble-$sing_app] Singularity build complete at $SINGULARITY_SIF"
+    echo "[coble-$sing_app] To run use:"
     echo ""
-    echo "$package_exe shell $SINGULARITY_SIF"
+    echo "$sing_app shell $SINGULARITY_SIF"
     echo ""
-    echo "[coble-$package_exe] completed successfully."
+    echo "[coble-$sing_app] completed successfully."
 
 fi
 
