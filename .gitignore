@@ -54,3 +54,10 @@ recipes/**
 !recipes/**/.dockerhub
 !recipes/**/*_summary.txt
 
+cbl-icr-small.sif
+cbl-carbine.sif
+cbl-cosmx.sif
+cbl-cosmx.tar
+cbl-template.tar
+cbl-carbine.tar
+cbl-template.sif

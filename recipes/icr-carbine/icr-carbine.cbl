@@ -16,11 +16,12 @@ flags:
   - compile-tools: True
   - system-tools: True
   - export: QT_QPA_PLATFORM=offscreen
-pip:
-  - https://github.com/stan-dev/cmdstanpy.git@develop  
+#pip:
+#  - https://github.com/stan-dev/cmdstanpy.git@develop  
 conda:  
   - arviz
   - pytz
+  - cmdstan
   - cmdstanpy
   - ipython
   - matplotlib
@@ -72,5 +73,8 @@ r-url:
   - https://github.com/caravagn/evoverse/archive/refs/heads/development.zip
   - https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip
 pip:
-  - https://${GITHUB_PAT}@github.com/CalumGabbutt/carbine.git@container
+  - https://${GITHUB_PAT}@github.com/CalumGabbutt/carbine.git
+#bash:
+#  - git clone https://x:${GITHUB_PAT}@github.com/CalumGabbutt/carbine.git
+
   

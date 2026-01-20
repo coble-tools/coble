@@ -121,8 +121,7 @@ ENV GITHUB_PAT=
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
     echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
     echo '║        (c) ICR 2026 RSE and BCR-DS                           ║' >> /etc/motd && \
-    echo '║        For help, see:                                        ║' >> /etc/motd && \
-    echo '║        - /app/README.md                                      ║' >> /etc/motd && \
+    echo '║        For help, see:                                        ║' >> /etc/motd && \    
     echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
     echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \    
     echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd    
