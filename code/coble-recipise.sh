@@ -271,7 +271,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "${CONDA_EXE} install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
+          echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
         fi      
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
@@ -336,6 +336,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--no-update-deps"                
+            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                UPDATE_CONDA="--update-deps"
+            elif [[ "${directive_lower}" == "updates" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                UPDATE_CONDA="$value_lower"
             elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"

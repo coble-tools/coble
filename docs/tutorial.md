@@ -9,3 +9,6 @@ https://www.nature.com/articles/s41588-025-02108-2#code-availability). The [tuto
 
 ## CountReg - troubleshooting errors
 CountReg throws some errors on install and this [tutorial](tutorials/countreg.md) takes you though analysing the errors and fixing the recipe input.
+
+## Template - all the options
+This template `cbl` shows all the possible options so you can edit it down to your needs

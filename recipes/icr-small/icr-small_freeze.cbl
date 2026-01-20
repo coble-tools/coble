@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-12
-# Capture time: 12:14:35 GMT
+# Capture date: 2026-01-20
+# Capture time: 22:11:21 GMT
 # Captured by: ralcraft
 
 coble:
@@ -8,14 +8,12 @@ coble:
   - environment: small
 
 channels:
-  - https://repo.anaconda.com/pkgs/r
-  - https://repo.anaconda.com/pkgs/main
   - defaults
-  - r
   - bioconda
   - conda-forge
 
 flags:
+  - compile-paths: true
   - dependencies: false
   - priority: flexible
 
@@ -23,10 +21,15 @@ languages:
   - r-base=4.3.1@conda-forge
   - python=3.13.1@conda-forge
 flags:
-  - export CFLAGS="-I/home/ralcraft/.conda/envs/small/include"
-  - export CXXFLAGS="-I/home/ralcraft/.conda/envs/small/include"
-  - export CPPFLAGS="-I/home/ralcraft/.conda/envs/small/include"
-  - export LDFLAGS="-L/home/ralcraft/.conda/envs/small/lib -Wl,-rpath,/home/ralcraft/.conda/envs/small/lib"
+  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
+  - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
+  - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
+  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
+  - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
+  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/small/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/small/lib"
+  - export: PYTHONNOUSERSITE="1"
 
 conda:
   - binutils=2.40@conda-forge
@@ -96,12 +99,12 @@ conda:
   - libiconv=1.18@conda-forge
   - libjpeg-turbo=3.1.2@conda-forge
   - liblapack=3.11.0@conda-forge
-  - liblzma-devel=5.8.1@conda-forge
-  - liblzma=5.8.1@conda-forge
+  - liblzma-devel=5.8.2@conda-forge
+  - liblzma=5.8.2@conda-forge
   - libmpdec=4.0.0@conda-forge
   - libnghttp2=1.67.0@conda-forge
   - libopenblas=0.3.30@conda-forge
-  - libpng=1.6.53@conda-forge
+  - libpng=1.6.54@conda-forge
   - libsanitizer=13.1.0@conda-forge
   - libsqlite=3.51.2@conda-forge
   - libssh2=1.11.1@conda-forge
@@ -141,12 +144,13 @@ conda:
   - xorg-renderproto=0.11.1@conda-forge
   - xorg-xextproto=7.3.0@conda-forge
   - xorg-xproto=7.0.31@conda-forge
-  - xz-gpl-tools=5.8.1@conda-forge
-  - xz-tools=5.8.1@conda-forge
-  - xz=5.8.1@conda-forge
+  - xz-gpl-tools=5.8.2@conda-forge
+  - xz-tools=5.8.2@conda-forge
+  - xz=5.8.2@conda-forge
   - zstd=1.5.7@conda-forge
 
 r-conda:
+  - biocmanager=1.30.26@conda-forge
   - cli=3.6.5@conda-forge
   - colorspace=2.1_1@conda-forge
   - crayon=1.5.3@conda-forge
@@ -170,6 +174,7 @@ r-conda:
   - pkgconfig=2.0.3@conda-forge
   - r6=2.6.1@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
+  - remotes=2.5.0@conda-forge
   - rlang=1.1.6@conda-forge
   - scales=1.4.0@conda-forge
   - tibble=3.3.0@conda-forge
@@ -179,9 +184,6 @@ r-conda:
   - withr=3.0.2@conda-forge
 
 r-package:
-  - MASS=7.3-60.0.1
-  - Matrix=1.6-5
-  - RColorBrewer=1.1-3
 
 # r-package(unknown source):
 #  - compiler=4.3.1

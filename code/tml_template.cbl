@@ -19,7 +19,7 @@ flags:
   - compile-tools: false # false / 13.1 / true  - installs defaults or specified versions of common libs
   - compile-paths: true # true / false - adds compile tool paths only to conda env (not needed if you have the above)
   - export: VAR1=VALUE1 # sets environment variables within the conda env
-  - updates: false # false / true - whether to update all packages to latest versions automatically DON'T DO THIS!
+  - updates: false # false / true = --no-update-deps / --update-deps or a specific flag string such as "--freeze-installed"
   - alias: conda # sets the conda alias to use - conda / mamba / micromamba a user path etc, only fir the solver eg mamba install
   - ncpus: 4 # number of cpus to use for r package installs
 conda:

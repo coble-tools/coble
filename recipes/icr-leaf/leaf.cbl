@@ -4,9 +4,7 @@
 coble:
   - environment: coble-env-bioinf
 channels:
-# note the reverse order of priority
-  - defaults
-  - r
+# note the reverse order of priority  
   - bioconda
   - conda-forge
 

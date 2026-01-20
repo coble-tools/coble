@@ -4,9 +4,7 @@
 coble:
   - environment: coble-env-basic
 channels:
-# note the reverse order of priority
-  - defaults
-  - r
+# note the reverse order of priority  
   - bioconda
   - conda-forge
 languages:
@@ -16,6 +14,7 @@ flags:
   - dependencies: NA
   - system-tools: False
   - compile-tools: 13.1  
+  - updates: --freeze-installed
 conda:
   - pandas
 r-conda:  
