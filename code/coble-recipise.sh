@@ -319,6 +319,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "export" ]]; then                
                 #echo "export ${value}" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "alias" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 CONDA_ALIAS="$value"
@@ -405,6 +407,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                
                 
                 echo "" >> "$RECIPE_FILE"              
             elif [[ "${directive_lower}" == "compile-paths" ]]; then                
@@ -439,6 +444,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                    echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi
@@ -465,6 +472,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then            
@@ -488,7 +497,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
+                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, upgrade=\"never\")'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else

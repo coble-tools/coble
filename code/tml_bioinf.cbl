@@ -290,13 +290,12 @@ r-url:
 bioc-package:
   - Rsubread
 
-# conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route 
 # leafcutter section
 flags:
-  - export: CXX14FLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
-  - export: CXX17FLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
-  - export: CXXFLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
-  - export: MAKEFLAGS=-j1
+  - export: CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
+  - export: CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
+  - export: CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
+  - export: MAKEFLAGS="-j1"
 conda:
   - tbb<2021
   - tbb-devel<2021
