@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-01-21
-# Capture time: 13:19:14 GMT
+# Capture time: 23:07:19 GMT
 # Captured by: ralcraft
 
 coble:
@@ -35,20 +35,20 @@ conda:
   - binutils=2.40@conda-forge
   - binutils_impl_linux-64=2.40@conda-forge
   - binutils_linux-64=2.40@conda-forge
-  - gcc=13.1.0@conda-forge
-  - gcc_impl_linux-64=13.1.0@conda-forge
-  - gcc_linux-64=13.1.0@conda-forge
-  - gxx=13.1.0@conda-forge
-  - gxx_impl_linux-64=13.1.0@conda-forge
-  - gxx_linux-64=13.1.0@conda-forge
+  - gcc=11.4.0@conda-forge
+  - gcc_impl_linux-64=11.4.0@conda-forge
+  - gcc_linux-64=11.4.0@conda-forge
+  - gxx=11.4.0@conda-forge
+  - gxx_impl_linux-64=11.4.0@conda-forge
+  - gxx_linux-64=11.4.0@conda-forge
   - icu=75.1@conda-forge
   - libcblas=3.11.0@conda-forge
   - libcups=2.3.3@conda-forge
   - libcurl=8.18.0@conda-forge
-  - libgcc-devel_linux-64=13.1.0@conda-forge
+  - libgcc-devel_linux-64=11.4.0@conda-forge
   - libgcc-ng=15.2.0@conda-forge
   - libgcc=15.2.0@conda-forge
-  - libstdcxx-devel_linux-64=13.1.0@conda-forge
+  - libstdcxx-devel_linux-64=11.4.0@conda-forge
   - libstdcxx-ng=15.2.0@conda-forge
   - libstdcxx=15.2.0@conda-forge
   - libzlib=1.3.1@conda-forge
@@ -75,7 +75,7 @@ conda:
   - bwidget=1.10.1@conda-forge
   - bzip2=1.0.8@conda-forge
   - c-ares=1.34.6@conda-forge
-  - c-compiler=1.10.0@conda-forge
+  - c-compiler=1.5.2@conda-forge
   - ca-certificates=2026.1.4@conda-forge
   - cached-property=1.5.2@conda-forge
   - cached_property=1.5.2@conda-forge
@@ -87,7 +87,7 @@ conda:
   - comm=0.2.3@conda-forge
   - cpython=3.14.2@conda-forge
   - curl=8.18.0@conda-forge
-  - cxx-compiler=1.10.0@conda-forge
+  - cxx-compiler=1.5.2@conda-forge
   - cython=3.2.4@conda-forge
   - dav1d=1.2.1@conda-forge
   - dbus=1.16.2@conda-forge
@@ -112,8 +112,8 @@ conda:
   - gdal=3.12.1@conda-forge
   - gdk-pixbuf=2.44.4@conda-forge
   - geos=3.14.1@conda-forge
-  - gfortran_impl_linux-64=13.1.0@conda-forge
-  - gfortran_linux-64=13.1.0@conda-forge
+  - gfortran_impl_linux-64=11.4.0@conda-forge
+  - gfortran_linux-64=11.4.0@conda-forge
   - ghostscript=10.06.0@conda-forge
   - giflib=5.2.2@conda-forge
   - glib-tools=2.86.3@conda-forge
@@ -212,7 +212,7 @@ conda:
   - libprotobuf=6.33.4@conda-forge
   - librsvg=2.60.0@conda-forge
   - librttopo=1.1.0@conda-forge
-  - libsanitizer=13.1.0@conda-forge
+  - libsanitizer=11.4.0@conda-forge
   - libsodium=1.0.20@conda-forge
   - libspatialite=5.1.0@conda-forge
   - libsqlite=3.51.2@conda-forge
@@ -376,7 +376,7 @@ r-conda:
   - colorspace=2.1_2@conda-forge
   - commonmark=2.0.0@conda-forge
   - conflicted=1.2.0@conda-forge
-  - cpp11=0.5.2@conda-forge
+  - cpp11=0.5.3@conda-forge
   - crayon=1.5.3@conda-forge
   - crul=1.6.0@conda-forge
   - data.table=1.17.8@conda-forge
@@ -538,21 +538,50 @@ r-conda:
 
 r-package:
   - BH=1.90.0-1
+  - DT=0.34.0
+  - Formula=1.2-5
+  - Hmisc=5.2-5
   - QuickJSR=1.8.1
+  - R.methodsS3=1.8.2
+  - R.oo=1.27.1
+  - R.utils=2.13.0
   - RcppParallel=5.1.11-1
-  - StanHeaders=2.32.10
+  - StanHeaders=2.21.0-7
+  - TailRank=3.2.4
+  - V8=8.0.1
   - abind=1.4-8
   - checkmate=2.3.3
+  - crosstalk=1.2.2
   - desc=1.4.3
   - distributional=0.6.0
+  - doMC=1.3.8
+  - getopt=1.20.4
   - gridExtra=2.3
+  - htmlTable=2.4.3
   - inline=0.3.21
+  - intervals=0.15.5
   - loo=2.9.0
   - matrixStats=1.5.0
+  - oompaBase=3.2.11
+  - oompaData=3.1.5
+  - optparse=1.7.5
   - pkgbuild=1.4.8
   - posterior=1.6.1
-  - rstan=2.32.7
+  - rstan=2.21.2
+  - rstantools=2.6.0
+  - shinycssloaders=1.1.0
+  - shinyjs=2.1.1
   - tensorA=0.36.2.1
+
+bioc-package:
+  - BiocGenerics=0.56.0
+  - BiocVersion=3.22.0
+  - DirichletMultinomial=1.52.0
+  - IRanges=2.44.0
+  - S4Vectors=0.48.0
+
+r-github:
+  - leafcutter=0.2.9@github@davidaknowles/leafcutter/2c9907ef66adf0bfb3092f0ceb6886ee5c046fbb
 
 # r-package(unknown source):
 #  - compiler=4.5.2

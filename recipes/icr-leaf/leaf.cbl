@@ -15,20 +15,45 @@ flags:
   - system-tools: True
   - compile-tools: 11
   - ncpus: 8    
-  - export: CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
-  - export: CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
-  - export: CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"
-  - export: MAKEFLAGS="-j1"
+  
 conda:
   - tbb<2021
   - tbb-devel<2021    
+
 r-package:
   - RcppEigen
-  - StanHeaders=2.21.0-7
-  - rstan=2.21.2  
+  - RcppParallel  
+  - inline
+  - gridExtra
+  - loo
+  - pkgbuild
+  - V8
+  - BH
+  
+bash:
+# StanHeaders with flags
+CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include" \
+MAKEFLAGS="-j1" \
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/StanHeaders/StanHeaders_2.21.0-7.tar.gz", repos=NULL, type="source")'
+
+# rstan with flags
+CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include" \
+MAKEFLAGS="-j1" \
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/rstan/rstan_2.21.2.tar.gz", repos=NULL, type="source")'
+
 bioc-package:
   - DirichletMultinomial
   - TailRank  
   - Biobase  
-r-github:  
-  - davidaknowles/leafcutter/leafcutter
+
+bash:
+# leafcutter with flags
+CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive" \
+CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include" \
+MAKEFLAGS="-j1" \
+Rscript -e 'remotes::install_github("davidaknowles/leafcutter/leafcutter", upgrade="never", Ncpus=8)'

@@ -497,7 +497,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, upgrade=\"never\")'" >> "$RECIPE_FILE"            
+                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
             elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
