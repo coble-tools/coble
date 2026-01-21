@@ -17,7 +17,7 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: True
-  - compile-tools: 13.1
+  - compile-tools: 11.4
   - ncpus: 8
   
 bash:
@@ -291,14 +291,31 @@ bioc-package:
   - Rsubread
 
 # conda install -c davidaknowles r-leafcutter # FAILED see below for an alternative route 
+# leafcutter section
+flags:
+  - export: CXX14FLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
+  - export: CXX17FLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
+  - export: CXXFLAGS=-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive
+  - export: MAKEFLAGS=-j1
 conda:
   - tbb<2021
   - tbb-devel<2021
 r-package:
-  - rstan
-r-github::
-  - stan-dev/rstantools
+  - RcppEigen
+  - StanHeaders=2.21.0-7
+  - rstan=2.21.2  
+bioc-package:
+  - DirichletMultinomial
+  - TailRank  
+  - Biobase  
+r-github:  
   - davidaknowles/leafcutter/leafcutter
+flags:
+  - export: CXX14FLAGS="-O2 -Wno-ignored-attributes"
+  - export: CXX17FLAGS="-O2 -Wno-ignored-attributes"
+  - export: CXXFLAGS="-O2 -Wno-ignored-attributes"
+bash:
+  - conda env config vars unset MAKEFLAGS
 
 bioc-package:
   - liftOver
@@ -353,8 +370,8 @@ bash:
 
 r-package:
   - clusterSim
-  - clv
 r-url:
+  - https://cran.r-project.org/src/contrib/Archive/clv/clv_0.3-2.5.tar.gz
   - https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip
 
 bioc-package:

@@ -28,6 +28,7 @@ stdout_patterns=(
     "Could not solve for environment specs"
     "Failed to build"     
     "ERROR: compilation failed" 
+    "HTTP error 404"
 )
 error_patterns=(
     "* removing"    
@@ -49,6 +50,7 @@ error_patterns=(
     "Failed to build" 
     "packages failed:"
     "ERROR: compilation failed" 
+    "HTTP error 404"
 )
 done_patterns=(    
     "Successfully installed"
