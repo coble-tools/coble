@@ -62,7 +62,7 @@ while IFS= read -r line; do
     line_over+=("${line}")                    
     if [[ "$line" == "conda activate"* ]]; then        
         echo "$line" >> "$update_recipe"                
-    if [[ "$line" == "conda deactivate"* ]]; then        
+    elif [[ "$line" == "conda deactivate"* ]]; then        
         echo "$line" >> "$update_recipe"                
     elif [[ "$line" == "conda env config"* ]]; then        
         echo "$line" >> "$update_recipe"                

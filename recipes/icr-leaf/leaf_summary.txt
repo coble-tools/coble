@@ -795,3 +795,46 @@ dep: # * DONE (StanHeaders)
 
 [coble-create] Start time: 2026-01-21 21:55:32 82/91
 install: Rscript -e 'remotes::install_version("rstan", version="2.21.2", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=8, upgrade="never")'
+dep: # * DONE (abind)
+dep: # * DONE (tensorA)
+dep: # * DONE (desc)
+dep: # * DONE (gridExtra)
+dep: # * DONE (inline)
+dep: # * DONE (distributional)
+dep: # * DONE (checkmate)
+dep: # * DONE (pkgbuild)
+dep: # * DONE (matrixStats)
+dep: # * DONE (BH)
+dep: # * DONE (posterior)
+dep: # * DONE (loo)
+dep: # * DONE (V8)
+dep: # * DONE (rstan)
+[coble-create] End time: 2026-01-21 21:58:44
+[coble-create] Duration: 192s
+
+[coble-create] Start time: 2026-01-21 21:58:44 84/91
+install: Rscript -e 'BiocManager::install("DirichletMultinomial", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (BiocGenerics)
+dep: # * DONE (S4Vectors)
+dep: # * DONE (IRanges)
+dep: # * DONE (DirichletMultinomial)
+[coble-create] End time: 2026-01-21 21:59:23
+[coble-create] Duration: 39s
+
+[coble-create] Start time: 2026-01-21 21:59:23 86/91
+install: Rscript -e 'BiocManager::install("TailRank", dependencies=NA, Ncpus=8)'
+dep: # * DONE (oompaData)
+dep: # * DONE (oompaBase)
+dep: # * DONE (Biobase)
+dep: # * DONE (TailRank)
+[coble-create] End time: 2026-01-21 21:59:31
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-01-21 21:59:31 88/91
+install: Rscript -e 'BiocManager::install("Biobase", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-01-21 21:59:33
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-01-21 21:59:33 90/91
+install: Rscript -e 'remotes::install_github("davidaknowles/leafcutter/leafcutter", dependencies=NA, Ncpus=8)'
