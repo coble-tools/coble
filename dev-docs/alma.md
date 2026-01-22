@@ -33,6 +33,7 @@ monitor it, open in notepad:
 conda activate ./env-syed
 
 # kick off without rebuild on sbatch
+```bash
 sbatch -o 452/cbl.log -e 452/cbl.err --time 12:00:00 -c 8 --wrap \
 "/data/rds/DIT/SCICOM/SCRSE/shared/apps/coble/code/coble \
 build --recipe 452/bioinf.cbl --env ./env-syed"
