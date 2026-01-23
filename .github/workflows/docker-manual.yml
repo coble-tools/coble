@@ -3,6 +3,10 @@ name: Build and Push Docker Image (Manual)
 on:
   workflow_dispatch:
     inputs:
+      folder:
+        description: 'Name of folder/institution (e.g. utils, icr...)'
+        required: true
+        default: 'utils'
       cbl:
         description: 'Name of cbl to build (e.g. small)'
         required: true
@@ -27,7 +31,7 @@ jobs:
 
       - name: Build Dockerfile with coble
         run: |
-          bash code/coble build --recipe recipes/${{ github.event.inputs.cbl }}/${{ github.event.inputs.cbl }}.cbl --env ${{ github.event.inputs.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.cbl }}
+          bash code/coble build --recipe recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}.cbl --env ${{ github.event.inputs.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.cbl }}-${{ github.event.inputs.cbl }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.cbl }}
