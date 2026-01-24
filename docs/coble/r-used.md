@@ -73,7 +73,7 @@ install_url(
 ## remotes::install_github
 [CRAN: install_github doc](https://remotes.r-lib.org/reference/install_github.html)
 <details>
-<summary>install_github/summary>
+<summary>install_github</summary>
 
 ```bash
 install_github(
@@ -115,3 +115,5 @@ install(
 )
 ```
 </details>
+
+
