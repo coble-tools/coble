@@ -126,6 +126,8 @@ echo "  CBL_FILE: $YAML_FILE" >&2
 echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
+UPDATE_R="never"
+UPDATE_BIOC="FALSE"
 NCPUS="4"
 DEPS_CONDA=""
 DEPS_PYTHON=""
@@ -323,10 +325,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "alias" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                CONDA_ALIAS="$value"
-            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                UPDATE_CONDA=""                
+                CONDA_ALIAS="$value"            
             elif [[ "${directive_lower}" == "ncpus" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 NCPUS="$value"                
@@ -337,13 +336,22 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} config --env --add channels $value" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                UPDATE_CONDA="--no-update-deps"                
+                UPDATE_CONDA="--no-update-deps"    
+                UPDATE_R="never"
+                UPDATE_BIOC="FALSE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--update-deps"
+                UPDATE_R="always"
+                UPDATE_BIOC="TRUE"
+            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "default" ]]; then
+                echo "# R Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                # don't do anything to conda
+                UPDATE_R="default"
             elif [[ "${directive_lower}" == "updates" ]]; then
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                echo "# Conda Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="$value_lower"
+                # don't do anything to R                
             elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
@@ -497,7 +505,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
+                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
@@ -505,19 +513,19 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         elif [[ "$CURRENT_SECTION" == "r-github:"* || "$CURRENT_SECTION" == "github-r:"* ]]; then
             if [[ -n "$src" ]]; then
-                echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'remotes::install_github(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_github(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-url:"* ]]; then
             if [[ -n "$src" ]]; then
-                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_BIOC\", ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'

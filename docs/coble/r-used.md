@@ -1,6 +1,27 @@
 # R Functions used by COBLE
 
-The COBLE directives translate into r functions that can be controlled by flags. These are the funcitons used, how they are called and how they can be controlled.
+The COBLE directives translate into r functions that can be controlled by flags. These are the functions used, how they are called and how they can be controlled.
+
+## Flag control
+```yaml
+flags:
+  dependencies: NA   # NA / TRUE / FALSE
+  ncpus: 4           # number of parallel cpus in solvers
+  updates: never     # never / always / default
+```
+The flags default as shown here, or can be set - usually they are set at the beginning globally for all installs. If you want to change them for any given commands set them and then set them back, so have a flags section before and after the package section.  
+
+It is of course always possible to use a direct bash command if finer control is needed.
+```yaml
+bash:
+CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  \
+CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  \
+CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include"  \
+MAKEFLAGS="-j1"  \
+Rscript -e 'remotes::install_github("davidaknowles/leafcutter/leafcutter", upgrade="never", Ncpus=8)'
+```
+
+
 
 ## install.packages
 [CRAN: install.packages doc](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/install.packages.html)
@@ -20,6 +41,10 @@ install.packages(pkgs, lib, repos = getOption("repos"),
                  keep_outputs = FALSE, ...)
 ```
 </details>
+```bash
+Rscript -e 'install.packages("gdata", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=8)'
+```
+
 
 ## remotes::install_version
 [CRAN: install_version doc](https://remotes.r-lib.org/reference/install_version.html)
@@ -68,6 +93,17 @@ install_url(
 )
 ```
 </details>
+Note that @ activates the subdir param if it is needed.
+r-url:
+  - https://github.com/xmc811/Scillus/archive/refs/heads/development.zip
+  - https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip@ASCAT
+```
+
+```bash
+install: Rscript -e 'remotes::install_url("https://github.com/xmc811/Scillus/archive/refs/heads/development.zip", dependencies=NA, Ncpus=8)'
+
+install: Rscript -e 'remotes::install_url("https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip", dependencies=NA, subdir="ASCAT", Ncpus=8)'
+```
 
 
 ## remotes::install_github
