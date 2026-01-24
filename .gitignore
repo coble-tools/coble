@@ -53,6 +53,7 @@ recipes/**
 !recipes/**/*.cbl
 !recipes/**/.dockerhub
 !recipes/**/*_summary.txt
+!recipes/**/*_dependencies.txt
 
 cbl-icr-small.sif
 cbl-carbine.sif

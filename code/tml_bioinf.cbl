@@ -15,9 +15,10 @@ languages:
   - python=3.14.0@conda-forge
 
 flags:
-  - dependencies: NA
+  - dependencies: NA   
   - system-tools: True
   - compile-tools: 11.4
+  - network-viz: true
   - ncpus: 8
   
 bash:
@@ -451,7 +452,10 @@ bioc-package:
 r-url:
   - https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip
   - https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip
-  - https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip
+bash:
+  - Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip", dependencies=NA, Ncpus=8, upgrade="never")'
+  
+
 r-package:
   - ISOpureR
   - DiffCorr

@@ -18,6 +18,7 @@ flags:
   - system-tools: false # some common system tools e.g. devtools BiocManager, remotes
   - compile-tools: false # false / 13.1 / true  - installs defaults or specified versions of common libs
   - compile-paths: true # true / false - adds compile tool paths only to conda env (not needed if you have the above)
+  - network-viz: true # true / false - installs R packages for network visualisation of R package dependencies
   - export: VAR1=VALUE1 # sets environment variables within the conda env
   - updates: false # false / true = --no-update-deps / --update-deps or a specific flag string such as "--freeze-installed"
   - alias: conda # sets the conda alias to use - conda / mamba / micromamba a user path etc, only fir the solver eg mamba install

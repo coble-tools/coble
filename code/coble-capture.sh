@@ -22,6 +22,7 @@ ENV_INPUT=""
 RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
+DEPS_TXT=""
 HAS_R=0
 
 show_help() {
@@ -106,6 +107,10 @@ else
     conda activate $ENV_INPUT
 fi
 
+DEPS_TXT="${RESULTS_DIR}/${ENV_NAME}_dependencies.txt"
+# empty the deps txt file
+rm -rf "$DEPS_TXT"
+
 echo "[coble-freeze] Using conda environment argument: $ENV_FORMATTED"
 
 # Define output filenames
@@ -116,6 +121,8 @@ TMP_R_PACKAGES_TXT="$RESULTS_DIR/coble_tmp_r-packages-$ENV_NAME.txt"
 TMP_AGGREGATE="$RESULTS_DIR/coble_tmp_coble-captured-$ENV_NAME.tmp"
 TMP_SORTED1="$RESULTS_DIR/coble_tmp_coble-captured-sorted1-$ENV_NAME.tmp"
 TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted2-$ENV_NAME.tmp"
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "[coble-freeze] Running: conda list $ENV_FORMATTED" >&2
 conda list $ENV_FORMATTED --show-channel-urls> "$TMP_CONDA_LIST_TXT"
@@ -137,8 +144,7 @@ echo "[coble-freeze] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACK
 # if Rscript is in the environment, run the Rscript to get package info
 if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
 	echo "    R is not available in conda environment" >&2
-else    
-	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else    	
 	RSCRIPT="$script_dir/coble-capture-r.R"
 	if conda run $ENV_FORMATTED Rscript "$RSCRIPT" "$TMP_R_PACKAGES_TXT"; then
         echo "R script completed successfully"
@@ -421,9 +427,15 @@ while IFS=$'\t' read -r manager pkg src path; do
 		echo -e "" >> "$AGGREGATE_TXT"		
         echo -e "$manager:" >> "$AGGREGATE_TXT"
 		current_manager="$manager"		
-	fi
-	if [[ HAS_R -eq 0 && ( "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ) ]]; then        
-        continue
+	fi	
+	if [[ "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ]]; then        
+        if [[ HAS_R -eq 0 ]]; then        
+		    continue
+		else
+			# run the code/coble-capture-r.R script to get the package source			
+			pkg_name="${pkg%%=*}"
+			"$script_dir/coble-deps-r.R" "$pkg_name" -o "$DEPS_TXT"										
+		fi
     fi    
 	outline=""	
     if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" || "$src" == "pip" ]]; then
@@ -431,7 +443,9 @@ while IFS=$'\t' read -r manager pkg src path; do
 	elif [[ -n "$path" ]]; then
 		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"        
 	elif [[ "$src" == *"System/Manual"* ]]; then        
-        my_find_list+=("$pkg")        
+        my_find_list+=("$pkg")		
+		pkg_name="${pkg%%=*}"
+		"$script_dir/coble-deps-r.R" "$pkg_name" -o "$DEPS_TXT"										
     else
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"        
 	fi
@@ -442,7 +456,7 @@ if [[ ${#my_find_list[@]} -gt 0 ]]; then
     echo "" >> "$AGGREGATE_TXT"
     echo "# r-package(unknown source):" >> "$AGGREGATE_TXT"
     for pkg in "${my_find_list[@]}"; do
-        echo "#  - $pkg" >> "$AGGREGATE_TXT"
+        echo "#  - $pkg" >> "$AGGREGATE_TXT"		
     done
 fi
 
@@ -463,6 +477,9 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "  $TMP_SORTED" >&2
     echo "  $TMP_AGGREGATE" >&2
 fi
+
+# Now create the network viz
+"$script_dir/coble-viz.R" "$DEPS_TXT" --output-path "$(dirname "$AGGREGATE_TXT")" --output-prefix "${ENV_NAME}_network"
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 

@@ -126,8 +126,8 @@ echo "  CBL_FILE: $YAML_FILE" >&2
 echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
-UPDATE_R="never"
-UPDATE_BIOC="FALSE"
+UPDATE_R="default"
+UPDATE_BIOC="TRUE"
 NCPUS="4"
 DEPS_CONDA=""
 DEPS_PYTHON=""
@@ -352,6 +352,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Conda Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="$value_lower"
                 # don't do anything to R                
+            
+            elif [[ "${directive_lower}" == "network-viz" && "${value_lower}" == "true" ]]; then                
+                echo "# Tools for network graph of r-packages" >> "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-tidyverse r-visnetwork r-igraph r-ggraph" >>  "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"            
+                                                
             elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
@@ -525,7 +531,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=$UPDATE_BIOC, ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=$UPDATE_BIOC, ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'

@@ -13,8 +13,8 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: False
-  - compile-tools: 13.1  
-  - updates: --freeze-installed
+  - compile-tools: 13.1    
+  - network-viz: true
 conda:
   - pandas
 r-conda:  

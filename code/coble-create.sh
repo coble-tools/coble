@@ -109,7 +109,7 @@ LOG_FILE="${root_file}.log"
 ERROR_FILE="${root_file}.err"
 TIME_FILE="${root_file}_summary.txt"
 RECIPE_DONE_FILE="${root_file}.done"
-
+RECIPE_DEP_FILE="${root_file}_dep.txt"
 # Clear previous log file and tike file
 : > "$LOG_FILE"
 : > "$ERROR_FILE"

@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-23
-# Capture time: 12:50:11 GMT
+# Capture date: 2026-01-24
+# Capture time: 18:03:54 GMT
 # Captured by: ralcraft
 
 coble:
@@ -21,13 +21,13 @@ languages:
   - r-base=4.5.2@conda-forge
   - python=3.14.2@conda-forge
 flags:
-  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
+  - export: CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
   - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
   - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
-  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
+  - export: CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
   - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
-  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
   - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/small/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/small/lib"
   - export: PYTHONNOUSERSITE="1"
 
@@ -69,6 +69,8 @@ conda:
   - fribidi=1.0.16@conda-forge
   - gfortran_impl_linux-64=13.1.0@conda-forge
   - gfortran_linux-64=13.1.0@conda-forge
+  - glpk=5.0@conda-forge
+  - gmp=6.3.0@conda-forge
   - graphite2=1.3.14@conda-forge
   - gsl=2.7@conda-forge
   - harfbuzz=12.2.0@conda-forge
@@ -104,11 +106,14 @@ conda:
   - libtiff=4.7.1@conda-forge
   - libuuid=2.41.3@conda-forge
   - libxcb=1.17.0@conda-forge
+  - libxml2-16=2.15.1@conda-forge
+  - libxml2=2.15.1@conda-forge
   - make=4.4.1@conda-forge
   - ncurses=6.5@conda-forge
   - numpy=2.4.1@conda-forge
   - openssl=3.6.0@conda-forge
   - pandas=3.0.0@conda-forge
+  - pandoc=3.8.3@conda-forge
   - pango=1.56.4@conda-forge
   - pcre2=10.47@conda-forge
   - pip=25.3@conda-forge
@@ -134,39 +139,82 @@ conda:
   - zstd=1.5.7@conda-forge
 
 r-conda:
+  - askpass=1.2.1@conda-forge
+  - assertthat=0.2.1@conda-forge
+  - backports=1.5.0@conda-forge
+  - base64enc=0.1_3@conda-forge
+  - bit64=4.6.0_1@conda-forge
+  - bit=4.6.0@conda-forge
+  - blob=1.3.0@conda-forge
+  - broom=1.0.11@conda-forge
+  - bslib=0.9.0@conda-forge
+  - cachem=1.1.0@conda-forge
+  - callr=3.7.6@conda-forge
+  - cellranger=1.1.0@conda-forge
   - cli=3.6.5@conda-forge
+  - clipr=0.8.0@conda-forge
   - colorspace=2.1_2@conda-forge
+  - conflicted=1.2.0@conda-forge
   - cpp11=0.5.3@conda-forge
+  - crayon=1.5.3@conda-forge
+  - data.table=1.17.8@conda-forge
+  - dbi=1.2.3@conda-forge
+  - dbplyr=2.5.1@conda-forge
+  - digest=0.6.39@conda-forge
+  - dplyr=1.1.4@conda-forge
+  - dtplyr=1.3.2@conda-forge
+  - ellipsis=0.3.2@conda-forge
+  - evaluate=1.0.5@conda-forge
+  - fansi=1.0.7@conda-forge
   - farver=2.1.2@conda-forge
+  - fastmap=1.2.0@conda-forge
+  - fontawesome=0.5.3@conda-forge
+  - forcats=1.0.1@conda-forge
+  - fs=1.6.6@conda-forge
+  - gargle=1.6.0@conda-forge
+  - generics=0.1.4@conda-forge
+  - ggforce=0.5.0@conda-forge
   - ggplot2=4.0.1@conda-forge
+  - ggraph=2.2.2@conda-forge
+  - ggrepel=0.9.6@conda-forge
   - glue=1.8.0@conda-forge
+  - googledrive=2.1.2@conda-forge
+  - googlesheets4=1.1.2@conda-forge
+  - graphlayouts=1.2.2@conda-forge
+  - gridextra=2.3@conda-forge
   - gtable=0.3.6@conda-forge
+  - haven=2.5.5@conda-forge
+  - highr=0.11@conda-forge
+  - hms=1.1.4@conda-forge
+  - htmltools=0.5.9@conda-forge
+  - htmlwidgets=1.6.4@conda-forge
+  - httr=1.4.7@conda-forge
+  - ids=1.0.1@conda-forge
+  - igraph=2.1.4@conda-forge
   - isoband=0.3.0@conda-forge
+  - jquerylib=0.1.4@conda-forge
+  - jsonlite=2.0.0@conda-forge
+  - knitr=1.51@conda-forge
   - labeling=0.4.3@conda-forge
+  - lattice=0.22_7@conda-forge
   - lifecycle=1.0.5@conda-forge
+  - lubridate=1.9.4@conda-forge
+  - magrittr=2.0.4@conda-forge
+  - mass=7.3_65@conda-forge
+  - matrix=1.7_4@conda-forge
+  - memoise=2.0.1@conda-forge
+  - mime=0.13@conda-forge
+  - modelr=0.1.11@conda-forge
   - munsell=0.5.1@conda-forge
+  - pillar=1.11.1@conda-forge
+  - pkgconfig=2.0.3@conda-forge
+  - polyclip=1.10_7@conda-forge
+  - prettyunits=1.2.0@conda-forge
+  - processx=3.8.6@conda-forge
+  - progress=1.2.3@conda-forge
+  - ps=1.9.1@conda-forge
+  - purrr=1.2.1@conda-forge
   - r6=2.6.1@conda-forge
+  - ragg=1.5.0@conda-forge
+  - rappdirs=0.3.4@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
-  - rlang=1.1.7@conda-forge
-  - s7=0.2.1@conda-forge
-  - scales=1.4.0@conda-forge
-  - vctrs=0.6.5@conda-forge
-  - viridislite=0.4.2@conda-forge
-  - withr=3.0.2@conda-forge
-
-r-package:
-
-# r-package(unknown source):
-#  - compiler=4.5.2
-#  - datasets=4.5.2
-#  - grDevices=4.5.2
-#  - graphics=4.5.2
-#  - grid=4.5.2
-#  - methods=4.5.2
-#  - parallel=4.5.2
-#  - splines=4.5.2
-#  - stats4=4.5.2
-#  - stats=4.5.2
-#  - tcltk=4.5.2
-#  - tools=4.5.2
-#  - utils=4.5.2
