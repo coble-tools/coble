@@ -17,7 +17,7 @@ git pull
 cd /data/scratch/DCO/DIGOPS/SCIENCOM/ralcraft/DEV/CBL
 
 # get new template
-tag=v2
+tag=v3
 /data/rds/DIT/SCICOM/SCRSE/shared/apps/coble/code/coble \
   template --recipe 452${tag}/bioinf.cbl --flavour bioinf
 

@@ -525,7 +525,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_BIOC\", ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=$UPDATE_BIOC, ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
