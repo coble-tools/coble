@@ -67,6 +67,7 @@ nav:
     - Outputs-anatomy: coble/outputs.md
     - Finding-packages: coble/finding.md
     - Workflow: coble/workflow.md
+    - Libraries: coble/libraries.md
     - icr-cluster: coble/icr.md
     - hpc-cluster: coble/hpc.md    
   - Recipes:
