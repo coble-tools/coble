@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-23
-# Capture time: 12:14:17 GMT
+# Capture date: 2026-01-24
+# Capture time: 20:29:18 GMT
 # Captured by: ralcraft
 
 coble:
@@ -146,7 +146,7 @@ conda:
   - jupyter_events=0.12.0@conda-forge
   - jupyter_server=2.17.0@conda-forge
   - jupyter_server_terminals=0.5.4@conda-forge
-  - jupyterlab=4.5.2@conda-forge
+  - jupyterlab=4.5.3@conda-forge
   - jupyterlab_pygments=0.3.0@conda-forge
   - jupyterlab_server=2.28.0@conda-forge
   - jupyterlab_widgets=3.0.16@conda-forge
@@ -159,7 +159,7 @@ conda:
   - ld_impl_linux-64=2.45@conda-forge
   - lerc=4.0.0@conda-forge
   - libabseil=20240722.0@conda-forge
-  - libaec=1.1.4@conda-forge
+  - libaec=1.1.5@conda-forge
   - libarrow-acero=19.0.1@conda-forge
   - libarrow-dataset=19.0.1@conda-forge
   - libarrow-substrait=19.0.1@conda-forge
@@ -307,7 +307,7 @@ conda:
   - sniffio=1.3.1@conda-forge
   - soupsieve=2.8.3@conda-forge
   - stack_data=0.6.3@conda-forge
-  - streamlit=1.53.0@conda-forge
+  - streamlit=1.53.1@conda-forge
   - tenacity=9.1.2@conda-forge
   - tensorboard-data-server=0.7.0@conda-forge
   - tensorboard=2.18.0@conda-forge

@@ -1,115 +1,185 @@
 package	version	date	location	dependencies
-curl	7.0.0		CRAN	
-glpk	ARCHIVED		CRAN-ARCHIVED	
-gmp	0.7-5		CRAN	methods
-gsl	2.1-9		CRAN	
-libdeflate	1.24-7		CRAN	
-openssl	2.3.4		CRAN	askpass
-pandoc	0.2.0		CRAN	fs,rappdirs,rlang
 askpass	1.2.1		CRAN	sys
 assertthat	0.2.1		CRAN	tools
 backports	1.5.0		CRAN	
 base64enc	0.1-3		CRAN	
+biocmanager	NA		NOT-FOUND	
 bit64	4.6.0-1		CRAN	bit,graphics,methods,stats,utils
 bit	4.6.0		CRAN	
 blob	1.3.0		CRAN	methods,rlang,vctrs
+boot	1.3-32		CRAN	graphics,stats
 broom	1.0.11		CRAN	backports,cli,dplyr,generics,glue,lifecycle,purrr,rlang,stringr,tibble,tidyr
 bslib	0.9.0		CRAN	base64enc,cachem,fastmap,grDevices,htmltools,jquerylib,jsonlite,lifecycle,memoise,mime,rlang,sass
 cachem	1.1.0		CRAN	rlang,fastmap
 callr	3.7.6		CRAN	processx,R6,utils
+caret	7.0-1		CRAN	ggplot2,lattice,e1071,foreach,grDevices,methods,ModelMetrics,nlme,plyr,pROC,recipes,reshape2,stats,stats4,utils,withr
 cellranger	1.1.0		CRAN	rematch,tibble
+class	7.3-23		CRAN	stats,utils,MASS
 cli	3.6.5		CRAN	utils
 clipr	0.8.0		CRAN	utils
+clock	0.7.4		CRAN	cli,lifecycle,rlang,tzdb,vctrs,cpp11
+cluster	2.1.8.1		CRAN	graphics,grDevices,stats,utils
+codetools	0.2-20		CRAN	
 colorspace	2.1-2		CRAN	methods,graphics,grDevices,stats
+commonmark	2.0.0		CRAN	
 conflicted	1.2.0		CRAN	cli,memoise,rlang
 cpp11	0.5.3		CRAN	
 crayon	1.5.3		CRAN	grDevices,methods,utils
+crul	1.6.0		CRAN	curl,R6,urltools,httpcode,jsonlite,mime,rlang,lifecycle
 data.table	1.18.0		CRAN	methods
+dbi	NA		NOT-FOUND	
 dbplyr	2.5.1		CRAN	blob,cli,DBI,dplyr,glue,lifecycle,magrittr,methods,pillar,purrr,R6,rlang,tibble,tidyr,tidyselect,utils,vctrs,withr
+diagram	1.6.5		CRAN	shape,stats,graphics
 digest	0.6.39		CRAN	utils
 dplyr	1.1.4		CRAN	cli,generics,glue,lifecycle,magrittr,methods,pillar,R6,rlang,tibble,tidyselect,utils,vctrs
 dtplyr	1.3.2		CRAN	cli,data.table,dplyr,glue,lifecycle,rlang,tibble,tidyselect,vctrs
+e1071	1.7-17		CRAN	graphics,grDevices,class,stats,methods,utils,proxy
 ellipsis	0.3.2		CRAN	rlang
+essentials	ARCHIVED		CRAN-ARCHIVED	
 evaluate	1.0.5		CRAN	
 fansi	1.0.7		CRAN	grDevices,utils
 farver	2.1.2		CRAN	
 fastmap	1.2.0		CRAN	
 fontawesome	0.5.3		CRAN	rlang,htmltools
 forcats	1.0.1		CRAN	cli,glue,lifecycle,magrittr,rlang,tibble
+foreach	1.5.2		CRAN	codetools,utils,iterators
+foreign	0.8-90		CRAN	methods,utils,stats
+formatr	NA		NOT-FOUND	
 fs	1.6.6		CRAN	methods
+future.apply	1.20.1		CRAN	future,globals,parallel,utils
+future	1.69.0		CRAN	digest,globals,listenv,parallel,parallelly,utils
 gargle	1.6.0		CRAN	cli,fs,glue,httr,jsonlite,lifecycle,openssl,rappdirs,rlang,stats,utils,withr
 generics	0.1.4		CRAN	methods
-ggforce	0.5.0		CRAN	ggplot2,grid,scales,MASS,tweenr,gtable,rlang,polyclip,stats,grDevices,tidyselect,withr,utils,lifecycle,cli,vctrs,systemfonts,cpp11
 ggplot2	4.0.1		CRAN	cli,grDevices,grid,gtable,isoband,lifecycle,rlang,S7,scales,stats,vctrs,withr
-ggraph	2.2.2		CRAN	ggplot2,dplyr,ggforce,grid,igraph,scales,MASS,ggrepel,utils,stats,viridis,rlang,tidygraph,graphlayouts,withr,cli,vctrs,lifecycle,memoise,cpp11
-ggrepel	0.9.6		CRAN	ggplot2,grid,Rcpp,rlang,scales,withr
+gistr	0.9.0		CRAN	jsonlite,crul,httr,magrittr,assertthat,knitr,rmarkdown,dplyr
+glmnet	4.1-10		CRAN	Matrix,methods,utils,foreach,shape,survival,Rcpp,RcppEigen
+globals	0.18.0		CRAN	codetools
 glue	1.8.0		CRAN	methods
 googledrive	2.1.2		CRAN	cli,gargle,glue,httr,jsonlite,lifecycle,magrittr,pillar,purrr,rlang,tibble,utils,uuid,vctrs,withr
 googlesheets4	1.1.2		CRAN	cellranger,cli,curl,gargle,glue,googledrive,httr,ids,lifecycle,magrittr,methods,purrr,rematch2,rlang,tibble,utils,vctrs,withr
-graphlayouts	1.2.2		CRAN	igraph,Rcpp,RcppArmadillo
+gower	1.0.2		CRAN	
 gtable	0.3.6		CRAN	cli,glue,grid,lifecycle,rlang,stats
+hardhat	1.4.2		CRAN	cli,glue,rlang,sparsevctrs,tibble,vctrs
 haven	2.5.5		CRAN	cli,forcats,hms,lifecycle,methods,readr,rlang,tibble,tidyselect,vctrs,cpp11
+hexbin	1.28.5		CRAN	methods,lattice,grid,graphics,grDevices,stats,utils
 highr	0.11		CRAN	xfun
 hms	1.1.4		CRAN	cli,lifecycle,methods,pkgconfig,rlang,vctrs
 htmltools	0.5.9		CRAN	base64enc,digest,fastmap,grDevices,rlang,utils
 htmlwidgets	1.6.4		CRAN	grDevices,htmltools,jsonlite,knitr,rmarkdown,yaml
+httpcode	0.3.0		CRAN	
+httpuv	1.6.16		CRAN	later,promises,R6,Rcpp,utils
 httr	1.4.7		CRAN	curl,jsonlite,mime,openssl,R6
 ids	1.0.1		CRAN	openssl,uuid
-igraph	2.2.1		CRAN	methods,cli,graphics,grDevices,lifecycle,magrittr,Matrix,pkgconfig,rlang,stats,utils,vctrs,cpp11
+ipred	0.9-15		CRAN	rpart,MASS,survival,nnet,class,prodlim
+irdisplay	NA		NOT-FOUND	
+irkernel	NA		NOT-FOUND	
 isoband	0.3.0		CRAN	cli,grid,rlang,utils,cpp11
+iterators	1.0.14		CRAN	utils
 jquerylib	0.1.4		CRAN	htmltools
 jsonlite	2.0.0		CRAN	methods
+kernsmooth	NA		NOT-FOUND	
 knitr	1.51		CRAN	evaluate,highr,methods,tools,xfun,yaml
 labeling	0.4.3		CRAN	stats,graphics
+later	1.4.5		CRAN	Rcpp,rlang
 lattice	0.22-7		CRAN	grid,grDevices,graphics,stats,utils
+lava	1.8.2		CRAN	cli,future.apply,graphics,grDevices,methods,numDeriv,progressr,stats,survival,SQUAREM,utils
+lazyeval	0.2.2		CRAN	
 lifecycle	1.0.5		CRAN	cli,rlang
+listenv	0.10.0		CRAN	
+lobstr	1.1.3		CRAN	crayon,methods,prettyunits,rlang,cpp11
 lubridate	1.9.4		CRAN	methods,generics,timechange
 magrittr	2.0.4		CRAN	
+maps	3.4.3		CRAN	graphics,utils
+mass	NA		NOT-FOUND	
+matrix	NA		NOT-FOUND	
 memoise	2.0.1		CRAN	rlang,cachem
+mgcv	1.9-4		CRAN	nlme,methods,stats,graphics,Matrix,splines,utils
 mime	0.13		CRAN	tools
+modelmetrics	NA		NOT-FOUND	
 modelr	0.1.11		CRAN	broom,magrittr,purrr,rlang,tibble,tidyr,tidyselect,vctrs
 munsell	0.5.1		CRAN	colorspace,methods
+nlme	3.1-168		CRAN	graphics,stats,utils,lattice
+nnet	7.3-20		CRAN	stats,utils
+numderiv	NA		NOT-FOUND	
+otel	0.2.0		CRAN	
+parallelly	1.46.1		CRAN	parallel,tools,utils
+pbdzmq	NA		NOT-FOUND	
 pillar	1.11.1		CRAN	cli,glue,lifecycle,rlang,utf8,utils,vctrs
 pkgconfig	2.0.3		CRAN	utils
-polyclip	1.10-7		CRAN	
+plogr	0.2.0		CRAN	
+plyr	1.8.9		CRAN	Rcpp
 prettyunits	1.2.0		CRAN	
+proc	NA		NOT-FOUND	
 processx	3.8.6		CRAN	ps,R6,utils
+prodlim	2025.04.28		CRAN	Rcpp,stats,rlang,data.table,grDevices,ggplot2,graphics,diagram,survival,KernSmooth,lava
 progress	1.2.3		CRAN	crayon,hms,prettyunits,R6
+progressr	0.18.0		CRAN	digest,utils
+promises	1.5.0		CRAN	fastmap,later,lifecycle,magrittr,otel,R6,rlang
+proxy	0.4-29		CRAN	stats,utils
+pryr	0.1.6		CRAN	codetools,lobstr,methods,Rcpp,stringr
 ps	1.9.1		CRAN	utils
 purrr	1.2.1		CRAN	cli,lifecycle,magrittr,rlang,vctrs
+quantmod	0.4.28		CRAN	xts,zoo,TTR,methods,curl,jsonlite
+r6	NA		NOT-FOUND	
 ragg	1.5.0		CRAN	systemfonts,textshaping
+randomforest	NA		NOT-FOUND	
 rappdirs	0.3.4		CRAN	
+rbokeh	0.5.2	2021-08-04 00:40:02 UTC	CRAN-ARCHIVED	htmlwidgets (>= 0.5), maps, methods, jsonlite, digest, hexbin,
+lazyeval, pryr, magrittr, scales, gistr
+rcolorbrewer	NA		NOT-FOUND	
+rcpp	NA		NOT-FOUND	
+rcppeigen	NA		NOT-FOUND	
 readr	2.1.6		CRAN	cli,clipr,crayon,hms,lifecycle,methods,R6,rlang,tibble,utils,vroom,cpp11,tzdb
 readxl	1.4.5		CRAN	cellranger,tibble,utils,cpp11,progress
+recipes	1.3.1		CRAN	dplyr,cli,clock,generics,glue,gower,hardhat,ipred,lifecycle,lubridate,magrittr,Matrix,purrr,rlang,sparsevctrs,stats,tibble,tidyr,tidyselect,timeDate,utils,vctrs,withr
+recommended	NA		NOT-FOUND	
 rematch2	2.1.2		CRAN	tibble
 rematch	2.0.0		CRAN	
+remotes	2.5.0		CRAN	methods,stats,tools,utils
+repr	1.1.7		CRAN	utils,grDevices,htmltools,jsonlite,pillar,base64enc
 reprex	2.1.1		CRAN	callr,cli,clipr,fs,glue,knitr,lifecycle,rlang,rmarkdown,rstudioapi,utils,withr
+reshape2	1.4.5		CRAN	plyr,Rcpp,stringr
 rlang	1.1.7		CRAN	utils
 rmarkdown	2.30		CRAN	bslib,evaluate,fontawesome,htmltools,jquerylib,jsonlite,knitr,methods,tinytex,tools,utils,xfun,yaml
+rpart	4.1.24		CRAN	graphics,stats,grDevices
+rsqlite	NA		NOT-FOUND	
 rstudioapi	0.18.0		CRAN	
+rsvg	2.7.0		CRAN	
 rvest	1.0.5		CRAN	cli,glue,httr,lifecycle,magrittr,rlang,selectr,tibble,xml2
+s7	NA		NOT-FOUND	
 sass	0.4.10		CRAN	fs,rlang,htmltools,R6,rappdirs
 scales	1.4.0		CRAN	cli,farver,glue,labeling,lifecycle,R6,RColorBrewer,rlang,viridisLite
 selectr	0.5-1		CRAN	methods,stringr,R6
+shape	1.4.6.1		CRAN	stats,graphics,grDevices
+shiny	1.12.1		CRAN	methods,bslib,cachem,cli,commonmark,fastmap,fontawesome,glue,grDevices,htmltools,httpuv,jsonlite,later,lifecycle,mime,otel,promises,R6,rlang,sourcetools,tools,utils,withr,xtable
+sourcetools	0.1.7-1		CRAN	
+sparsevctrs	0.3.5		CRAN	cli,rlang,vctrs
+spatial	7.3-18		CRAN	graphics,stats,utils
+squarem	NA		NOT-FOUND	
 stringi	1.8.7		CRAN	tools,utils,stats
 stringr	1.6.0		CRAN	cli,glue,lifecycle,magrittr,rlang,stringi,vctrs
+survival	3.8-6		CRAN	graphics,Matrix,methods,splines,stats,utils
 sys	3.4.3		CRAN	
 textshaping	1.0.4		CRAN	lifecycle,stats,stringi,systemfonts,utils,cpp11
 tibble	3.3.1		CRAN	cli,lifecycle,magrittr,methods,pillar,pkgconfig,rlang,utils,vctrs
-tidygraph	1.3.1		CRAN	cli,dplyr,igraph,lifecycle,magrittr,pillar,R6,rlang,stats,tibble,tidyr,tools,utils,cpp11
 tidyr	1.3.2		CRAN	cli,dplyr,glue,lifecycle,magrittr,purrr,rlang,stringr,tibble,tidyselect,utils,vctrs,cpp11
 tidyselect	1.2.1		CRAN	cli,glue,lifecycle,rlang,vctrs,withr
 tidyverse	2.0.0		CRAN	broom,conflicted,cli,dbplyr,dplyr,dtplyr,forcats,ggplot2,googledrive,googlesheets4,haven,hms,httr,jsonlite,lubridate,magrittr,modelr,pillar,purrr,ragg,readr,readxl,reprex,rlang,rstudioapi,rvest,stringr,tibble,tidyr,xml2
 timechange	0.3.0		CRAN	cpp11
+timedate	NA		NOT-FOUND	
 tinytex	0.58		CRAN	xfun
-tweenr	2.0.3		CRAN	farver,magrittr,rlang,vctrs,cpp11
+triebeard	0.4.1		CRAN	Rcpp
+ttr	NA		NOT-FOUND	
 tzdb	0.5.0		CRAN	cpp11
+urltools	1.7.3.1		CRAN	Rcpp,methods,triebeard
 utf8	1.2.6		CRAN	
 uuid	1.2-2		CRAN	
 vctrs	0.7.1		CRAN	cli,glue,lifecycle,rlang
-viridis	0.6.5		CRAN	viridisLite,ggplot2,gridExtra
+viridislite	NA		NOT-FOUND	
 vroom	1.6.7		CRAN	bit64,cli,crayon,glue,hms,lifecycle,methods,rlang,stats,tibble,tidyselect,tzdb,vctrs,withr,cpp11,progress
 withr	3.0.2		CRAN	graphics,grDevices
 xfun	0.56		CRAN	grDevices,stats,tools
 xml2	1.5.2		CRAN	cli,methods,rlang
-yaml	2.3.12		CRAN	
+xtable	1.8-4		CRAN	stats,utils
+xts	0.14.1		CRAN	zoo,methods
+zoo	1.8-15		CRAN	stats,utils,graphics,grDevices,lattice

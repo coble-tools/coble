@@ -22,7 +22,6 @@ ENV_INPUT=""
 RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
-DEPS_TXT=""
 HAS_R=0
 
 show_help() {
@@ -106,10 +105,6 @@ else
     echo "Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 fi
-
-DEPS_TXT="${RESULTS_DIR}/${ENV_NAME}_dependencies.txt"
-# empty the deps txt file
-rm -rf "$DEPS_TXT"
 
 echo "[coble-freeze] Using conda environment argument: $ENV_FORMATTED"
 
@@ -430,11 +425,7 @@ while IFS=$'\t' read -r manager pkg src path; do
 	fi	
 	if [[ "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ]]; then        
         if [[ HAS_R -eq 0 ]]; then        
-		    continue
-		else
-			# run the code/coble-capture-r.R script to get the package source			
-			pkg_name="${pkg%%=*}"
-			"$script_dir/coble-deps-r.R" "$pkg_name" -o "$DEPS_TXT"										
+		    continue		
 		fi
     fi    
 	outline=""	
@@ -443,12 +434,10 @@ while IFS=$'\t' read -r manager pkg src path; do
 	elif [[ -n "$path" ]]; then
 		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"        
 	elif [[ "$src" == *"System/Manual"* ]]; then        
-        my_find_list+=("$pkg")		
-		pkg_name="${pkg%%=*}"
-		"$script_dir/coble-deps-r.R" "$pkg_name" -o "$DEPS_TXT"										
+        my_find_list+=("$pkg")				
     else
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"        
-	fi
+	fi	
 done < "$TMP_SORTED"
 
 # Check if list has items and write out
@@ -461,7 +450,6 @@ if [[ ${#my_find_list[@]} -gt 0 ]]; then
 fi
 
 echo "[coble-freeze] Final aggregated package list at $AGGREGATE_TXT" >&2
-
 
 
 # Clean up temporary files
@@ -477,12 +465,6 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "  $TMP_SORTED" >&2
     echo "  $TMP_AGGREGATE" >&2
 fi
-
-# Now create the network viz
-"$script_dir/coble-viz.R" "$DEPS_TXT" \
---output-path "$(dirname "$AGGREGATE_TXT")" \
---output-prefix "${ENV_NAME}_network" \
---title "COBLE Network Dependencies (c) 2026 - Conda Environment: $ENV_NAME"
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 

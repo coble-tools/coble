@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-23
-# Capture time: 12:12:47 GMT
+# Capture date: 2026-01-24
+# Capture time: 20:23:46 GMT
 # Captured by: ralcraft
 
 coble:
@@ -124,7 +124,7 @@ conda:
   - gsl=2.7@conda-forge
   - gtk3=3.24.43@conda-forge
   - gts=0.7.6@conda-forge
-  - gunicorn=23.0.0@conda-forge
+  - gunicorn=24.1.1@conda-forge
   - h11=0.16.0@conda-forge
   - h2=4.3.0@conda-forge
   - harfbuzz=12.2.0@conda-forge
@@ -157,7 +157,7 @@ conda:
   - jupyter_events=0.12.0@conda-forge
   - jupyter_server=2.17.0@conda-forge
   - jupyter_server_terminals=0.5.4@conda-forge
-  - jupyterlab=4.5.2@conda-forge
+  - jupyterlab=4.5.3@conda-forge
   - jupyterlab_pygments=0.3.0@conda-forge
   - jupyterlab_server=2.28.0@conda-forge
   - kernel-headers_linux-64=6.12.0@conda-forge
@@ -167,7 +167,7 @@ conda:
   - ld_impl_linux-64=2.40@conda-forge
   - lerc=4.0.0@conda-forge
   - libabseil=20260107.0@conda-forge
-  - libaec=1.1.4@conda-forge
+  - libaec=1.1.5@conda-forge
   - libarchive=3.8.5@conda-forge
   - libavif16=1.3.0@conda-forge
   - libblas=3.11.0@conda-forge
@@ -531,8 +531,8 @@ r-conda:
   - tzdb=0.5.0@conda-forge
   - urltools=1.7.3.1@conda-forge
   - utf8=1.2.6@conda-forge
-  - uuid=1.2_1@conda-forge
-  - vctrs=0.6.5@conda-forge
+  - uuid=1.2_2@conda-forge
+  - vctrs=0.7.1@conda-forge
   - viridislite=0.4.2@conda-forge
   - vroom=1.6.7@conda-forge
   - withr=3.0.2@conda-forge

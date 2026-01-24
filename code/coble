@@ -65,7 +65,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 fi
 
 # if the first command is not valid show help and exit
-valid_commands=("template" "build" "update" "contain" "capture" "freeze")
+valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network")
 if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
     echo "[coble] Not a valid command provided: $1." >&2
     show_help
@@ -166,6 +166,11 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	#recipe_dir="$(dirname "$recipe_file")"	
 	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
 		
+	echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2	
+    # replace --recipe existring with capture file    
+	#recipe_dir="$(dirname "$recipe_file")"	
+	result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
+
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
 	duration=$((end_time - start_time))
@@ -189,6 +194,14 @@ if [[ "$1" == "capture" || "$1" == "freeze" ]]; then
 	"$script_dir/coble-capture.sh" "${@:2}"
 	exit $?
 fi
+
+# If the first argument is 'network', call coble-network.sh and exit
+if [[ "$1" == "network" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-network.sh" "${@:2}"
+	exit $?
+fi
+
 end_time=$(date +%s)
 duration=$((end_time - start_time))
 hours=$((duration / 3600))

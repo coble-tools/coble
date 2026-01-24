@@ -11,13 +11,15 @@ Arguments:
   packages.tsv          Input TSV file with package information
 
 Options:
-  --output-prefix PREFIX  Prefix for output files (default: 'network')
-  --output-path PATH      Output directory (default: './')
-  --title TITLE           Visualization title (default: 'Package Dependency Network')
+  --output-prefix PREFIX           Prefix for output files (default: 'network')
+  --output-path PATH               Output directory (default: './')
+  --title TITLE                    Visualization title (default: 'Package Dependency Network')
+  --background-color COLOR         Page background color (default: '#5c2323')
+  --graph-background-color COLOR   Graph canvas background (default: '#b9d66a')
 
 Example:
   Rscript visualize_network.R packages.tsv
-  Rscript visualize_network.R packages.tsv --title 'My Project Dependencies' --output-prefix my_network
+  Rscript visualize_network.R packages.tsv --title 'My Project' --graph-background-color '#1a1a2e'
 \n")
   quit(save = "no", status = 0)
 }
@@ -26,6 +28,8 @@ input_file <- args[1]
 output_path <- "./"
 output_prefix <- "network"
 viz_title <- "Package Dependency Network"
+bg_color <- "#ffffff"
+graph_bg_color <- "#c1c9b1"
 
 if (!file.exists(input_file)) {
   cat(sprintf("Error: File '%s' not found!\n", input_file))
@@ -47,12 +51,24 @@ if (length(args) > 1 && any(args == "--title")) {
   if (idx < length(args)) viz_title <- args[idx + 1]
 }
 
+if (length(args) > 1 && any(args == "--background-color")) {
+  idx <- which(args == "--background-color")
+  if (idx < length(args)) bg_color <- args[idx + 1]
+}
+
+if (length(args) > 1 && any(args == "--graph-background-color")) {
+  idx <- which(args == "--graph-background-color")
+  if (idx < length(args)) graph_bg_color <- args[idx + 1]
+}
+
 cat(sprintf("Input: %s\n", input_file))
 cat(sprintf("Output path: %s\n", output_path))
 cat(sprintf("Output prefix: %s\n", output_prefix))
-cat(sprintf("Title: %s\n\n", viz_title))
+cat(sprintf("Title: %s\n", viz_title))
+cat(sprintf("Page background: %s\n", bg_color))
+cat(sprintf("Graph background: %s\n\n", graph_bg_color))
 
-# Only need these two packages (much easier to install!)
+# Load required packages
 packages <- c("tidyverse", "visNetwork")
 cat("Loading required packages...\n")
 for(pkg in packages) {
@@ -89,15 +105,22 @@ nodes <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Add metadata
+# Add metadata with ICR color scheme
 nodes <- nodes %>%
   left_join(pkgs %>% select(id = package, version, location), by = "id") %>%
   mutate(
     type = ifelse(!is.na(version), "main", "dependency"),
     color = case_when(
-      type == "main" ~ "#a7176b",           # Red for main packages
-      type == "dependency" ~ "#37b857",     # Blue for dependencies  
-      TRUE ~ "#DDDDDD"                       # Gray fallback
+      # Main packages - ICR color scheme
+      type == "main" & location == "CRAN" ~ "#E91E63",           # Bright pink - CRAN
+      type == "main" & location == "Bioconductor" ~ "#AEEA00",   # Lime green - Bioconductor
+      type == "main" & location == "CRAN-ARCHIVED" ~ "#FF6F00",  # Orange - Archived
+      type == "main" & location == "LOCAL" ~ "#C62828",          # Dark red - Local
+      type == "main" & grepl("^LOCAL-", location) ~ "#C62828",   # Dark red - Local variants (LOCAL-*)
+      type == "main" ~ "#E91E63",                                # Bright pink - Other main
+      # Dependencies - gray
+      type == "dependency" ~ "#523b3b",                          # Gray - Dependencies
+      TRUE ~ "#c7c7c7"                                            # Light gray - Unknown
     ),
     title = ifelse(!is.na(version),
                    paste0("<b>", id, "</b><br>",
@@ -127,8 +150,7 @@ vn <- visNetwork(nodes, edges,
                  main = list(text = viz_title, 
                             style = "font-size:24px; text-align:center; font-weight:bold; margin-bottom:20px;")) %>%
   visConfigure(enabled = TRUE, 
-               filter = "physics",
-               container = "configure-container") %>%
+               filter = "physics") %>%
   visEdges(
     arrows = list(to = list(enabled = TRUE, scaleFactor = 1.2)),
     smooth = list(enabled = TRUE, type = "curvedCW", roundness = 0.2),
@@ -147,8 +169,11 @@ vn <- visNetwork(nodes, edges,
   ) %>%
   visLegend(
     addNodes = list(
-      list(label = "Main Package", color = "#E41A1C", size = 25, font = list(size = 18)),
-      list(label = "Dependency", color = "#377EB8", size = 15, font = list(size = 12))
+      list(label = "CRAN Package", color = "#E91E63", size = 25, font = list(size = 16)),
+      list(label = "Bioconductor Package", color = "#AEEA00", size = 25, font = list(size = 16)),
+      list(label = "Archived Package", color = "#FF6F00", size = 25, font = list(size = 16)),
+      list(label = "Local Package", color = "#C62828", size = 25, font = list(size = 16)),
+      list(label = "Dependency", color = "#7f7f7f", size = 15, font = list(size = 14))
     ),
     useGroups = FALSE,
     position = "right",
@@ -166,69 +191,85 @@ html_content <- readLines(output_html)
 # Find the </head> tag and insert custom CSS before it
 head_end <- grep("</head>", html_content)[1]
 
-custom_code <- '
+custom_code <- paste0('
 <style>
-  /* Style the configure button - small and subtle */
+  /* Set page background color */
+  body {
+    background-color: ', bg_color, ' !important;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Graph container with border and background */
+  #mynetwork {
+    width: 100% !important;
+    height: 800px !important;
+    background-color: ', graph_bg_color, ' !important;
+    border: 3px solid #333 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  }
+  
+  /* Target the actual canvas element inside the network */
+  #mynetwork canvas {
+    background-color: ', graph_bg_color, ' !important;
+  }
+  
+  /* Also style the vis-network div */
+  .vis-network {
+    background-color: ', graph_bg_color, ' !important;
+  }
+  
+  /* HIDE the configure button since panel auto-opens */
   .vis-configuration.vis-config-button {
-    position: fixed !important;
-    left: 10px !important;
-    top: 150px !important;
-    background: #2196F3 !important;
-    color: white !important;
-    padding: 6px 12px !important;
-    border-radius: 4px !important;
-    font-size: 12px !important;
-    z-index: 101 !important;
-    border: none !important;
-    cursor: pointer !important;
+    display: none !important;
   }
   
   /* Position configure panel on the left */
   .vis-configuration-wrapper {
+    display: block !important;
     position: fixed !important;
     left: 10px !important;
-    top: 190px !important;
+    top: 150px !important;
     right: auto !important;
-    width: 280px !important;
-    max-height: calc(100vh - 210px) !important;
+    width: 180px !important;
+    max-height: calc(100vh - 170px) !important;
     overflow-y: auto !important;
-    background: white !important;
-    border: 1px solid #ddd !important;
+    background: rgba(65, 57, 57, 0.85) !important;
+    border: 1px solid #310303 !important;
     border-radius: 5px !important;
     padding: 10px !important;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
     z-index: 100 !important;
+    color: yellow !important;
   }
   
   .vis-configuration-wrapper .vis-config-item {
     margin-bottom: 8px !important;
   }
   
-  #mynetwork {
-    width: 100% !important;
-    height: 800px !important;
+  .vis-configuration-wrapper label {
+    color: grey !important;
+  }
+  
+  .vis-configuration-wrapper .vis-config-label {
+    color: grey !important;
   }
 </style>
 <script>
-  // Auto-open physics controls when page loads
+  // Force the configure panel to be visible
   window.addEventListener("load", function() {
     setTimeout(function() {
-      var configButton = document.querySelector(".vis-configuration.vis-config-button");
-      if (configButton && configButton.textContent.includes("Configure")) {
-        configButton.click();
+      var configWrapper = document.querySelector(".vis-configuration-wrapper");
+      if (configWrapper) {
+        configWrapper.style.display = "block";
       }
     }, 500);
   });
 </script>
-'
+')
 
 html_content <- c(html_content[1:(head_end-1)], custom_code, html_content[head_end:length(html_content)])
-writeLines(html_content, output_html)
-
-html_content <- c(html_content[1:(head_end-1)], custom_code, html_content[head_end:length(html_content)])
-writeLines(html_content, output_html)
-
-html_content <- c(html_content[1:(head_end-1)], custom_css, html_content[head_end:length(html_content)])
 writeLines(html_content, output_html)
 
 cat(sprintf("✓ Saved: %s\n", output_html))
@@ -262,8 +303,10 @@ cat(readLines(output_stats), sep = "\n")
 
 cat(sprintf("\n✓ Done! Open %s in a browser.\n", output_html))
 cat(sprintf("   - Title: '%s'\n", viz_title))
-cat("   - Physics controls are on the LEFT (click 'Configure')\n")
+cat("   - Physics controls always visible on the LEFT\n")
 cat("   - Arrows show: Package → Dependency\n")
+cat("   - ICR Color Scheme:\n")
+cat("     🌸 Pink = CRAN | 🍋 Lime = Bioconductor | 🟠 Orange = Archived | 🔴 Red = Local | ⚫ Gray = Dependencies\n")
 cat("   - Click nodes to highlight connections\n")
 cat("   - Use dropdown to select nodes\n")
 cat("   - Drag to rearrange\n")

@@ -26,7 +26,7 @@ Rscript -e 'remotes::install_github("davidaknowles/leafcutter/leafcutter", upgra
 ## install.packages
 [CRAN: install.packages doc](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/install.packages.html)
 <details>
-<summary>install-url</summary>
+<summary>install.packages</summary>
 
 ```bash
 install.packages(pkgs, lib, repos = getOption("repos"),
@@ -94,6 +94,7 @@ install_url(
 ```
 </details>
 Note that @ activates the subdir param if it is needed.
+```yaml
 r-url:
   - https://github.com/xmc811/Scillus/archive/refs/heads/development.zip
   - https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip@ASCAT

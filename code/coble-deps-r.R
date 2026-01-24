@@ -91,6 +91,41 @@ get_package_location <- function(pkg) {
   return("NOT-FOUND")
 }
 
+# Helper function to clean dependency strings
+clean_dependencies <- function(dep_string) {
+  if (is.null(dep_string) || is.na(dep_string) || dep_string == "") {
+    return("")
+  }
+  
+  # First, aggressively remove ALL whitespace characters including newlines
+  dep_string <- gsub("[\n\r\t]", " ", dep_string)  # Replace with space first
+  
+  # Remove version requirements: (>= 1.0)
+  dep_string <- gsub("\\([^)]*\\)", "", dep_string)
+  
+  # Now collapse multiple spaces into one
+  dep_string <- gsub("\\s+", " ", dep_string)
+  
+  # Trim whitespace
+  dep_string <- trimws(dep_string)
+  
+  # Split by comma, clean each piece, rejoin
+  parts <- strsplit(dep_string, ",")[[1]]
+  parts <- trimws(parts)  # Trim each piece
+  parts <- parts[parts != ""]  # Remove empty strings
+  
+  # Join with comma (no spaces)
+  dep_string <- paste(parts, collapse = ",")
+  
+  # Final cleanup: remove any remaining spaces
+  dep_string <- gsub("\\s", "", dep_string)
+  
+  # Remove leading/trailing commas
+  dep_string <- gsub("^,+|,+$", "", dep_string)
+  
+  return(dep_string)
+}
+
 # Function to get package info
 get_package_info <- function(pkg) {
   location <- get_package_location(pkg)
@@ -102,7 +137,11 @@ get_package_info <- function(pkg) {
   if (location == "CRAN") {
     avail <- available.packages()
     version <- avail[pkg, "Version"]
-    date <- NA  # CRAN available.packages() doesn't provide date
+    
+    # Get published date
+    if ("Published" %in% colnames(avail)) {
+      date <- avail[pkg, "Published"]
+    }
     
     # Get dependencies
     deps <- tools::package_dependencies(pkg, 
@@ -121,27 +160,47 @@ get_package_info <- function(pkg) {
       version <- desc$Version
       date <- desc$`Date/Publication`
       
-      # Get dependencies from description
+      # Get dependencies from description - CLEAN EACH ONE
       deps_list <- c()
       for (dep_type in c("Depends", "Imports", "LinkingTo")) {
         if (!is.null(desc[[dep_type]])) {
-          deps_list <- c(deps_list, desc[[dep_type]])
+          # Clean this dependency type's string immediately
+          cleaned <- clean_dependencies(desc[[dep_type]])
+          if (cleaned != "") {
+            deps_list <- c(deps_list, cleaned)
+          }
+        }
+      }
+      # Now join the cleaned strings
+      dependencies <- paste(deps_list, collapse = ",")
+    } else {
+      version <- "ARCHIVED"
+      date <- ""
+      dependencies <- ""
+    }
+    
+  } else if (location == "Bioconductor") {
+    # Try to get from installed if available
+    if (requireNamespace(pkg, quietly = TRUE)) {
+      desc <- packageDescription(pkg)
+      version <- desc$Version
+      date <- desc$`Date/Publication`
+      
+      # Get dependencies - CLEAN EACH ONE
+      deps_list <- c()
+      for (dep_type in c("Depends", "Imports", "LinkingTo")) {
+        if (!is.null(desc[[dep_type]])) {
+          cleaned <- clean_dependencies(desc[[dep_type]])
+          if (cleaned != "") {
+            deps_list <- c(deps_list, cleaned)
+          }
         }
       }
       dependencies <- paste(deps_list, collapse = ",")
     } else {
-      version <- "ARCHIVED"
-      date <- NA
-      dependencies <- NA
-    }
-    
-  } else if (location == "Bioconductor") {
-    # Try to get from BiocManager if available
-    if (requireNamespace("BiocManager", quietly = TRUE)) {
-      # This is tricky - Bioconductor packages need BiocManager
       version <- "BIOC"
-      date <- NA
-      dependencies <- NA
+      date <- ""
+      dependencies <- ""
     }
     
   } else if (grepl("^LOCAL", location)) {
@@ -150,33 +209,31 @@ get_package_info <- function(pkg) {
     version <- desc$Version
     date <- desc$`Date/Publication`
     
-    # Get dependencies
+    # Get dependencies - CLEAN EACH ONE
     deps_list <- c()
     for (dep_type in c("Depends", "Imports", "LinkingTo")) {
       if (!is.null(desc[[dep_type]])) {
-        # Clean up the dependency string
-        dep_string <- desc[[dep_type]]
-        # Remove version requirements and whitespace
-        dep_string <- gsub("\\(.*?\\)", "", dep_string)
-        dep_string <- gsub("\\s+", "", dep_string)
-        deps_list <- c(deps_list, dep_string)
+        cleaned <- clean_dependencies(desc[[dep_type]])
+        if (cleaned != "") {
+          deps_list <- c(deps_list, cleaned)
+        }
       }
     }
     dependencies <- paste(deps_list, collapse = ",")
     
   } else {
     # NOT-FOUND
-    version <- NA
-    date <- NA
-    dependencies <- NA
+    version <- ""
+    date <- ""
+    dependencies <- ""
   }
   
   return(data.frame(
     package = pkg,
-    version = version,
-    date = ifelse(is.na(date), "", as.character(date)),
+    version = ifelse(is.na(version) || version == "NA", "", as.character(version)),
+    date = ifelse(is.na(date) || date == "NA", "", as.character(date)),
     location = location,
-    dependencies = ifelse(is.na(dependencies), "", as.character(dependencies)),
+    dependencies = ifelse(is.na(dependencies) || dependencies == "NA", "", as.character(dependencies)),
     stringsAsFactors = FALSE
   ))
 }
@@ -209,12 +266,13 @@ for (pkg in packages) {
   tryCatch({
     info <- get_package_info(pkg)
     
-    # Format as tab-delimited
-    line <- paste(info$package, info$version, info$date, info$location, 
-                  info$dependencies, sep = "\t")
-    
-    # Append to file
-    write(line, file = output_file, append = TRUE)
+    if (info$location != "NOT-FOUND") {
+      # Format as tab-delimited
+      line <- paste(info$package, info$version, info$date, info$location, 
+                  info$dependencies, sep = "\t")    
+      # Append to file    
+      write(line, file = output_file, append = TRUE)
+    }
     
     cat("✓\n")
   }, error = function(e) {
