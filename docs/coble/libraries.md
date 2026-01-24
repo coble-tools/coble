@@ -12,4 +12,4 @@ Packages can be called through conda or their native package managers. This is h
 
 ## Controlling R and BioConductor
 When the libraries are controlled through R the inputs have more freedom,, documentation here:
-[R package functions in COBLE](third-party/r-used.md)
+[R package functions in COBLE](r-used.md)
