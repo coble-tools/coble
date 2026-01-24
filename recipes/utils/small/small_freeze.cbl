@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-01-24
-# Capture time: 18:03:54 GMT
+# Capture time: 18:43:54 GMT
 # Captured by: ralcraft
 
 coble:
@@ -260,3 +260,18 @@ r-conda:
   - yaml=2.3.12@conda-forge
 
 r-package:
+
+# r-package(unknown source):
+#  - compiler=4.5.2
+#  - datasets=4.5.2
+#  - grDevices=4.5.2
+#  - graphics=4.5.2
+#  - grid=4.5.2
+#  - methods=4.5.2
+#  - parallel=4.5.2
+#  - splines=4.5.2
+#  - stats4=4.5.2
+#  - stats=4.5.2
+#  - tcltk=4.5.2
+#  - tools=4.5.2
+#  - utils=4.5.2

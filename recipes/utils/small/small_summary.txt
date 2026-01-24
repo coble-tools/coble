@@ -2586,3 +2586,713 @@ install: conda activate small
 [coble-create] Recipe created at: 2026-01-24 18:03:43
 [coble-create] Recipe took: 0h 0m 7s
 --------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-24 at 18:15:51 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-24 18:15:52 1/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:15:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:52 2/27
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-24 18:15:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:52 3/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:15:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:52 4/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:15:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:52 5/27
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-24 18:15:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:53 6/27
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-24 18:15:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:53 7/27
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:15:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:53 8/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:15:54
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:15:54 9/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:15:55 10/27
+install: umask 0022
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 11/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 12/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 13/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 14/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 15/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 16/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 17/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 18/27
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 19/27
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
+[coble-create] End time: 2026-01-24 18:15:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:55 20/27
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:15:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:56 21/27
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:15:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:56 22/27
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:15:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:56 23/27
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:15:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:56 24/27
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:15:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:57 25/27
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-24 18:15:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:15:57 26/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:15:58
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:15:58 27/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:15:58
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-24 18:15:58
+[coble-create] Recipe took: 0h 0m 6s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-24 at 18:21:26 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-24 18:21:26 1/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:21:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:26 2/27
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-24 18:21:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:26 3/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:21:27
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:21:27 4/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:21:27
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:27 5/27
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-24 18:21:27
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:27 6/27
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-24 18:21:28
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:21:28 7/27
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:21:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:28 8/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:21:29 9/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 10/27
+install: umask 0022
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 11/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 12/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 13/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 14/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:29 15/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-24 18:21:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 16/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-24 18:21:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 17/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-24 18:21:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 18/27
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
+[coble-create] End time: 2026-01-24 18:21:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 19/27
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
+[coble-create] End time: 2026-01-24 18:21:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 20/27
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:21:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:30 21/27
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:21:31
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:21:31 22/27
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:21:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:31 23/27
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:21:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:31 24/27
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:21:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:31 25/27
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-24 18:21:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:21:32 26/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:21:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:21:32 27/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:21:33
+[coble-create] Duration: 1s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-24 18:21:33
+[coble-create] Recipe took: 0h 0m 7s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-24 at 18:26:26 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-24 18:26:27 1/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:26:27
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:27 2/27
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-24 18:26:27
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:27 3/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:26:28
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:28 4/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:26:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:28 5/27
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-24 18:26:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:28 6/27
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-24 18:26:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:28 7/27
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:26:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:28 8/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:26:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:29 9/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:30 10/27
+install: umask 0022
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 11/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 12/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 13/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 14/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 15/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 16/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 17/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 18/27
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
+[coble-create] End time: 2026-01-24 18:26:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:30 19/27
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
+[coble-create] End time: 2026-01-24 18:26:31
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:31 20/27
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:26:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:31 21/27
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:26:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:31 22/27
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:26:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:31 23/27
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:26:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:32 24/27
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:26:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:32 25/27
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-24 18:26:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:26:32 26/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:26:33
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:26:33 27/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:26:34
+[coble-create] Duration: 1s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-24 18:26:34
+[coble-create] Recipe took: 0h 0m 7s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-24 at 18:36:21 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-24 18:36:21 1/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:36:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:22 2/27
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-24 18:36:22
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:22 3/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:36:22
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:22 4/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:36:22
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:22 5/27
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-24 18:36:22
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:22 6/27
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-24 18:36:23
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:36:23 7/27
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:36:23
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:23 8/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:36:24 9/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:24 10/27
+install: umask 0022
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:24 11/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:24 12/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:24 13/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-24 18:36:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 14/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 15/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 16/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 17/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 18/27
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 19/27
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 20/27
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:36:25
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:25 21/27
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:36:26
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:36:26 22/27
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:36:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:26 23/27
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:36:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:26 24/27
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:36:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:26 25/27
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-24 18:36:27
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:36:27 26/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:36:27
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:36:27 27/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:36:28
+[coble-create] Duration: 1s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-24 18:36:28
+[coble-create] Recipe took: 0h 0m 7s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-24 at 18:43:35 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-24 18:43:36 1/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:43:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:36 2/27
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-24 18:43:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:36 3/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:43:37
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:37 4/27
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:43:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:37 5/27
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-24 18:43:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:37 6/27
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-24 18:43:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:37 7/27
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-24 18:43:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:37 8/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:43:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:38 9/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:39 10/27
+install: umask 0022
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 11/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 12/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 13/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 14/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 15/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 16/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 17/27
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 18/27
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/enrichr/bin/gcc"
+[coble-create] End time: 2026-01-24 18:43:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:39 19/27
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/enrichr/bin/g++"
+[coble-create] End time: 2026-01-24 18:43:40
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:40 20/27
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:43:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:40 21/27
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/enrichr/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-24 18:43:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:40 22/27
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:43:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:40 23/27
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:43:41
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:41 24/27
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-24 18:43:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:41 25/27
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-24 18:43:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-24 18:43:41 26/27
+install: conda deactivate
+[coble-create] End time: 2026-01-24 18:43:42
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-24 18:43:42 27/27
+install: conda activate small
+[coble-create] End time: 2026-01-24 18:43:43
+[coble-create] Duration: 1s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-24 18:43:43
+[coble-create] Recipe took: 0h 0m 7s
+--------------------------------------

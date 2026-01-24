@@ -5,16 +5,19 @@ args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) == 0 || args[1] %in% c("-h", "--help")) {
   cat("
-Usage: Rscript visualize_network.R <packages.tsv> [--output-prefix PREFIX] [--output-path PATH]
+Usage: Rscript visualize_network.R <packages.tsv> [OPTIONS]
 
 Arguments:
   packages.tsv          Input TSV file with package information
-  --output-prefix       Prefix for output files (default: 'network')
-  --output-path         Output directory (default: './')
+
+Options:
+  --output-prefix PREFIX  Prefix for output files (default: 'network')
+  --output-path PATH      Output directory (default: './')
+  --title TITLE           Visualization title (default: 'Package Dependency Network')
 
 Example:
   Rscript visualize_network.R packages.tsv
-  Rscript visualize_network.R packages.tsv --output-prefix my_network --output-path ./results
+  Rscript visualize_network.R packages.tsv --title 'My Project Dependencies' --output-prefix my_network
 \n")
   quit(save = "no", status = 0)
 }
@@ -22,6 +25,7 @@ Example:
 input_file <- args[1]
 output_path <- "./"
 output_prefix <- "network"
+viz_title <- "Package Dependency Network"
 
 if (!file.exists(input_file)) {
   cat(sprintf("Error: File '%s' not found!\n", input_file))
@@ -38,9 +42,15 @@ if (length(args) > 1 && any(args == "--output-path")) {
   if (idx < length(args)) output_path <- args[idx + 1]
 }
 
+if (length(args) > 1 && any(args == "--title")) {
+  idx <- which(args == "--title")
+  if (idx < length(args)) viz_title <- args[idx + 1]
+}
+
 cat(sprintf("Input: %s\n", input_file))
 cat(sprintf("Output path: %s\n", output_path))
-cat(sprintf("Output prefix: %s\n\n", output_prefix))
+cat(sprintf("Output prefix: %s\n", output_prefix))
+cat(sprintf("Title: %s\n\n", viz_title))
 
 # Only need these two packages (much easier to install!)
 packages <- c("tidyverse", "visNetwork")
@@ -85,10 +95,9 @@ nodes <- nodes %>%
   mutate(
     type = ifelse(!is.na(version), "main", "dependency"),
     color = case_when(
-      type == "main" ~ "#E41A1C",
-      location == "CRAN" ~ "#377EB8", 
-      location == "Bioconductor" ~ "#4DAF4A",
-      TRUE ~ "#DDDDDD"
+      type == "main" ~ "#a7176b",           # Red for main packages
+      type == "dependency" ~ "#37b857",     # Blue for dependencies  
+      TRUE ~ "#DDDDDD"                       # Gray fallback
     ),
     title = ifelse(!is.na(version),
                    paste0("<b>", id, "</b><br>",
@@ -112,7 +121,14 @@ dep_counts <- edges %>%
 
 # Create interactive network
 cat("Creating interactive network...\n")
-vn <- visNetwork(nodes, edges, height = "800px", width = "100%") %>%
+vn <- visNetwork(nodes, edges, 
+                 height = "800px", 
+                 width = "100%",
+                 main = list(text = viz_title, 
+                            style = "font-size:24px; text-align:center; font-weight:bold; margin-bottom:20px;")) %>%
+  visConfigure(enabled = TRUE, 
+               filter = "physics",
+               container = "configure-container") %>%
   visEdges(
     arrows = list(to = list(enabled = TRUE, scaleFactor = 1.2)),
     smooth = list(enabled = TRUE, type = "curvedCW", roundness = 0.2),
@@ -134,18 +150,94 @@ vn <- visNetwork(nodes, edges, height = "800px", width = "100%") %>%
       list(label = "Main Package", color = "#E41A1C", size = 25, font = list(size = 18)),
       list(label = "Dependency", color = "#377EB8", size = 15, font = list(size = 12))
     ),
-    useGroups = FALSE
+    useGroups = FALSE,
+    position = "right",
+    ncol = 1
   ) %>%
   visInteraction(navigationButtons = TRUE, keyboard = TRUE)
 
+# Save and add custom CSS + auto-open physics controls
 output_html <- paste0(output_path, "/", output_prefix, "_interactive.html")
 visSave(vn, output_html)
+
+# Read the HTML file and inject custom CSS + JavaScript
+html_content <- readLines(output_html)
+
+# Find the </head> tag and insert custom CSS before it
+head_end <- grep("</head>", html_content)[1]
+
+custom_code <- '
+<style>
+  /* Style the configure button - small and subtle */
+  .vis-configuration.vis-config-button {
+    position: fixed !important;
+    left: 10px !important;
+    top: 150px !important;
+    background: #2196F3 !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    z-index: 101 !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+  
+  /* Position configure panel on the left */
+  .vis-configuration-wrapper {
+    position: fixed !important;
+    left: 10px !important;
+    top: 190px !important;
+    right: auto !important;
+    width: 280px !important;
+    max-height: calc(100vh - 210px) !important;
+    overflow-y: auto !important;
+    background: white !important;
+    border: 1px solid #ddd !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15) !important;
+    z-index: 100 !important;
+  }
+  
+  .vis-configuration-wrapper .vis-config-item {
+    margin-bottom: 8px !important;
+  }
+  
+  #mynetwork {
+    width: 100% !important;
+    height: 800px !important;
+  }
+</style>
+<script>
+  // Auto-open physics controls when page loads
+  window.addEventListener("load", function() {
+    setTimeout(function() {
+      var configButton = document.querySelector(".vis-configuration.vis-config-button");
+      if (configButton && configButton.textContent.includes("Configure")) {
+        configButton.click();
+      }
+    }, 500);
+  });
+</script>
+'
+
+html_content <- c(html_content[1:(head_end-1)], custom_code, html_content[head_end:length(html_content)])
+writeLines(html_content, output_html)
+
+html_content <- c(html_content[1:(head_end-1)], custom_code, html_content[head_end:length(html_content)])
+writeLines(html_content, output_html)
+
+html_content <- c(html_content[1:(head_end-1)], custom_css, html_content[head_end:length(html_content)])
+writeLines(html_content, output_html)
+
 cat(sprintf("✓ Saved: %s\n", output_html))
 
 # Save statistics
 output_stats <- paste0(output_path, "/", output_prefix, "_stats.txt")
 sink(output_stats)
 cat("=== Network Statistics ===\n")
+cat(sprintf("Title: %s\n", viz_title))
 cat(sprintf("Input file: %s\n", input_file))
 cat(sprintf("Total packages: %d\n", nrow(nodes)))
 cat(sprintf("Main packages: %d\n", n_main))
@@ -169,6 +261,8 @@ cat("\n")
 cat(readLines(output_stats), sep = "\n")
 
 cat(sprintf("\n✓ Done! Open %s in a browser.\n", output_html))
+cat(sprintf("   - Title: '%s'\n", viz_title))
+cat("   - Physics controls are on the LEFT (click 'Configure')\n")
 cat("   - Arrows show: Package → Dependency\n")
 cat("   - Click nodes to highlight connections\n")
 cat("   - Use dropdown to select nodes\n")

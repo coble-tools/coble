@@ -479,7 +479,10 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
 fi
 
 # Now create the network viz
-"$script_dir/coble-viz.R" "$DEPS_TXT" --output-path "$(dirname "$AGGREGATE_TXT")" --output-prefix "${ENV_NAME}_network"
+"$script_dir/coble-viz.R" "$DEPS_TXT" \
+--output-path "$(dirname "$AGGREGATE_TXT")" \
+--output-prefix "${ENV_NAME}_network" \
+--title "COBLE Network Dependencies (c) 2026 - Conda Environment: $ENV_NAME"
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 

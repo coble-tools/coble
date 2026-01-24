@@ -127,7 +127,7 @@ echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 
 UPDATE_CONDA="--no-update-deps"
 UPDATE_R="default"
-UPDATE_BIOC="TRUE"
+#UPDATE_BIOC="TRUE"
 NCPUS="4"
 DEPS_CONDA=""
 DEPS_PYTHON=""
@@ -338,12 +338,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--no-update-deps"    
                 UPDATE_R="never"
-                UPDATE_BIOC="FALSE"
+                #="FALSE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="--update-deps"
                 UPDATE_R="always"
-                UPDATE_BIOC="TRUE"
+                #UPDATE_BIOC="TRUE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "default" ]]; then
                 echo "# R Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 # don't do anything to conda
@@ -531,7 +531,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, upgrade=$UPDATE_BIOC, ask=FALSE, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"        
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"        
         elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
