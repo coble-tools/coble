@@ -107,8 +107,10 @@ edges <- pkgs %>%
 
 cat(sprintf("Found %d packages with %d dependencies\n", nrow(pkgs), nrow(edges)))
 
-# Create nodes
+# Create nodes - SORT ALPHABETICALLY FROM THE START
 all_pkgs <- unique(c(edges$from, edges$to))
+all_pkgs <- sort(all_pkgs)  # Sort alphabetically
+
 nodes <- data.frame(
   id = all_pkgs,
   label = all_pkgs,
@@ -126,11 +128,11 @@ nodes <- nodes %>%
       type == "main" & location == "CRAN" ~ "#E91E63",           # Bright pink - CRAN
       type == "main" & location == "Bioconductor" ~ "#AEEA00",   # Lime green - Bioconductor
       type == "main" & location == "CRAN-ARCHIVED" ~ "#FF6F00",  # Orange - Archived
-      type == "main" & location == "LOCAL" ~ "#C62828",          # Dark red - Local
+      type == "main" & location == "LOCAL" ~ "#b17676",          # Dark red - Local
       type == "main" & grepl("^LOCAL-", location) ~ "#C62828",   # Dark red - Local variants (LOCAL-*)
       type == "main" ~ "#E91E63",                                # Bright pink - Other main
       # Dependencies - gray
-      type == "dependency" ~ "#523b3b",                          # Gray - Dependencies
+      type == "dependency" ~ "#615d5d",                          # Gray - Dependencies
       TRUE ~ "#c7c7c7"                                            # Light gray - Unknown
     ),
     title = ifelse(!is.na(version),
@@ -141,12 +143,15 @@ nodes <- nodes %>%
     size = ifelse(type == "main", 25, 15),
     font.size = ifelse(type == "main", 18, 12),
     font.face = ifelse(type == "main", "bold", "normal")
-  ) %>%
-  arrange(label)  # Sort alphabetically for easier navigation in dropdown
+  )
+
+# FINAL SORT - ensure alphabetical order is preserved
+nodes <- nodes %>% arrange(id)
 
 # Verify nodes are unique and sorted
 cat(sprintf("Nodes created: %d total (%d main, %d dependencies)\n", 
             nrow(nodes), sum(nodes$type == "main"), sum(nodes$type == "dependency")))
+cat(sprintf("First 5 nodes: %s\n", paste(head(nodes$id, 5), collapse=", ")))
 
 if (any(duplicated(nodes$id))) {
   cat("ERROR: Duplicate node IDs found after processing!\n")
@@ -180,7 +185,7 @@ vn <- visNetwork(nodes, edges,
   ) %>%
   visOptions(
     highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE),
-    nodesIdSelection = TRUE,
+    nodesIdSelection = TRUE,    
     selectedBy = "location"
   ) %>%
   visLayout(randomSeed = 123) %>%
@@ -197,8 +202,9 @@ vn <- visNetwork(nodes, edges,
       list(label = "CRAN Package", color = "#E91E63", size = 15, font = list(size = 12)),
       list(label = "Bioconductor Package", color = "#AEEA00", size = 15, font = list(size = 12)),
       list(label = "Archived Package", color = "#FF6F00", size = 15, font = list(size = 12)),
-      list(label = "Local/github Package", color = "#C62828", size = 15, font = list(size = 12)),
-      list(label = "Dependency", color = "#523b3b", size = 15, font = list(size = 12))
+      list(label = "Local Package", color = "#b17676", size = 15, font = list(size = 12)),
+      list(label = "github etc Package", color = "#C62828", size = 15, font = list(size = 12)),
+      list(label = "Dependency", color = "#615d5d", size = 15, font = list(size = 12))
     ),
     useGroups = FALSE,
     position = "left",
@@ -303,22 +309,30 @@ custom_code <- paste0('
       var isVisible = false;
       
       // Hide by default
-      configWrapper.style.display = "none";
+      if (configWrapper) {
+        configWrapper.style.display = "none";
+      }
       
       toggleBtn.onclick = function() {
-        if (isVisible) {
-          configWrapper.style.display = "none";
-          toggleBtn.style.background = "#2196F3";
-          toggleBtn.innerHTML = "⚙️ Settings";
-          isVisible = false;
-        } else {
-          configWrapper.style.display = "block";
-          toggleBtn.style.background = "#4CAF50";
-          toggleBtn.innerHTML = "✖️ Close";
-          isVisible = true;
+        if (!configWrapper) {
+          configWrapper = document.querySelector(".vis-configuration-wrapper");
+        }
+        
+        if (configWrapper) {
+          if (isVisible) {
+            configWrapper.style.display = "none";
+            toggleBtn.style.background = "#2196F3";
+            toggleBtn.innerHTML = "⚙️ Settings";
+            isVisible = false;
+          } else {
+            configWrapper.style.display = "block";
+            toggleBtn.style.background = "#4CAF50";
+            toggleBtn.innerHTML = "✖️ Close";
+            isVisible = true;
+          }
         }
       };
-    }, 500);
+    }, 1000);
   });
 </script>
 ')
