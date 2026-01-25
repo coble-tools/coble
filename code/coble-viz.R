@@ -81,8 +81,18 @@ for(pkg in packages) {
 
 # Read data
 cat(sprintf("Reading %s...\n", input_file))
-pkgs <- read.table(input_file, sep = "\t", header = TRUE, 
-                   stringsAsFactors = FALSE, quote = "")
+pkgs_raw <- read.table(input_file, sep = "\t", header = TRUE, 
+                       stringsAsFactors = FALSE, quote = "")
+
+# DEDUPLICATE: Keep only the last occurrence of each package
+pkgs <- pkgs_raw %>%
+  group_by(package) %>%
+  slice_tail(n = 1) %>%
+  ungroup()
+
+if (nrow(pkgs_raw) > nrow(pkgs)) {
+  cat(sprintf("Warning: Removed %d duplicate package entries\n", nrow(pkgs_raw) - nrow(pkgs)))
+}
 
 # Parse dependencies
 cat("Parsing dependencies...\n")
@@ -108,6 +118,7 @@ nodes <- data.frame(
 # Add metadata with ICR color scheme
 nodes <- nodes %>%
   left_join(pkgs %>% select(id = package, version, location), by = "id") %>%
+  distinct(id, .keep_all = TRUE) %>%  # Remove any duplicates after join
   mutate(
     type = ifelse(!is.na(version), "main", "dependency"),
     color = case_when(
@@ -132,6 +143,16 @@ nodes <- nodes %>%
     font.face = ifelse(type == "main", "bold", "normal")
   ) %>%
   arrange(label)  # Sort alphabetically for easier navigation in dropdown
+
+# Verify nodes are unique and sorted
+cat(sprintf("Nodes created: %d total (%d main, %d dependencies)\n", 
+            nrow(nodes), sum(nodes$type == "main"), sum(nodes$type == "dependency")))
+
+if (any(duplicated(nodes$id))) {
+  cat("ERROR: Duplicate node IDs found after processing!\n")
+  print(nodes$id[duplicated(nodes$id)])
+  quit(save = "no", status = 1)
+}
 
 # Calculate basic statistics
 n_main <- sum(nodes$type == "main")
@@ -185,7 +206,7 @@ vn <- visNetwork(nodes, edges,
   ) %>%
   visInteraction(navigationButtons = TRUE, keyboard = TRUE)
 
-# Save and add custom CSS + auto-open physics controls
+# Save and add custom CSS + collapsible physics panel
 output_html <- paste0(output_path, "/", output_prefix, "_interactive.html")
 visSave(vn, output_html)
 
@@ -197,14 +218,12 @@ head_end <- grep("</head>", html_content)[1]
 
 custom_code <- paste0('
 <style>
-  /* Set page background color */
   body {
     background-color: ', bg_color, ' !important;
     margin: 0;
     padding: 0;
   }
   
-  /* Graph container with border and background */
   #mynetwork {
     width: 100% !important;
     height: 800px !important;
@@ -214,63 +233,91 @@ custom_code <- paste0('
     box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
   }
   
-  /* Target the actual canvas element inside the network */
   #mynetwork canvas {
     background-color: ', graph_bg_color, ' !important;
   }
   
-  /* Also style the vis-network div */
   .vis-network {
     background-color: ', graph_bg_color, ' !important;
   }
   
-  /* HIDE the configure button since panel auto-opens */
   .vis-configuration.vis-config-button {
     display: none !important;
   }
   
-  /* Position configure panel at the bottom */
+  /* Panel in top-right, hidden by default */
   .vis-configuration-wrapper {
-    display: block !important;
     position: fixed !important;
-    left: 10px !important;
-    top: auto !important;
-    bottom: 10px !important;
     right: 10px !important;
-    width: auto !important;
-    max-width: calc(100vw - 20px) !important;
-    max-height: 200px !important;
+    top: 100px !important;
+    width: 280px !important;
+    max-height: calc(100vh - 120px) !important;
     overflow-y: auto !important;
-    overflow-x: auto !important;
-    background: rgba(65, 57, 57, 0.85) !important;
-    border: 1px solid #310303 !important;
-    border-radius: 5px !important;
-    padding: 10px !important;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+    background: rgba(250, 250, 250, 0.98) !important;
+    border: 2px solid #ccc !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    box-shadow: -3px 3px 12px rgba(0,0,0,0.3) !important;
     z-index: 100 !important;
-    color: yellow !important;
   }
   
   .vis-configuration-wrapper .vis-config-item {
-    margin-bottom: 8px !important;
+    margin-bottom: 10px !important;
   }
   
   .vis-configuration-wrapper label {
-    color: grey !important;
+    color: #333 !important;
+    font-size: 13px !important;
   }
   
-  .vis-configuration-wrapper .vis-config-label {
-    color: grey !important;
+  /* Toggle button */
+  #physics-toggle {
+    position: fixed !important;
+    right: 10px !important;
+    top: 60px !important;
+    background: #2196F3 !important;
+    color: white !important;
+    padding: 10px 16px !important;
+    border: none !important;
+    border-radius: 5px !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    z-index: 101 !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+    font-weight: 600 !important;
+  }
+  
+  #physics-toggle:hover {
+    background: #1976D2 !important;
   }
 </style>
 <script>
-  // Force the configure panel to be visible
   window.addEventListener("load", function() {
     setTimeout(function() {
+      var toggleBtn = document.createElement("button");
+      toggleBtn.id = "physics-toggle";
+      toggleBtn.innerHTML = "⚙️ Settings";
+      document.body.appendChild(toggleBtn);
+      
       var configWrapper = document.querySelector(".vis-configuration-wrapper");
-      if (configWrapper) {
-        configWrapper.style.display = "block";
-      }
+      var isVisible = false;
+      
+      // Hide by default
+      configWrapper.style.display = "none";
+      
+      toggleBtn.onclick = function() {
+        if (isVisible) {
+          configWrapper.style.display = "none";
+          toggleBtn.style.background = "#2196F3";
+          toggleBtn.innerHTML = "⚙️ Settings";
+          isVisible = false;
+        } else {
+          configWrapper.style.display = "block";
+          toggleBtn.style.background = "#4CAF50";
+          toggleBtn.innerHTML = "✖️ Close";
+          isVisible = true;
+        }
+      };
     }, 500);
   });
 </script>
@@ -310,7 +357,7 @@ cat(readLines(output_stats), sep = "\n")
 
 cat(sprintf("\n✓ Done! Open %s in a browser.\n", output_html))
 cat(sprintf("   - Title: '%s'\n", viz_title))
-cat("   - Physics controls always visible at the BOTTOM\n")
+cat("   - Click '⚙️ Settings' button (top-right) to toggle Physics Controls\n")
 cat("   - Arrows show: Package → Dependency\n")
 cat("   - ICR Color Scheme:\n")
 cat("     🌸 Pink = CRAN | 🍋 Lime = Bioconductor | 🟠 Orange = Archived | 🔴 Red = Local | ⚫ Gray = Dependencies\n")

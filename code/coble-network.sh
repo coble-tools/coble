@@ -100,8 +100,13 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 keep_list=()
 # loop though the lines of the frozen file and capture the packages
 while IFS= read -r line; do
-	# skip comments and empty lines
-	[[ "$line" =~ ^#.*$ ]] && continue
+	# trim leading spaces
+	line="$(echo "$line" | sed 's/^[[:space:]]*//')"
+	# trim leading # if present
+	line="${line#\#}"
+	# trim leading spaces again
+	line="$(echo "$line" | sed 's/^[[:space:]]*//')"
+	# skip empty lines and lines with colons
 	[[ "$line" == "" ]] && continue		
 	[[ "$line" == *":"* ]] && continue		
 	# parse the line into package and version
