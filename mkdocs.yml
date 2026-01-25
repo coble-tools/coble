@@ -62,6 +62,7 @@ nav:
     - Home: index.md
     - Installation: overview/install.md
     - Motivation: overview/motivation.md  
+    - Visualisation: overview/network.md
   - COBLE:
     - Recipe-anatomy: coble/anatomy.md
     - Outputs-anatomy: coble/outputs.md

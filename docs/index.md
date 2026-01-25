@@ -15,7 +15,7 @@ The recipe definition of your environment can be composed of 4 main package mana
 - Pip package installation
 Archive installation and github instllation also possible, along with raw bash commands for anythong bespoke. There are flags to include the most common build tools and environment variables automatically to simplify the setup.
 
-### The Three Functions
+### The Four Functions
 **Build**: Create or update an environment from a recipe file.
 ```bash
 coble build --recipe my-recipe.cbl --env my-env
@@ -35,6 +35,18 @@ coble freeze --frozen my-frozen-env.cbl --env my-env
 --- Optional arguments:
 - `--env`: Active environment is frozen if not specified.
 - `--debug`: keep temporary files for each package manager for debugging.
+
+**Network**: Create a network dependency graph
+```bash
+coble betwork --frozen my-frozen-env.cbl --env my-env
+```
+--- Optional arguments:
+- `--env`: Active environment is frozen if not specified.
+The output is to the same folder as the input, frozen, called:  
+- `<env>_network_interactive.html` : an interactive dependdency explorer
+- `<env>_dependencies.txt` : the data for the dependency viewer
+- `<env>_network_stats.txt` : some info on the network
+
 
 **Template**: Generate a template recipe file to start from.
 ```bash
