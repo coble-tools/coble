@@ -7,4 +7,4 @@ This can also be run seperately with the function "network:
 coble network --frozen my-env_feeze.cbl --env my-env
 ```
 
-![alt text](../imgs/image.png)
+![alt text](../imgs/network.png)
