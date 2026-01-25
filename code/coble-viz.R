@@ -130,7 +130,8 @@ nodes <- nodes %>%
     size = ifelse(type == "main", 25, 15),
     font.size = ifelse(type == "main", 18, 12),
     font.face = ifelse(type == "main", "bold", "normal")
-  )
+  ) %>%
+  arrange(label)  # Sort alphabetically for easier navigation in dropdown
 
 # Calculate basic statistics
 n_main <- sum(nodes$type == "main")
@@ -159,24 +160,27 @@ vn <- visNetwork(nodes, edges,
   visOptions(
     highlightNearest = list(enabled = TRUE, degree = 1, hover = TRUE),
     nodesIdSelection = TRUE,
-    selectedBy = "type"
+    selectedBy = "location"
   ) %>%
   visLayout(randomSeed = 123) %>%
   visPhysics(
+    enabled = TRUE,
     solver = "forceAtlas2Based",
-    forceAtlas2Based = list(gravitationalConstant = -50),
-    stabilization = TRUE
+    forceAtlas2Based = list(
+      gravitationalConstant = -50
+    ),
+    stabilization = list(enabled = TRUE, iterations = 200)
   ) %>%
   visLegend(
     addNodes = list(
-      list(label = "CRAN Package", color = "#E91E63", size = 25, font = list(size = 16)),
-      list(label = "Bioconductor Package", color = "#AEEA00", size = 25, font = list(size = 16)),
-      list(label = "Archived Package", color = "#FF6F00", size = 25, font = list(size = 16)),
-      list(label = "Local/github Package", color = "#C62828", size = 25, font = list(size = 16)),
-      list(label = "Dependency", color = "#523b3b", size = 15, font = list(size = 14))
+      list(label = "CRAN Package", color = "#E91E63", size = 15, font = list(size = 12)),
+      list(label = "Bioconductor Package", color = "#AEEA00", size = 15, font = list(size = 12)),
+      list(label = "Archived Package", color = "#FF6F00", size = 15, font = list(size = 12)),
+      list(label = "Local/github Package", color = "#C62828", size = 15, font = list(size = 12)),
+      list(label = "Dependency", color = "#523b3b", size = 15, font = list(size = 12))
     ),
     useGroups = FALSE,
-    position = "right",
+    position = "left",
     ncol = 1
   ) %>%
   visInteraction(navigationButtons = TRUE, keyboard = TRUE)
@@ -225,16 +229,19 @@ custom_code <- paste0('
     display: none !important;
   }
   
-  /* Position configure panel on the left */
+  /* Position configure panel at the bottom */
   .vis-configuration-wrapper {
     display: block !important;
     position: fixed !important;
     left: 10px !important;
-    top: 150px !important;
-    right: auto !important;
-    width: 180px !important;
-    max-height: calc(100vh - 170px) !important;
+    top: auto !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    max-height: 200px !important;
     overflow-y: auto !important;
+    overflow-x: auto !important;
     background: rgba(65, 57, 57, 0.85) !important;
     border: 1px solid #310303 !important;
     border-radius: 5px !important;
@@ -303,7 +310,7 @@ cat(readLines(output_stats), sep = "\n")
 
 cat(sprintf("\n✓ Done! Open %s in a browser.\n", output_html))
 cat(sprintf("   - Title: '%s'\n", viz_title))
-cat("   - Physics controls always visible on the LEFT\n")
+cat("   - Physics controls always visible at the BOTTOM\n")
 cat("   - Arrows show: Package → Dependency\n")
 cat("   - ICR Color Scheme:\n")
 cat("     🌸 Pink = CRAN | 🍋 Lime = Bioconductor | 🟠 Orange = Archived | 🔴 Red = Local | ⚫ Gray = Dependencies\n")

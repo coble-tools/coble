@@ -180,7 +180,7 @@ BH	1.90.0-1		CRAN
 DT	0.34.0		CRAN	crosstalk,htmltools,htmlwidgets,jquerylib,jsonlite,magrittr,promises
 Formula	1.2-5		CRAN	stats
 Hmisc	5.2-5		CRAN	methods,ggplot2,cluster,rpart,nnet,foreign,gtable,grid,gridExtra,data.table,htmlTable,viridisLite,htmltools,base64enc,colorspace,rmarkdown,knitr,Formula
-QuickJSR	1.8.1		CRAN	
+QuickJSR	1.9.0		CRAN	
 R.methodsS3	1.8.2		CRAN	utils
 R.oo	1.27.1		CRAN	R.methodsS3,methods,utils
 R.utils	2.13.0		CRAN	R.oo,methods,utils,tools,R.methodsS3
