@@ -29,7 +29,7 @@ output_path <- "./"
 output_prefix <- "network"
 viz_title <- "Package Dependency Network"
 bg_color <- "#ffffff"
-graph_bg_color <- "#c1c9b1"
+graph_bg_color <- "#dae6f0"
 
 if (!file.exists(input_file)) {
   cat(sprintf("Error: File '%s' not found!\n", input_file))
@@ -172,8 +172,8 @@ vn <- visNetwork(nodes, edges,
       list(label = "CRAN Package", color = "#E91E63", size = 25, font = list(size = 16)),
       list(label = "Bioconductor Package", color = "#AEEA00", size = 25, font = list(size = 16)),
       list(label = "Archived Package", color = "#FF6F00", size = 25, font = list(size = 16)),
-      list(label = "Local Package", color = "#C62828", size = 25, font = list(size = 16)),
-      list(label = "Dependency", color = "#7f7f7f", size = 15, font = list(size = 14))
+      list(label = "Local/github Package", color = "#C62828", size = 25, font = list(size = 16)),
+      list(label = "Dependency", color = "#523b3b", size = 15, font = list(size = 14))
     ),
     useGroups = FALSE,
     position = "right",
