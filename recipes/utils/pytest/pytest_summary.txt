@@ -1,0 +1,296 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-25 at 16:41:50 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-25 16:41:50 1/33
+install: source ~/.bashrc
+[coble-create] End time: 2026-01-25 16:41:51
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:41:51 3/33
+install: conda env remove --name pytest -y 2>/dev/null || true
+[coble-create] End time: 2026-01-25 16:41:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:41:51 5/33
+install: conda create --no-default-packages --name pytest -y
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-01-25 16:42:03 7/33
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:03 8/33
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:03 9/33
+install: conda activate pytest
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:03 10/33
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:03 11/33
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-25 16:42:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:03 12/33
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-01-25 16:42:04
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:42:04 14/33
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-25 16:42:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:04 15/33
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-01-25 16:42:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:04 17/33
+install: conda install -y  'conda-forge::python=3.13.1'
+dep: # _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
+dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
+dep: # bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_8
+dep: # ca-certificates    conda-forge/noarch::ca-certificates-2026.1.4-hbd8a1cb_0
+dep: # icu                conda-forge/linux-64::icu-78.2-h33c6efd_0
+dep: # ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.45-default_hbd61a6d_105
+dep: # libexpat           conda-forge/linux-64::libexpat-2.7.3-hecca717_0
+dep: # libffi             conda-forge/linux-64::libffi-3.5.2-h9ec8514_0
+dep: # libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_16
+dep: # libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_16
+dep: # liblzma            conda-forge/linux-64::liblzma-5.8.2-hb03c661_0
+dep: # libmpdec           conda-forge/linux-64::libmpdec-4.0.0-hb9d3cd8_0
+dep: # libsqlite          conda-forge/linux-64::libsqlite-3.51.2-hf4e2dac_0
+dep: # libstdcxx          conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_16
+dep: # libuuid            conda-forge/linux-64::libuuid-2.41.3-h5347b49_0
+dep: # libzlib            conda-forge/linux-64::libzlib-1.3.1-hb9d3cd8_2
+dep: # ncurses            conda-forge/linux-64::ncurses-6.5-h2d0b736_3
+dep: # openssl            conda-forge/linux-64::openssl-3.6.0-h26f9b46_0
+dep: # pip                conda-forge/noarch::pip-25.3-pyh145f28c_0
+dep: # python             conda-forge/linux-64::python-3.13.1-ha99a958_105_cp313
+dep: # python_abi         conda-forge/noarch::python_abi-3.13-8_cp313
+dep: # readline           conda-forge/linux-64::readline-8.3-h853b02a_0
+dep: # tk                 conda-forge/linux-64::tk-8.6.13-noxft_ha0e22de_103
+dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
+dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
+[coble-create] End time: 2026-01-25 16:42:15
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-01-25 16:42:15 19/33
+install: python -m site
+[coble-create] End time: 2026-01-25 16:42:15
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:15 21/33
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-25 16:42:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:42:16 22/33
+install: conda deactivate
+[coble-create] End time: 2026-01-25 16:42:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:16 23/33
+install: conda activate pytest
+[coble-create] End time: 2026-01-25 16:42:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:42:16 28/33
+install: conda install -y  --no-update-deps  'requests'  'conda-build'  'anaconda-client'  'conda-index' 
+dep: # anaconda-auth      conda-forge/noarch::anaconda-auth-0.12.3-pyhd8ed1ab_0
+dep: # anaconda-cli-base  conda-forge/noarch::anaconda-cli-base-0.7.0-pyhcf101f3_1
+dep: # anaconda-client    conda-forge/noarch::anaconda-client-1.14.0-pyhcf101f3_0
+dep: # annotated-types    conda-forge/noarch::annotated-types-0.7.0-pyhd8ed1ab_1
+dep: # archspec           conda-forge/noarch::archspec-0.2.5-pyhd8ed1ab_0
+dep: # attrs              conda-forge/noarch::attrs-25.4.0-pyhcf101f3_1
+dep: # backports          conda-forge/noarch::backports-1.0-pyhd8ed1ab_5
+dep: # backports.tarfile  conda-forge/noarch::backports.tarfile-1.2.0-pyhcf101f3_2
+dep: # backports.zstd     conda-forge/linux-64::backports.zstd-1.3.0-py313h18e8e13_0
+dep: # beautifulsoup4     conda-forge/noarch::beautifulsoup4-4.14.3-pyha770c72_0
+dep: # boltons            conda-forge/noarch::boltons-25.0.0-pyhd8ed1ab_0
+dep: # brotli-python      conda-forge/linux-64::brotli-python-1.2.0-py313hf159716_1
+dep: # c-ares             conda-forge/linux-64::c-ares-1.34.6-hb03c661_0
+dep: # certifi            conda-forge/noarch::certifi-2026.1.4-pyhd8ed1ab_0
+dep: # cffi               conda-forge/linux-64::cffi-2.0.0-py313hf46b229_1
+dep: # chardet            conda-forge/noarch::chardet-5.2.0-pyhd8ed1ab_3
+dep: # charset-normalizer conda-forge/noarch::charset-normalizer-3.4.4-pyhd8ed1ab_0
+dep: # click              conda-forge/noarch::click-8.3.1-pyh8f84b5b_1
+dep: # colorama           conda-forge/noarch::colorama-0.4.6-pyhd8ed1ab_1
+dep: # conda              conda-forge/linux-64::conda-25.11.1-py313h78bf25f_0
+dep: # conda-build        conda-forge/linux-64::conda-build-25.11.1-py313h7e6d7ae_0
+dep: # conda-index        conda-forge/noarch::conda-index-0.7.0-pyhd8ed1ab_0
+dep: # conda-libmamba-so~ conda-forge/noarch::conda-libmamba-solver-25.11.0-pyhd8ed1ab_0
+dep: # conda-package-han~ conda-forge/noarch::conda-package-handling-2.4.0-pyh7900ff3_2
+dep: # conda-package-str~ conda-forge/noarch::conda-package-streaming-0.12.0-pyhd8ed1ab_0
+dep: # cpp-expected       conda-forge/linux-64::cpp-expected-1.3.1-h171cf75_0
+dep: # cryptography       conda-forge/linux-64::cryptography-46.0.3-py313heb322e3_1
+dep: # dbus               conda-forge/linux-64::dbus-1.16.2-h24cb091_1
+dep: # defusedxml         conda-forge/noarch::defusedxml-0.7.1-pyhd8ed1ab_0
+dep: # distro             conda-forge/noarch::distro-1.9.0-pyhd8ed1ab_1
+dep: # evalidate          conda-forge/noarch::evalidate-2.0.5-pyhe01879c_0
+dep: # filelock           conda-forge/noarch::filelock-3.20.3-pyhd8ed1ab_0
+dep: # fmt                conda-forge/linux-64::fmt-12.1.0-hff5e90c_0
+dep: # frozendict         conda-forge/linux-64::frozendict-2.4.7-py313h07c4f96_0
+dep: # h2                 conda-forge/noarch::h2-4.3.0-pyhcf101f3_0
+dep: # hpack              conda-forge/noarch::hpack-4.1.0-pyhd8ed1ab_0
+dep: # hyperframe         conda-forge/noarch::hyperframe-6.1.0-pyhd8ed1ab_0
+dep: # idna               conda-forge/noarch::idna-3.11-pyhd8ed1ab_0
+dep: # importlib-metadata conda-forge/noarch::importlib-metadata-8.7.0-pyhe01879c_1
+dep: # importlib_resourc~ conda-forge/noarch::importlib_resources-6.5.2-pyhd8ed1ab_0
+dep: # jaraco.classes     conda-forge/noarch::jaraco.classes-3.4.0-pyhcf101f3_3
+dep: # jaraco.context     conda-forge/noarch::jaraco.context-6.1.0-pyhcf101f3_0
+dep: # jaraco.functools   conda-forge/noarch::jaraco.functools-4.4.0-pyhcf101f3_1
+dep: # jeepney            conda-forge/noarch::jeepney-0.9.0-pyhd8ed1ab_0
+dep: # jinja2             conda-forge/noarch::jinja2-3.1.6-pyhcf101f3_1
+dep: # jsonpatch          conda-forge/noarch::jsonpatch-1.33-pyhd8ed1ab_1
+dep: # jsonpointer        conda-forge/noarch::jsonpointer-3.0.0-pyhcf101f3_3
+dep: # jsonschema         conda-forge/noarch::jsonschema-4.26.0-pyhcf101f3_0
+dep: # jsonschema-specif~ conda-forge/noarch::jsonschema-specifications-2025.9.1-pyhcf101f3_0
+dep: # jupyter_core       conda-forge/noarch::jupyter_core-5.9.1-pyhc90fa1f_0
+dep: # keyring            conda-forge/noarch::keyring-25.7.0-pyha804496_0
+dep: # keyutils           conda-forge/linux-64::keyutils-1.6.3-hb9d3cd8_0
+dep: # krb5               conda-forge/linux-64::krb5-1.21.3-h659f571_0
+dep: # lcms2              conda-forge/linux-64::lcms2-2.18-h0c24ade_0
+dep: # lerc               conda-forge/linux-64::lerc-4.0.0-h0aef613_1
+dep: # libarchive         conda-forge/linux-64::libarchive-3.8.5-gpl_hc2c16d8_100
+dep: # libcurl            conda-forge/linux-64::libcurl-8.18.0-h4e3cde8_0
+dep: # libdeflate         conda-forge/linux-64::libdeflate-1.25-h17f619e_0
+dep: # libedit            conda-forge/linux-64::libedit-3.1.20250104-pl5321h7949ede_0
+dep: # libev              conda-forge/linux-64::libev-4.33-hd590300_2
+dep: # libfreetype        conda-forge/linux-64::libfreetype-2.14.1-ha770c72_0
+dep: # libfreetype6       conda-forge/linux-64::libfreetype6-2.14.1-h73754d4_0
+dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_16
+dep: # libglib            conda-forge/linux-64::libglib-2.86.3-h6548e54_0
+dep: # libiconv           conda-forge/linux-64::libiconv-1.18-h3b78370_2
+dep: # libjpeg-turbo      conda-forge/linux-64::libjpeg-turbo-3.1.2-hb03c661_0
+dep: # liblief            conda-forge/linux-64::liblief-0.16.6-hecca717_1
+dep: # libmamba           conda-forge/linux-64::libmamba-2.5.0-hd28c85e_0
+dep: # libmamba-spdlog    conda-forge/linux-64::libmamba-spdlog-2.5.0-h12fcf84_0
+dep: # libmambapy         conda-forge/linux-64::libmambapy-2.5.0-py313h4616538_0
+dep: # libnghttp2         conda-forge/linux-64::libnghttp2-1.67.0-had1ee68_0
+dep: # libpng             conda-forge/linux-64::libpng-1.6.54-h421ea60_0
+dep: # libsolv            conda-forge/linux-64::libsolv-0.7.35-h9463b59_0
+dep: # libssh2            conda-forge/linux-64::libssh2-1.11.1-hcf80075_0
+dep: # libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_16
+dep: # libtiff            conda-forge/linux-64::libtiff-4.7.1-h9d88235_1
+dep: # libwebp-base       conda-forge/linux-64::libwebp-base-1.6.0-hd42ef1d_0
+dep: # libxcb             conda-forge/linux-64::libxcb-1.17.0-h8a09558_0
+dep: # libxml2            conda-forge/linux-64::libxml2-2.15.1-he237659_1
+dep: # libxml2-16         conda-forge/linux-64::libxml2-16-2.15.1-hca6bf5a_1
+dep: # lz4-c              conda-forge/linux-64::lz4-c-1.10.0-h5888daf_1
+dep: # lzo                conda-forge/linux-64::lzo-2.10-h280c20c_1002
+dep: # markdown-it-py     conda-forge/noarch::markdown-it-py-4.0.0-pyhd8ed1ab_0
+dep: # markupsafe         conda-forge/linux-64::markupsafe-3.0.3-py313h3dea7bd_0
+dep: # mbedtls            conda-forge/linux-64::mbedtls-3.6.3.1-h5888daf_0
+dep: # mdurl              conda-forge/noarch::mdurl-0.1.2-pyhd8ed1ab_1
+dep: # menuinst           conda-forge/linux-64::menuinst-2.4.2-py313h78bf25f_0
+dep: # more-itertools     conda-forge/noarch::more-itertools-10.8.0-pyhcf101f3_1
+dep: # msgpack-python     conda-forge/linux-64::msgpack-python-1.1.2-py313h7037e92_1
+dep: # nbformat           conda-forge/noarch::nbformat-5.10.4-pyhd8ed1ab_1
+dep: # nlohmann_json-abi  conda-forge/noarch::nlohmann_json-abi-3.12.0-h0f90c79_1
+dep: # openjpeg           conda-forge/linux-64::openjpeg-2.5.4-h55fea9a_0
+dep: # packaging          conda-forge/noarch::packaging-26.0-pyhcf101f3_0
+dep: # patch              conda-forge/linux-64::patch-2.8-hb03c661_1002
+dep: # patchelf           conda-forge/linux-64::patchelf-0.17.2-h58526e2_0
+dep: # pcre2              conda-forge/linux-64::pcre2-10.47-haa7fec5_0
+dep: # pillow             conda-forge/linux-64::pillow-12.1.0-py313h80991f8_0
+dep: # pkce               conda-forge/noarch::pkce-1.0.3-pyhd8ed1ab_1
+dep: # pkginfo            conda-forge/noarch::pkginfo-1.12.1.2-pyhd8ed1ab_0
+dep: # platformdirs       conda-forge/noarch::platformdirs-4.5.1-pyhcf101f3_0
+dep: # pluggy             conda-forge/noarch::pluggy-1.6.0-pyhf9edf01_1
+dep: # psutil             conda-forge/linux-64::psutil-7.2.1-py313h54dd161_0
+dep: # pthread-stubs      conda-forge/linux-64::pthread-stubs-0.4-hb9d3cd8_1002
+dep: # py-lief            conda-forge/linux-64::py-lief-0.16.6-py313h7033f15_1
+dep: # pybind11-abi       conda-forge/noarch::pybind11-abi-11-hc364b38_1
+dep: # pycosat            conda-forge/linux-64::pycosat-0.6.6-py313h07c4f96_3
+dep: # pycparser          conda-forge/noarch::pycparser-2.22-pyh29332c3_1
+dep: # pydantic           conda-forge/noarch::pydantic-2.12.5-pyhcf101f3_1
+dep: # pydantic-core      conda-forge/linux-64::pydantic-core-2.41.5-py313h843e2db_1
+dep: # pydantic-settings  conda-forge/noarch::pydantic-settings-2.12.0-pyh3cfb1c2_0
+dep: # pygments           conda-forge/noarch::pygments-2.19.2-pyhd8ed1ab_0
+dep: # pyjwt              conda-forge/noarch::pyjwt-2.10.1-pyhd8ed1ab_0
+dep: # pysocks            conda-forge/noarch::pysocks-1.7.1-pyha55dd90_7
+dep: # python-dateutil    conda-forge/noarch::python-dateutil-2.9.0.post0-pyhe01879c_2
+dep: # python-dotenv      conda-forge/noarch::python-dotenv-1.2.1-pyhcf101f3_0
+dep: # python-fastjsonsc~ conda-forge/noarch::python-fastjsonschema-2.21.2-pyhe01879c_0
+dep: # python-libarchive~ conda-forge/noarch::python-libarchive-c-5.3-pyhe01879c_1
+dep: # pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0
+dep: # pyyaml             conda-forge/linux-64::pyyaml-6.0.3-py313h3dea7bd_0
+dep: # readchar           conda-forge/noarch::readchar-4.2.1-pyhe01879c_0
+dep: # referencing        conda-forge/noarch::referencing-0.37.0-pyhcf101f3_0
+dep: # reproc             conda-forge/linux-64::reproc-14.2.5.post0-hb9d3cd8_0
+dep: # reproc-cpp         conda-forge/linux-64::reproc-cpp-14.2.5.post0-h5888daf_0
+dep: # requests           conda-forge/noarch::requests-2.32.5-pyhcf101f3_1
+dep: # requests-toolbelt  conda-forge/noarch::requests-toolbelt-1.0.0-pyhd8ed1ab_1
+dep: # rich               conda-forge/noarch::rich-14.3.1-pyhcf101f3_0
+dep: # ripgrep            conda-forge/linux-64::ripgrep-15.1.0-hdab8a38_0
+dep: # rpds-py            conda-forge/linux-64::rpds-py-0.30.0-py313h843e2db_0
+dep: # ruamel.yaml        conda-forge/linux-64::ruamel.yaml-0.18.17-py313h54dd161_2
+dep: # ruamel.yaml.clib   conda-forge/linux-64::ruamel.yaml.clib-0.2.15-py313h54dd161_1
+dep: # secretstorage      conda-forge/linux-64::secretstorage-3.4.1-py313h78bf25f_0
+dep: # semver             conda-forge/noarch::semver-3.0.4-pyhcf101f3_1
+dep: # setuptools         conda-forge/noarch::setuptools-80.10.1-pyh332efcf_0
+dep: # shellingham        conda-forge/noarch::shellingham-1.5.4-pyhd8ed1ab_2
+dep: # simdjson           conda-forge/linux-64::simdjson-4.2.4-hb700be7_0
+dep: # six                conda-forge/noarch::six-1.17.0-pyhe01879c_1
+dep: # soupsieve          conda-forge/noarch::soupsieve-2.8.3-pyhd8ed1ab_0
+dep: # spdlog             conda-forge/linux-64::spdlog-1.17.0-hab81395_1
+dep: # tomli              conda-forge/noarch::tomli-2.4.0-pyhcf101f3_0
+dep: # tqdm               conda-forge/noarch::tqdm-4.67.1-pyhd8ed1ab_1
+dep: # traitlets          conda-forge/noarch::traitlets-5.14.3-pyhd8ed1ab_1
+dep: # truststore         conda-forge/noarch::truststore-0.10.4-pyhcf101f3_0
+dep: # typer              conda-forge/noarch::typer-0.21.1-pyhf8876ea_0
+dep: # typer-slim         conda-forge/noarch::typer-slim-0.21.1-pyhcf101f3_0
+dep: # typer-slim-standa~ conda-forge/noarch::typer-slim-standard-0.21.1-h378290b_0
+dep: # typing-extensions  conda-forge/noarch::typing-extensions-4.15.0-h396c80c_0
+dep: # typing-inspection  conda-forge/noarch::typing-inspection-0.4.2-pyhd8ed1ab_1
+dep: # typing_extensions  conda-forge/noarch::typing_extensions-4.15.0-pyhcf101f3_0
+dep: # urllib3            conda-forge/noarch::urllib3-2.6.3-pyhd8ed1ab_0
+dep: # xorg-libxau        conda-forge/linux-64::xorg-libxau-1.0.12-hb03c661_1
+dep: # xorg-libxdmcp      conda-forge/linux-64::xorg-libxdmcp-1.1.5-hb03c661_1
+dep: # yaml               conda-forge/linux-64::yaml-0.2.5-h280c20c_3
+dep: # yaml-cpp           conda-forge/linux-64::yaml-cpp-0.8.0-h3f2d84a_0
+dep: # zipp               conda-forge/noarch::zipp-3.23.0-pyhcf101f3_1
+dep: # zlib-ng            conda-forge/linux-64::zlib-ng-2.3.2-hceb46e0_1
+dep: # zstandard          conda-forge/linux-64::zstandard-0.25.0-py313h54dd161_1
+[coble-create] End time: 2026-01-25 16:42:31
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-01-25 16:42:31 30/33
+install: python -m pip install 'pytest' 
+    Requirement already satisfied: packaging>=22 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from pytest) (26.0)
+    Requirement already satisfied: pluggy<2,>=1.5 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from pytest) (1.6.0)
+    Requirement already satisfied: pygments>=2.7.2 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from pytest) (2.19.2)
+    Successfully installed iniconfig-2.3.0 pytest-9.0.2
+[coble-create] End time: 2026-01-25 16:42:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:42:32 32/33
+install: python -m pip install "git+https://github.com/ICR-RSE-Group/gitalma.git" 
+    Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from gitalma==2.0.0) (2.32.5)
+    Requirement already satisfied: pyyaml in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from gitalma==2.0.0) (6.0.3)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from pandas->gitalma==2.0.0) (2.9.0.post0)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from python-dateutil>=2.8.2->pandas->gitalma==2.0.0) (1.17.0)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from requests->gitalma==2.0.0) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from requests->gitalma==2.0.0) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from requests->gitalma==2.0.0) (2.6.3)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/pytest/lib/python3.13/site-packages (from requests->gitalma==2.0.0) (2026.1.4)
+    Successfully installed gitalma-2.0.0 numpy-2.4.1 pandas-3.0.0
+[coble-create] End time: 2026-01-25 16:42:41
+[coble-create] Duration: 9s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-25 16:42:41
+[coble-create] Recipe took: 0h 0m 51s
+--------------------------------------

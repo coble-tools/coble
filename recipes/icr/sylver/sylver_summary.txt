@@ -1,0 +1,461 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-01-25 at 16:06:10 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-01-25 16:06:10 1/72
+install: source ~/.bashrc
+[coble-create] End time: 2026-01-25 16:06:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:10 3/72
+install: conda env remove --name sylver -y 2>/dev/null || true
+[coble-create] End time: 2026-01-25 16:06:11
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:06:11 5/72
+install: conda create --no-default-packages --name sylver -y
+[coble-create] End time: 2026-01-25 16:06:19
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-01-25 16:06:19 7/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-25 16:06:19
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:19 8/72
+install: unset PYTHONPATH
+[coble-create] End time: 2026-01-25 16:06:19
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:19 9/72
+install: conda activate sylver
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:06:20 10/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:20 11/72
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:20 12/72
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:20 14/72
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:20 15/72
+install: conda config --env --add channels r
+[coble-create] End time: 2026-01-25 16:06:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:21 17/72
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-01-25 16:06:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:21 19/72
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-01-25 16:06:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:21 21/72
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-01-25 16:06:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:06:21 23/72
+install: conda install -y  -c r 'r-base=3.6.0' r-remotes r-biocmanager
+dep: # _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+dep: # _r-mutex           r/linux-64::_r-mutex-1.0.0-anacondar_1
+dep: # binutils_impl_lin~ pkgs/main/linux-64::binutils_impl_linux-64-2.44-h4b9a079_2
+dep: # binutils_linux-64  pkgs/main/linux-64::binutils_linux-64-2.44-hc03a8fd_2
+dep: # bwidget            pkgs/main/linux-64::bwidget-1.10.1-h9eba36c_0
+dep: # bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2025.12.2-h06a4308_0
+dep: # cairo              pkgs/main/linux-64::cairo-1.14.12-h8948797_3
+dep: # curl               pkgs/main/linux-64::curl-7.67.0-hbc83047_0
+dep: # expat              pkgs/main/linux-64::expat-2.7.3-h7354ed3_4
+dep: # fontconfig         pkgs/main/linux-64::fontconfig-2.14.1-h52c9d5c_1
+dep: # freetype           pkgs/main/linux-64::freetype-2.13.3-h4a9f257_0
+dep: # fribidi            pkgs/main/linux-64::fribidi-1.0.16-h9fb5f84_0
+dep: # gcc_impl_linux-64  pkgs/main/linux-64::gcc_impl_linux-64-15.2.0-h36674fd_7
+dep: # gcc_linux-64       pkgs/main/linux-64::gcc_linux-64-15.2.0-h1ca4c6b_12
+dep: # gfortran_impl_lin~ pkgs/main/linux-64::gfortran_impl_linux-64-15.2.0-h9a99ed0_7
+dep: # gfortran_linux-64  pkgs/main/linux-64::gfortran_linux-64-15.2.0-h8bab554_12
+dep: # glib               pkgs/main/linux-64::glib-2.56.2-hd408876_0
+dep: # graphite2          pkgs/main/linux-64::graphite2-1.3.14-h295c915_1
+dep: # gxx_impl_linux-64  pkgs/main/linux-64::gxx_impl_linux-64-15.2.0-h6e002af_7
+dep: # gxx_linux-64       pkgs/main/linux-64::gxx_linux-64-15.2.0-h94d4220_12
+dep: # harfbuzz           pkgs/main/linux-64::harfbuzz-1.8.8-hffaf4a1_0
+dep: # icu                pkgs/main/linux-64::icu-58.2-he6710b0_3
+dep: # jpeg               pkgs/main/linux-64::jpeg-9f-h5ce9db8_0
+dep: # kernel-headers_li~ pkgs/main/noarch::kernel-headers_linux-64-4.18.0-h3108a97_1
+dep: # krb5               pkgs/main/linux-64::krb5-1.16.4-h173b8e3_0
+dep: # ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h153f514_2
+dep: # lerc               pkgs/main/linux-64::lerc-4.0.0-h6a678d5_0
+dep: # libcurl            pkgs/main/linux-64::libcurl-7.67.0-h20c2e04_0
+dep: # libdeflate         pkgs/main/linux-64::libdeflate-1.22-h5eee18b_0
+dep: # libedit            pkgs/main/linux-64::libedit-3.1.20230828-h5eee18b_0
+dep: # libexpat           pkgs/main/linux-64::libexpat-2.7.3-h7354ed3_4
+dep: # libffi             pkgs/main/linux-64::libffi-3.2.1-hf484d3e_1007
+dep: # libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_7
+dep: # libgcc-devel_linu~ pkgs/main/noarch::libgcc-devel_linux-64-15.2.0-hcb64138_107
+dep: # libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_7
+dep: # libgfortran-ng     pkgs/main/linux-64::libgfortran-ng-7.5.0-ha8ba4b0_17
+dep: # libgfortran4       pkgs/main/linux-64::libgfortran4-7.5.0-ha8ba4b0_17
+dep: # libgfortran5       pkgs/main/linux-64::libgfortran5-15.2.0-hc633d37_7
+dep: # libgomp            pkgs/main/linux-64::libgomp-15.2.0-h4751f2c_7
+dep: # libpng             pkgs/main/linux-64::libpng-1.6.54-hee55ce4_0
+dep: # libsanitizer       pkgs/main/linux-64::libsanitizer-15.2.0-h56912e6_7
+dep: # libssh2            pkgs/main/linux-64::libssh2-1.10.0-h37d81fd_2
+dep: # libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_7
+dep: # libstdcxx-devel_l~ pkgs/main/noarch::libstdcxx-devel_linux-64-15.2.0-hcb64138_107
+dep: # libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-15.2.0-hc03a8fd_7
+dep: # libtiff            pkgs/main/linux-64::libtiff-4.7.1-h029b1ac_0
+dep: # libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0
+dep: # libwebp-base       pkgs/main/linux-64::libwebp-base-1.6.0-hb7bb969_0
+dep: # libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0
+dep: # libxml2            pkgs/main/linux-64::libxml2-2.9.14-h74e7548_0
+dep: # lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1
+dep: # make               pkgs/main/linux-64::make-4.2.1-h1bed415_1
+dep: # ncurses            pkgs/main/linux-64::ncurses-6.5-h7934f7d_0
+dep: # openssl            pkgs/main/linux-64::openssl-1.1.1w-h7f8727e_0
+dep: # pango              pkgs/main/linux-64::pango-1.42.4-h049681c_0
+dep: # pcre               pkgs/main/linux-64::pcre-8.45-h295c915_0
+dep: # pixman             pkgs/main/linux-64::pixman-0.46.4-h7934f7d_0
+dep: # pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1
+dep: # r-base             r/linux-64::r-base-3.6.0-hce969dd_0
+dep: # r-biocmanager      r/noarch::r-biocmanager-1.30.4-r36h6115d3f_0
+dep: # r-remotes          r/noarch::r-remotes-2.0.4-r36h6115d3f_0
+dep: # readline           pkgs/main/linux-64::readline-7.0-h7b6447c_5
+dep: # sysroot_linux-64   pkgs/main/noarch::sysroot_linux-64-2.28-h3108a97_1
+dep: # tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0
+dep: # tktable            pkgs/main/linux-64::tktable-2.10-hfce700a_2
+dep: # tzdata             pkgs/main/noarch::tzdata-2025c-he532380_0
+dep: # xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1
+dep: # xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0
+dep: # xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0
+dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
+dep: # xz                 pkgs/main/linux-64::xz-5.6.4-h5eee18b_1
+dep: # zlib               pkgs/main/linux-64::zlib-1.2.13-hd233ad5_2
+dep: # zstd               pkgs/main/linux-64::zstd-1.5.6-hc292b87_0
+[coble-create] End time: 2026-01-25 16:06:48
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-01-25 16:06:48 25/72
+install: conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=13.1' 'gxx_linux-64=13.1' 'gfortran_linux-64=13.1'
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2~ --> conda-forge/noarch::ca-certificates-2026.1.4-hbd8a1cb_0
+dep: # libgcc-devel_linu~ pkgs/main/noarch::libgcc-devel_linux-~ --> conda-forge/linux-64::libgcc-devel_linux-64-13.1.0-he3cc6c4_0
+dep: # libstdcxx-devel_l~ pkgs/main/noarch::libstdcxx-devel_lin~ --> conda-forge/linux-64::libstdcxx-devel_linux-64-13.1.0-he3cc6c4_0
+[coble-create] End time: 2026-01-25 16:07:05
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-01-25 16:07:05 27/72
+install: conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
+dep: # binutils           conda-forge/linux-64::binutils-2.40-h4852527_7
+dep: # c-compiler         conda-forge/linux-64::c-compiler-1.10.0-h2b85faf_0
+dep: # cxx-compiler       conda-forge/linux-64::cxx-compiler-1.10.0-h1a2810e_0
+dep: # gcc                conda-forge/linux-64::gcc-13.1.0-h8e92de4_1
+dep: # gxx                conda-forge/linux-64::gxx-13.1.0-h8e92de4_1
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-01-25 16:07:16 29/72
+install: umask 0022
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 30/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 31/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 32/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 33/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 34/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 35/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 36/72
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 37/72
+install: conda env config vars set CC="/home/ralcraft/miniforge3/bin/gcc"
+[coble-create] End time: 2026-01-25 16:07:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:16 38/72
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/bin/g++"
+[coble-create] End time: 2026-01-25 16:07:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:07:17 39/72
+install: conda env config vars set FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-25 16:07:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:17 40/72
+install: conda env config vars set F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-01-25 16:07:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:17 41/72
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-25 16:07:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:17 42/72
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-25 16:07:18
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:07:18 43/72
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-01-25 16:07:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:18 44/72
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-01-25 16:07:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:18 45/72
+install: conda deactivate
+[coble-create] End time: 2026-01-25 16:07:19
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:07:19 46/72
+install: conda activate sylver
+[coble-create] End time: 2026-01-25 16:07:19
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:19 47/72
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-25 16:07:20
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-01-25 16:07:20 48/72
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-01-25 16:07:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:20 50/72
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-01-25 16:07:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:07:20 61/72
+install: conda install -y  --no-update-deps  'r-BiocManager'  'r-remotes'  'r-tidyverse=1.3.1'  'r-effsize=0.8.1'  'r-magrittr=2.0.1'  'r-tidyverse=1.3.1'  'r-ggplot2'  'r-ggrepel=0.9.1'  'r-VennDiagram=1.6.20' 
+dep: # libblas            conda-forge/linux-64::libblas-3.9.0-28_h59b9bed_openblas
+dep: # libiconv           conda-forge/linux-64::libiconv-1.18-h3b78370_2
+dep: # liblapack          conda-forge/linux-64::liblapack-3.9.0-28_h7ac8fdf_openblas
+dep: # libopenblas        conda-forge/linux-64::libopenblas-0.3.28-pthreads_h94d23a6_0
+dep: # pandoc             conda-forge/linux-64::pandoc-2.19.2-ha770c72_0
+dep: # r-askpass          conda-forge/linux-64::r-askpass-1.1-r36hcfec24a_2
+dep: # r-assertthat       conda-forge/noarch::r-assertthat-0.2.1-r36h6115d3f_2
+dep: # r-backports        conda-forge/linux-64::r-backports-1.2.1-r36hcfec24a_0
+dep: # r-base64enc        conda-forge/linux-64::r-base64enc-0.1_3-r36hcfec24a_1004
+dep: # r-blob             conda-forge/noarch::r-blob-1.2.1-r36h6115d3f_1
+dep: # r-brio             conda-forge/linux-64::r-brio-1.1.2-r36hcfec24a_0
+dep: # r-broom            conda-forge/noarch::r-broom-0.7.6-r36hc72bb7e_0
+dep: # r-callr            conda-forge/noarch::r-callr-3.7.0-r36hc72bb7e_0
+dep: # r-cellranger       conda-forge/noarch::r-cellranger-1.1.0-r36h6115d3f_1003
+dep: # r-cli              conda-forge/noarch::r-cli-2.5.0-r36hc72bb7e_0
+dep: # r-clipr            conda-forge/noarch::r-clipr-0.7.1-r36h142f84f_0
+dep: # r-colorspace       conda-forge/linux-64::r-colorspace-2.0_1-r36hcfec24a_0
+dep: # r-cpp11            conda-forge/noarch::r-cpp11-0.2.7-r36hc72bb7e_0
+dep: # r-crayon           conda-forge/noarch::r-crayon-1.4.1-r36hc72bb7e_0
+dep: # r-curl             conda-forge/linux-64::r-curl-4.3.1-r36hcfec24a_0
+dep: # r-data.table       conda-forge/linux-64::r-data.table-1.14.0-r36hcfec24a_0
+dep: # r-dbi              conda-forge/noarch::r-dbi-1.1.1-r36hc72bb7e_0
+dep: # r-dbplyr           conda-forge/noarch::r-dbplyr-2.1.1-r36hc72bb7e_0
+dep: # r-desc             conda-forge/noarch::r-desc-1.3.0-r36hc72bb7e_0
+dep: # r-diffobj          conda-forge/linux-64::r-diffobj-0.3.4-r36hcfec24a_0
+dep: # r-digest           conda-forge/linux-64::r-digest-0.6.27-r36h03ef668_0
+dep: # r-dplyr            conda-forge/linux-64::r-dplyr-1.0.6-r36h03ef668_1
+dep: # r-dtplyr           conda-forge/noarch::r-dtplyr-1.1.0-r36hc72bb7e_0
+dep: # r-effsize          conda-forge/noarch::r-effsize-0.8.1-r36h142f84f_0
+dep: # r-ellipsis         conda-forge/linux-64::r-ellipsis-0.3.2-r36hcfec24a_0
+dep: # r-evaluate         conda-forge/noarch::r-evaluate-0.14-r36h6115d3f_2
+dep: # r-fansi            conda-forge/linux-64::r-fansi-0.4.2-r36hcfec24a_0
+dep: # r-farver           conda-forge/linux-64::r-farver-2.1.0-r36h03ef668_0
+dep: # r-forcats          conda-forge/noarch::r-forcats-0.5.1-r36hc72bb7e_0
+dep: # r-formatr          conda-forge/noarch::r-formatr-1.9-r36hc72bb7e_0
+dep: # r-fs               conda-forge/linux-64::r-fs-1.5.0-r36h0357c0b_0
+dep: # r-futile.logger    conda-forge/noarch::r-futile.logger-1.4.3-r36h6115d3f_1003
+dep: # r-futile.options   conda-forge/noarch::r-futile.options-1.0.1-r36h6115d3f_1002
+dep: # r-gargle           conda-forge/noarch::r-gargle-1.1.0-r36hc72bb7e_0
+dep: # r-generics         conda-forge/noarch::r-generics-0.1.0-r36hc72bb7e_0
+dep: # r-ggplot2          conda-forge/noarch::r-ggplot2-3.3.3-r36hc72bb7e_0
+dep: # r-ggrepel          conda-forge/linux-64::r-ggrepel-0.9.1-r36h03ef668_0
+dep: # r-glue             conda-forge/linux-64::r-glue-1.4.2-r36hcfec24a_0
+dep: # r-googledrive      conda-forge/noarch::r-googledrive-1.0.1-r36h6115d3f_1
+dep: # r-googlesheets4    conda-forge/linux-64::r-googlesheets4-0.3.0-r36hc72bb7e_0
+dep: # r-gtable           conda-forge/noarch::r-gtable-0.3.0-r36h6115d3f_3
+dep: # r-haven            conda-forge/linux-64::r-haven-2.4.1-r36h2713e49_0
+dep: # r-highr            conda-forge/noarch::r-highr-0.9-r36hc72bb7e_0
+dep: # r-hms              conda-forge/noarch::r-hms-1.1.0-r36hc72bb7e_0
+dep: # r-htmltools        conda-forge/linux-64::r-htmltools-0.5.1.1-r36h03ef668_0
+dep: # r-httr             conda-forge/noarch::r-httr-1.4.2-r36h6115d3f_0
+dep: # r-ids              conda-forge/noarch::r-ids-1.0.1-r36h6115d3f_1
+dep: # r-isoband          conda-forge/linux-64::r-isoband-0.2.4-r36h03ef668_0
+dep: # r-jsonlite         conda-forge/linux-64::r-jsonlite-1.7.2-r36hcfec24a_0
+dep: # r-knitr            conda-forge/noarch::r-knitr-1.33-r36hc72bb7e_0
+dep: # r-labeling         conda-forge/noarch::r-labeling-0.4.2-r36h142f84f_0
+dep: # r-lambda.r         conda-forge/noarch::r-lambda.r-1.2.4-r36h6115d3f_1
+dep: # r-lattice          conda-forge/linux-64::r-lattice-0.20_44-r36hcfec24a_0
+dep: # r-lifecycle        conda-forge/noarch::r-lifecycle-1.0.0-r36hc72bb7e_0
+dep: # r-lubridate        conda-forge/linux-64::r-lubridate-1.7.10-r36h03ef668_0
+dep: # r-magrittr         conda-forge/linux-64::r-magrittr-2.0.1-r36hcfec24a_1
+dep: # r-markdown         conda-forge/linux-64::r-markdown-1.1-r36hcfec24a_1
+dep: # r-mass             conda-forge/linux-64::r-mass-7.3_54-r36hcfec24a_0
+dep: # r-matrix           conda-forge/linux-64::r-matrix-1.3_3-r36he454529_0
+dep: # r-mgcv             conda-forge/linux-64::r-mgcv-1.8_35-r36he454529_0
+dep: # r-mime             conda-forge/linux-64::r-mime-0.10-r36hcfec24a_0
+dep: # r-modelr           conda-forge/noarch::r-modelr-0.1.8-r36h6115d3f_0
+dep: # r-munsell          conda-forge/noarch::r-munsell-0.5.0-r36h6115d3f_1003
+dep: # r-nlme             conda-forge/linux-64::r-nlme-3.1_152-r36h859d828_0
+dep: # r-openssl          conda-forge/linux-64::r-openssl-1.4.4-r36he36bf35_0
+dep: # r-pillar           conda-forge/noarch::r-pillar-1.6.1-r36hc72bb7e_0
+dep: # r-pkgconfig        conda-forge/noarch::r-pkgconfig-2.0.3-r36h6115d3f_1
+dep: # r-pkgload          conda-forge/linux-64::r-pkgload-1.2.1-r36h03ef668_0
+dep: # r-plyr             conda-forge/linux-64::r-plyr-1.8.6-r36h0357c0b_1
+dep: # r-praise           conda-forge/noarch::r-praise-1.0.0-r36h6115d3f_1004
+dep: # r-prettyunits      conda-forge/noarch::r-prettyunits-1.1.1-r36h6115d3f_1
+dep: # r-processx         conda-forge/linux-64::r-processx-3.5.2-r36hcfec24a_0
+dep: # r-progress         conda-forge/noarch::r-progress-1.2.2-r36h6115d3f_2
+dep: # r-ps               conda-forge/linux-64::r-ps-1.6.0-r36hcfec24a_0
+dep: # r-purrr            conda-forge/linux-64::r-purrr-0.3.4-r36hcfec24a_1
+dep: # r-r6               conda-forge/noarch::r-r6-2.5.0-r36hc72bb7e_0
+dep: # r-rappdirs         conda-forge/linux-64::r-rappdirs-0.3.3-r36hcfec24a_0
+dep: # r-rcolorbrewer     conda-forge/noarch::r-rcolorbrewer-1.1_2-r36h6115d3f_1003
+dep: # r-rcpp             conda-forge/linux-64::r-rcpp-1.0.6-r36h03ef668_0
+dep: # r-readr            conda-forge/linux-64::r-readr-1.4.0-r36h1b71b39_0
+dep: # r-readxl           conda-forge/linux-64::r-readxl-1.3.1-r36hde08347_4
+dep: # r-rematch          conda-forge/noarch::r-rematch-1.0.1-r36h6115d3f_1003
+dep: # r-rematch2         conda-forge/noarch::r-rematch2-2.1.2-r36h6115d3f_1
+dep: # r-reprex           conda-forge/noarch::r-reprex-2.0.0-r36hc72bb7e_0
+dep: # r-reshape2         conda-forge/linux-64::r-reshape2-1.4.4-r36h0357c0b_1
+dep: # r-rlang            conda-forge/linux-64::r-rlang-0.4.11-r36hcfec24a_0
+dep: # r-rmarkdown        conda-forge/noarch::r-rmarkdown-2.8-r36hc72bb7e_0
+dep: # r-rprojroot        conda-forge/noarch::r-rprojroot-2.0.2-r36hc72bb7e_0
+dep: # r-rstudioapi       conda-forge/noarch::r-rstudioapi-0.13-r36hc72bb7e_0
+dep: # r-rvest            conda-forge/noarch::r-rvest-1.0.0-r36hc72bb7e_0
+dep: # r-scales           conda-forge/noarch::r-scales-1.1.1-r36h6115d3f_0
+dep: # r-selectr          conda-forge/noarch::r-selectr-0.4_2-r36h6115d3f_1
+dep: # r-stringi          conda-forge/linux-64::r-stringi-1.4.3-r36h0357c0b_2
+dep: # r-stringr          conda-forge/noarch::r-stringr-1.4.0-r36h6115d3f_2
+dep: # r-sys              conda-forge/linux-64::r-sys-3.4-r36hcfec24a_0
+dep: # r-testthat         conda-forge/linux-64::r-testthat-3.0.2-r36h03ef668_0
+dep: # r-tibble           conda-forge/linux-64::r-tibble-3.1.2-r36hcfec24a_0
+dep: # r-tidyr            conda-forge/linux-64::r-tidyr-1.1.3-r36h03ef668_0
+dep: # r-tidyselect       conda-forge/linux-64::r-tidyselect-1.1.1-r36hc72bb7e_0
+dep: # r-tidyverse        conda-forge/noarch::r-tidyverse-1.3.1-r36hc72bb7e_0
+dep: # r-tinytex          conda-forge/noarch::r-tinytex-0.31-r36hc72bb7e_0
+dep: # r-utf8             conda-forge/linux-64::r-utf8-1.2.1-r36hcfec24a_0
+dep: # r-uuid             conda-forge/linux-64::r-uuid-0.1_4-r36hcdcec82_1
+dep: # r-vctrs            conda-forge/linux-64::r-vctrs-0.3.8-r36hcfec24a_1
+dep: # r-venndiagram      conda-forge/noarch::r-venndiagram-1.6.20-r36h6115d3f_1002
+dep: # r-viridislite      conda-forge/noarch::r-viridislite-0.4.0-r36hc72bb7e_0
+dep: # r-waldo            conda-forge/noarch::r-waldo-0.2.5-r36hc72bb7e_0
+dep: # r-withr            conda-forge/noarch::r-withr-2.4.2-r36hc72bb7e_0
+dep: # r-xfun             conda-forge/linux-64::r-xfun-0.23-r36hcfec24a_0
+dep: # r-xml2             conda-forge/linux-64::r-xml2-1.3.2-r36h0357c0b_1
+dep: # r-yaml             conda-forge/linux-64::r-yaml-2.2.1-r36hcfec24a_1
+[coble-create] End time: 2026-01-25 16:07:43
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-01-25 16:07:43 67/72
+install: conda install -y  --no-update-deps  'bioconductor-affy=1.64.0'  'bioconductor-fgsea=1.12.0'  'bioconductor-GSVA=1.34.0'  'bioconductor-org.Hs.eg.db=3.10.0' 
+dep: # bioconductor-affy  bioconda/linux-64::bioconductor-affy-1.64.0-r36h516909a_0
+dep: # bioconductor-affy~ bioconda/linux-64::bioconductor-affyio-1.56.0-r36h516909a_0
+dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotate-1.64.0-r36_0
+dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.48.0-r36_0
+dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.46.0-r36h516909a_0
+dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocgenerics-0.32.0-r36_0
+dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocparallel-1.20.0-r36he1b5a44_0
+dep: # bioconductor-fgsea bioconda/linux-64::bioconductor-fgsea-1.12.0-r36he1b5a44_0
+dep: # bioconductor-gene~ bioconda/noarch::bioconductor-geneplotter-1.64.0-r36_0
+dep: # bioconductor-graph bioconda/linux-64::bioconductor-graph-1.64.0-r36h516909a_0
+dep: # bioconductor-gsea~ bioconda/noarch::bioconductor-gseabase-1.48.0-r36_0
+dep: # bioconductor-gsva  bioconda/linux-64::bioconductor-gsva-1.34.0-r36h516909a_0
+dep: # bioconductor-iran~ bioconda/linux-64::bioconductor-iranges-2.20.0-r36h516909a_0
+dep: # bioconductor-org.~ bioconda/noarch::bioconductor-org.hs.eg.db-3.10.0-r36_0
+dep: # bioconductor-prep~ bioconda/linux-64::bioconductor-preprocesscore-1.48.0-r36h516909a_0
+dep: # bioconductor-s4ve~ bioconda/linux-64::bioconductor-s4vectors-0.24.0-r36h516909a_0
+dep: # bioconductor-zlib~ bioconda/linux-64::bioconductor-zlibbioc-1.32.0-r36h516909a_0
+dep: # r-bh               conda-forge/noarch::r-bh-1.75.0_0-r36hc72bb7e_0
+dep: # r-bit              conda-forge/linux-64::r-bit-4.0.4-r36hcfec24a_0
+dep: # r-bit64            conda-forge/linux-64::r-bit64-4.0.5-r36hcfec24a_0
+dep: # r-bitops           conda-forge/linux-64::r-bitops-1.0_7-r36hcfec24a_0
+dep: # r-bslib            conda-forge/noarch::r-bslib-0.2.5.1-r36hc72bb7e_0
+dep: # r-cachem           conda-forge/linux-64::r-cachem-1.0.5-r36hcfec24a_0
+dep: # r-commonmark       conda-forge/linux-64::r-commonmark-1.7-r36hcfec24a_1002
+dep: # r-fastmap          conda-forge/linux-64::r-fastmap-1.1.0-r36h03ef668_0
+dep: # r-fastmatch        conda-forge/linux-64::r-fastmatch-1.1_0-r36hcdcec82_1005
+dep: # r-gridextra        conda-forge/noarch::r-gridextra-2.3-r36h6115d3f_1003
+dep: # r-httpuv           conda-forge/linux-64::r-httpuv-1.6.1-r36h03ef668_0
+dep: # r-jquerylib        conda-forge/noarch::r-jquerylib-0.1.4-r36hc72bb7e_0
+dep: # r-later            conda-forge/linux-64::r-later-1.2.0-r36h03ef668_0
+dep: # r-memoise          conda-forge/noarch::r-memoise-2.0.0-r36hc72bb7e_0
+dep: # r-plogr            conda-forge/noarch::r-plogr-0.2.0-r36h6115d3f_1003
+dep: # r-promises         conda-forge/linux-64::r-promises-1.2.0.1-r36h03ef668_0
+dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.1-r36hcdcec82_0
+dep: # r-rsqlite          conda-forge/linux-64::r-rsqlite-2.2.5-r36h03ef668_0
+dep: # r-sass             conda-forge/linux-64::r-sass-0.4.0-r36h03ef668_0
+dep: # r-shiny            conda-forge/noarch::r-shiny-1.6.0-r36hc72bb7e_0
+dep: # r-shinythemes      conda-forge/noarch::r-shinythemes-1.2.0-r36hc72bb7e_0
+dep: # r-snow             conda-forge/noarch::r-snow-0.4_3-r36h6115d3f_1002
+dep: # r-sourcetools      conda-forge/linux-64::r-sourcetools-0.1.7-r36he1b5a44_1002
+dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.3-r36hcdcec82_1
+dep: # r-xtable           conda-forge/noarch::r-xtable-1.8_4-r36h6115d3f_3
+[coble-create] End time: 2026-01-25 16:09:41
+[coble-create] Duration: 118s
+
+[coble-create] Start time: 2026-01-25 16:09:41 69/72
+install: Rscript -e 'remotes::install_version("survival", version="3.2-11", repos="https://cloud.r-project.org", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (survival)
+[coble-create] End time: 2026-01-25 16:10:00
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-01-25 16:10:00 71/72
+install: Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (limma)
+[coble-create] End time: 2026-01-25 16:10:16
+[coble-create] Duration: 16s
+--------------------------------------
+[coble-create] Recipe created at: 2026-01-25 16:10:16
+[coble-create] Recipe took: 0h 4m 6s
+--------------------------------------

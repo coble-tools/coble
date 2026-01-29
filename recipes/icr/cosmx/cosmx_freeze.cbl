@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-20
-# Capture time: 09:41:03 GMT
+# Capture date: 2026-01-25
+# Capture time: 15:51:21 GMT
 # Captured by: ralcraft
 
 coble:
@@ -79,7 +79,7 @@ conda:
   - certifi=2026.1.4@conda-forge
   - cffi=2.0.0@conda-forge
   - charset-normalizer=3.4.4@conda-forge
-  - cmake=4.2.1@conda-forge
+  - cmake=4.2.2@conda-forge
   - comm=0.2.3@conda-forge
   - cpython=3.14.2@conda-forge
   - curl=8.18.0@conda-forge
@@ -127,7 +127,7 @@ conda:
   - httpx=0.28.1@conda-forge
   - hyperframe=6.1.0@conda-forge
   - idna=3.11@conda-forge
-  - imagemagick=7.1.2_12@conda-forge
+  - imagemagick=7.1.2_13@conda-forge
   - importlib-metadata=8.7.0@conda-forge
   - importlib_resources=6.5.2@conda-forge
   - ipykernel=7.1.0@conda-forge
@@ -149,7 +149,7 @@ conda:
   - jupyter_events=0.12.0@conda-forge
   - jupyter_server=2.17.0@conda-forge
   - jupyter_server_terminals=0.5.4@conda-forge
-  - jupyterlab=4.5.2@conda-forge
+  - jupyterlab=4.5.3@conda-forge
   - jupyterlab_pygments=0.3.0@conda-forge
   - jupyterlab_server=2.28.0@conda-forge
   - kernel-headers_linux-64=6.12.0@conda-forge
@@ -159,7 +159,7 @@ conda:
   - ld_impl_linux-64=2.45@conda-forge
   - lerc=4.0.0@conda-forge
   - libabseil=20260107.0@conda-forge
-  - libaec=1.1.4@conda-forge
+  - libaec=1.1.5@conda-forge
   - libarchive=3.8.5@conda-forge
   - libavif16=1.3.0@conda-forge
   - libblas=3.11.0@conda-forge
@@ -243,7 +243,7 @@ conda:
   - openjpeg=2.5.4@conda-forge
   - openssl=3.6.0@conda-forge
   - overrides=7.7.0@conda-forge
-  - packaging=25.0@conda-forge
+  - packaging=26.0@conda-forge
   - pandoc=3.8.3@conda-forge
   - pandocfilters=1.5.0@conda-forge
   - pango=1.56.4@conda-forge
@@ -285,11 +285,11 @@ conda:
   - rpds-py=0.30.0@conda-forge
   - sed=4.9@conda-forge
   - send2trash=2.1.0@conda-forge
-  - setuptools=80.9.0@conda-forge
+  - setuptools=80.10.1@conda-forge
   - six=1.17.0@conda-forge
   - snappy=1.2.2@conda-forge
   - sniffio=1.3.1@conda-forge
-  - soupsieve=2.8.2@conda-forge
+  - soupsieve=2.8.3@conda-forge
   - sqlite=3.51.2@conda-forge
   - stack_data=0.6.3@conda-forge
   - svt-av1=3.1.2@conda-forge
@@ -369,7 +369,7 @@ r-conda:
   - colorspace=2.1_2@conda-forge
   - commonmark=2.0.0@conda-forge
   - conflicted=1.2.0@conda-forge
-  - cpp11=0.5.2@conda-forge
+  - cpp11=0.5.3@conda-forge
   - crayon=1.5.3@conda-forge
   - crul=1.6.0@conda-forge
   - data.table=1.17.8@conda-forge
@@ -518,8 +518,8 @@ r-conda:
   - tzdb=0.5.0@conda-forge
   - urltools=1.7.3.1@conda-forge
   - utf8=1.2.6@conda-forge
-  - uuid=1.2_1@conda-forge
-  - vctrs=0.6.5@conda-forge
+  - uuid=1.2_2@conda-forge
+  - vctrs=0.7.1@conda-forge
   - viridislite=0.4.2@conda-forge
   - vroom=1.6.7@conda-forge
   - withr=3.0.2@conda-forge
@@ -542,7 +542,7 @@ r-package:
   - BH=1.90.0-1
   - FNN=1.1.4.1
   - RANN=2.6.2
-  - ROCR=1.0-11
+  - ROCR=1.0-12
   - RSpectra=0.16-2
   - RcppAnnoy=0.0.23
   - RcppArmadillo=15.2.3-1
@@ -565,7 +565,7 @@ r-package:
   - dqrng=0.4.1
   - fastDummies=1.7.5
   - fastglm=0.0.4
-  - fitdistrplus=1.2-4
+  - fitdistrplus=1.2-6
   - ggrepel=0.9.6
   - ggridges=0.5.7
   - goftest=1.2-3
@@ -583,7 +583,7 @@ r-package:
   - miniUI=0.1.2
   - patchwork=1.3.2
   - pbapply=1.7-4
-  - plotly=4.11.0
+  - plotly=4.12.0
   - png=0.1-8
   - polyclip=1.10-7
   - reticulate=1.44.1
@@ -594,11 +594,11 @@ r-package:
   - sp=2.2-0
   - spam=2.11-3
   - spatstat.data=3.1-9
-  - spatstat.explore=3.6-0
-  - spatstat.geom=3.6-1
+  - spatstat.explore=3.7-0
+  - spatstat.geom=3.7-0
   - spatstat.linnet=3.4-0
   - spatstat.model=3.5-0
-  - spatstat.random=3.4-3
+  - spatstat.random=3.4-4
   - spatstat.sparse=3.1-0
   - spatstat.univar=3.1-6
   - spatstat.utils=3.2-1

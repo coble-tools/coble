@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-24
-# Capture time: 21:04:10 GMT
+# Capture date: 2026-01-25
+# Capture time: 16:30:52 GMT
 # Captured by: ralcraft
 
 coble:
@@ -541,7 +541,7 @@ r-package:
   - DT=0.34.0
   - Formula=1.2-5
   - Hmisc=5.2-5
-  - QuickJSR=1.8.1
+  - QuickJSR=1.9.0
   - R.methodsS3=1.8.2
   - R.oo=1.27.1
   - R.utils=2.13.0
@@ -572,7 +572,6 @@ r-package:
   - shinycssloaders=1.1.0
   - shinyjs=2.1.1
   - tensorA=0.36.2.1
-  - visNetwork=2.1.4
 
 bioc-package:
   - BiocGenerics=0.56.0

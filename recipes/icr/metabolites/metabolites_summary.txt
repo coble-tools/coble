@@ -1,68 +1,68 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-01-24 at 20:27:36 GMT
+[coble-create] Summary log started by ralcraft on 2026-01-25 at 16:04:09 GMT
 ------------------------------------------------
 
-[coble-create] Start time: 2026-01-24 20:27:37 1/42
+[coble-create] Start time: 2026-01-25 16:04:10 1/42
 install: source ~/.bashrc
-[coble-create] End time: 2026-01-24 20:27:37
+[coble-create] End time: 2026-01-25 16:04:10
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:37 3/42
+[coble-create] Start time: 2026-01-25 16:04:10 3/42
 install: conda env remove --name metabolites -y 2>/dev/null || true
-[coble-create] End time: 2026-01-24 20:27:45
+[coble-create] End time: 2026-01-25 16:04:18
 [coble-create] Duration: 8s
 
-[coble-create] Start time: 2026-01-24 20:27:45 5/42
+[coble-create] Start time: 2026-01-25 16:04:18 5/42
 install: conda create --no-default-packages --name metabolites -y
-[coble-create] End time: 2026-01-24 20:27:53
-[coble-create] Duration: 8s
+[coble-create] End time: 2026-01-25 16:04:29
+[coble-create] Duration: 11s
 
-[coble-create] Start time: 2026-01-24 20:27:53 7/42
+[coble-create] Start time: 2026-01-25 16:04:30 7/42
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-01-24 20:27:53
+[coble-create] End time: 2026-01-25 16:04:30
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:53 8/42
+[coble-create] Start time: 2026-01-25 16:04:30 8/42
 install: unset PYTHONPATH
-[coble-create] End time: 2026-01-24 20:27:53
+[coble-create] End time: 2026-01-25 16:04:30
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:53 9/42
+[coble-create] Start time: 2026-01-25 16:04:30 9/42
 install: conda activate metabolites
-[coble-create] End time: 2026-01-24 20:27:53
+[coble-create] End time: 2026-01-25 16:04:30
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:53 10/42
+[coble-create] Start time: 2026-01-25 16:04:30 10/42
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-01-24 20:27:53
+[coble-create] End time: 2026-01-25 16:04:30
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:53 11/42
+[coble-create] Start time: 2026-01-25 16:04:30 11/42
 install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-01-24 20:27:53
+[coble-create] End time: 2026-01-25 16:04:30
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:53 12/42
+[coble-create] Start time: 2026-01-25 16:04:30 12/42
 install: conda config --env --remove-key channels
-[coble-create] End time: 2026-01-24 20:27:54
+[coble-create] End time: 2026-01-25 16:04:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:04:30 14/42
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-01-25 16:04:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:04:30 15/42
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-01-25 16:04:31
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-01-24 20:27:54 14/42
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-01-24 20:27:54
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-01-24 20:27:54 15/42
-install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-01-24 20:27:54
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-01-24 20:27:54 17/42
+[coble-create] Start time: 2026-01-25 16:04:31 17/42
 install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-01-24 20:27:54
+[coble-create] End time: 2026-01-25 16:04:31
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:27:54 19/42
+[coble-create] Start time: 2026-01-25 16:04:31 19/42
 install: conda install -y  'conda-forge::python=3.12'
 dep: # _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
 dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
@@ -93,30 +93,30 @@ dep: # tk                 conda-forge/linux-64::tk-8.6.13-noxft_ha0e22de_103
 dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
 dep: # wheel              conda-forge/noarch::wheel-0.46.3-pyhd8ed1ab_0
 dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
-[coble-create] End time: 2026-01-24 20:28:06
+[coble-create] End time: 2026-01-25 16:04:43
 [coble-create] Duration: 12s
 
-[coble-create] Start time: 2026-01-24 20:28:06 21/42
+[coble-create] Start time: 2026-01-25 16:04:43 21/42
 install: python -m site
-[coble-create] End time: 2026-01-24 20:28:06
+[coble-create] End time: 2026-01-25 16:04:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-01-24 20:28:06 23/42
+[coble-create] Start time: 2026-01-25 16:04:43 23/42
 install: conda env config vars set PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-01-24 20:28:06
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-01-24 20:28:06 24/42
-install: conda deactivate
-[coble-create] End time: 2026-01-24 20:28:06
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-01-24 20:28:06 25/42
-install: conda activate metabolites
-[coble-create] End time: 2026-01-24 20:28:07
+[coble-create] End time: 2026-01-25 16:04:44
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-01-24 20:28:07 39/42
+[coble-create] Start time: 2026-01-25 16:04:44 24/42
+install: conda deactivate
+[coble-create] End time: 2026-01-25 16:04:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:04:44 25/42
+install: conda activate metabolites
+[coble-create] End time: 2026-01-25 16:04:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-01-25 16:04:44 39/42
 install: conda install -y  --no-update-deps  'pandas'  'numpy'  'matplotlib'  'scikit-learn=1.6.1'  'joblib'  'tensorflow-cpu=2.18'  'tensorflow-estimator=2.18'  'tf-keras'  'jupyterlab'  'ipykernel'  'ipywidgets'  'streamlit>=1.30'  'plotly' 
 dep: # _python_abi3_supp~ conda-forge/noarch::_python_abi3_support-1.0-hd8ed1ab_2
 dep: # _x86_64-microarch~ conda-forge/noarch::_x86_64-microarch-level-3-3_skylake
@@ -371,7 +371,7 @@ dep: # requests           conda-forge/noarch::requests-2.32.5-pyhcf101f3_1
 dep: # rfc3339-validator  conda-forge/noarch::rfc3339-validator-0.1.4-pyhd8ed1ab_1
 dep: # rfc3986-validator  conda-forge/noarch::rfc3986-validator-0.1.1-pyh9f0ad1d_0
 dep: # rfc3987-syntax     conda-forge/noarch::rfc3987-syntax-1.1.0-pyhe01879c_1
-dep: # rich               conda-forge/noarch::rich-14.2.0-pyhcf101f3_0
+dep: # rich               conda-forge/noarch::rich-14.3.1-pyhcf101f3_0
 dep: # rpds-py            conda-forge/linux-64::rpds-py-0.30.0-py312h868fb18_0
 dep: # s2n                conda-forge/linux-64::s2n-1.5.14-h6c98b2b_0
 dep: # scikit-learn       conda-forge/linux-64::scikit-learn-1.6.1-py312h7a48858_0
@@ -443,14 +443,14 @@ dep: # zipp               conda-forge/noarch::zipp-3.23.0-pyhcf101f3_1
 dep: # zlib               conda-forge/linux-64::zlib-1.3.1-hb9d3cd8_2
 dep: # zlib-ng            conda-forge/linux-64::zlib-ng-2.3.2-hceb46e0_1
 dep: # zstandard          conda-forge/linux-64::zstandard-0.25.0-py312h5253ce2_1
-[coble-create] End time: 2026-01-24 20:29:11
-[coble-create] Duration: 64s
+[coble-create] End time: 2026-01-25 16:05:50
+[coble-create] Duration: 66s
 
-[coble-create] Start time: 2026-01-24 20:29:11 41/42
+[coble-create] Start time: 2026-01-25 16:05:50 41/42
 install: python -m ipykernel install --user --name JupyterICR --display-name "Jupyter ICR 2026"
-[coble-create] End time: 2026-01-24 20:29:11
+[coble-create] End time: 2026-01-25 16:05:50
 [coble-create] Duration: 0s
 --------------------------------------
-[coble-create] Recipe created at: 2026-01-24 20:29:11
-[coble-create] Recipe took: 0h 1m 35s
+[coble-create] Recipe created at: 2026-01-25 16:05:50
+[coble-create] Recipe took: 0h 1m 40s
 --------------------------------------

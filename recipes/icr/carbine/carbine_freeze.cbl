@@ -1,11 +1,11 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-25
-# Capture time: 15:27:55 GMT
+# Capture date: 2026-01-26
+# Capture time: 17:19:47 GMT
 # Captured by: ralcraft
 
 coble:
 
-  - environment: charel
+  - environment: carbine
 
 channels:
   - defaults
@@ -18,48 +18,51 @@ flags:
   - priority: flexible
 
 languages:
-  - r-base=4.5.2@conda-forge
-  - python=3.14.0@conda-forge
+  - r-base=4.4.3@conda-forge
+  - python=3.12.12@conda-forge
 flags:
-  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
-  - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/charel/include"
-  - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/charel/include"
-  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
-  - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/charel/include"
-  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/charel/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/charel/lib"
+  - export: CC="/home/ralcraft/miniforge3/envs/leaf/bin/gcc"
+  - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/carbine/include"
+  - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/carbine/include"
+  - export: CXX="/home/ralcraft/miniforge3/envs/leaf/bin/g++"
+  - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/carbine/include"
+  - export: F77="/home/ralcraft/miniforge3/envs/leaf/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: FC="/home/ralcraft/miniforge3/envs/leaf/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/carbine/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/carbine/lib"
   - export: PYTHONNOUSERSITE="1"
+  - export: QT_QPA_PLATFORM="offscreen"
 
 conda:
-  - binutils=2.40@conda-forge
-  - binutils_impl_linux-64=2.40@conda-forge
-  - binutils_linux-64=2.40@conda-forge
-  - gcc=11.4.0@conda-forge
-  - gcc_impl_linux-64=11.4.0@conda-forge
-  - gcc_linux-64=11.4.0@conda-forge
-  - gxx=11.4.0@conda-forge
-  - gxx_impl_linux-64=11.4.0@conda-forge
-  - gxx_linux-64=11.4.0@conda-forge
+  - binutils_impl_linux-64=2.45@conda-forge
+  - binutils_linux-64=2.45@conda-forge
+  - gcc_impl_linux-64=14.3.0@conda-forge
+  - gcc_linux-64=14.3.0@conda-forge
+  - gxx_impl_linux-64=14.3.0@conda-forge
+  - gxx_linux-64=14.3.0@conda-forge
   - icu=75.1@conda-forge
   - libcblas=3.11.0@conda-forge
+  - libclang-cpp21.1=21.1.8@conda-forge
+  - libclang13=21.1.8@conda-forge
   - libcups=2.3.3@conda-forge
   - libcurl=8.18.0@conda-forge
-  - libgcc-devel_linux-64=11.4.0@conda-forge
+  - libgcc-devel_linux-64=14.3.0@conda-forge
   - libgcc-ng=15.2.0@conda-forge
   - libgcc=15.2.0@conda-forge
-  - libstdcxx-devel_linux-64=11.4.0@conda-forge
+  - libstdcxx-devel_linux-64=14.3.0@conda-forge
   - libstdcxx-ng=15.2.0@conda-forge
   - libstdcxx=15.2.0@conda-forge
   - libzlib=1.3.1@conda-forge
+  - zlib-ng=2.3.2@conda-forge
   - zlib=1.3.1@conda-forge
   - adwaita-icon-theme=49.0@conda-forge
+  - alsa-lib=1.2.15.3@conda-forge
   - anyio=4.12.1@conda-forge
   - aom=3.9.1@conda-forge
+  - argcomplete=3.6.3@conda-forge
   - argon2-cffi-bindings=25.1.0@conda-forge
   - argon2-cffi=25.1.0@conda-forge
   - arrow=1.4.0@conda-forge
-  - asgiref=3.11.0@conda-forge
+  - arviz=0.23.1@conda-forge
   - asttokens=3.0.1@conda-forge
   - async-lru=2.1.0@conda-forge
   - at-spi2-atk=2.38.0@conda-forge
@@ -72,11 +75,13 @@ conda:
   - bleach-with-css=6.3.0@conda-forge
   - bleach=6.3.0@conda-forge
   - blosc=1.21.6@conda-forge
+  - brotli-bin=1.2.0@conda-forge
   - brotli-python=1.2.0@conda-forge
+  - brotli=1.2.0@conda-forge
   - bwidget=1.10.1@conda-forge
   - bzip2=1.0.8@conda-forge
   - c-ares=1.34.6@conda-forge
-  - c-compiler=1.5.2@conda-forge
+  - c-compiler=1.0.0@conda-forge
   - ca-certificates=2026.1.4@conda-forge
   - cached-property=1.5.2@conda-forge
   - cached_property=1.5.2@conda-forge
@@ -85,17 +90,23 @@ conda:
   - cffi=2.0.0@conda-forge
   - charset-normalizer=3.4.4@conda-forge
   - cmake=4.2.2@conda-forge
+  - cmdstan=2.38.0@conda-forge
+  - cmdstanpy=1.3.0@conda-forge
+  - colorama=0.4.6@conda-forge
   - comm=0.2.3@conda-forge
-  - cpython=3.14.2@conda-forge
+  - contourpy=1.3.3@conda-forge
+  - cpython=3.12.12@conda-forge
   - curl=8.18.0@conda-forge
-  - cxx-compiler=1.5.2@conda-forge
+  - cxx-compiler=1.0.0@conda-forge
+  - cycler=0.12.1@conda-forge
+  - cyrus-sasl=2.1.28@conda-forge
   - cython=3.2.4@conda-forge
   - dav1d=1.2.1@conda-forge
   - dbus=1.16.2@conda-forge
   - debugpy=1.8.19@conda-forge
   - decorator=5.2.1@conda-forge
   - defusedxml=0.7.1@conda-forge
-  - django=6.0.1@conda-forge
+  - double-conversion=3.4.0@conda-forge
   - epoxy=1.5.10@conda-forge
   - exceptiongroup=1.3.1@conda-forge
   - executing=2.2.1@conda-forge
@@ -107,6 +118,7 @@ conda:
   - font-ttf-ubuntu=0.83@conda-forge
   - fontconfig=2.15.0@conda-forge
   - fonts-conda-forge=1@conda-forge
+  - fonttools=4.61.1@conda-forge
   - fqdn=1.5.1@conda-forge
   - freetype=2.14.1@conda-forge
   - freexl=2.0.0@conda-forge
@@ -114,19 +126,22 @@ conda:
   - gdal=3.12.1@conda-forge
   - gdk-pixbuf=2.44.4@conda-forge
   - geos=3.14.1@conda-forge
-  - gfortran_impl_linux-64=11.4.0@conda-forge
-  - gfortran_linux-64=11.4.0@conda-forge
+  - gfortran_impl_linux-64=14.3.0@conda-forge
+  - gfortran_linux-64=14.3.0@conda-forge
   - ghostscript=10.06.0@conda-forge
   - giflib=5.2.2@conda-forge
   - glib-tools=2.86.3@conda-forge
+  - glpk=5.0@conda-forge
+  - gmp=6.3.0@conda-forge
   - graphite2=1.3.14@conda-forge
   - graphviz=14.1.1@conda-forge
   - gsl=2.7@conda-forge
   - gtk3=3.24.43@conda-forge
   - gts=0.7.6@conda-forge
-  - gunicorn=24.1.1@conda-forge
   - h11=0.16.0@conda-forge
   - h2=4.3.0@conda-forge
+  - h5netcdf=1.8.1@conda-forge
+  - h5py=3.15.1@conda-forge
   - harfbuzz=12.2.0@conda-forge
   - hdf5=1.14.6@conda-forge
   - hicolor-icon-theme=0.17@conda-forge
@@ -145,6 +160,7 @@ conda:
   - jbig=2.1@conda-forge
   - jedi=0.19.2@conda-forge
   - jinja2=3.1.6@conda-forge
+  - jq=1.8.1@conda-forge
   - json-c=0.18@conda-forge
   - json5=0.13.0@conda-forge
   - jsonpointer=3.0.0@conda-forge
@@ -160,11 +176,13 @@ conda:
   - jupyterlab=4.5.3@conda-forge
   - jupyterlab_pygments=0.3.0@conda-forge
   - jupyterlab_server=2.28.0@conda-forge
-  - kernel-headers_linux-64=6.12.0@conda-forge
+  - kernel-headers_linux-64=3.10.0@conda-forge
   - keyutils=1.6.3@conda-forge
+  - kiwisolver=1.4.9@conda-forge
   - krb5=1.21.3@conda-forge
   - lark=1.3.1@conda-forge
-  - ld_impl_linux-64=2.40@conda-forge
+  - lcms2=2.18@conda-forge
+  - ld_impl_linux-64=2.45@conda-forge
   - lerc=4.0.0@conda-forge
   - libabseil=20260107.0@conda-forge
   - libaec=1.1.5@conda-forge
@@ -198,24 +216,28 @@ conda:
   - libglx=1.7.0@conda-forge
   - libgomp=15.2.0@conda-forge
   - libheif=1.19.7@conda-forge
+  - libhwloc=2.12.2@conda-forge
   - libhwy=1.3.0@conda-forge
   - libiconv=1.18@conda-forge
   - libjpeg-turbo=3.1.2@conda-forge
   - libjxl=0.11.1@conda-forge
   - libkml=1.3.0@conda-forge
   - liblapack=3.11.0@conda-forge
+  - libllvm21=21.1.8@conda-forge
   - liblzma-devel=5.8.2@conda-forge
   - liblzma=5.8.2@conda-forge
-  - libmpdec=4.0.0@conda-forge
   - libnghttp2=1.67.0@conda-forge
   - libnsl=2.0.1@conda-forge
+  - libntlm=1.8@conda-forge
   - libopenblas=0.3.30@conda-forge
+  - libopengl=1.7.0@conda-forge
   - libpciaccess=0.18@conda-forge
   - libpng=1.6.54@conda-forge
+  - libpq=18.1@conda-forge
   - libprotobuf=6.33.4@conda-forge
   - librsvg=2.60.0@conda-forge
   - librttopo=1.1.0@conda-forge
-  - libsanitizer=11.4.0@conda-forge
+  - libsanitizer=14.3.0@conda-forge
   - libsodium=1.0.20@conda-forge
   - libspatialite=5.1.0@conda-forge
   - libsqlite=3.51.2@conda-forge
@@ -224,6 +246,7 @@ conda:
   - libudunits2=2.2.28@conda-forge
   - libuuid=2.41.3@conda-forge
   - libuv=1.51.0@conda-forge
+  - libvulkan-loader=1.4.328.1@conda-forge
   - libwebp=1.6.0@conda-forge
   - libxcb=1.17.0@conda-forge
   - libxcrypt=4.4.36@conda-forge
@@ -231,15 +254,17 @@ conda:
   - libxml2-16=2.15.1@conda-forge
   - libxml2-devel=2.15.1@conda-forge
   - libxml2=2.15.1@conda-forge
+  - libxslt=1.1.43@conda-forge
   - lz4-c=1.10.0@conda-forge
   - lzo=2.10@conda-forge
   - make=4.4.1@conda-forge
   - markupsafe=3.0.3@conda-forge
   - matplotlib-inline=0.2.1@conda-forge
+  - matplotlib=3.10.8@conda-forge
   - minizip=4.0.10@conda-forge
   - mistune=3.2.0@conda-forge
+  - munkres=1.1.4@conda-forge
   - muparser=2.3.5@conda-forge
-  - narwhals=2.15.0@conda-forge
   - nbclient=0.10.4@conda-forge
   - nbconvert-core=7.16.6@conda-forge
   - nbformat=5.10.4@conda-forge
@@ -249,7 +274,9 @@ conda:
   - notebook-shim=0.2.4@conda-forge
   - notebook=7.5.2@conda-forge
   - numpy=2.4.1@conda-forge
+  - oniguruma=6.9.10@conda-forge
   - openjpeg=2.5.4@conda-forge
+  - openldap=2.6.10@conda-forge
   - openssl=3.6.0@conda-forge
   - overrides=7.7.0@conda-forge
   - packaging=26.0@conda-forge
@@ -258,13 +285,14 @@ conda:
   - pandocfilters=1.5.0@conda-forge
   - pango=1.56.4@conda-forge
   - parso=0.8.5@conda-forge
+  - patsy=1.0.2@conda-forge
   - pcre2=10.47@conda-forge
   - pexpect=4.9.0@conda-forge
+  - pillow=12.1.0@conda-forge
   - pip=25.3@conda-forge
   - pixman=0.46.4@conda-forge
   - pkg-config=0.29.2@conda-forge
   - platformdirs=4.5.1@conda-forge
-  - plotly=6.5.2@conda-forge
   - proj=9.7.1@conda-forge
   - prometheus_client=0.24.1@conda-forge
   - prompt-toolkit=3.0.52@conda-forge
@@ -275,16 +303,20 @@ conda:
   - pure_eval=0.2.3@conda-forge
   - pycparser=2.22@conda-forge
   - pygments=2.19.2@conda-forge
+  - pyparsing=3.3.2@conda-forge
+  - pyside6=6.10.1@conda-forge
   - pysocks=1.7.1@conda-forge
   - python-dateutil=2.9.0.post0@conda-forge
   - python-fastjsonschema=2.21.2@conda-forge
-  - python-gil=3.14.2@conda-forge
+  - python-gil=3.12.12@conda-forge
   - python-json-logger=2.0.7@conda-forge
   - python-tzdata=2025.3@conda-forge
-  - python_abi=3.14@conda-forge
+  - python_abi=3.12@conda-forge
   - pytz=2025.2@conda-forge
   - pyyaml=6.0.3@conda-forge
   - pyzmq=27.1.0@conda-forge
+  - qhull=2020.2@conda-forge
+  - qt6-main=6.10.1@conda-forge
   - rav1e=0.7.1@conda-forge
   - readline=8.3@conda-forge
   - referencing=0.37.0@conda-forge
@@ -294,6 +326,8 @@ conda:
   - rfc3987-syntax=1.1.0@conda-forge
   - rhash=1.4.6@conda-forge
   - rpds-py=0.30.0@conda-forge
+  - scipy=1.17.0@conda-forge
+  - seaborn=0.13.2@conda-forge
   - sed=4.9@conda-forge
   - send2trash=2.1.0@conda-forge
   - setuptools=80.10.1@conda-forge
@@ -302,22 +336,29 @@ conda:
   - sniffio=1.3.1@conda-forge
   - soupsieve=2.8.3@conda-forge
   - sqlite=3.51.2@conda-forge
-  - sqlparse=0.5.5@conda-forge
   - stack_data=0.6.3@conda-forge
+  - stanio=0.5.1@conda-forge
+  - statsmodels=0.14.6@conda-forge
   - svt-av1=3.1.2@conda-forge
-  - sysroot_linux-64=2.39@conda-forge
+  - sysroot_linux-64=2.17@conda-forge
+  - tbb-devel=2022.3.0@conda-forge
+  - tbb=2022.3.0@conda-forge
   - terminado=0.18.1@conda-forge
   - tinycss2=1.5.1@conda-forge
   - tk=8.6.13@conda-forge
   - tktable=2.10@conda-forge
+  - toml=0.10.2@conda-forge
   - tomli=2.4.0@conda-forge
+  - tomlkit=0.14.0@conda-forge
   - tornado=6.5.4@conda-forge
+  - tqdm=4.67.1@conda-forge
   - traitlets=5.14.3@conda-forge
   - typing-extensions=4.15.0@conda-forge
   - typing_extensions=4.15.0@conda-forge
   - typing_utils=0.1.0@conda-forge
   - tzdata=2025c@conda-forge
   - udunits2=2.2.28@conda-forge
+  - unicodedata2=17.0.0@conda-forge
   - uri-template=1.3.0@conda-forge
   - uriparser=0.9.8@conda-forge
   - urllib3=2.6.3@conda-forge
@@ -326,10 +367,19 @@ conda:
   - webcolors=25.10.0@conda-forge
   - webencodings=0.5.1@conda-forge
   - websocket-client=1.9.0@conda-forge
-  - whitenoise=6.11.0@conda-forge
+  - wheel=0.46.3@conda-forge
   - x265=3.5@conda-forge
+  - xarray-einstats=0.9.1@conda-forge
+  - xarray=2025.12.0@conda-forge
+  - xcb-util-cursor=0.1.6@conda-forge
+  - xcb-util-image=0.4.0@conda-forge
+  - xcb-util-keysyms=0.4.1@conda-forge
+  - xcb-util-renderutil=0.3.10@conda-forge
+  - xcb-util-wm=0.4.2@conda-forge
+  - xcb-util=0.4.1@conda-forge
   - xerces-c=3.3.0@conda-forge
   - xkeyboard-config=2.46@conda-forge
+  - xmltodict=1.0.2@conda-forge
   - xorg-libice=1.1.2@conda-forge
   - xorg-libsm=1.2.6@conda-forge
   - xorg-libx11=1.8.12@conda-forge
@@ -353,48 +403,91 @@ conda:
   - xz-tools=5.8.2@conda-forge
   - xz=5.8.2@conda-forge
   - yaml=0.2.5@conda-forge
+  - yq=3.4.3@conda-forge
   - zeromq=4.3.5@conda-forge
   - zipp=3.23.0@conda-forge
   - zstd=1.5.7@conda-forge
 
 r-conda:
+  - abind=1.4_8@conda-forge
+  - ade4=1.7_23@conda-forge
+  - akima=0.6_3.6@conda-forge
+  - ape=5.8_1@conda-forge
   - askpass=1.2.1@conda-forge
   - assertthat=0.2.1@conda-forge
   - backports=1.5.0@conda-forge
   - base64enc=0.1_3@conda-forge
+  - bbmle=1.0.25.1@conda-forge
+  - bdsmatrix=1.3_7@conda-forge
+  - bh=1.87.0_1@conda-forge
   - biocmanager=1.30.27@conda-forge
   - bit64=4.6.0_1@conda-forge
   - bit=4.6.0@conda-forge
+  - bitops=1.0_9@conda-forge
   - blob=1.3.0@conda-forge
+
+r-conda:
+  - bmix=1.0.0@bioconda
+
+r-conda:
   - boot=1.3_32@conda-forge
+  - brew=1.0_10@conda-forge
   - broom=1.0.11@conda-forge
   - bslib=0.9.0@conda-forge
   - cachem=1.1.0@conda-forge
   - callr=3.7.6@conda-forge
+  - car=3.1_3@conda-forge
+  - cardata=3.0_5@conda-forge
   - caret=7.0_1@conda-forge
   - cellranger=1.1.0@conda-forge
   - class=7.3_23@conda-forge
   - cli=3.6.5@conda-forge
   - clipr=0.8.0@conda-forge
+  - clisymbols=1.2.0@conda-forge
   - clock=0.7.4@conda-forge
   - cluster=2.1.8.1@conda-forge
   - codetools=0.2_20@conda-forge
   - colorspace=2.1_2@conda-forge
   - commonmark=2.0.0@conda-forge
   - conflicted=1.2.0@conda-forge
+  - conquer=1.3.3@conda-forge
+  - corrplot=0.95@conda-forge
+  - covr=3.6.5@conda-forge
+  - cowplot=1.2.0@conda-forge
   - cpp11=0.5.3@conda-forge
   - crayon=1.5.3@conda-forge
   - crul=1.6.0@conda-forge
+
+r-conda:
+  - ctree=1.1.0@bioconda
+
+r-conda:
   - data.table=1.17.8@conda-forge
   - dbi=1.2.3@conda-forge
   - dbplyr=2.5.1@conda-forge
+  - deldir=2.0_4@conda-forge
+  - deriv=4.2.0@conda-forge
+  - desc=1.4.3@conda-forge
   - diagram=1.6.5@conda-forge
   - digest=0.6.39@conda-forge
+
+r-conda:
+  - dndscv=0.1.0@bioconda
+
+r-conda:
+  - doby=4.7.1@conda-forge
+  - doparallel=1.0.17@conda-forge
   - dplyr=1.1.4@conda-forge
   - dtplyr=1.3.2@conda-forge
   - e1071=1.7_17@conda-forge
+
+r-conda:
+  - easypar=1.0.0@bioconda
+
+r-conda:
   - ellipsis=0.3.2@conda-forge
-  - essentials=4.5@conda-forge
+  - entropy=1.3.2@conda-forge
+  - essentials=4.4@conda-forge
   - evaluate=1.0.5@conda-forge
   - fansi=1.0.7@conda-forge
   - farver=2.1.2@conda-forge
@@ -402,14 +495,27 @@ r-conda:
   - fontawesome=0.5.3@conda-forge
   - forcats=1.0.1@conda-forge
   - foreach=1.5.2@conda-forge
+  - forecast=9.0.0@conda-forge
   - foreign=0.8_90@conda-forge
   - formatr=1.14@conda-forge
+  - formula=1.2_5@conda-forge
+  - fracdiff=1.5_3@conda-forge
   - fs=1.6.6@conda-forge
+  - futile.logger=1.4.9@conda-forge
+  - futile.options=1.0.1@conda-forge
   - future.apply=1.20.1@conda-forge
   - future=1.69.0@conda-forge
   - gargle=1.6.0@conda-forge
+  - gbrd=0.4.12@conda-forge
   - generics=0.1.4@conda-forge
+  - ggforce=0.5.0@conda-forge
   - ggplot2=4.0.1@conda-forge
+  - ggpubr=0.6.2@conda-forge
+  - ggraph=2.2.2@conda-forge
+  - ggrepel=0.9.6@conda-forge
+  - ggsci=4.2.0@conda-forge
+  - ggsignif=0.6.4@conda-forge
+  - ggthemes=5.2.0@conda-forge
   - gistr=0.9.0@conda-forge
   - glmnet=4.1_10@conda-forge
   - globals=0.18.0@conda-forge
@@ -417,9 +523,14 @@ r-conda:
   - googledrive=2.1.2@conda-forge
   - googlesheets4=1.1.2@conda-forge
   - gower=1.0.2@conda-forge
+  - graphlayouts=1.2.2@conda-forge
+  - gridextra=2.3@conda-forge
   - gtable=0.3.6@conda-forge
+  - gtools=3.9.5@conda-forge
+  - guilds=1.4.7@conda-forge
   - hardhat=1.4.2@conda-forge
   - haven=2.5.5@conda-forge
+  - here=1.0.2@conda-forge
   - hexbin=1.28.5@conda-forge
   - highr=0.11@conda-forge
   - hms=1.1.4@conda-forge
@@ -429,6 +540,8 @@ r-conda:
   - httpuv=1.6.16@conda-forge
   - httr=1.4.7@conda-forge
   - ids=1.0.1@conda-forge
+  - igraph=2.1.4@conda-forge
+  - interp=1.1_6@conda-forge
   - ipred=0.9_15@conda-forge
   - irdisplay=1.1@conda-forge
   - irkernel=1.3.2@conda-forge
@@ -439,34 +552,70 @@ r-conda:
   - kernsmooth=2.23_26@conda-forge
   - knitr=1.51@conda-forge
   - labeling=0.4.3@conda-forge
+  - lambda.r=1.2.4@conda-forge
   - later=1.4.5@conda-forge
   - lattice=0.22_7@conda-forge
   - lava=1.8.2@conda-forge
   - lazyeval=0.2.2@conda-forge
   - lifecycle=1.0.5@conda-forge
   - listenv=0.10.0@conda-forge
+  - litedown=0.9@conda-forge
+  - lme4=1.1_38@conda-forge
+  - lmtest=0.9_40@conda-forge
   - lobstr=1.1.3@conda-forge
   - lubridate=1.9.4@conda-forge
   - magrittr=2.0.4@conda-forge
   - maps=3.4.3@conda-forge
+  - markdown=2.0@conda-forge
   - mass=7.3_65@conda-forge
   - matrix=1.7_4@conda-forge
+  - matrixcalc=1.0_6@conda-forge
+  - matrixmodels=0.5_4@conda-forge
+  - matrixstats=1.5.0@conda-forge
   - memoise=2.0.1@conda-forge
+  - memuse=4.2_3@conda-forge
   - mgcv=1.9_4@conda-forge
+  - microbenchmark=1.5.0@conda-forge
   - mime=0.13@conda-forge
+  - minqa=1.2.8@conda-forge
   - modelmetrics=1.2.2.2@conda-forge
   - modelr=0.1.11@conda-forge
   - munsell=0.5.1@conda-forge
+  - mvtnorm=1.3_3@conda-forge
   - nlme=3.1_168@conda-forge
+  - nloptr=2.2.1@conda-forge
   - nnet=7.3_20@conda-forge
   - numderiv=2016.8_1.1@conda-forge
   - otel=0.2.0@conda-forge
   - parallelly=1.46.1@conda-forge
   - pbdzmq=0.3_14@conda-forge
+  - pbkrtest=0.5.5@conda-forge
+
+r-conda:
+  - peakpick=0.11@bioconda
+
+r-conda:
+  - permute=0.9_8@conda-forge
   - pillar=1.11.1@conda-forge
+  - pinfsc50=1.3.0@conda-forge
+
+r-conda:
+  - pio=0.1.0@bioconda
+
+r-conda:
+  - pixmap=0.4_14@conda-forge
+  - pkgbuild=1.4.8@conda-forge
   - pkgconfig=2.0.3@conda-forge
+  - pkgload=1.4.1@conda-forge
   - plogr=0.2.0@conda-forge
   - plyr=1.8.9@conda-forge
+  - png=0.1_8@conda-forge
+  - poilog=0.4.2.1@conda-forge
+  - polyclip=1.10_7@conda-forge
+  - polynom=1.4_1@conda-forge
+  - powerlaw=1.0.0@conda-forge
+  - pracma=2.4.6@conda-forge
+  - prettydoc=0.4.1@conda-forge
   - prettyunits=1.2.0@conda-forge
   - proc=1.19.0.1@conda-forge
   - processx=3.8.6@conda-forge
@@ -478,39 +627,67 @@ r-conda:
   - pryr=0.1.6@conda-forge
   - ps=1.9.1@conda-forge
   - purrr=1.2.1@conda-forge
+  - quadprog=1.5_8@conda-forge
   - quantmod=0.4.28@conda-forge
+  - quantreg=6.1@conda-forge
+  - r.methodss3=1.8.2@conda-forge
+  - r.oo=1.27.1@conda-forge
+  - r.utils=2.13.0@conda-forge
   - r6=2.6.1@conda-forge
   - ragg=1.5.0@conda-forge
   - randomforest=4.7_1.2@conda-forge
   - rappdirs=0.3.4@conda-forge
+  - rbibutils=2.4.1@conda-forge
   - rbokeh=0.5.2@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
   - rcpp=1.1.1@conda-forge
+  - rcpparmadillo=15.2.3_1@conda-forge
   - rcppeigen=0.3.4.0.2@conda-forge
+  - rcpptoml=0.2.3@conda-forge
+  - rcurl=1.98_1.17@conda-forge
+  - rdpack=2.6.5@conda-forge
   - readr=2.1.6@conda-forge
   - readxl=1.4.5@conda-forge
   - recipes=1.3.1@conda-forge
-  - recommended=4.5@conda-forge
+  - recommended=4.4@conda-forge
+  - reformulas=0.4.3.1@conda-forge
   - rematch2=2.1.2@conda-forge
   - rematch=2.0.0@conda-forge
   - remotes=2.5.0@conda-forge
   - repr=1.1.7@conda-forge
   - reprex=2.1.1@conda-forge
   - reshape2=1.4.5@conda-forge
+
+r-conda:
+  - restfulr=0.0.16@bioconda
+
+r-conda:
+  - reticulate=1.44.1@conda-forge
+  - rex=1.2.1@conda-forge
+  - rjson=0.2.23@conda-forge
   - rlang=1.1.7@conda-forge
   - rmarkdown=2.30@conda-forge
+  - roxygen2=7.3.3@conda-forge
   - rpart=4.1.24@conda-forge
+  - rprojroot=2.1.1@conda-forge
   - rsqlite=2.4.5@conda-forge
+  - rstatix=0.7.3@conda-forge
   - rstudioapi=0.18.0@conda-forge
   - rsvg=2.6.1@conda-forge
   - rvest=1.0.5@conda-forge
   - s7=0.2.1@conda-forge
+  - sads=0.6.5@conda-forge
   - sass=0.4.10@conda-forge
   - scales=1.4.0@conda-forge
+  - segmented=2.2_0@conda-forge
   - selectr=0.5_1@conda-forge
+  - seqinr=4.2_36@conda-forge
   - shape=1.4.6.1@conda-forge
   - shiny=1.12.1@conda-forge
+  - snow=0.4_4@conda-forge
   - sourcetools=0.1.7_1@conda-forge
+  - sp=2.2_0@conda-forge
+  - sparsem=1.84_2@conda-forge
   - sparsevctrs=0.3.5@conda-forge
   - spatial=7.3_18@conda-forge
   - squarem=2021.1@conda-forge
@@ -520,41 +697,101 @@ r-conda:
   - sys=3.4.3@conda-forge
   - textshaping=1.0.4@conda-forge
   - tibble=3.3.1@conda-forge
+  - tidygraph=1.3.0@conda-forge
   - tidyr=1.3.2@conda-forge
   - tidyselect=1.2.1@conda-forge
+  - tidytable=0.11.1@conda-forge
   - tidyverse=2.0.0@conda-forge
   - timechange=0.3.0@conda-forge
   - timedate=4051.111@conda-forge
   - tinytex=0.58@conda-forge
   - triebeard=0.4.1@conda-forge
+  - tseries=0.10_59@conda-forge
   - ttr=0.24.4@conda-forge
+  - tweenr=2.0.3@conda-forge
   - tzdb=0.5.0@conda-forge
+  - urca=1.3_4@conda-forge
   - urltools=1.7.3.1@conda-forge
   - utf8=1.2.6@conda-forge
   - uuid=1.2_2@conda-forge
+  - vcfr=1.15.0@conda-forge
   - vctrs=0.7.1@conda-forge
+  - vegan=2.7_2@conda-forge
+  - vgam=1.1_14@conda-forge
+  - viridis=0.6.5@conda-forge
   - viridislite=0.4.2@conda-forge
   - vroom=1.6.7@conda-forge
   - withr=3.0.2@conda-forge
   - xfun=0.56@conda-forge
   - xml2=1.5.2@conda-forge
+  - xml=3.99_0.20@conda-forge
   - xtable=1.8_4@conda-forge
   - xts=0.14.1@conda-forge
   - zoo=1.8_15@conda-forge
 
+bioc-conda:
+  - annotationdbi=1.68.0@bioconda
+  - biocgenerics=0.52.0@bioconda
+  - biocio=1.16.0@bioconda
+  - biocparallel=1.40.0@bioconda
+  - biostrings=2.74.0@bioconda
+  - data-packages=20250625@bioconda
+  - delayedarray=0.32.0@bioconda
+  - genomeinfodb=1.42.0@bioconda
+  - genomeinfodbdata=1.2.13@bioconda
+  - genomicalignments=1.42.0@bioconda
+  - genomicfeatures=1.58.0@bioconda
+  - genomicranges=1.58.0@bioconda
+  - iranges=2.40.0@bioconda
+  - keggrest=1.46.0@bioconda
+  - matrixgenerics=1.18.0@bioconda
+  - rhtslib=3.2.0@bioconda
+  - rsamtools=2.22.0@bioconda
+  - rtracklayer=1.66.0@bioconda
+  - s4arrays=1.6.0@bioconda
+  - s4vectors=0.44.0@bioconda
+  - sparsearray=1.6.0@bioconda
+  - summarizedexperiment=1.36.0@bioconda
+  - ucsc.utils=1.2.0@bioconda
+  - xvector=0.46.0@bioconda
+  - zlibbioc=1.52.0@bioconda
+
 r-package:
+  - GetoptLong=1.1.0
+  - GlobalOptions=0.1.3
+  - circlize=0.4.17
+  - clue=0.3-66
+  - filelock=1.0.3
+
+bioc-package:
+  - BSgenome.Hsapiens.UCSC.hg19=1.4.3
+  - BSgenome=1.74.0
+  - BiocFileCache=2.10.2
+  - BiocVersion=3.20.0
+  - CNAqc=1.1.3
+  - ComplexHeatmap=2.22.0
+  - TxDb.Hsapiens.UCSC.hg19.knownGene=3.2.2
+  - VariantAnnotation=1.48.1
+  - biomaRt=2.58.2
+
+pip:
+  - carbine==1.2
+  - shiboken6==6.10.1
 
 # r-package(unknown source):
-#  - compiler=4.5.2
-#  - datasets=4.5.2
-#  - grDevices=4.5.2
-#  - graphics=4.5.2
-#  - grid=4.5.2
-#  - methods=4.5.2
-#  - parallel=4.5.2
-#  - splines=4.5.2
-#  - stats4=4.5.2
-#  - stats=4.5.2
-#  - tcltk=4.5.2
-#  - tools=4.5.2
-#  - utils=4.5.2
+#  - VIBER=1.0.0
+#  - compiler=4.4.3
+#  - datasets=4.4.3
+#  - evoverse=0.1.0
+#  - grDevices=4.4.3
+#  - graphics=4.4.3
+#  - grid=4.4.3
+#  - methods=4.4.3
+#  - mobster=1.0.0
+#  - parallel=4.4.3
+#  - splines=4.4.3
+#  - stats4=4.4.3
+#  - stats=4.4.3
+#  - tcltk=4.4.3
+#  - tools=4.4.3
+#  - utils=4.4.3

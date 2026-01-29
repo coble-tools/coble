@@ -1,8 +1,8 @@
 #####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2026
+# COBLE:Reproducible environment: carbine, (c) ICR 2026
 #####################################################
 coble:
-  - environment: coble-env-basic
+  - environment: carbine
 channels:
 # note the reverse order of priority
   - defaults  
@@ -16,18 +16,16 @@ flags:
   - compile-tools: True
   - system-tools: True
   - export: QT_QPA_PLATFORM=offscreen
-#pip:
-#  - https://github.com/stan-dev/cmdstanpy.git@develop  
 conda:  
   - arviz
   - pytz
-  - cmdstan
-  - cmdstanpy
+  - cmdstan=2.38.0
+  - cmdstanpy=1.3.0
   - ipython
   - matplotlib
-  - pandas
-  - scipy
-  - seaborn
+  - pandas=3.0.0
+  - scipy=1.17.0
+  - seaborn=0.13.2
 r-conda:
   - doBy
   - pbkrtest
@@ -39,7 +37,7 @@ r-conda:
   - pio
   - ggpubr
   - easypar
-  - dndscv
+  #- dndscv
   - ctree
   - ggthemes
   - clisymbols
@@ -56,25 +54,21 @@ r-conda:
   - interp
   - reticulate
 bioc-conda:
-  - rtracklayer
-  - genomicfeatures
-  - delayedarray
-  - summarizedexperiment
-  - genomicalignments
+  - rtracklayer=1.66.0@bioconda
+  - genomicfeatures=1.58.0@bioconda
+  - delayedarray=0.32.0@bioconda
+  - summarizedexperiment=1.36.0@bioconda
+  - genomicalignments=1.42.0@bioconda
 bioc-package:
-  - TxDb.Hsapiens.UCSC.hg19.knownGene
-  - BSgenome.Hsapiens.UCSC.hg19
-  - AnnotationDbi
-  - ComplexHeatmap
+  - TxDb.Hsapiens.UCSC.hg19.knownGene=3.2.2
+  - BSgenome.Hsapiens.UCSC.hg19=1.4.3
+  - AnnotationDbi=1.68.0
+  - ComplexHeatmap=2.22.0
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip
   - https://github.com/caravagn/evoverse/archive/refs/heads/development.zip
   - https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip
-pip:
-  - https://${GITHUB_PAT}@github.com/CalumGabbutt/carbine.git
-#bash:
-#  - git clone https://x:${GITHUB_PAT}@github.com/CalumGabbutt/carbine.git
 
   

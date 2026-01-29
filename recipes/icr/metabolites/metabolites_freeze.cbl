@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-24
-# Capture time: 20:29:18 GMT
+# Capture date: 2026-01-25
+# Capture time: 16:05:57 GMT
 # Captured by: ralcraft
 
 coble:
@@ -294,7 +294,7 @@ conda:
   - rfc3339-validator=0.1.4@conda-forge
   - rfc3986-validator=0.1.1@conda-forge
   - rfc3987-syntax=1.1.0@conda-forge
-  - rich=14.2.0@conda-forge
+  - rich=14.3.1@conda-forge
   - rpds-py=0.30.0@conda-forge
   - s2n=1.5.14@conda-forge
   - scikit-learn=1.6.1@conda-forge

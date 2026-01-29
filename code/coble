@@ -19,12 +19,14 @@ show_help() {
 	echo "  template   get a starter recipe of 5 given options"
 	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"		
 	echo "  freeze  capture the packages from an existing environment"
+	echo "  network  generate a network graph from a frozen environment file"
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"	
 	echo "  $0 freeze --frozen my.cbl --env my-env"
+	echo "  $0 network --frozen my.cbl --env my-env"
 }
 
 start_time=$(date +%s)
@@ -166,10 +168,10 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	#recipe_dir="$(dirname "$recipe_file")"	
 	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
 		
-	echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2	
-    # replace --recipe existring with capture file    
-	#recipe_dir="$(dirname "$recipe_file")"	
-	result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
+	# Do not do this by default as it is very time consuming and very experimental
+	# The function network allows it to be done as a seperate step
+	#echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2	    
+	#result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
 
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
