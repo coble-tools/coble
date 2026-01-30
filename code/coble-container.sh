@@ -104,6 +104,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     echo "[coble-docker] Building Docker image..."
     
     docker build -f "$DOCKERFILE" \
+    --platform linux/amd64 \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
     --build-arg BUILD_TAG="$ENV_NAME" \
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
