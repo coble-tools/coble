@@ -30,6 +30,8 @@ jobs:
 
       - name: Run coble tests in test environment
         shell: bash -l {0}
+        env:
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
         run: |
           conda activate test-coble
           # Example: run a test script or command
