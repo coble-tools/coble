@@ -19,6 +19,12 @@ OPTIONS:
     --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
     --image NAME         Name for the Docker image (default: cbl-ENV_NAME)
     -h, --help          Show this help message
+    
+# Then test the image
+docker run --rm -it cbl-carbine-arm64 /bin/bash
+
+# To test ARM64 (mac) set the env variable BUILD_ARM64=true
+BUILD_ARM64=true code/coble build --recipe recipes/icr/carbine/carbine.cbl --env <env>-arm64 --containers docker
 
 EXAMPLES:
     # Build both Docker and Singularity containers
@@ -102,6 +108,7 @@ DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers == *"apptainer"* ]]; then 
     
     echo "[coble-docker] Building Docker image..."
+    echo "[coble-docker] Debug: CI=$CI, GITHUB_ACTIONS=$GITHUB_ACTIONS"
     
     # Fallback chain:
     # 1. CI environment: use buildx with --push for multi-platform
@@ -109,7 +116,9 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     # 3. Fallback: regular docker build for single platform
     
     if [[ -n "$CI" ]] || [[ -n "$GITHUB_ACTIONS" ]]; then
-        echo "[coble-docker] CI detected: using docker buildx for multi-platform build..."
+        echo "[coble-docker] CI detected: using docker buildx for multi-platform build with push..."
+        # Ensure buildx builder exists and is using docker-container driver
+        docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
         docker buildx build -f "$DOCKERFILE" \
         --platform linux/amd64,linux/arm64 \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
@@ -118,8 +127,16 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         -t "$IMAGE_NAME" \
         --push .
     elif command -v docker &> /dev/null && docker buildx version &> /dev/null; then
-        echo "[coble-docker] Docker buildx available: using buildx with --load..."
+        echo "[coble-docker] Docker buildx available..."
+        # Check if user wants to test ARM64 (useful for Mac compatibility testing)
+        build_platform="linux/amd64"
+        if [[ "$BUILD_ARM64" == "true" ]]; then
+            echo "[coble-docker] Testing ARM64 build (emulated via QEMU)..."
+            build_platform="linux/arm64"
+        fi
+        
         docker buildx build -f "$DOCKERFILE" \
+        --platform "$build_platform" \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \

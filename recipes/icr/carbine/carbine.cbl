@@ -14,7 +14,7 @@ languages:
 flags:
   - dependencies: NA
   - compile-tools: True
-  - system-tools: True
+  - system-tools: False
   - export: QT_QPA_PLATFORM=offscreen
 conda:  
   - arviz
@@ -26,6 +26,7 @@ conda:
   - pandas=3.0.0
   - scipy=1.17.0
   - seaborn=0.13.2
+  - xz
 r-conda:
   - doBy
   - pbkrtest
@@ -35,9 +36,8 @@ r-conda:
   - tidyverse
   - tidytable
   - pio
-  - ggpubr
   - easypar
-  #- dndscv
+  - dndscv
   - ctree
   - ggthemes
   - clisymbols
@@ -64,11 +64,15 @@ bioc-package:
   - BSgenome.Hsapiens.UCSC.hg19=1.4.3
   - AnnotationDbi=1.68.0
   - ComplexHeatmap=2.22.0
+  - VariantAnnotation  
+flags:
+  - dependencies: FALSE
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip
-  - https://github.com/caravagn/evoverse/archive/refs/heads/development.zip
   - https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip
+  - https://github.com/caravagn/evoverse/archive/refs/heads/development.zip
+  
 
   
