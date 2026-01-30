@@ -53,6 +53,9 @@ r-conda:
   - rjson
   - interp
   - reticulate
+r-package:
+  - ggpubr
+  - ggsci
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda
