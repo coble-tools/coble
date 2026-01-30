@@ -103,11 +103,23 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     
     echo "[coble-docker] Building Docker image..."
     
-    # Use buildx if available for multi-platform support, otherwise use regular docker build
-    if command -v docker &> /dev/null && docker buildx version &> /dev/null; then
-        echo "[coble-docker] Using docker buildx for multi-platform build..."
+    # Fallback chain:
+    # 1. CI environment: use buildx with --push for multi-platform
+    # 2. Buildx available locally: use buildx with --load for single platform
+    # 3. Fallback: regular docker build for single platform
+    
+    if [[ -n "$CI" ]] || [[ -n "$GITHUB_ACTIONS" ]]; then
+        echo "[coble-docker] CI detected: using docker buildx for multi-platform build..."
         docker buildx build -f "$DOCKERFILE" \
         --platform linux/amd64,linux/arm64 \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        -t "$IMAGE_NAME" \
+        --push .
+    elif command -v docker &> /dev/null && docker buildx version &> /dev/null; then
+        echo "[coble-docker] Docker buildx available: using buildx with --load..."
+        docker buildx build -f "$DOCKERFILE" \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
