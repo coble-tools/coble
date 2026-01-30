@@ -103,12 +103,24 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     
     echo "[coble-docker] Building Docker image..."
     
-    docker build -f "$DOCKERFILE" \
-    --platform linux/amd64 \
-    --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-    --build-arg BUILD_TAG="$ENV_NAME" \
-    --build-arg GITHUB_PAT="$GITHUB_PAT" \
-    -t "$IMAGE_NAME" .
+    # Use buildx if available for multi-platform support, otherwise use regular docker build
+    if command -v docker &> /dev/null && docker buildx version &> /dev/null; then
+        echo "[coble-docker] Using docker buildx for multi-platform build..."
+        docker buildx build -f "$DOCKERFILE" \
+        --platform linux/amd64,linux/arm64 \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        -t "$IMAGE_NAME" \
+        --load .
+    else
+        echo "[coble-docker] Using regular docker build (native platform)..."
+        docker build -f "$DOCKERFILE" \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        -t "$IMAGE_NAME" .
+    fi
     
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
