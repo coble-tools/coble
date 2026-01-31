@@ -33,4 +33,4 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          bash code/coble build --recipe recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/${{ github.event.inputs.cbl }}.cbl --env ${{ github.event.inputs.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
+          bash code/coble build --dual-ci --recipe recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/${{ github.event.inputs.cbl }}.cbl --env ${{ github.event.inputs.cbl }} --containers docker --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
