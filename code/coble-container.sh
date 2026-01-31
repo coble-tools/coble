@@ -126,6 +126,11 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         -t "$IMAGE_NAME" \
         --push .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
     elif command -v docker &> /dev/null && docker buildx version &> /dev/null; then
         echo "[coble-docker] Docker buildx available..."
         # Check if user wants to test ARM64 (useful for Mac compatibility testing)
@@ -142,6 +147,11 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         -t "$IMAGE_NAME" \
         --load .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
     else
         echo "[coble-docker] Using regular docker build (native platform)..."
         docker build -f "$DOCKERFILE" \
@@ -149,7 +159,23 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         -t "$IMAGE_NAME" .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
     fi
+    
+    # Verify image was created successfully
+    if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
+        echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
+        exit 1
+    fi
+    
+    # Display image creation time and size for verification
+    IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.VirtualSize}} bytes')
+    echo "[coble-docker] ✓ Docker image created successfully"
+    echo "[coble-docker] $IMAGE_INFO"
     
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
