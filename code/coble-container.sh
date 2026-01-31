@@ -5,6 +5,8 @@ ENV_NAME=""
 INPUT_RECIPE=""
 containers="docker,singularity"
 IMAGE_NAME=""
+DUAL_CI=false
+DUAL=false
 
 # Help function
 show_help() {
@@ -61,6 +63,14 @@ while [[ $# -gt 0 ]]; do
         --rebuild)            
             shift
             ;;
+        --dual-ci)            
+            DUAL_CI=true
+            shift
+            ;;
+        --dual-local)            
+            DUAL=true
+            shift
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -115,8 +125,8 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     # 2. Buildx available locally: use buildx with --load for single platform
     # 3. Fallback: regular docker build for single platform
     
-    if [[ -n "$CI" ]] || [[ -n "$GITHUB_ACTIONS" ]]; then
-        echo "[coble-docker] CI detected: using docker buildx for multi-platform build with push..."
+    if [[ $DUAL_CI == true ]]; then
+        echo "[coble-docker] Dual build for linux and mac requested: using docker buildx for multi-platform build with push..."
         # Ensure buildx builder exists and is using docker-container driver
         docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
         docker buildx build -f "$DOCKERFILE" \
@@ -131,15 +141,9 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
             echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
             exit 1
         fi
-    elif command -v docker &> /dev/null && docker buildx version &> /dev/null; then
-        echo "[coble-docker] Docker buildx available..."
-        # Check if user wants to test ARM64 (useful for Mac compatibility testing)
-        build_platform="linux/amd64"
-        if [[ "$BUILD_ARM64" == "true" ]]; then
-            echo "[coble-docker] Testing ARM64 build (emulated via QEMU)..."
-            build_platform="linux/arm64"
-        fi
-        
+    elif [[ $DUAL == true ]]; then
+        echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
+        build_platform="linux/amd64,linux/arm64"                
         docker buildx build -f "$DOCKERFILE" \
         --platform "$build_platform" \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
