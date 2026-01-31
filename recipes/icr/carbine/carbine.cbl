@@ -56,6 +56,9 @@ r-conda:
 r-package:
   - ggpubr
   - ggsci
+  - vcfR
+  - partykit
+  - covr
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda
