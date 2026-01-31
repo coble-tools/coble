@@ -19,7 +19,7 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf /usr/local/share/boost
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          docker system prune -af --volumes || true
+          docker system prune -af --volumes || echo 'Warning: Docker prune failed, continuing anyway'
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
@@ -29,9 +29,10 @@ jobs:
       - name: Build conda recipe
         run: |
           conda install conda-build -y
-          conda build conda-recipe
-          # Get the package path without rebuilding
+          # Build and capture the output path
           PKG_PATH=$(conda build conda-recipe --output)
+          echo "Building package: $PKG_PATH"
+          conda build conda-recipe
           echo "PACKAGE_PATH=$PKG_PATH" >> $GITHUB_ENV
 
       - name: Create test environment from built package
