@@ -19,5 +19,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pytest
+      - name: Clean up disk space
+        run: |
+          rm -rf .pytest_cache
+          docker system prune -af --volumes || true
+          docker builder prune -af || true
       - name: Run tests
-        run: pytest -v tests/github/
+        run: pytest --cache-clear -v tests/github/
