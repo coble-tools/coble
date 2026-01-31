@@ -13,6 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af --volumes || echo 'Warning: Docker prune failed, continuing anyway'
+
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -21,12 +29,15 @@ jobs:
       - name: Build conda recipe
         run: |
           conda install conda-build -y
+          # Build and capture the output path
+          PKG_PATH=$(conda build conda-recipe --output)
+          echo "Building package: $PKG_PATH"
           conda build conda-recipe
+          echo "PACKAGE_PATH=$PKG_PATH" >> $GITHUB_ENV
 
       - name: Create test environment from built package
         run: |
-          PKG_PATH=$(conda build conda-recipe --output)
-          conda create -y -n test-coble "$PKG_PATH"
+          conda create -y -n test-coble "$PACKAGE_PATH"
 
       - name: Run coble tests in test environment
         shell: bash -l {0}
@@ -40,3 +51,8 @@ jobs:
           else
             echo "No test.sh found, please add tests to tests/test.sh"
           fi
+
+      - name: Clean up conda caches
+        if: always()
+        run: |
+          conda clean --all -y
