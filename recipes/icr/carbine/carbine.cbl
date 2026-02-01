@@ -41,7 +41,7 @@ r-conda:
 r-package:
   - vcfR
   - covr
-  - ctree
+  - partykit
 r-conda:  
   - ggthemes
   - clisymbols
