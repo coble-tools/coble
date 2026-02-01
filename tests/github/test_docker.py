@@ -5,8 +5,8 @@ def test_coble_small_docker():
     """Test that the small env runs."""
     result = subprocess.run([
         'bash', 'code/coble', 'build', 
-        '--recipe', 'recipes/utils/small/small.cbl', 
-        '--validate', 'recipes/utils/small/validate.sh',
+        '--recipe', 'tests/fixtures/small.cbl', 
+        '--validate', 'tests/fixtures/validate.sh',
         '--env', 'small', 
         '--containers', 'docker'
     ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)

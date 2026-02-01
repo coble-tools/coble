@@ -13,6 +13,16 @@ def file_diffs(file1, file2):
     with open(file1, 'r') as f1, open(file2, 'r') as f2:
         lines1 = f1.readlines()
         lines2 = f2.readlines()
+
+        print(f"Comparing files {file1} and {file2}")
+        print(f"File 1 has {len(lines1)} lines; File 2 has {len(lines2)} lines")
+        print("Showing difference:")
+        print("-" * 40)
+        print(lines1)
+        print("-" * 40)
+        print(lines2)
+        print("-" * 40)
+
         
         max_lines = max(len(lines1), len(lines2))
         for i in range(30,max_lines):

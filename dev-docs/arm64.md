@@ -6,8 +6,10 @@
 docker run --platform linux/arm64 -it \
   --name arm64-test \
   -v /home/ralcraft/DEV/gh-rse/BCRDS/coble:/workspace \
+  -w /workspace \
+  -e BASH_ENV=/opt/conda/etc/profile.d/conda.sh \
   condaforge/mambaforge:latest \
-  /bin/bash
+  bash --noprofile
 ```
 
 ## Running it again
