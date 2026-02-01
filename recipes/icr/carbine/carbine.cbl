@@ -14,7 +14,7 @@ languages:
 flags:
   - dependencies: NA
   - compile-tools: True
-  - system-tools: False
+  - system-tools: True
   - export: QT_QPA_PLATFORM=offscreen
 conda:  
   - arviz
@@ -38,12 +38,15 @@ r-conda:
   - pio
   - easypar
   - dndscv
+r-package:
+  - vcfR
+  - covr
   - ctree
+r-conda:  
   - ggthemes
   - clisymbols
   - reshape2
-  - BMix
-  - vcfR
+  - BMix  
   - gtools
   - akima
   - peakPick
@@ -56,9 +59,7 @@ r-conda:
 r-package:
   - ggpubr
   - ggsci
-  - vcfR
   - partykit
-  - covr
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda
