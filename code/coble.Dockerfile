@@ -5,6 +5,7 @@
 #   --build-arg RECIPE_CBL=my-recipe.cbl \
 #   --build-arg BUILD_TAG=my-env \
 #   --build-arg GITHUB_PAT=mytoken \
+#   --build-arg VAL_FILE=val-file.sh \
 #   -t cbl-my-env .
 #########################################################################
 
@@ -17,7 +18,7 @@ ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
 ARG GITHUB_PAT=""
-ARG VALIDATE_FILE=""
+ARG VAL_FILE=""
 
 # Set environment variables
 ENV COBLE_VARIANT=${BUILD_TAG}
