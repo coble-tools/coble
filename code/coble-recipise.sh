@@ -29,6 +29,7 @@ ENV_NAME=""
 OUTDIR="."
 CONDA_ALIAS="conda"
 CONDA_EXE="conda"
+VAL_FILE=""
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -36,11 +37,12 @@ echo "[coble-recipise] Starting recipise process..." >&2
 show_help() {
     echo "----- coble recipise help ----------"
     echo "Usage: $0 [--env ENV] [--recipe CBL] [--output RECIPE] [--outdir OUTDIR]"
-    echo "  --env ENV        Specify conda environment name or prefix (optional)"
-    echo "  --recipe CBL     Specify input CBL file (optional, default: ./coble-capture.cbl)"
-    echo "  --output RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
-    echo "  --alias exe      Specify optional alternative to conda eg mamba"
-    echo "  -h, --help       Show this help message and exit"
+    echo "  --env      ENV     Specify conda environment name or prefix (optional)"
+    echo "  --recipe   CBL     Specify input CBL file (optional, default: ./coble-capture.cbl)"
+    echo "  --output   RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+    echo "  --alias    EXE     Specify optional alternative to conda eg mamba"
+    echo "  --validate FILE    Specify optional validation file"
+    echo "  -h, --help         Show this help message and exit"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -64,6 +66,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --outdir)
             OUTDIR="$2"
+            shift; shift
+            ;;
+        --validate)
+            VAL_FILE="$2"
             shift; shift
             ;;
         -h|--help)
@@ -584,6 +590,20 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 done < "$YAML_FILE"
 # remove a trailing \ if needed
 sed -i '${s/\\$//}' "$RECIPE_FILE"
+
+# copy line for validation script if VAL__FILE is not ""
+if [[ -n "$VAL_FILE" ]]; then
+    echo "" >> "$RECIPE_FILE"
+    echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"
+    echo "cp $VAL_FILE ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+else
+    echo "" >> "$RECIPE_FILE"
+    echo "# No volidation script supplied, creating empty placeholder." >> "$RECIPE_FILE"
+    echo -e "echo '#!/usr/bin/env bash'\necho 'echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\"'  > ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+    echo "# No validate script specified." >> "$RECIPE_FILE"
+fi
+echo "chmod +x ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+
 
 echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"

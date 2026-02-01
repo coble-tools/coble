@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-25
-# Capture time: 16:53:31 GMT
+# Capture date: 2026-02-01
+# Capture time: 16:38:15 GMT
 # Captured by: ralcraft
 
 coble:
@@ -20,13 +20,13 @@ flags:
 languages:
   - r-base=4.3.1@conda-forge
 flags:
-  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
+  - export: CC="/home/ralcraft/miniforge3/envs/small/bin/gcc"
   - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
   - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
-  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
+  - export: CXX="/home/ralcraft/miniforge3/envs/small/bin/g++"
   - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/small/include"
-  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: F77="/home/ralcraft/miniforge3/envs/small/bin/x86_64-conda-linux-gnu-gfortran"
+  - export: FC="/home/ralcraft/miniforge3/envs/small/bin/x86_64-conda-linux-gnu-gfortran"
   - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/small/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/small/lib"
 
 conda:

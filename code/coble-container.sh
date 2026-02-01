@@ -7,6 +7,7 @@ containers="docker,singularity"
 IMAGE_NAME=""
 DUAL_CI=false
 DUAL=false
+VAL_FILE=""
 
 # Help function
 show_help() {
@@ -25,9 +26,6 @@ OPTIONS:
 # Then test the image
 docker run --rm -it cbl-carbine-arm64 /bin/bash
 
-# To test ARM64 (mac) set the env variable BUILD_ARM64=true
-BUILD_ARM64=true code/coble build --recipe recipes/icr/carbine/carbine.cbl --env <env>-arm64 --containers docker
-
 EXAMPLES:
     # Build both Docker and Singularity containers
     $(basename "$0") --env basic --recipe config/basic.cbl
@@ -37,6 +35,9 @@ EXAMPLES:
 
     # Only build Singularity image (assumes Docker image exists)
     $(basename "$0") --env basic --recipe config/basic.cbl --steps 2
+
+    # Build mac and linuc
+    $(basename "$0") --env basic --recipe config/basic.cbl --dual
 
 EOF
 }
@@ -67,9 +68,13 @@ while [[ $# -gt 0 ]]; do
             DUAL_CI=true
             shift
             ;;
-        --dual-local)            
+        --dual)            
             DUAL=true
             shift
+            ;;
+        --validate)
+            VAL_FILE="$2"
+            shift 2
             ;;
         -h|--help)
             show_help
@@ -96,8 +101,19 @@ if [[ -z "$INPUT_RECIPE" ]]; then
     exit 1
 fi
 
+if [[ -z "$VAL_FILE" ]]; then
+    echo "Error: --validate is required"
+    show_help
+    exit 1
+fi
+
 if [[ ! -f "$INPUT_RECIPE" ]]; then
     echo "Error: Recipe file not found: $INPUT_RECIPE"
+    exit 1
+fi
+
+if [[ ! -f "$VAL_FILE" ]]; then
+    echo "Error: Validate file not found: $VAL_FILE"
     exit 1
 fi
 
@@ -134,6 +150,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VALIDATE_FILE="$VAL_FILE" \
         -t "$IMAGE_NAME" \
         --push .
         BUILD_EXIT_CODE=$?
@@ -143,12 +160,15 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         fi
     elif [[ $DUAL == true ]]; then
         echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
-        build_platform="linux/amd64,linux/arm64"                
+        #build_platform="linux/amd64,linux/arm64"
+        build_platform="linux/arm64"
         docker buildx build -f "$DOCKERFILE" \
         --platform "$build_platform" \
+        --pull \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VALIDATE_FILE="$VAL_FILE" \
         -t "$IMAGE_NAME" \
         --load .
         BUILD_EXIT_CODE=$?
@@ -162,6 +182,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VALIDATE_FILE="$VAL_FILE" \
         -t "$IMAGE_NAME" .
         BUILD_EXIT_CODE=$?
         if [[ $BUILD_EXIT_CODE -ne 0 ]]; then

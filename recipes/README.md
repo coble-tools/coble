@@ -3,8 +3,8 @@
 If you have a recipe that you would like to contribute to the Coble project, please follow these guidelines:
 
 ## Naming and Structure
-**Naming Convention:** Please encode your institution and then a project name in a recognisable format with a dash, eg "icr-sylver". You will then create a directory and cbl file in recipes like:  
-`recipes/icr-sylver/icr-sylver.cbl`  
+**Naming Convention:** Please use your instutution for folder in a recognisable format then a project name eg "icr/sylver". You will then create a directory and cbl file in recipes like:  
+`recipes/icr/sylver/sylver.cbl`  
 
 **Publication or pre-print:** The recipes are intended for academic papers in publication or pre-print for reproducibility. Please ensure that your recipe is associated with a relevant publication or pre-print and include a README.md that has the following info:
 - Full reference to the publication or pre-print
@@ -15,23 +15,27 @@ If you have a recipe that you would like to contribute to the Coble project, ple
 - Any additional information about the recipe that may be useful for users
 
 **dockerhub**  
-If you include the `.dockerhub` file for build to dockerhub, the image will be called: `icrsc/coble:icr-sylver` and available at: 
+If you include the `.DOCKERHUB` file for build to dockerhub, the image will be called: `icrsc/coble:icr-sylver` and available at: 
 [dockerhub/coble](https://hub.docker.com/repository/docker/icrsc/coble/general)  
+
+## Validation
+For local builds, a validate script is optional, but for a container the validation is required so that someone can run the container then simplty run `validate.sh` to check success. It is up to you how meaningful and comprehensive the `validate.sh` file is, we will automatically only verify its existence. This file must go in the folder next to the recipe and be named "validate.sh" and should be a bash script that performs some checks on the environment or runs some code. Please look at the examples already given in recipes for guidance.
 
 ## Testing in conda
 Before submitting your recipe, please test it in a conda environment to ensure that it works as expected. Test the receip with the build command:
 ```bash
-coble build -- recipe recipes/icr-sylver/icr-sylver.cbl --env icr-sylver-test
+coble build -- recipe recipes/icr/sylver/sylver.cbl --env icr-sylver-test --validate recipes/icr/sylver/validate.sh
 ```
 Two of the outputs from the test are required alongside the input recipe for the pull request:
 ```
 recipes/
-└── icr-sylver/
-    ├── icr-sylver.cbl
-    ├── icr-sylver_frozen.yaml
-    └── icr-sylver_summary.txt
-    └── README.md
-    └── .dockerhub  (optional file to request dockerhub builds)
+└── icr/
+        ├──sylver/
+        ├── icr-sylver.cbl
+        ├── icr-sylver_frozen.yaml
+        └── icr-sylver_summary.txt
+        └── README.md
+        └── .DOCKERHUB  (optional file to request dockerhub builds)
 ```
  These provide the full picture of reproducibility with logs timings and errors and versions and channels.
 

@@ -62,6 +62,7 @@ done_patterns=(
 dep_patterns=(
     "DONE ("
     "linux-64::"
+    "linux-aarch64::"
     "noarch::"    
     " +"
 )

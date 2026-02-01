@@ -179,7 +179,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	hours=$((duration / 3600))
 	minutes=$(((duration % 3600) / 60))
 	seconds=$((duration % 60))
-	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2		
+	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2			
 fi
 fi
 

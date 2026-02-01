@@ -92,7 +92,7 @@ elif [[ "$ENV_INPUT" == */* ]]; then
 		echo "[coble-freeze] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "Activating environment: $ENV_INPUT" >&2
+    echo "[coble-freeze] Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
@@ -102,7 +102,7 @@ else
 		echo "[coble-freeze] Error: The specified environment name does not exist: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "Activating environment: $ENV_INPUT" >&2
+    echo "[coble-freeze] Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 fi
 
@@ -467,5 +467,7 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
 fi
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
+echo "[coble] To activate environment call:" >&2	
+echo "        conda activate $ENV_INPUT" >&2	
 
 

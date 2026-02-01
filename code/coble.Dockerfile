@@ -8,7 +8,8 @@
 #   -t cbl-my-env .
 #########################################################################
 
-FROM continuumio/miniconda3
+ARG TARGETPLATFORM
+FROM --platform=$TARGETPLATFORM continuumio/miniconda3:latest
 WORKDIR /app
 
 # Build arguments for customization
@@ -16,11 +17,11 @@ ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
 ARG GITHUB_PAT=""
+ARG VALIDATE_FILE=""
 
 # Set environment variables
 ENV COBLE_VARIANT=${BUILD_TAG}
 ENV GITHUB_PAT=${GITHUB_PAT}
-
 LABEL org.opencontainers.image.version="${BUILD_TAG}" \
     org.opencontainers.image.title="coble-${BUILD_TAG}" \
     org.opencontainers.image.description="COBLE reproducible bioinformatics environment" \
@@ -30,8 +31,12 @@ LABEL org.opencontainers.image.version="${BUILD_TAG}" \
 # Update conda to latest version
 RUN conda update -n base -c defaults conda -y && conda clean -afy
 
+# Configure timezone to prevent interactive prompts during apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/London
+
 # Install system dependencies
-RUN apt-get update && \
+RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         zlib1g-dev \
@@ -58,6 +63,21 @@ RUN apt-get update && \
         libxt-dev \
         # SSL/TLS for network operations
         ca-certificates \
+        # ADD THESE FOR R PACKAGE COMPILATION:
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libxml2-dev \
+        libfontconfig1-dev \
+        libharfbuzz-dev \
+        libfribidi-dev \
+        libfreetype6-dev \
+        libpng-dev \
+        libtiff5-dev \
+        libjpeg-dev \
+        libicu-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libpcre2-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MAMBA_NO_BANNER=1
@@ -76,6 +96,7 @@ COPY code ./code
 # Recipe cbl is copied to standard location
 COPY $RECIPE_CBL /app/recipe/$BUILD_TAG.cbl
 COPY README.md /app/README.md
+COPY $VAL_FILE /app/validate.sh
 
 # Create .condarc with channels
 RUN echo "channels:" > /app/.condarc && \
