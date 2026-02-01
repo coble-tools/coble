@@ -15,7 +15,9 @@ flags:
   - dependencies: NA
   - compile-tools: True
   - system-tools: True
-  - export: QT_QPA_PLATFORM=offscreen
+  - export: QT_QPA_PLATFORM=offscreen  
+  - export: OTEL_SDK_DISABLED=true
+  - export: R_OTEL_DISABLED=true
 conda:  
   - arviz
   - pytz
