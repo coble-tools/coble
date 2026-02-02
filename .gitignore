@@ -47,6 +47,7 @@ old/containers/singularity/coble-mini.sif
 recipes/carbine_capture.cbl
 tests/fixtures/*
 !tests/fixtures/*.cbl
+!tests/fixtures/validate.sh
 tests/fixtures/*_freeze.cbl
 recipes/**
 !recipes/**/
