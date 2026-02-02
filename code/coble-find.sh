@@ -91,7 +91,7 @@ check_and_print() {
             recipe_line="python -m pip install $name_ver"
             manager="pip:"
             ;;
-        Bioconductor*)
+        "Bioconductor")
             if [[ -n "$pkg_ver" ]]; then
                 #recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE)'"
                 recipe_line="Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE, repos=BiocManager::repositories())'"
@@ -157,6 +157,9 @@ if [[ "$skip_variants" != true ]]; then
     VARIANT_MANAGERS["bioconductor-$pkg"]="Conda (bioconda)"
 fi
 
+# Track what we've already found to avoid duplicates
+declare -A found_combinations
+
 for variant in "${variants[@]}"; do
     #echo "[coble-find] Checking variant: $variant" >&2
     manager="${VARIANT_MANAGERS[$variant]}"
@@ -165,19 +168,27 @@ for variant in "${variants[@]}"; do
         for channel in bioconda conda-forge r; do
             # Get all versions from API
             versions=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
-                      grep -o '"version": *"[^"]*"' | cut -d'"' -f4)
+                      grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
+                      sort -u)  # ← Remove duplicates
             
-            if [[ -n "$ver" ]]; then
-                # Look for specific version requested
-                version=$(echo "$versions" | grep -x "$ver" | head -n1)
-            else
-                # Get latest/first version if no version specified
-                version=$(echo "$versions" | head -n1)
-            fi
-            
-            if [[ -n "$version" ]]; then
-                echo "[coble-find] Found $variant version $version in channel $channel" >&2
-                check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
+            if [[ -n "$versions" ]]; then
+                if [[ -n "$ver" ]]; then
+                    # Filter to specific version if requested
+                    versions=$(echo "$versions" | grep -x "$ver")
+                fi
+                
+                # Loop through ALL matching versions
+                while IFS= read -r version; do
+                    if [[ -n "$version" ]]; then
+                        # Create unique key to avoid duplicates across channels
+                        combo_key="$variant|$version|$channel"
+                        if [[ -z "${found_combinations[$combo_key]}" ]]; then
+                            found_combinations[$combo_key]=1
+                            echo "[coble-find] Found $variant version $version in channel $channel" >&2
+                            check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
+                        fi
+                    fi
+                done <<< "$versions"
             fi
         done
     fi
