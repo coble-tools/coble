@@ -55,6 +55,7 @@ recipes/**
 !recipes/**/*.cbl
 !recipes/**/.dockerhub
 !recipes/**/.DOCKERHUB
+!recipes/**/README.md
 !recipes/**/validate.sh
 !recipes/**/*_summary.txt
 
