@@ -145,8 +145,9 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         echo "[coble-docker] Dual build for linux and mac requested: using docker buildx for multi-platform build with push..."
         # Ensure buildx builder exists and is using docker-container driver
         docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
-        docker buildx build -f "$DOCKERFILE" \
-        --platform linux/amd64,linux/arm64 \
+        docker buildx build -f "$DOCKERFILE" \        
+        --platform linux/amd64 \
+        #--platform linux/amd64,linux/arm64 \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
