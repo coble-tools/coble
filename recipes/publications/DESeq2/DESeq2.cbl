@@ -12,7 +12,7 @@ flags:
   - system-tools: false
   - compile-tools: true
 bash:
-  - Rscript -e 'BiocManager::install(version="2.14")'
+  - Rscript -e 'BiocManager::install(version="3.10")'
 bioc-conda:
   - DESeq2
   - DESeq
