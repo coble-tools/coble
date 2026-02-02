@@ -597,10 +597,12 @@ if [[ -n "$VAL_FILE" ]]; then
     echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"
     echo "cp $VAL_FILE ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 else
-    echo "" >> "$RECIPE_FILE"
-    echo "# No volidation script supplied, creating empty placeholder." >> "$RECIPE_FILE"
-    echo -e "echo '#!/usr/bin/env bash'\necho 'echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\"'  > ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
-    echo "# No validate script specified." >> "$RECIPE_FILE"
+    {
+        echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
+        echo '#!/usr/bin/env bash'
+        echo 'echo "COBLE validation: No script has been specified for $ENV_NAME environment."'
+        echo 'VALIDATE_EOF'        
+    } >> "$RECIPE_FILE"
 fi
 echo "chmod +x ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 

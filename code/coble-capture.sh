@@ -360,11 +360,11 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	#echo -e "  - bioconda"
 	#echo -e "  - conda-forge"	
 	echo -e ""
-	echo -e "flags:"
-	echo -e "  - compile-paths: true"        
-	echo -e "  - dependencies: false"
-    echo -e "  - priority: flexible"        	
-    echo -e ""
+	#echo -e "flags:"
+	#echo -e "  - compile-tools: true"        
+	#echo -e "  - dependencies: false"
+    #echo -e "  - priority: flexible"        	
+    #echo -e ""
 	echo -e "languages:"
     #echo -e "  - no-deps"
 	if [[ -n "$R_BASE_VERSION" ]]; then
@@ -375,8 +375,15 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	fi
     # Get env vars and format for YAML
 	echo -e "flags:"
+	echo -e "  - compile-tools: true"        
+	echo -e "  - dependencies: false"
+    echo -e "  - priority: flexible"        	
 	conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | sort | while IFS='=' read -r key value; do
-    	echo "  - export: $key=\"$value\""
+    	# don't want to repat any of the settings that are the compiler tools we set elsewhere		
+		not_key=("CC" "CXX" "LD" "FC" "F77" "CFLAGS" "CXXFLAGS" "CPPFLAGS" "LDFLAGS")
+		if [[ ! " ${not_key[@]} " =~ " ${key} " ]]; then
+			echo "  - export: $key=\"$value\""
+		fi		
 	done
     #if [[ -n "$COMPILE_VERSION" ]]; then        
     #    echo -e "  - compile-tools: $COMPILE_VERSION"

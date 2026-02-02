@@ -13,7 +13,7 @@ channels:
   - conda-forge
 
 flags:
-  - compile-paths: true
+  - compile-tools: true
   - dependencies: false
   - priority: flexible
 
