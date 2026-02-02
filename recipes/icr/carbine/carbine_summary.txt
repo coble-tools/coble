@@ -1216,3 +1216,25 @@ dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
 
 [coble-create] Start time: 2026-02-02 08:15:49 69/92
 install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BSgenome)
+dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
+[coble-create] End time: 2026-02-02 10:00:22
+[coble-create] Duration: 6272s
+
+[coble-create] Start time: 2026-02-02 10:00:22 71/92
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-02 10:01:15
+[coble-create] Duration: 52s
+
+[coble-create] Start time: 2026-02-02 10:01:15 73/92
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=4)'
+dep: # * DONE (GlobalOptions)
+dep: # * DONE (GetoptLong)
+dep: # * DONE (clue)
+dep: # * DONE (circlize)
+dep: # * DONE (ComplexHeatmap)
+[coble-create] End time: 2026-02-02 11:02:50
+[coble-create] Duration: 3694s
+
+[coble-create] Start time: 2026-02-02 11:02:50 75/92
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=4)'

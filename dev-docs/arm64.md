@@ -15,4 +15,5 @@ docker run --platform linux/arm64 -it \
 ## Running it again
 ```bash
 docker start -ai arm64-test
+docker update --cpus="4.0"
 ```
