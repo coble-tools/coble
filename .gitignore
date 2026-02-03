@@ -57,7 +57,7 @@ recipes/**
 !recipes/**/.DOCKERHUB
 !recipes/**/README.md
 !recipes/**/validate.sh
-!recipes/**/validate
+!recipes/**/validate/*
 !recipes/**/*_summary.txt
 
 cbl-icr-small.sif
