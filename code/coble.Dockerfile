@@ -25,12 +25,6 @@ ARG VAL_FOLDER=""
 
 ENV CONDA_VERBOSITY=2
 
-# Debug - what did Docker receive?
-RUN echo "=== DOCKER DEBUG ===" && \
-    echo "VAL_FILE='${VAL_FILE}'" && \
-    echo "VAL_FOLDER='${VAL_FOLDER}'" && \
-    echo "==================="
-
 # Set environment variables
 ENV COBLE_VARIANT=${BUILD_TAG}
 ENV GITHUB_PAT=${GITHUB_PAT}
@@ -46,7 +40,7 @@ RUN conda config --set remote_read_timeout_secs 180 && \
     conda config --set remote_max_retries 10
 
 # Ensure all channels cleaned out we only want to add ones we want
-RUN conda config --system --remove-key channels
+RUN conda config --system --remove-key channels 2>/dev/null || true
 
 # Update conda to latest version
 RUN conda update -n base -c defaults conda -y && conda clean -afy
@@ -130,11 +124,7 @@ RUN echo "=== AFTER COPY CHECK ===" && \
 
 
 # Extra validation files (only if folder specified)
-RUN if [ -n "${VAL_FOLDER}" ] && [ -d "${VAL_FOLDER}" ]; then \
-        mkdir -p /app/validate && \
-        cp ${VAL_FOLDER}/*.sh /app/validate/ 2>/dev/null || true; \
-    fi
-
+COPY ${VAL_FOLDER:-code/validate}/ /app/validate/
 
 # Create .condarc with channels
 RUN echo "channels:" > /app/.condarc && \

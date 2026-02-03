@@ -139,15 +139,15 @@ DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers == *"apptainer"* ]]; then 
     
     echo "[coble-docker] Building Docker image..."
-    echo "[coble-docker] Debug: CI=$CI, GITHUB_ACTIONS=$GITHUB_ACTIONS"
+    echo "[coble-docker] CI=$CI, GITHUB_ACTIONS=$GITHUB_ACTIONS"
     
     # Fallback chain:
     # 1. CI environment: use buildx with --push for multi-platform
     # 2. Buildx available locally: use buildx with --load for single platform
     # 3. Fallback: regular docker build for single platform
     
-    echo "DEBUG: VAL_FILE='$VAL_FILE'" >&2
-    echo "DEBUG: VAL_FOLDER='$VAL_FOLDER'" >&2
+    echo "[coble-docker] VAL_FILE='$VAL_FILE'"
+    echo "[coble-docker] VAL_FOLDER='$VAL_FOLDER'"
 
     if [[ $DUAL_CI == true ]]; then
         echo "[coble-docker] Dual build for linux and mac requested: using docker buildx for multi-platform build with push..."
@@ -189,13 +189,14 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         fi
     else
         echo "[coble-docker] Using regular docker build (native platform)..."
-        docker build --progress=plain -f "$DOCKERFILE" \
+        #docker build --progress=plain -f "$DOCKERFILE" \
+        docker build -f "$DOCKERFILE" \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         --build-arg VAL_FILE="$VAL_FILE" \
         --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" .  2>&1 | tee docker-build.log
+        -t "$IMAGE_NAME" .
         BUILD_EXIT_CODE=$?
         if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
             echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
@@ -252,5 +253,3 @@ if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
     echo "[coble-$sing_app] completed successfully."
 
 fi
-
-

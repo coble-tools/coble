@@ -415,7 +415,19 @@ $CONDA_PREFIX/bin/DESeq2.R
 ```
 
 ```bash
-code/coble build --recipe recipes/publications/DESeq2/DESeq2.cbl --env deseq2 --validate recipes/publications/DESeq2/validate.sh --rebuild
+code/coble build \
+--recipe recipes/publications/DESeq2/DESeq2.cbl \
+--env deseq2 \
+--validate recipes/publications/DESeq2/validate/validate.sh \
+--val-folder recipes/publications/DESeq2/validate \
+--containers docker,singularity
+--rebuild
 ```
 
 Now simply typing in `validate.sh` at the command line starts this script.
+Or to retrieve from docker
+
+docker run --rm -it -v /my/code/path:/app icrsc/coble:publications-DESeq2
+
+
+singularity shell /data/rds/DIT/SCICOM/SCRSE/shared/singularity/cbl-deseq2.sif
