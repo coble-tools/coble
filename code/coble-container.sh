@@ -205,15 +205,22 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     fi
     
     # Verify image was created successfully
-    if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
-        echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
-        exit 1
+    # Note: Skip verification when using --dual-ci since image is pushed directly to registry
+    # and not loaded into local Docker daemon
+    if [[ $DUAL_CI == true ]]; then
+        echo "[coble-docker] ✓ Docker image built and pushed successfully to registry"
+        echo "[coble-docker] Image: $IMAGE_NAME"
+    else
+        if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
+            echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
+            exit 1
+        fi
+        
+        # Display image creation time and size for verification
+        IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.VirtualSize}} bytes')
+        echo "[coble-docker] ✓ Docker image created successfully"
+        echo "[coble-docker] $IMAGE_INFO"
     fi
-    
-    # Display image creation time and size for verification
-    IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.VirtualSize}} bytes')
-    echo "[coble-docker] ✓ Docker image created successfully"
-    echo "[coble-docker] $IMAGE_INFO"
     
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
