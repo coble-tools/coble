@@ -36,7 +36,8 @@ jobs:
           bash code/coble build \
             --dual-ci \
             --recipe recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/${{ github.event.inputs.cbl }}.cbl \
-            --validate recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate.sh \
+            --validate recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate/validate.sh \
+            --val-folder recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate \
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
             --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}

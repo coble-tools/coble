@@ -55,7 +55,9 @@ recipes/**
 !recipes/**/*.cbl
 !recipes/**/.dockerhub
 !recipes/**/.DOCKERHUB
+!recipes/**/README.md
 !recipes/**/validate.sh
+!recipes/**/validate/*
 !recipes/**/*_summary.txt
 
 cbl-icr-small.sif
