@@ -222,7 +222,11 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         echo "[coble-docker] $IMAGE_INFO"
     fi
     
-    echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
+    if [[ $DUAL_CI == true ]]; then
+        echo "[coble-docker] Docker build complete - image pushed to registry"
+    else
+        echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
+    fi
     echo "[coble-docker] To run use:"
     echo ""
     echo "docker run --rm -it $IMAGE_NAME"
