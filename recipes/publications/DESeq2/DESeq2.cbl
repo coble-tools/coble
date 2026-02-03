@@ -2,7 +2,6 @@ coble:
   - environment: DESeq2
 channels: # note the reverse order of priority  
   - defaults
-  - R
   - bioconda
   - conda-forge  
 languages:  
@@ -10,9 +9,9 @@ languages:
 flags:
   - dependencies: NA
   - system-tools: false
-  - compile-tools: true
-bash:
-  - Rscript -e 'BiocManager::install(version="3.10")'
+  - compile-tools: 7.5.0  
+#bash:
+#  - Rscript -e 'BiocManager::install(version="3.10")'
 bioc-conda:
   - DESeq2
   - DESeq
@@ -20,16 +19,16 @@ bioc-conda:
   - DSS
   - limma  
   - EBSeq
-  - parathyroidSE       
+  - parathyroidSE
   - pasilla 
 conda:
   - GFOLD
 r-conda:
   - samr
   - PoiClaClu
-bash:
-cp recipes/publications/DESeq2/DESeq2.R \
-$CONDA_PREFIX/bin/DESeq2.R
+#bash:
+#cp recipes/publications/DESeq2/DESeq2.R \
+#$CONDA_PREFIX/bin/DESeq2.R
 
 
 

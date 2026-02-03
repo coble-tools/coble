@@ -415,7 +415,7 @@ $CONDA_PREFIX/bin/DESeq2.R
 ```
 
 ```bash
-code/coble build --recipe recipes/publications/DESeq2/DESeq2.cbl --env deseq2 --validate recipes/publications/DESeq2/validate.sh
+code/coble build --recipe recipes/publications/DESeq2/DESeq2.cbl --env deseq2 --validate recipes/publications/DESeq2/validate.sh --rebuild
 ```
 
 Now simply typing in `validate.sh` at the command line starts this script.

@@ -8,6 +8,7 @@ IMAGE_NAME=""
 DUAL_CI=false
 DUAL=false
 VAL_FILE=""
+VAL_FOLDER=""
 
 # Help function
 show_help() {
@@ -76,6 +77,10 @@ while [[ $# -gt 0 ]]; do
             VAL_FILE="$2"
             shift 2
             ;;
+        --val-folder)
+            VAL_FOLDER="$2"
+            shift 2
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -141,6 +146,9 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     # 2. Buildx available locally: use buildx with --load for single platform
     # 3. Fallback: regular docker build for single platform
     
+    echo "DEBUG: VAL_FILE='$VAL_FILE'" >&2
+    echo "DEBUG: VAL_FOLDER='$VAL_FOLDER'" >&2
+
     if [[ $DUAL_CI == true ]]; then
         echo "[coble-docker] Dual build for linux and mac requested: using docker buildx for multi-platform build with push..."
         # Ensure buildx builder exists and is using docker-container driver
@@ -150,7 +158,8 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VALIDATE_FILE="$VAL_FILE" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
         -t "$IMAGE_NAME" \
         --push .
         BUILD_EXIT_CODE=$?
@@ -168,7 +177,8 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VALIDATE_FILE="$VAL_FILE" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
         -t "$IMAGE_NAME" \
         --load .
         BUILD_EXIT_CODE=$?
@@ -178,12 +188,13 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         fi
     else
         echo "[coble-docker] Using regular docker build (native platform)..."
-        docker build -f "$DOCKERFILE" \
+        docker build --progress=plain -f "$DOCKERFILE" \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VALIDATE_FILE="$VAL_FILE" \
-        -t "$IMAGE_NAME" .
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        -t "$IMAGE_NAME" .  2>&1 | tee docker-build.log
         BUILD_EXIT_CODE=$?
         if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
             echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"

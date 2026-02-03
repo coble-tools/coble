@@ -30,6 +30,7 @@ OUTDIR="."
 CONDA_ALIAS="conda"
 CONDA_EXE="conda"
 VAL_FILE=""
+VAL_FOLDER=""
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -42,6 +43,7 @@ show_help() {
     echo "  --output   RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
     echo "  --alias    EXE     Specify optional alternative to conda eg mamba"
     echo "  --validate FILE    Specify optional validation file"
+    echo "  --val-folder FILEs  Specify additionals validation files"
     echo "  -h, --help         Show this help message and exit"
 }
 
@@ -70,6 +72,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --validate)
             VAL_FILE="$2"
+            shift; shift
+            ;;
+        --val-folder)
+            VAL_FOLDER="$2"
             shift; shift
             ;;
         -h|--help)
@@ -410,6 +416,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 echo "umask 0022" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
                 echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
@@ -478,7 +485,31 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ "$pkg_only" == *"no-deps"* ]]; then
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then                    
-                if [[ "$src" == "" ]]; then
+                # R may need compilers for itself so simlink the system tools into the env first
+                echo "CONDA_BASE=\$(conda info --base)" >> "$RECIPE_FILE"
+                echo "ARCH=\$(uname -m)" >> "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"
+                echo "if [ \"\$ARCH\" = \"x86_64\" ]; then \\" >> "$RECIPE_FILE"
+                echo "    PREFIX=\"x86_64-conda-linux-gnu\"; \\" >> "$RECIPE_FILE"
+                echo "elif [ \"\$ARCH\" = \"aarch64\" ]; then \\" >> "$RECIPE_FILE"
+                echo "    PREFIX=\"aarch64-conda-linux-gnu\"; \\" >> "$RECIPE_FILE"
+                echo "fi" >> "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"
+                
+                echo "# Symlink all compiler/binutils tools" >> "$RECIPE_FILE"
+                
+                echo "for tool in \\" >> "$RECIPE_FILE"
+                echo "    gcc g++ gfortran cpp cc c++ f77 f95 \\" >> "$RECIPE_FILE"
+                echo "    ar nm ranlib ld ld.gold as \\" >> "$RECIPE_FILE"
+                echo "    strip objdump objcopy addr2line \\" >> "$RECIPE_FILE"
+                echo "    c++filt elfedit gprof readelf size strings \\" >> "$RECIPE_FILE"
+                echo "    gcc-ar gcc-nm gcc-ranlib; do \\" >> "$RECIPE_FILE"
+                echo "    if command -v \$tool &> /dev/null; then \\" >> "$RECIPE_FILE"
+                echo "        ln -sf \$(which \$tool) \$CONDA_BASE/bin/\${PREFIX}-\$tool; \\" >> "$RECIPE_FILE"
+                echo "    fi; \\" >> "$RECIPE_FILE"
+                echo "done" >> "$RECIPE_FILE"
+                    
+                if [[ "$src" == "" ]]; then                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
                 else                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
@@ -595,16 +626,31 @@ sed -i '${s/\\$//}' "$RECIPE_FILE"
 if [[ -n "$VAL_FILE" ]]; then
     echo "" >> "$RECIPE_FILE"
     echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"
-    echo "cp $VAL_FILE ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+    echo "cp $VAL_FILE \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 else
     {
         echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
         echo '#!/usr/bin/env bash'
-        echo 'echo "COBLE validation: No script has been specified for $ENV_NAME environment."'
+        echo "echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\""
         echo 'VALIDATE_EOF'        
     } >> "$RECIPE_FILE"
 fi
-echo "chmod +x ${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+echo "chmod +x \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+
+# if VAL_FOLDER is present, copy all files to bin (except validate.sh)
+if [[ -n "$VAL_FOLDER" && -d "$VAL_FOLDER" ]]; then    
+    for vf in "$VAL_FOLDER"/*; do
+        [[ -f "$vf" ]] || continue  # Skip if not a file
+        vf_base=$(basename "$vf")
+        
+        # Skip validate.sh as it's copied separately
+        [[ "$vf_base" == "validate.sh" ]] && continue
+        
+        echo "# Extra validation file: $vf_base" >> "$RECIPE_FILE"
+        echo "cp $vf \${CONDA_PREFIX}/bin/$vf_base" >> "$RECIPE_FILE"
+        echo "chmod +x \${CONDA_PREFIX}/bin/$vf_base" >> "$RECIPE_FILE"
+    done
+fi
 
 
 echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
