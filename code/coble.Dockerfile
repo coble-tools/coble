@@ -152,7 +152,7 @@ RUN conda init bash && \
 
 # For Singularity: override host conda and activate environment
 RUN mkdir -p /.singularity.d/env && \
-    echo '#!/bin/bash' > /.singularity.d/env/99-conda.sh && \
+    echo '#!/usr/bin/env bash' > /.singularity.d/env/99-conda.sh && \
     echo 'unset -f conda 2>/dev/null || true' >> /.singularity.d/env/99-conda.sh && \
     echo 'unset CONDA_EXE CONDA_PYTHON_EXE CONDA_SHLVL 2>/dev/null || true' >> /.singularity.d/env/99-conda.sh && \
     echo 'export PATH="/opt/conda/bin:$PATH"' >> /.singularity.d/env/99-conda.sh && \

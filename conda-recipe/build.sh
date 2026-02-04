@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Create bin directory in the conda environment
 mkdir -p $PREFIX/bin

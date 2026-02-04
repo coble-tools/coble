@@ -74,6 +74,7 @@ def test_coble_circle():
     result1 = subprocess.run(params1, cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
     result2 = subprocess.run(params2, cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
 
+    print("Calling file diffs...")
     num_diffs = file_diffs(freeze_1, freeze_2)
     print(num_diffs)
 

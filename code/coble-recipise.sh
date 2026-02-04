@@ -19,7 +19,13 @@ detect_platform() {
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         os_type="linux"
     else
-        os_type="unknown"
+         # Fallback to uname if OSTYPE not set
+        uname_s=$(uname -s)
+        if [[ "$uname_s" == "Darwin" ]]; then
+            os_type="osx"
+        elif [[ "$uname_s" == "Linux" ]]; then
+            os_type="linux"  # ✓ Works now!
+        fi
     fi
     
     # Detect architecture

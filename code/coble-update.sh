@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Default values
 done_recipe=""
@@ -37,12 +37,14 @@ update_recipe="$RESULTS_DIR/${base_name_noext}.delta"
 : > "$update_recipe"
 
 
+# Bash 3.2 compatible print_array
+# Pass recipe file as first argument, then array elements
 print_array() {
-    local arr=("$@")
-    local recipe_file="${arr[-1]}"
-    unset 'arr[-1]'  # Remove filename from array
-
-    for element in "${arr[@]}"; do
+    local recipe_file="$1"
+    shift  # Remove first argument (filename)
+    
+    # Now "$@" contains only the array elements
+    for element in "$@"; do
         echo "$element" >> "$recipe_file"
     done
 }
@@ -54,8 +56,8 @@ fi
 line_over=()
 new=false
 while IFS= read -r line; do
-    # Skip empty lines and comments
-    if [[ -z "$line" || "$line" =~ ^# ]]; then
+    # Skip empty lines and comments (bash 3.2 compatible pattern matching)
+    if [[ -z "$line" || "$line" == "#"* ]]; then
         continue
     fi
     # Check if the line exists in the old recipe    
@@ -82,7 +84,8 @@ while IFS= read -r line; do
     
     if [[ "$line" != *\\ ]]; then
         if [[ $new == true ]]; then
-            print_array "${line_over[@]}" "$update_recipe"
+            # Bash 3.2 compatible: pass filename first, then array elements
+            print_array "$update_recipe" "${line_over[@]}"
             echo "" >> "$update_recipe"
         fi
         line_over=()

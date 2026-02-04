@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Detect install context (bin vs code dir)
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

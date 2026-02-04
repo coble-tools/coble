@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Source the conda profile script directly (more reliable in scripts)
 source /home/rachel/miniforge3/etc/profile.d/conda.sh
