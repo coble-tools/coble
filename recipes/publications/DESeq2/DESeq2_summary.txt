@@ -515,3 +515,157 @@ dep: # chmod +x ${CONDA_PREFIX}/bin/DESeq2.R
 [coble-create] Recipe created at: 2026-02-03 20:10:43
 [coble-create] Recipe took: 0h 3m 2s
 --------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-04 at 11:10:09 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-04 11:10:09 1/36
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-04 11:10:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:09 2/36
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-04 11:10:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:09 3/36
+install: conda activate deseq2
+[coble-create] End time: 2026-02-04 11:10:10
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-04 11:10:10 4/36
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-04 11:10:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:10 5/36
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-04 11:10:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:10 6/36
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-04 11:10:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:10 11/36
+install: if [ "$ARCH" = "x86_64" ]; then      PREFIX="x86_64-conda-linux-gnu";  elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then      PREFIX="aarch64-conda-linux-gnu";  fi
+[coble-create] End time: 2026-02-04 11:10:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:10 13/36
+install: conda install -y --no-update-deps -c conda-forge  'gcc_linux-64=7.5.0' 'gxx_linux-64=7.5.0' 'gfortran_linux-64=7.5.0'
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-04 11:10:30
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-02-04 11:10:30 15/36
+install: conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler fortran-compiler
+dep: # fortran-compiler   conda-forge/linux-64::fortran-compiler-1.1.2-h30e8c20_0
+[coble-create] End time: 2026-02-04 11:10:47
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-02-04 11:10:47 17/36
+install: umask 0022
+[coble-create] End time: 2026-02-04 11:10:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:47 18/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-02-04 11:10:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:47 19/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 20/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 21/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 22/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 23/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 24/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 25/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 26/36
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 27/36
+install: conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 28/36
+install: conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
+[coble-create] End time: 2026-02-04 11:10:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:48 29/36
+install: conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-04 11:10:49
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-04 11:10:49 30/36
+install: conda env config vars set F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-04 11:10:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:49 31/36
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-04 11:10:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:49 32/36
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-04 11:10:50
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-04 11:10:50 33/36
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-04 11:10:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:50 34/36
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-04 11:10:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-04 11:10:50 35/36
+install: conda deactivate
+[coble-create] End time: 2026-02-04 11:10:51
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-04 11:10:51 36/36
+install: conda activate deseq2
+[coble-create] End time: 2026-02-04 11:10:52
+[coble-create] Duration: 1s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-04 11:10:52
+[coble-create] Recipe took: 0h 0m 43s
+--------------------------------------

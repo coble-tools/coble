@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-03
-# Capture time: 20:10:57 GMT
+# Capture date: 2026-02-04
+# Capture time: 11:11:05 GMT
 # Captured by: ralcraft
 
 coble:
@@ -49,6 +49,7 @@ conda:
   - cxx-compiler=1.1.2@conda-forge
   - expat=2.7.3@conda-forge
   - fontconfig=2.14.2@conda-forge
+  - fortran-compiler=1.1.2@conda-forge
   - freetype=2.12.1@conda-forge
   - fribidi=1.0.16@conda-forge
 

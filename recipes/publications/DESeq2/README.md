@@ -427,7 +427,7 @@ code/coble build \
 Now simply typing in `validate.sh` at the command line starts this script.
 Or to retrieve from docker
 
-docker run --rm -it -v /my/code/path:/app icrsc/coble:publications-DESeq2
+docker run --rm -it icrsc/coble:publications-DESeq2
 
 
 singularity shell /data/rds/DIT/SCICOM/SCRSE/shared/singularity/cbl-deseq2.sif
