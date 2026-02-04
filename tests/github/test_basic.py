@@ -25,3 +25,8 @@ def test_coble_small():
     ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
     assert result.returncode == 0
     assert 'usage' in result.stdout.lower() or 'help' in result.stdout.lower()
+
+if __name__ == "__main__":
+    test_coble_help()
+    test_coble_invalid()
+    test_coble_small()

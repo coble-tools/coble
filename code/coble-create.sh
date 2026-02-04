@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 
 # Execute a recipe script line by line to create an environment
+# BASH 3.2 COMPATIBLE - works on macOS default bash and modern Linux bash
+
+##############
+# Portable sed in-place editing (macOS/BSD vs GNU)
+##############
+sed_inplace() {
+    local pattern="$1"
+    local file="$2"
+    if [[ "$OSTYPE" == "darwin"* ]] || [[ "$(uname)" == "Darwin" ]]; then
+        sed -i '' "$pattern" "$file"
+    else
+        sed -i "$pattern" "$file"
+    fi
+}
 
 ##############
 # success=$(coble-create.sh --recipe RECIPE_FILE --env ENV)
@@ -171,13 +185,13 @@ run_line() {
     # TODO: implement logic to process $line
     echo "[coble-create] Running $current_line/$total_lines:"    
     echo "[coble-create] System info"
-    echo "[coble-create] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
+    echo "[coble-create] CPU cores: $(command -v nproc > /dev/null 2>&1 && nproc || sysctl -n hw.ncpu)"
     echo "[coble-create] Disk usage:"
     df -h .
     echo "[coble-create] Memory usage:"
-    if command -v free >/dev/null; then
+    if command -v free > /dev/null 2>&1; then
         free -h
-    elif command -v vm_stat >/dev/null; then
+    elif command -v vm_stat > /dev/null 2>&1; then
         vm_stat
     else
         echo "No memory info command found"
@@ -201,8 +215,9 @@ run_line() {
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
     else
         # the last install failed so remove it from done file
-        sed -i '' -e '$d' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$d' "$RECIPE_DONE_FILE"
-        sed -i '' -e '$s/^/#/' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/#/' "$RECIPE_DONE_FILE"
+        # Use portable sed_inplace function
+        sed_inplace '$d' "$RECIPE_DONE_FILE"
+        sed_inplace '$s/^/#/' "$RECIPE_DONE_FILE"
         echo "# Removed final line due to error" >> "$RECIPE_DONE_FILE"        
         if [[ "$EXIT_ON_ERROR" == "1" ]]; then
             echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
@@ -290,10 +305,3 @@ echo "    conda activate $NEW_ENV" >&2
 exec >&- 2>&-
 echo Y
 exit 0
-
-
-
-
-
-
-
