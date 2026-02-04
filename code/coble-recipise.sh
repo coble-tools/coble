@@ -2,6 +2,7 @@
 
 # Turn a captured yaml file into a coble recipe script
 # CROSS-PLATFORM VERSION - supports Linux AMD64, Linux ARM64, macOS Intel, macOS ARM64
+# BASH 3.2 COMPATIBLE - works on macOS default bash and modern Linux bash
 
 ##############
 # Platform detection function
@@ -51,6 +52,19 @@ PLATFORM_INFO=$(detect_platform)
 IFS='|' read -r DETECTED_OS DETECTED_ARCH PLATFORM_STRING COMPILER_PREFIX <<< "$PLATFORM_INFO"
 
 echo "[coble-recipise] Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >&2
+
+##############
+# Portable sed in-place editing (macOS/BSD vs GNU)
+##############
+sed_inplace() {
+    local pattern="$1"
+    local file="$2"
+    if [[ "$OSTYPE" == "darwin"* ]] || [[ "$(uname)" == "Darwin" ]]; then
+        sed -i '' "$pattern" "$file"
+    else
+        sed -i "$pattern" "$file"
+    fi
+}
 
 ##############
 # Get compiler packages for platform
@@ -346,8 +360,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bioc-package:"* \
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"        
-        # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+        # remove a trailing \ if needed (portable for macOS/BSD)
+        sed_inplace '${s/\\$//}' "$RECIPE_FILE"
 
         if [[ "$line" != "channels:" ]]; then
           echo "# $line" >> "$RECIPE_FILE"
@@ -674,7 +688,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "    strip objdump objcopy addr2line \\" >> "$RECIPE_FILE"
                 echo "    c++filt elfedit gprof readelf size strings \\" >> "$RECIPE_FILE"
                 echo "    gcc-ar gcc-nm gcc-ranlib; do \\" >> "$RECIPE_FILE"
-                echo "    if command -v \$tool &> /dev/null; then \\" >> "$RECIPE_FILE"
+                echo "    if command -v \$tool > /dev/null 2>&1; then \\" >> "$RECIPE_FILE"
                 echo "        ln -sf \$(which \$tool) \$CONDA_BASE/bin/\${PREFIX}-\$tool; \\" >> "$RECIPE_FILE"
                 echo "    fi; \\" >> "$RECIPE_FILE"
                 echo "done" >> "$RECIPE_FILE"
@@ -753,10 +767,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             find_args=(--pkg "$pkg_only" --version "$ver")
-            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
-            pkg_manager="${result[0]}"
-            recipe_line="${result[1]}"
-            yaml_line="${result[2]}"
+            # Bash 3.2 compatible (no mapfile)
+            temp_output=$("$script_dir/coble-find.sh" "${find_args[@]}")
+            pkg_manager=$(echo "$temp_output" | sed -n '1p')
+            recipe_line=$(echo "$temp_output" | sed -n '2p')
+            yaml_line=$(echo "$temp_output" | sed -n '3p')
             if [[ $pkg_manager == "unknown" ]]; then
                 echo "[coble-resolve] Unknown: $line" >&2
                 echo "# Unknown package: $line" >> "$RECIPE_FILE"
@@ -765,7 +780,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         fi
     else                                
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+        sed_inplace '${s/\\$//}' "$RECIPE_FILE"
         if [[ "$line" == \#* ]]; then            
             echo "$line" >> "$RECIPE_FILE"
         elif [[ -z "$line" ]]; then
@@ -773,7 +788,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     fi
 done < "$YAML_FILE"
-sed -i '${s/\\$//}' "$RECIPE_FILE"
+sed_inplace '${s/\\$//}' "$RECIPE_FILE"
 
 # Validation script
 if [[ -n "$VAL_FILE" ]]; then
