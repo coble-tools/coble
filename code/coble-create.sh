@@ -31,7 +31,15 @@ sed_inplace() {
 # 3. log files in outdir
 ###############
 
-source ~/.bashrc
+if [ -f ~/.bashrc ]; then
+        source ~/.bashrc
+elif [ -f ~/.zshrc ]; then
+        source ~/.zshrc
+elif [ -f ~/.bash_profile ]; then
+	source ~/.bash_profile
+elif [ -f ~/.profile ]; then
+	source ~/.profile
+fi
 #source "$(conda info --base)/etc/profile.d/conda.sh"
 #eval "$(mamba shell hook --shell=bash)"
 
