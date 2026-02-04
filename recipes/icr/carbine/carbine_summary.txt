@@ -1248,3 +1248,138 @@ dep: # yq                 conda-forge/noarch::yq-3.4.3-pyhe01879c_2
 
 [coble-create] Start time: 2026-02-04 12:51:44 120/179
 install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (pinfsc50)
+dep: # * DONE (permute)
+dep: # * DONE (memuse)
+dep: # * DONE (vegan)
+dep: # * DONE (ape)
+dep: # * DONE (vcfR)
+[coble-create] End time: 2026-02-04 12:52:35
+[coble-create] Duration: 51s
+
+[coble-create] Start time: 2026-02-04 12:52:35 122/179
+install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (rex)
+dep: # * DONE (covr)
+[coble-create] End time: 2026-02-04 12:52:39
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-04 12:52:39 124/179
+install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (libcoin)
+dep: # * DONE (inum)
+dep: # * DONE (partykit)
+[coble-create] End time: 2026-02-04 12:52:49
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-04 12:52:49 139/179
+install: conda install -y  --no-update-deps  'r-ggthemes'  'r-clisymbols'  'r-reshape2'  'r-BMix'  'r-gtools'  'r-akima'  'r-peakPick'  'r-R.utils'  'r-XML'  'r-restfulr'  'r-rjson'  'r-interp'  'r-reticulate' 
+dep: # r-akima            conda-forge/linux-64::r-akima-0.6_3.6-r44heaba542_1
+dep: # r-bmix             bioconda/noarch::r-bmix-1.0.0-r44hdfd78af_0
+dep: # r-clisymbols       conda-forge/noarch::r-clisymbols-1.2.0-r44hc72bb7e_1007
+dep: # r-deldir           conda-forge/linux-64::r-deldir-2.0_4-r44heaba542_2
+dep: # r-ggthemes         conda-forge/noarch::r-ggthemes-5.2.0-r44hc72bb7e_0
+dep: # r-gtools           conda-forge/linux-64::r-gtools-3.9.5-r44h54b55ab_2
+dep: # r-here             conda-forge/noarch::r-here-1.0.2-r44hc72bb7e_0
+dep: # r-interp           conda-forge/linux-64::r-interp-1.1_6-r44ha36cffa_3
+dep: # r-peakpick         bioconda/noarch::r-peakpick-0.11-r44hdfd78af_0
+dep: # r-png              conda-forge/linux-64::r-png-0.1_8-r44h6b2d295_3
+dep: # r-r.methodss3      conda-forge/noarch::r-r.methodss3-1.8.2-r44hc72bb7e_4
+dep: # r-r.oo             conda-forge/noarch::r-r.oo-1.27.1-r44hc72bb7e_1
+dep: # r-r.utils          conda-forge/noarch::r-r.utils-2.13.0-r44hc72bb7e_1
+dep: # r-rcpptoml         conda-forge/linux-64::r-rcpptoml-0.2.3-r44h3697838_1
+dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.17-r44h46721d4_2
+dep: # r-restfulr         bioconda/linux-64::r-restfulr-0.0.16-r44h5ef9028_0
+dep: # r-reticulate       conda-forge/linux-64::r-reticulate-1.44.1-r44h3697838_0
+dep: # r-rjson            conda-forge/linux-64::r-rjson-0.2.23-r44h3697838_1
+dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.20-r44hf705907_0
+[coble-create] End time: 2026-02-04 12:53:16
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-02-04 12:53:16 141/179
+install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (gridExtra)
+dep: # * DONE (ggsignif)
+dep: # * DONE (polynom)
+dep: # * DONE (ggsci)
+dep: # * DONE (ggrepel)
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-04 12:53:30
+[coble-create] Duration: 14s
+
+[coble-create] Start time: 2026-02-04 12:53:30 143/179
+install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-04 12:53:34
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-04 12:53:34 150/179
+install: conda install -y  --no-update-deps  'bioconda::bioconductor-rtracklayer=1.66.0'  'bioconda::bioconductor-genomicfeatures=1.58.0'  'bioconda::bioconductor-delayedarray=0.32.0'  'bioconda::bioconductor-summarizedexperiment=1.36.0'  'bioconda::bioconductor-genomicalignments=1.42.0' 
+dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.68.0-r44hdfd78af_0
+dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.66.0-r44h3df3fcb_0
+dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocio-1.16.0-r44hdfd78af_0
+dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.32.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicalignments-1.42.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomicfeatures-1.58.0-r44hdfd78af_0
+dep: # bioconductor-kegg~ bioconda/noarch::bioconductor-keggrest-1.46.0-r44hdfd78af_0
+dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.18.0-r44hdfd78af_0
+dep: # bioconductor-rtra~ bioconda/linux-64::bioconductor-rtracklayer-1.66.0-r44h15a9599_1
+dep: # bioconductor-s4ar~ bioconda/linux-64::bioconductor-s4arrays-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsearray-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.36.0-r44hdfd78af_0
+[coble-create] End time: 2026-02-04 12:54:00
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-04 12:54:00 152/179
+install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
+[coble-create] End time: 2026-02-04 12:54:30
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-04 12:54:30 154/179
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BSgenome)
+dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
+[coble-create] End time: 2026-02-04 12:56:24
+[coble-create] Duration: 114s
+
+[coble-create] Start time: 2026-02-04 12:56:24 156/179
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-04 12:56:29
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-04 12:56:29 158/179
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=4)'
+dep: # * DONE (GlobalOptions)
+dep: # * DONE (GetoptLong)
+dep: # * DONE (clue)
+dep: # * DONE (circlize)
+dep: # * DONE (ComplexHeatmap)
+[coble-create] End time: 2026-02-04 12:56:56
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-02-04 12:56:56 160/179
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=4)'
+dep: # * DONE (VariantAnnotation)
+[coble-create] End time: 2026-02-04 12:57:41
+[coble-create] Duration: 45s
+
+[coble-create] Start time: 2026-02-04 12:57:41 162/179
+install: Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
+dep: # * DONE (dndscv)
+[coble-create] End time: 2026-02-04 12:58:07
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-04 12:58:07 164/179
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
+dep: # * DONE (CNAqc)
+[coble-create] End time: 2026-02-04 12:58:37
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-04 12:58:37 166/179
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/carbine/lib/R/library/VIBER’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/carbine/carbine_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-04 12:58:39
