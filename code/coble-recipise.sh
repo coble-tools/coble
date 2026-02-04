@@ -361,7 +361,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"        
         # remove a trailing \ if needed (portable for macOS/BSD)
-        sed_inplace '${s/\\$//}' "$RECIPE_FILE"
+        sed_inplace '$s/\\$//' "$RECIPE_FILE"
 
         if [[ "$line" != "channels:" ]]; then
           echo "# $line" >> "$RECIPE_FILE"
@@ -780,7 +780,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         fi
     else                                
-        sed_inplace '${s/\\$//}' "$RECIPE_FILE"
+        sed_inplace '$s/\\$//' "$RECIPE_FILE"
         if [[ "$line" == \#* ]]; then            
             echo "$line" >> "$RECIPE_FILE"
         elif [[ -z "$line" ]]; then
@@ -788,7 +788,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     fi
 done < "$YAML_FILE"
-sed_inplace '${s/\\$//}' "$RECIPE_FILE"
+sed_inplace '$s/\\$//' "$RECIPE_FILE"
 
 # Validation script
 if [[ -n "$VAL_FILE" ]]; then
