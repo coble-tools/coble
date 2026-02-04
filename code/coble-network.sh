@@ -98,48 +98,60 @@ else
 fi
 
 DEPS_TXT="${RESULTS_DIR}/${ENV_NAME}_dependencies.txt"
-# empty the deps txt file
-rm -rf "$DEPS_TXT"
-
-echo "[coble-network] Using conda environment argument: $ENV_FORMATTED"
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-keep_list=()
-# loop though the lines of the frozen file and capture the packages
-while IFS= read -r line; do
-	# trim leading spaces
-	line="$(echo "$line" | sed 's/^[[:space:]]*//')"
-	# trim leading # if present
-	line="${line#\#}"
-	# trim leading spaces again
-	line="$(echo "$line" | sed 's/^[[:space:]]*//')"
-	# skip empty lines and lines with colons
-	[[ "$line" == "" ]] && continue		
-	[[ "$line" == *":"* ]] && continue		
-	# parse the line into package and version
-	pkg=$(echo "$line" | cut -d'=' -f1)
-	ver=$(echo "$line" | cut -d'=' -f2)
-	# take of trailing and leading spaces
-	pkg=$(echo "$pkg" | xargs)
-	ver=$(echo "$ver" | xargs)
-	# from pkg take of leading - if any
-	pkg=${pkg#-}
-	# take of trailing and leading spaces
-	pkg=$(echo "$pkg" | xargs)
-	ver=$(echo "$ver" | xargs)
-	
-	if [[ " ${keep_list[*]} " =~ " $pkg " ]]; then
-		echo "[coble-network] Skipping package (in keep list): $pkg"
-		continue
-	else		
-		keep_list+=("$pkg")
-		echo "[coble-network] Capturing package: $pkg==$ver"
-		"$script_dir/coble-deps-r.R" "$pkg" -o "$DEPS_TXT"										
-	fi
-done < "$AGGREGATE_TXT"
 
+CREATE_DEPS=FALSE
+
+if [[ CREATE_DEPS == TRUE ]]; then
+	# empty the deps txt file
+	rm -rf "$DEPS_TXT"
+
+	echo "[coble-network] Using conda environment argument: $ENV_FORMATTED"
+
+
+	keep_list=()
+	# loop though the lines of the frozen file and capture the packages
+	while IFS= read -r line; do
+		# trim leading spaces
+		line="$(echo "$line" | sed 's/^[[:space:]]*//')"
+		# trim leading # if present
+		line="${line#\#}"
+		# trim leading spaces again
+		line="$(echo "$line" | sed 's/^[[:space:]]*//')"
+		# skip empty lines and lines with colons
+		[[ "$line" == "" ]] && continue		
+		[[ "$line" == *":"* ]] && continue		
+		# parse the line into package and version
+		pkg=$(echo "$line" | cut -d'=' -f1)
+		ver=$(echo "$line" | cut -d'=' -f2)
+		# take of trailing and leading spaces
+		pkg=$(echo "$pkg" | xargs)
+		ver=$(echo "$ver" | xargs)
+		# from pkg take of leading - if any
+		pkg=${pkg#-}
+		# take of trailing and leading spaces
+		pkg=$(echo "$pkg" | xargs)
+		ver=$(echo "$ver" | xargs)
+		
+		if [[ " ${keep_list[*]} " =~ " $pkg " ]]; then
+			echo "[coble-network] Skipping package (in keep list): $pkg"
+			continue
+		else		
+			keep_list+=("$pkg")
+			echo "[coble-network] Capturing package: $pkg==$ver"
+			"$script_dir/coble-deps-r.R" "$pkg" -o "$DEPS_TXT"										
+		fi
+	done < "$AGGREGATE_TXT"
+fi
+
+########################################
 # Now create the network viz
+echo "[coble-network] A predefined conda environment `visnetwork` needs to be activated for the graph:" >&2
+conda deactivate
+conda activate visnetwork
+
 "$script_dir/coble-viz.R" "$DEPS_TXT" \
 --output-path "$(dirname "$AGGREGATE_TXT")" \
 --output-prefix "${ENV_NAME}_network" \

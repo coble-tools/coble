@@ -10,7 +10,7 @@ python tests/github/test_circle.py
 def file_diffs(file1, file2):
     """Compare two files line by line and return the differences."""
     diffs = []
-    num_diff == 0
+    num_diff=0
     with open(file1, 'r') as f1, open(file2, 'r') as f2:
         lines1 = f1.readlines()
         lines2 = f2.readlines()

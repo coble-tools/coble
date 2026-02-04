@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-25
-# Capture time: 16:10:24 GMT
+# Capture date: 2026-02-04
+# Capture time: 14:50:40 GMT
 # Captured by: ralcraft
 
 coble:
@@ -13,22 +13,12 @@ channels:
   - bioconda
   - conda-forge
 
-flags:
-  - compile-paths: true
-  - dependencies: false
-  - priority: flexible
-
 languages:
   - r-base=3.6.0@r
 flags:
-  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
-  - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
-  - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/sylver/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/sylver/lib"
+  - compile-tools: true
+  - dependencies: false
+  - priority: flexible
 
 conda:
   - binutils=2.40@conda-forge
@@ -74,12 +64,18 @@ conda:
   - cxx-compiler=1.10.0@conda-forge
 
 conda:
-  - expat=2.7.3@defaults
+  - expat=2.7.4@defaults
   - fontconfig=2.14.1@defaults
-  - freetype=2.13.3@defaults
+
+conda:
+  - fortran-compiler=1.10.0@conda-forge
+
+conda:
+  - freetype=2.14.1@defaults
   - fribidi=1.0.16@defaults
 
 conda:
+  - gfortran=13.1.0@conda-forge
   - gfortran_impl_linux-64=13.1.0@conda-forge
   - gfortran_linux-64=13.1.0@conda-forge
 
@@ -103,7 +99,7 @@ conda:
 conda:
   - libdeflate=1.22@defaults
   - libedit=3.1.20230828@defaults
-  - libexpat=2.7.3@defaults
+  - libexpat=2.7.4@defaults
   - libffi=3.2.1@defaults
   - libgfortran-ng=7.5.0@defaults
   - libgfortran4=7.5.0@defaults

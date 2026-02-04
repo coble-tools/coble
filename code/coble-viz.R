@@ -72,7 +72,7 @@ cat(sprintf("Graph background: %s\n\n", graph_bg_color))
 packages <- c("tidyverse", "visNetwork")
 cat("Loading required packages...\n")
 for(pkg in packages) {
-  if(!require(pkg, character.only = TRUE, quietly = TRUE)) {
+  if(!require(pkg, character.only = TRUE, quietly = FALSE)) {
     cat(sprintf("Installing %s...\n", pkg))
     install.packages(pkg, repos = "https://cloud.r-project.org", quiet = TRUE)
     library(pkg, character.only = TRUE, quietly = TRUE)

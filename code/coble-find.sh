@@ -91,7 +91,7 @@ check_and_print() {
             recipe_line="python -m pip install $name_ver"
             manager="pip:"
             ;;
-        "Bioconductor")
+        "Bioconductor")            
             if [[ -n "$pkg_ver" ]]; then
                 #recipe_line="Rscript -e 'BiocManager::install(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE)'"
                 recipe_line="Rscript -e 'remotes::install_version(\"$pkg_name\", version=\"$pkg_ver\", dependencies=TRUE, repos=BiocManager::repositories())'"
@@ -161,7 +161,7 @@ fi
 declare -A found_combinations
 
 for variant in "${variants[@]}"; do
-    #echo "[coble-find] Checking variant: $variant" >&2
+    echo "[coble-find] Checking variant: $variant ===============================" >&2
     manager="${VARIANT_MANAGERS[$variant]}"
     
     if [[ -n "$variant" ]]; then
@@ -198,7 +198,7 @@ done
 ### SEARCHING r cran ######################
 ###################################################################
 
-echo "[coble-find] Checking CRAN" >&2
+echo "[coble-find] Checking CRAN===================================" >&2
 cran_line=$(curl -s https://cran.r-project.org/src/contrib/PACKAGES | \
 awk -v p="$pkg" -v v="$ver" '
   /^Package:/ {pkgname=$2}
@@ -241,17 +241,33 @@ done
 ### SEARCHING bioconductor ######################
 ###################################################################
 
-echo "[coble-find] Checking Bioconductor" >&2
+echo "[coble-find] Checking Bioconductor=====================================" >&2
 declare -A bioc_variants=(
   ["main"]="https://bioconductor.org/packages/release/bioc/VIEWS"
   ["experiment"]="https://bioconductor.org/packages/release/data/experiment/VIEWS"
   ["annotation"]="https://bioconductor.org/packages/release/data/annotation/VIEWS"
   ["workflows"]="https://bioconductor.org/packages/release/workflows/VIEWS"
+  ["packages"]="https://bioconductor.org/packages/release/bioc/src/contrib/PACKAGES"
 )
 
 for category in "${!bioc_variants[@]}"; do
   #echo "[coble-find] Checking category $category" >&2
   url="${bioc_variants[$category]}"
+  if [[ "$category" == "packages" ]]; then
+  bio_line=$(curl -s "$url" | \
+    awk -v p="$pkg" -v v="$ver" '
+      /^Package:/ {pkgname=$2}
+      /^Version:/ {
+        if (tolower(pkgname)==tolower(p)) {
+          pkgver=$2
+          if (v=="" || tolower(pkgver)==tolower(v)) {
+            print pkgname " " pkgver
+            exit
+          }
+        }
+      }
+    ')
+else
   bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" '
     /^Package:/ {pkgname=$2}
@@ -265,10 +281,11 @@ for category in "${!bioc_variants[@]}"; do
       }
     }
   ')
-  if [[ -n "$bio_line" ]]; then
-    IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
-    check_and_print "Bioconductor ($category)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
-  fi
+fi  
+if [[ -n "$bio_line" ]]; then
+  IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
+  check_and_print "Bioconductor" "$pkg_name" "$pkg_ver" "$pkg" "$category" "$category"
+fi
 done
 
 archive_releases=("3.14" "3.12" "3.10")
@@ -290,7 +307,7 @@ for rel in "${archive_releases[@]}"; do
   ')
   if [[ -n "$bio_line" ]]; then
     IFS=' ' read -r pkg_name pkg_ver <<< "$bio_line"
-    check_and_print "Bioconductor archive ($rel)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "$channel"
+    check_and_print "Bioconductor" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "Archive=$rel"
   fi
 done
 
@@ -307,10 +324,8 @@ pypi-check() {
     fi
 }
 
-echo "[coble-find] Checking pypi" >&2
-#pypi=$(curl -s "https://pypi.org/pypi/$pkg/json")
+echo "[coble-find] Checking pypi=====================================" >&2
 pypi=$(pypi-check "$pkg")
-#echo "[coble-find][debug] pypi='$pypi'" >&2
 if [[ -n "$pypi" ]]; then
     check_and_print "PyPI" "$pkg" "" "$pkg" "$ver" ""
 fi
@@ -367,10 +382,9 @@ search_github_cpp $pkg
 search_github_python() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}+language:python"
-  echo "[coble-find] Searching url $url" >&2
+  echo "[coble-find] Searching url $url=========================================" >&2
   curled=$(curl -s "$url")
-  #echo "[coble-find][debug] github python search result: $curled" >&2
-
+  
   # Collect all repo URLs that match
   local results
   results=$(echo "$curled" \
@@ -394,7 +408,7 @@ search_github_python $pkg
 search_github_any() {
   local q="$1"
   local url="https://api.github.com/search/repositories?q=${q}"
-  echo "[coble-find] Searching url $url" >&2
+  echo "[coble-find] Searching url $url======================================================" >&2
 
   # Collect all repo URLs that match
   local results
@@ -428,11 +442,9 @@ if [[ "$INCLUDE_R_FORGE" != true ]]; then
   echo "[coble-find] Skipping r-forge check as per settings" >&2
   exit 0
 fi
-echo "[coble-find] Checking r-forge" >&2
+echo "[coble-find] Checking r-forge==========================================" >&2
 # Improved R-Forge package detection: look for tarballs in the contrib directory
-#echo "[coble-find][debug] curl -s \"https://r-forge.r-project.org/src/contrib/\" | grep -oiE 'href=\"${pkg}_[^\"]+\\.tar\\.gz\"' | sed -E 's/^href=\"//;s/\"$//' | head -n1" >&2
 rforge_pkg=$(rforge-check "$pkg")
-#echo "[coble-find][debug] rforge_pkg='$rforge_pkg'" >&2
 if [[ -n "$rforge_pkg" ]]; then
   check_and_print "r-forge" "$pkg" "" "$pkg" "$ver" "r-forge"
 fi
