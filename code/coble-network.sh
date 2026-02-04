@@ -2,7 +2,14 @@
 # Turn the currently activated conda environment into a netwrok graph
 
 
-source ~/.bashrc
+# Source the appropriate shell configuration file
+if [[ -f ~/.bashrc ]]; then
+    source ~/.bashrc
+elif [[ -f ~/.bash_profile ]]; then
+    source ~/.bash_profile
+elif [[ -f ~/.zshrc ]]; then
+    source ~/.zshrc
+fi
 
 # Usage: ./coble-network.sh --frozen <recipe_file> [--env ENV]
 

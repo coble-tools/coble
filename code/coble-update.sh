@@ -39,8 +39,8 @@ update_recipe="$RESULTS_DIR/${base_name_noext}.delta"
 
 print_array() {
     local arr=("$@")
-    local recipe_file="${arr[-1]}"
-    unset 'arr[-1]'  # Remove filename from array
+    local recipe_file="${arr[${#arr[@]}-1]}"  # Get the last element
+    unset arr[${#arr[@]}-1]  # Remove the last element from the array
 
     for element in "${arr[@]}"; do
         echo "$element" >> "$recipe_file"

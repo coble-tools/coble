@@ -11,7 +11,14 @@
 #
 #################################################################################
 
-source ~/.bashrc
+# Source the appropriate shell configuration file
+if [[ -f ~/.bashrc ]]; then
+    source ~/.bashrc
+elif [[ -f ~/.bash_profile ]]; then
+    source ~/.bash_profile
+elif [[ -f ~/.zshrc ]]; then
+    source ~/.zshrc
+fi
 #source "$(conda info --base)/etc/profile.d/conda.sh"
 #eval "$(mamba shell hook --shell=bash)"
 

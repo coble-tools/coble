@@ -16,6 +16,17 @@ flags:
   - dependencies: NA
   - system-tools: False
   - compile-tools: 13.1  
+find:
+#   - gcc_linux-64
+
+#   - gcc
+
+
+
+
+
+
+
 conda:
   - pandas
 r-conda:  
