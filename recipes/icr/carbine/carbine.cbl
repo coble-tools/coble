@@ -61,7 +61,10 @@ r-conda:
 r-package:
   - ggpubr
   - ggsci
-  tidygraph', 'ggraph', 'igraph', 'entropy', 'matrixcalc'
+  - tidygraph
+  - ggraph
+  - entropy
+  - matrixcalc
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda

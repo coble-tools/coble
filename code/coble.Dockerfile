@@ -47,7 +47,15 @@ RUN conda config --system --remove-key channels 2>/dev/null || true
 # Update conda to latest version
 RUN conda update -n base -c defaults conda -y && conda clean -afy
 
-
+RUN echo "=== BUILD ARGUMENTS ===" && \
+    echo "GITHUB_PAT: ${GITHUB_PAT}" && \
+    echo "BUILD_TAG: ${BUILD_TAG}" && \
+    echo "RECIPE_CBL: ${RECIPE_CBL}" && \
+    echo "SKIP_ERRORS: ${SKIP_ERRORS}" && \
+    echo "VAL_FILE: ${VAL_FILE}" && \
+    echo "VAL_FOLDER: ${VAL_FOLDER}" && \
+    echo "BANNER: ${BANNER}" && \
+    echo "======================"
 
 # Configure timezone to prevent interactive prompts during apt-get
 ENV DEBIAN_FRONTEND=noninteractive
