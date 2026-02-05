@@ -498,7 +498,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     
                     # Add additional tools for Linux
                     if [[ "$DETECTED_OS" == "linux" ]]; then
-                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-${DETECTED_ARCH/x86_64/64} c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
+                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
                     fi
                 else
                     echo "[coble-recipise] Adding compile tools version $version for $PLATFORM_STRING" >&2

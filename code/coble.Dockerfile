@@ -7,6 +7,7 @@
 #   --build-arg GITHUB_PAT=mytoken \
 #   --build-arg VAL_FILE=validate.sh \
 #   --build-arg VAL_FOLDER=folder to copy \
+#   --build-arg BANNER=optional branding change to ICR \
 #   -t cbl-my-env .
 #########################################################################
 
@@ -22,6 +23,7 @@ ARG SKIP_ERRORS=false
 ARG GITHUB_PAT=""
 ARG VAL_FILE=""
 ARG VAL_FOLDER=""
+ARG BANNER=""
 
 ENV CONDA_VERBOSITY=2
 
@@ -166,6 +168,23 @@ RUN conda clean -afy
 
 # Clear the PAT after build for security
 ENV GITHUB_PAT=
+
+
+# Conditional message of the day (motd) based on BANNER
+RUN if [ "$BANNER" == "ICR" ]; then \
+      echo '╔════════════════════════════════════════════════════════╗' > /etc/motd && \
+      echo '║        (c) ICR 2026 Scientific Computing               ║' >> /etc/motd && \  
+      echo '╚════════════════════════════════════════════════════════╝' >> /etc/motd; \     
+    else \
+      echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
+      echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
+      echo '║        (c) ICR 2026 RSE and BCR-DS                           ║' >> /etc/motd && \
+      echo '║        For help, see:                                        ║' >> /etc/motd && \    
+      echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
+      echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \    
+      echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd; \     
+    fi
+    
 
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \

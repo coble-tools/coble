@@ -61,6 +61,7 @@ r-conda:
 r-package:
   - ggpubr
   - ggsci
+  tidygraph', 'ggraph', 'igraph', 'entropy', 'matrixcalc'
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda
@@ -75,6 +76,8 @@ bioc-package:
   - VariantAnnotation  
 flags:
   - dependencies: FALSE
+r-github:
+  - caravagnalab/ctree
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip

@@ -9,6 +9,7 @@ DUAL_CI=false
 DUAL=false
 VAL_FILE=""
 VAL_FOLDER=""
+BANNER=""
 
 # Help function
 show_help() {
@@ -81,6 +82,10 @@ while [[ $# -gt 0 ]]; do
             VAL_FOLDER="$2"
             shift 2
             ;;
+        --banner)
+            BANNER="$2"
+            shift 2
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -140,6 +145,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     
     echo "[coble-docker] Building Docker image..."
     echo "[coble-docker] CI=$CI, GITHUB_ACTIONS=$GITHUB_ACTIONS"
+    echo "[coble-docker] GITHUB=$GITHUB_PAT"
     
     # Fallback chain:
     # 1. CI environment: use buildx with --push for multi-platform
