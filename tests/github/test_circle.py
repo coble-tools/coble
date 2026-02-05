@@ -2,6 +2,9 @@ import subprocess
 import os
 
 
+# code/coble build --recipe tests/fixtures/circle.cbl --env circular1 --rebuild --debug
+# code/coble build --recipe tests/fixtures/circle_freeze.cbl --env circular2 --rebuild --debug
+
 """
 pytest tests/github/test_circle.py -s
 python tests/github/test_circle.py

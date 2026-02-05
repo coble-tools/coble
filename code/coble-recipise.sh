@@ -79,7 +79,7 @@ get_compiler_packages() {
     local platform="$1"
     case "$platform" in
         "linux-64"|"linux/amd64")
-            echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64 sysroot_linux-64"
+            echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64"
             ;;
         "linux-aarch64"|"linux/arm64")
             echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64 sysroot_linux-aarch64"
@@ -497,8 +497,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $COMPILER_PACKAGES" >>  "$RECIPE_FILE"
                     
                     # Add additional tools for Linux
-                    if [[ "$DETECTED_OS" == "linux" ]]; then
+                    if [[ "$DETECTED_OS" == "linux" ]]; then                    
                         echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
+                        if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
+                            echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64" >>  "$RECIPE_FILE"
+                        else
+                            echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-aarch64" >>  "$RECIPE_FILE"
+                        fi
                     fi
                 else
                     echo "[coble-recipise] Adding compile tools version $version for $PLATFORM_STRING" >&2

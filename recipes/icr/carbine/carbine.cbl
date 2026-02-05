@@ -30,8 +30,8 @@ conda:
   - seaborn=0.13.2
   - xz
 r-conda:
-  - covr
-  - ctree
+  #- covr
+  #- ctree
   - doBy
   - pbkrtest
   - car
