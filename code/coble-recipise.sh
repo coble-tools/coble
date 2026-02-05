@@ -803,11 +803,11 @@ if [[ -n "$VAL_FILE" ]]; then
     echo "cp $VAL_FILE \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 else
     {
-        echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
-        echo '#!/usr/bin/env bash'
-        echo "echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\""
-        echo 'VALIDATE_EOF'        
+        echo 'echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh'
+        echo 'echo "echo \"COBLE validation: No script has been specified for '"$ENV_NAME"' environment.\"" >> ${CONDA_PREFIX}/bin/validate.sh'
+        echo 'chmod +x ${CONDA_PREFIX}/bin/validate.sh'
     } >> "$RECIPE_FILE"
+fi
 fi
 echo "chmod +x \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 
