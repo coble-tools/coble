@@ -808,7 +808,7 @@ else
         echo 'chmod +x ${CONDA_PREFIX}/bin/validate.sh'
     } >> "$RECIPE_FILE"
 fi
-fi
+
 echo "chmod +x \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 
 if [[ -n "$VAL_FOLDER" && -d "$VAL_FOLDER" ]]; then    
