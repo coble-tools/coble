@@ -161,7 +161,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
         #--platform linux/amd64,linux/arm64 \
         docker buildx build -f "$DOCKERFILE" \
-        --platform linux/amd64 \
+        --platform linux/amd64,linux/arm64 \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
