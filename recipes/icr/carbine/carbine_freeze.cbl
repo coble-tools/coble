@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-05
-# Capture time: 17:36:39 GMT
+# Capture time: 19:59:25 GMT
 # Captured by: ralcraft
 
 coble:
@@ -128,6 +128,8 @@ conda:
   - ghostscript=10.06.0@conda-forge
   - giflib=5.2.2@conda-forge
   - glib-tools=2.86.3@conda-forge
+  - glpk=5.0@conda-forge
+  - gmp=6.3.0@conda-forge
   - graphite2=1.3.14@conda-forge
   - graphviz=14.1.2@conda-forge
   - gsl=2.7@conda-forge
@@ -446,10 +448,16 @@ r-conda:
   - conflicted=1.2.0@conda-forge
   - conquer=1.3.3@conda-forge
   - corrplot=0.95@conda-forge
+  - covr=3.6.5@conda-forge
   - cowplot=1.2.0@conda-forge
   - cpp11=0.5.3@conda-forge
   - crayon=1.5.3@conda-forge
   - crul=1.6.0@conda-forge
+
+r-conda:
+  - ctree=1.1.0@bioconda
+
+r-conda:
   - data.table=1.17.8@conda-forge
   - dbi=1.2.3@conda-forge
   - dbplyr=2.5.1@conda-forge
@@ -474,6 +482,7 @@ r-conda:
 
 r-conda:
   - ellipsis=0.3.2@conda-forge
+  - entropy=1.3.2@conda-forge
   - essentials=4.4@conda-forge
   - evaluate=1.0.5@conda-forge
   - fansi=1.0.7@conda-forge
@@ -495,7 +504,10 @@ r-conda:
   - gargle=1.6.1@conda-forge
   - gbrd=0.4.12@conda-forge
   - generics=0.1.4@conda-forge
+  - ggforce=0.5.0@conda-forge
   - ggplot2=4.0.2@conda-forge
+  - ggraph=2.2.2@conda-forge
+  - ggrepel=0.9.6@conda-forge
   - ggthemes=5.2.0@conda-forge
   - gistr=0.9.0@conda-forge
   - glmnet=4.1_10@conda-forge
@@ -504,6 +516,8 @@ r-conda:
   - googledrive=2.1.2@conda-forge
   - googlesheets4=1.1.2@conda-forge
   - gower=1.0.2@conda-forge
+  - graphlayouts=1.2.2@conda-forge
+  - gridextra=2.3@conda-forge
   - gtable=0.3.6@conda-forge
   - gtools=3.9.5@conda-forge
   - guilds=1.4.7@conda-forge
@@ -519,6 +533,7 @@ r-conda:
   - httpuv=1.6.16@conda-forge
   - httr=1.4.7@conda-forge
   - ids=1.0.1@conda-forge
+  - igraph=2.1.4@conda-forge
   - interp=1.1_6@conda-forge
   - ipred=0.9_15@conda-forge
   - irdisplay=1.1@conda-forge
@@ -547,6 +562,7 @@ r-conda:
   - markdown=2.0@conda-forge
   - mass=7.3_65@conda-forge
   - matrix=1.7_4@conda-forge
+  - matrixcalc=1.0_6@conda-forge
   - matrixmodels=0.5_4@conda-forge
   - matrixstats=1.5.0@conda-forge
   - memoise=2.0.1@conda-forge
@@ -585,6 +601,7 @@ r-conda:
   - plyr=1.8.9@conda-forge
   - png=0.1_8@conda-forge
   - poilog=0.4.2.1@conda-forge
+  - polyclip=1.10_7@conda-forge
   - powerlaw=1.0.0@conda-forge
   - pracma=2.4.6@conda-forge
   - prettydoc=0.4.1@conda-forge
@@ -635,6 +652,7 @@ r-conda:
 
 r-conda:
   - reticulate=1.44.1@conda-forge
+  - rex=1.2.1@conda-forge
   - rjson=0.2.23@conda-forge
   - rlang=1.1.7@conda-forge
   - rmarkdown=2.30@conda-forge
@@ -668,6 +686,7 @@ r-conda:
   - sys=3.4.3@conda-forge
   - textshaping=1.0.4@conda-forge
   - tibble=3.3.1@conda-forge
+  - tidygraph=1.3.0@conda-forge
   - tidyr=1.3.2@conda-forge
   - tidyselect=1.2.1@conda-forge
   - tidytable=0.11.1@conda-forge
@@ -678,6 +697,7 @@ r-conda:
   - triebeard=0.4.1@conda-forge
   - tseries=0.10_59@conda-forge
   - ttr=0.24.4@conda-forge
+  - tweenr=2.0.3@conda-forge
   - tzdb=0.5.0@conda-forge
   - urca=1.3_4@conda-forge
   - urltools=1.7.3.1@conda-forge
@@ -685,6 +705,7 @@ r-conda:
   - uuid=1.2_2@conda-forge
   - vctrs=0.7.1@conda-forge
   - vgam=1.1_14@conda-forge
+  - viridis=0.6.5@conda-forge
   - viridislite=0.4.3@conda-forge
   - vroom=1.6.7@conda-forge
   - withr=3.0.2@conda-forge
@@ -728,32 +749,18 @@ r-package:
   - ape=5.8-1
   - circlize=0.4.17
   - clue=0.3-66
-  - covr=3.6.5
-  - entropy=1.3.2
-  - ggforce=0.5.0
   - ggpubr=0.6.2
-  - ggraph=2.2.2
-  - ggrepel=0.9.6
   - ggsci=4.2.0
   - ggsignif=0.6.4
-  - graphlayouts=1.2.2
-  - gridExtra=2.3
-  - igraph=2.2.1
   - inum=1.0-5
   - libcoin=1.0-10
-  - matrixcalc=1.0-6
   - memuse=4.2-3
   - partykit=1.2-24
   - permute=0.9-8
   - pinfsc50=1.3.0
-  - polyclip=1.10-7
   - polynom=1.4-1
-  - rex=1.2.1
-  - tidygraph=1.3.1
-  - tweenr=2.0.3
   - vcfR=1.15.0
   - vegan=2.7-2
-  - viridis=0.6.5
 
 bioc-package:
   - BSgenome.Hsapiens.UCSC.hg19=1.4.3
@@ -763,9 +770,6 @@ bioc-package:
   - ComplexHeatmap=2.22.0
   - TxDb.Hsapiens.UCSC.hg19.knownGene=3.2.2
   - VariantAnnotation=1.52.0
-
-r-github:
-  - ctree=1.1.0@github@caravagnalab/ctree/df8dc8395725f396e9f7cefa3a9e46d3b7b113ec
 
 pip:
   - shiboken6==6.10.1

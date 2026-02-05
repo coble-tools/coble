@@ -18,9 +18,6 @@ flags:
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
-
-bash:
-  - conda config --env --add pinned_packages "otelsdk==9999999999"
 conda:  
   - arviz
   - pytz
@@ -33,6 +30,8 @@ conda:
   - seaborn=0.13.2
   - xz
 r-conda:
+  - covr
+  - ctree
   - doBy
   - pbkrtest
   - car
@@ -44,10 +43,11 @@ r-conda:
   - easypar
   - dndscv
 r-package:
-  - vcfR
-  - covr
+  - vcfR  
   - partykit
+  - akima
 r-conda:  
+  - knitr
   - ggthemes
   - clisymbols
   - reshape2
