@@ -18,6 +18,9 @@ flags:
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
+
+bash:
+  - conda config --env --add pinned_packages "otelsdk==9999999999"
 conda:  
   - arviz
   - pytz
