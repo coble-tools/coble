@@ -78,17 +78,17 @@ sed_inplace() {
 get_compiler_packages() {
     local platform="$1"
     case "$platform" in
-        "linux-64")
+        "linux-64"|"linux/amd64")
             echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64 sysroot_linux-64"
             ;;
-        "linux-aarch64")
+        "linux-aarch64"|"linux/arm64")
             echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64 sysroot_linux-aarch64"
             ;;
         "osx-64")
-            echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64 sysroot_osx-64"
+            echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64"
             ;;
-        "osx-arm64")
-            echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64 sysroot_osx-aarch64"
+        "osx-arm64"|"darwin/arm64")
+            echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64"
             ;;
         *)
             echo ""
