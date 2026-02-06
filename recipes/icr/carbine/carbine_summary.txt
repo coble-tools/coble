@@ -1,73 +1,73 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-02-05 at 19:47:52 GMT
+[coble-create] Summary log started by ralcraft on 2026-02-06 at 23:14:41 GMT
 ------------------------------------------------
 
-[coble-create] Start time: 2026-02-05 19:47:52 1/191
-install: for rcfile in ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc; do [ -f "$rcfile" ] && source "$rcfile" && break; done
-[coble-create] End time: 2026-02-05 19:47:52
+[coble-create] Start time: 2026-02-06 23:14:41 1/148
+install: source /home/ralcraft/.bashrc
+[coble-create] End time: 2026-02-06 23:14:41
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:47:52 3/191
+[coble-create] Start time: 2026-02-06 23:14:41 3/148
 install: conda env remove --name carbine -y 2>/dev/null || true
-[coble-create] End time: 2026-02-05 19:47:54
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-02-06 23:14:46
+[coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-02-05 19:47:54 5/191
+[coble-create] Start time: 2026-02-06 23:14:46 5/148
 install: conda create --no-default-packages --name carbine -y
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 9s
 
-[coble-create] Start time: 2026-02-05 19:48:03 7/191
+[coble-create] Start time: 2026-02-06 23:14:55 7/148
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 8/191
+[coble-create] Start time: 2026-02-06 23:14:55 8/148
 install: unset PYTHONPATH
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 9/191
+[coble-create] Start time: 2026-02-06 23:14:55 9/148
 install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 10/191
+[coble-create] Start time: 2026-02-06 23:14:55 10/148
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 11/191
+[coble-create] Start time: 2026-02-06 23:14:55 11/148
 install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 12/191
+[coble-create] Start time: 2026-02-06 23:14:55 12/148
 install: conda config --env --remove-key channels
-[coble-create] End time: 2026-02-05 19:48:03
+[coble-create] End time: 2026-02-06 23:14:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:03 14/191
+[coble-create] Start time: 2026-02-06 23:14:55 14/148
 install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-02-05 19:48:03
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:03 15/191
-install: conda config --env --add channels defaults
-[coble-create] End time: 2026-02-05 19:48:04
+[coble-create] End time: 2026-02-06 23:14:56
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-02-05 19:48:04 17/191
+[coble-create] Start time: 2026-02-06 23:14:56 15/148
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-06 23:14:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-06 23:14:56 17/148
 install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-02-05 19:48:04
+[coble-create] End time: 2026-02-06 23:14:56
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:04 19/191
+[coble-create] Start time: 2026-02-06 23:14:56 19/148
 install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-02-05 19:48:04
+[coble-create] End time: 2026-02-06 23:14:56
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:04 21/191
+[coble-create] Start time: 2026-02-06 23:14:57 21/148
 install: conda install -y  'python=3.12'
 dep: # _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
 dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
@@ -98,50 +98,30 @@ dep: # tk                 conda-forge/linux-64::tk-8.6.13-noxft_h366c992_103
 dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
 dep: # wheel              conda-forge/noarch::wheel-0.46.3-pyhd8ed1ab_0
 dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
-[coble-create] End time: 2026-02-05 19:48:17
-[coble-create] Duration: 13s
+[coble-create] End time: 2026-02-06 23:15:08
+[coble-create] Duration: 11s
 
-[coble-create] Start time: 2026-02-05 19:48:17 23/191
+[coble-create] Start time: 2026-02-06 23:15:08 23/148
 install: python -m site
-[coble-create] End time: 2026-02-05 19:48:17
+[coble-create] End time: 2026-02-06 23:15:08
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:17 25/191
+[coble-create] Start time: 2026-02-06 23:15:08 25/148
 install: conda env config vars set PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-05 19:48:17
+[coble-create] End time: 2026-02-06 23:15:08
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:17 26/191
+[coble-create] Start time: 2026-02-06 23:15:08 26/148
 install: conda deactivate
-[coble-create] End time: 2026-02-05 19:48:17
+[coble-create] End time: 2026-02-06 23:15:09
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:17 27/191
+[coble-create] Start time: 2026-02-06 23:15:09 27/148
 install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:48:17
+[coble-create] End time: 2026-02-06 23:15:09
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:17 28/191
-install: CONDA_BASE=$(conda info --base)
-[coble-create] End time: 2026-02-05 19:48:18
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-05 19:48:18 30/191
-install: ARCH=$(uname -m)
-[coble-create] End time: 2026-02-05 19:48:18
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:18 36/191
-install: if [ "$ARCH" = "x86_64" ]; then      PREFIX="x86_64-conda-linux-gnu";  elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then      PREFIX="aarch64-conda-linux-gnu";  fi
-[coble-create] End time: 2026-02-05 19:48:18
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:18 47/191
-install: for tool in      gcc g++ gfortran cpp cc c++ f77 f95      ar nm ranlib ld ld.gold as      strip objdump objcopy addr2line      c++filt elfedit gprof readelf size strings      gcc-ar gcc-nm gcc-ranlib; do      if command -v $tool > /dev/null 2>&1; then          ln -sf $(which $tool) $CONDA_BASE/bin/${PREFIX}-$tool;      fi;  done
-[coble-create] End time: 2026-02-05 19:48:18
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:18 49/191
+[coble-create] Start time: 2026-02-06 23:15:09 28/148
 install: conda install -y  'r-base=4.4.3' r-remotes r-biocmanager
 dep: # _r-mutex           conda-forge/noarch::_r-mutex-1.0.1-anacondar_1
 dep: # binutils_impl_lin~ conda-forge/linux-64::binutils_impl_linux-64-2.45.1-default_hfdba357_101
@@ -213,132 +193,126 @@ dep: # xorg-libxdmcp      conda-forge/linux-64::xorg-libxdmcp-1.1.5-hb03c661_1
 dep: # xorg-libxext       conda-forge/linux-64::xorg-libxext-1.3.7-hb03c661_0
 dep: # xorg-libxrender    conda-forge/linux-64::xorg-libxrender-0.9.12-hb9d3cd8_0
 dep: # xorg-libxt         conda-forge/linux-64::xorg-libxt-1.3.1-hb9d3cd8_0
-[coble-create] End time: 2026-02-05 19:48:29
-[coble-create] Duration: 11s
+[coble-create] End time: 2026-02-06 23:15:21
+[coble-create] Duration: 12s
 
-[coble-create] Start time: 2026-02-05 19:48:29 51/191
-install: conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64 sysroot_linux-64
+[coble-create] Start time: 2026-02-06 23:15:21 30/148
+install: conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64
 dep: # binutils_linux-64  conda-forge/linux-64::binutils_linux-64-2.45.1-default_h4852527_101
 dep: # gcc_linux-64       conda-forge/linux-64::gcc_linux-64-15.2.0-h862fb80_20
-dep: # gfortran_linux-64  conda-forge/linux-64::gfortran_linux-64-15.2.0-h636e398_20
 dep: # gxx_linux-64       conda-forge/linux-64::gxx_linux-64-15.2.0-h4757807_20
-[coble-create] End time: 2026-02-05 19:48:39
+[coble-create] End time: 2026-02-06 23:15:31
 [coble-create] Duration: 10s
 
-[coble-create] Start time: 2026-02-05 19:48:39 53/191
-install: conda install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler
-dep: # binutils           conda-forge/linux-64::binutils-2.45.1-default_h4852527_101
-dep: # c-compiler         conda-forge/linux-64::c-compiler-1.11.0-h4d9bdce_0
-dep: # conda-gcc-specs    conda-forge/linux-64::conda-gcc-specs-14.3.0-he8ccf15_17
-dep: # cxx-compiler       conda-forge/linux-64::cxx-compiler-1.11.0-hfcd1e18_0
-dep: # fortran-compiler   conda-forge/linux-64::fortran-compiler-1.11.0-h9bea470_0
-dep: # gcc                conda-forge/linux-64::gcc-14.3.0-h0dff253_17
-dep: # gfortran           conda-forge/linux-64::gfortran-14.3.0-h76987e4_17
-dep: # gxx                conda-forge/linux-64::gxx-14.3.0-h76987e4_17
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] Start time: 2026-02-06 23:15:31 32/148
+install: conda install -y --no-update-deps -c conda-forge c-compiler cxx-compiler
+dep: # c-compiler         conda-forge/linux-64::c-compiler-1.0.0-h14c3975_0
+dep: # cxx-compiler       conda-forge/linux-64::cxx-compiler-1.0.0-hf484d3e_0
+[coble-create] End time: 2026-02-06 23:15:41
 [coble-create] Duration: 10s
 
-[coble-create] Start time: 2026-02-05 19:48:49 55/191
+[coble-create] Start time: 2026-02-06 23:15:41 34/148
+install: conda install -y --no-update-deps -c conda-forge sysroot_linux-64
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-06 23:15:50
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-06 23:15:50 36/148
 install: umask 0022
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 56/191
+[coble-create] Start time: 2026-02-06 23:15:50 37/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 57/191
+[coble-create] Start time: 2026-02-06 23:15:50 38/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 58/191
+[coble-create] Start time: 2026-02-06 23:15:50 39/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 59/191
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-[coble-create] End time: 2026-02-05 19:48:49
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:49 60/191
+[coble-create] Start time: 2026-02-06 23:15:50 40/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 61/191
+[coble-create] Start time: 2026-02-06 23:15:50 41/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-[coble-create] End time: 2026-02-05 19:48:49
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:49 62/191
+[coble-create] Start time: 2026-02-06 23:15:50 42/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-[coble-create] End time: 2026-02-05 19:48:50
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:50 63/191
+[coble-create] Start time: 2026-02-06 23:15:50 43/148
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-[coble-create] End time: 2026-02-05 19:48:50
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:50 64/191
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
-[coble-create] End time: 2026-02-05 19:48:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:48:50 65/191
+[coble-create] Start time: 2026-02-06 23:15:50 44/148
 install: conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
-[coble-create] End time: 2026-02-05 19:48:50
+[coble-create] End time: 2026-02-06 23:15:50
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:50 66/191
+[coble-create] Start time: 2026-02-06 23:15:50 45/148
 install: conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
-[coble-create] End time: 2026-02-05 19:48:50
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-02-06 23:15:51
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-02-05 19:48:50 67/191
+[coble-create] Start time: 2026-02-06 23:15:51 46/148
 install: conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-05 19:48:50
+[coble-create] End time: 2026-02-06 23:15:51
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:50 68/191
+[coble-create] Start time: 2026-02-06 23:15:51 47/148
 install: conda env config vars set F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-05 19:48:51
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-02-06 23:15:51
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:51 69/191
+[coble-create] Start time: 2026-02-06 23:15:51 48/148
 install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-05 19:48:51
+[coble-create] End time: 2026-02-06 23:15:52
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:51 70/191
+[coble-create] Start time: 2026-02-06 23:15:52 49/148
 install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-05 19:48:51
+[coble-create] End time: 2026-02-06 23:15:52
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:51 71/191
+[coble-create] Start time: 2026-02-06 23:15:52 50/148
 install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-05 19:48:51
+[coble-create] End time: 2026-02-06 23:15:52
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:51 72/191
+[coble-create] Start time: 2026-02-06 23:15:52 51/148
 install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
-[coble-create] End time: 2026-02-05 19:48:52
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-02-06 23:15:52
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:52 73/191
+[coble-create] Start time: 2026-02-06 23:15:52 52/148
+install: conda env config vars set LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+[coble-create] End time: 2026-02-06 23:15:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-06 23:15:53 53/148
 install: conda deactivate
-[coble-create] End time: 2026-02-05 19:48:52
+[coble-create] End time: 2026-02-06 23:15:53
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:52 74/191
+[coble-create] Start time: 2026-02-06 23:15:53 54/148
 install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:48:52
+[coble-create] End time: 2026-02-06 23:15:53
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:48:52 75/191
+[coble-create] Start time: 2026-02-06 23:15:53 55/148
 install: conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
 dep: # adwaita-icon-theme conda-forge/noarch::adwaita-icon-theme-49.0-unix_0
 dep: # aom                conda-forge/linux-64::aom-3.9.1-hac33072_0
@@ -361,7 +335,7 @@ dep: # glib-tools         conda-forge/linux-64::glib-tools-2.86.3-hf516916_0
 dep: # graphviz           conda-forge/linux-64::graphviz-14.1.2-h8b86629_0
 dep: # gtk3               conda-forge/linux-64::gtk3-3.24.43-h993cebd_6
 dep: # gts                conda-forge/linux-64::gts-0.7.6-h977cf35_4
-dep: # hdf5               conda-forge/linux-64::hdf5-1.14.6-nompi_h1b119a7_105
+dep: # hdf5               conda-forge/linux-64::hdf5-1.14.6-nompi_h19486de_106
 dep: # hicolor-icon-theme conda-forge/linux-64::hicolor-icon-theme-0.17-ha770c72_2
 dep: # imagemagick        conda-forge/linux-64::imagemagick-7.1.2_13-gpl_h24958af_0
 dep: # jbig               conda-forge/linux-64::jbig-2.1-h7f98852_2003
@@ -430,407 +404,63 @@ dep: # xorg-libxtst       conda-forge/linux-64::xorg-libxtst-1.2.5-hb9d3cd8_3
 dep: # xorg-libxxf86vm    conda-forge/linux-64::xorg-libxxf86vm-1.1.7-hb03c661_0
 dep: # xorg-xorgproto     conda-forge/linux-64::xorg-xorgproto-2025.1-hb03c661_0
 dep: # zlib               conda-forge/linux-64::zlib-1.3.1-hb9d3cd8_2
-[coble-create] End time: 2026-02-05 19:49:08
-[coble-create] Duration: 16s
+[coble-create] End time: 2026-02-06 23:16:08
+[coble-create] Duration: 15s
 
-[coble-create] Start time: 2026-02-05 19:49:08 77/191
-install: conda install -y --no-update-deps -c conda-forge librsvg udunits2
-dep: # libudunits2        conda-forge/linux-64::libudunits2-2.2.28-h40f5838_3
-dep: # udunits2           conda-forge/linux-64::udunits2-2.2.28-h40f5838_3
-[coble-create] End time: 2026-02-05 19:49:18
-[coble-create] Duration: 10s
-
-[coble-create] Start time: 2026-02-05 19:49:18 79/191
-install: conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg
-dep: # _python_abi3_supp~ conda-forge/noarch::_python_abi3_support-1.0-hd8ed1ab_2
-dep: # anyio              conda-forge/noarch::anyio-4.12.1-pyhcf101f3_0
-dep: # argon2-cffi        conda-forge/noarch::argon2-cffi-25.1.0-pyhd8ed1ab_0
-dep: # argon2-cffi-bindi~ conda-forge/linux-64::argon2-cffi-bindings-25.1.0-py312h4c3975b_2
-dep: # arrow              conda-forge/noarch::arrow-1.4.0-pyhcf101f3_0
-dep: # asttokens          conda-forge/noarch::asttokens-3.0.1-pyhd8ed1ab_0
-dep: # async-lru          conda-forge/noarch::async-lru-2.1.0-pyhcf101f3_0
-dep: # attrs              conda-forge/noarch::attrs-25.4.0-pyhcf101f3_1
-dep: # babel              conda-forge/noarch::babel-2.17.0-pyhd8ed1ab_0
-dep: # backports.zstd     conda-forge/linux-64::backports.zstd-1.3.0-py312h90b7ffd_0
-dep: # beautifulsoup4     conda-forge/noarch::beautifulsoup4-4.14.3-pyha770c72_0
-dep: # bleach             conda-forge/noarch::bleach-6.3.0-pyhcf101f3_0
-dep: # bleach-with-css    conda-forge/noarch::bleach-with-css-6.3.0-h5f6438b_0
-dep: # brotli-python      conda-forge/linux-64::brotli-python-1.2.0-py312hdb49522_1
-dep: # cached-property    conda-forge/noarch::cached-property-1.5.2-hd8ed1ab_1
-dep: # cached_property    conda-forge/noarch::cached_property-1.5.2-pyha770c72_1
-dep: # certifi            conda-forge/noarch::certifi-2026.1.4-pyhd8ed1ab_0
-dep: # cffi               conda-forge/linux-64::cffi-2.0.0-py312h460c074_1
-dep: # charset-normalizer conda-forge/noarch::charset-normalizer-3.4.4-pyhd8ed1ab_0
-dep: # comm               conda-forge/noarch::comm-0.2.3-pyhe01879c_0
-dep: # cpython            conda-forge/noarch::cpython-3.12.12-py312hd8ed1ab_2
-dep: # debugpy            conda-forge/linux-64::debugpy-1.8.20-py312h8285ef7_0
-dep: # decorator          conda-forge/noarch::decorator-5.2.1-pyhd8ed1ab_0
-dep: # defusedxml         conda-forge/noarch::defusedxml-0.7.1-pyhd8ed1ab_0
-dep: # exceptiongroup     conda-forge/noarch::exceptiongroup-1.3.1-pyhd8ed1ab_0
-dep: # executing          conda-forge/noarch::executing-2.2.1-pyhd8ed1ab_0
-dep: # fqdn               conda-forge/noarch::fqdn-1.5.1-pyhd8ed1ab_1
-dep: # h11                conda-forge/noarch::h11-0.16.0-pyhcf101f3_1
-dep: # h2                 conda-forge/noarch::h2-4.3.0-pyhcf101f3_0
-dep: # hpack              conda-forge/noarch::hpack-4.1.0-pyhd8ed1ab_0
-dep: # httpcore           conda-forge/noarch::httpcore-1.0.9-pyh29332c3_0
-dep: # httpx              conda-forge/noarch::httpx-0.28.1-pyhd8ed1ab_0
-dep: # hyperframe         conda-forge/noarch::hyperframe-6.1.0-pyhd8ed1ab_0
-dep: # idna               conda-forge/noarch::idna-3.11-pyhd8ed1ab_0
-dep: # importlib-metadata conda-forge/noarch::importlib-metadata-8.7.0-pyhe01879c_1
-dep: # importlib_resourc~ conda-forge/noarch::importlib_resources-6.5.2-pyhd8ed1ab_0
-dep: # ipykernel          conda-forge/noarch::ipykernel-7.1.0-pyha191276_0
-dep: # ipython            conda-forge/noarch::ipython-9.10.0-pyh53cf698_0
-dep: # ipython_pygments_~ conda-forge/noarch::ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0
-dep: # isoduration        conda-forge/noarch::isoduration-20.11.0-pyhd8ed1ab_1
-dep: # jedi               conda-forge/noarch::jedi-0.19.2-pyhd8ed1ab_1
-dep: # jinja2             conda-forge/noarch::jinja2-3.1.6-pyhcf101f3_1
-dep: # json5              conda-forge/noarch::json5-0.13.0-pyhd8ed1ab_0
-dep: # jsonpointer        conda-forge/noarch::jsonpointer-3.0.0-pyhcf101f3_3
-dep: # jsonschema         conda-forge/noarch::jsonschema-4.26.0-pyhcf101f3_0
-dep: # jsonschema-specif~ conda-forge/noarch::jsonschema-specifications-2025.9.1-pyhcf101f3_0
-dep: # jsonschema-with-f~ conda-forge/noarch::jsonschema-with-format-nongpl-4.26.0-hcf101f3_0
-dep: # jupyter-lsp        conda-forge/noarch::jupyter-lsp-2.3.0-pyhcf101f3_0
-dep: # jupyter_client     conda-forge/noarch::jupyter_client-8.8.0-pyhcf101f3_0
-dep: # jupyter_core       conda-forge/noarch::jupyter_core-5.9.1-pyhc90fa1f_0
-dep: # jupyter_events     conda-forge/noarch::jupyter_events-0.12.0-pyh29332c3_0
-dep: # jupyter_server     conda-forge/noarch::jupyter_server-2.17.0-pyhcf101f3_0
-dep: # jupyter_server_te~ conda-forge/noarch::jupyter_server_terminals-0.5.4-pyhcf101f3_0
-dep: # jupyterlab         conda-forge/noarch::jupyterlab-4.5.3-pyhd8ed1ab_0
-dep: # jupyterlab_pygmen~ conda-forge/noarch::jupyterlab_pygments-0.3.0-pyhd8ed1ab_2
-dep: # jupyterlab_server  conda-forge/noarch::jupyterlab_server-2.28.0-pyhcf101f3_0
-dep: # lark               conda-forge/noarch::lark-1.3.1-pyhd8ed1ab_0
-dep: # libsodium          conda-forge/linux-64::libsodium-1.0.20-h4ab18f5_0
-dep: # libuv              conda-forge/linux-64::libuv-1.51.0-hb03c661_1
-dep: # markupsafe         conda-forge/linux-64::markupsafe-3.0.3-py312h8a5da7c_0
-dep: # matplotlib-inline  conda-forge/noarch::matplotlib-inline-0.2.1-pyhd8ed1ab_0
-dep: # mistune            conda-forge/noarch::mistune-3.2.0-pyhcf101f3_0
-dep: # nbclient           conda-forge/noarch::nbclient-0.10.4-pyhd8ed1ab_0
-dep: # nbconvert-core     conda-forge/noarch::nbconvert-core-7.17.0-pyhcf101f3_0
-dep: # nbformat           conda-forge/noarch::nbformat-5.10.4-pyhd8ed1ab_1
-dep: # nest-asyncio       conda-forge/noarch::nest-asyncio-1.6.0-pyhd8ed1ab_1
-dep: # notebook           conda-forge/noarch::notebook-7.5.3-pyhcf101f3_0
-dep: # notebook-shim      conda-forge/noarch::notebook-shim-0.2.4-pyhd8ed1ab_1
-dep: # overrides          conda-forge/noarch::overrides-7.7.0-pyhd8ed1ab_1
-dep: # pandoc             conda-forge/linux-64::pandoc-3.9-ha770c72_0
-dep: # pandocfilters      conda-forge/noarch::pandocfilters-1.5.0-pyhd8ed1ab_0
-dep: # parso              conda-forge/noarch::parso-0.8.5-pyhcf101f3_0
-dep: # pexpect            conda-forge/noarch::pexpect-4.9.0-pyhd8ed1ab_1
-dep: # platformdirs       conda-forge/noarch::platformdirs-4.5.1-pyhcf101f3_0
-dep: # prometheus_client  conda-forge/noarch::prometheus_client-0.24.1-pyhd8ed1ab_0
-dep: # prompt-toolkit     conda-forge/noarch::prompt-toolkit-3.0.52-pyha770c72_0
-dep: # psutil             conda-forge/linux-64::psutil-7.2.2-py312h5253ce2_0
-dep: # ptyprocess         conda-forge/noarch::ptyprocess-0.7.0-pyhd8ed1ab_1
-dep: # pure_eval          conda-forge/noarch::pure_eval-0.2.3-pyhd8ed1ab_1
-dep: # pycparser          conda-forge/noarch::pycparser-2.22-pyh29332c3_1
-dep: # pygments           conda-forge/noarch::pygments-2.19.2-pyhd8ed1ab_0
-dep: # pysocks            conda-forge/noarch::pysocks-1.7.1-pyha55dd90_7
-dep: # python-dateutil    conda-forge/noarch::python-dateutil-2.9.0.post0-pyhe01879c_2
-dep: # python-fastjsonsc~ conda-forge/noarch::python-fastjsonschema-2.21.2-pyhe01879c_0
-dep: # python-gil         conda-forge/noarch::python-gil-3.12.12-hd8ed1ab_2
-dep: # python-json-logger conda-forge/noarch::python-json-logger-2.0.7-pyhd8ed1ab_0
-dep: # python-tzdata      conda-forge/noarch::python-tzdata-2025.3-pyhd8ed1ab_0
-dep: # pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0
-dep: # pyyaml             conda-forge/linux-64::pyyaml-6.0.3-py312h8a5da7c_1
-dep: # pyzmq              conda-forge/linux-64::pyzmq-27.1.0-py312hfb55c3c_0
-dep: # r-askpass          conda-forge/linux-64::r-askpass-1.2.1-r44h54b55ab_1
-dep: # r-assertthat       conda-forge/noarch::r-assertthat-0.2.1-r44hc72bb7e_6
-dep: # r-backports        conda-forge/linux-64::r-backports-1.5.0-r44h54b55ab_2
-dep: # r-base64enc        conda-forge/linux-64::r-base64enc-0.1_6-r44h54b55ab_0
-dep: # r-bit              conda-forge/linux-64::r-bit-4.6.0-r44h54b55ab_1
-dep: # r-bit64            conda-forge/linux-64::r-bit64-4.6.0_1-r44h54b55ab_1
-dep: # r-blob             conda-forge/noarch::r-blob-1.3.0-r44hc72bb7e_0
-dep: # r-boot             conda-forge/noarch::r-boot-1.3_32-r44hc72bb7e_1
-dep: # r-broom            conda-forge/noarch::r-broom-1.0.12-r44hc72bb7e_0
-dep: # r-bslib            conda-forge/noarch::r-bslib-0.10.0-r44hc72bb7e_0
-dep: # r-cachem           conda-forge/linux-64::r-cachem-1.1.0-r44h54b55ab_2
-dep: # r-callr            conda-forge/noarch::r-callr-3.7.6-r44hc72bb7e_2
-dep: # r-caret            conda-forge/linux-64::r-caret-7.0_1-r44h54b55ab_0
-dep: # r-cellranger       conda-forge/noarch::r-cellranger-1.1.0-r44hc72bb7e_1008
-dep: # r-class            conda-forge/linux-64::r-class-7.3_23-r44h54b55ab_1
-dep: # r-cli              conda-forge/linux-64::r-cli-3.6.5-r44h3697838_1
-dep: # r-clipr            conda-forge/noarch::r-clipr-0.8.0-r44hc72bb7e_4
-dep: # r-clock            conda-forge/linux-64::r-clock-0.7.4-r44h3697838_0
-dep: # r-cluster          conda-forge/linux-64::r-cluster-2.1.8.2-r44heaba542_0
-dep: # r-codetools        conda-forge/noarch::r-codetools-0.2_20-r44hc72bb7e_2
-dep: # r-colorspace       conda-forge/linux-64::r-colorspace-2.1_2-r44h54b55ab_0
-dep: # r-commonmark       conda-forge/linux-64::r-commonmark-2.0.0-r44h54b55ab_1
-dep: # r-conflicted       conda-forge/noarch::r-conflicted-1.2.0-r44h785f33e_3
-dep: # r-cpp11            conda-forge/noarch::r-cpp11-0.5.3-r44h785f33e_0
-dep: # r-crayon           conda-forge/noarch::r-crayon-1.5.3-r44hc72bb7e_2
-dep: # r-crul             conda-forge/noarch::r-crul-1.6.0-r44hc72bb7e_1
-dep: # r-curl             conda-forge/linux-64::r-curl-7.0.0-r44h10955f1_1
-dep: # r-data.table       conda-forge/linux-64::r-data.table-1.17.8-r44h1c8cec4_1
-dep: # r-dbi              conda-forge/noarch::r-dbi-1.2.3-r44hc72bb7e_2
-dep: # r-dbplyr           conda-forge/noarch::r-dbplyr-2.5.1-r44hc72bb7e_1
-dep: # r-diagram          conda-forge/noarch::r-diagram-1.6.5-r44ha770c72_4
-dep: # r-digest           conda-forge/linux-64::r-digest-0.6.39-r44h3697838_0
-dep: # r-dplyr            conda-forge/linux-64::r-dplyr-1.2.0-r44h3697838_0
-dep: # r-dtplyr           conda-forge/noarch::r-dtplyr-1.3.2-r44hc72bb7e_1
-dep: # r-e1071            conda-forge/linux-64::r-e1071-1.7_17-r44h3697838_0
-dep: # r-ellipsis         conda-forge/linux-64::r-ellipsis-0.3.2-r44h54b55ab_4
-dep: # r-essentials       conda-forge/noarch::r-essentials-4.4-r44hd8ed1ab_2006
-dep: # r-evaluate         conda-forge/noarch::r-evaluate-1.0.5-r44hc72bb7e_1
-dep: # r-fansi            conda-forge/linux-64::r-fansi-1.0.7-r44h54b55ab_0
-dep: # r-farver           conda-forge/linux-64::r-farver-2.1.2-r44h3697838_2
-dep: # r-fastmap          conda-forge/linux-64::r-fastmap-1.2.0-r44h3697838_2
-dep: # r-fontawesome      conda-forge/noarch::r-fontawesome-0.5.3-r44hc72bb7e_1
-dep: # r-forcats          conda-forge/noarch::r-forcats-1.0.1-r44hc72bb7e_0
-dep: # r-foreach          conda-forge/noarch::r-foreach-1.5.2-r44hc72bb7e_4
-dep: # r-foreign          conda-forge/linux-64::r-foreign-0.8_91-r44h54b55ab_0
-dep: # r-formatr          conda-forge/noarch::r-formatr-1.14-r44hc72bb7e_3
-dep: # r-fs               conda-forge/linux-64::r-fs-1.6.6-r44h3697838_1
-dep: # r-future           conda-forge/noarch::r-future-1.69.0-r44h785f33e_0
-dep: # r-future.apply     conda-forge/noarch::r-future.apply-1.20.1-r44hc72bb7e_0
-dep: # r-gargle           conda-forge/noarch::r-gargle-1.6.1-r44h785f33e_0
-dep: # r-generics         conda-forge/noarch::r-generics-0.1.4-r44hc72bb7e_1
-dep: # r-ggplot2          conda-forge/noarch::r-ggplot2-4.0.2-r44h785f33e_0
-dep: # r-gistr            conda-forge/noarch::r-gistr-0.9.0-r44hc72bb7e_4
-dep: # r-glmnet           conda-forge/linux-64::r-glmnet-4.1_10-r44ha36cffa_1
-dep: # r-globals          conda-forge/noarch::r-globals-0.19.0-r44hc72bb7e_0
-dep: # r-glue             conda-forge/linux-64::r-glue-1.8.0-r44h54b55ab_1
-dep: # r-googledrive      conda-forge/noarch::r-googledrive-2.1.2-r44hc72bb7e_1
-dep: # r-googlesheets4    conda-forge/noarch::r-googlesheets4-1.1.2-r44h785f33e_1
-dep: # r-gower            conda-forge/linux-64::r-gower-1.0.2-r44h54b55ab_0
-dep: # r-gtable           conda-forge/noarch::r-gtable-0.3.6-r44hc72bb7e_1
-dep: # r-hardhat          conda-forge/noarch::r-hardhat-1.4.2-r44hc72bb7e_1
-dep: # r-haven            conda-forge/linux-64::r-haven-2.5.5-r44h6d565e7_1
-dep: # r-hexbin           conda-forge/linux-64::r-hexbin-1.28.5-r44heaba542_1
-dep: # r-highr            conda-forge/noarch::r-highr-0.11-r44hc72bb7e_2
-dep: # r-hms              conda-forge/noarch::r-hms-1.1.4-r44hc72bb7e_0
-dep: # r-htmltools        conda-forge/linux-64::r-htmltools-0.5.9-r44h3697838_0
-dep: # r-htmlwidgets      conda-forge/noarch::r-htmlwidgets-1.6.4-r44h785f33e_4
-dep: # r-httpcode         conda-forge/linux-64::r-httpcode-0.3.0-r44ha770c72_5
-dep: # r-httpuv           conda-forge/linux-64::r-httpuv-1.6.16-r44h6d565e7_1
-dep: # r-httr             conda-forge/noarch::r-httr-1.4.7-r44hc72bb7e_2
-dep: # r-ids              conda-forge/noarch::r-ids-1.0.1-r44hc72bb7e_5
-dep: # r-ipred            conda-forge/linux-64::r-ipred-0.9_15-r44h54b55ab_2
-dep: # r-irdisplay        conda-forge/noarch::r-irdisplay-1.1-r44hd8ed1ab_4
-dep: # r-irkernel         conda-forge/noarch::r-irkernel-1.3.2-r44h785f33e_3
-dep: # r-isoband          conda-forge/linux-64::r-isoband-0.3.0-r44h3697838_0
-dep: # r-iterators        conda-forge/noarch::r-iterators-1.0.14-r44hc72bb7e_4
-dep: # r-jquerylib        conda-forge/noarch::r-jquerylib-0.1.4-r44hc72bb7e_4
-dep: # r-jsonlite         conda-forge/linux-64::r-jsonlite-2.0.0-r44h54b55ab_1
-dep: # r-kernsmooth       conda-forge/linux-64::r-kernsmooth-2.23_26-r44ha0a88a1_1
-dep: # r-knitr            conda-forge/noarch::r-knitr-1.51-r44hc72bb7e_0
-dep: # r-labeling         conda-forge/noarch::r-labeling-0.4.3-r44hc72bb7e_2
-dep: # r-later            conda-forge/linux-64::r-later-1.4.5-r44h3697838_0
-dep: # r-lattice          conda-forge/linux-64::r-lattice-0.22_7-r44h54b55ab_1
-dep: # r-lava             conda-forge/noarch::r-lava-1.8.2-r44hc72bb7e_0
-dep: # r-lazyeval         conda-forge/linux-64::r-lazyeval-0.2.2-r44h54b55ab_6
-dep: # r-lifecycle        conda-forge/noarch::r-lifecycle-1.0.5-r44hc72bb7e_0
-dep: # r-listenv          conda-forge/noarch::r-listenv-0.10.0-r44hc72bb7e_0
-dep: # r-lobstr           conda-forge/linux-64::r-lobstr-1.1.3-r44h3697838_0
-dep: # r-lubridate        conda-forge/linux-64::r-lubridate-1.9.5-r44h54b55ab_0
-dep: # r-magrittr         conda-forge/linux-64::r-magrittr-2.0.4-r44h54b55ab_0
-dep: # r-maps             conda-forge/linux-64::r-maps-3.4.3-r44h54b55ab_1
-dep: # r-mass             conda-forge/linux-64::r-mass-7.3_65-r44h54b55ab_0
-dep: # r-matrix           conda-forge/linux-64::r-matrix-1.7_4-r44h0e4624f_1
-dep: # r-memoise          conda-forge/noarch::r-memoise-2.0.1-r44hc72bb7e_4
-dep: # r-mgcv             conda-forge/linux-64::r-mgcv-1.9_4-r44h0e4624f_0
-dep: # r-mime             conda-forge/linux-64::r-mime-0.13-r44h54b55ab_1
-dep: # r-modelmetrics     conda-forge/linux-64::r-modelmetrics-1.2.2.2-r44h3697838_5
-dep: # r-modelr           conda-forge/noarch::r-modelr-0.1.11-r44hc72bb7e_3
-dep: # r-munsell          conda-forge/noarch::r-munsell-0.5.1-r44hc72bb7e_2
-dep: # r-nlme             conda-forge/linux-64::r-nlme-3.1_168-r44heaba542_1
-dep: # r-nnet             conda-forge/linux-64::r-nnet-7.3_20-r44h54b55ab_1
-dep: # r-numderiv         conda-forge/noarch::r-numderiv-2016.8_1.1-r44hc72bb7e_7
-dep: # r-openssl          conda-forge/linux-64::r-openssl-2.3.4-r44h50f7d53_0
-dep: # r-otel             conda-forge/noarch::r-otel-0.2.0-r44hc72bb7e_1
-dep: # r-parallelly       conda-forge/linux-64::r-parallelly-1.46.1-r44h54b55ab_0
-dep: # r-pbdzmq           conda-forge/linux-64::r-pbdzmq-0.3_14-r44hded8526_1
-dep: # r-pillar           conda-forge/noarch::r-pillar-1.11.1-r44hc72bb7e_0
-dep: # r-pkgconfig        conda-forge/noarch::r-pkgconfig-2.0.3-r44hc72bb7e_5
-dep: # r-plogr            conda-forge/noarch::r-plogr-0.2.0-r44hc72bb7e_1007
-dep: # r-plyr             conda-forge/linux-64::r-plyr-1.8.9-r44h3697838_3
-dep: # r-prettyunits      conda-forge/noarch::r-prettyunits-1.2.0-r44hc72bb7e_2
-dep: # r-proc             conda-forge/linux-64::r-proc-1.19.0.1-r44h3697838_1
-dep: # r-processx         conda-forge/linux-64::r-processx-3.8.6-r44h54b55ab_1
-dep: # r-prodlim          conda-forge/linux-64::r-prodlim-2025.04.28-r44h3697838_1
-dep: # r-progress         conda-forge/noarch::r-progress-1.2.3-r44hc72bb7e_2
-dep: # r-progressr        conda-forge/noarch::r-progressr-0.18.0-r44hc72bb7e_0
-dep: # r-promises         conda-forge/noarch::r-promises-1.5.0-r44hc72bb7e_1
-dep: # r-proxy            conda-forge/linux-64::r-proxy-0.4_29-r44h54b55ab_0
-dep: # r-pryr             conda-forge/linux-64::r-pryr-0.1.6-r44h3697838_3
-dep: # r-ps               conda-forge/linux-64::r-ps-1.9.1-r44h54b55ab_1
-dep: # r-purrr            conda-forge/linux-64::r-purrr-1.2.1-r44h54b55ab_0
-dep: # r-quantmod         conda-forge/noarch::r-quantmod-0.4.28-r44hc72bb7e_1
-dep: # r-r6               conda-forge/noarch::r-r6-2.6.1-r44hc72bb7e_1
-dep: # r-ragg             conda-forge/linux-64::r-ragg-1.5.0-r44h9f1dc4d_1
-dep: # r-randomforest     conda-forge/linux-64::r-randomforest-4.7_1.2-r44heaba542_1
-dep: # r-rappdirs         conda-forge/linux-64::r-rappdirs-0.3.4-r44h54b55ab_0
-dep: # r-rbokeh           conda-forge/noarch::r-rbokeh-0.5.2-r44hc72bb7e_5
-dep: # r-rcolorbrewer     conda-forge/noarch::r-rcolorbrewer-1.1_3-r44h785f33e_4
-dep: # r-rcpp             conda-forge/linux-64::r-rcpp-1.1.1-r44h3697838_0
-dep: # r-rcppeigen        conda-forge/linux-64::r-rcppeigen-0.3.4.0.2-r44h3704496_1
-dep: # r-readr            conda-forge/linux-64::r-readr-2.1.6-r44h3697838_0
-dep: # r-readxl           conda-forge/linux-64::r-readxl-1.4.5-r44h10e25cc_1
-dep: # r-recipes          conda-forge/noarch::r-recipes-1.3.1-r44hc72bb7e_1
-dep: # r-recommended      conda-forge/noarch::r-recommended-4.4-r44hd8ed1ab_1008
-dep: # r-rematch          conda-forge/noarch::r-rematch-2.0.0-r44hc72bb7e_2
-dep: # r-rematch2         conda-forge/noarch::r-rematch2-2.1.2-r44hc72bb7e_5
-dep: # r-repr             conda-forge/noarch::r-repr-1.1.7-r44h785f33e_2
-dep: # r-reprex           conda-forge/noarch::r-reprex-2.1.1-r44hc72bb7e_2
-dep: # r-reshape2         conda-forge/linux-64::r-reshape2-1.4.5-r44h3697838_0
-dep: # r-rlang            conda-forge/linux-64::r-rlang-1.1.7-r44h3697838_0
-dep: # r-rmarkdown        conda-forge/noarch::r-rmarkdown-2.30-r44hc72bb7e_0
-dep: # r-rpart            conda-forge/linux-64::r-rpart-4.1.24-r44h54b55ab_1
-dep: # r-rsqlite          conda-forge/linux-64::r-rsqlite-2.4.5-r44h3697838_0
-dep: # r-rstudioapi       conda-forge/noarch::r-rstudioapi-0.18.0-r44hc72bb7e_0
-dep: # r-rsvg             conda-forge/linux-64::r-rsvg-2.6.1-r44h8bc2126_1
-dep: # r-rvest            conda-forge/noarch::r-rvest-1.0.5-r44hc72bb7e_1
-dep: # r-s7               conda-forge/linux-64::r-s7-0.2.1-r44h54b55ab_0
-dep: # r-sass             conda-forge/linux-64::r-sass-0.4.10-r44h3697838_1
-dep: # r-scales           conda-forge/noarch::r-scales-1.4.0-r44hc72bb7e_1
-dep: # r-selectr          conda-forge/noarch::r-selectr-0.5_1-r44hc72bb7e_0
-dep: # r-shape            conda-forge/noarch::r-shape-1.4.6.1-r44ha770c72_2
-dep: # r-shiny            conda-forge/noarch::r-shiny-1.12.1-r44h785f33e_0
-dep: # r-sourcetools      conda-forge/linux-64::r-sourcetools-0.1.7_1-r44h3697838_3
-dep: # r-sparsevctrs      conda-forge/linux-64::r-sparsevctrs-0.3.5-r44h54b55ab_0
-dep: # r-spatial          conda-forge/linux-64::r-spatial-7.3_18-r44h54b55ab_1
-dep: # r-squarem          conda-forge/noarch::r-squarem-2021.1-r44hc72bb7e_4
-dep: # r-stringi          conda-forge/linux-64::r-stringi-1.8.7-r44h2dae267_1
-dep: # r-stringr          conda-forge/noarch::r-stringr-1.6.0-r44h785f33e_0
-dep: # r-survival         conda-forge/linux-64::r-survival-3.8_6-r44h54b55ab_0
-dep: # r-sys              conda-forge/linux-64::r-sys-3.4.3-r44h54b55ab_1
-dep: # r-systemfonts      conda-forge/linux-64::r-systemfonts-1.3.1-r44h74f4acd_0
-dep: # r-textshaping      conda-forge/linux-64::r-textshaping-1.0.4-r44h74f4acd_0
-dep: # r-tibble           conda-forge/linux-64::r-tibble-3.3.1-r44h54b55ab_0
-dep: # r-tidyr            conda-forge/linux-64::r-tidyr-1.3.2-r44h3697838_0
-dep: # r-tidyselect       conda-forge/noarch::r-tidyselect-1.2.1-r44hc72bb7e_2
-dep: # r-tidyverse        conda-forge/noarch::r-tidyverse-2.0.0-r44h785f33e_3
-dep: # r-timechange       conda-forge/linux-64::r-timechange-0.4.0-r44h3697838_0
-dep: # r-timedate         conda-forge/noarch::r-timedate-4052.112-r44hc72bb7e_0
-dep: # r-tinytex          conda-forge/noarch::r-tinytex-0.58-r44hc72bb7e_0
-dep: # r-triebeard        conda-forge/linux-64::r-triebeard-0.4.1-r44h3697838_4
-dep: # r-ttr              conda-forge/linux-64::r-ttr-0.24.4-r44h54b55ab_2
-dep: # r-tzdb             conda-forge/linux-64::r-tzdb-0.5.0-r44h3697838_2
-dep: # r-urltools         conda-forge/linux-64::r-urltools-1.7.3.1-r44h3697838_1
-dep: # r-utf8             conda-forge/linux-64::r-utf8-1.2.6-r44h54b55ab_1
-dep: # r-uuid             conda-forge/linux-64::r-uuid-1.2_2-r44h54b55ab_0
-dep: # r-vctrs            conda-forge/linux-64::r-vctrs-0.7.1-r44h3697838_0
-dep: # r-viridislite      conda-forge/noarch::r-viridislite-0.4.3-r44hc72bb7e_0
-dep: # r-vroom            conda-forge/linux-64::r-vroom-1.6.7-r44h3697838_0
-dep: # r-withr            conda-forge/noarch::r-withr-3.0.2-r44hc72bb7e_1
-dep: # r-xfun             conda-forge/linux-64::r-xfun-0.56-r44h3697838_0
-dep: # r-xml2             conda-forge/linux-64::r-xml2-1.5.2-r44he78afff_0
-dep: # r-xtable           conda-forge/noarch::r-xtable-1.8_4-r44hc72bb7e_7
-dep: # r-xts              conda-forge/linux-64::r-xts-0.14.1-r44h54b55ab_1
-dep: # r-yaml             conda-forge/linux-64::r-yaml-2.3.12-r44h54b55ab_0
-dep: # r-zoo              conda-forge/linux-64::r-zoo-1.8_15-r44h54b55ab_0
-dep: # referencing        conda-forge/noarch::referencing-0.37.0-pyhcf101f3_0
-dep: # requests           conda-forge/noarch::requests-2.32.5-pyhcf101f3_1
-dep: # rfc3339-validator  conda-forge/noarch::rfc3339-validator-0.1.4-pyhd8ed1ab_1
-dep: # rfc3986-validator  conda-forge/noarch::rfc3986-validator-0.1.1-pyh9f0ad1d_0
-dep: # rfc3987-syntax     conda-forge/noarch::rfc3987-syntax-1.1.0-pyhe01879c_1
-dep: # rpds-py            conda-forge/linux-64::rpds-py-0.30.0-py312h868fb18_0
-dep: # send2trash         conda-forge/noarch::send2trash-2.1.0-pyha191276_0
-dep: # six                conda-forge/noarch::six-1.17.0-pyhe01879c_1
-dep: # sniffio            conda-forge/noarch::sniffio-1.3.1-pyhd8ed1ab_2
-dep: # soupsieve          conda-forge/noarch::soupsieve-2.8.3-pyhd8ed1ab_0
-dep: # stack_data         conda-forge/noarch::stack_data-0.6.3-pyhd8ed1ab_1
-dep: # terminado          conda-forge/noarch::terminado-0.18.1-pyhc90fa1f_1
-dep: # tinycss2           conda-forge/noarch::tinycss2-1.5.1-pyhcf101f3_0
-dep: # tomli              conda-forge/noarch::tomli-2.4.0-pyhcf101f3_0
-dep: # tornado            conda-forge/linux-64::tornado-6.5.4-py312h961da02_0
-dep: # traitlets          conda-forge/noarch::traitlets-5.14.3-pyhd8ed1ab_1
-dep: # typing-extensions  conda-forge/noarch::typing-extensions-4.15.0-h396c80c_0
-dep: # typing_extensions  conda-forge/noarch::typing_extensions-4.15.0-pyhcf101f3_0
-dep: # typing_utils       conda-forge/noarch::typing_utils-0.1.0-pyhd8ed1ab_1
-dep: # uri-template       conda-forge/noarch::uri-template-1.3.0-pyhd8ed1ab_1
-dep: # urllib3            conda-forge/noarch::urllib3-2.6.3-pyhd8ed1ab_0
-dep: # wcwidth            conda-forge/noarch::wcwidth-0.5.3-pyhd8ed1ab_0
-dep: # webcolors          conda-forge/noarch::webcolors-25.10.0-pyhd8ed1ab_0
-dep: # webencodings       conda-forge/noarch::webencodings-0.5.1-pyhd8ed1ab_3
-dep: # websocket-client   conda-forge/noarch::websocket-client-1.9.0-pyhd8ed1ab_0
-dep: # xorg-xextproto     conda-forge/linux-64::xorg-xextproto-7.3.0-hb9d3cd8_1004
-dep: # yaml               conda-forge/linux-64::yaml-0.2.5-h280c20c_3
-dep: # zeromq             conda-forge/linux-64::zeromq-4.3.5-h387f397_9
-dep: # zipp               conda-forge/noarch::zipp-3.23.0-pyhcf101f3_1
-[coble-create] End time: 2026-02-05 19:49:38
-[coble-create] Duration: 20s
-
-[coble-create] Start time: 2026-02-05 19:49:38 81/191
-install: conda install -y --no-update-deps -c conda-forge cython protobuf
-dep: # cython             conda-forge/linux-64::cython-3.2.4-py312h68e6be4_0
-dep: # protobuf           conda-forge/linux-64::protobuf-6.33.5-py312ha7b3241_0
-[coble-create] End time: 2026-02-05 19:49:54
-[coble-create] Duration: 16s
-
-[coble-create] Start time: 2026-02-05 19:49:54 83/191
-install: conda install -y --no-update-deps -c conda-forge cmake pkg-config
+[coble-create] Start time: 2026-02-06 23:16:08 57/148
+install: conda install -y --no-update-deps -c conda-forge make cmake pkg-config
 dep: # cmake              conda-forge/linux-64::cmake-4.2.3-hc85cc9f_0
+dep: # libuv              conda-forge/linux-64::libuv-1.51.0-hb03c661_1
 dep: # rhash              conda-forge/linux-64::rhash-1.4.6-hb9d3cd8_1
-[coble-create] End time: 2026-02-05 19:50:11
-[coble-create] Duration: 16s
+[coble-create] End time: 2026-02-06 23:16:19
+[coble-create] Duration: 11s
 
-[coble-create] Start time: 2026-02-05 19:50:11 85/191
+[coble-create] Start time: 2026-02-06 23:16:19 59/148
 install: conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
 dep: # xz                 conda-forge/linux-64::xz-5.8.2-ha02ee65_0
 dep: # xz-gpl-tools       conda-forge/linux-64::xz-gpl-tools-5.8.2-ha02ee65_0
 dep: # xz-tools           conda-forge/linux-64::xz-tools-5.8.2-hb03c661_0
-[coble-create] End time: 2026-02-05 19:50:26
-[coble-create] Duration: 15s
+[coble-create] End time: 2026-02-06 23:16:31
+[coble-create] Duration: 12s
 
-[coble-create] Start time: 2026-02-05 19:50:26 87/191
+[coble-create] Start time: 2026-02-06 23:16:31 61/148
 install: conda env config vars set QT_QPA_PLATFORM=offscreen
-[coble-create] End time: 2026-02-05 19:50:26
+[coble-create] End time: 2026-02-06 23:16:31
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:50:26 88/191
+[coble-create] Start time: 2026-02-06 23:16:31 62/148
 install: conda deactivate
-[coble-create] End time: 2026-02-05 19:50:26
+[coble-create] End time: 2026-02-06 23:16:31
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:50:26 89/191
+[coble-create] Start time: 2026-02-06 23:16:31 63/148
 install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:50:27
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-05 19:50:27 90/191
-install: conda env config vars set OTEL_SDK_DISABLED=true
-[coble-create] End time: 2026-02-05 19:50:27
+[coble-create] End time: 2026-02-06 23:16:31
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-05 19:50:27 91/191
-install: conda deactivate
-[coble-create] End time: 2026-02-05 19:50:27
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:50:27 92/191
-install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:50:27
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:50:27 93/191
-install: conda env config vars set R_OTEL_DISABLED=true
-[coble-create] End time: 2026-02-05 19:50:28
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-05 19:50:28 94/191
-install: conda deactivate
-[coble-create] End time: 2026-02-05 19:50:28
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:50:28 95/191
-install: conda activate carbine
-[coble-create] End time: 2026-02-05 19:50:28
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:50:28 106/191
+[coble-create] Start time: 2026-02-06 23:16:31 74/148
 install: conda install -y  --no-update-deps  'arviz'  'pytz'  'cmdstan=2.38.0'  'cmdstanpy=1.3.0'  'ipython'  'matplotlib'  'pandas=3.0.0'  'scipy=1.17.0'  'seaborn=0.13.2'  'xz' 
 dep: # alsa-lib           conda-forge/linux-64::alsa-lib-1.2.15.3-hb03c661_0
 dep: # arviz              conda-forge/noarch::arviz-0.23.4-pyhcf101f3_0
+dep: # asttokens          conda-forge/noarch::asttokens-3.0.1-pyhd8ed1ab_0
 dep: # brotli             conda-forge/linux-64::brotli-1.2.0-hed03a55_1
 dep: # brotli-bin         conda-forge/linux-64::brotli-bin-1.2.0-hb03c661_1
+dep: # cached-property    conda-forge/noarch::cached-property-1.5.2-hd8ed1ab_1
+dep: # cached_property    conda-forge/noarch::cached_property-1.5.2-pyha770c72_1
 dep: # cmdstan            conda-forge/linux-64::cmdstan-2.38.0-hca57ec4_0
 dep: # cmdstanpy          conda-forge/noarch::cmdstanpy-1.3.0-pyhd8ed1ab_0
 dep: # contourpy          conda-forge/linux-64::contourpy-1.3.3-py312h0a2e395_4
 dep: # cycler             conda-forge/noarch::cycler-0.12.1-pyhcf101f3_2
 dep: # cyrus-sasl         conda-forge/linux-64::cyrus-sasl-2.1.28-hd9c7081_0
+dep: # decorator          conda-forge/noarch::decorator-5.2.1-pyhd8ed1ab_0
 dep: # double-conversion  conda-forge/linux-64::double-conversion-3.4.0-hecca717_0
+dep: # executing          conda-forge/noarch::executing-2.2.1-pyhd8ed1ab_0
 dep: # fonttools          conda-forge/linux-64::fonttools-4.61.1-py312h8a5da7c_0
 dep: # h5netcdf           conda-forge/noarch::h5netcdf-1.8.1-pyhd8ed1ab_0
 dep: # h5py               conda-forge/linux-64::h5py-3.15.1-nompi_py312ha4f8f14_101
+dep: # ipython            conda-forge/noarch::ipython-9.10.0-pyh53cf698_0
+dep: # ipython_pygments_~ conda-forge/noarch::ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0
+dep: # jedi               conda-forge/noarch::jedi-0.19.2-pyhd8ed1ab_1
 dep: # kiwisolver         conda-forge/linux-64::kiwisolver-1.4.9-py312h0a2e395_2
 dep: # lcms2              conda-forge/linux-64::lcms2-2.18-h0c24ade_0
 dep: # libclang-cpp21.1   conda-forge/linux-64::libclang-cpp21.1-21.1.8-default_h99862b1_3
@@ -844,24 +474,40 @@ dep: # libvulkan-loader   conda-forge/linux-64::libvulkan-loader-1.4.341.0-h5279
 dep: # libxslt            conda-forge/linux-64::libxslt-1.1.43-h711ed8c_1
 dep: # matplotlib         conda-forge/linux-64::matplotlib-3.10.8-py312h7900ff3_0
 dep: # matplotlib-base    conda-forge/linux-64::matplotlib-base-3.10.8-py312he3d6523_0
+dep: # matplotlib-inline  conda-forge/noarch::matplotlib-inline-0.2.1-pyhd8ed1ab_0
 dep: # munkres            conda-forge/noarch::munkres-1.1.4-pyhd8ed1ab_1
 dep: # openldap           conda-forge/linux-64::openldap-2.6.10-he970967_0
 dep: # pandas             conda-forge/linux-64::pandas-3.0.0-py312h8ecdadd_0
+dep: # parso              conda-forge/noarch::parso-0.8.5-pyhcf101f3_0
 dep: # patsy              conda-forge/noarch::patsy-1.0.2-pyhcf101f3_0
+dep: # pexpect            conda-forge/noarch::pexpect-4.9.0-pyhd8ed1ab_1
 dep: # pillow             conda-forge/linux-64::pillow-12.1.0-py312h50c33e8_0
+dep: # platformdirs       conda-forge/noarch::platformdirs-4.5.1-pyhcf101f3_0
+dep: # prompt-toolkit     conda-forge/noarch::prompt-toolkit-3.0.52-pyha770c72_0
+dep: # ptyprocess         conda-forge/noarch::ptyprocess-0.7.0-pyhd8ed1ab_1
+dep: # pure_eval          conda-forge/noarch::pure_eval-0.2.3-pyhd8ed1ab_1
+dep: # pygments           conda-forge/noarch::pygments-2.19.2-pyhd8ed1ab_0
 dep: # pyparsing          conda-forge/noarch::pyparsing-3.3.2-pyhcf101f3_0
 dep: # pyside6            conda-forge/linux-64::pyside6-6.10.1-py312h9da60e5_0
+dep: # python-dateutil    conda-forge/noarch::python-dateutil-2.9.0.post0-pyhe01879c_2
+dep: # pytz               conda-forge/noarch::pytz-2025.2-pyhd8ed1ab_0
 dep: # qhull              conda-forge/linux-64::qhull-2020.2-h434a139_5
 dep: # qt6-main           conda-forge/linux-64::qt6-main-6.10.1-h6f76662_3
 dep: # scipy              conda-forge/linux-64::scipy-1.17.0-py312h54fa4ab_1
 dep: # seaborn            conda-forge/noarch::seaborn-0.13.2-hd8ed1ab_3
 dep: # seaborn-base       conda-forge/noarch::seaborn-base-0.13.2-pyhd8ed1ab_3
+dep: # six                conda-forge/noarch::six-1.17.0-pyhe01879c_1
+dep: # stack_data         conda-forge/noarch::stack_data-0.6.3-pyhd8ed1ab_1
 dep: # stanio             conda-forge/noarch::stanio-0.5.1-pyhd8ed1ab_1
 dep: # statsmodels        conda-forge/linux-64::statsmodels-0.14.6-py312h4f23490_0
 dep: # tbb                conda-forge/linux-64::tbb-2022.3.0-hb700be7_2
 dep: # tbb-devel          conda-forge/linux-64::tbb-devel-2022.3.0-h51de99f_2
+dep: # tornado            conda-forge/linux-64::tornado-6.5.4-py312h961da02_0
 dep: # tqdm               conda-forge/noarch::tqdm-4.67.3-pyh8f84b5b_0
+dep: # traitlets          conda-forge/noarch::traitlets-5.14.3-pyhd8ed1ab_1
+dep: # typing_extensions  conda-forge/noarch::typing_extensions-4.15.0-pyhcf101f3_0
 dep: # unicodedata2       conda-forge/linux-64::unicodedata2-17.0.0-py312h4c3975b_1
+dep: # wcwidth            conda-forge/noarch::wcwidth-0.5.3-pyhd8ed1ab_0
 dep: # xarray             conda-forge/noarch::xarray-2026.1.0-pyhcf101f3_0
 dep: # xarray-einstats    conda-forge/noarch::xarray-einstats-0.9.1-pyhd8ed1ab_0
 dep: # xcb-util           conda-forge/linux-64::xcb-util-0.4.1-h4f16b4b_2
@@ -871,594 +517,8 @@ dep: # xcb-util-keysyms   conda-forge/linux-64::xcb-util-keysyms-0.4.1-hb711507_
 dep: # xcb-util-renderut~ conda-forge/linux-64::xcb-util-renderutil-0.3.10-hb711507_0
 dep: # xcb-util-wm        conda-forge/linux-64::xcb-util-wm-0.4.2-hb711507_0
 dep: # zlib-ng            conda-forge/linux-64::zlib-ng-2.3.3-hceb46e0_1
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-dep: # ClobberError: The package 'conda-forge/noarch::sysroot_linux-64-2.17-h0157908_18' cannot be installed due to a
-[coble-create] End time: 2026-02-05 19:51:19
-[coble-create] Duration: 51s
+[coble-create] End time: 2026-02-06 23:17:24
+[coble-create] Duration: 53s
 
-[coble-create] Start time: 2026-02-05 19:51:19 119/191
+[coble-create] Start time: 2026-02-06 23:17:24 87/148
 install: conda install -y  --no-update-deps  'r-ctree'  'r-doBy'  'r-pbkrtest'  'r-car'  'r-rstatix'  'r-sads'  'r-tidyverse'  'r-tidytable'  'r-pio'  'r-easypar'  'r-dndscv' 
-dep: # argcomplete        conda-forge/noarch::argcomplete-3.6.3-pyhd8ed1ab_0
-dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocgenerics-0.52.0-r44hdfd78af_3
-dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocparallel-1.40.0-r44he5774e6_1
-dep: # bioconductor-bios~ bioconda/linux-64::bioconductor-biostrings-2.74.0-r44h3df3fcb_1
-dep: # bioconductor-data~ bioconda/noarch::bioconductor-data-packages-20250625-hdfd78af_0
-dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodb-1.42.0-r44hdfd78af_2
-dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodbdata-1.2.13-r44hdfd78af_0
-dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicranges-1.58.0-r44h3df3fcb_2
-dep: # bioconductor-iran~ bioconda/linux-64::bioconductor-iranges-2.40.0-r44h3df3fcb_2
-dep: # bioconductor-rhts~ bioconda/linux-64::bioconductor-rhtslib-3.2.0-r44h15a9599_2
-dep: # bioconductor-rsam~ bioconda/linux-64::bioconductor-rsamtools-2.22.0-r44h77050f0_1
-dep: # bioconductor-s4ve~ bioconda/linux-64::bioconductor-s4vectors-0.44.0-r44h3df3fcb_2
-dep: # bioconductor-ucsc~ bioconda/linux-64::bioconductor-ucsc.utils-1.2.0-r44h9ee0642_1
-dep: # bioconductor-xvec~ bioconda/linux-64::bioconductor-xvector-0.46.0-r44h15a9599_2
-dep: # bioconductor-zlib~ bioconda/linux-64::bioconductor-zlibbioc-1.52.0-r44h3df3fcb_2
-dep: # glpk               conda-forge/linux-64::glpk-5.0-h445213a_0
-dep: # gmp                conda-forge/linux-64::gmp-6.3.0-hac33072_2
-dep: # jq                 conda-forge/linux-64::jq-1.8.1-h73b1eb8_0
-dep: # oniguruma          conda-forge/linux-64::oniguruma-6.9.10-hb9d3cd8_0
-dep: # r-abind            conda-forge/noarch::r-abind-1.4_8-r44hc72bb7e_1
-dep: # r-ade4             conda-forge/linux-64::r-ade4-1.7_23-r44h3704496_3
-dep: # r-bbmle            conda-forge/noarch::r-bbmle-1.0.25.1-r44hc72bb7e_2
-dep: # r-bdsmatrix        conda-forge/linux-64::r-bdsmatrix-1.3_7-r44h54b55ab_3
-dep: # r-bh               conda-forge/noarch::r-bh-1.87.0_1-r44hc72bb7e_1
-dep: # r-bitops           conda-forge/linux-64::r-bitops-1.0_9-r44h54b55ab_1
-dep: # r-brew             conda-forge/noarch::r-brew-1.0_10-r44hc72bb7e_2
-dep: # r-car              conda-forge/noarch::r-car-3.1_5-r44hc72bb7e_0
-dep: # r-cardata          conda-forge/noarch::r-cardata-3.0_6-r44hc72bb7e_0
-dep: # r-clisymbols       conda-forge/noarch::r-clisymbols-1.2.0-r44hc72bb7e_1007
-dep: # r-conquer          conda-forge/linux-64::r-conquer-1.3.3-r44h3704496_5
-dep: # r-corrplot         conda-forge/noarch::r-corrplot-0.95-r44hc72bb7e_1
-dep: # r-covr             conda-forge/linux-64::r-covr-3.6.5-r44h3697838_0
-dep: # r-cowplot          conda-forge/noarch::r-cowplot-1.2.0-r44hc72bb7e_2
-dep: # r-ctree            bioconda/noarch::r-ctree-1.1.0-r44hdfd78af_0
-dep: # r-deriv            conda-forge/noarch::r-deriv-4.2.0-r44hc72bb7e_1
-dep: # r-desc             conda-forge/noarch::r-desc-1.4.3-r44hc72bb7e_2
-dep: # r-dndscv           bioconda/noarch::r-dndscv-0.1.0-r44hdfd78af_0
-dep: # r-doby             conda-forge/noarch::r-doby-4.7.1-r44hc72bb7e_0
-dep: # r-doparallel       conda-forge/noarch::r-doparallel-1.0.17-r44hc72bb7e_4
-dep: # r-easypar          bioconda/noarch::r-easypar-1.0.0-r44hdfd78af_0
-dep: # r-entropy          conda-forge/noarch::r-entropy-1.3.2-r44hc72bb7e_1
-dep: # r-forecast         conda-forge/linux-64::r-forecast-9.0.0-r44hf1899b2_0
-dep: # r-formula          conda-forge/noarch::r-formula-1.2_5-r44hc72bb7e_3
-dep: # r-fracdiff         conda-forge/linux-64::r-fracdiff-1.5_3-r44h7b2432b_2
-dep: # r-futile.logger    conda-forge/noarch::r-futile.logger-1.4.9-r44hc72bb7e_0
-dep: # r-futile.options   conda-forge/noarch::r-futile.options-1.0.1-r44hc72bb7e_1006
-dep: # r-gbrd             conda-forge/noarch::r-gbrd-0.4.12-r44hc72bb7e_2
-dep: # r-ggforce          conda-forge/linux-64::r-ggforce-0.5.0-r44h3697838_1
-dep: # r-ggraph           conda-forge/linux-64::r-ggraph-2.2.2-r44h3697838_0
-dep: # r-ggrepel          conda-forge/linux-64::r-ggrepel-0.9.6-r44h3697838_2
-dep: # r-graphlayouts     conda-forge/linux-64::r-graphlayouts-1.2.2-r44h3697838_1
-dep: # r-gridextra        conda-forge/noarch::r-gridextra-2.3-r44hc72bb7e_1007
-dep: # r-guilds           conda-forge/linux-64::r-guilds-1.4.7-r44h3697838_2
-dep: # r-igraph           conda-forge/linux-64::r-igraph-2.1.4-r44hf411e2a_2
-dep: # r-lambda.r         conda-forge/noarch::r-lambda.r-1.2.4-r44hc72bb7e_5
-dep: # r-litedown         conda-forge/noarch::r-litedown-0.9-r44hc72bb7e_0
-dep: # r-lme4             conda-forge/linux-64::r-lme4-1.1_38-r44h3697838_0
-dep: # r-lmtest           conda-forge/linux-64::r-lmtest-0.9_40-r44heaba542_4
-dep: # r-markdown         conda-forge/noarch::r-markdown-2.0-r44hc72bb7e_1
-dep: # r-matrixcalc       conda-forge/noarch::r-matrixcalc-1.0_6-r44hc72bb7e_4
-dep: # r-matrixmodels     conda-forge/noarch::r-matrixmodels-0.5_4-r44hc72bb7e_1
-dep: # r-matrixstats      conda-forge/linux-64::r-matrixstats-1.5.0-r44h54b55ab_1
-dep: # r-microbenchmark   conda-forge/linux-64::r-microbenchmark-1.5.0-r44h54b55ab_1
-dep: # r-minqa            conda-forge/linux-64::r-minqa-1.2.8-r44ha36cffa_2
-dep: # r-mvtnorm          conda-forge/linux-64::r-mvtnorm-1.3_3-r44h11cdb10_1
-dep: # r-nloptr           conda-forge/linux-64::r-nloptr-2.2.1-r44h8ae9fae_1
-dep: # r-pbkrtest         conda-forge/noarch::r-pbkrtest-0.5.5-r44hc72bb7e_1
-dep: # r-pio              bioconda/noarch::r-pio-0.1.0-r44hdfd78af_0
-dep: # r-pixmap           conda-forge/noarch::r-pixmap-0.4_14-r44hc72bb7e_1
-dep: # r-pkgbuild         conda-forge/noarch::r-pkgbuild-1.4.8-r44hc72bb7e_1
-dep: # r-pkgload          conda-forge/noarch::r-pkgload-1.5.0-r44hc72bb7e_0
-dep: # r-poilog           conda-forge/linux-64::r-poilog-0.4.2.1-r44h54b55ab_2
-dep: # r-polyclip         conda-forge/linux-64::r-polyclip-1.10_7-r44h3697838_1
-dep: # r-powerlaw         conda-forge/noarch::r-powerlaw-1.0.0-r44hc72bb7e_1
-dep: # r-pracma           conda-forge/noarch::r-pracma-2.4.6-r44hc72bb7e_0
-dep: # r-prettydoc        conda-forge/noarch::r-prettydoc-0.4.1-r44hc72bb7e_4
-dep: # r-quadprog         conda-forge/linux-64::r-quadprog-1.5_8-r44ha0a88a1_7
-dep: # r-quantreg         conda-forge/linux-64::r-quantreg-6.1-r44h11cdb10_1
-dep: # r-rbibutils        conda-forge/linux-64::r-rbibutils-2.4.1-r44h54b55ab_0
-dep: # r-rcpparmadillo    conda-forge/linux-64::r-rcpparmadillo-15.2.3_1-r44h3704496_0
-dep: # r-rdpack           conda-forge/noarch::r-rdpack-2.6.5-r44hc72bb7e_0
-dep: # r-reformulas       conda-forge/noarch::r-reformulas-0.4.4-r44hc72bb7e_0
-dep: # r-rex              conda-forge/noarch::r-rex-1.2.1-r44hc72bb7e_4
-dep: # r-roxygen2         conda-forge/linux-64::r-roxygen2-7.3.3-r44h3697838_1
-dep: # r-rprojroot        conda-forge/noarch::r-rprojroot-2.1.1-r44hc72bb7e_1
-dep: # r-rstatix          conda-forge/noarch::r-rstatix-0.7.3-r44hc72bb7e_0
-dep: # r-sads             conda-forge/linux-64::r-sads-0.6.5-r44h54b55ab_0
-dep: # r-segmented        conda-forge/noarch::r-segmented-2.2_1-r44hc72bb7e_0
-dep: # r-seqinr           conda-forge/linux-64::r-seqinr-4.2_36-r44h1c8cec4_3
-dep: # r-snow             conda-forge/noarch::r-snow-0.4_4-r44hc72bb7e_4
-dep: # r-sp               conda-forge/linux-64::r-sp-2.2_0-r44h54b55ab_1
-dep: # r-sparsem          conda-forge/linux-64::r-sparsem-1.84_2-r44heaba542_1
-dep: # r-tidygraph        conda-forge/linux-64::r-tidygraph-1.3.0-r44h3697838_2
-dep: # r-tidytable        conda-forge/noarch::r-tidytable-0.11.1-r44hc72bb7e_2
-dep: # r-tseries          conda-forge/linux-64::r-tseries-0.10_59-r44ha0a88a1_0
-dep: # r-tweenr           conda-forge/linux-64::r-tweenr-2.0.3-r44h3697838_2
-dep: # r-urca             conda-forge/linux-64::r-urca-1.3_4-r44heaba542_2
-dep: # r-vgam             conda-forge/linux-64::r-vgam-1.1_14-r44heaba542_0
-dep: # r-viridis          conda-forge/noarch::r-viridis-0.6.5-r44hc72bb7e_2
-dep: # toml               conda-forge/noarch::toml-0.10.2-pyhcf101f3_3
-dep: # tomlkit            conda-forge/noarch::tomlkit-0.14.0-pyha770c72_0
-dep: # xmltodict          conda-forge/noarch::xmltodict-1.0.2-pyhcf101f3_0
-dep: # yq                 conda-forge/noarch::yq-3.4.3-pyhe01879c_2
-[coble-create] End time: 2026-02-05 19:51:47
-[coble-create] Duration: 28s
-
-[coble-create] Start time: 2026-02-05 19:51:47 121/191
-install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (pinfsc50)
-dep: # * DONE (permute)
-dep: # * DONE (memuse)
-dep: # * DONE (vegan)
-dep: # * DONE (ape)
-dep: # * DONE (vcfR)
-[coble-create] End time: 2026-02-05 19:52:30
-[coble-create] Duration: 43s
-
-[coble-create] Start time: 2026-02-05 19:52:30 123/191
-install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (covr)
-[coble-create] End time: 2026-02-05 19:52:33
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-02-05 19:52:33 125/191
-install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (libcoin)
-dep: # * DONE (inum)
-dep: # * DONE (partykit)
-[coble-create] End time: 2026-02-05 19:52:40
-[coble-create] Duration: 7s
-
-[coble-create] Start time: 2026-02-05 19:52:40 141/191
-install: conda install -y  --no-update-deps  'r-knitr'  'r-ggthemes'  'r-clisymbols'  'r-reshape2'  'r-BMix'  'r-gtools'  'r-akima'  'r-peakPick'  'r-R.utils'  'r-XML'  'r-restfulr'  'r-rjson'  'r-interp'  'r-reticulate' 
-dep: # r-akima            conda-forge/linux-64::r-akima-0.6_3.6-r44heaba542_1
-dep: # r-bmix             bioconda/noarch::r-bmix-1.0.0-r44hdfd78af_0
-dep: # r-deldir           conda-forge/linux-64::r-deldir-2.0_4-r44heaba542_2
-dep: # r-ggthemes         conda-forge/noarch::r-ggthemes-5.2.0-r44hc72bb7e_0
-dep: # r-gtools           conda-forge/linux-64::r-gtools-3.9.5-r44h54b55ab_2
-dep: # r-here             conda-forge/noarch::r-here-1.0.2-r44hc72bb7e_0
-dep: # r-interp           conda-forge/linux-64::r-interp-1.1_6-r44ha36cffa_3
-dep: # r-peakpick         bioconda/noarch::r-peakpick-0.11-r44hdfd78af_0
-dep: # r-png              conda-forge/linux-64::r-png-0.1_8-r44h6b2d295_3
-dep: # r-r.methodss3      conda-forge/noarch::r-r.methodss3-1.8.2-r44hc72bb7e_4
-dep: # r-r.oo             conda-forge/noarch::r-r.oo-1.27.1-r44hc72bb7e_1
-dep: # r-r.utils          conda-forge/noarch::r-r.utils-2.13.0-r44hc72bb7e_1
-dep: # r-rcpptoml         conda-forge/linux-64::r-rcpptoml-0.2.3-r44h3697838_1
-dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.17-r44h46721d4_2
-dep: # r-restfulr         bioconda/linux-64::r-restfulr-0.0.16-r44h5ef9028_0
-dep: # r-reticulate       conda-forge/linux-64::r-reticulate-1.44.1-r44h3697838_0
-dep: # r-rjson            conda-forge/linux-64::r-rjson-0.2.23-r44h3697838_1
-dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.20-r44hf705907_0
-[coble-create] End time: 2026-02-05 19:53:05
-[coble-create] Duration: 25s
-
-[coble-create] Start time: 2026-02-05 19:53:05 143/191
-install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (polynom)
-dep: # * DONE (ggsignif)
-dep: # * DONE (ggsci)
-dep: # * DONE (ggpubr)
-[coble-create] End time: 2026-02-05 19:53:14
-[coble-create] Duration: 9s
-
-[coble-create] Start time: 2026-02-05 19:53:14 145/191
-install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (ggsci)
-[coble-create] End time: 2026-02-05 19:53:18
-[coble-create] Duration: 4s
-
-[coble-create] Start time: 2026-02-05 19:53:18 147/191
-install: Rscript -e 'install.packages("tidygraph", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (tidygraph)
-[coble-create] End time: 2026-02-05 19:53:22
-[coble-create] Duration: 4s
-
-[coble-create] Start time: 2026-02-05 19:53:22 149/191
-install: Rscript -e 'install.packages("ggraph", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (ggraph)
-[coble-create] End time: 2026-02-05 19:53:35
-[coble-create] Duration: 13s
-
-[coble-create] Start time: 2026-02-05 19:53:35 151/191
-install: Rscript -e 'install.packages("entropy", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (entropy)
-[coble-create] End time: 2026-02-05 19:53:37
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-02-05 19:53:37 153/191
-install: Rscript -e 'install.packages("matrixcalc", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
-dep: # * DONE (matrixcalc)
-[coble-create] End time: 2026-02-05 19:53:39
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-02-05 19:53:39 160/191
-install: conda install -y  --no-update-deps  'bioconda::bioconductor-rtracklayer=1.66.0'  'bioconda::bioconductor-genomicfeatures=1.58.0'  'bioconda::bioconductor-delayedarray=0.32.0'  'bioconda::bioconductor-summarizedexperiment=1.36.0'  'bioconda::bioconductor-genomicalignments=1.42.0' 
-dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.68.0-r44hdfd78af_0
-dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.66.0-r44h3df3fcb_0
-dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocio-1.16.0-r44hdfd78af_0
-dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.32.0-r44h3df3fcb_1
-dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicalignments-1.42.0-r44h3df3fcb_1
-dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomicfeatures-1.58.0-r44hdfd78af_0
-dep: # bioconductor-kegg~ bioconda/noarch::bioconductor-keggrest-1.46.0-r44hdfd78af_0
-dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.18.0-r44hdfd78af_0
-dep: # bioconductor-rtra~ bioconda/linux-64::bioconductor-rtracklayer-1.66.0-r44h15a9599_1
-dep: # bioconductor-s4ar~ bioconda/linux-64::bioconductor-s4arrays-1.6.0-r44h3df3fcb_1
-dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsearray-1.6.0-r44h3df3fcb_1
-dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.36.0-r44hdfd78af_0
-[coble-create] End time: 2026-02-05 19:54:03
-[coble-create] Duration: 24s
-
-[coble-create] Start time: 2026-02-05 19:54:03 162/191
-install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=4)'
-dep: # * DONE (BiocVersion)
-dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
-[coble-create] End time: 2026-02-05 19:54:29
-[coble-create] Duration: 26s
-
-[coble-create] Start time: 2026-02-05 19:54:29 164/191
-install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=4)'
-dep: # * DONE (BSgenome)
-dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
-[coble-create] End time: 2026-02-05 19:56:31
-[coble-create] Duration: 122s
-
-[coble-create] Start time: 2026-02-05 19:56:31 166/191
-install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
-[coble-create] End time: 2026-02-05 19:56:37
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-02-05 19:56:37 168/191
-install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=4)'
-dep: # * DONE (GlobalOptions)
-dep: # * DONE (GetoptLong)
-dep: # * DONE (clue)
-dep: # * DONE (circlize)
-dep: # * DONE (ComplexHeatmap)
-[coble-create] End time: 2026-02-05 19:56:58
-[coble-create] Duration: 21s
-
-[coble-create] Start time: 2026-02-05 19:56:58 170/191
-install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=4)'
-dep: # * DONE (VariantAnnotation)
-[coble-create] End time: 2026-02-05 19:57:34
-[coble-create] Duration: 36s
-
-[coble-create] Start time: 2026-02-05 19:57:34 172/191
-install: Rscript -e 'remotes::install_github("caravagnalab/ctree", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (ctree)
-[coble-create] End time: 2026-02-05 19:57:39
-[coble-create] Duration: 5s
-
-[coble-create] Start time: 2026-02-05 19:57:39 174/191
-install: Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (dndscv)
-[coble-create] End time: 2026-02-05 19:58:02
-[coble-create] Duration: 23s
-
-[coble-create] Start time: 2026-02-05 19:58:02 176/191
-install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (CNAqc)
-[coble-create] End time: 2026-02-05 19:58:28
-[coble-create] Duration: 26s
-
-[coble-create] Start time: 2026-02-05 19:58:28 178/191
-install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (VIBER)
-[coble-create] End time: 2026-02-05 19:58:34
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-02-05 19:58:34 180/191
-install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (mobster)
-[coble-create] End time: 2026-02-05 19:58:56
-[coble-create] Duration: 22s
-
-[coble-create] Start time: 2026-02-05 19:58:56 182/191
-install: Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.zip", dependencies=FALSE, upgrade="default", Ncpus=4)'
-dep: # * DONE (evoverse)
-[coble-create] End time: 2026-02-05 19:59:12
-[coble-create] Duration: 16s
-
-[coble-create] Start time: 2026-02-05 19:59:12 184/191
-install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-05 19:59:12
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:59:12 186/191
-install: echo "echo \"COBLE validation: No script has been specified for carbine environment.\"" >> ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-05 19:59:12
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:59:12 188/191
-install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-05 19:59:12
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-05 19:59:12 190/191
-install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-05 19:59:12
-[coble-create] Duration: 0s
---------------------------------------
-[coble-create] Recipe created at: 2026-02-05 19:59:12
-[coble-create] Recipe took: 0h 11m 20s
---------------------------------------

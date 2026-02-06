@@ -58,6 +58,7 @@ PLATFORM_INFO=$(detect_platform)
 IFS='|' read -r DETECTED_OS DETECTED_ARCH PLATFORM_STRING COMPILER_PREFIX <<< "$PLATFORM_INFO"
 
 echo "[coble-recipise] Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >&2
+echo "# Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >> "$RECIPE_FILE"
 
 ##############
 # Portable sed in-place editing (macOS/BSD vs GNU)
@@ -79,16 +80,20 @@ get_compiler_packages() {
     local platform="$1"
     case "$platform" in
         "linux-64"|"linux/amd64")
-            echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64"
+            #echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64"
+            echo "gcc_linux-64 gxx_linux-64"
             ;;
         "linux-aarch64"|"linux/arm64")
-            echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64 sysroot_linux-aarch64"
+            #echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64 sysroot_linux-aarch64"
+            echo "gcc_linux-aarch64 gxx_linux-aarch64"
             ;;
         "osx-64")
-            echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64"
+            #echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64"
+            echo "clang_osx-64 clangxx_osx-64"
             ;;
         "osx-arm64"|"darwin/arm64")
-            echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64"
+            #echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64"
+            echo "clang_osx-arm64 clangxx_osx-arm64"
             ;;
         *)
             echo ""
@@ -259,7 +264,12 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     echo -e "# Platform: $PLATFORM_STRING"
     echo "#####################################################"
     echo -e "# source bashrc for conda"    
-    echo -e "for rcfile in ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc; do [ -f \"\$rcfile\" ] && source \"\$rcfile\" && break; done"
+    for rcfile in ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc; do 
+        if [ -f "$rcfile" ]; then
+            echo "source $rcfile"
+            break
+        fi
+    done    
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
     echo "#####################################################"    
@@ -454,19 +464,19 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
                     echo "# System r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
                 fi  
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge make cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
             
@@ -498,7 +508,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     
                     # Add additional tools for Linux
                     if [[ "$DETECTED_OS" == "linux" ]]; then                    
-                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
+                        echo "# ${DETECTED_OS} operating system requirements:" >>  "$RECIPE_FILE"
+                        #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
+                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler" >>  "$RECIPE_FILE"
                         if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
                             echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64" >>  "$RECIPE_FILE"
                         else
@@ -533,12 +545,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                         echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                         echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
                         echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                        #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
                     elif [[ "$DETECTED_ARCH" == "arm64" ]]; then
                         echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
                         echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
                         echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                        #echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
                     fi
                     
                     # Standard aliases
@@ -547,7 +559,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                     echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
                     echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
+                    #echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
                     
                 elif [[ "$DETECTED_OS" == "osx" ]]; then
                     echo "" >> "$RECIPE_FILE"
@@ -588,7 +600,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
+                echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
+
                 echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
@@ -682,27 +696,25 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then                    
                 # R may need compilers, so symlink system tools into the env first
-                echo "CONDA_BASE=\$(conda info --base)" >> "$RECIPE_FILE"
-                echo "ARCH=\$(uname -m)" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"
-                echo "if [ \"\$ARCH\" = \"x86_64\" ]; then \\" >> "$RECIPE_FILE"
-                echo "    PREFIX=\"x86_64-conda-linux-gnu\"; \\" >> "$RECIPE_FILE"
-                echo "elif [ \"\$ARCH\" = \"aarch64\" ] || [ \"\$ARCH\" = \"arm64\" ]; then \\" >> "$RECIPE_FILE"
-                echo "    PREFIX=\"aarch64-conda-linux-gnu\"; \\" >> "$RECIPE_FILE"
-                echo "fi" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"
+                if [ "$ARCH" = "x86_64" ]; then \
+                    PREFIX="x86_64-conda-linux-gnu"; \
+                elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
+                    PREFIX="aarch64-conda-linux-gnu"; \
+                fi
                 
+                echo "# Recommended tools: $PREFIX" >> "$RECIPE_FILE"
                 echo "# Symlink all compiler/binutils tools" >> "$RECIPE_FILE"
-                echo "for tool in \\" >> "$RECIPE_FILE"
-                echo "    gcc g++ gfortran cpp cc c++ f77 f95 \\" >> "$RECIPE_FILE"
-                echo "    ar nm ranlib ld ld.gold as \\" >> "$RECIPE_FILE"
-                echo "    strip objdump objcopy addr2line \\" >> "$RECIPE_FILE"
-                echo "    c++filt elfedit gprof readelf size strings \\" >> "$RECIPE_FILE"
-                echo "    gcc-ar gcc-nm gcc-ranlib; do \\" >> "$RECIPE_FILE"
-                echo "    if command -v \$tool > /dev/null 2>&1; then \\" >> "$RECIPE_FILE"
-                echo "        ln -sf \$(which \$tool) \$CONDA_BASE/bin/\${PREFIX}-\$tool; \\" >> "$RECIPE_FILE"
-                echo "    fi; \\" >> "$RECIPE_FILE"
-                echo "done" >> "$RECIPE_FILE"
+                #for tool in \
+                    #gcc g++ gfortran cpp cc c++ f77 f95; do
+                    #ar nm ranlib ld ld.gold as \
+                    #strip objdump objcopy addr2line \
+                    #c++filt elfedit gprof readelf size strings \
+                    #gcc-ar gcc-nm gcc-ranlib; do
+                #    if command -v $tool > /dev/null 2>&1; then
+                #        echo "ln -sf $(which $tool) $CONDA_BASE/bin/${PREFIX}-$tool" >> "$RECIPE_FILE"                        
+                #    fi
+                #done
+                                                   
                     
                 if [[ "$src" == "" ]]; then                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"

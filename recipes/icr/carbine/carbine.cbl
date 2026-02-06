@@ -16,9 +16,9 @@ flags:
   - compile-tools: True
   - system-tools: True
   - export: QT_QPA_PLATFORM=offscreen  
-  - export: OTEL_SDK_DISABLED=true
-  - export: R_OTEL_DISABLED=true
-conda:  
+  #- export: OTEL_SDK_DISABLED=true
+  #- export: R_OTEL_DISABLED=true
+conda:    
   - arviz
   - pytz
   - cmdstan=2.38.0
@@ -30,7 +30,6 @@ conda:
   - seaborn=0.13.2
   - xz
 r-conda:
-  - covr
   - ctree
   - doBy
   - pbkrtest
@@ -43,11 +42,10 @@ r-conda:
   - easypar
   - dndscv
 r-package:
-  - vcfR  
+  - vcfR
+  - covr
   - partykit
-  - akima
 r-conda:  
-  - knitr
   - ggthemes
   - clisymbols
   - reshape2
@@ -64,10 +62,6 @@ r-conda:
 r-package:
   - ggpubr
   - ggsci
-  - tidygraph
-  - ggraph
-  - entropy
-  - matrixcalc
 bioc-conda:
   - rtracklayer=1.66.0@bioconda
   - genomicfeatures=1.58.0@bioconda
@@ -82,8 +76,6 @@ bioc-package:
   - VariantAnnotation  
 flags:
   - dependencies: FALSE
-r-github:
-  - caravagnalab/ctree
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip

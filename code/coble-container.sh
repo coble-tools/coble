@@ -6,7 +6,7 @@ INPUT_RECIPE=""
 containers="docker,singularity"
 IMAGE_NAME=""
 DUAL_CI=false
-DUAL=false
+TARGET=""
 VAL_FILE=""
 VAL_FOLDER=""
 BANNER=""
@@ -23,6 +23,7 @@ OPTIONS:
     --recipe PATH        Path to the .cbl recipe file (required)        
     --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
     --image NAME         Name for the Docker image (default: cbl-ENV_NAME)
+    --target PLATFORM     Target platform for Docker buildx (e.g. linux/amd64,linux/arm64)
     -h, --help          Show this help message
     
 # Then test the image
@@ -70,9 +71,9 @@ while [[ $# -gt 0 ]]; do
             DUAL_CI=true
             shift
             ;;
-        --dual)            
-            DUAL=true
-            shift
+        --target)            
+            TARGET="$2"
+            shift 2
             ;;
         --validate)
             VAL_FILE="$2"
@@ -161,7 +162,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
         #--platform linux/amd64,linux/arm64 \
         docker buildx build -f "$DOCKERFILE" \
-        --platform linux/amd64 \
+        --platform linux/amd64,linux/arm64 \
         --build-arg RECIPE_CBL="$INPUT_RECIPE" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
@@ -174,10 +175,10 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
             echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
             exit 1
         fi
-    elif [[ $DUAL == true ]]; then
+    elif [[ $TARGET != "" ]]; then
         echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
         #build_platform="linux/amd64,linux/arm64"
-        build_platform="linux/arm64"
+        build_platform="$TARGET" 
         docker buildx build -f "$DOCKERFILE" \
         --platform "$build_platform" \
         --pull \
@@ -224,7 +225,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
     echo ""
-    echo "docker run --rm -it $IMAGE_NAME"
+    echo "docker run --rm -it -v .:/app $IMAGE_NAME"
     echo ""
 
 fi
