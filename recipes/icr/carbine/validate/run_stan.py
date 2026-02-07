@@ -7,7 +7,7 @@ import os
 try:
     # Compile model
     print("Compiling Stan model...")
-    model = cmdstanpy.CmdStanModel(stan_file='test.stan')
+    model = cmdstanpy.CmdStanModel(stan_file=f"{os.environ['CONDA_PREFIX']}/bin/run.stan")
     
     # Sample (fast - 1 chain, minimal iterations)
     print("Running inference...")

@@ -4,18 +4,18 @@
 set -e
 
 # Check required files exist
-if [ ! -f "test.stan" ]; then
-    echo "Error: test.stan not found"
+if [ ! -f "$CONDA_PREFIX/bin/run.stan" ]; then
+    echo "Error: run.stan not found"
     exit 1
 fi
 
-if [ ! -f "test_stan.py" ]; then
-    echo "Error: test_stan.py not found"
+if [ ! -f "$CONDA_PREFIX/bin/run_stan.py" ]; then
+    echo "Error: run_stan.py not found"
     exit 1
 fi
 
 # Run the test
-python test_stan.py
+python "$CONDA_PREFIX/bin/run_stan.py"
 
 # Cleanup compiled files (optional)
-rm -f test test.hpp
+rm -f "$CONDA_PREFIX/bin/run" "$CONDA_PREFIX/bin/run.hpp"

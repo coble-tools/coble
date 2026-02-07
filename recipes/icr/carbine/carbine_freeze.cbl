@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-06
-# Capture time: 23:24:48 GMT
+# Capture date: 2026-02-07
+# Capture time: 11:19:11 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,7 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/carbine/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: QT_QPA_PLATFORM="offscreen"
 
@@ -241,7 +241,7 @@ conda:
   - scipy=1.17.0@conda-forge
   - seaborn=0.13.2@conda-forge
   - sed=4.9@conda-forge
-  - setuptools=80.10.2@conda-forge
+  - setuptools=81.0.0@conda-forge
   - six=1.17.0@conda-forge
   - snappy=1.2.2@conda-forge
   - sqlite=3.51.2@conda-forge
@@ -590,7 +590,7 @@ bioc-conda:
   - biocio=1.16.0@bioconda
   - biocparallel=1.40.0@bioconda
   - biostrings=2.74.0@bioconda
-  - data-packages=20250625@bioconda
+  - data-packages=20260107@bioconda
   - delayedarray=0.32.0@bioconda
   - genomeinfodb=1.42.0@bioconda
   - genomeinfodbdata=1.2.13@bioconda
@@ -624,7 +624,7 @@ r-package:
   - inum=1.0-5
   - libcoin=1.0-10
   - memuse=4.2-3
-  - partykit=1.2-24
+  - partykit=1.2-25
   - permute=0.9-10
   - pinfsc50=1.3.0
   - polynom=1.4-1

@@ -25,6 +25,7 @@ OPTIONS:
     --image      NAME         Name for the Docker image (default: cbl-ENV_NAME)
     --target     PLATFORM     Target platform for Docker buildx (e.g. linux/amd64,linux/arm64)
     --validate   validate.sh  A validation bash script to include in the container for testing
+    --banner      TEXT         Optional banner text to display when the container is run
     -h, --help                Show this help message
     
 # Then test the image
@@ -168,6 +169,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         --build-arg VAL_FILE="$VAL_FILE" \
         --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        --build-arg BANNER="$BANNER" \
         -t "$IMAGE_NAME" \
         --push .
         BUILD_EXIT_CODE=$?
@@ -187,6 +189,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         --build-arg VAL_FILE="$VAL_FILE" \
         --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        --build-arg BANNER="$BANNER" \
         -t "$IMAGE_NAME" \
         --load .
         BUILD_EXIT_CODE=$?
@@ -203,6 +206,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         --build-arg GITHUB_PAT="$GITHUB_PAT" \
         --build-arg VAL_FILE="$VAL_FILE" \
         --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        --build-arg BANNER="$BANNER" \
         -t "$IMAGE_NAME" .
         BUILD_EXIT_CODE=$?
         if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
