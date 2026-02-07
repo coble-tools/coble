@@ -15,8 +15,11 @@ def test_small():
     do_block("small")
 def test_docker():
     do_block("docker")
+def test_carbine():
+    do_block("carbine")
     
 if __name__ == "__main__":
     test_small()
     test_docker()
+    test_carbine()
     

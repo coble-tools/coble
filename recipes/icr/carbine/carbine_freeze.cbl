@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-07
-# Capture time: 11:19:11 GMT
+# Capture time: 12:15:40 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,7 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/carbine/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/carbine/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: QT_QPA_PLATFORM="offscreen"
 

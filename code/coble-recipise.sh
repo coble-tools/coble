@@ -491,7 +491,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "" >> "$RECIPE_FILE"
                 echo "# ================================================" >> "$RECIPE_FILE"
                 echo "# CROSS-PLATFORM COMPILER SETUP" >> "$RECIPE_FILE"
-                echo "# Platform: $PLATFORM_STRING" >> "$RECIPE_FILE"
+                echo "# Platform: $PLATFORM_STRING" >> "$RECIPE_FILE"                
+                echo "# OS: $DETECTED_OS" >> "$RECIPE_FILE"
+                echo "# Arch: $DETECTED_ARCH" >> "$RECIPE_FILE"
+                    
                 echo "# ================================================" >> "$RECIPE_FILE"
                 
                 if [[ -z "$COMPILER_PACKAGES" ]]; then
@@ -501,20 +504,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 
                 # Install appropriate compilers for platform
+                SYSTEM_TOOLS=""
                 if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile tools for $PLATFORM_STRING" >&2
-                    echo "# Language compile tools for $PLATFORM_STRING" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $COMPILER_PACKAGES" >>  "$RECIPE_FILE"
-                    
+                    echo "[coble-recipise] Adding default compile tools for $PLATFORM_STRING" >&2                                        
+                    SYSTEM_TOOLS="$SYSTEM_TOOLS $COMPILER_PACKAGES"                    
                     # Add additional tools for Linux
-                    if [[ "$DETECTED_OS" == "linux" ]]; then                    
-                        echo "# ${DETECTED_OS} operating system requirements:" >>  "$RECIPE_FILE"
-                        #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
-                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                        if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
-                            echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64" >>  "$RECIPE_FILE"
-                        else
-                            echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-aarch64" >>  "$RECIPE_FILE"
+                    if [[ "$DETECTED_OS" == "linux" ]]; then                                            
+                        SYSTEM_TOOLS="$SYSTEM_TOOLS c-compiler cxx-compiler fortran-compiler"
+                        if [[ "$DETECTED_ARCH" == "x86_64" ]]; then                            
+                            SYSTEM_TOOLS="$SYSTEM_TOOLS sysroot_linux-64"
+                        else                            
+                            SYSTEM_TOOLS="$SYSTEM_TOOLS sysroot_linux-aarch64"
                         fi
                     fi
                 else
@@ -525,14 +525,23 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     versioned_packages=""
                     for pkg in $COMPILER_PACKAGES; do
                         versioned_packages="$versioned_packages '${pkg}=${version}'"
-                    done
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $versioned_packages" >>  "$RECIPE_FILE"
+                    done                    
+                    SYSTEM_TOOLS="$SYSTEM_TOOLS $versioned_packages"
                     
                     # Add additional tools for Linux
-                    if [[ "$DETECTED_OS" == "linux" ]]; then
-                        echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge c-compiler cxx-compiler fortran-compiler" >>  "$RECIPE_FILE"
+                    if [[ "$DETECTED_OS" == "linux" ]]; then                        
+                        SYSTEM_TOOLS="$SYSTEM_TOOLS c-compiler cxx-compiler fortran-compiler"
                     fi
                 fi
+                echo "#####################" >> "$RECIPE_FILE"
+                echo "# Platform compile tools (version $version) for $PLATFORM_STRING" >> "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $SYSTEM_TOOLS" >>  "$RECIPE_FILE"
+                echo "#####################" >> "$RECIPE_FILE"
+
+
+                # NOW install all the platform tools in 1 go to ensure they are all the same version and compatible with each other
+                # this is important for R package compilation which can be very sensitive to compiler versions and compatibility
+
                 
                 # Platform-specific symlink setup
                 if [[ "$DETECTED_OS" == "linux" ]]; then
