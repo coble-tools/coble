@@ -12,15 +12,3 @@ flags:
   - compile-tools: 7.5.0  
 bioc-conda:
   - DESeq2
-  - DESeq
-  - edgeR
-  - DSS
-  - limma  
-  - EBSeq
-  - parathyroidSE
-  - pasilla 
-conda:
-  - GFOLD
-r-conda:
-  - samr
-  - PoiClaClu

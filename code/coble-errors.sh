@@ -29,6 +29,8 @@ stdout_patterns=(
     "Failed to build"     
     "ERROR: compilation failed" 
     "HTTP error 404"
+    "ClobberError"
+    "SafetyError"
 )
 error_patterns=(
     "* removing"    
@@ -51,6 +53,8 @@ error_patterns=(
     "packages failed:"
     "ERROR: compilation failed" 
     "HTTP error 404"
+    "ClobberError"
+    "SafetyError"
 )
 done_patterns=(    
     "Successfully installed"

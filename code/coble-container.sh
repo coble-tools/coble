@@ -19,12 +19,13 @@ Usage: $(basename "$0") [OPTIONS]
 Build Docker and Singularity containers from COBLE recipes.
 
 OPTIONS:
-    --env NAME          Name for the container environment (required)
-    --recipe PATH        Path to the .cbl recipe file (required)        
-    --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
-    --image NAME         Name for the Docker image (default: cbl-ENV_NAME)
-    --target PLATFORM     Target platform for Docker buildx (e.g. linux/amd64,linux/arm64)
-    -h, --help          Show this help message
+    --env        NAME         Name for the container environment (required)
+    --recipe     PATH         Path to the .cbl recipe file (required)        
+    --containers TYPE         Comma-separated list of containers to build: conda,docker,singularity (default: conda)
+    --image      NAME         Name for the Docker image (default: cbl-ENV_NAME)
+    --target     PLATFORM     Target platform for Docker buildx (e.g. linux/amd64,linux/arm64)
+    --validate   validate.sh  A validation bash script to include in the container for testing
+    -h, --help                Show this help message
     
 # Then test the image
 docker run --rm -it cbl-carbine-arm64 /bin/bash
@@ -113,8 +114,7 @@ if [[ -z "$INPUT_RECIPE" ]]; then
 fi
 
 if [[ -z "$VAL_FILE" ]]; then
-    echo "Error: --validate is required"
-    show_help
+    echo "Error: --validate is required"    
     exit 1
 fi
 
