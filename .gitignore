@@ -60,6 +60,11 @@ recipes/**
 !recipes/**/validate/*
 !recipes/**/*_summary.txt
 
+dev-recipes/**
+!dev-recipes/**/
+!dev-recipes/**/*.cbl
+dev-recipes/**/*_freeze.cbl
+
 cbl-icr-small.sif
 cbl-carbine.sif
 cbl-cosmx.sif
@@ -68,3 +73,4 @@ cbl-template.tar
 cbl-carbine.tar
 cbl-template.sif
 .vscode/*
+
