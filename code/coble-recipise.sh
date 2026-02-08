@@ -1,17 +1,36 @@
 #!/usr/bin/env bash
 
 # At the start of the recipise function
-CONDA_BASE=$(conda info --base 2>/dev/null)
-if [ -z "$CONDA_BASE" ]; then
-    for loc in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" "/opt/conda"; do
-        [ -d "$loc" ] && CONDA_BASE="$loc" && break
-    done
-fi
+# In your recipise function:
 
-if [ -f "${CONDA_BASE}/etc/profile.d/conda.sh" ]; then
-    source "${CONDA_BASE}/etc/profile.d/conda.sh"
+## Ensure all conda paths are set to base
+# Find conda executable (works even before sourcing conda.sh)
+CONDA_EXECUTABLE=$(which conda 2>/dev/null || command -v conda 2>/dev/null)
+if [ -z "$CONDA_EXECUTABLE" ]; then
+    echo "Error: conda not found in PATH"
+    exit 1
 fi
-conda deactivate 2>/dev/null || true
+CONDA_BASE=$(dirname $(dirname $CONDA_EXECUTABLE))
+# Source conda.sh to enable shell functions
+source "${CONDA_BASE}/etc/profile.d/conda.sh"
+# NOW deactivate
+MAX_DEACTIVATIONS=5
+count=0
+while [ -n "$CONDA_DEFAULT_ENV" ] && [ "$CONDA_DEFAULT_ENV" != "base" ] && [ $count -lt $MAX_DEACTIVATIONS ]; do
+    echo "Deactivating from: $CONDA_DEFAULT_ENV (attempt $((count+1)))" >&2
+    conda deactivate 2>/dev/null || true
+    ((count++))
+done
+# Capture conda paths ONCE here
+CONDA_EXE=$(which conda)
+CONDA_ALIAS="${CONDA_EXE}"
+
+echo "#####################################################################" >&2
+echo "[coble-recipise] CONDA executable: $CONDA_EXECUTABLE" >&2
+echo "[coble-recipise] CONDA base: $CONDA_BASE" >&2
+echo "[coble-recipise] CONDA exe: $CONDA_EXE" >&2
+echo "[coble-recipise] CONDA alias: $CONDA_ALIAS" >&2
+echo "#####################################################################" >&2
 
 # Turn a captured yaml file into a coble recipe script
 # CROSS-PLATFORM VERSION - supports Linux AMD64, Linux ARM64, macOS Intel, macOS ARM64
@@ -131,7 +150,7 @@ RECIPE_FILE=""
 ENV_NAME=""
 OUTDIR="."
 CONDA_ALIAS="conda"
-CONDA_EXE="conda"
+CONDA_EXE=$CONDA_EXE
 VAL_FILE=""
 VAL_FOLDER=""
 R_SEPARATE_VERSION=false
@@ -255,9 +274,9 @@ echo "[coble-recipise] Using conda prefix $CONDA_PREFIX: $(which $CONDA_PREFIX)"
 
 
 # Or use this more reliable method:
-CONDA_EXE=$(which $CONDA_EXE)
-CONDA_ALIAS=$(which $CONDA_ALIAS)
-CONDA_BASE=$(dirname $(dirname $CONDA_EXE))
+#CONDA_EXE=$(which $CONDA_EXE)
+#CONDA_ALIAS=$(which $CONDA_ALIAS)
+#CONDA_BASE=$(dirname $(dirname $CONDA_EXE))
 TARGET_ENV="${ENV_INPUT}"  
 TARGET_ENV_PATH="${CONDA_BASE}/envs/${TARGET_ENV}"
 
@@ -547,9 +566,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                                                 
                 echo "###############################" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"                
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $CONDA_COMPILE_PACKAGES_MULTI \" >>  "$RECIPE_FILE"
-                echo "CONDA_COMPILE_PACKAGES_NON_VER \" >>  "$RECIPE_FILE"
-                echo "CONDA_COMPILE_PACKAGES_NON" >>  "$RECIPE_FILE"                
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge \\" >>  "$RECIPE_FILE"
+                echo "$CONDA_COMPILE_PACKAGES_MULTI \\" >>  "$RECIPE_FILE"
+                echo "$CONDA_COMPILE_PACKAGES_NON_VER \\" >>  "$RECIPE_FILE"
+                echo "$CONDA_COMPILE_PACKAGES_NON" >>  "$RECIPE_FILE"                
                 echo "" >> "$RECIPE_FILE"
                 echo "###############################" >> "$RECIPE_FILE"
                                 
@@ -736,16 +756,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Installing R base version $ver separately" >> "$RECIPE_FILE"                                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
                     echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
-                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"
-                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI}" >> "$RECIPE_FILE"                                                        
+                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI} \\" >> "$RECIPE_FILE"                                                        
+                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER}" >> "$RECIPE_FILE"
+                    
                 else
                     if [[ "$src" != "" ]]; then       
                         pkg="$src::$pkg"                                            
                     fi
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
                     echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
-                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"
                     echo "  ${CONDA_COMPILE_PACKAGES_MULTI} \\" >> "$RECIPE_FILE"                
+                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"                    
                     echo "  '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE" 
                 fi
                 echo "# Recommended tools: $PREFIX" >> "$RECIPE_FILE"
