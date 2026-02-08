@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 11:01:49 GMT
+# Capture time: 12:22:11 GMT
 # Captured by: ralcraft
 # Platform: 
 #####################################################
@@ -13,7 +13,7 @@ CONDA_BASE=$(conda info --base 2>/dev/null)
 source "${CONDA_BASE}/etc/profile.d/conda.sh"
 conda deactivate 2>/dev/null || true
 # Using conda executable /home/ralcraft/miniforge3/bin/conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias /home/ralcraft/miniforge3/bin/conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
 # CONDA base /home/ralcraft/miniforge3
 # Target environment carbine
 # Target path /home/ralcraft/miniforge3/envs/carbine
@@ -45,10 +45,10 @@ export | grep PYTHONNOUSERSITE
 #####################################################
 # languages:
 # cmdstan=2.38.0 adding to init installs
-/home/ralcraft/miniforge3/bin/conda install -y  \
+conda install -y  \
   gcc_linux-64 gxx_linux-64 gfortran_linux-64 \
-  sysroot_linux-64 \
   c-compiler cxx-compiler fortran-compiler 'cmdstan=2.38.0' \
+  sysroot_linux-64 \
   'r-base=4.4.3' r-remotes r-biocmanager
 # Recommended tools: 
 # Symlink all compiler/binutils tools
@@ -84,7 +84,7 @@ ln -sf $CONDA_PREFIX/bin/cc /home/ralcraft/miniforge3/bin/cc
 conda deactivate
 conda activate carbine
 
-/home/ralcraft/miniforge3/bin/conda install -y  'python=3.12'
+conda install -y  'python=3.12'
 python -m site
 /home/ralcraft/miniforge3/bin/conda env config vars set PYTHONNOUSERSITE=1
 conda deactivate
@@ -94,21 +94,21 @@ conda activate carbine
 
 # Including system dependencies for source installations
 # Essential shared packages
-/home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
+conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
 # System r packages
 # Essential r packages
 
 # Essential python packages
 
 # Language build tools
-/home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge make cmake pkg-config
+conda install -y --no-update-deps -c conda-forge make cmake pkg-config
 # Language core system libraries
-/home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
+conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
 /home/ralcraft/miniforge3/bin/conda env config vars set QT_QPA_PLATFORM=offscreen
 conda deactivate
 conda activate carbine
 # conda:
-/home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps \
+conda install -y  --no-update-deps \
 'cmdstanpy=1.3.0' \
 'arviz' \
 'pytz' \
@@ -119,7 +119,7 @@ conda activate carbine
 'seaborn=0.13.2' \
 'xz' 
 # r-conda:
-/home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps \
+conda install -y  --no-update-deps \
 'r-ctree' \
 'r-doBy' \
 'r-pbkrtest' \
@@ -136,7 +136,7 @@ Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org", depend
 Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 # r-conda:
-/home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps \
+conda install -y  --no-update-deps \
 'r-ggthemes' \
 'r-clisymbols' \
 'r-reshape2' \
@@ -154,7 +154,7 @@ Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org", de
 Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
 # bioc-conda:
-/home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps \
+conda install -y  --no-update-deps \
 'bioconda::bioconductor-rtracklayer=1.66.0' \
 'bioconda::bioconductor-genomicfeatures=1.58.0' \
 'bioconda::bioconductor-delayedarray=0.32.0' \

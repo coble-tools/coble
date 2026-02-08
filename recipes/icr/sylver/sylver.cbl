@@ -13,7 +13,9 @@ flags:
   - priority: flexible
 languages:
   - compile-version=7.5.0
-  - separate-r=true
+  - compile-order=with
+  - env-sims=true
+  - base-sims=false
   - r-base=3.6.0@r
 flags:
   - dependencies: NA  

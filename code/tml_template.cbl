@@ -11,6 +11,10 @@ channels: # note the reverse order of priority
   - bioconda
   - conda-forge
 languages:
+  - compile-version=7.5.0 # a number, or true or false
+  - compile-order=last # compilers first, last, with the r install or never
+  - env-sims=true # true/false - whether to add simlinks
+  - base-sims=true  # true/false - whether to add simlinks for base packages (old version s of r only)
   - python=3.13.1@conda-forge # you need 1 or both or neither
   - r-base=4.3.1@conda-forge #  you must choose a version for them
 flags:

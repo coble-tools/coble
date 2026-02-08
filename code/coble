@@ -118,6 +118,8 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	temp_output=$("$script_dir/coble-recipise.sh" "${@:2}")
 	success=$(echo "$temp_output" | sed -n '1p')
 	recipe_file=$(echo "$temp_output" | sed -n '2p')
+
+	echo "[coble] Recipisation success: $success, recipe file: $recipe_file" >&2
 	
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
@@ -130,6 +132,11 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	done_recipe="$RESULTS_DIR/${base_name_noext}.done"
 	summary_file="$RESULTS_DIR/${base_name_noext}_summary.txt"
 	capture_file="$RESULTS_DIR/${base_name_noext}_freeze.cbl"
+
+	echo "[coble] Recipe created at $recipe_file" >&2
+	echo "[coble] Done recipe will be at $done_recipe" >&2
+	echo "[coble] Summary file will be at $summary_file" >&2
+	echo "[coble] Capture file will be at $capture_file" >&2
 	
     
     if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then

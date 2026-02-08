@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 11:12:55 GMT
+# Capture time: 12:42:47 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,7 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/carbine/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: QT_QPA_PLATFORM="offscreen"
 
@@ -597,7 +597,7 @@ bioc-conda:
   - biocio=1.16.0@bioconda
   - biocparallel=1.40.0@bioconda
   - biostrings=2.74.0@bioconda
-  - data-packages=20260107@bioconda
+  - data-packages=20260207@bioconda
   - delayedarray=0.32.0@bioconda
   - genomeinfodb=1.42.0@bioconda
   - genomeinfodbdata=1.2.13@bioconda

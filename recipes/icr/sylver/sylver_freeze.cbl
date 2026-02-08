@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 12:09:33 GMT
+# Capture time: 14:21:05 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,7 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/sylver/lib:"
 
 conda:
   - binutils=2.35.1@defaults
