@@ -4,9 +4,9 @@ Run script in docker
 ```bash
 mkdir -p recipes_docker/utils/r-360
 
-docker run --rm -it -v .:/app cbl-empty
+docker run --rm -it -v .:/workspace -w /workspace cbl-empty
 
-cp recipes/utils/r-360/r-360.cbl recipes_docker/utils/r-360/r-360.cbl 
+cp recipes/utils/r-360/r-360.cbl recipes_docker/utils/r-360/r-360.cbl
 
 code/coble build \
 --recipe recipes_docker/utils/r-360/r-360.cbl \

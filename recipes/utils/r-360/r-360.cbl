@@ -3,19 +3,19 @@
 #######################################
 coble:
   - environment: cbl-360
-channels:
-  - r
+channels:  
+  - defaults  
+  - conda-forge  
   - bioconda
-  - conda-forge
-  - defaults
+  - r
 flags:    
   - priority: flexible
 languages:
   - compile-version=7.5.0
-  - compile-order=with
+  - compile-order=first
   - env-sims=true
-  - base-sims=false
-  - r-base=3.6.0@r
+  - base-sims=true
+  - r-base=3.6.0
 flags:
   - dependencies: NA  
   - build-tools: false

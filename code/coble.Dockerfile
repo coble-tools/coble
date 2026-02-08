@@ -108,7 +108,7 @@ ENV MAMBA_NO_BANNER=1
 ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
-RUN mkdir -p code recipe validate
+RUN mkdir -p code recipe validate workspace
 # Install coble from GitHub
 COPY code ./code
 
@@ -145,6 +145,7 @@ COPY ${VAL_FOLDER:-code/validate}/ /app/validate/
 RUN echo "channels:" > /app/.condarc && \
     echo "  - conda-forge" >> /app/.condarc && \
     echo "  - bioconda" >> /app/.condarc && \        
+    echo "  - r" >> /app/.condarc && \        
     echo "  - defaults" >> /app/.condarc && \
     echo "notify_outdated_conda: false" >> /app/.condarc && \
     echo "channel_priority: strict" >> /app/.condarc
@@ -184,7 +185,7 @@ ENV GITHUB_PAT=
 
 
 # Conditional message of the day (motd) based on BANNER
-RUN if [ "$BANNER" == "ICR" ]; then \
+RUN if [ "${BANNER}" = "ICR" ]; then \
       echo '╔════════════════════════════════════════════════════════╗' > /etc/motd && \
       echo '║        (c) ICR 2026 Scientific Computing               ║' >> /etc/motd && \  
       echo '╚════════════════════════════════════════════════════════╝' >> /etc/motd; \     

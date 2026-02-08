@@ -229,7 +229,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     echo "[coble-docker] To run use:"
     echo ""
-    echo "docker run --rm -it -v .:/app $IMAGE_NAME"
+    echo "docker run --rm -it -v .:/workspace -w /workspace $IMAGE_NAME"
     echo ""
 
 fi

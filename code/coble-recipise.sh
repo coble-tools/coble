@@ -22,7 +22,7 @@ while [ -n "$CONDA_DEFAULT_ENV" ] && [ "$CONDA_DEFAULT_ENV" != "base" ] && [ $co
     ((count++))
 done
 # Capture conda paths ONCE here
-CONDA_EXE=$(which conda)
+#CONDA_EXE=$(which conda)
 CONDA_ALIAS="${CONDA_EXE}"
 
 echo "#####################################################################" >&2
@@ -150,7 +150,7 @@ RECIPE_FILE=""
 ENV_NAME=""
 OUTDIR="."
 CONDA_ALIAS="conda"
-CONDA_EXE=$CONDA_EXE
+CONDA_EXE="conda" #$CONDA_EXE
 VAL_FILE=""
 VAL_FOLDER=""
 COMPILE_ORDER=never
@@ -309,8 +309,8 @@ TARGET_ENV_PATH="${CONDA_BASE}/envs/${TARGET_ENV}"
     echo "[ -z \"\$CONDA_BASE\" ] && CONDA_BASE=\"$HOME/miniforge3\""
     echo "source \"\${CONDA_BASE}/etc/profile.d/conda.sh\""
     echo "conda deactivate 2>/dev/null || true"
-    echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
-    echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"        
+    echo "# Using conda executable $(which $CONDA_EXE)"
+    echo "# Using conda alias $(which $CONDA_ALIAS)"        
     echo "# CONDA base $CONDA_BASE"    
     echo "# Target environment $ENV_INPUT"
     echo "# Target path $TARGET_ENV_PATH"
@@ -328,7 +328,7 @@ echo "[coble-recipise] Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, 
 echo "# Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >> "$RECIPE_FILE"
 COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")
 CONDA_COMPILE_PACKAGES_VER="$COMPILER_PACKAGES"
-CONDA_COMPILE_PACKAGES_MULTI="c-compiler cxx-compiler fortran-compiler"
+CONDA_COMPILE_PACKAGES_META="c-compiler cxx-compiler fortran-compiler"
 CONDA_COMPILE_PACKAGES_NON_VER=""
 
 # Add system specific compiler tools                
@@ -341,7 +341,7 @@ elif [[ "$DETECTED_OS" == "osx" && "$DETECTED_ARCH" == "x86_64" ]]; then
 elif [[ "$DETECTED_OS" == "osx" && "$DETECTED_ARCH" == "arm64" ]]; then
     CONDA_COMPILE_PACKAGES_NON_VER="sysroot_osx-arm64"
 fi
-echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_MULTI" >> "$RECIPE_FILE"
+echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_META" >> "$RECIPE_FILE"
 echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_NON_VER" >> "$RECIPE_FILE"
 echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_VER" >> "$RECIPE_FILE"
 
@@ -349,6 +349,7 @@ echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_VER" >> "$RECIPE_FILE"
 ### 01 Language checking checking ########################################
 languages_line="${CONDA_EXE} env remove ${CONDA_ENV} -y 2>/dev/null || true"
 languages_line+="\n${CONDA_EXE} create --no-default-packages ${CONDA_ENV} -y"
+languages_line+="\n${CONDA_EXE} config --env --set solver classic"
 
 CURRENT_SECTION="bash"
 r_count=0
@@ -390,6 +391,11 @@ echo "[coble-recipise] Clearing default channels." >&2
 echo "# Channels section" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --remove-key channels || true" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
+
+echo "echo '=== Channel Config Check ===' >&2" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --show channels >&2" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --show channel_priority >&2" >> "$RECIPE_FILE"
+echo "echo '===========================' >&2" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
 if [[ $r_count -gt 1 ]]; then
@@ -510,6 +516,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "priority" ]]; then                
                 PRIORITY="$value"                
                 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
+                echo "echo '=== Channel Config Check ===' >&2" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --show channels >&2" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --show channel_priority >&2" >> "$RECIPE_FILE"
+                echo "echo '===========================' >&2" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "channel" ]]; then                                          
                 echo "${CONDA_EXE} config --env --add channels $value" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
@@ -573,7 +583,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 pkg="${pkg## }"
                 pkg="${pkg%% }"
                 echo "# $pkg adding to init installs" >> "$RECIPE_FILE"                
-                CONDA_COMPILE_PACKAGES_MULTI="$CONDA_COMPILE_PACKAGES_MULTI '$pkg'"
+                CONDA_COMPILE_PACKAGES_META="$CONDA_COMPILE_PACKAGES_META '$pkg'"
             elif [[ "$pkg_only" == "compile-version"* ]]; then   
                 echo "# Setting compile tools version to $ver" >> "$RECIPE_FILE"
                 COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")
@@ -598,43 +608,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 #################################################################################################
 #                        R Decision TREE on COMPILER INSTALLS
 #################################################################################################
-#################################################################################################                          
-
+#################################################################################################                                          
+                echo "echo '=== Channel Config Check ===' >&2" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --show channels >&2" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} config --env --show channel_priority >&2" >> "$RECIPE_FILE"
+                echo "echo '===========================' >&2" >> "$RECIPE_FILE"
+                                                
                 if [[ "$src" != "" ]]; then       
                         pkg="$src::$pkg"                                            
                 fi
-                
-                if [[ $BASE_SIMS == "true" ]]; then
-                    
-                    echo "# Base sims enabled - adding base simlinks prior toinstlalation" >> "$RECIPE_FILE"
-                    # Workaround for R 3.6.0 post-link script bug: 
-                    # R 3.6.0 looks for compilers in base conda /bin, not in the environment
-                    # Create symlinks so R can find them (architecture-aware)
-                    echo "# Creating compiler symlinks in base conda for R 3.6.0 compatibility..." >> "$RECIPE_FILE"                
-                    echo "[coble-recipise] Using conda base = $CONDA_BASE" >&2
-                    echo "[coble-recipise] Using conda target =  $TARGET_ENV_PATH" >&2
-                    echo "[coble-recipise] Using conda prefix = $CONDA_PREFIX" >&2                
-                    # Find the actual compiler prefix (could be x86_64, aarch64, etc.)
-                    # Execute the checks NOW, only write ln commands if files exist
-                    for compiler in gcc gfortran f95; do
-                        VERSIONED_COMPILER=$(ls -1 $CONDA_PREFIX/bin/*-$compiler 2>/dev/null | head -1)
-                        if [ -n "$VERSIONED_COMPILER" ]; then
-                            COMPILER_NAME=$(basename $VERSIONED_COMPILER)
-                            # Just write the ln command
-                            echo "ln -sf \$CONDA_PREFIX/bin/$COMPILER_NAME $CONDA_BASE/bin/$COMPILER_NAME" >> "$RECIPE_FILE"
-                        fi
-                    done
-                    # Execute the checks NOW, only write ln commands if files exist
-                    for tool in gcc g++ gfortran f95 c++ cc; do
-                        # Check if file exists NOW (during generation)
-                        if [ -f "$CONDA_PREFIX/bin/$tool" ]; then
-                            # Write just the ln command, not the if statement
-                            echo "ln -sf \$CONDA_PREFIX/bin/$tool $CONDA_BASE/bin/$tool" >> "$RECIPE_FILE"
-                        fi
-                    done                    
-
-                fi
-                
+                               
+                echo "# Detected R package: $pkg with compile order $COMPILE_ORDER" >> "$RECIPE_FILE"
                 if [[ $COMPILE_ORDER == "never" || $COMPILE_ORDER == "last" ]]; then
                     
                     echo "# Installing R base version $ver separately" >> "$RECIPE_FILE"                                                                        
@@ -643,17 +627,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 
                 if [[ $COMPILE_ORDER == "first" ]]; then
-                    echo "# Installing R base version together with compilers" >> "$RECIPE_FILE"                                    
+                    echo "# Installing compilers first" >> "$RECIPE_FILE"                                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
                     echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
-                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI} \\" >> "$RECIPE_FILE"                                                        
+                    #echo "  ${CONDA_COMPILE_PACKAGES_META} \\" >> "$RECIPE_FILE"                                                        
                     echo "  ${CONDA_COMPILE_PACKAGES_NON_VER}" >> "$RECIPE_FILE"                    
                 fi
                 
                 if [[ $COMPILE_ORDER == "with" ]]; then
+                    echo "# Installing compilers with language first" >> "$RECIPE_FILE"  
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
                     echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
-                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI} \\" >> "$RECIPE_FILE"                
+                    #echo "  ${CONDA_COMPILE_PACKAGES_META} \\" >> "$RECIPE_FILE"                
                     echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"                    
                     echo "  '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE" 
                 fi
@@ -723,11 +708,33 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
                     echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
-
+                                                            
                     echo "conda deactivate" >> "$RECIPE_FILE"
-                    echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                    echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"
                 
+                fi
+
+                if [[ $BASE_SIMS == "true" ]]; then
+                    
+                    echo "# Base sims enabled - adding base simlinks prior to installation" >> "$RECIPE_FILE"
+                    # Workaround for R 3.6.0 post-link script bug: 
+                    # R 3.6.0 looks for compilers in base conda /bin, not in the environment
+                    # Create symlinks so R can find them (architecture-aware)
+                    echo "# Creating compiler symlinks in base conda for R 3.6.0 compatibility..." >> "$RECIPE_FILE"                
+                    echo "[coble-recipise] Using conda base = $CONDA_BASE" >&2
+                    echo "[coble-recipise] Using conda target =  $TARGET_ENV_PATH" >&2
+                    echo "[coble-recipise] Using conda prefix = $CONDA_PREFIX" >&2                
+                    # Find the actual compiler prefix (could be x86_64, aarch64, etc.)
+                    # Execute the checks NOW, only write ln commands if files exist
+                    for compiler in gcc gfortran f95; do
+                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-$compiler $CONDA_BASE/bin/x86_64-conda-linux-gnu-$compiler" >> "$RECIPE_FILE"
+                    done
+
+                    for tool in gcc g++ gfortran f95 c++ cc; do
+                        echo "ln -sf \$CONDA_PREFIX/bin/$tool $CONDA_BASE/bin/$tool" >> "$RECIPE_FILE"
+                    done
+
                 fi
                                                                 
                 if [[ $COMPILE_ORDER == "first" ]]; then
@@ -735,7 +742,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Installing R base version $ver separately" >> "$RECIPE_FILE"                                                                        
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} ${pkg} r-remotes r-biocmanager" >> "$RECIPE_FILE"
                                         
-                fi                
+                fi   
+
+                if [[ $COMPILE_ORDER == "last" ]]; then
+                    echo "# Installing compilers first" >> "$RECIPE_FILE"                                    
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
+                    echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
+                    #echo "  ${CONDA_COMPILE_PACKAGES_META} \\" >> "$RECIPE_FILE"                                                        
+                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER}" >> "$RECIPE_FILE"                    
+                fi             
 
 #################################################################################################
 #################################################################################################

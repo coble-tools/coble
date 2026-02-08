@@ -15,7 +15,7 @@ languages:
   - compile-version=7.5.0
   - compile-order=with
   - env-sims=true
-  - base-sims=false
+  - base-sims=true
   - r-base=3.6.0@r
 flags:
   - dependencies: NA  
