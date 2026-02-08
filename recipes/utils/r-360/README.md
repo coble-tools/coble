@@ -2,9 +2,10 @@
 
 Run script in docker
 ```bash
-docker run --rm -it -v /my/code/path:/app icrsc/coble:<tag>
-
 mkdir -p recipes_docker/utils/r-360
+
+docker run --rm -it -v .:/app cbl-empty
+
 cp recipes/utils/r-360/r-360.cbl recipes_docker/utils/r-360/r-360.cbl 
 
 code/coble build \

@@ -8,7 +8,6 @@ run_block () {
     local NAME="$2"      # e.g. carbine or sylver
 
     echo "Running ${BASE} ${NAME} test"    
-    conda clean --all -y
     
     local RECIPE="${BASE}/${NAME}/${NAME}.cbl"
     local VALIDATE="${BASE}/${NAME}/validate/validate.sh"
@@ -33,6 +32,7 @@ run_block () {
         --env "$ENV" \
         --containers conda \
         --rebuild \
+        --clean \
         2>&1 | tee -a "$LOG"
 
     exit ${PIPESTATUS[0]}

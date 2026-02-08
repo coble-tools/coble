@@ -157,6 +157,7 @@ COMPILE_ORDER=never
 ENV_SIMS=false
 BASE_SIMS=false
 COMPILE_VER=false
+CLEAN=false
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -170,6 +171,7 @@ show_help() {
     echo "  --alias    EXE     Specify optional alternative to conda eg mamba"
     echo "  --validate FILE    Specify optional validation file"
     echo "  --val-folder FILEs  Specify additionals validation files"
+    echo "  --clean            Clean conda cache before building"
     echo "  -h, --help         Show this help message and exit"
 }
 
@@ -211,6 +213,10 @@ while [[ $# -gt 0 ]]; do
         *)
             shift
             ;;
+        --clean)
+            CLEAN=true
+            shift
+            ;;  
     esac
 done
 
@@ -370,6 +376,10 @@ echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "umask 0022" >> "$RECIPE_FILE"
+if [[ "$CLEAN" == "true" ]]; then
+    echo "# Cleaning conda cache before building" >> "$RECIPE_FILE"
+    echo "${CONDA_EXE} clean --all -y" >> "$RECIPE_FILE"
+fi
 echo "# activate environment" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"

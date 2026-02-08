@@ -81,3 +81,4 @@ tests/github/*_summary.txt
 tests/github/*.sh
 tests/github/sylver_summary.txt
 DESeq2_MA_plot.png
+recipes_docker/*
