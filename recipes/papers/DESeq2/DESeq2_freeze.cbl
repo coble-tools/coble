@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-04
-# Capture time: 11:11:05 GMT
+# Capture date: 2026-02-08
+# Capture time: 00:36:25 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,6 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/deseq2/lib:/home/ralcraft/miniforge3/envs/deseq2/lib:/home/ralcraft/miniforge3/envs/deseq2/lib:/home/ralcraft/miniforge3/envs/deseq2/lib:/home/ralcraft/miniforge3/envs/deseq2/lib:"
 
 conda:
   - binutils=2.36.1@conda-forge
@@ -82,7 +83,11 @@ conda:
   - libiconv=1.18@conda-forge
   - liblapack=3.8.0@conda-forge
   - libnsl=2.0.1@conda-forge
-  - libopenblas=0.3.28@conda-forge
+
+conda:
+  - libopenblas=0.3.30@defaults
+
+conda:
   - libpng=1.6.43@conda-forge
   - libsqlite=3.46.0@conda-forge
   - libssh2=1.10.0@conda-forge
@@ -90,23 +95,20 @@ conda:
   - libuuid=2.41.3@conda-forge
   - libxcb=1.17.0@conda-forge
   - libxml2=2.9.10@conda-forge
-  - llvm-openmp=21.1.8@conda-forge
   - make=4.4.1@conda-forge
-  - mkl=2024.2.2@conda-forge
   - ncurses=6.5@conda-forge
   - openssl=1.1.1w@conda-forge
   - packaging=26.0@conda-forge
   - pango=1.42.4@conda-forge
   - pcre2=10.43@conda-forge
   - pcre=8.45@conda-forge
-  - pip=26.0@conda-forge
+  - pip=26.0.1@conda-forge
   - pixman=0.38.0@conda-forge
   - pthread-stubs=0.4@conda-forge
   - readline=8.3@conda-forge
   - sed=4.9@conda-forge
-  - setuptools=80.10.2@conda-forge
+  - setuptools=81.0.0@conda-forge
   - sysroot_linux-64=2.39@conda-forge
-  - tbb=2021.7.0@conda-forge
   - tk=8.6.13@conda-forge
   - tktable=2.10@conda-forge
   - tzdata=2025c@conda-forge

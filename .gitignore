@@ -53,6 +53,7 @@ tests/fixtures/*_freeze.cbl
 recipes/**
 !recipes/**/
 !recipes/**/*.cbl
+!recipes/**/*.sh
 !recipes/**/.dockerhub
 !recipes/**/.DOCKERHUB
 !recipes/**/README.md

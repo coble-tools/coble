@@ -2,27 +2,23 @@
 # COBLE:Reproducible environment: carbine, (c) ICR 2026
 #####################################################
 coble:
-  - environment: carbine
+  - environment: carbine  
 channels:
-# note the reverse order of priority
   - defaults  
   - bioconda
   - conda-forge
 languages:
-  - python=3.12
+  - add: cmdstan=2.38.0
   - r-base=4.4.3
+  - python=3.12  
 flags:
-  - dependencies: NA
-  - compile-tools: True
+  - dependencies: NA  
   - system-tools: True
-  - export: QT_QPA_PLATFORM=offscreen  
-  #- export: OTEL_SDK_DISABLED=true
-  #- export: R_OTEL_DISABLED=true
-conda:    
+  - export: QT_QPA_PLATFORM=offscreen    
+conda:      
+  - cmdstanpy=1.3.0   
   - arviz
   - pytz
-  - cmdstan=2.38.0
-  - cmdstanpy=1.3.0
   - ipython
   - matplotlib
   - pandas=3.0.0
@@ -74,14 +70,9 @@ bioc-package:
   - AnnotationDbi=1.68.0
   - ComplexHeatmap=2.22.0
   - VariantAnnotation  
-flags:
-  - dependencies: FALSE
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip
   - https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip
   - https://github.com/caravagn/evoverse/archive/refs/heads/development.zip
-  
-
-  

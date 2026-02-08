@@ -53,12 +53,7 @@ detect_platform() {
     echo "$os_type|$arch|$platform_string|$compiler_prefix"
 }
 
-# Get platform info
-PLATFORM_INFO=$(detect_platform)
-IFS='|' read -r DETECTED_OS DETECTED_ARCH PLATFORM_STRING COMPILER_PREFIX <<< "$PLATFORM_INFO"
 
-echo "[coble-recipise] Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >&2
-echo "# Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >> "$RECIPE_FILE"
 
 ##############
 # Portable sed in-place editing (macOS/BSD vs GNU)
@@ -80,28 +75,22 @@ get_compiler_packages() {
     local platform="$1"
     case "$platform" in
         "linux-64"|"linux/amd64")
-            #echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64"
-            echo "gcc_linux-64 gxx_linux-64"
+            echo "gcc_linux-64 gxx_linux-64 gfortran_linux-64"            
             ;;
         "linux-aarch64"|"linux/arm64")
-            #echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64 sysroot_linux-aarch64"
-            echo "gcc_linux-aarch64 gxx_linux-aarch64"
+            echo "gcc_linux-aarch64 gxx_linux-aarch64 gfortran_linux-aarch64"            
             ;;
         "osx-64")
-            #echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64"
-            echo "clang_osx-64 clangxx_osx-64"
+            echo "clang_osx-64 clangxx_osx-64 gfortran_osx-64"            
             ;;
         "osx-arm64"|"darwin/arm64")
-            #echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64"
-            echo "clang_osx-arm64 clangxx_osx-arm64"
+            echo "clang_osx-arm64 clangxx_osx-arm64 gfortran_osx-arm64"            
             ;;
         *)
             echo ""
             ;;
     esac
 }
-
-COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")
 
 ##############
 #mapfile -t result < <("$script_dir/coble-recipise.sh --recipe YAML_FILE --output RECIPE --env ENV")
@@ -132,6 +121,7 @@ CONDA_ALIAS="conda"
 CONDA_EXE="conda"
 VAL_FILE=""
 VAL_FOLDER=""
+R_SEPARATE_VERSION=false
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -275,6 +265,34 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     echo "#####################################################"    
     echo ""    
 } > "$RECIPE_FILE"
+
+### 00 cross platform support
+# Now do the cross platform support strings
+# Get platform info
+PLATFORM_INFO=$(detect_platform)
+IFS='|' read -r DETECTED_OS DETECTED_ARCH PLATFORM_STRING COMPILER_PREFIX <<< "$PLATFORM_INFO"
+
+echo "[coble-recipise] Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >&2
+echo "# Detected platform: OS=$DETECTED_OS, ARCH=$DETECTED_ARCH, PLATFORM=$PLATFORM_STRING" >> "$RECIPE_FILE"
+COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")
+CONDA_COMPILE_PACKAGES_VER="$COMPILER_PACKAGES"
+CONDA_COMPILE_PACKAGES_MULTI="c-compiler cxx-compiler fortran-compiler"
+CONDA_COMPILE_PACKAGES_NON_VER=""
+
+# Add system specific compiler tools                
+if [[ "$DETECTED_OS" == "linux" && "$DETECTED_ARCH" == "x86_64" ]]; then
+    CONDA_COMPILE_PACKAGES_NON_VER="sysroot_linux-64"
+elif [[ "$DETECTED_OS" == "linux" && "$DETECTED_ARCH" == "aarch64" ]]; then
+    CONDA_COMPILE_PACKAGES_NON_VER="sysroot_linux-aarch64"
+elif [[ "$DETECTED_OS" == "osx" && "$DETECTED_ARCH" == "x86_64" ]]; then
+    CONDA_COMPILE_PACKAGES_NON_VER="sysroot_osx-64"
+elif [[ "$DETECTED_OS" == "osx" && "$DETECTED_ARCH" == "arm64" ]]; then
+    CONDA_COMPILE_PACKAGES_NON_VER="sysroot_osx-arm64"
+fi
+echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_MULTI" >> "$RECIPE_FILE"
+echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_NON_VER" >> "$RECIPE_FILE"
+echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_VER" >> "$RECIPE_FILE"
+
 
 ### 01 Language checking checking ########################################
 languages_line="${CONDA_EXE} env remove ${CONDA_ENV} -y 2>/dev/null || true"
@@ -448,6 +466,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "default" ]]; then
                 echo "# R Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_R="default"
+                UPDATE_CONDA=""
             elif [[ "${directive_lower}" == "updates" ]]; then
                 echo "# Conda Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 UPDATE_CONDA="$value_lower"
@@ -480,69 +499,36 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
             
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then                
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then
                 # CROSS-PLATFORM COMPILER INSTALLATION
                 version="${value_lower}"
                 if [[ "$version" == "false" ]]; then
                     echo "[coble-recipise] Not adding compile tools to recipe." >&2
                     continue
                 fi
-                
-                echo "" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "# CROSS-PLATFORM COMPILER SETUP" >> "$RECIPE_FILE"
-                echo "# Platform: $PLATFORM_STRING" >> "$RECIPE_FILE"                
-                echo "# OS: $DETECTED_OS" >> "$RECIPE_FILE"
-                echo "# Arch: $DETECTED_ARCH" >> "$RECIPE_FILE"
-                    
-                echo "# ================================================" >> "$RECIPE_FILE"
-                
-                if [[ -z "$COMPILER_PACKAGES" ]]; then
-                    echo "# ERROR: No compiler packages available for platform: $PLATFORM_STRING" >> "$RECIPE_FILE"
-                    echo "[coble-recipise] ERROR: Platform $PLATFORM_STRING not supported for compiler installation" >&2
-                    continue
-                fi
-                
-                # Install appropriate compilers for platform
-                SYSTEM_TOOLS=""
-                if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile tools for $PLATFORM_STRING" >&2                                        
-                    SYSTEM_TOOLS="$SYSTEM_TOOLS $COMPILER_PACKAGES"                    
-                    # Add additional tools for Linux
-                    if [[ "$DETECTED_OS" == "linux" ]]; then                                            
-                        SYSTEM_TOOLS="$SYSTEM_TOOLS c-compiler cxx-compiler fortran-compiler"
-                        if [[ "$DETECTED_ARCH" == "x86_64" ]]; then                            
-                            SYSTEM_TOOLS="$SYSTEM_TOOLS sysroot_linux-64"
-                        else                            
-                            SYSTEM_TOOLS="$SYSTEM_TOOLS sysroot_linux-aarch64"
-                        fi
-                    fi
-                else
-                    echo "[coble-recipise] Adding compile tools version $version for $PLATFORM_STRING" >&2
-                    echo "# Language compile tools (version $version) for $PLATFORM_STRING" >> "$RECIPE_FILE"
-                    
-                    # Split compiler packages and add version
+
+                COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")                
+                echo "[coble-recipise] Adding compile tools version $version for $PLATFORM_STRING" >&2
+                CONDA_COMPILE_PACKAGES_VER=""
+                if [[ "$version" == "true" ]]; then                    
+                    CONDA_COMPILE_PACKAGES_VER="$COMPILER_PACKAGES"                                        
+                else                    
+                    echo "# Language compile tools (version $version) for $PLATFORM_STRING" >> "$RECIPE_FILE"                                        
                     versioned_packages=""
                     for pkg in $COMPILER_PACKAGES; do
-                        versioned_packages="$versioned_packages '${pkg}=${version}'"
+                        CONDA_COMPILE_PACKAGES_VER="$CONDA_COMPILE_PACKAGES_VER '${pkg}=${version}'"
                     done                    
-                    SYSTEM_TOOLS="$SYSTEM_TOOLS $versioned_packages"
-                    
-                    # Add additional tools for Linux
-                    if [[ "$DETECTED_OS" == "linux" ]]; then                        
-                        SYSTEM_TOOLS="$SYSTEM_TOOLS c-compiler cxx-compiler fortran-compiler"
-                    fi
+                    CONDA_COMPILE_PACKAGES_VER="${CONDA_COMPILE_PACKAGES_VER## }"                    
                 fi
-                echo "#####################" >> "$RECIPE_FILE"
-                echo "# Platform compile tools (version $version) for $PLATFORM_STRING" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $SYSTEM_TOOLS" >>  "$RECIPE_FILE"
-                echo "#####################" >> "$RECIPE_FILE"
-
-
-                # NOW install all the platform tools in 1 go to ensure they are all the same version and compatible with each other
-                # this is important for R package compilation which can be very sensitive to compiler versions and compatibility
-
-                
+                                                
+                echo "###############################" >> "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"                
+                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge $CONDA_COMPILE_PACKAGES_MULTI \" >>  "$RECIPE_FILE"
+                echo "CONDA_COMPILE_PACKAGES_NON_VER \" >>  "$RECIPE_FILE"
+                echo "CONDA_COMPILE_PACKAGES_NON" >>  "$RECIPE_FILE"                
+                echo "" >> "$RECIPE_FILE"
+                echo "###############################" >> "$RECIPE_FILE"
+                                
                 # Platform-specific symlink setup
                 if [[ "$DETECTED_OS" == "linux" ]]; then
                     echo "" >> "$RECIPE_FILE"
@@ -700,36 +686,152 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             src="${src## }"    # remove leading spaces
             src="${src%% }"    # remove trailing spaces
             pkg_only="${pkg_only## }"
-            pkg_only="${pkg_only%% }"            
+            pkg_only="${pkg_only%% }"                 
             if [[ "$pkg_only" == *"no-deps"* ]]; then
                 DEPS_CONDA="--no-deps"
-            elif [[ "$pkg_only" == "r-base" ]]; then                    
-                # R may need compilers, so symlink system tools into the env first
-                if [ "$ARCH" = "x86_64" ]; then \
-                    PREFIX="x86_64-conda-linux-gnu"; \
-                elif [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
-                    PREFIX="aarch64-conda-linux-gnu"; \
+            elif [[ "$pkg" == "add:"* ]]; then                
+                pkg="${pkg#add:}"                                                
+                pkg="${pkg## }"
+                pkg="${pkg%% }"
+                echo "# $pkg adding to init installs" >> "$RECIPE_FILE"                
+                CONDA_COMPILE_PACKAGES_MULTI="$CONDA_COMPILE_PACKAGES_MULTI '$pkg'"
+            elif [[ "$pkg_only" == "compile-version"* ]]; then   
+                echo "# Setting compile tools version to $ver" >> "$RECIPE_FILE"
+                COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")
+                CONDA_COMPILE_PACKAGES_VER=""
+                for pkg in $COMPILER_PACKAGES; do
+                    CONDA_COMPILE_PACKAGES_VER="$CONDA_COMPILE_PACKAGES_VER '${pkg}=${ver}'"
+                done
+                CONDA_COMPILE_PACKAGES_VER="${CONDA_COMPILE_PACKAGES_VER## }"            
+            
+            elif [[ "$pkg_only" == "separate-r"* ]]; then   
+                echo "# Setting separate R version to true" >> "$RECIPE_FILE"
+                R_SEPARATE_VERSION=true
+            elif [[ "$pkg_only" == "r-base" ]]; then                                                    
+                if [[ $R_SEPARATE_VERSION == true ]]; then
+                    echo "# Installing R base version $ver separately" >> "$RECIPE_FILE"                                    
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
+                    echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
+                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"
+                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI}" >> "$RECIPE_FILE"                                                        
+                else
+                    if [[ "$src" != "" ]]; then       
+                        pkg="$src::$pkg"                                            
+                    fi
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} \\" >> "$RECIPE_FILE"                    
+                    echo "  ${CONDA_COMPILE_PACKAGES_VER} \\" >> "$RECIPE_FILE"
+                    echo "  ${CONDA_COMPILE_PACKAGES_NON_VER} \\" >> "$RECIPE_FILE"
+                    echo "  ${CONDA_COMPILE_PACKAGES_MULTI} \\" >> "$RECIPE_FILE"                
+                    echo "  '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE" 
                 fi
-                
                 echo "# Recommended tools: $PREFIX" >> "$RECIPE_FILE"
                 echo "# Symlink all compiler/binutils tools" >> "$RECIPE_FILE"
-                #for tool in \
-                    #gcc g++ gfortran cpp cc c++ f77 f95; do
-                    #ar nm ranlib ld ld.gold as \
-                    #strip objdump objcopy addr2line \
-                    #c++filt elfedit gprof readelf size strings \
-                    #gcc-ar gcc-nm gcc-ranlib; do
-                #    if command -v $tool > /dev/null 2>&1; then
-                #        echo "ln -sf $(which $tool) $CONDA_BASE/bin/${PREFIX}-$tool" >> "$RECIPE_FILE"                        
-                #    fi
-                #done
-                                                   
+
+                # Platform-specific symlink setup
+                if [[ "$DETECTED_OS" == "linux" ]]; then
+                    echo "" >> "$RECIPE_FILE"
+                    echo "# Set up compiler symlinks for R package compilation - Linux $DETECTED_ARCH" >> "$RECIPE_FILE"
+                    echo "umask 0022" >> "$RECIPE_FILE"
                     
-                if [[ "$src" == "" ]]; then                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
-                else                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    # COS6 compatibility symlinks (Linux only)
+                    if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
+                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
+                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                        #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                    elif [[ "$DETECTED_ARCH" == "arm64" ]]; then
+                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
+                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                        #echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                    fi
+                    
+                    # Standard aliases
+                    echo "# Standard compiler aliases" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
+                    #echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
+                    
+                elif [[ "$DETECTED_OS" == "osx" ]]; then
+                    echo "" >> "$RECIPE_FILE"
+                    echo "# Set up compiler symlinks for R package compilation - macOS $DETECTED_ARCH" >> "$RECIPE_FILE"
+                    echo "umask 0022" >> "$RECIPE_FILE"
+                    
+                    # macOS uses clang, so symlink appropriately
+                    echo "# Standard compiler aliases for macOS" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
+                    
+                    # gfortran symlink
+                    if [[ "$DETECTED_ARCH" == "arm64" ]]; then
+                        echo "ln -sf \$CONDA_PREFIX/bin/arm64-apple-darwin20.0.0-gfortran \$CONDA_PREFIX/bin/gfortran 2>/dev/null || true" >> "$RECIPE_FILE"
+                    else
+                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-apple-darwin13.4.0-gfortran \$CONDA_PREFIX/bin/gfortran 2>/dev/null || true" >> "$RECIPE_FILE"
+                    fi
                 fi
+                
+                # Workaround for R 3.6.0 post-link script bug: 
+                # R 3.6.0 looks for compilers in base conda /bin, not in the environment
+                # Create symlinks so R can find them (architecture-aware)
+                echo "# Creating compiler symlinks in base conda for R 3.6.0 compatibility..." >> "$RECIPE_FILE"
+                CONDA_BASE=$(conda info --base)
+                
+                # Find the actual compiler prefix (could be x86_64, aarch64, etc.)
+                for compiler in gcc gfortran f95; do
+                    # Find the versioned compiler in the environment
+                    VERSIONED_COMPILER=$(ls -1 $CONDA_PREFIX/bin/*-$compiler 2>/dev/null | head -1)
+                    if [ -n "$VERSIONED_COMPILER" ]; then
+                        COMPILER_NAME=$(basename $VERSIONED_COMPILER)                        
+                        # Link it in base conda
+                        echo "ln -sf $VERSIONED_COMPILER $CONDA_BASE/bin/$COMPILER_NAME" >> "$RECIPE_FILE"
+                    fi
+                done
+
+                # Also link the non-versioned names if they exist
+                for tool in gcc g++ gfortran f95 c++ cc; do
+                    if [ -f "$CONDA_PREFIX/bin/$tool" ]; then
+                        echo "ln -sf $CONDA_PREFIX/bin/$tool $CONDA_BASE/bin/$tool" >> "$RECIPE_FILE"
+                    fi
+                done
+                
+                # Now add the config envs for the packages
+                if [[ "$DETECTED_OS" == "linux" ]]; then
+                    echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
+                elif [[ "$DETECTED_OS" == "osx" ]]; then
+                    echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/clang\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/clang++\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
+                fi
+                
+                echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
+                echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
+
+                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "" >> "$RECIPE_FILE"
+
+                
+                
+                if [[ $R_SEPARATE_VERSION == true ]]; then
+                    echo "# Installing R base version $ver separately" >> "$RECIPE_FILE"                                                                                    
+                    if [[ "$src" == "" ]]; then                                        
+                        echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} ${pkg} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    else                                        
+                        echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c ${src} ${pkg} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    fi
+                fi
+            
             elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"

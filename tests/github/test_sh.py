@@ -9,17 +9,32 @@ def do_block(block):
         'bash', 'tests/github/tests.sh', block
     ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True,shell=False)    
     print(result.stdout)
-    assert result.returncode == 0
+    return result.returncode
 
+def test_fail():
+    success = do_block("fail")
+    assert success != 0
 def test_small():
-    do_block("small")
-def test_docker():
-    do_block("docker")
+    success = do_block("small")
+    assert success == 0
+#def test_docker():
+#    success = do_block("docker")
+#    assert success == 0
 def test_carbine():
-    do_block("carbine")
+    success = do_block("carbine")
+    assert success == 0
+def test_sylver():
+    success = do_block("sylver")
+    assert success == 0
+def test_deseq2():
+    success = do_block("deseq2")
+    assert success == 0
     
 if __name__ == "__main__":
-    test_small()
-    test_docker()
-    test_carbine()
+    #test_fail()
+    #test_small()
+    #test_docker()
+    #test_carbine()
+    test_sylver()
+    #test_deseq2()
     

@@ -16,6 +16,10 @@ ARG TARGETPLATFORM
 FROM continuumio/miniconda3:latest
 WORKDIR /app
 
+RUN echo "=== Checking for existing compiler packages ===" && \
+    conda list | grep -E "(gcc|sysroot|compiler)" || echo "None found" && \
+    echo "============================================="
+
 # Build arguments for customization
 ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
@@ -26,6 +30,7 @@ ARG VAL_FOLDER=""
 ARG BANNER=""
 
 ENV CONDA_VERBOSITY=2
+ENV BANNER=${BANNER}
 
 # Set environment variables
 ENV COBLE_VARIANT=${BUILD_TAG}
@@ -64,9 +69,9 @@ ENV TZ=Europe/London
 # Install system dependencies
 RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update && \
     apt-get install -y --no-install-recommends \
-        build-essential \
-        gfortran \
-        binutils-gold \
+        #build-essential \
+        #gfortran \
+        #binutils-gold \
         zlib1g-dev \
         libgomp1 \
         gettext \

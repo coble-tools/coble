@@ -23,7 +23,7 @@ try:
     # Verify it worked
     assert fit is not None, "Sampling returned None"
     summary = fit.summary()
-    assert 'y' in summary.columns or summary.index.name == 'name', "Missing parameter 'y'"
+    assert 'y' in summary.index or 'y' in summary.columns, "Missing parameter 'y'"
     
     print("✓ Stan test PASSED")
     sys.exit(0)

@@ -72,7 +72,12 @@ find:
 ```
 
 ```bash
-code/coble build --recipe recipes/publications/DESeq2/DESeq2.cbl --env deseq2
+code/coble build \
+--recipe recipes/papers/DESeq2/DESeq2.cbl \
+--env deseq2 \
+--validate recipes/papers/DESeq2/validate/validate.sh \
+--val-folder recipes/papers/DESeq2/validate/ \
+--rebuild
 ```
 
 This returns the best discovery it can do with no filtering leaving the researcher to make the choices.

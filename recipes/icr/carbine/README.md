@@ -16,6 +16,9 @@ code/coble build --recipe recipes/icr/carbine/carbine.cbl \
 --val-folder recipes/icr/carbine/validate/ \
 --containers docker,singularity \
 --banner ICR
-#--target linux/amd64,linux/amd64 \
+#--target linux/amd64,linux/arm64 \
 
 ```
+
+# tag to contribute todocker
+docker tag cbl-carbine icrsc/cbl-carbine:latest

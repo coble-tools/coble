@@ -9,11 +9,14 @@ channels:
   - bioconda
   - conda-forge
   - defaults
+flags:    
+  - priority: flexible
 languages:
+  - compile-version=13.1
+  - separate-r=true
   - r-base=3.6.0@r
 flags:
-  - dependencies: NA
-  - compile-tools: 13.1
+  - dependencies: NA  
   - build-tools: false
   - priority: strict
   - channel: bioconda
