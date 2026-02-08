@@ -1,19 +1,24 @@
 coble:
   - environment: DESeq2
 channels: # note the reverse order of priority  
-  - defaults
+  - r
   - bioconda
-  - conda-forge  
+  - conda-forge
+  - defaults
 flags:    
   - priority: flexible
 languages:  
   - compile-version=7.5.0
-  - separate-r=true
-  - r-base=3.6.2@conda-forge
+  - compile-order=with
+  - env-sims=true
+  - base-sims=false
+  - r-base=3.6.2
 flags:
-  - dependencies: NA
-  - system-tools: false  
+  - dependencies: NA  
+  - build-tools: false
   - priority: strict
+  - channel: bioconda
+  - channel: conda-forge  
 bioc-conda:
   - DESeq2
   - DESeq

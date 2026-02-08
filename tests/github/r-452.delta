@@ -1,0 +1,78 @@
+CONDA_BASE=$(conda info --base 2>/dev/null)
+
+[ -z "$CONDA_BASE" ] && CONDA_BASE="/home/ralcraft/miniforge3"
+
+source "${CONDA_BASE}/etc/profile.d/conda.sh"
+
+conda deactivate 2>/dev/null || true
+/home/ralcraft/miniforge3/condabin/conda env remove --name r-452x -y 2>/dev/null || true
+
+/home/ralcraft/miniforge3/condabin/conda create --no-default-packages --name r-452x -y
+
+export PYTHONNOUSERSITE=1
+unset PYTHONPATH
+umask 0022
+conda activate r-452x
+export PYTHONNOUSERSITE=1
+export | grep PYTHONNOUSERSITE
+/home/ralcraft/miniforge3/condabin/conda config --env --remove-key channels
+
+/home/ralcraft/miniforge3/condabin/conda config --env --set channel_priority strict
+
+/home/ralcraft/miniforge3/condabin/conda config --env --add channels defaults
+
+/home/ralcraft/miniforge3/condabin/conda config --env --add channels r
+
+/home/ralcraft/miniforge3/condabin/conda config --env --add channels bioconda
+
+/home/ralcraft/miniforge3/condabin/conda config --env --add channels conda-forge
+
+conda install -y  'conda-forge::python=3.14.0'
+
+python -m site
+
+/home/ralcraft/miniforge3/condabin/conda env config vars set PYTHONNOUSERSITE=1
+
+conda deactivate
+conda activate r-452x
+conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
+
+conda install -y --no-update-deps -c conda-forge make cmake pkg-config
+
+conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
+
+python -m pip install "setuptools>=59.0"
+
+python -m pip install --upgrade "Cython>=3.0.11"
+
+python -m pip install pysam
+
+CFLAGS="-Wno-error=incompatible-pointer-types" CPPFLAGS="-Wno-error=incompatible-pointer-types" python -m pip install --no-build-isolation git+https://github.com/rachelicr/pysamstats.git
+
+conda install -y  --no-update-deps \
+'r-biocmanager' \
+'r-devtools' \
+'r-data.table' 
+
+Rscript -e 'BiocManager::install("fgsea", dependencies=NA, Ncpus=8)'
+
+conda install -y  --no-update-deps \
+'r-stringi' \
+'r-rcpp' \
+'r-plyr' \
+'r-reticulate' \
+'r-sitmo' \
+'r-seurat' \
+'r-units' 
+
+conda install -y  --no-update-deps \
+'r-raster' \
+'r-spdep' \
+'r-magick' 
+
+Rscript -e 'BiocManager::install("stJoincount", dependencies=NA, Ncpus=8)'
+
+cp recipes/utils/r-452/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+
+chmod +x ${CONDA_PREFIX}/bin/validate.sh
+

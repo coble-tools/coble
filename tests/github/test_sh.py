@@ -32,6 +32,12 @@ def test_deseq2():
 def test_r_452():
     success = do_block("r-452")
     assert success == 0
+def test_r_360():
+    success = do_block("r-360")
+    assert success == 0
+def test_r_362():
+    success = do_block("r-362")
+    assert success == 0    
 if __name__ == "__main__":
     #test_fail()
     test_small()

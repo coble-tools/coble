@@ -75,3 +75,8 @@ cbl-carbine.tar
 cbl-template.sif
 .vscode/*
 
+tests/github/*.tmp
+tests/github/*.done
+tests/github/*_summary.txt
+tests/github/*.sh
+tests/github/sylver_summary.txt

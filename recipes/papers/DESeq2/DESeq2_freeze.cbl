@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 11:16:59 GMT
+# Capture time: 16:37:22 GMT
 # Captured by: ralcraft
 
 coble:
@@ -8,13 +8,14 @@ coble:
   - environment: deseq2
 
 channels:
+  - r
   - defaults
   - bioconda
   - conda-forge
 
 languages:
   - r-base=3.6.2@conda-forge
-  - python=3.11.0@conda-forge
+  - python=3.9.16@conda-forge
 flags:
   - compile-tools: true
   - dependencies: false
@@ -22,104 +23,157 @@ flags:
   - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/deseq2/lib:"
 
 conda:
-  - binutils=2.36.1@conda-forge
-  - binutils_impl_linux-64=2.36.1@conda-forge
-  - binutils_linux-64=2.36@conda-forge
-  - gcc_impl_linux-64=7.5.0@conda-forge
-  - gcc_linux-64=7.5.0@conda-forge
-  - gxx_impl_linux-64=7.5.0@conda-forge
-  - gxx_linux-64=7.5.0@conda-forge
+  - binutils=2.35.1@defaults
+  - binutils_impl_linux-64=2.35.1@defaults
+  - binutils_linux-64=2.35.1@defaults
+  - gcc_impl_linux-64=7.5.0@defaults
+  - gcc_linux-64=7.5.0@defaults
+  - gxx_impl_linux-64=7.5.0@defaults
+  - gxx_linux-64=7.5.0@defaults
+
+conda:
   - icu=64.2@conda-forge
-  - libcblas=3.8.0@conda-forge
-  - libcurl=7.68.0@conda-forge
-  - libgcc-devel_linux-64=7.5.0@conda-forge
-  - libgcc-ng=15.2.0@conda-forge
-  - libgcc=15.2.0@conda-forge
-  - libstdcxx-devel_linux-64=7.5.0@conda-forge
-  - libstdcxx-ng=15.2.0@conda-forge
-  - libstdcxx=15.2.0@conda-forge
+
+conda:
+  - libcurl=7.67.0@defaults
+  - libgcc-devel_linux-64=7.5.0@defaults
+  - libgcc-ng=15.2.0@defaults
+  - libgcc=15.2.0@defaults
+  - libstdcxx-devel_linux-64=7.5.0@defaults
+  - libstdcxx-ng=15.2.0@defaults
+  - libstdcxx=15.2.0@defaults
+
+conda:
   - libzlib=1.2.13@conda-forge
   - zlib=1.2.13@conda-forge
   - blis=0.7.0@conda-forge
-  - bwidget=1.10.1@conda-forge
-  - bzip2=1.0.8@conda-forge
+
+conda:
+  - bwidget=1.10.1@defaults
+  - bzip2=1.0.8@defaults
+
+conda:
   - c-compiler=1.1.2@conda-forge
   - ca-certificates=2026.1.4@conda-forge
-  - cairo=1.16.0@conda-forge
-  - curl=7.68.0@conda-forge
+
+conda:
+  - cairo=1.18.4@defaults
+  - curl=7.67.0@defaults
+
+conda:
   - cxx-compiler=1.1.2@conda-forge
-  - expat=2.7.3@conda-forge
+
+conda:
+  - expat=2.7.4@defaults
+
+conda:
   - fontconfig=2.14.2@conda-forge
   - fortran-compiler=1.1.2@conda-forge
-  - freetype=2.12.1@conda-forge
-  - fribidi=1.0.16@conda-forge
+
+conda:
+  - freetype=2.14.1@defaults
+  - fribidi=1.0.16@defaults
+
+conda:
+  - gdbm=1.18@conda-forge
 
 conda:
   - gfold=1.1.4@bioconda
 
 conda:
-  - gfortran_impl_linux-64=7.5.0@conda-forge
-  - gfortran_linux-64=7.5.0@conda-forge
-  - glib-tools=2.80.2@conda-forge
-  - glib=2.80.2@conda-forge
-  - graphite2=1.3.14@conda-forge
-  - gsl=2.6@conda-forge
+  - gfortran_impl_linux-64=7.5.0@defaults
+  - gfortran_linux-64=7.5.0@defaults
+  - glib-tools=2.86.3@defaults
+  - glib=2.86.3@defaults
+  - graphite2=1.3.14@defaults
+  - gsl=2.6@defaults
+
+conda:
   - harfbuzz=2.4.0@conda-forge
-  - jpeg=9e@conda-forge
-  - kernel-headers_linux-64=6.12.0@conda-forge
-  - krb5=1.16.4@conda-forge
-  - ld_impl_linux-64=2.36.1@conda-forge
-  - lerc=4.0.0@conda-forge
+
+conda:
+  - jpeg=9f@defaults
+  - kernel-headers_linux-64=4.18.0@defaults
+  - krb5=1.16.4@defaults
+  - ld_impl_linux-64=2.35.1@defaults
+  - lerc=3.0@defaults
+
+conda:
   - libblas=3.8.0@conda-forge
-  - libdeflate=1.14@conda-forge
-  - libedit=3.1.20250104@conda-forge
-  - libexpat=2.7.3@conda-forge
-  - libffi=3.5.2@conda-forge
-  - libgfortran-ng=7.5.0@conda-forge
-  - libgfortran4=7.5.0@conda-forge
-  - libgfortran5=15.2.0@conda-forge
-  - libglib=2.80.2@conda-forge
-  - libgomp=15.2.0@conda-forge
-  - libiconv=1.18@conda-forge
+
+conda:
+  - libdeflate=1.8@defaults
+  - libedit=3.1.20230828@defaults
+  - libexpat=2.7.4@defaults
+  - libffi=3.4.4@defaults
+  - libgfortran-ng=7.5.0@defaults
+  - libgfortran4=7.5.0@defaults
+  - libgfortran5=15.2.0@defaults
+  - libglib=2.86.3@defaults
+  - libgomp=15.2.0@defaults
+  - libiconv=1.16@defaults
+
+conda:
   - liblapack=3.8.0@conda-forge
-  - libnsl=2.0.1@conda-forge
 
 conda:
   - libopenblas=0.3.30@defaults
+  - libpng=1.6.54@defaults
 
 conda:
-  - libpng=1.6.43@conda-forge
   - libsqlite=3.46.0@conda-forge
-  - libssh2=1.10.0@conda-forge
-  - libtiff=4.4.0@conda-forge
+
+conda:
+  - libssh2=1.10.0@defaults
+  - libtiff=4.4.0@defaults
+
+conda:
   - libuuid=2.41.3@conda-forge
-  - libxcb=1.17.0@conda-forge
+
+conda:
+  - libxcb=1.17.0@defaults
+
+conda:
   - libxml2=2.9.10@conda-forge
-  - make=4.4.1@conda-forge
-  - ncurses=6.5@conda-forge
-  - openssl=1.1.1w@conda-forge
-  - packaging=26.0@conda-forge
+
+conda:
+  - lz4-c=1.9.4@defaults
+  - make=4.2.1@defaults
+  - ncurses=6.5@defaults
+  - openssl=1.1.1w@defaults
+
+conda:
   - pango=1.42.4@conda-forge
-  - pcre2=10.43@conda-forge
-  - pcre=8.45@conda-forge
-  - pip=26.0.1@conda-forge
-  - pixman=0.38.0@conda-forge
-  - pthread-stubs=0.4@conda-forge
-  - readline=8.3@conda-forge
-  - sed=4.9@conda-forge
-  - setuptools=81.0.0@conda-forge
-  - sysroot_linux-64=2.39@conda-forge
-  - tk=8.6.13@conda-forge
-  - tktable=2.10@conda-forge
-  - tzdata=2025c@conda-forge
-  - wheel=0.46.3@conda-forge
-  - xorg-libice=1.1.2@conda-forge
-  - xorg-libsm=1.2.6@conda-forge
-  - xorg-libx11=1.8.12@conda-forge
-  - xorg-libxau=1.0.12@conda-forge
-  - xorg-libxdmcp=1.1.5@conda-forge
-  - xorg-libxext=1.3.7@conda-forge
-  - xorg-libxrender=0.9.12@conda-forge
+
+conda:
+  - pcre2=10.46@defaults
+  - pcre=8.45@defaults
+  - pip=25.3@defaults
+  - pixman=0.46.4@defaults
+  - pthread-stubs=0.3@defaults
+
+conda:
+  - pypy3.9=7.3.11@conda-forge
+  - python_abi=3.9@conda-forge
+
+conda:
+  - readline=8.3@defaults
+  - sed=4.9@defaults
+  - setuptools=80.9.0@defaults
+  - sqlite=3.51.1@defaults
+  - sysroot_linux-64=2.28@defaults
+  - tk=8.6.15@defaults
+  - tktable=2.10@defaults
+  - tzdata=2025c@defaults
+  - wheel=0.45.1@defaults
+  - xorg-libx11=1.8.12@defaults
+  - xorg-libxau=1.0.12@defaults
+  - xorg-libxdmcp=1.1.5@defaults
+  - xorg-libxext=1.3.6@defaults
+  - xorg-libxrender=0.9.12@defaults
+  - xorg-xorgproto=2024.1@defaults
+
+conda:
   - xz=5.2.6@conda-forge
   - zstd=1.5.6@conda-forge
 
@@ -130,7 +184,11 @@ r-conda:
   - base64enc=0.1_3@conda-forge
   - bh=1.75.0_0@conda-forge
   - bibtex=0.4.2.3@conda-forge
-  - biocmanager=1.30.15@conda-forge
+
+r-conda:
+  - biocmanager=1.30.4@defaults
+
+r-conda:
   - bit64=4.0.5@conda-forge
   - bit=4.0.4@conda-forge
   - bitops=1.0_7@conda-forge
@@ -225,10 +283,14 @@ r-conda:
   - rcolorbrewer=1.1_2@conda-forge
   - rcpp=1.0.6@conda-forge
   - rcpparmadillo=0.10.4.0.0@conda-forge
-  - rcurl=1.98_1.2@conda-forge
+  - rcurl=1.98_1.1@conda-forge
   - registry=0.5_1@conda-forge
   - rematch2=2.1.2@conda-forge
-  - remotes=2.3.0@conda-forge
+
+r-conda:
+  - remotes=2.0.4@defaults
+
+r-conda:
   - rlang=0.4.11@conda-forge
   - rngtools=1.5@conda-forge
   - rpart=4.1_15@conda-forge
@@ -302,6 +364,11 @@ bioc-conda:
   - zlibbioc=1.32.0@bioconda
 
 r-package:
+
+pip:
+  - cffi==1.15.1
+  - greenlet==0.4.13
+  - hpy==0.0.4.dev179+g9b5d200
 
 # r-package(unknown source):
 #  - compiler=3.6.2

@@ -378,7 +378,7 @@ echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2      
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} config --env --remove-key channels" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --remove-key channels || true" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version

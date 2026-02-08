@@ -81,9 +81,18 @@ elif [[ "$BLOCK" == "deseq2" ]]; then
 
     run_block "recipes/icr" "deseq2"
 
+
 elif [[ "$BLOCK" == "r-452" ]]; then
 
     run_block "recipes/utils" "r-452"
+
+elif [[ "$BLOCK" == "r-362" ]]; then
+
+    run_block "recipes/utils" "r-362"
+
+elif [[ "$BLOCK" == "r-360" ]]; then
+
+    run_block "recipes/utils" "r-360"
 
 else
 
