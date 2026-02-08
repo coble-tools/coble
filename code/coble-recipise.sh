@@ -369,6 +369,7 @@ done < "$YAML_FILE"
 echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
+echo "umask 0022" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
 echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
@@ -545,188 +546,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
             
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then
-                # CROSS-PLATFORM COMPILER INSTALLATION
-                version="${value_lower}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
-                    continue
-                fi
-
-                COMPILER_PACKAGES=$(get_compiler_packages "$PLATFORM_STRING")                
-                echo "[coble-recipise] Adding compile tools version $version for $PLATFORM_STRING" >&2
-                CONDA_COMPILE_PACKAGES_VER=""
-                if [[ "$version" == "true" ]]; then                    
-                    CONDA_COMPILE_PACKAGES_VER="$COMPILER_PACKAGES"                                        
-                else                    
-                    echo "# Language compile tools (version $version) for $PLATFORM_STRING" >> "$RECIPE_FILE"                                        
-                    versioned_packages=""
-                    for pkg in $COMPILER_PACKAGES; do
-                        CONDA_COMPILE_PACKAGES_VER="$CONDA_COMPILE_PACKAGES_VER '${pkg}=${version}'"
-                    done                    
-                    CONDA_COMPILE_PACKAGES_VER="${CONDA_COMPILE_PACKAGES_VER## }"                    
-                fi
-                                                
-                echo "###############################" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"                
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge \\" >>  "$RECIPE_FILE"
-                echo "$CONDA_COMPILE_PACKAGES_MULTI \\" >>  "$RECIPE_FILE"
-                echo "$CONDA_COMPILE_PACKAGES_NON_VER \\" >>  "$RECIPE_FILE"
-                echo "$CONDA_COMPILE_PACKAGES_NON" >>  "$RECIPE_FILE"                
-                echo "" >> "$RECIPE_FILE"
-                echo "###############################" >> "$RECIPE_FILE"
-                                
-                # Platform-specific symlink setup
-                if [[ "$DETECTED_OS" == "linux" ]]; then
-                    echo "" >> "$RECIPE_FILE"
-                    echo "# Set up compiler symlinks for R package compilation - Linux $DETECTED_ARCH" >> "$RECIPE_FILE"
-                    echo "umask 0022" >> "$RECIPE_FILE"
-                    
-                    # COS6 compatibility symlinks (Linux only)
-                    if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
-                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                        #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-                    elif [[ "$DETECTED_ARCH" == "arm64" ]]; then
-                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                        #echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-                    fi
-                    
-                    # Standard aliases
-                    echo "# Standard compiler aliases" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                    #echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
-                    
-                elif [[ "$DETECTED_OS" == "osx" ]]; then
-                    echo "" >> "$RECIPE_FILE"
-                    echo "# Set up compiler symlinks for R package compilation - macOS $DETECTED_ARCH" >> "$RECIPE_FILE"
-                    echo "umask 0022" >> "$RECIPE_FILE"
-                    
-                    # macOS uses clang, so symlink appropriately
-                    echo "# Standard compiler aliases for macOS" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                    
-                    # gfortran symlink
-                    if [[ "$DETECTED_ARCH" == "arm64" ]]; then
-                        echo "ln -sf \$CONDA_PREFIX/bin/arm64-apple-darwin20.0.0-gfortran \$CONDA_PREFIX/bin/gfortran 2>/dev/null || true" >> "$RECIPE_FILE"
-                    else
-                        echo "ln -sf \$CONDA_PREFIX/bin/x86_64-apple-darwin13.4.0-gfortran \$CONDA_PREFIX/bin/gfortran 2>/dev/null || true" >> "$RECIPE_FILE"
-                    fi
-                fi
-                
-                # Set compiler environment variables
-                echo "" >> "$RECIPE_FILE"
-                echo "# Set compiler flags for R package compilation - $PLATFORM_STRING" >> "$RECIPE_FILE"
-                
-                if [[ "$DETECTED_OS" == "linux" ]]; then
-                    echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
-                elif [[ "$DETECTED_OS" == "osx" ]]; then
-                    echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/clang\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/clang++\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
-                fi
-                
-                echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
-                echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
-
-                echo "conda deactivate" >> "$RECIPE_FILE"
-                echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "# END CROSS-PLATFORM COMPILER SETUP" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"
-                
-            elif [[ "${directive_lower}" == "compile-paths" ]]; then                
-                # Only setup paths, no compiler installation
-                version="${value_lower}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile paths to recipe." >&2
-                    continue
-                fi
-                
-                echo "" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "# CROSS-PLATFORM COMPILER PATHS SETUP (no installation)" >> "$RECIPE_FILE"
-                echo "# Platform: $PLATFORM_STRING" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                
-                if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding compiler paths for $PLATFORM_STRING" >&2
-                    
-                    # Platform-specific symlink setup
-                    if [[ "$DETECTED_OS" == "linux" ]]; then
-                        echo "# Set up compiler symlinks for R package compilation - Linux $DETECTED_ARCH" >> "$RECIPE_FILE"
-                        echo "umask 0022" >> "$RECIPE_FILE"
-                        
-                        if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
-                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
-                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-                        elif [[ "$DETECTED_ARCH" == "arm64" ]]; then
-                            echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
-                            echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                            echo "ln -sf \$CONDA_PREFIX/bin/aarch64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/aarch64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-                        fi
-                        
-                        echo "# Standard compiler aliases" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/${COMPILER_PREFIX}-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                        
-                    elif [[ "$DETECTED_OS" == "osx" ]]; then
-                        echo "# Set up compiler symlinks for R package compilation - macOS $DETECTED_ARCH" >> "$RECIPE_FILE"
-                        echo "umask 0022" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                        echo "ln -sf \$CONDA_PREFIX/bin/clang++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
-                    fi
-                    
-                    # Set compiler environment variables
-                    echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
-                    if [[ "$DETECTED_OS" == "linux" ]]; then
-                        echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/${COMPILER_PREFIX}-gfortran\"" >> "$RECIPE_FILE"
-                    elif [[ "$DETECTED_OS" == "osx" ]]; then
-                        echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/clang\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/clang++\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
-                        echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/gfortran\"" >> "$RECIPE_FILE"
-                    fi
-                    
-                    echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
-                    echo "conda deactivate" >> "$RECIPE_FILE"
-                    echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
-                    echo "" >> "$RECIPE_FILE"
-                fi
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "# END CROSS-PLATFORM COMPILER PATHS SETUP" >> "$RECIPE_FILE"
-                echo "# ================================================" >> "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"
-            fi
+            
+            fi    
+            
             
         elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then    
             # trim whitespace from src
@@ -832,8 +654,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     if [[ "$DETECTED_OS" == "linux" ]]; then
                         echo "" >> "$RECIPE_FILE"
                         echo "# Set up compiler symlinks for R package compilation - Linux $DETECTED_ARCH" >> "$RECIPE_FILE"
-                        echo "umask 0022" >> "$RECIPE_FILE"
-                        
+                                                
                         # COS6 compatibility symlinks (Linux only)
                         if [[ "$DETECTED_ARCH" == "x86_64" ]]; then
                             echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
@@ -858,8 +679,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     elif [[ "$DETECTED_OS" == "osx" ]]; then
                         echo "" >> "$RECIPE_FILE"
                         echo "# Set up compiler symlinks for R package compilation - macOS $DETECTED_ARCH" >> "$RECIPE_FILE"
-                        echo "umask 0022" >> "$RECIPE_FILE"
-                        
+                                                
                         # macOS uses clang, so symlink appropriately
                         echo "# Standard compiler aliases for macOS" >> "$RECIPE_FILE"
                         echo "ln -sf \$CONDA_PREFIX/bin/clang \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"

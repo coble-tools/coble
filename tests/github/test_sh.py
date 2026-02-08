@@ -34,10 +34,10 @@ def test_r_452():
     assert success == 0
 if __name__ == "__main__":
     #test_fail()
-    #test_small()
+    test_small()
     #test_docker()
     #test_carbine()
     #test_sylver()
     #test_deseq2()    
-    test_r_452()
+    #test_r_452()
     
