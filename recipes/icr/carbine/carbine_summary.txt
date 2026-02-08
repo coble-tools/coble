@@ -1,18 +1,431 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-02-07 at 22:29:00 GMT
+[coble-create] Summary log started by ralcraft on 2026-02-08 at 11:01:51 GMT
 ------------------------------------------------
 
-[coble-create] Start time: 2026-02-07 22:29:00 1/138
-install: source /home/ralcraft/.bashrc
-[coble-create] End time: 2026-02-07 22:29:01
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-07 22:29:01 3/138
-install: conda env remove --name carbine -y 2>/dev/null || true
-[coble-create] End time: 2026-02-07 22:29:01
+[coble-create] Start time: 2026-02-08 11:01:52 1/174
+install: CONDA_BASE=$(conda info --base 2>/dev/null)
+[coble-create] End time: 2026-02-08 11:01:52
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-07 22:29:01 5/138
-install: conda create --no-default-packages --name carbine -y
-[coble-create] End time: 2026-02-07 22:29:14
-[coble-create] Duration: 13s
+[coble-create] Start time: 2026-02-08 11:01:52 3/174
+install: [ -z "$CONDA_BASE" ] && CONDA_BASE="/home/ralcraft/miniforge3"
+[coble-create] End time: 2026-02-08 11:01:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:01:52 5/174
+install: source "${CONDA_BASE}/etc/profile.d/conda.sh"
+[coble-create] End time: 2026-02-08 11:01:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:01:52 7/174
+install: conda deactivate 2>/dev/null || true
+[coble-create] End time: 2026-02-08 11:01:53
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:01:53 8/174
+install: /home/ralcraft/miniforge3/bin/conda env remove --name carbine -y 2>/dev/null || true
+[coble-create] End time: 2026-02-08 11:01:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:01:53 10/174
+install: /home/ralcraft/miniforge3/bin/conda create --no-default-packages --name carbine -y
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 35s
+
+[coble-create] Start time: 2026-02-08 11:02:28 12/174
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:28 13/174
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:28 14/174
+install: conda activate carbine
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:28 15/174
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:28 16/174
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-08 11:02:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:28 17/174
+install: /home/ralcraft/miniforge3/bin/conda config --env --remove-key channels
+[coble-create] End time: 2026-02-08 11:02:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:02:29 19/174
+install: /home/ralcraft/miniforge3/bin/conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-08 11:02:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:29 21/174
+install: /home/ralcraft/miniforge3/bin/conda config --env --add channels defaults
+[coble-create] End time: 2026-02-08 11:02:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:02:30 23/174
+install: /home/ralcraft/miniforge3/bin/conda config --env --add channels bioconda
+[coble-create] End time: 2026-02-08 11:02:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:30 25/174
+install: /home/ralcraft/miniforge3/bin/conda config --env --add channels conda-forge
+[coble-create] End time: 2026-02-08 11:02:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:02:30 31/174
+install: /home/ralcraft/miniforge3/bin/conda install -y     gcc_linux-64 gxx_linux-64 gfortran_linux-64    sysroot_linux-64    c-compiler cxx-compiler fortran-compiler 'cmdstan=2.38.0'    'r-base=4.4.3' r-remotes r-biocmanager
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 32s
+
+[coble-create] Start time: 2026-02-08 11:03:02 33/174
+install: umask 0022
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 34/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 35/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 36/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 37/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 38/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 39/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 40/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-02-08 11:03:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:02 41/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gcc
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 42/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 43/174
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-f95 /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-f95
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 44/174
+install: ln -sf $CONDA_PREFIX/bin/gcc /home/ralcraft/miniforge3/bin/gcc
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 45/174
+install: ln -sf $CONDA_PREFIX/bin/g++ /home/ralcraft/miniforge3/bin/g++
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 46/174
+install: ln -sf $CONDA_PREFIX/bin/gfortran /home/ralcraft/miniforge3/bin/gfortran
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 47/174
+install: ln -sf $CONDA_PREFIX/bin/c++ /home/ralcraft/miniforge3/bin/c++
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 48/174
+install: ln -sf $CONDA_PREFIX/bin/cc /home/ralcraft/miniforge3/bin/cc
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 49/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
+[coble-create] End time: 2026-02-08 11:03:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:03 51/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
+[coble-create] End time: 2026-02-08 11:03:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:04 53/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-08 11:03:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:04 55/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-08 11:03:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:04 57/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-08 11:03:05
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:03:05 59/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-08 11:03:05
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:05 61/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-08 11:03:05
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:05 63/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-08 11:03:06
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:03:06 65/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+[coble-create] End time: 2026-02-08 11:03:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:06 67/174
+install: conda deactivate
+[coble-create] End time: 2026-02-08 11:03:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:06 68/174
+install: conda activate carbine
+[coble-create] End time: 2026-02-08 11:03:07
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:03:07 69/174
+install: /home/ralcraft/miniforge3/bin/conda install -y  'python=3.12'
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:03:37
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-08 11:03:37 71/174
+install: python -m site
+[coble-create] End time: 2026-02-08 11:03:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:37 73/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-08 11:03:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:37 75/174
+install: conda deactivate
+[coble-create] End time: 2026-02-08 11:03:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:03:38 76/174
+install: conda activate carbine
+[coble-create] End time: 2026-02-08 11:03:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:03:38 77/174
+install: /home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:04:07
+[coble-create] Duration: 29s
+
+[coble-create] Start time: 2026-02-08 11:04:07 79/174
+install: /home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge make cmake pkg-config
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:04:37
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-08 11:04:37 81/174
+install: /home/ralcraft/miniforge3/bin/conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:05:08
+[coble-create] Duration: 31s
+
+[coble-create] Start time: 2026-02-08 11:05:08 83/174
+install: /home/ralcraft/miniforge3/bin/conda env config vars set QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-08 11:05:09
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:05:09 85/174
+install: conda deactivate
+[coble-create] End time: 2026-02-08 11:05:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:05:09 86/174
+install: conda activate carbine
+[coble-create] End time: 2026-02-08 11:05:10
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-08 11:05:10 96/174
+install: /home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps  'cmdstanpy=1.3.0'  'arviz'  'pytz'  'ipython'  'matplotlib'  'pandas=3.0.0'  'scipy=1.17.0'  'seaborn=0.13.2'  'xz' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:05:45
+[coble-create] Duration: 35s
+
+[coble-create] Start time: 2026-02-08 11:05:46 109/174
+install: /home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps  'r-ctree'  'r-doBy'  'r-pbkrtest'  'r-car'  'r-rstatix'  'r-sads'  'r-tidyverse'  'r-tidytable'  'r-pio'  'r-easypar'  'r-dndscv' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:06:16
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-08 11:06:16 111/174
+install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (vcfR)
+[coble-create] End time: 2026-02-08 11:07:02
+[coble-create] Duration: 46s
+
+[coble-create] Start time: 2026-02-08 11:07:02 113/174
+install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (covr)
+[coble-create] End time: 2026-02-08 11:07:06
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-08 11:07:06 115/174
+install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (partykit)
+[coble-create] End time: 2026-02-08 11:07:13
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-08 11:07:13 130/174
+install: /home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps  'r-ggthemes'  'r-clisymbols'  'r-reshape2'  'r-BMix'  'r-gtools'  'r-akima'  'r-peakPick'  'r-R.utils'  'r-XML'  'r-restfulr'  'r-rjson'  'r-interp'  'r-reticulate' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:07:51
+[coble-create] Duration: 38s
+
+[coble-create] Start time: 2026-02-08 11:07:51 132/174
+install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-08 11:07:58
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-08 11:07:58 134/174
+install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org", dependencies=NA, Ncpus=4)'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-08 11:08:06
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-08 11:08:06 141/174
+install: /home/ralcraft/miniforge3/bin/conda install -y  --no-update-deps  'bioconda::bioconductor-rtracklayer=1.66.0'  'bioconda::bioconductor-genomicfeatures=1.58.0'  'bioconda::bioconductor-delayedarray=0.32.0'  'bioconda::bioconductor-summarizedexperiment=1.36.0'  'bioconda::bioconductor-genomicalignments=1.42.0' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-08 11:08:37
+[coble-create] Duration: 31s
+
+[coble-create] Start time: 2026-02-08 11:08:37 143/174
+install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-08 11:08:43
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-08 11:08:43 145/174
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-08 11:08:49
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-08 11:08:49 147/174
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-08 11:08:55
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-08 11:08:55 149/174
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-08 11:09:00
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-08 11:09:00 151/174
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-08 11:09:07
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-08 11:09:07 153/174
+install: Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (GenomeInfoDbData)
+dep: # * DONE (dndscv)
+[coble-create] End time: 2026-02-08 11:09:43
+[coble-create] Duration: 36s
+
+[coble-create] Start time: 2026-02-08 11:09:43 155/174
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (Rdpack)
+dep: # * DONE (CNAqc)
+[coble-create] End time: 2026-02-08 11:10:24
+[coble-create] Duration: 41s
+
+[coble-create] Start time: 2026-02-08 11:10:24 157/174
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (VIBER)
+[coble-create] End time: 2026-02-08 11:10:34
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-08 11:10:34 159/174
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (dndscv)
+dep: # * DONE (mobster)
+[coble-create] End time: 2026-02-08 11:11:37
+[coble-create] Duration: 63s
+
+[coble-create] Start time: 2026-02-08 11:11:37 161/174
+install: Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.zip", dependencies=NA, upgrade="default", Ncpus=4)'
+dep: # * DONE (mobster)
+dep: # * DONE (VIBER)
+dep: # * DONE (evoverse)
+[coble-create] End time: 2026-02-08 11:12:35
+[coble-create] Duration: 58s
+
+[coble-create] Start time: 2026-02-08 11:12:35 163/174
+install: cp recipes/icr/carbine/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-08 11:12:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:12:35 165/174
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-08 11:12:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:12:36 167/174
+install: cp recipes/icr/carbine/validate//run.stan ${CONDA_PREFIX}/bin/run.stan
+[coble-create] End time: 2026-02-08 11:12:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:12:36 169/174
+install: chmod +x ${CONDA_PREFIX}/bin/run.stan
+[coble-create] End time: 2026-02-08 11:12:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:12:36 171/174
+install: cp recipes/icr/carbine/validate//run_stan.py ${CONDA_PREFIX}/bin/run_stan.py
+[coble-create] End time: 2026-02-08 11:12:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-08 11:12:36 173/174
+install: chmod +x ${CONDA_PREFIX}/bin/run_stan.py
+[coble-create] End time: 2026-02-08 11:12:36
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-08 11:12:36
+[coble-create] Recipe took: 0h 10m 44s
+--------------------------------------

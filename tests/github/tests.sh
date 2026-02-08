@@ -36,7 +36,8 @@ elif [[ "$BLOCK" == "carbine" ]]; then
 
     echo "Running carbine test"
     > tests/github/log_carbine_conda.log
-    code/coble build --recipe recipes/icr/carbine/carbine.cbl \
+    cp recipes/icr/carbine/carbine.cbl tests/github/carbine.cbl
+    code/coble build --recipe tests/github/carbine.cbl \
     --validate recipes/icr/carbine/validate/validate.sh \
     --val-folder recipes/icr/carbine/validate/ \
     --env carbinex --containers conda \
@@ -46,18 +47,20 @@ elif [[ "$BLOCK" == "carbine" ]]; then
 elif [[ "$BLOCK" == "sylver" ]]; then
 
     echo "Running sylver test"
-    > tests/github/log_sylver_conda.log
-    code/coble build --recipe recipes/icr/sylver/sylver.cbl \
-    --validate recipes/icr/sylver/validate/validate.sh \    
+    #> tests/github/log_sylver_conda.log
+    cp recipes/icr/sylver/sylver.cbl tests/github/sylver.cbl
+    code/coble build --recipe tests/github/sylver.cbl \
+    --validate recipes/icr/sylver/validate/validate.sh \
     --env sylverx --containers conda \
     2>&1 | tee -a tests/github/log_sylver_conda.log
     exit ${PIPESTATUS[0]} 
 
 elif [[ "$BLOCK" == "deseq2" ]]; then
 
-    echo "Running carbine test"
-    > tests/github/log_deseq2_conda.log
-    code/coble build --recipe recipes/papers/DESeq2/DESeq2.cbl \
+    echo "Running deseq2 test"
+    #> tests/github/log_deseq2_conda.log
+    cp recipes/papers/DESeq2/DESeq2.cbl tests/github/DESeq2.cbl
+    code/coble build --recipe tests/github/DESeq2.cbl \
     --validate recipes/papers/DESeq2/validate/validate.sh \
     --val-folder recipes/papers/DESeq2/validate/ \
     --env deseq2x --containers conda \

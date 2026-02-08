@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+# At the start of the recipise function
+CONDA_BASE=$(conda info --base 2>/dev/null)
+if [ -z "$CONDA_BASE" ]; then
+    for loc in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" "/opt/conda"; do
+        [ -d "$loc" ] && CONDA_BASE="$loc" && break
+    done
+fi
+
+if [ -f "${CONDA_BASE}/etc/profile.d/conda.sh" ]; then
+    source "${CONDA_BASE}/etc/profile.d/conda.sh"
+fi
+conda deactivate 2>/dev/null || true
+
 # Turn a captured yaml file into a coble recipe script
 # CROSS-PLATFORM VERSION - supports Linux AMD64, Linux ARM64, macOS Intel, macOS ARM64
 # BASH 3.2 COMPATIBLE - works on macOS default bash and modern Linux bash
@@ -238,10 +251,19 @@ echo "[coble-recipise] Recipising conda environment from coble yaml file $YAML_F
 echo "[coble-recipise] Recipising conda environment to recipe file $RECIPE_FILE" >&2
 echo "[coble-recipise] Using conda executable $CONDA_EXE: $(which $CONDA_EXE)" >&2
 echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&2
+echo "[coble-recipise] Using conda prefix $CONDA_PREFIX: $(which $CONDA_PREFIX)" >&2
+
+
+# Or use this more reliable method:
+CONDA_EXE=$(which $CONDA_EXE)
+CONDA_ALIAS=$(which $CONDA_ALIAS)
+CONDA_BASE=$(dirname $(dirname $CONDA_EXE))
+TARGET_ENV="${ENV_INPUT}"  
+TARGET_ENV_PATH="${CONDA_BASE}/envs/${TARGET_ENV}"
 
 # Clear the aggregate file at the start
 {
-	echo "#!/usr/bin/env bash"
+	echo "#!/usr/bin/env bash"    
     echo ""
     echo "#####################################################"
     echo -e "# COBLE:recipe, (c) ICR 2026"    
@@ -254,14 +276,16 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     echo -e "# Platform: $PLATFORM_STRING"
     echo "#####################################################"
     echo -e "# source bashrc for conda"    
-    for rcfile in ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc; do 
-        if [ -f "$rcfile" ]; then
-            echo "source $rcfile"
-            break
-        fi
-    done    
+    # Generator writes this to the recipe:
+    echo "CONDA_BASE=\$(conda info --base 2>/dev/null)"
+    echo "[ -z \"\$CONDA_BASE\" ] && CONDA_BASE=\"$HOME/miniforge3\""
+    echo "source \"\${CONDA_BASE}/etc/profile.d/conda.sh\""
+    echo "conda deactivate 2>/dev/null || true"
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
-    echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
+    echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"        
+    echo "# CONDA base $CONDA_BASE"    
+    echo "# Target environment $ENV_INPUT"
+    echo "# Target path $TARGET_ENV_PATH"
     echo "#####################################################"    
     echo ""    
 } > "$RECIPE_FILE"
@@ -324,7 +348,7 @@ echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
@@ -442,8 +466,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_R="NA"
             elif [[ "${directive_lower}" == "export" ]]; then                
                 echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "conda deactivate" >> "$RECIPE_FILE"
+                echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "alias" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 CONDA_ALIAS="$value"            
@@ -598,8 +622,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
                 echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
 
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "conda deactivate" >> "$RECIPE_FILE"
+                echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
                 echo "# ================================================" >> "$RECIPE_FILE"
                 echo "# END CROSS-PLATFORM COMPILER SETUP" >> "$RECIPE_FILE"
@@ -671,8 +695,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
-                    echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                    echo "conda deactivate" >> "$RECIPE_FILE"
+                    echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"
                 fi
                 echo "# ================================================" >> "$RECIPE_FILE"
@@ -777,24 +801,32 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 # Workaround for R 3.6.0 post-link script bug: 
                 # R 3.6.0 looks for compilers in base conda /bin, not in the environment
                 # Create symlinks so R can find them (architecture-aware)
-                echo "# Creating compiler symlinks in base conda for R 3.6.0 compatibility..." >> "$RECIPE_FILE"
-                CONDA_BASE=$(conda info --base)
+                echo "# Creating compiler symlinks in base conda for R 3.6.0 compatibility..." >> "$RECIPE_FILE"                
+                echo "[coble-recipise] Using conda base = $CONDA_BASE" >&2
+                echo "[coble-recipise] Using conda target =  $TARGET_ENV_PATH" >&2
+                echo "[coble-recipise] Using conda prefix = $CONDA_PREFIX" >&2
+
+
                 
                 # Find the actual compiler prefix (could be x86_64, aarch64, etc.)
+
+                # Execute the checks NOW, only write ln commands if files exist
                 for compiler in gcc gfortran f95; do
-                    # Find the versioned compiler in the environment
                     VERSIONED_COMPILER=$(ls -1 $CONDA_PREFIX/bin/*-$compiler 2>/dev/null | head -1)
                     if [ -n "$VERSIONED_COMPILER" ]; then
-                        COMPILER_NAME=$(basename $VERSIONED_COMPILER)                        
-                        # Link it in base conda
-                        echo "ln -sf $VERSIONED_COMPILER $CONDA_BASE/bin/$COMPILER_NAME" >> "$RECIPE_FILE"
+                        COMPILER_NAME=$(basename $VERSIONED_COMPILER)
+                        # Just write the ln command
+                        echo "ln -sf \$CONDA_PREFIX/bin/$COMPILER_NAME $CONDA_BASE/bin/$COMPILER_NAME" >> "$RECIPE_FILE"
                     fi
                 done
 
-                # Also link the non-versioned names if they exist
+
+                # Execute the checks NOW, only write ln commands if files exist
                 for tool in gcc g++ gfortran f95 c++ cc; do
+                    # Check if file exists NOW (during generation)
                     if [ -f "$CONDA_PREFIX/bin/$tool" ]; then
-                        echo "ln -sf $CONDA_PREFIX/bin/$tool $CONDA_BASE/bin/$tool" >> "$RECIPE_FILE"
+                        # Write just the ln command, not the if statement
+                        echo "ln -sf \$CONDA_PREFIX/bin/$tool $CONDA_BASE/bin/$tool" >> "$RECIPE_FILE"
                     fi
                 done
                 
@@ -817,8 +849,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
                 echo "${CONDA_EXE} env config vars set LD_LIBRARY_PATH=\"\$CONDA_PREFIX/lib:\$LD_LIBRARY_PATH\"" >> "$RECIPE_FILE"
 
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "conda deactivate" >> "$RECIPE_FILE"
+                echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
 
                 
@@ -840,8 +872,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "conda deactivate" >> "$RECIPE_FILE"
+                echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then            
             if [[ "$src" != "" ]]; then

@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 00:02:11 GMT
+# Capture time: 11:02:00 GMT
 # Captured by: ralcraft
 
 coble:
@@ -19,36 +19,22 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:/home/ralcraft/miniforge3/envs/sylver/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/sylver/lib:"
 
 conda:
-  - binutils=2.40@defaults
-  - binutils_impl_linux-64=2.40@defaults
-
-conda:
-  - binutils_linux-64=2.40@conda-forge
-  - gcc=13.1.0@conda-forge
-  - gcc_impl_linux-64=13.1.0@conda-forge
-  - gcc_linux-64=13.1.0@conda-forge
-  - gxx=13.1.0@conda-forge
-  - gxx_impl_linux-64=13.1.0@conda-forge
-  - gxx_linux-64=13.1.0@conda-forge
-
-conda:
+  - binutils=2.35.1@defaults
+  - binutils_impl_linux-64=2.35.1@defaults
+  - binutils_linux-64=2.35.1@defaults
+  - gcc_impl_linux-64=7.5.0@defaults
+  - gcc_linux-64=7.5.0@defaults
+  - gxx_impl_linux-64=7.5.0@defaults
+  - gxx_linux-64=7.5.0@defaults
   - icu=58.2@defaults
   - libcurl=7.67.0@defaults
-
-conda:
-  - libgcc-devel_linux-64=13.1.0@conda-forge
-
-conda:
+  - libgcc-devel_linux-64=7.5.0@defaults
   - libgcc-ng=15.2.0@defaults
   - libgcc=15.2.0@defaults
-
-conda:
-  - libstdcxx-devel_linux-64=13.1.0@conda-forge
-
-conda:
+  - libstdcxx-devel_linux-64=7.5.0@defaults
   - libstdcxx-ng=15.2.0@defaults
   - libstdcxx=15.2.0@defaults
   - zlib=1.2.13@defaults
@@ -56,7 +42,7 @@ conda:
   - bzip2=1.0.8@defaults
 
 conda:
-  - c-compiler=1.10.0@conda-forge
+  - c-compiler=1.1.2@conda-forge
   - ca-certificates=2026.1.4@conda-forge
 
 conda:
@@ -64,32 +50,27 @@ conda:
   - curl=7.67.0@defaults
 
 conda:
-  - cxx-compiler=1.10.0@conda-forge
+  - cxx-compiler=1.1.2@conda-forge
 
 conda:
   - expat=2.7.4@defaults
   - fontconfig=2.14.1@defaults
 
 conda:
-  - fortran-compiler=1.10.0@conda-forge
+  - fortran-compiler=1.1.2@conda-forge
 
 conda:
   - freetype=2.14.1@defaults
   - fribidi=1.0.16@defaults
-
-conda:
-  - gfortran=13.1.0@conda-forge
-  - gfortran_impl_linux-64=13.1.0@conda-forge
-  - gfortran_linux-64=13.1.0@conda-forge
-
-conda:
+  - gfortran_impl_linux-64=7.5.0@defaults
+  - gfortran_linux-64=7.5.0@defaults
   - glib=2.56.2@defaults
   - graphite2=1.3.14@defaults
   - harfbuzz=1.8.8@defaults
   - jpeg=9f@defaults
   - kernel-headers_linux-64=4.18.0@defaults
   - krb5=1.16.4@defaults
-  - ld_impl_linux-64=2.40@defaults
+  - ld_impl_linux-64=2.35.1@defaults
   - lerc=4.0.0@defaults
 
 conda:
@@ -102,7 +83,11 @@ conda:
   - libffi=3.2.1@defaults
   - libgfortran-ng=7.5.0@defaults
   - libgfortran4=7.5.0@defaults
-  - libgfortran5=15.2.0@defaults
+
+conda:
+  - libgfortran5=15.2.0@conda-forge
+
+conda:
   - libgomp=15.2.0@defaults
 
 conda:
@@ -112,11 +97,6 @@ conda:
 
 conda:
   - libpng=1.6.54@defaults
-
-conda:
-  - libsanitizer=13.1.0@conda-forge
-
-conda:
   - libssh2=1.10.0@defaults
   - libtiff=4.7.1@defaults
   - libuuid=1.41.5@defaults

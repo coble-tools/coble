@@ -12,7 +12,7 @@ channels:
 flags:    
   - priority: flexible
 languages:
-  - compile-version=7.5.0
+  - compile-version=13.1
   - separate-r=true
   - r-base=3.6.0@r
 flags:
