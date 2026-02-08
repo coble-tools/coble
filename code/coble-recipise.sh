@@ -349,7 +349,7 @@ echo "# Compiler packages: $CONDA_COMPILE_PACKAGES_VER" >> "$RECIPE_FILE"
 ### 01 Language checking checking ########################################
 languages_line="${CONDA_EXE} env remove ${CONDA_ENV} -y 2>/dev/null || true"
 languages_line+="\n${CONDA_EXE} create --no-default-packages ${CONDA_ENV} -y"
-languages_line+="\n${CONDA_EXE} config --env --set solver classic"
+#languages_line+="\n${CONDA_EXE} config --env --set solver classic"
 
 CURRENT_SECTION="bash"
 r_count=0

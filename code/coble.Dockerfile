@@ -13,7 +13,8 @@
 
 ARG TARGETPLATFORM
 #FROM --platform=$TARGETPLATFORM continuumio/miniconda3:latest
-FROM continuumio/miniconda3:latest
+#FROM continuumio/miniconda3:latest
+FROM condaforge/miniforge3:latest
 WORKDIR /app
 
 RUN echo "=== Checking for existing compiler packages ===" && \
