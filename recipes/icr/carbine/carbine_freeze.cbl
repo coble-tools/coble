@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 12:42:47 GMT
+# Capture time: 15:02:12 GMT
 # Captured by: ralcraft
 
 coble:
@@ -518,7 +518,7 @@ r-conda:
   - rcppeigen=0.3.4.0.2@conda-forge
   - rcpptoml=0.2.3@conda-forge
   - rcurl=1.98_1.17@conda-forge
-  - rdpack=2.6.5@conda-forge
+  - rdpack=2.6.6@conda-forge
   - readr=2.1.6@conda-forge
   - readxl=1.4.5@conda-forge
   - recipes=1.3.1@conda-forge

@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-08
-# Capture time: 12:22:11 GMT
+# Capture time: 14:40:07 GMT
 # Captured by: ralcraft
 # Platform: 
 #####################################################
@@ -45,13 +45,14 @@ export | grep PYTHONNOUSERSITE
 #####################################################
 # languages:
 # cmdstan=2.38.0 adding to init installs
+# Setting compile order: with
+# Setting env sims: true
+# Setting base sims: false
 conda install -y  \
   gcc_linux-64 gxx_linux-64 gfortran_linux-64 \
   c-compiler cxx-compiler fortran-compiler 'cmdstan=2.38.0' \
   sysroot_linux-64 \
   'r-base=4.4.3' r-remotes r-biocmanager
-# Recommended tools: 
-# Symlink all compiler/binutils tools
 
 # Set up compiler symlinks for R package compilation - Linux x86_64
 umask 0022
@@ -63,15 +64,6 @@ ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Creating compiler symlinks in base conda for R 3.6.0 compatibility...
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-f95 /home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-f95
-ln -sf $CONDA_PREFIX/bin/gcc /home/ralcraft/miniforge3/bin/gcc
-ln -sf $CONDA_PREFIX/bin/g++ /home/ralcraft/miniforge3/bin/g++
-ln -sf $CONDA_PREFIX/bin/gfortran /home/ralcraft/miniforge3/bin/gfortran
-ln -sf $CONDA_PREFIX/bin/c++ /home/ralcraft/miniforge3/bin/c++
-ln -sf $CONDA_PREFIX/bin/cc /home/ralcraft/miniforge3/bin/cc
 /home/ralcraft/miniforge3/bin/conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
 /home/ralcraft/miniforge3/bin/conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
 /home/ralcraft/miniforge3/bin/conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"

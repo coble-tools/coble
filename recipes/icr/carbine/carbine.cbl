@@ -9,6 +9,9 @@ channels:
   - conda-forge
 languages:
   - add: cmdstan=2.38.0
+  - compile-order=with
+  - env-sims=true
+  - base-sims=false
   - r-base=4.4.3
   - python=3.12  
 flags:

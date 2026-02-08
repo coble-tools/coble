@@ -20,6 +20,7 @@ def test_coble_invalid():
 
 def test_coble_small():
     """Test that the small env runs."""
+    # code/coble build --recipe tests/fixtures/small.cbl --env smallx --rebuild
     result = subprocess.run([
         'bash', 'code/coble', 'build', '--recipe', 'tests/fixtures/small.cbl', '--env', 'small'
     ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)

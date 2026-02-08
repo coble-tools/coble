@@ -31,6 +31,7 @@ stdout_patterns=(
     "HTTP error 404"
     "ClobberError"
     "SafetyError"
+    "LinkError: post-link script failed for package"
 )
 error_patterns=(
     "* removing"    
@@ -55,6 +56,7 @@ error_patterns=(
     "HTTP error 404"
     "ClobberError"
     "SafetyError"
+    "LinkError: post-link script failed for package"
 )
 done_patterns=(    
     "Successfully installed"
