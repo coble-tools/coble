@@ -12,8 +12,9 @@ channels:
 
 languages:
   - compile-version=13.1
-  - compile-order=after
-  - r-base=4.5.2@conda-forge
+  - compile-order=with
+  - env-sims=true  
+  - r-base=4.5.2
   - python=3.14.0@conda-forge
 
 flags:
