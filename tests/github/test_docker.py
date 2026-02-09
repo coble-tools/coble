@@ -9,7 +9,7 @@ def test_coble_small_docker():
         'bash', 'code/coble', 'build', 
         '--recipe', 'tests/fixtures/small.cbl', 
         '--validate', 'tests/fixtures/validate.sh',
-        '--env', 'small', 
+        '--env', 'xsmall', 
         '--containers', 'docker'
     ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
     assert result.returncode == 0
