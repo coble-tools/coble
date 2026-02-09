@@ -2,22 +2,18 @@
 # COBLE:Reproducible environment: BASIC, (c) ICR 2026
 #####################################################
 coble:
-  - environment: coble-env-basic
+  - environment: visnetwork
 channels:
 # note the reverse order of priority  
   - bioconda
   - conda-forge
 languages:
-  - python=3.14@conda-forge
-  - r-base=4.5.2@conda-forge
+  - python=3.13.1@conda-forge
+  - r-base=4.3.1@conda-forge
 flags:
-  - dependencies: NA
-  - compile-tools: true
-conda:
-  - rust
-  - pandas
+  - dependencies: NA  
+  - compile-tools: 13.1  
 r-conda:  
-  - ggplot2
-  - dplyr
-  - stringr
-  - tidyr
+  - tidyverse
+r-package:
+  - visNetwork

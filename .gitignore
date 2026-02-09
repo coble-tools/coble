@@ -85,3 +85,4 @@ tests/github/*.delta
 tests/github/*.log
 tests/github/*.html
 tests/github/*.txt
+tests/github/logs/*
