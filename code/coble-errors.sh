@@ -29,6 +29,9 @@ stdout_patterns=(
     "Failed to build"     
     "ERROR: compilation failed" 
     "HTTP error 404"
+    "ClobberError"
+    "SafetyError"
+    "LinkError: post-link script failed for package"
 )
 error_patterns=(
     "* removing"    
@@ -51,6 +54,9 @@ error_patterns=(
     "packages failed:"
     "ERROR: compilation failed" 
     "HTTP error 404"
+    "ClobberError"
+    "SafetyError"
+    "LinkError: post-link script failed for package"
 )
 done_patterns=(    
     "Successfully installed"
@@ -64,7 +70,7 @@ dep_patterns=(
     "linux-64::"
     "linux-aarch64::"
     "noarch::"    
-    " +"
+    #" +"
 )
 
 # Write patterns to temp files

@@ -1,9 +1,10 @@
 name: Run Pytest
-
+# Turned off for now would need a restructure and to decide on which is which. 
 on:
   push:
     branches: [ mainx ]
   pull_request:
+    types: [review_requested, ready_for_review]
     branches: [ mainx ]
 
 jobs:
