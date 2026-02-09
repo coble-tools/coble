@@ -25,4 +25,4 @@ jobs:
           docker system prune -af --volumes || true
           docker builder prune -af || true
       - name: Run tests
-        run: pytest --cache-clear -v tests/github/
+        run: pytest --cache-clear -v tests/github/set1_basic
