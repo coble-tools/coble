@@ -10,7 +10,7 @@ channels:
   - conda-forge
 languages:
   - python=3.12
-  - r-base=4.4.3
+  - r-base=4.4.3@source
 flags:
   - dependencies: NA
   - compile-tools: True

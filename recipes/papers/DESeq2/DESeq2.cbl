@@ -5,7 +5,7 @@ channels: # note the reverse order of priority
   - bioconda
   - conda-forge  
 languages:  
-  - r-base=3.6.2@conda-forge
+  - r-base=3.6.2@source
 flags:
   - dependencies: NA
   - system-tools: false
