@@ -13,7 +13,7 @@ def do_block(path, block):
 
 
 def test_deseq2():
-    success = do_block("papers", "deseq2")    
+    success = do_block("papers", "DESeq2")    
     assert success == 0
 
 if __name__ == "__main__":    
