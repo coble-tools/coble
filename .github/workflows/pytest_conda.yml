@@ -2,9 +2,9 @@ name: Run Pytest
 
 on:
   push:
-    branches: [ main ]
+    branches: [ revert-mac ]
   pull_request:
-    branches: [ main ]
+    branches: [ revert-mac ]
 
 jobs:
   test:
