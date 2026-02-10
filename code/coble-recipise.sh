@@ -170,6 +170,10 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     #echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
     #echo 'eval "$('"$CONDA_ALIAS"' shell hook --shell=bash)"'
     echo -e "source ~/.bashrc"
+
+    # Initialize conda - try .bashrc first, fall back to conda init
+    echo -e "if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval \"\$(conda shell.bash hook)\"; fi; fi"
+    
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
     echo "#####################################################"    
