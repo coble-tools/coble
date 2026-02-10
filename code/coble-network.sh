@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Turn the currently activated conda environment into a netwrok graph
+# Turn the currently activated conda environment into a network graph
 
 
 # Initialize conda - try .bashrc first, fall back to conda init
