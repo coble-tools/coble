@@ -1,0 +1,48 @@
+name: Test Revert-Mac Branch
+
+# This workflow is specifically for testing the revert-mac branch
+# It includes system compiler installation to fix conda gfortran dependency issues
+# Can be safely removed once testing is complete
+
+on:
+  push:
+    branches: [ revert-mac ]
+  pull_request:
+    branches: [ revert-mac ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af --volumes || echo 'Warning: Docker prune failed, continuing anyway'
+
+      - name: Install system compiler toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gfortran
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+      
+      - name: Install pytest
+        shell: bash -el {0}
+        run: |
+          conda install -y pytest
+
+      - name: Run tests
+        shell: bash -el {0}
+        run: |
+          pytest --cache-clear -v tests/github
