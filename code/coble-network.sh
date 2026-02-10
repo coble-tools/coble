@@ -2,7 +2,15 @@
 # Turn the currently activated conda environment into a netwrok graph
 
 
-source ~/.bashrc
+# Initialize conda - try .bashrc first, fall back to conda init
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+else
+    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
+    if command -v conda &> /dev/null; then
+        eval "$(conda shell.bash hook)"
+    fi
+fi
 
 # Usage: ./coble-network.sh --frozen <recipe_file> [--env ENV]
 
