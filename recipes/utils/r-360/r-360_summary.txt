@@ -1,0 +1,110 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-10 at 21:40:44 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-10 21:40:44 1/67
+install: source ~/.bashrc
+[coble-create] End time: 2026-02-10 21:40:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:44 3/67
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-10 21:40:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-10 21:40:45 5/67
+install: conda env remove --name r-360 -y 2>/dev/null || true
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-10 21:40:47 7/67
+install: conda create --no-default-packages --name r-360 -y
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 9/67
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 10/67
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 11/67
+install: conda activate r-360
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 12/67
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 13/67
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 14/67
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-10 21:40:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:47 16/67
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-10 21:40:48
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-10 21:40:48 17/67
+install: conda config --env --add channels r
+[coble-create] End time: 2026-02-10 21:40:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:48 19/67
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-02-10 21:40:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:48 21/67
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-02-10 21:40:49
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-10 21:40:49 23/67
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-10 21:40:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:49 25/67
+install: CONDA_BASE=$(conda info --base)
+[coble-create] End time: 2026-02-10 21:40:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:49 27/67
+install: ARCH=$(uname -m)
+[coble-create] End time: 2026-02-10 21:40:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-10 21:40:49 29/67
+install: bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "3.6.0"
+dep: # * DONE (codetools)
+dep: # * DONE (spatial)
+dep: # * DONE (nnet)
+dep: # * DONE (KernSmooth)
+dep: # * DONE (foreign)
+dep: # * DONE (rpart)
+dep: # * DONE (MASS)
+dep: # * DONE (class)
+dep: # * DONE (lattice)
+dep: # * DONE (cluster)
+dep: # * DONE (nlme)
+dep: # * DONE (Matrix)
+dep: # * DONE (survival)
+dep: # * DONE (boot)
+dep: # * DONE (mgcv)
+    # ERROR: from stderr found: conftest.c:1:10: fatal error: jni.h: No such file or directory
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/utils/r-360/r-360_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-10 21:43:46

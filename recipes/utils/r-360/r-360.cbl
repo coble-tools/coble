@@ -9,7 +9,7 @@ channels:
   - conda-forge
   - defaults
 languages:
-  - r-base=3.6.0@r
+  - r-base=3.6.0@source
 flags:
   - dependencies: NA
   - compile-tools: 13.1

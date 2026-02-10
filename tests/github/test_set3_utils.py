@@ -23,6 +23,10 @@ def test_r_452():
     success = do_block("utils", "r-452")
     assert success == 0
 
+def test_r_452():
+    success = do_block("utils", "r-nightly")
+    assert success == 0
+
 if __name__ == "__main__":    
     #test_r_360()
     #test_r_362()

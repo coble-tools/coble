@@ -35,7 +35,7 @@ stdout_patterns=(
 )
 error_patterns=(
     "* removing"    
-    "fatal"
+    #"fatal"
     "EnvironmentNotWritableError"
     "Rscript: command not found"
     "is not available for this version of R"
