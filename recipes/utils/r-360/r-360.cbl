@@ -17,5 +17,9 @@ flags:
   - priority: strict
   - channel: bioconda
   - channel: conda-forge  
-r-conda:    
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
+r-url:
+  - https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz  
+r-package:    
+  - biocmanager=1.30.22
   - tidyverse=1.3.1

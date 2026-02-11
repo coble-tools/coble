@@ -86,6 +86,11 @@ unset PKG_CONFIG_PATH 2>/dev/null || true
 unset LD_LIBRARY_PATH 2>/dev/null || true
 unset DYLD_LIBRARY_PATH 2>/dev/null || true
 
+# Clear conda-set compiler variables so configure finds system compilers
+unset CC CXX FC F77 F90 F95 2>/dev/null || true
+unset GCC AR NM RANLIB STRIP 2>/dev/null || true
+unset CFLAGS CXXFLAGS FFLAGS FCFLAGS LDFLAGS CPPFLAGS 2>/dev/null || true
+
 # ---- 3. Determine number of CPU cores ----
 if command -v nproc &>/dev/null; then
     NUM_CORES="$(nproc)"
@@ -137,6 +142,26 @@ if grep -q "libcurl >= 7.22.0" configure; then
     echo ""
 fi
 
+# ---- 6b. Patch configure for bzip2 version check ----
+#
+# ---- 6b. Patch configure for version-check failures ----
+#
+# Older R configure scripts can fail version checks on modern systems
+# even when the correct libraries are installed. Patch out fatal errors
+# for libraries we know are present from the deps script.
+#
+for pattern in \
+    "bzip2 library and headers are required" \
+    "pcre >= 8.20 library and headers are required" \
+    "libcurl >= 7.22.0 library and headers are required" \
+; do
+    if grep -qF "$pattern" configure; then
+        echo "==> Patching configure: ${pattern}"
+        sed -i.bak "s|as_fn_error.*\"${pattern}\"|true  # patched|" configure
+    fi
+done
+echo ""
+
 # ---- 7. Configure ----
 #
 # GCC 10+ defaults to -fno-common, which causes "multiple definition" linker
@@ -149,6 +174,15 @@ echo "==> Configuring..."
 export CFLAGS="${CFLAGS:-} -fcommon"
 export FFLAGS="${FFLAGS:-} -fallow-argument-mismatch"
 export FCFLAGS="${FCFLAGS:-} -fallow-argument-mismatch"
+export LDFLAGS="-L/usr/lib/x86_64-linux-gnu"
+export CPPFLAGS="-I/usr/include"
+
+# Force R to accept system bzip2
+export ac_cv_lib_bz2_BZ2_bzlibVersion=yes
+export ac_cv_header_bzlib_h=yes
+export ac_cv_bzip2_version_1_0_6=yes
+# or: export ac_cv_bzip2_version_ok=yes
+
 ./configure \
     --prefix="${INSTALL_PREFIX}" \
     --enable-R-shlib \
@@ -159,6 +193,7 @@ export FCFLAGS="${FCFLAGS:-} -fallow-argument-mismatch"
     --with-x=no \
     --with-recommended-packages=yes
 
+
 # ---- 8. Build ----
 echo "==> Building (using ${NUM_CORES} cores)..."
 make -j"${NUM_CORES}"
@@ -166,6 +201,9 @@ make -j"${NUM_CORES}"
 # ---- 9. Install ----
 echo "==> Installing into ${INSTALL_PREFIX}..."
 make install
+
+# Clean up stray editor/backup files that break sub-architecture detection
+find "${INSTALL_PREFIX}/lib/R/bin/exec" -name '*~' -delete 2>/dev/null || true
 
 # ---- 10. Verify ----
 echo ""
@@ -175,9 +213,37 @@ echo "==> Installation complete!"
 # ---- 11. Clean up ----
 echo "==> Cleaning up build directory..."
 rm -rf "${BUILD_DIR}"
-# Clean up stray files that break sub-architecture detection
-find "$CONDA_PREFIX/lib/R/bin/exec" -name '*~' -delete 2>/dev/null || true
 
 echo ""
+echo "==> Verifying installed R version..."
+if ! "${INSTALL_PREFIX}/bin/R" --version | head -n1 | grep -q "R version ${R_VERSION}"; then
+    echo "ERROR: Installed R version does not match expected ${R_VERSION}"
+    exit 1
+fi
+
+
+# Now fake the conda install
+mkdir -p /tmp/r-base-recipe
+cat > /tmp/r-base-recipe/meta.yaml << EOF
+package:
+  name: r-base
+  version: "${R_VERSION}"
+
+build:
+  number: 0
+  noarch: generic
+  script: "true"
+
+about:
+  summary: Placeholder for source-built R ${R_VERSION}
+EOF
+
+
+source ~/.bashrc
+if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi
+conda build /tmp/r-base-recipe
+conda install --use-local r-base=${R_VERSION}
+
+
 echo "Done! R ${R_VERSION} is installed at: ${INSTALL_PREFIX}/bin/R"
 echo "It will be available whenever the '${CONDA_DEFAULT_ENV}' conda environment is active."

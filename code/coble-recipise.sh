@@ -31,6 +31,7 @@ CONDA_ALIAS="conda"
 CONDA_EXE="conda"
 VAL_FILE=""
 VAL_FOLDER=""
+CRAN_REPO="https://cloud.r-project.org/"
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -210,7 +211,7 @@ echo -e "$languages_line" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# clean up conda cache first" >> "$RECIPE_FILE"
-echo  "${CONDA_EXE}  clean --all -y"
+echo  "${CONDA_EXE}  clean --all -y" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
@@ -344,6 +345,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "alias" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 CONDA_ALIAS="$value"            
+            elif [[ "${directive_lower}" == "cran-repo" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                CRAN_REPO="$value"            
             elif [[ "${directive_lower}" == "ncpus" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 NCPUS="$value"                
@@ -522,9 +526,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	                echo "# R source installation requested" >> "$RECIPE_FILE"
                     echo "bash \"$script_dir/coble-r-source.sh\" \"$ver\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    #echo "Rscript -e 'install.packages(\"remotes\", repos=\"https://cloud.r-project.org/\", dependencies=NA, upgrade=\"default\", Ncpus=4)'" >> "$RECIPE_FILE"
+                    #echo "Rscript -e 'remotes::install_version(\"biocmanager\", repos=\"https://cloud.r-project.org/\", dependencies=NA, upgrade=\"default\", Ncpus=4)'" >> "$RECIPE_FILE"
                 else                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"                    
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    
@@ -560,11 +565,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://cloud.r-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-github:"* || "$CURRENT_SECTION" == "github-r:"* ]]; then
             if [[ -n "$src" ]]; then
@@ -575,8 +580,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         elif [[ "$CURRENT_SECTION" == "r-url:"* ]]; then
             if [[ -n "$src" ]]; then
                 echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                #echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
+                #echo "Rscript -e \"options(repos = 'https://packagemanager.posit.co/cran/2020-01-27')\"" >> "$RECIPE_FILE"
+                echo "Rscript -e \"install.packages('$pkg_entry', repos=NULL, type='source', method='wget')\"" >> "$RECIPE_FILE"
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then

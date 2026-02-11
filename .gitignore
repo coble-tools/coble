@@ -86,3 +86,4 @@ tests/github/*.log
 tests/github/*.html
 tests/github/*.txt
 tests/github/logs/*
+tests/github_docker/logs/*
