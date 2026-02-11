@@ -175,6 +175,8 @@ echo "==> Installation complete!"
 # ---- 11. Clean up ----
 echo "==> Cleaning up build directory..."
 rm -rf "${BUILD_DIR}"
+# Clean up stray files that break sub-architecture detection
+find "$CONDA_PREFIX/lib/R/bin/exec" -name '*~' -delete 2>/dev/null || true
 
 echo ""
 echo "Done! R ${R_VERSION} is installed at: ${INSTALL_PREFIX}/bin/R"

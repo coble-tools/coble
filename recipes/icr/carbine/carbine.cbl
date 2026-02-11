@@ -8,9 +8,9 @@ channels:
   - defaults  
   - bioconda
   - conda-forge
-languages:
-  - python=3.12
+languages:  
   - r-base=4.4.3@source
+  - python=3.12
 flags:
   - dependencies: NA
   - compile-tools: True
