@@ -1,0 +1,91 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 21:41:29 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 21:41:29 1/124
+install: source ~/.bashrc
+[coble-create] End time: 2026-02-11 21:41:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:30 3/124
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-11 21:41:31
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:31 5/124
+install: conda env remove --name deseq2 -y 2>/dev/null || true
+[coble-create] End time: 2026-02-11 21:41:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:32 7/124
+install: conda create --no-default-packages --name deseq2 -y
+[coble-create] End time: 2026-02-11 21:41:35
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-11 21:41:35 9/124
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:41:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:35 10/124
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 21:41:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:35 11/124
+install: conda  clean --all -y
+[coble-create] End time: 2026-02-11 21:41:39
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 21:41:39 13/124
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:41:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:39 14/124
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:41:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:39 15/124
+install: conda activate deseq2
+[coble-create] End time: 2026-02-11 21:41:40
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:40 16/124
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:41:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:40 17/124
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 21:41:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:40 18/124
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-11 21:41:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:40 20/124
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 21:41:41
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:41 21/124
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-11 21:41:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:41 23/124
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-02-11 21:41:42
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:41:42 25/124
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-02-11 21:41:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:41:42 27/124
+install: conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=7.5.0' 'gxx_linux-64=7.5.0' 'gfortran_linux-64=7.5.0'

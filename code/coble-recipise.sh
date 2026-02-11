@@ -35,6 +35,11 @@ CRAN_REPO="https://cloud.r-project.org/"
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
+# NOW deactivate
+MAX_DEACTIVATIONS=5
+count=0
+
+
 # Parse named arguments
 show_help() {
     echo "----- coble recipise help ----------"
@@ -141,7 +146,7 @@ echo "  RECIPE_FILE: $RECIPE_FILE" >&2
 UPDATE_CONDA="--no-update-deps"
 UPDATE_R="default"
 #UPDATE_BIOC="TRUE"
-NCPUS="4"
+NCPUS="1"
 DEPS_CONDA=""
 DEPS_PYTHON=""
 DEPS_R="TRUE"
@@ -212,6 +217,9 @@ echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# clean up conda cache first" >> "$RECIPE_FILE"
 echo  "${CONDA_EXE}  clean --all -y" >> "$RECIPE_FILE"
+echo "# deactivate environment" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
@@ -268,6 +276,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     if [[ "$line" == "flags:"* \
         || "$line" == "variables:"* \
         || "$line" == "channels:"* \
+        || "$line" == "compilers:"* \
         || "$line" == "languages:"* \
         || "$line" == "conda-r:"* \
         || "$line" == "r-conda:"* \
@@ -340,8 +349,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "export" ]]; then                
                 #echo "export ${value}" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "export ${value}" >> "$RECIPE_FILE"
+                #echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                #echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "alias" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 CONDA_ALIAS="$value"            
@@ -444,10 +454,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
-                
-                
+                echo "# Also as export to avoid de/activation" >> "$RECIPE_FILE"                
+                echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                echo "export FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                                    
                 echo "" >> "$RECIPE_FILE"              
             elif [[ "${directive_lower}" == "compile-paths" ]]; then                
                 # only compile-paths no installs                
@@ -472,7 +487,6 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
                     # Add to your recipe file BEFORE running R installs
                     echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
-
                     echo "${CONDA_EXE} env config vars set CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
@@ -481,11 +495,84 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
-                    echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                    echo "# Also as export to avoid de/activatin" >> "$RECIPE_FILE"                
+                    echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                    echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                    echo "export FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                    echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"                    
+                    echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                    echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                                    
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi
+        elif [[ "$CURRENT_SECTION" == "compilers:"* ]]; then
+            directive="$(echo "$pkg_entry" | cut -d':' -f1)"
+            pkg_entry="$(echo "$pkg_entry" | cut -d':' -f2-)"
+            directive="${directive## }"
+            directive="${directive%% }"
+            directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')            
+            pkg_entry="${pkg_entry## }"
+            pkg_entry="${pkg_entry%% }"            
+            echo "[coble-recipise] Processing compiler directive: $directive $pkg_entry" >&2
+            if [[ "${directive_lower}" == "cran-repo" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                CRAN_REPO="$pkg_entry"            
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then
+                echo "[coble-recipise] Compile tools" >&2
+                # if compile-tools = true then add compiler installs
+                # if a version is given use the specific version
+                echo "" >> "$RECIPE_FILE"
+                version="${pkg_entry}"
+                if [[ "$version" == "false" ]]; then
+                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
+                    continue                
+                elif [[ "$version" == "true" ]]; then
+                    echo "[coble-recipise] Adding default compile tools to recipe." >&2
+                    echo "# Language compile tools" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                elif [[ "$version" != "false" ]]; then
+                    echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
+                    echo "# Language compile tools" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                fi                                                
+                # symlinks
+                echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
+                echo "umask 0022" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                # Add to your recipe file BEFORE running R installs
+                echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
+                echo "${CONDA_EXE} env config vars set CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "# Also as export to avoid de/activations" >> "$RECIPE_FILE"                
+                echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
+                echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
+                echo "export FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
+                echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
+                echo "" >> "$RECIPE_FILE"              
+            fi 
+        
         elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then    
             # trim whitespace from src
             src="${src## }"    # remove leading spaces
@@ -526,9 +613,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	                echo "# R source installation requested" >> "$RECIPE_FILE"
                     echo "bash \"$script_dir/coble-r-source.sh\" \"$ver\"" >> "$RECIPE_FILE"
-                    #echo "Rscript -e 'install.packages(\"remotes\", repos=\"https://cloud.r-project.org/\", dependencies=NA, upgrade=\"default\", Ncpus=4)'" >> "$RECIPE_FILE"
-                    #echo "Rscript -e 'remotes::install_version(\"biocmanager\", repos=\"https://cloud.r-project.org/\", dependencies=NA, upgrade=\"default\", Ncpus=4)'" >> "$RECIPE_FILE"
-                else                    
+                    #echo "Rscript -e 'install.packages(\"testthat\", repos = \"https://cloud.r-project.org\", method=\"wget\")'" >> "$RECIPE_FILE"
+                    #echo "Rscript -e 'install.packages(\"remotes\", repos=\"${CRAN_REPO}\", dependencies=FALSE, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
+                    #echo "Rscript -e 'install.packages(\"BiocManager\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"                    
+            else                    
                     echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg' r-remotes r-biocmanager" >> "$RECIPE_FILE"                    
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
@@ -540,8 +628,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+                echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
+                #echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
+                #echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             fi            
         elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then            
@@ -565,12 +654,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi                                                            
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                #echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"                
+                url=https://cran.r-project.org/src/contrib/Archive/${pkg_only}/${pkg_only}_${ver}.tar.gz                
+                echo "Rscript -e 'install.packages(\"$url\", repos=\"${CRAN_REPO}\", type=\"source\", method=\"wget\" )'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
             fi
+        elif [[ "$CURRENT_SECTION" == "r-version:"* ]]; then          
+
+            echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
+        
         elif [[ "$CURRENT_SECTION" == "r-github:"* || "$CURRENT_SECTION" == "github-r:"* ]]; then
             if [[ -n "$src" ]]; then
                 echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"

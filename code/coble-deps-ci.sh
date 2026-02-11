@@ -29,6 +29,7 @@ apt-get install -y --no-install-recommends \
     libbz2-dev \
     bzip2 \
     liblzma-dev \
+    libssh2-1-dev \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \

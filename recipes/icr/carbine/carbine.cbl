@@ -8,20 +8,22 @@ channels:
   - defaults  
   - bioconda
   - conda-forge
+compilers:
+  - compile-tools: 11  
 languages:  
-  - r-base=4.4.3@source
+  - r-base=4.4.3
   - python=3.12
 flags:
-  - dependencies: NA
-  - compile-tools: True
-  - system-tools: True
+  - dependencies: NA  
+  #- system-tools: True
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
+conda:
+  - cmdstan=2.38.0
 conda:  
   - arviz
-  - pytz
-  - cmdstan=2.38.0
+  - pytz  
   - cmdstanpy=1.3.0
   - ipython
   - matplotlib

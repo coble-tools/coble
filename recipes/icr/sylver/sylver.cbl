@@ -10,7 +10,7 @@ channels:
   - conda-forge
   - defaults
 languages:
-  - r-base=3.6.0@r
+  - r-base=3.6.0@source
 flags:
   - dependencies: NA
   - compile-tools: 13.1
@@ -18,6 +18,7 @@ flags:
   - priority: strict
   - channel: bioconda
   - channel: conda-forge  
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
 r-conda:
   - BiocManager
   - remotes

@@ -811,3 +811,1044 @@ install: conda activate carbine
 install: conda install -y  --no-update-deps  'arviz'  'pytz'  'cmdstan=2.38.0'  'cmdstanpy=1.3.0'  'ipython'  'matplotlib'  'pandas=3.0.0'  'scipy=1.17.0'  'seaborn=0.13.2'  'xz' 
 [coble-create] End time: 2026-02-10 21:48:09
 [coble-create] Duration: 313s
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 20:50:20 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 20:50:21 1/121
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 20:50:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:21 2/121
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 20:50:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:21 3/121
+install: conda  clean --all -y
+[coble-create] End time: 2026-02-11 20:50:25
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 20:50:25 5/121
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 20:50:26
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:26 6/121
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 20:50:27
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:27 7/121
+install: conda activate carbine
+[coble-create] End time: 2026-02-11 20:50:28
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:28 8/121
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 20:50:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:28 9/121
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 20:50:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:28 10/121
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 20:50:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:29 11/121
+install: bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "4.4.3"
+[coble-create] End time: 2026-02-11 20:50:32
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-11 20:50:32 13/121
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:33 14/121
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 15/121
+install: umask 0022
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 16/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 17/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 18/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 19/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 20/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 21/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 22/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 23/121
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-02-11 20:50:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:33 24/121
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
+[coble-create] End time: 2026-02-11 20:50:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:34 25/121
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
+[coble-create] End time: 2026-02-11 20:50:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:34 26/121
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 20:50:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:34 27/121
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 20:50:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:35 28/121
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:35 29/121
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 30/121
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 31/121
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 32/121
+install: export CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 33/121
+install: export CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 34/121
+install: export FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 35/121
+install: export F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 36/121
+install: export CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 37/121
+install: export CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:36 38/121
+install: export CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 20:50:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 39/121
+install: export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 20:50:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 40/121
+install: conda env config vars set QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 20:50:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 41/121
+install: export QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 20:50:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 42/121
+install: conda env config vars set OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 20:50:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 43/121
+install: export OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 20:50:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:37 44/121
+install: conda env config vars set R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 20:50:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 20:50:38 45/121
+install: export R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 20:50:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 20:50:38 56/121
+install: conda install -y  --no-update-deps  'r-doBy'  'r-pbkrtest'  'r-car'  'r-rstatix'  'r-sads'  'r-tidyverse'  'r-tidytable'  'r-pio'  'r-easypar'  'r-dndscv' 
+dep: # argcomplete        conda-forge/noarch::argcomplete-3.6.3-pyhd8ed1ab_0
+dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocgenerics-0.52.0-r44hdfd78af_3
+dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocparallel-1.40.0-r44he5774e6_1
+dep: # bioconductor-bios~ bioconda/linux-64::bioconductor-biostrings-2.74.0-r44h3df3fcb_1
+dep: # bioconductor-data~ bioconda/noarch::bioconductor-data-packages-20260207-hdfd78af_0
+dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodb-1.42.0-r44hdfd78af_2
+dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodbdata-1.2.13-r44hdfd78af_0
+dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicranges-1.58.0-r44h3df3fcb_2
+dep: # bioconductor-iran~ bioconda/linux-64::bioconductor-iranges-2.40.0-r44h3df3fcb_2
+dep: # bioconductor-rhts~ bioconda/linux-64::bioconductor-rhtslib-3.2.0-r44h15a9599_2
+dep: # bioconductor-rsam~ bioconda/linux-64::bioconductor-rsamtools-2.22.0-r44h77050f0_1
+dep: # bioconductor-s4ve~ bioconda/linux-64::bioconductor-s4vectors-0.44.0-r44h3df3fcb_2
+dep: # bioconductor-ucsc~ bioconda/linux-64::bioconductor-ucsc.utils-1.2.0-r44h9ee0642_1
+dep: # bioconductor-xvec~ bioconda/linux-64::bioconductor-xvector-0.46.0-r44h15a9599_2
+dep: # bioconductor-zlib~ bioconda/linux-64::bioconductor-zlibbioc-1.52.0-r44h3df3fcb_2
+dep: # jq                 conda-forge/linux-64::jq-1.8.1-h73b1eb8_0
+dep: # oniguruma          conda-forge/linux-64::oniguruma-6.9.10-hb9d3cd8_0
+dep: # r-abind            conda-forge/noarch::r-abind-1.4_8-r44hc72bb7e_1
+dep: # r-ade4             conda-forge/linux-64::r-ade4-1.7_23-r44h3704496_3
+dep: # r-bbmle            conda-forge/noarch::r-bbmle-1.0.25.1-r44hc72bb7e_2
+dep: # r-bdsmatrix        conda-forge/linux-64::r-bdsmatrix-1.3_7-r44h54b55ab_3
+dep: # r-bh               conda-forge/noarch::r-bh-1.87.0_1-r44hc72bb7e_1
+dep: # r-bitops           conda-forge/linux-64::r-bitops-1.0_9-r44h54b55ab_1
+dep: # r-brew             conda-forge/noarch::r-brew-1.0_10-r44hc72bb7e_2
+dep: # r-car              conda-forge/noarch::r-car-3.1_5-r44hc72bb7e_0
+dep: # r-cardata          conda-forge/noarch::r-cardata-3.0_6-r44hc72bb7e_0
+dep: # r-conquer          conda-forge/linux-64::r-conquer-1.3.3-r44h3704496_5
+dep: # r-corrplot         conda-forge/noarch::r-corrplot-0.95-r44hc72bb7e_1
+dep: # r-cowplot          conda-forge/noarch::r-cowplot-1.2.0-r44hc72bb7e_2
+dep: # r-deriv            conda-forge/noarch::r-deriv-4.2.0-r44hc72bb7e_1
+dep: # r-desc             conda-forge/noarch::r-desc-1.4.3-r44hc72bb7e_2
+dep: # r-dndscv           bioconda/noarch::r-dndscv-0.1.0-r44hdfd78af_0
+dep: # r-doby             conda-forge/noarch::r-doby-4.7.1-r44hc72bb7e_0
+dep: # r-doparallel       conda-forge/noarch::r-doparallel-1.0.17-r44hc72bb7e_4
+dep: # r-easypar          bioconda/noarch::r-easypar-1.0.0-r44hdfd78af_0
+dep: # r-forecast         conda-forge/linux-64::r-forecast-9.0.0-r44hf1899b2_0
+dep: # r-formula          conda-forge/noarch::r-formula-1.2_5-r44hc72bb7e_3
+dep: # r-fracdiff         conda-forge/linux-64::r-fracdiff-1.5_3-r44h7b2432b_2
+dep: # r-futile.logger    conda-forge/noarch::r-futile.logger-1.4.9-r44hc72bb7e_0
+dep: # r-futile.options   conda-forge/noarch::r-futile.options-1.0.1-r44hc72bb7e_1006
+dep: # r-gbrd             conda-forge/noarch::r-gbrd-0.4.12-r44hc72bb7e_2
+dep: # r-guilds           conda-forge/linux-64::r-guilds-1.4.7-r44h3697838_2
+dep: # r-lambda.r         conda-forge/noarch::r-lambda.r-1.2.4-r44hc72bb7e_5
+dep: # r-litedown         conda-forge/noarch::r-litedown-0.9-r44hc72bb7e_0
+dep: # r-lme4             conda-forge/linux-64::r-lme4-1.1_38-r44h3697838_0
+dep: # r-lmtest           conda-forge/linux-64::r-lmtest-0.9_40-r44heaba542_4
+dep: # r-markdown         conda-forge/noarch::r-markdown-2.0-r44hc72bb7e_1
+dep: # r-matrixmodels     conda-forge/noarch::r-matrixmodels-0.5_4-r44hc72bb7e_1
+dep: # r-matrixstats      conda-forge/linux-64::r-matrixstats-1.5.0-r44h54b55ab_1
+dep: # r-microbenchmark   conda-forge/linux-64::r-microbenchmark-1.5.0-r44h54b55ab_1
+dep: # r-minqa            conda-forge/linux-64::r-minqa-1.2.8-r44ha36cffa_2
+dep: # r-mvtnorm          conda-forge/linux-64::r-mvtnorm-1.3_3-r44h11cdb10_1
+dep: # r-nloptr           conda-forge/linux-64::r-nloptr-2.2.1-r44h8ae9fae_1
+dep: # r-pbkrtest         conda-forge/noarch::r-pbkrtest-0.5.5-r44hc72bb7e_1
+dep: # r-pio              bioconda/noarch::r-pio-0.1.0-r44hdfd78af_0
+dep: # r-pixmap           conda-forge/noarch::r-pixmap-0.4_14-r44hc72bb7e_1
+dep: # r-pkgbuild         conda-forge/noarch::r-pkgbuild-1.4.8-r44hc72bb7e_1
+dep: # r-pkgload          conda-forge/noarch::r-pkgload-1.5.0-r44hc72bb7e_0
+dep: # r-poilog           conda-forge/linux-64::r-poilog-0.4.2.1-r44h54b55ab_2
+dep: # r-powerlaw         conda-forge/noarch::r-powerlaw-1.0.0-r44hc72bb7e_1
+dep: # r-pracma           conda-forge/noarch::r-pracma-2.4.6-r44hc72bb7e_0
+dep: # r-prettydoc        conda-forge/noarch::r-prettydoc-0.4.1-r44hc72bb7e_4
+dep: # r-quadprog         conda-forge/linux-64::r-quadprog-1.5_8-r44ha0a88a1_7
+dep: # r-quantreg         conda-forge/linux-64::r-quantreg-6.1-r44h11cdb10_1
+dep: # r-rbibutils        conda-forge/linux-64::r-rbibutils-2.4.1-r44h54b55ab_0
+dep: # r-rcpparmadillo    conda-forge/linux-64::r-rcpparmadillo-15.2.3_1-r44h3704496_0
+dep: # r-rdpack           conda-forge/noarch::r-rdpack-2.6.6-r44hc72bb7e_0
+dep: # r-reformulas       conda-forge/noarch::r-reformulas-0.4.4-r44hc72bb7e_0
+dep: # r-roxygen2         conda-forge/linux-64::r-roxygen2-7.3.3-r44h3697838_1
+dep: # r-rprojroot        conda-forge/noarch::r-rprojroot-2.1.1-r44hc72bb7e_1
+dep: # r-rstatix          conda-forge/noarch::r-rstatix-0.7.3-r44hc72bb7e_0
+dep: # r-sads             conda-forge/linux-64::r-sads-0.6.5-r44h54b55ab_0
+dep: # r-segmented        conda-forge/noarch::r-segmented-2.2_1-r44hc72bb7e_0
+dep: # r-seqinr           conda-forge/linux-64::r-seqinr-4.2_36-r44h1c8cec4_3
+dep: # r-snow             conda-forge/noarch::r-snow-0.4_4-r44hc72bb7e_4
+dep: # r-sp               conda-forge/linux-64::r-sp-2.2_0-r44h54b55ab_1
+dep: # r-sparsem          conda-forge/linux-64::r-sparsem-1.84_2-r44heaba542_1
+dep: # r-tidytable        conda-forge/noarch::r-tidytable-0.11.1-r44hc72bb7e_2
+dep: # r-tseries          conda-forge/linux-64::r-tseries-0.10_59-r44ha0a88a1_0
+dep: # r-urca             conda-forge/linux-64::r-urca-1.3_4-r44heaba542_2
+dep: # r-vgam             conda-forge/linux-64::r-vgam-1.1_14-r44heaba542_0
+dep: # toml               conda-forge/noarch::toml-0.10.2-pyhcf101f3_3
+dep: # tomlkit            conda-forge/noarch::tomlkit-0.14.0-pyha770c72_0
+dep: # xmltodict          conda-forge/noarch::xmltodict-1.0.2-pyhcf101f3_0
+dep: # yq                 conda-forge/noarch::yq-3.4.3-pyhe01879c_2
+[coble-create] End time: 2026-02-11 20:59:51
+[coble-create] Duration: 553s
+
+[coble-create] Start time: 2026-02-11 20:59:52 58/121
+install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=4)'
+dep: # * DONE (pinfsc50)
+dep: # * DONE (permute)
+dep: # * DONE (memuse)
+dep: # * DONE (vegan)
+dep: # * DONE (ape)
+dep: # * DONE (vcfR)
+[coble-create] End time: 2026-02-11 21:01:00
+[coble-create] Duration: 68s
+
+[coble-create] Start time: 2026-02-11 21:01:00 60/121
+install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=4)'
+dep: # * DONE (rex)
+dep: # * DONE (covr)
+[coble-create] End time: 2026-02-11 21:01:06
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-11 21:01:06 62/121
+install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=4)'
+dep: # * DONE (libcoin)
+dep: # * DONE (inum)
+dep: # * DONE (partykit)
+[coble-create] End time: 2026-02-11 21:01:19
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-02-11 21:01:19 77/121
+install: conda install -y  --no-update-deps  'r-ggthemes'  'r-clisymbols'  'r-reshape2'  'r-BMix'  'r-gtools'  'r-akima'  'r-peakPick'  'r-R.utils'  'r-XML'  'r-restfulr'  'r-rjson'  'r-interp'  'r-reticulate' 
+dep: # r-akima            conda-forge/linux-64::r-akima-0.6_3.6-r44heaba542_1
+dep: # r-bmix             bioconda/noarch::r-bmix-1.0.0-r44hdfd78af_0
+dep: # r-clisymbols       conda-forge/noarch::r-clisymbols-1.2.0-r44hc72bb7e_1007
+dep: # r-deldir           conda-forge/linux-64::r-deldir-2.0_4-r44heaba542_2
+dep: # r-ggthemes         conda-forge/noarch::r-ggthemes-5.2.0-r44hc72bb7e_0
+dep: # r-gtools           conda-forge/linux-64::r-gtools-3.9.5-r44h54b55ab_2
+dep: # r-here             conda-forge/noarch::r-here-1.0.2-r44hc72bb7e_0
+dep: # r-interp           conda-forge/linux-64::r-interp-1.1_6-r44ha36cffa_3
+dep: # r-peakpick         bioconda/noarch::r-peakpick-0.11-r44hdfd78af_0
+dep: # r-png              conda-forge/linux-64::r-png-0.1_8-r44h6b2d295_3
+dep: # r-r.methodss3      conda-forge/noarch::r-r.methodss3-1.8.2-r44hc72bb7e_4
+dep: # r-r.oo             conda-forge/noarch::r-r.oo-1.27.1-r44hc72bb7e_1
+dep: # r-r.utils          conda-forge/noarch::r-r.utils-2.13.0-r44hc72bb7e_1
+dep: # r-rcpptoml         conda-forge/linux-64::r-rcpptoml-0.2.3-r44h3697838_1
+dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.17-r44h46721d4_2
+dep: # r-restfulr         bioconda/linux-64::r-restfulr-0.0.16-r44h5ef9028_0
+dep: # r-reticulate       conda-forge/linux-64::r-reticulate-1.44.1-r44h3697838_0
+dep: # r-rjson            conda-forge/linux-64::r-rjson-0.2.23-r44h3697838_1
+dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.22-r44hf705907_0
+[coble-create] End time: 2026-02-11 21:02:10
+[coble-create] Duration: 51s
+
+[coble-create] Start time: 2026-02-11 21:02:10 79/121
+install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=4)'
+dep: # * DONE (gridExtra)
+dep: # * DONE (ggsignif)
+dep: # * DONE (polynom)
+dep: # * DONE (ggsci)
+dep: # * DONE (ggrepel)
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-11 21:02:30
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-02-11 21:02:30 81/121
+install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=4)'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-11 21:02:35
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-11 21:02:35 88/121
+install: conda install -y  --no-update-deps  'bioconda::bioconductor-rtracklayer=1.66.0'  'bioconda::bioconductor-genomicfeatures=1.58.0'  'bioconda::bioconductor-delayedarray=0.32.0'  'bioconda::bioconductor-summarizedexperiment=1.36.0'  'bioconda::bioconductor-genomicalignments=1.42.0' 
+dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.68.0-r44hdfd78af_0
+dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.66.0-r44h3df3fcb_0
+dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocio-1.16.0-r44hdfd78af_0
+dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.32.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicalignments-1.42.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomicfeatures-1.58.0-r44hdfd78af_0
+dep: # bioconductor-kegg~ bioconda/noarch::bioconductor-keggrest-1.46.0-r44hdfd78af_0
+dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.18.0-r44hdfd78af_0
+dep: # bioconductor-rtra~ bioconda/linux-64::bioconductor-rtracklayer-1.66.0-r44h15a9599_1
+dep: # bioconductor-s4ar~ bioconda/linux-64::bioconductor-s4arrays-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsearray-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.36.0-r44hdfd78af_0
+[coble-create] End time: 2026-02-11 21:03:24
+[coble-create] Duration: 49s
+
+[coble-create] Start time: 2026-02-11 21:03:24 90/121
+install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
+[coble-create] End time: 2026-02-11 21:03:57
+[coble-create] Duration: 33s
+
+[coble-create] Start time: 2026-02-11 21:03:57 92/121
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BSgenome)
+dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
+[coble-create] End time: 2026-02-11 21:05:51
+[coble-create] Duration: 114s
+
+[coble-create] Start time: 2026-02-11 21:05:51 94/121
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-02-11 21:06:00
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-11 21:06:00 96/121
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=4)'
+dep: # * DONE (GlobalOptions)
+dep: # * DONE (GetoptLong)
+dep: # * DONE (clue)
+dep: # * DONE (circlize)
+dep: # * DONE (ComplexHeatmap)
+[coble-create] End time: 2026-02-11 21:06:30
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-11 21:06:30 98/121
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=4)'
+dep: # * DONE (VariantAnnotation)
+[coble-create] End time: 2026-02-11 21:07:23
+[coble-create] Duration: 53s
+
+[coble-create] Start time: 2026-02-11 21:07:23 100/121
+install: Rscript -e "install.packages('https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+[coble-create] End time: 2026-02-11 21:07:29
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-11 21:07:29 102/121
+install: Rscript -e "install.packages('https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+[coble-create] End time: 2026-02-11 21:07:33
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 21:07:33 104/121
+install: Rscript -e "install.packages('https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+[coble-create] End time: 2026-02-11 21:07:35
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-11 21:07:35 106/121
+install: Rscript -e "install.packages('https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip', repos=NULL, type='source', method='wget')"
+[coble-create] End time: 2026-02-11 21:07:37
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-11 21:07:37 108/121
+install: Rscript -e "install.packages('https://github.com/caravagn/evoverse/archive/refs/heads/development.zip', repos=NULL, type='source', method='wget')"
+[coble-create] End time: 2026-02-11 21:07:41
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 21:07:41 110/121
+install: cp recipes/icr/carbine/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-11 21:07:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:07:41 112/121
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-11 21:07:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:07:42 114/121
+install: cp recipes/icr/carbine/validate//run.stan ${CONDA_PREFIX}/bin/run.stan
+[coble-create] End time: 2026-02-11 21:07:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:07:42 116/121
+install: chmod +x ${CONDA_PREFIX}/bin/run.stan
+[coble-create] End time: 2026-02-11 21:07:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:07:42 118/121
+install: cp recipes/icr/carbine/validate//run_stan.py ${CONDA_PREFIX}/bin/run_stan.py
+[coble-create] End time: 2026-02-11 21:07:42
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:07:42 120/121
+install: chmod +x ${CONDA_PREFIX}/bin/run_stan.py
+[coble-create] End time: 2026-02-11 21:07:42
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-11 21:07:42
+[coble-create] Recipe took: 0h 17m 21s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 21:15:13 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 21:15:14 1/61
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:15:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:14 2/61
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 21:15:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:14 3/61
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:15:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:14 4/61
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:15:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:15 5/61
+install: conda activate carbine
+[coble-create] End time: 2026-02-11 21:15:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:16 6/61
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:15:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:16 7/61
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 21:15:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:16 8/61
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 21:15:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:16 9/61
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:17 10/61
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 11/61
+install: umask 0022
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 12/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 13/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 14/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 15/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 16/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 17/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 18/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 19/61
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-02-11 21:15:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:17 20/61
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/carbine/bin/gcc"
+[coble-create] End time: 2026-02-11 21:15:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:18 21/61
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/carbine/bin/g++"
+[coble-create] End time: 2026-02-11 21:15:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:18 22/61
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/carbine/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:15:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:18 23/61
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/carbine/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:15:19
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:19 24/61
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:19
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:19 25/61
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:19
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:19 26/61
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:20 27/61
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 28/61
+install: export CC="/home/ralcraft/miniforge3/envs/carbine/bin/gcc"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 29/61
+install: export CXX="/home/ralcraft/miniforge3/envs/carbine/bin/g++"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 30/61
+install: export FC="/home/ralcraft/miniforge3/envs/carbine/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 31/61
+install: export F77="/home/ralcraft/miniforge3/envs/carbine/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 32/61
+install: export CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 33/61
+install: export CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 34/61
+install: export CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:20 35/61
+install: export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 21:15:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:21 36/61
+install: conda env config vars set QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 21:15:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:21 37/61
+install: export QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 21:15:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:21 38/61
+install: conda env config vars set OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 21:15:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:21 39/61
+install: export OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 21:15:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:21 40/61
+install: conda env config vars set R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 21:15:22
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:15:22 41/61
+install: export R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 21:15:22
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:15:22 42/61
+install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1)'
+dep: # * DONE (vcfR)
+[coble-create] End time: 2026-02-11 21:16:02
+[coble-create] Duration: 40s
+
+[coble-create] Start time: 2026-02-11 21:16:02 44/61
+install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1)'
+dep: # * DONE (covr)
+[coble-create] End time: 2026-02-11 21:16:06
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 21:16:06 46/61
+install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1)'
+dep: # * DONE (partykit)
+[coble-create] End time: 2026-02-11 21:16:14
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:16:14 48/61
+install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1)'
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-11 21:16:22
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:16:22 50/61
+install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1)'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-11 21:16:27
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-11 21:16:27 52/61
+install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-11 21:16:35
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:16:35 54/61
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-11 21:16:43
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:16:43 56/61
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-11 21:16:50
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-11 21:16:50 58/61
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-11 21:16:58
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:16:58 60/61
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-11 21:17:06
+[coble-create] Duration: 8s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-11 21:17:06
+[coble-create] Recipe took: 0h 1m 52s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 21:18:27 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 21:18:28 1/51
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:18:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:28 2/51
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 21:18:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:28 3/51
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:18:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:29 4/51
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:18:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:29 5/51
+install: conda activate carbine
+[coble-create] End time: 2026-02-11 21:18:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:18:30 6/51
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:18:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:30 7/51
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 8/51
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 9/51
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 10/51
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 11/51
+install: umask 0022
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 12/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 13/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 14/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
+[coble-create] End time: 2026-02-11 21:18:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:31 15/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 16/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 17/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 18/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 19/51
+install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 20/51
+install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 21/51
+install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
+[coble-create] End time: 2026-02-11 21:18:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:32 22/51
+install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:18:33
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:18:33 23/51
+install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:18:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:33 24/51
+install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:18:34 25/51
+install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:34 26/51
+install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:34 27/51
+install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:18:35 28/51
+install: export CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 29/51
+install: export CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 30/51
+install: export FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 31/51
+install: export F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 32/51
+install: export CFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 33/51
+install: export CXXFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 34/51
+install: export CPPFLAGS="-I$CONDA_PREFIX/include"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 35/51
+install: export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 36/51
+install: conda env config vars set QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 37/51
+install: export QT_QPA_PLATFORM=offscreen
+[coble-create] End time: 2026-02-11 21:18:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:35 38/51
+install: conda env config vars set OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 21:18:36
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:18:36 39/51
+install: export OTEL_SDK_DISABLED=true
+[coble-create] End time: 2026-02-11 21:18:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:36 40/51
+install: conda env config vars set R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 21:18:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:36 41/51
+install: export R_OTEL_DISABLED=true
+[coble-create] End time: 2026-02-11 21:18:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:18:36 42/51
+install: Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (vcfR)
+[coble-create] End time: 2026-02-11 21:19:18
+[coble-create] Duration: 42s
+
+[coble-create] Start time: 2026-02-11 21:19:18 44/51
+install: Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (covr)
+[coble-create] End time: 2026-02-11 21:19:22
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-11 21:19:22 46/51
+install: Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (partykit)
+[coble-create] End time: 2026-02-11 21:19:28
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-11 21:19:28 48/51
+install: Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-11 21:19:36
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-11 21:19:36 50/51
+install: Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org/", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-11 21:19:41
+[coble-create] Duration: 5s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-11 21:19:41
+[coble-create] Recipe took: 0h 1m 13s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 21:26:43 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 21:26:44 1/46
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:26:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:44 2/46
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 21:26:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:44 3/46
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:26:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:26:45 4/46
+install: conda deactivate | true
+[coble-create] End time: 2026-02-11 21:26:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:46 5/46
+install: conda activate carbine
+[coble-create] End time: 2026-02-11 21:26:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:46 6/46
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 21:26:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:46 7/46
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 21:26:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 21:26:46 8/46
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 21:26:47
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 21:26:47 9/46
+install: conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=11' 'gxx_linux-64=11' 'gfortran_linux-64=11'
