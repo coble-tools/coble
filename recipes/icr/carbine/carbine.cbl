@@ -8,20 +8,24 @@ channels:
   - defaults  
   - bioconda
   - conda-forge
-compilers:
-  - compile-tools: 11  
 languages:  
   - r-base=4.4.3
   - python=3.12
+bash:
+  - R CMD javareconf
 flags:
-  - dependencies: NA  
-  #- system-tools: True
+  - compile-tools: True
+  - system-tools: False
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
+  - dependencies: NA
 conda:
-  - cmdstan=2.38.0
+  - cmdstan=2.38.0  
+flags:
+  - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 conda:  
+  - zlib
   - arviz
   - pytz  
   - cmdstanpy=1.3.0
@@ -42,11 +46,15 @@ r-conda:
   - pio
   - easypar
   - dndscv
+  - permute
+  - vegan
+  - shiny
 r-package:
   - vcfR
   - covr
   - partykit
 r-conda:  
+  - biocmanager
   - ggthemes
   - clisymbols
   - reshape2

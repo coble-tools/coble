@@ -12,6 +12,9 @@
 # 1. yamlfile
 ###############
 
+# not using this at the moment
+exit 0
+
 YAML_FILE=""
 BACKUP_FILE=""
 

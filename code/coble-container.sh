@@ -6,7 +6,7 @@ INPUT_RECIPE=""
 containers="docker,singularity"
 IMAGE_NAME=""
 DUAL_CI=false
-DUAL=false
+DUAL=""
 VAL_FILE=""
 VAL_FOLDER=""
 
@@ -38,7 +38,7 @@ EXAMPLES:
     $(basename "$0") --env basic --recipe config/basic.cbl --steps 2
 
     # Build mac and linuc
-    $(basename "$0") --env basic --recipe config/basic.cbl --dual
+    $(basename "$0") --env basic --recipe config/basic.cbl --dual mac
 
 EOF
 }
@@ -70,8 +70,8 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --dual)            
-            DUAL=true
-            shift
+            DUAL="$2"
+            shift 2
             ;;
         --validate)
             VAL_FILE="$2"
@@ -168,10 +168,49 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
             echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
             exit 1
         fi
-    elif [[ $DUAL == true ]]; then
+    elif [[ $DUAL == "both" ]]; then
         echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
+        build_platform="linux/amd64,linux/arm64"
+        #build_platform="linux/arm64"
+        docker buildx build -f "$DOCKERFILE" \
+        --platform "$build_platform" \
+        --pull \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        -t "$IMAGE_NAME" \
+        --load .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
+    elif [[ $DUAL == "mac" ]]; then
+        echo "[coble-docker] Docker buildx for mac build requested..."        
         #build_platform="linux/amd64,linux/arm64"
         build_platform="linux/arm64"
+        IMAGE_NAME="${IMAGE_NAME}-arm64"
+        docker buildx build -f "$DOCKERFILE" \
+        --platform "$build_platform" \
+        --pull \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        -t "$IMAGE_NAME" \
+        --load .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
+    elif [[ $DUAL == "linux" ]]; then
+        echo "[coble-docker] Docker buildx for linux build requested..."                
+        build_platform="linux/amd64"
+        IMAGE_NAME="${IMAGE_NAME}-amd64"
         docker buildx build -f "$DOCKERFILE" \
         --platform "$build_platform" \
         --pull \

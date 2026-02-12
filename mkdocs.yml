@@ -69,6 +69,7 @@ nav:
     - Finding-packages: coble/finding.md
     - Workflow: coble/workflow.md
     - Libraries: coble/libraries.md
+    - R-versions: coble/r-versions.md
     - icr-cluster: coble/icr.md
     - hpc-cluster: coble/hpc.md    
   - Recipes:

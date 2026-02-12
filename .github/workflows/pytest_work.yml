@@ -1,10 +1,10 @@
-name: All Conda-Pytest
+name: Working Conda-Pytest
 
 on:
   push:
-    branches: [ mainx ]
+    branches: [ main ]
   pull_request:
-    branches: [ mainx ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -40,4 +40,4 @@ jobs:
           docker system prune -af --volumes || true
           docker builder prune -af || true
       - name: Run tests
-        run: pytest --cache-clear -v tests/github
+        run: pytest --cache-clear -v tests/github/working

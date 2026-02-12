@@ -3,22 +3,20 @@
 #######################################
 coble:
   - environment: r-360
-channels:
+channels:    
   - r
-  - bioconda
-  - conda-forge
-  - defaults
-compilers:
-  - compile-tools: 7.5.0
+compilers:  
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01  
 languages:
-  - r-base=3.6.0
-flags:
-  - dependencies: NA  
-  - build-tools: false
-  - priority: strict
+  - r-base=3.6.0@r
+bash:
+  - conda config --env --remove channels r
+flags:      
   - channel: bioconda
-  - channel: conda-forge    
+  - channel: conda-forge   
+compilers:  
+  - compile-tools: 7
 r-package:  
   - remotes 
-  - biocmanager
+  - BiocManager
   - tidyverse
