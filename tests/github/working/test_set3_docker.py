@@ -3,18 +3,18 @@ import os
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 # code/coble build --recipe tests/fixtures/old.cbl --env old --rebuild
 
-def do_block(path, block):
+def do_docker(path, block):
     """Test that the old version of r that needs compiling runs."""
     result = subprocess.run([
-        'bash', 'tests/github/bashes/tests_set3.sh', path, block
+        'bash', 'tests/github/bashes/tests_docker.sh', path, block
     ], cwd=cwd, capture_output=True, text=True,shell=False)    
     print(result.stdout)
     return result.returncode
 
-#def test_carbine():
-#    success = do_block("icr", "carbine")    
-#    assert success == 0    
+def test_carbine_docker():
+    success = do_docker("icr", "carbine")    
+    assert success == 0    
 
-#if __name__ == "__main__":    
-#    test_carbine()
+if __name__ == "__main__":    
+    test_carbine_docker()
     
