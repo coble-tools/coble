@@ -11,9 +11,15 @@
 #
 #################################################################################
 
-source ~/.bashrc
-#source "$(conda info --base)/etc/profile.d/conda.sh"
-#eval "$(mamba shell hook --shell=bash)"
+# Initialize conda - try .bashrc first, fall back to conda init
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+else
+    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
+    if command -v conda &> /dev/null; then
+        eval "$(conda shell.bash hook)"
+    fi
+fi
 
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
 

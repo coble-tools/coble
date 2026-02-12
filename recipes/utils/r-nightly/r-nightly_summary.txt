@@ -1,0 +1,91 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-11 at 07:46:45 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-11 07:46:45 1/60
+install: source ~/.bashrc
+[coble-create] End time: 2026-02-11 07:46:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 07:46:46 3/60
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-11 07:46:47
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 07:46:47 5/60
+install: conda env remove --name r-nightly -y 2>/dev/null || true
+[coble-create] End time: 2026-02-11 07:46:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:47 7/60
+install: conda create --no-default-packages --name r-nightly -y
+[coble-create] End time: 2026-02-11 07:46:49
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-11 07:46:49 9/60
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 07:46:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:49 10/60
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-11 07:46:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:49 11/60
+install: conda activate r-nightly
+[coble-create] End time: 2026-02-11 07:46:50
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 07:46:50 12/60
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-11 07:46:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:50 13/60
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-11 07:46:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:50 14/60
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-11 07:46:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:50 16/60
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-11 07:46:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:50 17/60
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-11 07:46:51
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 07:46:51 19/60
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-02-11 07:46:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:51 21/60
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-02-11 07:46:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:51 23/60
+install: CONDA_BASE=$(conda info --base)
+[coble-create] End time: 2026-02-11 07:46:52
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-11 07:46:52 25/60
+install: ARCH=$(uname -m)
+[coble-create] End time: 2026-02-11 07:46:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-11 07:46:52 27/60
+install: bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "devel"
+[coble-create] End time: 2026-02-11 07:47:07
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-11 07:47:07 29/60
+install: conda install -y  r-remotes r-biocmanager

@@ -222,6 +222,12 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
         echo "[coble-docker] $IMAGE_INFO"
     fi
     
+    # Display image creation time and size for verification
+    IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.Size}} bytes')
+    echo "[coble-docker] ✓ Docker image created successfully"
+    echo "[coble-docker] $IMAGE_INFO"
+    
+    echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
     if [[ $DUAL_CI == true ]]; then
         echo "[coble-docker] Docker build complete - image pushed to registry"
     else
@@ -229,7 +235,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     fi
     echo "[coble-docker] To run use:"
     echo ""
-    echo "docker run --rm -it $IMAGE_NAME"
+    echo "docker run --rm -it -v .:/workspace -w /workspace $IMAGE_NAME"
     echo ""
 
 fi

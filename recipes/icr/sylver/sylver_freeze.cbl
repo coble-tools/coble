@@ -19,7 +19,7 @@ flags:
   - priority: flexible
 
 languages:
-  - r-base=3.6.0@r
+  - r-base=3.6.0@source
 flags:
   - export: CC="/home/ralcraft/miniforge3/bin/gcc"
   - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
@@ -29,6 +29,7 @@ flags:
   - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
   - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
   - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/sylver/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/sylver/lib"
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
 
 conda:
   - binutils=2.40@conda-forge

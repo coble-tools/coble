@@ -20,6 +20,7 @@ show_help() {
 	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"		
 	echo "  freeze  capture the packages from an existing environment"
 	echo "  network  generate a network graph from a frozen environment file"
+	echo "  linux-deps  install system dependencies for building R from source on Debian/Ubuntu"
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
@@ -64,6 +65,15 @@ echo "[coble] command entered: coble $*" >&2
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	show_help
 	exit 0
+fi
+
+# For docker and CI we first install system dependencies for building R from source, 
+# then call the template script to get the recipe, then build the container, then capture and network if requested
+# we do it seperately first so exit out after installing linux deps if that is the command
+if [[ "$1" == "linux-deps" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	bash "$script_dir/coble-deps-ci.sh"
+	exit $?
 fi
 
 # if the first command is not valid show help and exit

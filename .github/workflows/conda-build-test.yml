@@ -1,4 +1,4 @@
-name: Build and Test Coble Conda Recipe
+name: Conda recipe test
 
 on:
   push:

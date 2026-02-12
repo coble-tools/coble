@@ -10,12 +10,13 @@
 #   -t cbl-my-env .
 #########################################################################
 
-ARG TARGETPLATFORM
 #FROM --platform=$TARGETPLATFORM continuumio/miniconda3:latest
-FROM continuumio/miniconda3:latest
+FROM continuumio/miniconda3:24.9.2-0
+
 WORKDIR /app
 
 # Build arguments for customization
+ARG TARGETPLATFORM
 ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
@@ -56,6 +57,7 @@ RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update
     apt-get install -y --no-install-recommends \
         build-essential \
         gfortran \
+        libreadline-dev \
         binutils-gold \
         zlib1g-dev \
         libgomp1 \
@@ -93,7 +95,7 @@ ENV MAMBA_NO_BANNER=1
 ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
-RUN mkdir -p code recipe validate
+RUN mkdir -p code recipe validate workspace
 # Install coble from GitHub
 COPY code ./code
 
@@ -137,12 +139,18 @@ RUN echo "channels:" > /app/.condarc && \
 ENV CONDARC=/app/.condarc
 
 ######################### COBLE ##########################################################
-RUN bash /app/code/coble \            
-    build \    
+RUN bash /app/code/coble \
+    linux-deps
+
+ENV CPPFLAGS="-I/usr/include"
+ENV LDFLAGS="-L/usr/lib/x86_64-linux-gnu"
+
+RUN bash /app/code/coble \
+    build \
     --recipe /app/recipe/$BUILD_TAG.cbl \
     --validate /app/validate.sh \
     --val-folder /app/validate \
-    $(if [ "$SKIP_ERRORS" = "true" ]; then echo "--skip-errors"; fi) \      
+    $(if [ "$SKIP_ERRORS" = "true" ]; then echo "--skip-errors"; fi) \
     --env "${BUILD_TAG}"
 #########################################################################################
 
