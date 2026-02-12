@@ -10,9 +10,8 @@ channels:
   - defaults
 compilers:
   - compile-tools: 7.5.0
-  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
 languages:
-  - r-base=3.6.0@source
+  - r-base=3.6.0
 flags:
   - dependencies: NA  
   - build-tools: false

@@ -12,23 +12,22 @@ def do_block(path, block):
     return result.returncode
 
 def test_r_360():
-    success = do_block("utils", "r-360")
+    success = do_block("utils", "r-360-conda")
     assert success == 0
 
 def test_r_362():
-    success = do_block("utils", "r-362")
+    success = do_block("utils", "r-362-conda")
     assert success == 0    
 
-def test_r_452():
-    success = do_block("utils", "r-452")
+def test_r_443():
+    success = do_block("utils", "r-443-conda")
     assert success == 0
 
-def test_r_nightly():
-    success = do_block("utils", "r-nightly")
+def test_r_452():
+    success = do_block("utils", "r-452-conda")
     assert success == 0
+
 
 if __name__ == "__main__":    
     #test_r_360()
-    #test_r_362()
-    test_r_nightly()
-    
+    test_r_362()

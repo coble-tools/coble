@@ -444,6 +444,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
                 echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                
                 # Add to your recipe file BEFORE running R installs
                 echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
                 echo "${CONDA_EXE} env config vars set CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
@@ -452,8 +453,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"                
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                 echo "# Also as export to avoid de/activation" >> "$RECIPE_FILE"                
                 echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
@@ -461,8 +462,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                                    
+                echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"                
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"              
             elif [[ "${directive_lower}" == "compile-paths" ]]; then                
                 # only compile-paths no installs                
@@ -494,7 +495,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                
+                    echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"                           
                     echo "# Also as export to avoid de/activatin" >> "$RECIPE_FILE"                
                     echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                     echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
@@ -503,7 +504,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                                                    
+                    echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"
                 fi
             fi
@@ -560,7 +561,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"    
+                echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                 echo "# Also as export to avoid de/activations" >> "$RECIPE_FILE"                
                 echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
@@ -569,7 +570,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib\"" >> "$RECIPE_FILE"                    
+                echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"              
             fi 
         

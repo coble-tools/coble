@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# install_r_source.sh — Build R from source and install into a conda environment
+# code/coble-r-source.sh — Build R from source and install into a conda environment
 #
 # Prerequisites:
 #   - System build dependencies installed (see install_r_deps.sh)
@@ -8,20 +8,20 @@
 #
 # Usage:
 #   conda activate myenv
-#   bash install_r_source.sh <version>
+#   bash code/coble-r-source.sh <version>
 #
 # Examples:
-#   bash install_r_source.sh 3.6.0
-#   bash install_r_source.sh 4.3.2
-#   bash install_r_source.sh devel
+#   bash code/coble-r-source.sh 3.6.0
+#   bash code/coble-r-source.sh 4.3.2
+#   bash code/coble-r-source.sh devel
 
 set -euo pipefail
 
 # ---- 0. Parse arguments ----
 if [[ $# -lt 1 ]]; then
-    echo "Usage: bash install_r_source.sh <R_VERSION>"
-    echo "  e.g. bash install_r_source.sh 3.6.0"
-    echo "       bash install_r_source.sh devel"
+    echo "Usage: bash code/coble-r-source.sh <R_VERSION>"
+    echo "  e.g. bash code/coble-r-source.sh 3.6.0"
+    echo "       bash code/coble-r-source.sh devel"
     exit 1
 fi
 
@@ -183,6 +183,8 @@ export ac_cv_header_bzlib_h=yes
 export ac_cv_bzip2_version_1_0_6=yes
 # or: export ac_cv_bzip2_version_ok=yes
 
+SYSROOT="${CONDA_PREFIX}/x86_64-conda-linux-gnu/sysroot"
+
 ./configure \
     --prefix="${INSTALL_PREFIX}" \
     --enable-R-shlib \
@@ -191,7 +193,11 @@ export ac_cv_bzip2_version_1_0_6=yes
     --with-lapack \
     --with-readline \
     --with-x=no \
-    --with-recommended-packages=yes
+    --with-recommended-packages=yes \
+    CPPFLAGS="-I${SYSROOT}/usr/include" \
+    CFLAGS="-I${SYSROOT}/usr/include" \
+    CXXFLAGS="-I${SYSROOT}/usr/include" \
+    LDFLAGS="-L${SYSROOT}/usr/lib64 -L${CONDA_PREFIX}/lib -Wl,-rpath,${CONDA_PREFIX}/lib --sysroot=${SYSROOT}"
 
 
 # ---- 8. Build ----
