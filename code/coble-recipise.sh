@@ -152,7 +152,7 @@ UPDATE_R="default"
 NCPUS="1"
 DEPS_CONDA=""
 DEPS_PYTHON=""
-DEPS_R="TRUE"
+DEPS_R="NA"
 PRIORITY="strict"
 
 

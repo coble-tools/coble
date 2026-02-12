@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-11
-# Capture time: 15:23:33 GMT
+# Capture date: 2026-02-12
+# Capture time: 19:45:42 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -18,7 +18,10 @@ conda create --no-default-packages --name chief -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
-conda  clean --all -y
+conda  clean --all -y --force-pkgs-dirs
+# deactivate environment
+conda deactivate | true
+conda deactivate | true
 # activate environment
 conda activate chief
 
@@ -37,8 +40,29 @@ conda config --env --add channels conda-forge
 conda install -y  'python=3.8'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
-conda deactivate
-conda activate chief
+export PYTHONNOUSERSITE=1
+# pip:
+python -m pip install 'torch===1.8.1+cu111' 
+python -m pip install 'torchvision===0.9.1+cu111' 
+# bash:
+python -m pip install -U "setuptools>=68" wheel packaging
+python -m pip install -f https://download.pytorch.org/whl/torch_stable.html
+# pip:
+python -m pip install 'h5py===3.6.0' 
+python -m pip install 'matplotlib===3.5.2' 
+python -m pip install 'numpy===1.22.3' 
+python -m pip install 'opencv-python===4.5.5.64' 
+python -m pip install 'openslide-python===1.3.0' 
+python -m pip install 'pandas===1.4.2' 
+python -m pip install 'Pillow===10.0.0' 
+python -m pip install 'scikit-image===0.21.0' 
+python -m pip install 'scikit-learn===1.2.2' 
+python -m pip install 'scikit-survival===0.21.0' 
+python -m pip install 'scipy===1.8.0' 
+python -m pip install 'tensorboardX===2.6.1' 
+python -m pip install 'tensorboard===2.8.0' 
+python -m pip install 'timm-0.5.4.tar' 
+python -m pip install 'openslide-bin' 
 # pip:
 python -m pip install 'absl-py===1.0.0' 
 python -m pip install 'addict===2.4.0' 
@@ -66,13 +90,13 @@ python -m pip install 'colorama===0.4.3'
 python -m pip install 'colorbrewer===0.2.0' 
 python -m pip install 'cryptography===2.8' 
 python -m pip install 'cycler===0.11.0' 
-#- dbus-python==1.2.16
+python -m pip install 'dbus-python===1.2.16' 
 python -m pip install 'debugpy===1.6.0' 
 python -m pip install 'decorator===5.1.1' 
-python -m pip install 'defer===1.0.6' 
+python -m pip install 'defer===1.0.4' 
 python -m pip install 'defusedxml===0.7.1' 
 python -m pip install 'distro===1.4.0' 
-python -m pip install 'distro-info===0.23+ubuntu1.1' 
+python -m pip install 'distro-info===1.0' 
 python -m pip install 'docopt===0.6.2' 
 python -m pip install 'ecos===2.0.12' 
 python -m pip install 'einops===0.6.1' 
@@ -123,7 +147,6 @@ python -m pip install 'keras===2.8.0'
 python -m pip install 'Keras-Preprocessing===1.1.2' 
 python -m pip install 'keyring===18.0.1' 
 python -m pip install 'kiwisolver===1.4.2' 
-python -m pip install 'language-selector===0.1' 
 python -m pip install 'launchpadlib===1.10.13' 
 python -m pip install 'lazr.restfulclient===0.14.2' 
 python -m pip install 'lazr.uri===1.0.3' 
@@ -173,14 +196,11 @@ python -m pip install 'pyasn1-modules===0.2.8'
 python -m pip install 'pycparser===2.21' 
 python -m pip install 'pyecharts===2.0.4' 
 python -m pip install 'Pygments===2.12.0' 
-#- PyGObject==3.36.0
 python -m pip install 'PyJWT===1.7.1' 
 python -m pip install 'pyparsing===3.0.8' 
 python -m pip install 'pyrsistent===0.18.1' 
 python -m pip install 'PySocks===1.7.1' 
-python -m pip install 'python-apt===2.0.1+ubuntu0.20.4.1' 
 python -m pip install 'python-dateutil===2.8.2' 
-python -m pip install 'python-debian===0.1.36+ubuntu1.1' 
 python -m pip install 'pytz===2022.1' 
 python -m pip install 'PyWavelets===1.4.1' 
 python -m pip install 'PyYAML===5.3.1' 
@@ -229,8 +249,6 @@ python -m pip install 'traitlets===5.1.1'
 python -m pip install 'trio===0.22.2' 
 python -m pip install 'trio-websocket===0.11.1' 
 python -m pip install 'typing-extensions===4.2.0' 
-python -m pip install 'ubuntu-advantage-tools===8001' 
-python -m pip install 'ubuntu-drivers-common===0.0.0' 
 python -m pip install 'urllib3===1.26.9' 
 python -m pip install 'wadllib===1.3.3' 
 python -m pip install 'wcwidth===0.2.5' 
@@ -239,7 +257,6 @@ python -m pip install 'websocket-client===1.3.2'
 python -m pip install 'Werkzeug===2.1.2' 
 python -m pip install 'wrapt===1.14.0' 
 python -m pip install 'wsproto===1.2.0' 
-python -m pip install 'xkit===0.0.0' 
 python -m pip install 'xlwings===0.30.12' 
 python -m pip install 'yarg===0.1.9' 
 python -m pip install 'zipp===3.8.0' 

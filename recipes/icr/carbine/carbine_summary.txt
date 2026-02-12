@@ -822,3 +822,5 @@ install: export R_OTEL_DISABLED=true
 
 [coble-create] Start time: 2026-02-12 18:30:08 87/175
 install: conda install -y  --no-update-deps  'cmdstan=2.38.0' 
+[coble-create] End time: 2026-02-12 18:49:11
+[coble-create] Duration: 1143s

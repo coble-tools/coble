@@ -168,10 +168,49 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
             echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
             exit 1
         fi
-    elif [[ $DUAL == true ]]; then
+    elif [[ $DUAL == "both" ]]; then
+        echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
+        build_platform="linux/amd64,linux/arm64"
+        #build_platform="linux/arm64"
+        docker buildx build -f "$DOCKERFILE" \
+        --platform "$build_platform" \
+        --pull \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        -t "$IMAGE_NAME" \
+        --load .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
+    elif [[ $DUAL == "mac" ]]; then
         echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
         #build_platform="linux/amd64,linux/arm64"
         build_platform="linux/arm64"
+        IMAGE_NAME="${IMAGE_NAME}-arm64"
+        docker buildx build -f "$DOCKERFILE" \
+        --platform "$build_platform" \
+        --pull \
+        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg GITHUB_PAT="$GITHUB_PAT" \
+        --build-arg VAL_FILE="$VAL_FILE" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        -t "$IMAGE_NAME" \
+        --load .
+        BUILD_EXIT_CODE=$?
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
+    elif [[ $DUAL == "linux" ]]; then
+        echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."                
+        build_platform="linux/amd64"
+        IMAGE_NAME="${IMAGE_NAME}-amd64"
         docker buildx build -f "$DOCKERFILE" \
         --platform "$build_platform" \
         --pull \

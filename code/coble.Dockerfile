@@ -94,6 +94,7 @@ RUN apt-get -o Acquire::Retries=3 update && \
         ca-certificates \
         build-essential \
         gfortran \
+        default-jdk-headless \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MAMBA_NO_BANNER=1
@@ -187,11 +188,11 @@ ENV GITHUB_PAT=
 
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
-    echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
-    echo '║        (c) ICR 2026 RSE and BCR-DS                           ║' >> /etc/motd && \
-    echo '║        For help, see:                                        ║' >> /etc/motd && \    
-    echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
-    echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \    
+    #echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
+    echo '║        (c) ICR 2026 RSE and BCDS                             ║' >> /etc/motd && \
+    #echo '║        For help, see:                                        ║' >> /etc/motd && \    
+    #echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
+    #echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \    
     echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd    
 # Ensure the message is shown on shell startup
 RUN echo "cat /etc/motd" >> /root/.bashrc && \

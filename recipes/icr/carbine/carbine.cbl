@@ -11,14 +11,18 @@ channels:
 languages:  
   - r-base=4.4.3
   - python=3.12
+bash:
+  - R CMD javareconf
 flags:
   - compile-tools: True
   - system-tools: False
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
+  - dependencies: NA
 conda:
   - cmdstan=2.38.0
+  - zlib
 conda:  
   - arviz
   - pytz  
@@ -40,11 +44,15 @@ r-conda:
   - pio
   - easypar
   - dndscv
+  - permute
+  - vegan
+  - shiny
 r-package:
   - vcfR
   - covr
   - partykit
 r-conda:  
+  - biocmanager
   - ggthemes
   - clisymbols
   - reshape2
