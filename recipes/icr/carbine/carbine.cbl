@@ -21,9 +21,11 @@ flags:
   - export: R_OTEL_DISABLED=true
   - dependencies: NA
 conda:
-  - cmdstan=2.38.0
-  - zlib
+  - cmdstan=2.38.0  
+flags:
+  - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 conda:  
+  - zlib
   - arviz
   - pytz  
   - cmdstanpy=1.3.0
