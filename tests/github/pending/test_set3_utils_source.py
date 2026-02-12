@@ -15,10 +15,6 @@ def test_r_360():
     success = do_block("utils", "r-360-source")
     assert success == 0
 
-def test_r_362():
-    success = do_block("utils", "r-362-conda")
-    assert success == 0    
-
 def test_r_443():
     success = do_block("utils", "r-443-source")
     assert success == 0

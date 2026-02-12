@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 ###########################################
-r_version="3.6.2"
+r_version="4.4.3"
 packages=("remotes")
-pack_ver=("deseq2=1.26" "yaml=2.2.1")  
+pack_ver=("icu=75.1" "gcc_linux-64=15.2")  
 ###########################################
 echo "Checking R version is $r_version..."
 
