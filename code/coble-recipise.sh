@@ -31,7 +31,8 @@ CONDA_ALIAS="conda"
 CONDA_EXE="conda"
 VAL_FILE=""
 VAL_FOLDER=""
-CRAN_REPO="https://cloud.r-project.org/"
+#CRAN_REPO="https://cloud.r-project.org/"
+CRAN_REPO="https://packagemanager.posit.co/cran/latest"
 HAS_REMOTES=False
 HAS_BIOCMANAGER=False
 

@@ -38,7 +38,8 @@ LABEL org.opencontainers.image.version="${BUILD_TAG}" \
 # Set timeouts
 RUN conda config --set remote_read_timeout_secs 180 && \
     conda config --set remote_connect_timeout_secs 60 && \
-    conda config --set remote_max_retries 10
+    conda config --set remote_max_retries 10 && \
+    conda config --set path_conflict clobber
 
 # Ensure all channels cleaned out we only want to add ones we want
 RUN conda config --system --remove-key channels 2>/dev/null || true
@@ -53,37 +54,46 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
 # Install system dependencies
-RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update && \
+# RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update && \
+#     apt-get install -y --no-install-recommends \
+#         build-essential \
+#         gfortran \
+#         libreadline-dev \
+#         binutils-gold \
+#         zlib1g-dev \
+#         libgomp1 \
+#         gettext \
+#         curl \
+#         git \
+#         wget \
+#         default-jdk-headless \
+#         libmagick++-dev \
+#         libx11-dev \
+#         libxt-dev \
+#         ca-certificates \
+#         libcurl4-openssl-dev \
+#         libssl-dev \
+#         libxml2-dev \
+#         libfontconfig1-dev \
+#         libharfbuzz-dev \
+#         libfribidi-dev \
+#         libfreetype6-dev \
+#         libpng-dev \
+#         libtiff5-dev \
+#         libjpeg-dev \
+#         libicu-dev \
+#         libbz2-dev \
+#         liblzma-dev \
+#         libpcre2-dev \
+#     && rm -rf /var/lib/apt/lists/*
+RUN apt-get -o Acquire::Retries=3 update && \
     apt-get install -y --no-install-recommends \
-        build-essential \
-        gfortran \
-        libreadline-dev \
-        binutils-gold \
-        zlib1g-dev \
-        libgomp1 \
-        gettext \
         curl \
         git \
         wget \
-        default-jdk-headless \
-        libmagick++-dev \
-        libx11-dev \
-        libxt-dev \
         ca-certificates \
-        libcurl4-openssl-dev \
-        libssl-dev \
-        libxml2-dev \
-        libfontconfig1-dev \
-        libharfbuzz-dev \
-        libfribidi-dev \
-        libfreetype6-dev \
-        libpng-dev \
-        libtiff5-dev \
-        libjpeg-dev \
-        libicu-dev \
-        libbz2-dev \
-        liblzma-dev \
-        libpcre2-dev \
+        build-essential \
+        gfortran \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MAMBA_NO_BANNER=1

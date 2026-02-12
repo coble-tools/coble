@@ -19,6 +19,11 @@ def test_r_362():
     success = do_block("utils", "r-362-conda")    
     assert success == 0    
 
+def test_r_443():
+    success = do_block("utils", "r-443-conda")    
+    assert success == 0   
+
+
 if __name__ == "__main__":    
     #test_r_360()
     test_r_362()

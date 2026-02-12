@@ -12,10 +12,10 @@ def do_block(path, block):
     return result.returncode
 
 
-def test_r_443():
-    success = do_block("utils", "r-443-conda")    
+def test_carbine():
+    success = do_block("icr", "carbine")    
     assert success == 0    
 
 if __name__ == "__main__":    
-    test_r_443()
+    test_carbine()
     

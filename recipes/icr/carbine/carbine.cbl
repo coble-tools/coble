@@ -8,14 +8,12 @@ channels:
   - defaults  
   - bioconda
   - conda-forge
-compilers:
-  - compile-tools: 11  
 languages:  
   - r-base=4.4.3
   - python=3.12
 flags:
-  - dependencies: NA  
-  #- system-tools: True
+  - compile-tools: True
+  - system-tools: False
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
