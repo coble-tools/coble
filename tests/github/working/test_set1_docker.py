@@ -1,5 +1,6 @@
 import subprocess
 import os
+cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # code/coble build --recipe tests/fixtures/small.cbl --validate tests/fixtures/validate.sh --env small --containers docker
 
@@ -11,7 +12,7 @@ def test_coble_small_docker():
         '--validate', 'tests/fixtures/validate.sh',
         '--env', 'xsmall', 
         '--containers', 'docker'
-    ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
+    ], cwd=cwd, capture_output=True, text=True)
     assert result.returncode == 0
     assert 'usage' in result.stdout.lower() or 'help' in result.stdout.lower()
 

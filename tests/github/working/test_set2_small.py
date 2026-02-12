@@ -1,5 +1,6 @@
 import subprocess
 import os
+cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # code/coble build --recipe tests/fixtures/old.cbl --env old --rebuild
 
@@ -7,7 +8,7 @@ def do_block(block):
     """Test that the old version of r that needs compiling runs."""
     result = subprocess.run([
         'bash', 'tests/github/bashes/tests_set2_small.sh', block
-    ], cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True,shell=False)    
+    ], cwd=cwd, capture_output=True, text=True,shell=False)    
     print(result.stdout)
     return result.returncode
 

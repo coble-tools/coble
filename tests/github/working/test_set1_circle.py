@@ -1,5 +1,6 @@
 import subprocess
 import os
+cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
 """
@@ -54,8 +55,8 @@ def test_coble_circle():
     if rebuild:
         params1.append('--rebuild')
         params2.append('--rebuild')
-    result1 = subprocess.run(params1, cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
-    result2 = subprocess.run(params2, cwd=os.path.dirname(os.path.dirname(os.path.dirname(__file__))), capture_output=True, text=True)
+    result1 = subprocess.run(params1, cwd=cwd, capture_output=True, text=True)
+    result2 = subprocess.run(params2, cwd=cwd, capture_output=True, text=True)
 
     diffs = file_diffs(freeze_1, freeze_2)
     print(diffs)

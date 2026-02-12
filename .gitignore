@@ -59,6 +59,7 @@ recipes/**
 !recipes/**/validate.sh
 !recipes/**/validate/*
 !recipes/**/*_summary.txt
+!recipes/**/*.sh
 
 cbl-icr-small.sif
 cbl-carbine.sif
