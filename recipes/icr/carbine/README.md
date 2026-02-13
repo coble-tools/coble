@@ -10,6 +10,7 @@ code/coble build --recipe recipes/icr/carbine/carbine.cbl \
 --env carbine \
 --validate recipes/icr/carbine/validate/validate.sh \
 --val-folder recipes/icr/carbine/validate/ \
---containers docker,singularity
+--containers docker \
+--dual mac
 #--banner ICR
 #--target linux/amd64,linux/arm64 \

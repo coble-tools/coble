@@ -438,17 +438,17 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
                 fi                                                
                 # symlinks
-                echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
-                echo "umask 0022" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
-                echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
+                #echo "umask 0022" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran" >> "$RECIPE_FILE"
+                #echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
                 
                 # Add to your recipe file BEFORE running R installs
                 #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
@@ -537,13 +537,16 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 elif [[ "$version" == "true" ]]; then
                     echo "[coble-recipise] Adding default compile tools to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
+                    
                 elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"  
+                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                  
                 fi                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"

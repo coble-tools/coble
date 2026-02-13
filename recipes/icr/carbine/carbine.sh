@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-12
-# Capture time: 18:16:08 GMT
+# Capture date: 2026-02-13
+# Capture time: 09:32:16 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda executable conda: /Users/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /Users/ralcraft/miniforge3/bin/conda
 #####################################################
 
 conda env remove --name carbine -y 2>/dev/null || true
@@ -48,11 +48,12 @@ conda install -y  'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
+# bash:
+R CMD javareconf
 # flags:
 
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64
-conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
+conda install -y --no-update-deps -c conda-forge compilers
 # Set up compiler symlinks for R package compilation - COS6 compatibility
 umask 0022
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
@@ -64,52 +65,43 @@ ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
 ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Set compiler flags for R package compilation
-conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
-conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
-conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-# Also as export to avoid de/activation
-export CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
-export CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
-export FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
-export F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
-export CFLAGS="-I$CONDA_PREFIX/include"
-export CXXFLAGS="-I$CONDA_PREFIX/include"
-export CPPFLAGS="-I$CONDA_PREFIX/include"
-export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-
-
-# Including system dependencies for source installations
-# Essential shared packages
-conda install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
-# System r packages
-conda install -y --no-update-deps -c conda-forge librsvg udunits2
-# Essential r packages
-conda install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg
-
-# Essential python packages
-conda install -y --no-update-deps -c conda-forge cython protobuf
-
-# Language build tools
-conda install -y --no-update-deps -c conda-forge cmake pkg-config
-# Language core system libraries
-conda install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
 conda env config vars set QT_QPA_PLATFORM=offscreen
 export QT_QPA_PLATFORM=offscreen
 conda env config vars set OTEL_SDK_DISABLED=true
 export OTEL_SDK_DISABLED=true
 conda env config vars set R_OTEL_DISABLED=true
 export R_OTEL_DISABLED=true
+# Flag: Directive: dependencies, Value: na
+conda env config vars set CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+export CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+conda env config vars set CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+export CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+conda env config vars set LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+export LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+conda env config vars set LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+
 # conda:
 conda install -y  --no-update-deps \
-'cmdstan=2.38.0' 
+'cmdstan=2.38.0' \
+# bash:
+ARCH=$(uname -m)
+if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
+CMDSTAN_PATH=$(python -c "import cmdstanpy; print(cmdstanpy.cmdstan_path())") && \
+printf "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot
+TBB_CXX_TYPE = gcc
+CPPFLAGS =
+" >> $CMDSTAN_PATH/make/local; fi
+# flags:
+conda env config vars set CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+conda env config vars set CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
+export CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
+conda env config vars set CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
+export CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 # conda:
 conda install -y  --no-update-deps \
+'zlib' \
 'arviz' \
 'pytz' \
 'cmdstanpy=1.3.0' \
@@ -118,7 +110,7 @@ conda install -y  --no-update-deps \
 'pandas=3.0.0' \
 'scipy=1.17.0' \
 'seaborn=0.13.2' \
-'xz' 
+'xz' \
 # r-conda:
 conda install -y  --no-update-deps \
 'r-doBy' \
@@ -130,13 +122,17 @@ conda install -y  --no-update-deps \
 'r-tidytable' \
 'r-pio' \
 'r-easypar' \
-'r-dndscv' 
+'r-dndscv' \
+'r-permute' \
+'r-vegan' \
+'r-shiny' \
 # r-package:
-Rscript -e 'install.packages("vcfR", repos="https://cloud.r-project.org/", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("covr", repos="https://cloud.r-project.org/", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("partykit", repos="https://cloud.r-project.org/", dependencies=TRUE, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("vcfR", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("covr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("partykit", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 # r-conda:
 conda install -y  --no-update-deps \
+'r-biocmanager' \
 'r-ggthemes' \
 'r-clisymbols' \
 'r-reshape2' \
@@ -149,23 +145,23 @@ conda install -y  --no-update-deps \
 'r-restfulr' \
 'r-rjson' \
 'r-interp' \
-'r-reticulate' 
+'r-reticulate' \
 # r-package:
-Rscript -e 'install.packages("ggpubr", repos="https://cloud.r-project.org/", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("ggsci", repos="https://cloud.r-project.org/", dependencies=TRUE, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 # bioc-conda:
 conda install -y  --no-update-deps \
 'bioconda::bioconductor-rtracklayer=1.66.0' \
 'bioconda::bioconductor-genomicfeatures=1.58.0' \
 'bioconda::bioconductor-delayedarray=0.32.0' \
 'bioconda::bioconductor-summarizedexperiment=1.36.0' \
-'bioconda::bioconductor-genomicalignments=1.42.0' 
+'bioconda::bioconductor-genomicalignments=1.42.0' \
 # bioc-package:
-Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=TRUE, Ncpus=1)'
+Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=1)'
+Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=1)'
+Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=1)'
+Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=1)'
+Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
 # flags:
 # Flag: Directive: dependencies, Value: false
 # r-url:
@@ -181,10 +177,4 @@ Rscript -e "install.packages('https://github.com/caravagn/evoverse/archive/refs/
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/icr/carbine/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
-# Extra validation file: run.stan
-cp recipes/icr/carbine/validate//run.stan ${CONDA_PREFIX}/bin/run.stan
-chmod +x ${CONDA_PREFIX}/bin/run.stan
-# Extra validation file: run_stan.py
-cp recipes/icr/carbine/validate//run_stan.py ${CONDA_PREFIX}/bin/run_stan.py
-chmod +x ${CONDA_PREFIX}/bin/run_stan.py
 

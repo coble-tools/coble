@@ -152,11 +152,13 @@ RUN echo "channels:" > /app/.condarc && \
 ENV CONDARC=/app/.condarc
 
 ######################### COBLE ##########################################################
-RUN bash /app/code/coble \
-    linux-deps
+RUN MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH) && \
+    ln -sf /usr/include/$MULTIARCH/bits /usr/include/bits && \
+    ln -sf /usr/include/$MULTIARCH/gnu /usr/include/gnu && \
+    ln -sf /usr/include/$MULTIARCH/sys /usr/include/sys && \
+    echo "MULTIARCH=$MULTIARCH" && \
+    ln -sf /usr/lib/$MULTIARCH /usr/lib/multiarch-lib
 
-ENV CPPFLAGS="-I/usr/include"
-ENV LDFLAGS="-L/usr/lib/x86_64-linux-gnu"
 
 RUN bash /app/code/coble \
     build \

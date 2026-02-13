@@ -23,6 +23,7 @@ flags:
   - export: CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
   - export: CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
   - export: LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
+  - export: LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
 
 conda:
   - cmdstan=2.38.0  
