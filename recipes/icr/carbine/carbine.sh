@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-13
-# Capture time: 09:32:16 GMT
+# Capture time: 21:44:00 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /Users/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /Users/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
 #####################################################
 
 conda env remove --name carbine -y 2>/dev/null || true
@@ -54,17 +54,6 @@ R CMD javareconf
 
 # Language compile tools
 conda install -y --no-update-deps -c conda-forge compilers
-# Set up compiler symlinks for R package compilation - COS6 compatibility
-umask 0022
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-# Set up compiler symlinks for R package compilation - standard aliases
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
 conda env config vars set QT_QPA_PLATFORM=offscreen
 export QT_QPA_PLATFORM=offscreen
 conda env config vars set OTEL_SDK_DISABLED=true
@@ -83,7 +72,7 @@ export LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$C
 
 # conda:
 conda install -y  --no-update-deps \
-'cmdstan=2.38.0' \
+'cmdstan=2.38.0' 
 # bash:
 ARCH=$(uname -m)
 if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
@@ -95,10 +84,8 @@ CPPFLAGS =
 # flags:
 conda env config vars set CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
-conda env config vars set CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
-export CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
-conda env config vars set CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
-export CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
+#- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
+#- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 # conda:
 conda install -y  --no-update-deps \
 'zlib' \
@@ -110,7 +97,7 @@ conda install -y  --no-update-deps \
 'pandas=3.0.0' \
 'scipy=1.17.0' \
 'seaborn=0.13.2' \
-'xz' \
+'xz' 
 # r-conda:
 conda install -y  --no-update-deps \
 'r-doBy' \
@@ -125,7 +112,7 @@ conda install -y  --no-update-deps \
 'r-dndscv' \
 'r-permute' \
 'r-vegan' \
-'r-shiny' \
+'r-shiny' 
 # r-package:
 Rscript -e 'install.packages("vcfR", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 Rscript -e 'install.packages("covr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
@@ -145,7 +132,7 @@ conda install -y  --no-update-deps \
 'r-restfulr' \
 'r-rjson' \
 'r-interp' \
-'r-reticulate' \
+'r-reticulate' 
 # r-package:
 Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
@@ -155,7 +142,7 @@ conda install -y  --no-update-deps \
 'bioconda::bioconductor-genomicfeatures=1.58.0' \
 'bioconda::bioconductor-delayedarray=0.32.0' \
 'bioconda::bioconductor-summarizedexperiment=1.36.0' \
-'bioconda::bioconductor-genomicalignments=1.42.0' \
+'bioconda::bioconductor-genomicalignments=1.42.0' 
 # bioc-package:
 Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=1)'
 Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=1)'
@@ -173,8 +160,9 @@ Rscript -e "install.packages('https://github.com/caravagn/evoverse/archive/refs/
 
 
 
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/icr/carbine/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for carbine environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

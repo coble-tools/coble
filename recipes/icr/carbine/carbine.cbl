@@ -19,11 +19,7 @@ flags:
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
-  - dependencies: NA
-  - export: CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-  - export: CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-  - export: LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-  - export: LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+  - dependencies: NA  
 
 conda:
   - cmdstan=2.38.0  
@@ -34,8 +30,8 @@ bash:
   - printf "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot\nTBB_CXX_TYPE = gcc\nCPPFLAGS =\n" >> $CMDSTAN_PATH/make/local; fi
 flags:
   - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
-  - export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
-  - export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
+  #- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
+  #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 conda:  
   - zlib
   - arviz

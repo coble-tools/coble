@@ -824,3 +824,66 @@ install: export R_OTEL_DISABLED=true
 install: conda install -y  --no-update-deps  'cmdstan=2.38.0' 
 [coble-create] End time: 2026-02-12 18:49:11
 [coble-create] Duration: 1143s
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-13 at 21:44:01 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-13 21:44:02 1/128
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-13 21:44:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:02 2/128
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-13 21:44:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:02 3/128
+install: conda deactivate | true
+[coble-create] End time: 2026-02-13 21:44:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:02 4/128
+install: conda deactivate | true
+[coble-create] End time: 2026-02-13 21:44:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:02 5/128
+install: conda activate carbine
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-13 21:44:03 6/128
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:03 7/128
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:03 8/128
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:03 9/128
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:03 10/128
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-13 21:44:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-13 21:44:03 11/128
+install: R CMD javareconf
+[coble-create] End time: 2026-02-13 21:44:04
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-13 21:44:04 13/128
+install: conda install -y --no-update-deps -c conda-forge compilers
+[coble-create] End time: 2026-02-13 21:44:26
+[coble-create] Duration: 22s
