@@ -95,7 +95,9 @@ RUN apt-get -o Acquire::Retries=3 update && \
         build-essential \
         gfortran \
         default-jdk-headless \
+        libc6-dev \
     && rm -rf /var/lib/apt/lists/*
+
 
 ENV MAMBA_NO_BANNER=1
 
