@@ -6,8 +6,7 @@ coble:
 channels:  
   - bioconda
   - conda-forge
-compilers:  
-  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01  
+compilers:    
   - compile-tools: 11.4  
 languages:
   - r-base=4.5.2@conda-forge

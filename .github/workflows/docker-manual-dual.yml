@@ -99,6 +99,6 @@ jobs:
         run: |
           TAG=${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
           docker manifest create $TAG \
-            ${TAG}-amd64 \
-            ${TAG}-arm64
+            ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64 \
+            ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
           docker manifest push $TAG
