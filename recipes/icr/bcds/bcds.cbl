@@ -3,22 +3,18 @@
 ##########################################################
 coble:
   - environment: bcds
-channels:
-  - defaults
-  - r
+channels:  
   - bioconda
   - conda-forge
-
+compilers:  
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01  
+  - compile-tools: 11.4  
 languages:
   - r-base=4.5.2@conda-forge
   - python=3.14.0@conda-forge
-
 flags:
-  - dependencies: NA   
-  - system-tools: True
-  - compile-tools: 11.4  
-  - ncpus: 8
-  
+  - dependencies: NA     
+  - ncpus: 8  
 bash:
   - # Special installs outside of conda for awkward pysamstats package  
   - python -m pip install "setuptools>=59.0"
