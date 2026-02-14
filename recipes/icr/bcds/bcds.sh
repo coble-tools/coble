@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-14
-# Capture time: 19:02:27 GMT
+# Capture time: 20:43:38 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -49,11 +49,25 @@ export PYTHONNOUSERSITE=1
 # compilers:
 
 # Language compile tools
-conda install -y --solver=libmamba --no-update-deps -c conda-forge \
-compilers cmake make pkg-config autoconf automake libtool \
-compilers cmake make pkg-config protobuf libprotobuf \
-r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 # flags:
+conda install -y --solver=libmamba --no-update-deps -c conda-forge 'gcc_linux-64=11.4' 'gxx_linux-64=11.4' 'gfortran_linux-64=11.4'
+
+# Including system dependencies for source installations
+# Essential shared packages
+conda install -y --solver=libmamba --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick
+# System r packages
+conda install -y --solver=libmamba --no-update-deps -c conda-forge librsvg udunits2
+# Essential r packages
+conda install -y --solver=libmamba --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg
+
+# Essential python packages
+conda install -y --solver=libmamba --no-update-deps -c conda-forge cython protobuf
+
+# Language build tools
+conda install -y --solver=libmamba --no-update-deps -c conda-forge libtool autoconf cmake pkg-config
+# Language core system libraries
+conda install -y --solver=libmamba --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
 # Flag: Directive: dependencies, Value: na
 # Flag: Directive: ncpus, Value: 8
 # bash:
@@ -292,8 +306,9 @@ Rscript -e 'BiocManager::install("grr", dependencies=NA, Ncpus=8)'
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-TFMPvalue' 
-# r-url:
-Rscript -e "install.packages('https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+# r-github:
+Rscript -e 'remotes::install_github("GreenleafLab/ArchR", dependencies=NA, upgrade="default", Ncpus=8)'
+#- https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
 # bash:
 Rscript -e "ArchR::installExtraPackages()"
 

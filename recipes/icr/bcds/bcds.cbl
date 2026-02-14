@@ -234,8 +234,9 @@ bioc-package:
   - grr
  r-conda:
   - TFMPvalue
-r-url:
-  - https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
+r-github:
+  - GreenleafLab/ArchR
+  #- https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
 bash:
   - Rscript -e "ArchR::installExtraPackages()"
 
