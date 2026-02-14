@@ -19,11 +19,19 @@ flags:
   - export: QT_QPA_PLATFORM=offscreen  
   - export: OTEL_SDK_DISABLED=true
   - export: R_OTEL_DISABLED=true
-  - dependencies: NA
+  - dependencies: NA  
+
 conda:
   - cmdstan=2.38.0  
+bash:
+  - ARCH=$(uname -m)
+  - if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
+  - CMDSTAN_PATH=$(python -c "import cmdstanpy; print(cmdstanpy.cmdstan_path())") && \
+  - printf "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot\nTBB_CXX_TYPE = gcc\nCPPFLAGS =\n" >> $CMDSTAN_PATH/make/local; fi
 flags:
   - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+  #- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
+  #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 conda:  
   - zlib
   - arviz

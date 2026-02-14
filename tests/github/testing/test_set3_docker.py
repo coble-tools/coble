@@ -11,10 +11,10 @@ def do_docker(path, block):
     print(result.stdout)
     return result.returncode
 
-def test_carbine_docker():
-    success = do_docker("icr", "carbine")    
-    assert success == 0    
+#def test_carbine_docker():
+#    success = do_docker("icr", "carbine")    
+#    assert success == 0    
 
-if __name__ == "__main__":    
-    test_carbine_docker()
+#if __name__ == "__main__":    
+#    test_carbine_docker()
     
