@@ -416,29 +416,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi  
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then                
-                # if compile-tools = true then add compiler installs
-                # if a version is given use the specific version
-                echo "" >> "$RECIPE_FILE"
+                                                        
+            
+            elif [[ "${directive_lower}" == "compile-version" ]]; then
                 version="${value_lower}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
-                    continue
-                fi
-                if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile tools to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
-                elif [[ "$version" != "false" ]]; then
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                                    
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then                                
+                if [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
+                    echo "# Language compile tools" >> "$RECIPE_FILE"                    
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
                 fi                                                
                 # symlinks
@@ -543,20 +532,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge \\" >>  "$RECIPE_FILE"
-                    echo "compilers cmake make pkg-config autoconf automake libtool \\" >>  "$RECIPE_FILE"                     
-                    echo "compilers cmake make pkg-config protobuf libprotobuf \\" >>  "$RECIPE_FILE"                     
-                    echo "r-remotes r-biocmanager" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                        
                     
                 elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"  
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge \\" >>  "$RECIPE_FILE"                  
-                    echo "compilers cmake make pkg-config autoconf automake libtool \\" >>  "$RECIPE_FILE"  
-                    echo "compilers cmake make pkg-config protobuf libprotobuf \\" >>  "$RECIPE_FILE"                     
-                    echo "r-remotes r-biocmanager" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                      
                 fi                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
@@ -627,6 +610,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     
                 if [[ "$src" == "" ]]; then                    
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"                                        
                 elif [[ "$src" == "source" ]]; then
                     echo "[coble-recipise] R source installation requested" >&2
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

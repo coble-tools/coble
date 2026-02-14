@@ -14,3 +14,7 @@ code/coble build --recipe recipes/icr/carbine/carbine.cbl \
 --dual mac
 #--banner ICR
 #--target linux/amd64,linux/arm64 \
+
+ docker manifest create icrsc/coble:icr-carbine \
+ icrsc/coble:icr-carbine-amd64 \
+ icrsc/coble:icr-carbine-arm64

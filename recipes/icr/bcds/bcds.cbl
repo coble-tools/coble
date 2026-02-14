@@ -6,12 +6,14 @@ coble:
 channels:  
   - bioconda
   - conda-forge
-compilers:    
-  - compile-tools: 11.4  
 languages:
   - r-base=4.5.2@conda-forge
   - python=3.14.0@conda-forge
+compilers:      
+  - compile-tools: true
 flags:
+  - compile-version: 11.4 
+  - system-tools: true
   - dependencies: NA     
   - ncpus: 8  
 bash:

@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-14
-# Capture time: 18:27:48 GMT
+# Capture time: 19:02:27 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name bcds -y 2>/dev/null || true
@@ -37,13 +37,6 @@ conda config --env --add channels conda-forge
 ##########################################################
 # COBLE: Breast Cancer Data Science, (c) ICR 2026
 ##########################################################
-# compilers:
-
-# Language compile tools
-conda install -y --solver=libmamba --no-update-deps -c conda-forge \
-compilers cmake make pkg-config autoconf automake libtool \
-compilers cmake make pkg-config protobuf libprotobuf \
-r-remotes r-biocmanager
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
@@ -53,6 +46,13 @@ conda install -y --solver=libmamba  'conda-forge::python=3.14.0'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
+# compilers:
+
+# Language compile tools
+conda install -y --solver=libmamba --no-update-deps -c conda-forge \
+compilers cmake make pkg-config autoconf automake libtool \
+compilers cmake make pkg-config protobuf libprotobuf \
+r-remotes r-biocmanager
 # flags:
 # Flag: Directive: dependencies, Value: na
 # Flag: Directive: ncpus, Value: 8
