@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-14
-# Capture time: 17:02:52 GMT
+# Capture time: 18:27:48 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -40,7 +40,10 @@ conda config --env --add channels conda-forge
 # compilers:
 
 # Language compile tools
-conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+conda install -y --solver=libmamba --no-update-deps -c conda-forge \
+compilers cmake make pkg-config autoconf automake libtool \
+compilers cmake make pkg-config protobuf libprotobuf \
+r-remotes r-biocmanager
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)

@@ -99,10 +99,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Verify images exist
-        run: |
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
       - name: Create multi-arch manifest
         run: |
           TAG=${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
