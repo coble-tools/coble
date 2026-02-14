@@ -45,7 +45,10 @@ RUN conda config --set remote_read_timeout_secs 180 && \
 RUN conda config --system --remove-key channels 2>/dev/null || true
 
 # Update conda to latest version
-RUN conda update -n base -c defaults conda -y && conda clean -afy
+RUN conda update -n base -c defaults conda -y && \
+    conda clean -afy && \
+    rm -rf /opt/conda/pkgs/* && \
+    rm -rf ~/.cache/pip/*
 
 
 
@@ -96,7 +99,9 @@ RUN apt-get -o Acquire::Retries=3 update && \
         gfortran \
         default-jdk-headless \
         libc6-dev \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/cache/apt/* \
+    && apt-get clean
 
 
 ENV MAMBA_NO_BANNER=1
@@ -185,7 +190,9 @@ RUN mkdir -p /.singularity.d/env && \
     echo 'if [ "$PS1" ] && [ -f /etc/motd ]; then cat /etc/motd; fi' >> /.singularity.d/env/99-conda.sh && \
     chmod +x /.singularity.d/env/99-conda.sh
 
-RUN conda clean -afy
+RUN conda clean -afy && \
+    rm -rf /opt/conda/pkgs/* && \
+    rm -rf /root/.cache/pip/*
 
 # Clear the PAT after build for security
 ENV GITHUB_PAT=
