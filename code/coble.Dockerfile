@@ -99,6 +99,9 @@ RUN apt-get -o Acquire::Retries=3 update && \
         gfortran \
         default-jdk-headless \
         libc6-dev \
+        libglpk-dev \
+        libxml2-dev \
+        libgmp-dev \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/* \
     && apt-get clean

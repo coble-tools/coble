@@ -302,10 +302,9 @@ r-url:
 r-conda:
   - gdtools
 bioc-package:
-  - pcaMethods
-  - DeconRNASeq 
+  - pcaMethods  
 r-url:
-  #- https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
+  - https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
   - https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz
 
 bioc-package:

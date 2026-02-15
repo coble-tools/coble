@@ -19,14 +19,30 @@ def do_block(section, recipe):
     print(result.stdout)
     return result.returncode
 
-def test_carbine():
-    success = do_block("icr", "carbine")    
+def test_360():
+    success = do_block("icr", "r-360-conda")    
     assert success == 0   
 
-def test_sylver():
-    success = do_block("icr", "sylver")    
+def test_362():
+    success = do_block("icr", "r-362-conda")    
+    assert success == 0   
+
+def test_443():
+    success = do_block("icr", "r-443-conda")    
+    assert success == 0   
+
+def test_452():
+    success = do_block("icr", "r-452-conda")    
+    assert success == 0   
+
+def test_nightly():
+    success = do_block("icr", "r-nightly")    
     assert success == 0   
 
 
 if __name__ == "__main__":        
-    test_carbine()
+    test_360()
+    #test_362()
+    #test_443()
+    #test_452()
+    #test_nightly()

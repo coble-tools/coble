@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-15
-# Capture time: 13:55:28 GMT
+# Capture time: 16:10:29 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -174,7 +174,6 @@ Rscript -e 'install.packages("factoextra", repos="https://packagemanager.posit.c
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
 'patch' 
-#- cpp-opentelemetry-sdk
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-gifski' 
@@ -379,9 +378,8 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-gdtools' 
 # bioc-package:
 Rscript -e 'BiocManager::install("pcaMethods", dependencies=NA, Ncpus=8)'
-Rscript -e 'BiocManager::install("DeconRNASeq", dependencies=NA, Ncpus=8)'
 # r-url:
-#- https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
+Rscript -e 'remotes::install_url("https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
 Rscript -e 'remotes::install_url("https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
 
 # bioc-package:

@@ -19,14 +19,11 @@ def do_block(section, recipe):
     print(result.stdout)
     return result.returncode
 
-def test_carbine():
-    success = do_block("icr", "carbine")    
-    assert success == 0   
-
-def test_sylver():
-    success = do_block("icr", "sylver")    
+def test_DESeq2():
+    success = do_block("papers", "DESeq2")    
     assert success == 0   
 
 
 if __name__ == "__main__":        
-    test_carbine()
+    test_DESeq2()
+    
