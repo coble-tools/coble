@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-14
-# Capture time: 20:43:38 GMT
+# Capture date: 2026-02-15
+# Capture time: 08:36:51 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -146,7 +146,7 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'install.packages("gdata", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("bedr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
@@ -157,7 +157,7 @@ Rscript -e 'install.packages("spatstat", repos="https://packagemanager.posit.co/
 
 # required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
 # r-url:
-Rscript -e "install.packages('https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/aroneklund/copynumber/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # these wont install happily from install.packages (needed for FactoMineR)
 # r-conda:
@@ -256,9 +256,22 @@ Rscript -e 'BiocManager::install("BSgenome.Hsapiens.NCBI.GRCh38", dependencies=N
 Rscript -e 'BiocManager::install("genomation", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("ggbio", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg38.knownGene", dependencies=NA, Ncpus=8)'
-
+Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg38", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("BSgenome.Hsapiens.1000genomes.hs37d5", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("NMF", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("lpSolve", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("NNLM", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("gmp", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("RCircos", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("doRNG", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("combinat", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("limSolve", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("getopt", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("indelsig.tools.lib", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("signature.tools.lib", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("Signac", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
@@ -278,7 +291,7 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'BiocManager::install("infercnv", dependencies=NA, Ncpus=8)'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/hdng/clonevol/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/hdng/clonevol/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # r-package:
 Rscript -e 'install.packages("packcircles", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
@@ -315,8 +328,10 @@ Rscript -e "ArchR::installExtraPackages()"
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-grr' 
-# r-url:
-Rscript -e "install.packages('https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+# r-github:
+Rscript -e 'remotes::install_github("satijalab/seurat-wrappers", dependencies=NA, upgrade="default", Ncpus=8)'
+#r-url:
+#  - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
 
 # bioc-package:
 Rscript -e 'BiocManager::install("ShortRead", dependencies=NA, Ncpus=8)'
@@ -326,9 +341,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-eulerr' 
 
 # r-url:
-Rscript -e "install.packages('https://github.com/xmc811/Scillus/archive/refs/heads/development.zip', repos=NULL, type='source', method='wget')"
-Rscript -e 'remotes::install_url("https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip", dependencies=NA, upgrade="default", subdir="ASCAT", Ncpus=8)'
-Rscript -e "install.packages('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/xmc811/Scillus/archive/refs/heads/development.tar.gz', repos=NULL, type='source')"
+Rscript -e 'remotes::install_url("https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.tar.gz", dependencies=NA, upgrade="default", subdir="ASCAT", Ncpus=8)'
+Rscript -e "install.packages('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # r-package:
 Rscript -e 'install.packages("clustree", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
@@ -336,19 +351,18 @@ Rscript -e 'install.packages("clustree", repos="https://packagemanager.posit.co/
 Rscript -e 'BiocManager::install("Chicago", dependencies=NA, Ncpus=8)'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/carmonalab/STACAS/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-
+Rscript -e "install.packages('https://github.com/carmonalab/STACAS/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # bioc-package:
 Rscript -e 'BiocManager::install("batchelor", dependencies=NA, Ncpus=8)'
 
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("GSVA", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
@@ -356,8 +370,8 @@ conda install -y --solver=libmamba --no-update-deps \
 # bioc-package:
 Rscript -e 'BiocManager::install("pcaMethods", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("Rsubread", dependencies=NA, Ncpus=8)'
@@ -412,24 +426,24 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'install.packages("squash", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 Rscript -e 'install.packages("iotools", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_3.0.0.tar.gz', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_3.0.0.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("glmGamPoi", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/satijalab/sctransform/archive/refs/heads/develop.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/satijalab/sctransform/archive/refs/heads/develop.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("Ckmeans.1d.dp", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/modes/modes_0.7.0.tar.gz', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/modes/modes_0.7.0.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("dynamicTreeCut", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 Rscript -e 'install.packages("roll", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 # r-url:
-Rscript -e "install.packages('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("LDlinkR", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
@@ -439,9 +453,9 @@ Rscript -e 'install.packages("randomForest", repos="https://packagemanager.posit
 Rscript -e 'BiocManager::install("multiGSEA", dependencies=NA, Ncpus=8)'
 
 # r-url:
-Rscript -e "install.packages('http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/karakulahg/TEffectR/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("minfi", dependencies=NA, Ncpus=8)'
@@ -457,8 +471,8 @@ Rscript -e "BiocManager::install('preprocessCore', configure.args='--disable-thr
 # r-package:
 Rscript -e 'install.packages("clusterSim", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/clv/clv_0.3-2.5.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/clv/clv_0.3-2.5.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/saeyslab/nichenetr/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("kstreet13/slingshot", dependencies=NA, Ncpus=8)'
@@ -473,7 +487,7 @@ Rscript -e 'install.packages("egg", repos="https://packagemanager.posit.co/cran/
 # bioc-package:
 Rscript -e 'BiocManager::install("sva", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e 'remotes::install_url("https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip", dependencies=NA, upgrade="default", subdir="cytotrace2_r", Ncpus=8)'
+Rscript -e 'remotes::install_url("https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.tar.gz", dependencies=NA, upgrade="default", subdir="cytotrace2_r", Ncpus=8)'
 # pip:
 python -m pip install 'scanoramaCT' 
 
@@ -481,7 +495,7 @@ python -m pip install 'scanoramaCT'
 conda install -y --solver=libmamba --no-update-deps \
 'r-rpostgres' 
 # r-url:
-Rscript -e "install.packages('https://github.com/PriceLab/ghdb/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/PriceLab/ghdb/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("destiny", dependencies=NA, Ncpus=8)'
@@ -491,7 +505,7 @@ Rscript -e 'install.packages("openssl", repos="https://packagemanager.posit.co/c
 Rscript -e 'install.packages("pracma", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/trevorld/r-optparse/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
@@ -526,10 +540,10 @@ Rscript -e 'BiocManager::install("RcisTarget", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("GENIE3", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("R2HTML", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/bokeh/rbokeh/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # bash:
-Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip", dependencies=NA, Ncpus=8, upgrade="never")'
+Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.tar.gz", dependencies=NA, Ncpus=8, upgrade="never")'
 
 
 # r-package:
@@ -537,14 +551,14 @@ Rscript -e 'install.packages("ISOpureR", repos="https://packagemanager.posit.co/
 Rscript -e 'install.packages("DiffCorr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # bioc-package:
 Rscript -e 'BiocManager::install("ChromSCape", dependencies=NA, Ncpus=8)'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/sztup/scarHRD/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/guokai8/scGSVA/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/sztup/scarHRD/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/guokai8/scGSVA/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("reactome.db", dependencies=NA, Ncpus=8)'
@@ -557,14 +571,14 @@ Rscript -e 'install.packages("tsne", repos="https://packagemanager.posit.co/cran
 Rscript -e 'install.packages("fpc", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/cit-bioinfo/mMCP-counter/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/mojaveazure/seurat-disk/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/cit-bioinfo/mMCP-counter/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/mojaveazure/seurat-disk/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("immunarch", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 Rscript -e 'install.packages("strawr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 # r-url:
-Rscript -e "install.packages('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/kharchenkolab/numbat/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
 
 # r-package:
 Rscript -e 'install.packages("keras", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
@@ -572,8 +586,8 @@ Rscript -e 'install.packages("ijtiff", repos="https://packagemanager.posit.co/cr
 Rscript -e 'install.packages("bbmle", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://github.com/choisy/cutoff/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/choisy/cutoff/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz', repos=NULL, type='source')"
 
 # bioc-package:
 Rscript -e 'BiocManager::install("PoisonAlien/maftools", dependencies=NA, Ncpus=8)'
@@ -612,25 +626,25 @@ Rscript -e 'install.packages("AsioHeaders", repos="https://packagemanager.posit.
 Rscript -e 'install.packages("seqinr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
 
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/munoztd0/reprtree/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/carmonalab/SignatuR/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
 # bioc-package:
 Rscript -e 'BiocManager::install("lpsymphony", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e "install.packages('https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/jinworks/CellChat/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://github.com/nignatiadis/IHW/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/jinworks/CellChat/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
 
 # Maptools is deprecated but I did a fix to memory allocation
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
 'geos' 
 # r-url:
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/rachelicr/r-maptools/archive/refs/heads/main.zip', repos=NULL, type='source', method='wget')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz', repos=NULL, type='source')"
+Rscript -e "install.packages('https://github.com/rachelicr/r-maptools/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
 
 # r-github:
 Rscript -e 'remotes::install_github("huayc09/SeuratExtend", dependencies=NA, upgrade="default", Ncpus=8)'

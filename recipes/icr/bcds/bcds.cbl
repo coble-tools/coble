@@ -95,7 +95,7 @@ r-package:
 
 # required for sequenze to work with hg38. Default copy number package from BioConductor does not support beyond hg19
 r-url:
-  - https://github.com/aroneklund/copynumber/archive/refs/heads/master.zip
+  - https://github.com/aroneklund/copynumber/archive/refs/heads/master.tar.gz
 
 # these wont install happily from install.packages (needed for FactoMineR)
 r-conda:
@@ -188,9 +188,22 @@ bioc-package:
   - genomation
   - ggbio
   - TxDb.Hsapiens.UCSC.hg38.knownGene
-
+  - BSgenome.Hsapiens.UCSC.hg38
+  - BSgenome.Hsapiens.1000genomes.hs37d5
+  - NMF
+  - lpSolve
+  - NNLM
+  - gmp
+  - RCircos
+  - doRNG
+  - combinat
+  - limSolve
+  - getopt
+  - indelsig.tools.lib
+  - signature.tools.lib
 r-url:
-  - https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.zip
+  - https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz  
+  - https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz
 
 r-package:
   - Signac
@@ -208,7 +221,7 @@ bioc-package:
   - infercnv
 
 r-url:
-  - https://github.com/hdng/clonevol/archive/refs/heads/master.zip
+  - https://github.com/hdng/clonevol/archive/refs/heads/master.tar.gz
 r-package:
   - packcircles
 
@@ -242,8 +255,10 @@ bash:
 
 r-conda:
   - grr
-r-url:
-  - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
+r-github:
+  - satijalab/seurat-wrappers
+#r-url:
+#  - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
 
 bioc-package:
   - ShortRead
@@ -252,9 +267,9 @@ r-conda:
   - eulerr
 
 r-url:
-  - https://github.com/xmc811/Scillus/archive/refs/heads/development.zip
-  - https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.zip@ASCAT
-  - https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.zip
+  - https://github.com/xmc811/Scillus/archive/refs/heads/development.tar.gz
+  - https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.tar.gz@ASCAT
+  - https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.tar.gz
 r-package:
   - clustree
 
@@ -262,27 +277,26 @@ bioc-package:
   - Chicago
 
 r-url:
-  - https://github.com/carmonalab/STACAS/archive/refs/heads/master.zip
-
+  - https://github.com/carmonalab/STACAS/archive/refs/heads/master.tar.gz
 bioc-package:  
   - batchelor
 
 r-url:
   - https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz
-  - https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.zip
+  - https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.tar.gz
 
 bioc-package:
   - GSVA
 r-url:
-  - https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.zip
+  - https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.tar.gz
 
 r-conda:
   - gdtools
 bioc-package:
   - pcaMethods
 r-url:
-  - https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.zip
-  - https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.zip
+  - https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
+  - https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz
 
 bioc-package:
   - Rsubread
@@ -340,7 +354,7 @@ r-url:
 bioc-package:
   - glmGamPoi
 r-url:
-  - https://github.com/satijalab/sctransform/archive/refs/heads/develop.zip
+  - https://github.com/satijalab/sctransform/archive/refs/heads/develop.tar.gz
 
 r-package:
   - Ckmeans.1d.dp
@@ -352,7 +366,7 @@ r-package:
   - dynamicTreeCut
   - roll  
 r-url:
-  - https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.zip
+  - https://github.com/cole-trapnell-lab/monocle3/archive/refs/heads/develop.tar.gz
 
 r-package:
   - LDlinkR
@@ -364,7 +378,7 @@ bioc-package:
 r-url:
   - http://research-pub.gene.com/REdiscoverTEpaper/data/REdiscoverTEdata_1.0.1.tar.gz
   - https://cran.r-project.org/src/contrib/Archive/Matrix.utils/Matrix.utils_0.9.8.tar.gz
-  - https://github.com/karakulahg/TEffectR/archive/refs/heads/master.zip
+  - https://github.com/karakulahg/TEffectR/archive/refs/heads/master.tar.gz
 
 bioc-package:  
   - minfi
@@ -381,7 +395,7 @@ r-package:
   - clusterSim
 r-url:
   - https://cran.r-project.org/src/contrib/Archive/clv/clv_0.3-2.5.tar.gz
-  - https://github.com/saeyslab/nichenetr/archive/refs/heads/master.zip
+  - https://github.com/saeyslab/nichenetr/archive/refs/heads/master.tar.gz
 
 bioc-package:
   - kstreet13/slingshot
@@ -395,14 +409,14 @@ r-package:
 bioc-package:
   - sva
 r-url:
-  - https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.zip@cytotrace2_r
+  - https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.tar.gz@cytotrace2_r
 pip:
   - scanoramaCT
 
 r-conda:
   - rpostgres
 r-url:
-  - https://github.com/PriceLab/ghdb/archive/refs/heads/master.zip
+  - https://github.com/PriceLab/ghdb/archive/refs/heads/master.tar.gz
 
 bioc-package:
   - destiny
@@ -412,7 +426,7 @@ r-package:
   - pracma
 
 r-url:
-  - https://github.com/trevorld/r-optparse/archive/refs/heads/master.zip
+  - https://github.com/trevorld/r-optparse/archive/refs/heads/master.tar.gz
 
 r-conda:
   - mcmcpack
@@ -446,10 +460,10 @@ bioc-package:
   - GENIE3
   - R2HTML
 r-url:
-  - https://github.com/bokeh/rbokeh/archive/refs/heads/main.zip
-  - https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.zip
+  - https://github.com/bokeh/rbokeh/archive/refs/heads/main.tar.gz
+  - https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.tar.gz
 bash:
-  - Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.zip", dependencies=NA, Ncpus=8, upgrade="never")'
+  - Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.tar.gz", dependencies=NA, Ncpus=8, upgrade="never")'
   
 
 r-package:
@@ -457,14 +471,14 @@ r-package:
   - DiffCorr
 
 r-url:
-  - https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.zip
-  - https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.zip
+  - https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.tar.gz
+  - https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.tar.gz
 bioc-package:
   - ChromSCape
 
 r-url:
-  - https://github.com/sztup/scarHRD/archive/refs/heads/master.zip
-  - https://github.com/guokai8/scGSVA/archive/refs/heads/main.zip
+  - https://github.com/sztup/scarHRD/archive/refs/heads/master.tar.gz
+  - https://github.com/guokai8/scGSVA/archive/refs/heads/main.tar.gz
 
 bioc-package:
   - reactome.db
@@ -477,14 +491,14 @@ r-package:
   - fpc
 
 r-url:
-  - https://github.com/cit-bioinfo/mMCP-counter/archive/refs/heads/master.zip
-  - https://github.com/mojaveazure/seurat-disk/archive/refs/heads/master.zip
+  - https://github.com/cit-bioinfo/mMCP-counter/archive/refs/heads/master.tar.gz
+  - https://github.com/mojaveazure/seurat-disk/archive/refs/heads/master.tar.gz
 
 r-package:
   - immunarch
   - strawr
 r-url:
-  - https://github.com/kharchenkolab/numbat/archive/refs/heads/main.zip
+  - https://github.com/kharchenkolab/numbat/archive/refs/heads/main.tar.gz
 
 r-package:
   - keras
@@ -492,7 +506,7 @@ r-package:
   - bbmle
 
 r-url:
-  - https://github.com/choisy/cutoff/archive/refs/heads/master.zip
+  - https://github.com/choisy/cutoff/archive/refs/heads/master.tar.gz
   - https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz
 
 bioc-package:
@@ -533,15 +547,15 @@ r-package:
 
 r-url:
   - https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz
-  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.zip
-  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.zip
-  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.zip
+  - https://github.com/munoztd0/reprtree/archive/refs/heads/master.tar.gz
+  - https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.tar.gz
+  - https://github.com/carmonalab/SignatuR/archive/refs/heads/master.tar.gz
 bioc-package:
   - lpsymphony
 r-url:  
-  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.zip
-  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.zip
-  - https://github.com/jinworks/CellChat/archive/refs/heads/main.zip
+  - https://github.com/nignatiadis/IHW/archive/refs/heads/master.tar.gz
+  - https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.tar.gz
+  - https://github.com/jinworks/CellChat/archive/refs/heads/main.tar.gz
 
 # Maptools is deprecated but I did a fix to memory allocation
 conda:
@@ -549,7 +563,7 @@ conda:
 r-url:
   - https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz  
   - https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz
-  - https://github.com/rachelicr/r-maptools/archive/refs/heads/main.zip
+  - https://github.com/rachelicr/r-maptools/archive/refs/heads/main.tar.gz
 
 r-github:
   - huayc09/SeuratExtend
