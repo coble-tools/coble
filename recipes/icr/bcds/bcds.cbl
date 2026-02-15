@@ -11,6 +11,7 @@ languages:
   - python=3.14.0@conda-forge
 compilers:      
   - compile-tools: true
+  - cran-repo: https://packagemanager.posit.co/cran/2026-02-01  
 flags:
   - compile-version: 11.4 
   - system-tools: true
@@ -251,7 +252,7 @@ bioc-package:
   - TFMPvalue
 r-github:
   - GreenleafLab/ArchR
-  #- https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.zip
+  #- https://github.com/GreenleafLab/ArchR/archive/refs/heads/master.tar.gz
 bash:
   - Rscript -e "ArchR::installExtraPackages()"
 
@@ -260,7 +261,7 @@ r-conda:
 r-github:
   - satijalab/seurat-wrappers
 #r-url:
-#  - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.zip
+#  - https://github.com/satijalab/seurat-wrappers/archive/refs/heads/master.tar.gz
 
 bioc-package:
   - ShortRead
@@ -302,8 +303,9 @@ r-conda:
   - gdtools
 bioc-package:
   - pcaMethods
+  - DeconRNASeq 
 r-url:
-  - https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
+  #- https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
   - https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz
 
 bioc-package:

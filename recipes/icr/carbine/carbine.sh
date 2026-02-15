@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-13
-# Capture time: 21:44:00 GMT
+# Capture date: 2026-02-15
+# Capture time: 09:31:23 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name carbine -y 2>/dev/null || true
@@ -43,17 +43,17 @@ conda config --env --add channels conda-forge
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y  'r-base=4.4.3'
-conda install -y  'python=3.12'
+conda install -y --solver=libmamba  'r-base=4.4.3'
+conda install -y --solver=libmamba  r-remotes r-biocmanager
+conda install -y --solver=libmamba  'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
 # bash:
 R CMD javareconf
 # flags:
-
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge compilers
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 conda env config vars set QT_QPA_PLATFORM=offscreen
 export QT_QPA_PLATFORM=offscreen
 conda env config vars set OTEL_SDK_DISABLED=true
@@ -61,17 +61,9 @@ export OTEL_SDK_DISABLED=true
 conda env config vars set R_OTEL_DISABLED=true
 export R_OTEL_DISABLED=true
 # Flag: Directive: dependencies, Value: na
-conda env config vars set CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-export CXXFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-conda env config vars set CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-export CPPFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-conda env config vars set LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-export LDFLAGS="--sysroot=$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot"
-conda env config vars set LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="$CONDA_PREFIX/aarch64-conda-linux-gnu/sysroot/usr/lib:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
 
 # conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'cmdstan=2.38.0' 
 # bash:
 ARCH=$(uname -m)
@@ -87,7 +79,7 @@ export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 #- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
 #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 # conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'zlib' \
 'arviz' \
 'pytz' \
@@ -99,7 +91,7 @@ conda install -y  --no-update-deps \
 'seaborn=0.13.2' \
 'xz' 
 # r-conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'r-doBy' \
 'r-pbkrtest' \
 'r-car' \
@@ -118,7 +110,7 @@ Rscript -e 'install.packages("vcfR", repos="https://packagemanager.posit.co/cran
 Rscript -e 'install.packages("covr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 Rscript -e 'install.packages("partykit", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 # r-conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'r-biocmanager' \
 'r-ggthemes' \
 'r-clisymbols' \
@@ -137,7 +129,7 @@ conda install -y  --no-update-deps \
 Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
 # bioc-conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'bioconda::bioconductor-rtracklayer=1.66.0' \
 'bioconda::bioconductor-genomicfeatures=1.58.0' \
 'bioconda::bioconductor-delayedarray=0.32.0' \
@@ -152,11 +144,11 @@ Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
 # flags:
 # Flag: Directive: dependencies, Value: false
 # r-url:
-Rscript -e "install.packages('https://github.com/im3sanger/dndscv/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/caravagnalab/VIBER/archive/refs/heads/master.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.zip', repos=NULL, type='source', method='wget')"
-Rscript -e "install.packages('https://github.com/caravagn/evoverse/archive/refs/heads/development.zip', repos=NULL, type='source', method='wget')"
+Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
 
 
 

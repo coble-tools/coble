@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-15
-# Capture time: 09:17:32 GMT
+# Capture time: 09:36:12 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name bcds -y 2>/dev/null || true
@@ -377,8 +377,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-gdtools' 
 # bioc-package:
 Rscript -e 'BiocManager::install("pcaMethods", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("DeconRNASeq", dependencies=NA, Ncpus=8)'
 # r-url:
-Rscript -e 'remotes::install_url("https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
+#- https://github.com/Shicheng-Guo/DeconRNASeq/archive/refs/heads/master.tar.gz
 Rscript -e 'remotes::install_url("https://github.com/EDePasquale/DoubletDecon/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
 
 # bioc-package:
