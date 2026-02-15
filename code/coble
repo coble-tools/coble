@@ -34,7 +34,7 @@ start_time=$(date +%s)
 
 echo '╔══════════════════════════════════════════════════════════════╗'
 echo '║        COBLE Reproducible Environment v0.2                   ║'
-echo '║        (c) ICR 2026 RSE and BCR-DS                           ║'
+echo '║        (c) ICR 2026 RSE and BCDS                             ║'
 echo '║        For help, see:                                        ║'
 echo '║        - https://icr-rse-group.github.io/coble/              ║'
 echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║'

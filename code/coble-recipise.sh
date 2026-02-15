@@ -35,6 +35,7 @@ VAL_FOLDER=""
 CRAN_REPO="https://packagemanager.posit.co/cran/latest"
 HAS_REMOTES=False
 HAS_BIOCMANAGER=False
+SOLVER="libmamba"
 
 echo "[coble-recipise] Starting recipise process..." >&2
 
@@ -304,7 +305,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
+          echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
         fi      
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
@@ -364,6 +365,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "ncpus" ]]; then                
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
                 NCPUS="$value"                
+            elif [[ "${directive_lower}" == "solver" ]]; then                
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                SOLVER="$value"                
             elif [[ "${directive_lower}" == "priority" ]]; then                
                 PRIORITY="$value"                
                 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
@@ -390,52 +394,41 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             
             elif [[ "${directive_lower}" == "network-viz" && "${value_lower}" == "true" ]]; then                
                 echo "# Tools for network graph of r-packages" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-tidyverse r-visnetwork r-igraph r-ggraph" >>  "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge r-tidyverse r-visnetwork r-igraph r-ggraph" >>  "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"            
                                                 
             elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
                 echo "# Essential shared packages" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
                     echo "# System r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
                 fi  
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then                
-                # if compile-tools = true then add compiler installs
-                # if a version is given use the specific version
-                echo "" >> "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
+                                                        
+            
+            elif [[ "${directive_lower}" == "compile-version" ]]; then
                 version="${value_lower}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
-                    continue
-                fi
-                if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile tools to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
-                elif [[ "$version" != "false" ]]; then
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                                    
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then                                
+                if [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"                    
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
+                    echo "# Language compile tools" >> "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
                 fi                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
@@ -539,14 +532,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                        
                     
                 elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"  
-                    echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                  
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                      
                 fi                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
@@ -616,8 +609,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "done" >> "$RECIPE_FILE"
                     
                 if [[ "$src" == "" ]]; then                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"                                        
                 elif [[ "$src" == "source" ]]; then
                     echo "[coble-recipise] R source installation requested" >&2
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -627,15 +620,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     #echo "Rscript -e 'install.packages(\"remotes\", repos=\"${CRAN_REPO}\", dependencies=FALSE, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
                     #echo "Rscript -e 'install.packages(\"BiocManager\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"                    
             else                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                    
                     #echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c conda-forge r-remotes r-biocmanager" >> "$RECIPE_FILE"                    
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    
                 if [[ "$src" == "" ]]; then
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
                 else                    
-                    echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
@@ -650,8 +643,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             else
                 echo "'r-$pkg' \\" >> "$RECIPE_FILE"
             fi                        
-        elif [[ "$CURRENT_SECTION" == "conda-bioc:"* || "$CURRENT_SECTION" == "bioc-conda:"*  ]]; then                        
-            #echo "conda install -y -c conda-forge -c bioconda 'bioconductor-$pkg' $DEPS_CONDA $UPDATE_CONDA" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "conda-bioc:"* || "$CURRENT_SECTION" == "bioc-conda:"*  ]]; then                                    
             if [[ "$src" != "" ]]; then
                 echo "'$src::bioconductor-$pkg' \\" >> "$RECIPE_FILE"
             else
@@ -685,13 +677,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         elif [[ "$CURRENT_SECTION" == "r-url:"* ]]; then
             if [[ -n "$src" ]]; then
-                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", repos=\"${CRAN_REPO}\",dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
             else
-                #echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", repos=\"${CRAN_REPO}\",dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
                 #echo "Rscript -e \"options(repos = 'https://packagemanager.posit.co/cran/2020-01-27')\"" >> "$RECIPE_FILE"
-                echo "Rscript -e \"install.packages('$pkg_entry', repos=NULL, type='source', method='wget')\"" >> "$RECIPE_FILE"
+                #echo "Rscript -e \"install.packages('$pkg_entry', repos=NULL, type='source')\"" >> "$RECIPE_FILE"
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then

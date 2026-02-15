@@ -11,6 +11,9 @@ def do_docker(path, block):
     print(result.stdout)
     return result.returncode
 
+def test_mock_docker():    
+    assert 0 == 0
+
 #def test_carbine_docker():
 #    success = do_docker("icr", "carbine")    
 #    assert success == 0    

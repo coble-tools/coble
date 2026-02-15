@@ -148,118 +148,38 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     
     echo "[coble-docker] VAL_FILE='$VAL_FILE'"
     echo "[coble-docker] VAL_FOLDER='$VAL_FOLDER'"
-
-    if [[ $DUAL_CI == true ]]; then
-        echo "[coble-docker] Dual build for linux and mac requested: using docker buildx for multi-platform build with push..."
-        # Ensure buildx builder exists and is using docker-container driver
-        docker buildx create --use --name coble-builder --driver docker-container || docker buildx use coble-builder || true
-        #--platform linux/amd64,linux/arm64 \
-        docker buildx build -f "$DOCKERFILE" \
-        --platform linux/amd64,linux/arm64 \
-        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-        --build-arg BUILD_TAG="$ENV_NAME" \
-        --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VAL_FILE="$VAL_FILE" \
-        --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" \
-        --push .
-        BUILD_EXIT_CODE=$?
-        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
-            exit 1
-        fi
-    elif [[ $DUAL == "both" ]]; then
-        echo "[coble-docker] Docker buildx for dual mac and linux builds requested..."        
-        build_platform="linux/amd64,linux/arm64"
-        #build_platform="linux/arm64"
-        docker buildx build -f "$DOCKERFILE" \
-        --platform "$build_platform" \
-        --pull \
-        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-        --build-arg BUILD_TAG="$ENV_NAME" \
-        --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VAL_FILE="$VAL_FILE" \
-        --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" \
-        --load .
-        BUILD_EXIT_CODE=$?
-        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
-            exit 1
-        fi
-    elif [[ $DUAL == "mac" ]]; then
-        echo "[coble-docker] Docker buildx for mac build requested..."        
-        #build_platform="linux/amd64,linux/arm64"
-        build_platform="linux/arm64"
-        IMAGE_NAME="${IMAGE_NAME}-arm64"
-        docker buildx build -f "$DOCKERFILE" \
-        --platform "$build_platform" \
-        --pull \
-        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-        --build-arg BUILD_TAG="$ENV_NAME" \
-        --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VAL_FILE="$VAL_FILE" \
-        --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" \
-        --load .
-        BUILD_EXIT_CODE=$?
-        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
-            exit 1
-        fi
-    elif [[ $DUAL == "linux" ]]; then
-        echo "[coble-docker] Docker buildx for linux build requested..."                
-        build_platform="linux/amd64"
-        IMAGE_NAME="${IMAGE_NAME}-amd64"
-        docker buildx build -f "$DOCKERFILE" \
-        --platform "$build_platform" \
-        --pull \
-        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-        --build-arg BUILD_TAG="$ENV_NAME" \
-        --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VAL_FILE="$VAL_FILE" \
-        --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" \
-        --load .
-        BUILD_EXIT_CODE=$?
-        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker buildx build failed with exit code $BUILD_EXIT_CODE"
-            exit 1
-        fi
-    else
-        echo "[coble-docker] Using regular docker build (native platform)..."
-        #docker build --progress=plain -f "$DOCKERFILE" \
-        docker build -f "$DOCKERFILE" \
-        --build-arg RECIPE_CBL="$INPUT_RECIPE" \
-        --build-arg BUILD_TAG="$ENV_NAME" \
-        --build-arg GITHUB_PAT="$GITHUB_PAT" \
-        --build-arg VAL_FILE="$VAL_FILE" \
-        --build-arg VAL_FOLDER="$VAL_FOLDER" \
-        -t "$IMAGE_NAME" .
-        BUILD_EXIT_CODE=$?
-        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
-            exit 1
-        fi
+        
+    echo "[coble-docker] Using regular docker build (native platform)..."
+    #docker build --progress=plain -f "$DOCKERFILE" \
+    docker build -f "$DOCKERFILE" \
+    --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+    --build-arg BUILD_TAG="$ENV_NAME" \
+    --build-arg GITHUB_PAT="$GITHUB_PAT" \
+    --build-arg VAL_FILE="$VAL_FILE" \
+    --build-arg VAL_FOLDER="$VAL_FOLDER" \
+    --no-cache \
+    -t "$IMAGE_NAME" .
+    BUILD_EXIT_CODE=$?
+    if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+        echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
+        exit 1
     fi
+    
     
     # Verify image was created successfully
     # Note: Skip verification when using --dual-ci since image is pushed directly to registry
     # and not loaded into local Docker daemon
-    if [[ $DUAL_CI == true ]]; then
-        echo "[coble-docker] ✓ Docker image built and pushed successfully to registry"
-        echo "[coble-docker] Image: $IMAGE_NAME"
-    else
-        if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
-            echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
-            exit 1
-        fi
-        
-        # Display image creation time and size for verification
-        IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.VirtualSize}} bytes')
-        echo "[coble-docker] ✓ Docker image created successfully"
-        echo "[coble-docker] $IMAGE_INFO"
+    
+    if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
+        echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
+        exit 1
     fi
+    
+    # Display image creation time and size for verification
+    IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.VirtualSize}} bytes')
+    echo "[coble-docker] ✓ Docker image created successfully"
+    echo "[coble-docker] $IMAGE_INFO"
+    
     
     # Display image creation time and size for verification
     IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.Size}} bytes')
@@ -267,11 +187,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     echo "[coble-docker] $IMAGE_INFO"
     
     echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
-    if [[ $DUAL_CI == true ]]; then
-        echo "[coble-docker] Docker build complete - image pushed to registry"
-    else
-        echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
-    fi
+    
     echo "[coble-docker] To run use:"
     echo ""
     echo "docker run --rm -it -v .:/workspace -w /workspace $IMAGE_NAME"

@@ -32,6 +32,7 @@ stdout_patterns=(
     "ClobberError"
     "SafetyError"
     "LinkError: post-link script failed for package"
+    "Error in rawToChar"
 )
 error_patterns=(
     "* removing"    
@@ -57,6 +58,7 @@ error_patterns=(
     "ClobberError"
     "SafetyError"
     "LinkError: post-link script failed for package"
+    "Error in rawToChar"
 )
 done_patterns=(    
     "Successfully installed"
@@ -69,7 +71,9 @@ dep_patterns=(
     "DONE ("
     "linux-64::"
     "linux-aarch64::"
-    "noarch::"    
+    "noarch::"   
+    "[GitHub]" 
+    " ) [CRAN]" 
     #" +"
 )
 
