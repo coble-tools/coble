@@ -2133,3 +2133,560 @@ install: Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/indel
 [coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
 [coble-errors] Errors found, exiting due to --skip-errors flag
 [coble-create] End time: 2026-02-15 08:37:09
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 08:48:40 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 08:48:40 1/364
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:48:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:40 2/364
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 08:48:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:40 3/364
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:48:41
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:48:41 4/364
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:48:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:41 5/364
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 08:48:43
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-15 08:48:43 6/364
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:48:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:43 7/364
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 08:48:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:43 8/364
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 08:48:44
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:48:44 9/364
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:48:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:48:45 10/364
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:48:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:48:45 11/364
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
+[coble-create] End time: 2026-02-15 08:49:54
+[coble-create] Duration: 69s
+
+[coble-create] Start time: 2026-02-15 08:49:54 13/364
+install: Rscript -e 'BiocManager::install("signature.tools.lib", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-02-15 08:49:57
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-15 08:49:57 15/364
+install: Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (indelsig.tools.lib)
+[coble-create] End time: 2026-02-15 08:50:02
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 08:50:02 17/364
+install: Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/bcds/lib/R/library/signature.tools.lib’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-15 08:50:04
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 08:50:55 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 08:50:55 1/362
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:50:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:55 2/362
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 08:50:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:55 3/362
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:50:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:55 4/362
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:50:56
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:50:56 5/362
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 08:50:57
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:50:57 6/362
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:50:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:57 7/362
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 08:50:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:57 8/362
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 08:50:58
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:50:58 9/362
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:50:58
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:58 10/362
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:50:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:50:59 11/362
+install: Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (indelsig.tools.lib)
+[coble-create] End time: 2026-02-15 08:51:04
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 08:51:04 13/362
+install: Rscript -e "install.packages('https://github.com/linxihui/NNLM/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (NNLM)
+[coble-create] End time: 2026-02-15 08:51:35
+[coble-create] Duration: 31s
+
+[coble-create] Start time: 2026-02-15 08:51:35 15/362
+install: Rscript -e "install.packages('https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (signature.tools.lib)
+[coble-create] End time: 2026-02-15 08:51:45
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-15 08:51:45 17/362
+install: Rscript -e "install.packages('https://github.com/hdng/clonevol/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (clonevol)
+[coble-create] End time: 2026-02-15 08:51:52
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-15 08:51:52 20/362
+install: conda install -y --solver=libmamba --no-update-deps  'r-grr' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-15 08:52:26
+[coble-create] Duration: 33s
+
+[coble-create] Start time: 2026-02-15 08:52:26 22/362
+install: Rscript -e 'remotes::install_github("satijalab/seurat-wrappers", dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (SeuratWrappers)
+[coble-create] End time: 2026-02-15 08:52:52
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-15 08:52:52 24/362
+install: Rscript -e 'BiocManager::install("ShortRead", dependencies=NA, Ncpus=8)'
+dep: # * DONE (hwriter)
+dep: # * DONE (ShortRead)
+[coble-create] End time: 2026-02-15 08:53:44
+[coble-create] Duration: 52s
+
+[coble-create] Start time: 2026-02-15 08:53:45 27/362
+install: conda install -y --solver=libmamba --no-update-deps  'r-eulerr' 
+dep: # r-eulerr           conda-forge/linux-64::r-eulerr-7.0.4-r45h3704496_0
+dep: # r-gensa            conda-forge/linux-64::r-gensa-1.1.15-r45h3697838_0
+dep: # r-polylabelr       conda-forge/linux-64::r-polylabelr-1.0.0-r45h3697838_0
+[coble-create] End time: 2026-02-15 08:54:14
+[coble-create] Duration: 29s
+
+[coble-create] Start time: 2026-02-15 08:54:14 29/362
+install: Rscript -e "install.packages('https://github.com/xmc811/Scillus/archive/refs/heads/development.tar.gz', repos=NULL, type='source')"
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/bcds/lib/R/library/Scillus’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-15 08:54:16
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 08:57:28 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 08:57:28 1/349
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:57:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:28 2/349
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 08:57:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:28 3/349
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:57:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:28 4/349
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 08:57:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:57:29 5/349
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 08:57:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:57:30 6/349
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:57:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:30 7/349
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 08:57:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:30 8/349
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 08:57:31
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 08:57:31 9/349
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:57:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:31 10/349
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 08:57:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 08:57:31 12/349
+install: conda install -y --solver=libmamba --no-update-deps  'r-eulerr' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-15 08:58:07
+[coble-create] Duration: 36s
+
+[coble-create] Start time: 2026-02-15 08:58:07 14/349
+install: Rscript -e 'install.packages("formattable", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (formattable)
+[coble-create] End time: 2026-02-15 08:58:12
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 08:58:12 16/349
+install: Rscript -e "install.packages('https://github.com/xmc811/Scillus/archive/refs/heads/development.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (Scillus)
+[coble-create] End time: 2026-02-15 08:58:32
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-02-15 08:58:32 18/349
+install: Rscript -e 'remotes::install_url("https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.tar.gz", dependencies=NA, upgrade="default", subdir="ASCAT", Ncpus=8)'
+dep: # * DONE (ASCAT)
+[coble-create] End time: 2026-02-15 08:58:49
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-02-15 08:58:49 20/349
+install: Rscript -e "install.packages('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/bcds/lib/R/library/DoubletFinder’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-15 08:58:51
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 09:01:42 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 09:01:43 1/344
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:01:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:43 2/344
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 09:01:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:43 3/344
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:01:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:43 4/344
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:01:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:43 5/344
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 09:01:45
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-15 09:01:45 6/344
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:01:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:45 7/344
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 09:01:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:45 8/344
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 09:01:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:45 9/344
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:01:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 09:01:46 10/344
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:01:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:01:46 11/344
+install: Rscript -e 'install.packages("fields", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (fields)
+[coble-create] End time: 2026-02-15 09:01:59
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-02-15 09:01:59 13/344
+install: Rscript -e 'remotes::install_url("https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.tar.gz", dependencies=NA, upgrade="default", subdir="ASCAT", Ncpus=8)'
+dep: # * DONE (ASCAT)
+[coble-create] End time: 2026-02-15 09:02:18
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-02-15 09:02:18 15/344
+install: Rscript -e "install.packages('https://github.com/chris-mcginnis-ucsf/DoubletFinder/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (DoubletFinder)
+[coble-create] End time: 2026-02-15 09:02:36
+[coble-create] Duration: 18s
+
+[coble-create] Start time: 2026-02-15 09:02:36 17/344
+install: Rscript -e 'install.packages("clustree", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (tidygraph)
+dep: # * DONE (tweenr)
+dep: # * DONE (graphlayouts)
+dep: # * DONE (ggforce)
+dep: # * DONE (ggraph)
+dep: # * DONE (clustree)
+[coble-create] End time: 2026-02-15 09:04:16
+[coble-create] Duration: 100s
+
+[coble-create] Start time: 2026-02-15 09:04:16 19/344
+install: Rscript -e 'BiocManager::install("Chicago", dependencies=NA, Ncpus=8)'
+dep: # * DONE (Delaporte)
+dep: # * DONE (Chicago)
+[coble-create] End time: 2026-02-15 09:04:33
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-02-15 09:04:33 21/344
+install: Rscript -e "install.packages('https://github.com/carmonalab/STACAS/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (STACAS)
+[coble-create] End time: 2026-02-15 09:04:59
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-15 09:04:59 23/344
+install: Rscript -e 'BiocManager::install("batchelor", dependencies=NA, Ncpus=8)'
+dep: # * DONE (ResidualMatrix)
+dep: # * DONE (batchelor)
+[coble-create] End time: 2026-02-15 09:06:12
+[coble-create] Duration: 73s
+
+[coble-create] Start time: 2026-02-15 09:06:12 25/344
+install: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz', repos=NULL, type='source')"
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/bcds/lib/R/library/CIDER’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-15 09:06:13
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 09:13:32 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 09:13:32 1/336
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:13:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:32 2/336
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 09:13:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:32 3/336
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:13:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:33 4/336
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:13:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:33 5/336
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 09:13:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 09:13:34 6/336
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:13:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:34 7/336
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 09:13:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:34 8/336
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 09:13:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 09:13:35 9/336
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:13:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:35 10/336
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:13:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:13:35 11/336
+install: Rscript -e 'BiocManager::install("batchelor", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-02-15 09:13:39
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 09:13:39 13/336
+install: Rscript -e 'install.packages("dbscan", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (dbscan)
+[coble-create] End time: 2026-02-15 09:14:38
+[coble-create] Duration: 59s
+
+[coble-create] Start time: 2026-02-15 09:14:38 15/336
+install: Rscript -e 'install.packages("kernlab", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (kernlab)
+[coble-create] End time: 2026-02-15 09:15:01
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-02-15 09:15:01 17/336
+install: Rscript -e "install.packages('https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (CIDER)
+[coble-create] End time: 2026-02-15 09:15:16
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-15 09:15:16 19/336
+install: Rscript -e "install.packages('https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.tar.gz', repos=NULL, type='source')"
+dep: # * DONE (CIDER)
+[coble-create] End time: 2026-02-15 09:15:32
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-02-15 09:15:32 21/336
+install: Rscript -e 'BiocManager::install("GSVA", dependencies=NA, Ncpus=8)'
+dep: # * DONE (memuse)
+dep: # * DONE (GSVA)
+[coble-create] End time: 2026-02-15 09:16:19
+[coble-create] Duration: 47s
+
+[coble-create] Start time: 2026-02-15 09:16:19 23/336
+install: Rscript -e "install.packages('https://github.com/cansysbio/ConsensusTME/archive/refs/heads/master.tar.gz', repos=NULL, type='source')"
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/bcds/lib/R/library/ConsensusTME’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/bcds/bcds_summary.txt
+[coble-errors] Errors found, exiting due to --skip-errors flag
+[coble-create] End time: 2026-02-15 09:16:21
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-15 at 09:17:37 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-15 09:17:37 1/350
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:17:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:37 2/350
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-15 09:17:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:37 3/350
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:17:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 09:17:38 4/350
+install: conda deactivate | true
+[coble-create] End time: 2026-02-15 09:17:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:38 5/350
+install: conda activate bcds
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-15 09:17:40 6/350
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:40 7/350
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:40 8/350
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:40 9/350
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:40 10/350
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-15 09:17:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 09:17:40 11/350
+install: Rscript -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/NanoStringNorm/NanoStringNorm_1.2.1.1.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (NanoStringNorm)
+[coble-create] End time: 2026-02-15 09:17:50
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-15 09:17:50 13/350
+install: Rscript -e 'remotes::install_url("https://github.com/aroneklund/copynumber/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (copynumber)
+[coble-create] End time: 2026-02-15 09:18:03
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-02-15 09:18:03 15/350
+install: Rscript -e 'remotes::install_url("https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (indelsig.tools.lib)
+[coble-create] End time: 2026-02-15 09:18:15
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-02-15 09:18:15 17/350
+install: Rscript -e 'remotes::install_url("https://github.com/linxihui/NNLM/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (NNLM)
+[coble-create] End time: 2026-02-15 09:18:45
+[coble-create] Duration: 30s
+
+[coble-create] Start time: 2026-02-15 09:18:45 19/350
+install: Rscript -e 'remotes::install_url("https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=8)'

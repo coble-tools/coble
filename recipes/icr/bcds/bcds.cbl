@@ -190,6 +190,7 @@ bioc-package:
   - TxDb.Hsapiens.UCSC.hg38.knownGene
   - BSgenome.Hsapiens.UCSC.hg38
   - BSgenome.Hsapiens.1000genomes.hs37d5
+  - BSgenome.Hsapiens.UCSC.hg19
   - NMF
   - lpSolve
   - NNLM
@@ -199,10 +200,11 @@ bioc-package:
   - combinat
   - limSolve
   - getopt
-  - indelsig.tools.lib
-  - signature.tools.lib
+  #- indelsig.tools.lib
+  #- signature.tools.lib
 r-url:
   - https://github.com/Nik-Zainal-Group/indelsig.tools.lib/archive/refs/heads/master.tar.gz  
+  - https://github.com/linxihui/NNLM/archive/refs/heads/master.tar.gz
   - https://github.com/Nik-Zainal-Group/signature.tools.lib/archive/refs/heads/master.tar.gz
 
 r-package:
@@ -266,6 +268,9 @@ bioc-package:
 r-conda:
   - eulerr
 
+r-package:
+  - formattable
+  - fields
 r-url:
   - https://github.com/xmc811/Scillus/archive/refs/heads/development.tar.gz
   - https://github.com/VanLoo-lab/ascat/archive/refs/heads/master.tar.gz@ASCAT
@@ -281,6 +286,9 @@ r-url:
 bioc-package:  
   - batchelor
 
+r-package:
+  - dbscan
+  - kernlab
 r-url:
   - https://cran.r-project.org/src/contrib/Archive/CIDER/CIDER_0.99.4.tar.gz
   - https://github.com/zhiyuan-hu-lab/CIDER/archive/refs/heads/main.tar.gz

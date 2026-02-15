@@ -677,13 +677,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         elif [[ "$CURRENT_SECTION" == "r-url:"* ]]; then
             if [[ -n "$src" ]]; then
-                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_only\", repos=\"${CRAN_REPO}\",dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
             else
-                #echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'remotes::install_url(\"$pkg_entry\", repos=\"${CRAN_REPO}\",dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 #echo "Rscript -e 'install.packages(\"https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.4.2.tar.gz\", repos=NULL, type='source')'" >> "$RECIPE_FILE"
                 #echo "Rscript -e \"options(repos = 'https://packagemanager.posit.co/cran/2020-01-27')\"" >> "$RECIPE_FILE"
-                echo "Rscript -e \"install.packages('$pkg_entry', repos=NULL, type='source')\"" >> "$RECIPE_FILE"
+                #echo "Rscript -e \"install.packages('$pkg_entry', repos=NULL, type='source')\"" >> "$RECIPE_FILE"
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
