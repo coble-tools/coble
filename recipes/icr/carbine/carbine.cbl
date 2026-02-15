@@ -92,7 +92,7 @@ bioc-package:
   - ComplexHeatmap=2.22.0
   - VariantAnnotation  
 flags:
-  - dependencies: FALSE
+  - dependencies: NA
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz
