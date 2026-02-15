@@ -96,6 +96,7 @@ flags:
 r-url:
   - https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz
   - https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz
+  - https://github.com/caravagnalab/ctree/archive/refs/heads/master.tar.gz
   - https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz
   - https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz
   - https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz

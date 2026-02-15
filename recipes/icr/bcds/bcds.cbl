@@ -109,9 +109,9 @@ r-package:
   - factoextra
 
 conda:
-  - patch
+  - patch  
 r-conda:
-  - gifski  
+  - gifski   
 r-package:  
   - otelsdk
   - knitr
