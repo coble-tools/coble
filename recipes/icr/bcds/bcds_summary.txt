@@ -2330,3 +2330,880 @@ dep: # * DONE (IlluminaHumanMethylationEPICmanifest)
 
 [coble-create] Start time: 2026-02-15 16:54:50 102/317
 install: Rscript -e 'BiocManager::install("missMethyl", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BiasedUrn)
+dep: # * DONE (ruv)
+dep: # * DONE (FDb.InfiniumMethylation.hg19)
+dep: # * DONE (IlluminaHumanMethylation450kmanifest)
+dep: # * DONE (methylumi)
+dep: # * DONE (IlluminaHumanMethylation450kanno.ilmn12.hg19)
+dep: # * DONE (IlluminaHumanMethylationEPICv2manifest)
+dep: # * DONE (IlluminaHumanMethylationEPICv2anno.20a1.hg38)
+dep: # * DONE (missMethyl)
+[coble-create] End time: 2026-02-15 17:32:10
+[coble-create] Duration: 2240s
+
+[coble-create] Start time: 2026-02-15 17:32:10 104/317
+install: Rscript -e 'BiocManager::install("minfiData", dependencies=NA, Ncpus=8)'
+dep: # * DONE (minfiData)
+[coble-create] End time: 2026-02-15 17:33:01
+[coble-create] Duration: 51s
+
+[coble-create] Start time: 2026-02-15 17:33:01 106/317
+install: Rscript -e 'BiocManager::install("DMRcate", dependencies=NA, Ncpus=8)'
+dep: # * DONE (permute)
+dep: # * DONE (bsseq)
+dep: # * DONE (DMRcate)
+[coble-create] End time: 2026-02-15 17:35:10
+[coble-create] Duration: 129s
+
+[coble-create] Start time: 2026-02-15 17:35:10 108/317
+install: Rscript -e "BiocManager::install('preprocessCore', configure.args='--disable-threading', force = TRUE)"
+dep: # * DONE (preprocessCore)
+[coble-create] End time: 2026-02-15 17:35:22
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-02-15 17:35:22 110/317
+install: Rscript -e 'install.packages("clusterSim", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (pixmap)
+dep: # * DONE (ade4)
+dep: # * DONE (clusterSim)
+[coble-create] End time: 2026-02-15 17:36:15
+[coble-create] Duration: 53s
+
+[coble-create] Start time: 2026-02-15 17:36:15 112/317
+install: Rscript -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/clv/clv_0.3-2.5.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (clv)
+[coble-create] End time: 2026-02-15 17:36:22
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-15 17:36:22 114/317
+install: Rscript -e 'remotes::install_url("https://github.com/saeyslab/nichenetr/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # BBmisc       (NA -> 1.13.1 ) [CRAN]
+dep: # ParamHelpers (NA -> 1.14.2 ) [CRAN]
+dep: # parallelMap  (NA -> 1.5.1  ) [CRAN]
+dep: # lhs          (NA -> 1.2.0  ) [CRAN]
+dep: # mlr          (NA -> 2.19.3 ) [CRAN]
+dep: # shadowtext   (NA -> 0.1.6  ) [CRAN]
+dep: # DiceKriging  (NA -> 1.6.1  ) [CRAN]
+dep: # emoa         (NA -> 0.5-3  ) [CRAN]
+dep: # fdrtool      (NA -> 1.2.18 ) [CRAN]
+dep: # * DONE (fdrtool)
+dep: # * DONE (BBmisc)
+dep: # * DONE (emoa)
+dep: # * DONE (shadowtext)
+dep: # * DONE (DiceKriging)
+dep: # * DONE (parallelMap)
+dep: # * DONE (ParamHelpers)
+dep: # * DONE (mlr)
+dep: # * DONE (smoof)
+dep: # * DONE (lhs)
+dep: # * DONE (mlrMBO)
+dep: # * DONE (sctransform)
+dep: # * DONE (nichenetr)
+[coble-create] End time: 2026-02-15 17:38:12
+[coble-create] Duration: 110s
+
+[coble-create] Start time: 2026-02-15 17:38:12 116/317
+install: Rscript -e 'BiocManager::install("kstreet13/slingshot", dependencies=NA, Ncpus=8)'
+dep: # * DONE (slingshot)
+[coble-create] End time: 2026-02-15 17:38:39
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-02-15 17:38:40 119/317
+install: conda install -y --solver=libmamba --no-update-deps  'r-ncdf4' 
+dep: # attr               conda-forge/linux-64::attr-2.5.2-h39aace5_0
+dep: # hdf4               conda-forge/linux-64::hdf4-4.2.15-h2a13503_7
+dep: # libnetcdf          conda-forge/linux-64::libnetcdf-4.9.3-nompi_hbf2fc22_104
+dep: # libzip             conda-forge/linux-64::libzip-1.11.2-h6991a6a_0
+dep: # r-ncdf4            conda-forge/linux-64::r-ncdf4-1.24-r45h5f38480_3
+[coble-create] End time: 2026-02-15 17:39:16
+[coble-create] Duration: 36s
+
+[coble-create] Start time: 2026-02-15 17:39:16 121/317
+install: Rscript -e 'install.packages("HiClimR", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (HiClimR)
+[coble-create] End time: 2026-02-15 17:39:20
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 17:39:20 123/317
+install: Rscript -e 'install.packages("ccaPP", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (pcaPP)
+dep: # * DONE (ccaPP)
+[coble-create] End time: 2026-02-15 17:39:57
+[coble-create] Duration: 37s
+
+[coble-create] Start time: 2026-02-15 17:39:57 125/317
+install: Rscript -e 'install.packages("egg", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (egg)
+[coble-create] End time: 2026-02-15 17:40:04
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-15 17:40:04 127/317
+install: Rscript -e 'BiocManager::install("sva", dependencies=NA, Ncpus=8)'
+dep: # * DONE (sva)
+[coble-create] End time: 2026-02-15 17:40:23
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-02-15 17:40:23 129/317
+install: Rscript -e 'remotes::install_url("https://github.com/digitalcytometry/cytotrace2/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", subdir="cytotrace2_r", Ncpus=8)'
+dep: # zigg  (NA -> 0.0.2  ) [CRAN]
+dep: # * DONE (zigg)
+dep: # * DONE (Rfast)
+dep: # * DONE (sctransform)
+dep: # * DONE (CytoTRACE2)
+[coble-create] End time: 2026-02-15 17:49:56
+[coble-create] Duration: 573s
+
+[coble-create] Start time: 2026-02-15 17:49:56 131/317
+install: python -m pip install 'scanoramaCT' 
+    Requirement already satisfied: numpy>=1.12.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from scanoramaCT) (2.4.2)
+    Requirement already satisfied: packaging>=20.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from matplotlib>=2.0.2->scanoramaCT) (26.0)
+    Requirement already satisfied: python-dateutil>=2.7 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from matplotlib>=2.0.2->scanoramaCT) (2.9.0.post0)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from python-dateutil>=2.7->matplotlib>=2.0.2->scanoramaCT) (1.17.0)
+    Successfully installed annoy-1.17.3 contourpy-1.3.3 cycler-0.12.1 fbpca-1.0 fonttools-4.61.1 geosketch-1.3 intervaltree-2.1.0 joblib-1.5.3 kiwisolver-1.4.9 matplotlib-3.10.8 pillow-12.1.1 pyparsing-3.3.2 scanoramaCT-1.2.0 scikit-learn-1.8.0 scipy-1.17.0 sortedcontainers-2.4.0 threadpoolctl-3.6.0
+[coble-create] End time: 2026-02-15 17:50:11
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-15 17:50:11 134/317
+install: conda install -y --solver=libmamba --no-update-deps  'r-rpostgres' 
+dep: # cyrus-sasl         conda-forge/linux-64::cyrus-sasl-2.1.28-hd9c7081_0
+dep: # libntlm            conda-forge/linux-64::libntlm-1.8-hb9d3cd8_0
+dep: # libpq              conda-forge/linux-64::libpq-18.1-h5c52fec_2
+dep: # openldap           conda-forge/linux-64::openldap-2.6.10-he970967_0
+dep: # r-rpostgres        conda-forge/linux-64::r-rpostgres-1.4.9-r45hfae4181_0
+[coble-create] End time: 2026-02-15 17:51:06
+[coble-create] Duration: 55s
+
+[coble-create] Start time: 2026-02-15 17:51:06 136/317
+install: Rscript -e 'remotes::install_url("https://github.com/PriceLab/ghdb/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (ghdb)
+[coble-create] End time: 2026-02-15 17:51:37
+[coble-create] Duration: 31s
+
+[coble-create] Start time: 2026-02-15 17:51:37 138/317
+install: Rscript -e 'BiocManager::install("destiny", dependencies=NA, Ncpus=8)'
+dep: # * DONE (palmerpenguins)
+dep: # * DONE (PRROC)
+dep: # * DONE (mlbench)
+dep: # * DONE (laeken)
+dep: # * DONE (mlr3misc)
+dep: # * DONE (vcd)
+dep: # * DONE (ggplot.multistats)
+dep: # * DONE (mlr3measures)
+dep: # * DONE (lgr)
+dep: # * DONE (ggthemes)
+dep: # * DONE (paradox)
+dep: # * DONE (knn.covertree)
+dep: # * DONE (bbotk)
+dep: # * DONE (nanonext)
+dep: # * DONE (mirai)
+dep: # * DONE (mlr3)
+dep: # * DONE (mlr3learners)
+dep: # * DONE (mlr3tuning)
+dep: # * DONE (ranger)
+dep: # * DONE (mlr3pipelines)
+dep: # * DONE (xgboost)
+dep: # * DONE (VIM)
+[coble-create] End time: 2026-02-15 18:01:06
+[coble-create] Duration: 569s
+
+[coble-create] Start time: 2026-02-15 18:01:06 140/317
+install: Rscript -e 'install.packages("openssl", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (openssl)
+[coble-create] End time: 2026-02-15 18:01:14
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-15 18:01:14 142/317
+install: Rscript -e 'install.packages("pracma", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (pracma)
+[coble-create] End time: 2026-02-15 18:01:27
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-02-15 18:01:27 144/317
+install: Rscript -e 'remotes::install_url("https://github.com/trevorld/r-optparse/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (optparse)
+[coble-create] End time: 2026-02-15 18:01:32
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:01:32 147/317
+install: conda install -y --solver=libmamba --no-update-deps  'r-mcmcpack' 
+dep: # r-matrixmodels     conda-forge/noarch::r-matrixmodels-0.5_4-r45hc72bb7e_1
+dep: # r-mcmc             conda-forge/linux-64::r-mcmc-0.9_8-r45h54b55ab_2
+dep: # r-mcmcpack         conda-forge/linux-64::r-mcmcpack-1.7_1-r45h3697838_1
+dep: # r-quantreg         conda-forge/linux-64::r-quantreg-6.1-r45h11cdb10_1
+dep: # r-sparsem          conda-forge/linux-64::r-sparsem-1.84_2-r45heaba542_1
+[coble-create] End time: 2026-02-15 18:02:13
+[coble-create] Duration: 41s
+
+[coble-create] Start time: 2026-02-15 18:02:13 149/317
+install: Rscript -e 'install.packages("mvtnorm", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (mvtnorm)
+[coble-create] End time: 2026-02-15 18:02:27
+[coble-create] Duration: 14s
+
+[coble-create] Start time: 2026-02-15 18:02:27 151/317
+install: Rscript -e 'install.packages("ellipse", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (ellipse)
+[coble-create] End time: 2026-02-15 18:02:32
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:02:32 153/317
+install: Rscript -e 'install.packages("coda", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (coda)
+[coble-create] End time: 2026-02-15 18:02:38
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-15 18:02:38 155/317
+install: Rscript -e 'install.packages("Matrix", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (Matrix)
+[coble-create] End time: 2026-02-15 18:05:31
+[coble-create] Duration: 172s
+
+[coble-create] Start time: 2026-02-15 18:05:31 157/317
+install: Rscript -e 'install.packages("Rtsne", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (Rtsne)
+[coble-create] End time: 2026-02-15 18:05:49
+[coble-create] Duration: 18s
+
+[coble-create] Start time: 2026-02-15 18:05:49 159/317
+install: Rscript -e 'install.packages("gtools", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (gtools)
+[coble-create] End time: 2026-02-15 18:05:55
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-15 18:05:55 161/317
+install: Rscript -e 'install.packages("foreach", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (foreach)
+[coble-create] End time: 2026-02-15 18:05:59
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 18:05:59 163/317
+install: Rscript -e 'install.packages("doParallel", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (doParallel)
+[coble-create] End time: 2026-02-15 18:06:04
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:06:04 165/317
+install: Rscript -e 'install.packages("doSNOW", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (doSNOW)
+[coble-create] End time: 2026-02-15 18:06:07
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-15 18:06:08 167/317
+install: Rscript -e 'install.packages("snow", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (snow)
+[coble-create] End time: 2026-02-15 18:06:12
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 18:06:12 169/317
+install: Rscript -e 'install.packages("lattice", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (lattice)
+[coble-create] End time: 2026-02-15 18:06:24
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-02-15 18:06:24 171/317
+install: Rscript -e 'install.packages("MASS", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (MASS)
+[coble-create] End time: 2026-02-15 18:06:34
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-15 18:06:34 173/317
+install: Rscript -e 'install.packages("bayesm", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (bayesm)
+[coble-create] End time: 2026-02-15 18:11:33
+[coble-create] Duration: 299s
+
+[coble-create] Start time: 2026-02-15 18:11:33 175/317
+install: Rscript -e 'install.packages("robustbase", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (robustbase)
+[coble-create] End time: 2026-02-15 18:11:49
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-02-15 18:11:49 177/317
+install: Rscript -e 'install.packages("chron", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (chron)
+[coble-create] End time: 2026-02-15 18:11:54
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:11:54 179/317
+install: Rscript -e 'install.packages("mnormt", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (mnormt)
+[coble-create] End time: 2026-02-15 18:12:00
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-15 18:12:00 181/317
+install: Rscript -e 'install.packages("schoolmath", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (schoolmath)
+[coble-create] End time: 2026-02-15 18:12:05
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:12:05 183/317
+install: Rscript -e 'install.packages("RColorBrewer", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (RColorBrewer)
+[coble-create] End time: 2026-02-15 18:12:10
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:12:10 185/317
+install: Rscript -e 'BiocManager::install("DEXSeq", dependencies=NA, Ncpus=8)'
+dep: # * DONE (geneplotter)
+dep: # * DONE (DESeq2)
+dep: # * DONE (DEXSeq)
+[coble-create] End time: 2026-02-15 18:13:43
+[coble-create] Duration: 93s
+
+[coble-create] Start time: 2026-02-15 18:13:43 187/317
+install: Rscript -e 'BiocManager::install("AUCell", dependencies=NA, Ncpus=8)'
+dep: # * DONE (segmented)
+dep: # * DONE (mixtools)
+dep: # * DONE (AUCell)
+[coble-create] End time: 2026-02-15 18:14:58
+[coble-create] Duration: 75s
+
+[coble-create] Start time: 2026-02-15 18:14:58 189/317
+install: Rscript -e 'BiocManager::install("RcisTarget", dependencies=NA, Ncpus=8)'
+dep: # * DONE (RcisTarget)
+[coble-create] End time: 2026-02-15 18:15:40
+[coble-create] Duration: 42s
+
+[coble-create] Start time: 2026-02-15 18:15:40 191/317
+install: Rscript -e 'BiocManager::install("GENIE3", dependencies=NA, Ncpus=8)'
+dep: # * DONE (GENIE3)
+[coble-create] End time: 2026-02-15 18:15:49
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-15 18:15:49 193/317
+install: Rscript -e 'BiocManager::install("R2HTML", dependencies=NA, Ncpus=8)'
+dep: # * DONE (R2HTML)
+[coble-create] End time: 2026-02-15 18:16:00
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 18:16:00 195/317
+install: Rscript -e 'remotes::install_url("https://github.com/bokeh/rbokeh/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (rbokeh)
+[coble-create] End time: 2026-02-15 18:16:12
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-02-15 18:16:12 197/317
+install: Rscript -e 'remotes::install_url("https://github.com/aertslab/SCopeLoomR/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (SCopeLoomR)
+[coble-create] End time: 2026-02-15 18:16:30
+[coble-create] Duration: 18s
+
+[coble-create] Start time: 2026-02-15 18:16:30 199/317
+install: Rscript -e 'remotes::install_url("https://github.com/aertslab/SCENIC/archive/refs/heads/master.tar.gz", dependencies=NA, Ncpus=8, upgrade="never")'
+dep: # * DONE (SCENIC)
+[coble-create] End time: 2026-02-15 18:17:18
+[coble-create] Duration: 48s
+
+[coble-create] Start time: 2026-02-15 18:17:18 201/317
+install: Rscript -e 'install.packages("ISOpureR", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (ISOpureR)
+[coble-create] End time: 2026-02-15 18:17:32
+[coble-create] Duration: 14s
+
+[coble-create] Start time: 2026-02-15 18:17:33 203/317
+install: Rscript -e 'install.packages("DiffCorr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (DiffCorr)
+[coble-create] End time: 2026-02-15 18:17:43
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-15 18:17:43 205/317
+install: Rscript -e 'remotes::install_url("https://github.com/broadinstitute/cdsr_models/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # invgamma  (NA -> 1.2    ) [CRAN]
+dep: # etrunct   (NA -> 0.1    ) [CRAN]
+dep: # mixsqp    (NA -> 0.3-54 ) [CRAN]
+dep: # truncnorm (NA -> 1.0-9  ) [CRAN]
+dep: # WGCNA     (NA -> 1.74   ) [CRAN]
+dep: # gausscov  (NA -> 1.1.8  ) [CRAN]
+dep: # corpcor   (NA -> 1.6.10 ) [CRAN]
+dep: # ashr      (NA -> 2.2-63 ) [CRAN]
+dep: # * DONE (etrunct)
+dep: # * DONE (invgamma)
+dep: # * DONE (corpcor)
+dep: # * DONE (truncnorm)
+dep: # * DONE (gausscov)
+dep: # * DONE (useful)
+dep: # * DONE (WGCNA)
+dep: # * DONE (mixsqp)
+dep: # * DONE (ashr)
+dep: # * DONE (cdsrmodels)
+[coble-create] End time: 2026-02-15 18:18:36
+[coble-create] Duration: 53s
+
+[coble-create] Start time: 2026-02-15 18:18:36 207/317
+install: Rscript -e 'remotes::install_url("https://github.com/PhanstielLab/Sushi/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (Sushi)
+[coble-create] End time: 2026-02-15 18:18:52
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-02-15 18:18:52 209/317
+install: Rscript -e 'BiocManager::install("ChromSCape", dependencies=NA, Ncpus=8)'
+dep: # * DONE (shades)
+dep: # * DONE (ALL)
+dep: # * DONE (colourpicker)
+dep: # * DONE (colorRamps)
+dep: # * DONE (fresh)
+dep: # * DONE (litedown)
+dep: # * DONE (waiter)
+dep: # * DONE (shinydashboard)
+dep: # * DONE (markdown)
+dep: # * DONE (qualV)
+dep: # * DONE (matrixTests)
+dep: # * DONE (coop)
+dep: # * DONE (ConsensusClusterPlus)
+dep: # * DONE (shinyWidgets)
+dep: # * DONE (shinyhelper)
+dep: # * DONE (svglite)
+dep: # * DONE (shinydashboardPlus)
+dep: # * DONE (kableExtra)
+dep: # * DONE (gridtext)
+dep: # * DONE (ggfittext)
+dep: # * DONE (babelgene)
+dep: # * DONE (gggenes)
+dep: # * DONE (msigdbr)
+[coble-create] End time: 2026-02-15 18:19:25
+[coble-create] Duration: 33s
+
+[coble-create] Start time: 2026-02-15 18:19:25 211/317
+install: Rscript -e 'remotes::install_url("https://github.com/sztup/scarHRD/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (copynumber)
+dep: # * DONE (sequenza)
+dep: # * DONE (scarHRD)
+[coble-create] End time: 2026-02-15 18:20:03
+[coble-create] Duration: 38s
+
+[coble-create] Start time: 2026-02-15 18:20:03 213/317
+install: Rscript -e 'remotes::install_url("https://github.com/guokai8/scGSVA/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (sctransform)
+dep: # * DONE (scGSVA)
+[coble-create] End time: 2026-02-15 18:23:09
+[coble-create] Duration: 186s
+
+[coble-create] Start time: 2026-02-15 18:23:09 215/317
+install: Rscript -e 'BiocManager::install("reactome.db", dependencies=NA, Ncpus=8)'
+dep: # * DONE (reactome.db)
+[coble-create] End time: 2026-02-15 18:24:10
+[coble-create] Duration: 61s
+
+[coble-create] Start time: 2026-02-15 18:24:10 217/317
+install: python -m pip install 'spatialde' 
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from spatialde) (2.4.2)
+    Requirement already satisfied: scipy>=1.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from spatialde) (1.17.0)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from pandas>=0.23->spatialde) (2.9.0.post0)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from python-dateutil>=2.8.2->pandas>=0.23->spatialde) (1.17.0)
+    Successfully installed Click-8.3.1 NaiveDE-1.2.0 pandas-3.0.0 spatialde-1.1.3 tqdm-4.67.3
+[coble-create] End time: 2026-02-15 18:24:16
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-15 18:24:16 219/317
+install: Rscript -e 'install.packages("poolr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (poolr)
+[coble-create] End time: 2026-02-15 18:24:21
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 18:24:21 221/317
+install: Rscript -e 'install.packages("tsne", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (tsne)
+[coble-create] End time: 2026-02-15 18:24:25
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 18:24:25 223/317
+install: Rscript -e 'install.packages("fpc", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (diptest)
+dep: # * DONE (prabclus)
+dep: # * DONE (fpc)
+[coble-create] End time: 2026-02-15 18:24:40
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-15 18:24:40 225/317
+install: Rscript -e 'remotes::install_url("https://github.com/cit-bioinfo/mMCP-counter/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (mMCPcounter)
+[coble-create] End time: 2026-02-15 18:24:47
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-02-15 18:24:47 227/317
+install: Rscript -e 'remotes::install_url("https://github.com/mojaveazure/seurat-disk/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (sctransform)
+dep: # * DONE (SeuratDisk)
+[coble-create] End time: 2026-02-15 18:25:36
+[coble-create] Duration: 49s
+
+[coble-create] Start time: 2026-02-15 18:25:36 229/317
+install: Rscript -e 'install.packages("immunarch", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (collections)
+dep: # * DONE (airr)
+dep: # * DONE (duckdb)
+dep: # * DONE (duckplyr)
+dep: # * DONE (immundata)
+dep: # * DONE (immunarch)
+[coble-create] End time: 2026-02-15 19:21:55
+[coble-create] Duration: 3379s
+
+[coble-create] Start time: 2026-02-15 19:21:55 231/317
+install: Rscript -e 'install.packages("strawr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (strawr)
+[coble-create] End time: 2026-02-15 19:22:05
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-02-15 19:22:05 233/317
+install: Rscript -e 'remotes::install_url("https://github.com/kharchenkolab/numbat/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # vegan     (NA -> 2.7-2 ) [CRAN]
+dep: # pinfsc50  (NA -> 1.3.0 ) [CRAN]
+dep: # roptim    (NA -> 0.1.7 ) [CRAN]
+dep: # scistreer (NA -> 1.2.0 ) [CRAN]
+dep: # logger    (NA -> 0.4.1 ) [CRAN]
+dep: # hahmmr    (NA -> 1.0.0 ) [CRAN]
+dep: # * DONE (pinfsc50)
+dep: # * DONE (logger)
+dep: # * DONE (roptim)
+dep: # * DONE (vegan)
+dep: # * DONE (phangorn)
+dep: # * DONE (hahmmr)
+dep: # * DONE (scistreer)
+dep: # * DONE (vcfR)
+dep: # * DONE (optparse)
+dep: # * DONE (numbat)
+[coble-create] End time: 2026-02-15 19:24:00
+[coble-create] Duration: 115s
+
+[coble-create] Start time: 2026-02-15 19:24:00 235/317
+install: Rscript -e 'install.packages("keras", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (config)
+dep: # * DONE (zeallot)
+dep: # * DONE (tfruns)
+dep: # * DONE (tfautograph)
+dep: # * DONE (tensorflow)
+dep: # * DONE (keras)
+[coble-create] End time: 2026-02-15 19:24:35
+[coble-create] Duration: 35s
+
+[coble-create] Start time: 2026-02-15 19:24:35 237/317
+install: Rscript -e 'install.packages("ijtiff", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (strex)
+dep: # * DONE (ijtiff)
+[coble-create] End time: 2026-02-15 19:24:46
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 19:24:46 239/317
+install: Rscript -e 'install.packages("bbmle", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (bbmle)
+[coble-create] End time: 2026-02-15 19:24:57
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 19:24:57 241/317
+install: Rscript -e 'remotes::install_url("https://github.com/choisy/cutoff/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # mc2d (NA -> 0.2.1 ) [CRAN]
+dep: # * DONE (tree)
+dep: # * DONE (mc2d)
+dep: # * DONE (cutoff)
+[coble-create] End time: 2026-02-15 19:25:12
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-15 19:25:12 243/317
+install: Rscript -e 'remotes::install_url("https://bioconductor.org/packages/3.19/bioc/src/contrib/zlibbioc_1.50.0.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (zlibbioc)
+[coble-create] End time: 2026-02-15 19:25:21
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-15 19:25:21 245/317
+install: Rscript -e 'BiocManager::install("PoisonAlien/maftools", dependencies=NA, Ncpus=8)'
+dep: # * DONE (DNAcopy)
+dep: # * DONE (zlibbioc)
+dep: # * DONE (maftools)
+[coble-create] End time: 2026-02-15 19:25:55
+[coble-create] Duration: 34s
+
+[coble-create] Start time: 2026-02-15 19:25:55 247/317
+install: Rscript -e 'BiocManager::install("illuminaHumanv4.db", dependencies=NA, Ncpus=8)'
+dep: # * DONE (illuminaHumanv4.db)
+[coble-create] End time: 2026-02-15 19:26:18
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-02-15 19:26:18 249/317
+install: Rscript -e 'BiocManager::install("zellkonverter", dependencies=NA, Ncpus=8)'
+dep: # * DONE (basilisk)
+dep: # * DONE (zellkonverter)
+[coble-create] End time: 2026-02-15 19:26:49
+[coble-create] Duration: 31s
+
+[coble-create] Start time: 2026-02-15 19:26:49 251/317
+install: Rscript -e 'BiocManager::install("NanoStringNCTools", dependencies=NA, Ncpus=8)'
+dep: # * DONE (NanoStringNCTools)
+[coble-create] End time: 2026-02-15 19:27:15
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-15 19:27:15 253/317
+install: Rscript -e 'BiocManager::install("GeomxTools", dependencies=NA, Ncpus=8)'
+dep: # * DONE (nortest)
+dep: # * DONE (ggstats)
+dep: # * DONE (lmerTest)
+dep: # * DONE (GGally)
+dep: # * DONE (EnvStats)
+dep: # * DONE (GeomxTools)
+[coble-create] End time: 2026-02-15 19:28:25
+[coble-create] Duration: 70s
+
+[coble-create] Start time: 2026-02-15 19:28:25 255/317
+install: Rscript -e 'BiocManager::install("GeoMxWorkflows", dependencies=NA, Ncpus=8)'
+dep: # * DONE (outliers)
+dep: # * DONE (networkD3)
+dep: # * DONE (bookdown)
+dep: # * DONE (BiocStyle)
+dep: # * DONE (GeoMxWorkflows)
+[coble-create] End time: 2026-02-15 19:28:50
+[coble-create] Duration: 25s
+
+[coble-create] Start time: 2026-02-15 19:28:50 257/317
+install: Rscript -e 'install.packages("openxlsx", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (openxlsx)
+[coble-create] End time: 2026-02-15 19:29:44
+[coble-create] Duration: 54s
+
+[coble-create] Start time: 2026-02-15 19:29:44 259/317
+install: python -m pip install 'requests' 
+    Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (2.32.5)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from requests) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from requests) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from requests) (2.6.3)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from requests) (2026.1.4)
+[coble-create] End time: 2026-02-15 19:29:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 19:29:45 261/317
+install: Rscript -e 'BiocManager::install("Orthology.eg.db", dependencies=NA, Ncpus=8)'
+dep: # * DONE (Orthology.eg.db)
+[coble-create] End time: 2026-02-15 19:31:25
+[coble-create] Duration: 100s
+
+[coble-create] Start time: 2026-02-15 19:31:25 263/317
+install: Rscript -e 'BiocManager::install("viper", dependencies=NA, Ncpus=8)'
+dep: # * DONE (viper)
+[coble-create] End time: 2026-02-15 19:31:42
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-02-15 19:31:42 265/317
+install: Rscript -e 'BiocManager::install("dorothea", dependencies=NA, Ncpus=8)'
+dep: # * DONE (bcellViper)
+dep: # * DONE (decoupleR)
+dep: # * DONE (dorothea)
+[coble-create] End time: 2026-02-15 19:32:37
+[coble-create] Duration: 55s
+
+[coble-create] Start time: 2026-02-15 19:32:37 267/317
+install: Rscript -e 'BiocManager::install("aracne.networks", dependencies=NA, Ncpus=8)'
+dep: # * DONE (aracne.networks)
+[coble-create] End time: 2026-02-15 19:33:29
+[coble-create] Duration: 52s
+
+[coble-create] Start time: 2026-02-15 19:33:29 269/317
+install: Rscript -e 'BiocManager::install("scDblFinder", dependencies=NA, Ncpus=8)'
+dep: # * DONE (scDblFinder)
+[coble-create] End time: 2026-02-15 19:34:23
+[coble-create] Duration: 54s
+
+[coble-create] Start time: 2026-02-15 19:34:23 271/317
+install: Rscript -e 'install.packages("effsize", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (effsize)
+[coble-create] End time: 2026-02-15 19:34:28
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 19:34:28 273/317
+install: Rscript -e 'install.packages("enrichR", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (WriteXLS)
+dep: # * DONE (enrichR)
+[coble-create] End time: 2026-02-15 19:34:39
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 19:34:39 275/317
+install: python -m pip install 'PyYAML' 
+    Requirement already satisfied: PyYAML in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (6.0.3)
+[coble-create] End time: 2026-02-15 19:34:40
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 19:34:40 277/317
+install: python -m pip install 'radian' 
+    Requirement already satisfied: prompt_toolkit<3.1,>=3.0.41 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from radian) (3.0.52)
+    Requirement already satisfied: pygments>=2.5.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from radian) (2.19.2)
+    Requirement already satisfied: wcwidth in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from prompt_toolkit<3.1,>=3.0.41->radian) (0.6.0)
+    Requirement already satisfied: cffi>=1.10.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from rchitect<0.5.0,>=0.4.8->radian) (2.0.0)
+    Requirement already satisfied: packaging>=23.0 in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from rchitect<0.5.0,>=0.4.8->radian) (26.0)
+    Requirement already satisfied: pycparser in /home/ralcraft/miniforge3/envs/bcds/lib/python3.14/site-packages (from cffi>=1.10.0->rchitect<0.5.0,>=0.4.8->radian) (2.22)
+    Successfully installed radian-0.6.15 rchitect-0.4.9
+[coble-create] End time: 2026-02-15 19:34:41
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-15 19:34:41 279/317
+install: Rscript -e 'install.packages("languageserver", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (xmlparsedata)
+dep: # * DONE (rex)
+dep: # * DONE (R.cache)
+dep: # * DONE (styler)
+dep: # * DONE (lintr)
+dep: # * DONE (languageserver)
+[coble-create] End time: 2026-02-15 19:35:04
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-02-15 19:35:04 281/317
+install: Rscript -e 'install.packages("unigd", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (unigd)
+[coble-create] End time: 2026-02-15 19:35:52
+[coble-create] Duration: 48s
+
+[coble-create] Start time: 2026-02-15 19:35:52 283/317
+install: Rscript -e 'install.packages("AsioHeaders", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (AsioHeaders)
+[coble-create] End time: 2026-02-15 19:35:57
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 19:35:57 285/317
+install: Rscript -e 'install.packages("seqinr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (seqinr)
+[coble-create] End time: 2026-02-15 19:36:08
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 19:36:08 287/317
+install: Rscript -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/httpgd/httpgd_2.0.4.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (httpgd)
+[coble-create] End time: 2026-02-15 19:36:41
+[coble-create] Duration: 33s
+
+[coble-create] Start time: 2026-02-15 19:36:41 289/317
+install: Rscript -e 'remotes::install_url("https://github.com/munoztd0/reprtree/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (reprtree)
+[coble-create] End time: 2026-02-15 19:36:47
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-15 19:36:47 291/317
+install: Rscript -e 'remotes::install_url("https://github.com/carmonalab/ProjecTILs/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # scGate (NA -> 1.7.2 ) [CRAN]
+dep: # * DONE (UCell)
+dep: # * DONE (scGate)
+dep: # * DONE (sctransform)
+dep: # * DONE (STACAS)
+dep: # * DONE (ProjecTILs)
+[coble-create] End time: 2026-02-15 19:40:43
+[coble-create] Duration: 236s
+
+[coble-create] Start time: 2026-02-15 19:40:44 293/317
+install: Rscript -e 'remotes::install_url("https://github.com/carmonalab/SignatuR/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (SignatuR)
+[coble-create] End time: 2026-02-15 19:40:51
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-15 19:40:51 295/317
+install: Rscript -e 'BiocManager::install("lpsymphony", dependencies=NA, Ncpus=8)'
+dep: # * DONE (lpsymphony)
+[coble-create] End time: 2026-02-15 19:47:45
+[coble-create] Duration: 414s
+
+[coble-create] Start time: 2026-02-15 19:47:45 297/317
+install: Rscript -e 'remotes::install_url("https://github.com/nignatiadis/IHW/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (IHW)
+[coble-create] End time: 2026-02-15 19:47:54
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-15 19:47:54 299/317
+install: Rscript -e 'remotes::install_url("https://github.com/saeyslab/multinichenetr/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # nichenetr    (NA -> 2d5c1ab5e...) [GitHub]
+dep: # aod          (NA -> 1.3.3       ) [CRAN]
+dep: # fANCOVA      (NA -> 0.6-1       ) [CRAN]
+dep: # remaCor      (NA -> 0.0.20      ) [CRAN]
+dep: # TMB          (NA -> 1.9.19      ) [CRAN]
+dep: # varianceP... (NA -> 1.40.1      ) [CRAN]
+dep: # glmmTMB      (NA -> 1.1.14      ) [CRAN]
+dep: # blme         (NA -> 1.0-7       ) [CRAN]
+dep: # locfdr       (NA -> 1.1-8       ) [CRAN]
+dep: # muscat       (NA -> 1.24.0      ) [CRAN]
+dep: # * DONE (locfdr)
+dep: # * DONE (fANCOVA)
+dep: # * DONE (aod)
+dep: # * DONE (blme)
+dep: # * DONE (remaCor)
+dep: # * DONE (variancePartition)
+dep: # * DONE (TMB)
+dep: # * DONE (glmmTMB)
+dep: # * DONE (muscat)
+dep: # * DONE (sctransform)
+dep: # * DONE (nichenetr)
+dep: # * DONE (IHW)
+dep: # * DONE (multinichenetr)
+[coble-create] End time: 2026-02-15 19:56:46
+[coble-create] Duration: 532s
+
+[coble-create] Start time: 2026-02-15 19:56:46 301/317
+install: Rscript -e 'remotes::install_url("https://github.com/jinworks/CellChat/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # sna          (NA -> 2.8   ) [CRAN]
+dep: # * DONE (statnet.common)
+dep: # * DONE (ggalluvial)
+dep: # * DONE (network)
+dep: # * DONE (sna)
+dep: # * DONE (ggnetwork)
+dep: # * DONE (CellChat)
+[coble-create] End time: 2026-02-15 19:58:06
+[coble-create] Duration: 80s
+
+[coble-create] Start time: 2026-02-15 19:58:06 304/317
+install: conda install -y --solver=libmamba --no-update-deps  'geos' 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-15 19:58:52
+[coble-create] Duration: 46s
+
+[coble-create] Start time: 2026-02-15 19:58:52 306/317
+install: Rscript -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (sp)
+[coble-create] End time: 2026-02-15 19:59:10
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-02-15 19:59:10 308/317
+install: Rscript -e 'remotes::install_url("https://cran.r-project.org/src/contrib/Archive/rgeos/rgeos_0.6-4.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (sp)
+dep: # * DONE (rgeos)
+[coble-create] End time: 2026-02-15 19:59:37
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-02-15 19:59:37 310/317
+install: Rscript -e 'remotes::install_url("https://github.com/rachelicr/r-maptools/archive/refs/heads/main.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # * DONE (sp)
+dep: # * DONE (maptools)
+[coble-create] End time: 2026-02-15 20:00:04
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-02-15 20:00:04 312/317
+install: Rscript -e 'remotes::install_github("huayc09/SeuratExtend", dependencies=NA, upgrade="default", Ncpus=8)'
+dep: # SeuratExt... (NA    -> 6859c9a19...) [GitHub]
+dep: # forecast     (9.0.0 -> 9.0.1       ) [CRAN]
+dep: # car          (3.1-3 -> 3.1-5       ) [CRAN]
+dep: # labelled     (NA    -> 2.16.0      ) [CRAN]
+dep: # mosaicCore   (NA    -> 0.9.5       ) [CRAN]
+dep: # ggiraph      (0.9.3 -> 0.9.4       ) [CRAN]
+dep: # mosaicData   (NA    -> 0.20.4      ) [CRAN]
+dep: # ggformula    (NA    -> 1.0.1       ) [CRAN]
+dep: # mosaic       (NA    -> 1.9.2       ) [CRAN]
+dep: # * DONE (mosaicData)
+dep: # * DONE (mosaicCore)
+dep: # * DONE (labelled)
+dep: # * DONE (ggiraph)
+dep: # * DONE (forecast)
+dep: # * DONE (ggformula)
+dep: # * DONE (car)
+dep: # * DONE (mosaic)
+dep: # * DONE (SeuratExtendData)
+dep: # * DONE (sp)
+dep: # * DONE (sctransform)
+dep: # * DONE (SeuratExtend)
+[coble-create] End time: 2026-02-15 20:04:29
+[coble-create] Duration: 265s
+
+[coble-create] Start time: 2026-02-15 20:04:29 314/317
+install: cp recipes/icr/bcds/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-15 20:04:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-15 20:04:29 316/317
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-15 20:04:29
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-15 20:04:29
+[coble-create] Recipe took: 3h 53m 53s
+--------------------------------------

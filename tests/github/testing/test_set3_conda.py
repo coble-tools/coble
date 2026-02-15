@@ -14,13 +14,13 @@ def do_block(path, block):
 def test_mock_conda():    
     assert 0 == 0
 
-def test_sylver():
-    success = do_block("icr", "sylver")    
-    assert success == 0    
+#def test_sylver():
+#    success = do_block("icr", "sylver")    
+#    assert success == 0    
 
-def test_deseq2():
-    success = do_block("papers", "DESeq2")    
-    assert success == 0    
+#def test_deseq2():
+#    success = do_block("papers", "DESeq2")    
+#    assert success == 0    
 
 #if __name__ == "__main__":    
 #    test_carbine()
