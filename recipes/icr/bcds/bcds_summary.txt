@@ -2055,3 +2055,106 @@ dep: # * DONE (Rsubread)
 
 [coble-create] Start time: 2026-02-15 16:12:00 19/317
 install: conda install -y --solver=libmamba --no-update-deps  'tbb<2021'  'tbb-devel<2021' 
+dep: # tbb                conda-forge/linux-64::tbb-2020.2-h4bd325d_4
+dep: # tbb-devel          conda-forge/linux-64::tbb-devel-2020.2-h4bd325d_4
+[coble-create] End time: 2026-02-15 16:12:28
+[coble-create] Duration: 28s
+
+[coble-create] Start time: 2026-02-15 16:12:28 21/317
+install: Rscript -e 'install.packages("RcppEigen", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (RcppEigen)
+[coble-create] End time: 2026-02-15 16:13:03
+[coble-create] Duration: 35s
+
+[coble-create] Start time: 2026-02-15 16:13:03 23/317
+install: Rscript -e 'install.packages("RcppParallel", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (RcppParallel)
+[coble-create] End time: 2026-02-15 16:13:24
+[coble-create] Duration: 21s
+
+[coble-create] Start time: 2026-02-15 16:13:24 25/317
+install: Rscript -e 'install.packages("gridExtra", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (gridExtra)
+[coble-create] End time: 2026-02-15 16:13:29
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-15 16:13:29 27/317
+install: Rscript -e 'install.packages("loo", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (tensorA)
+dep: # * DONE (distributional)
+dep: # * DONE (posterior)
+dep: # * DONE (loo)
+[coble-create] End time: 2026-02-15 16:13:45
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-02-15 16:13:45 29/317
+install: Rscript -e 'install.packages("pkgbuild", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (pkgbuild)
+[coble-create] End time: 2026-02-15 16:13:49
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 16:13:49 31/317
+install: Rscript -e 'install.packages("V8", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (V8)
+[coble-create] End time: 2026-02-15 16:14:10
+[coble-create] Duration: 21s
+
+[coble-create] Start time: 2026-02-15 16:14:10 33/317
+install: Rscript -e 'install.packages("BH", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=8, method="wget")'
+dep: # * DONE (BH)
+[coble-create] End time: 2026-02-15 16:14:25
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-15 16:14:25 39/317
+install: CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include"  MAKEFLAGS="-j1"  Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/StanHeaders/StanHeaders_2.21.0-7.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (StanHeaders)
+[coble-create] End time: 2026-02-15 16:14:36
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-02-15 16:14:36 45/317
+install: CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include"  MAKEFLAGS="-j1"  Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/rstan/rstan_2.21.2.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (rstan)
+[coble-create] End time: 2026-02-15 16:20:49
+[coble-create] Duration: 373s
+
+[coble-create] Start time: 2026-02-15 16:20:49 47/317
+install: Rscript -e 'BiocManager::install("DirichletMultinomial", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-02-15 16:20:53
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 16:20:53 49/317
+install: Rscript -e 'BiocManager::install("TailRank", dependencies=NA, Ncpus=8)'
+dep: # * DONE (oompaData)
+dep: # * DONE (oompaBase)
+dep: # * DONE (TailRank)
+[coble-create] End time: 2026-02-15 16:21:01
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-02-15 16:21:01 51/317
+install: Rscript -e 'BiocManager::install("Biobase", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-02-15 16:21:05
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-15 16:21:05 57/317
+install: CXX14FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXX17FLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive"  CXXFLAGS="-O0 -D_REENTRANT -Wno-ignored-attributes -fpermissive -I$CONDA_PREFIX/include"  MAKEFLAGS="-j1"  Rscript -e 'remotes::install_github("davidaknowles/leafcutter/leafcutter", upgrade="never", Ncpus=8)'
+dep: # * DONE (doMC)
+dep: # * DONE (optparse)
+dep: # * DONE (rstantools)
+dep: # * DONE (intervals)
+dep: # * DONE (QuickJSR)
+dep: # * DONE (leafcutter)
+[coble-create] End time: 2026-02-15 16:27:00
+[coble-create] Duration: 355s
+
+[coble-create] Start time: 2026-02-15 16:27:00 59/317
+install: Rscript -e 'BiocManager::install("liftOver", dependencies=NA, Ncpus=8)'
+dep: # * DONE (snpStats)
+dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
+dep: # * DONE (gwascat)
+dep: # * DONE (Homo.sapiens)
+dep: # * DONE (liftOver)
+[coble-create] End time: 2026-02-15 16:28:26
+[coble-create] Duration: 86s
+
+[coble-create] Start time: 2026-02-15 16:28:26 62/317
+install: conda install -y --solver=libmamba --no-update-deps  'r-seqminer' 

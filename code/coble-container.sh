@@ -157,6 +157,7 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
     --build-arg VAL_FILE="$VAL_FILE" \
     --build-arg VAL_FOLDER="$VAL_FOLDER" \
+    --no-cache \
     -t "$IMAGE_NAME" .
     BUILD_EXIT_CODE=$?
     if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
