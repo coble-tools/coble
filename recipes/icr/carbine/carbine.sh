@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-15
-# Capture time: 22:19:34 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:20:17 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -43,9 +43,10 @@ conda config --env --add channels conda-forge
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y --solver=libmamba  'r-base=4.4.3'
-conda install -y --solver=libmamba  r-remotes r-biocmanager
-conda install -y --solver=libmamba  'python=3.12'
+# deps: --no-update-deps
+conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.3'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps 'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1

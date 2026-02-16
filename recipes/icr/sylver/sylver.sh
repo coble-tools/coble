@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-15
-# Capture time: 22:49:17 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:15:59 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name sylver -y 2>/dev/null || true
@@ -31,29 +31,34 @@ export | grep PYTHONNOUSERSITE
 conda config --env --remove-key channels
 conda config --env --set channel_priority strict
 conda config --env --add channels r
-conda config --env --add channels bioconda
-conda config --env --add channels conda-forge
-conda config --env --add channels defaults
 
 # INSTALL SECTION FOR CONDA
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
 #######################################
-# note the reverse order of priority
+# compilers:
+# Flag: Directive: cran-repo, Value: 
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-# R source installation requested
-bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "3.6.0"
-# flags:
-# Flag: Directive: dependencies, Value: na
+conda install -y --solver=libmamba --no-update-deps -c r 'r-base=3.6.0'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+# bash:
+conda config --env --remove channels r
+# compilers:
+
 # Language compile tools
 conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
-conda config --env --set channel_priority strict
+# flags:
 conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
-# Flag: Directive: cran-repo, Value: https://packagemanager.posit.co/cran/2020-04-01
+# bash:
+# This sed line is required when mixing r versions from the r channel with conda-forge source installs
+sed -i 's/x86_64-conda_cos6-linux-gnu/x86_64-conda-linux-gnu/g' ${CONDA_PREFIX}/lib/R/etc/Makeconf
+# conda:
+conda install -y --solver=libmamba --no-update-deps \
+'libcurl' 
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-BiocManager' \
@@ -75,9 +80,8 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/survival/survival_3.2-11.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
 # bioc-package:
 Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=1)'
-cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
-#!/usr/bin/env bash
-echo "COBLE validation: No script has been specified for sylver environment."
-VALIDATE_EOF
+
+# Validate script available in environment at CONDA PREFIX: validate.sh
+cp recipes/icr/sylver/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

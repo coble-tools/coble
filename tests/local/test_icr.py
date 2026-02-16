@@ -24,13 +24,13 @@ def do_block(section, recipe):
 def test_ok():
     assert 0 == 0
     
-#def test_carbine():
-#    success = do_block("icr", "carbine")    
-#    assert success == 0   
+def test_carbine():
+    success = do_block("icr", "carbine")    
+    assert success == 0   
 
-#def test_sylver():
-#    success = do_block("icr", "sylver")    
-#    assert success == 0   
+def test_sylver():
+    success = do_block("icr", "sylver")    
+    assert success == 0   
 
 
 if __name__ == "__main__":        
