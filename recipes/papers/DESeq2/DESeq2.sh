@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-11
-# Capture time: 22:03:43 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:09:47 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -18,7 +18,7 @@ conda create --no-default-packages --name deseq2 -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
-conda  clean --all -y
+conda  clean --all -y --force-pkgs-dirs
 # deactivate environment
 conda deactivate | true
 conda deactivate | true
@@ -30,94 +30,52 @@ export | grep PYTHONNOUSERSITE
 # Channels section
 conda config --env --remove-key channels
 conda config --env --set channel_priority strict
-conda config --env --add channels defaults
 conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
 
 # INSTALL SECTION FOR CONDA
-# channels: # note the reverse order of priority
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2026
+#######################################
 # compilers:
-
-# Language compile tools
-conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=7.5.0' 'gxx_linux-64=7.5.0' 'gfortran_linux-64=7.5.0'
-conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
-# Set up compiler symlinks for R package compilation - COS6 compatibility
-umask 0022
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-# Set up compiler symlinks for R package compilation - standard aliases
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Set compiler flags for R package compilation
-conda env config vars set CC="/home/ralcraft/miniforge3/envs/deseq2/bin/gcc"
-conda env config vars set CXX="/home/ralcraft/miniforge3/envs/deseq2/bin/g++"
-conda env config vars set FC="/home/ralcraft/miniforge3/envs/deseq2/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set F77="/home/ralcraft/miniforge3/envs/deseq2/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-# Also as export to avoid de/activations
-export CC="/home/ralcraft/miniforge3/envs/deseq2/bin/gcc"
-export CXX="/home/ralcraft/miniforge3/envs/deseq2/bin/g++"
-export FC="/home/ralcraft/miniforge3/envs/deseq2/bin/x86_64-conda-linux-gnu-gfortran"
-export F77="/home/ralcraft/miniforge3/envs/deseq2/bin/x86_64-conda-linux-gnu-gfortran"
-export CFLAGS="-I$CONDA_PREFIX/include"
-export CXXFLAGS="-I$CONDA_PREFIX/include"
-export CPPFLAGS="-I$CONDA_PREFIX/include"
-export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-
 # Flag: Directive: cran-repo, Value: 
+# flags:
+# Compile version 7.5 on linux for architecture x86_64
+conda install -y --solver=libmamba --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
+# Detected Linux x86_64 - using linux-64 compilers
+conda install -y --solver=libmamba --no-update-deps -c conda-forge 'gcc_linux-64=7.5' 'gxx_linux-64=7.5' 'gfortran_linux-64=7.5'
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
+ln -sf /usr/bin/ld ${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-# R source installation requested
-bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "3.6.2"
+# deps: --no-update-deps
+conda install -y --solver=libmamba --no-update-deps 'r-base=3.6.2'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+#conda:
+#  - binutils>=2.38
+#  - binutils_impl_linux-64>=2.38
+
+# bioc-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'bioconductor-DESeq2' \
+'bioconductor-DESeq' \
+'bioconductor-edgeR' \
+'bioconductor-DSS' \
+'bioconductor-limma' \
+'bioconductor-EBSeq' \
+'bioconductor-parathyroidSE' \
+'bioconductor-pasilla' 
 # conda:
-conda install -y  --no-update-deps \
-'binutils>=2.38' \
-'binutils_impl_linux-64>=2.38' 
-# r-package:
-Rscript -e 'install.packages("cli", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("crayon", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("digest", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("ellipsis", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("evaluate", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("magrittr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("pkgload", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("praise", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("R6", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("rlang", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("withr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/testthat/testthat_2.3.2.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/mockery/mockery_0.4.2.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/remotes/remotes_2.1.1.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
-# bioc-package:
-Rscript -e 'BiocManager::install("DESeq2", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("DESeq", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("edgeR", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("DSS", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("limma", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("EBSeq", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("parathyroidSE", dependencies=TRUE, Ncpus=1)'
-Rscript -e 'BiocManager::install("pasilla", dependencies=TRUE, Ncpus=1)'
-# conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'GFOLD' 
-# r-package:
-Rscript -e 'install.packages("samr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("PoiClaClu", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-#bash:
-#cp recipes/publications/DESeq2/DESeq2.R 
-#$CONDA_PREFIX/bin/DESeq2.R
-
-
-
+# r-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'r-samr' \
+'r-PoiClaClu' 
 
 
 # Validate script available in environment at CONDA PREFIX: validate.sh

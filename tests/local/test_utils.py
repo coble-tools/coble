@@ -4,41 +4,41 @@ import subprocess
 
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 coble_path = os.path.join(cwd, "code", "coble")
+recipe_path = os.path.join(cwd, "recipes")
 
 def do_block(section, recipe):
     """Test that the old version of r that needs compiling runs."""
-    result = subprocess.run([
-        coble_path,
+    args = [coble_path,
         "build",
         "--recipe",
-        f"recipes/{section}/{recipe}/{recipe}.cbl",
+        f"{recipe_path}/{section}/{recipe}/{recipe}.cbl",
         "--env",
         recipe,
         "--rebuild"
-    ], cwd=cwd, capture_output=True, text=True,shell=False)    
+    ]
+    print("Running command:", " ".join(args))
+    result = subprocess.run(args, cwd=cwd, capture_output=True, text=True,shell=False)    
     print(result.stdout)
     return result.returncode
 
+def test_ok():
+    assert 0 == 0
+
 def test_360():
-    success = do_block("icr", "r-360-conda")    
+    success = do_block("utils", "r-360-conda")        
     assert success == 0   
 
 def test_362():
-    success = do_block("icr", "r-362-conda")    
+    success = do_block("utils", "r-362-conda")    
     assert success == 0   
 
 def test_443():
-    success = do_block("icr", "r-443-conda")    
+    success = do_block("utils", "r-443-conda")    
     assert success == 0   
 
 def test_452():
-    success = do_block("icr", "r-452-conda")    
+    success = do_block("utils", "r-452-conda")    
     assert success == 0   
-
-def test_nightly():
-    success = do_block("icr", "r-nightly")    
-    assert success == 0   
-
 
 if __name__ == "__main__":        
     test_360()

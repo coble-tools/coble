@@ -1,475 +1,0 @@
-------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-02-11 at 23:54:26 GMT
-------------------------------------------------
-
-[coble-create] Start time: 2026-02-11 23:54:27 1/82
-install: source ~/.bashrc
-[coble-create] End time: 2026-02-11 23:54:27
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:27 3/82
-install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-[coble-create] End time: 2026-02-11 23:54:28
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-11 23:54:28 5/82
-install: conda env remove --name r-360 -y 2>/dev/null || true
-[coble-create] End time: 2026-02-11 23:54:28
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:28 7/82
-install: conda create --no-default-packages --name r-360 -y
-[coble-create] End time: 2026-02-11 23:54:31
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-02-11 23:54:31 9/82
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-11 23:54:31
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:31 10/82
-install: unset PYTHONPATH
-[coble-create] End time: 2026-02-11 23:54:31
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:31 11/82
-install: conda  clean --all -y
-[coble-create] End time: 2026-02-11 23:54:34
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-02-11 23:54:34 13/82
-install: conda deactivate | true
-[coble-create] End time: 2026-02-11 23:54:35
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-11 23:54:35 14/82
-install: conda deactivate | true
-[coble-create] End time: 2026-02-11 23:54:35
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:35 15/82
-install: conda activate r-360
-[coble-create] End time: 2026-02-11 23:54:35
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:35 16/82
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-11 23:54:35
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:35 17/82
-install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-02-11 23:54:35
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:35 18/82
-install: conda config --env --remove-key channels
-[coble-create] End time: 2026-02-11 23:54:36
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-11 23:54:36 20/82
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-02-11 23:54:36
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:36 21/82
-install: conda config --env --add channels r
-[coble-create] End time: 2026-02-11 23:54:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:37 23/82
-install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-02-11 23:54:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:37 25/82
-install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-02-11 23:54:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-11 23:54:37 27/82
-install: conda config --env --add channels defaults
-[coble-create] End time: 2026-02-11 23:54:38
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-11 23:54:38 29/82
-install: conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=7.5.0' 'gxx_linux-64=7.5.0' 'gfortran_linux-64=7.5.0'
-dep: # _libgcc_mutex      conda-forge/linux-64::_libgcc_mutex-0.1-conda_forge
-dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-2_gnu
-dep: # binutils_impl_lin~ conda-forge/linux-64::binutils_impl_linux-64-2.36.1-h193b22a_2
-dep: # binutils_linux-64  conda-forge/linux-64::binutils_linux-64-2.36-hf3e587d_33
-dep: # gcc_impl_linux-64  conda-forge/linux-64::gcc_impl_linux-64-7.5.0-hda68d29_13
-dep: # gcc_linux-64       conda-forge/linux-64::gcc_linux-64-7.5.0-h47867f9_33
-dep: # gfortran_impl_lin~ conda-forge/linux-64::gfortran_impl_linux-64-7.5.0-h56cb351_20
-dep: # gfortran_linux-64  conda-forge/linux-64::gfortran_linux-64-7.5.0-h78c8a43_33
-dep: # gxx_impl_linux-64  conda-forge/linux-64::gxx_impl_linux-64-7.5.0-h64c220c_13
-dep: # gxx_linux-64       conda-forge/linux-64::gxx_linux-64-7.5.0-h555fc39_33
-dep: # kernel-headers_li~ conda-forge/noarch::kernel-headers_linux-64-6.12.0-he073ed8_5
-dep: # ld_impl_linux-64   conda-forge/linux-64::ld_impl_linux-64-2.36.1-hea4e1c9_2
-dep: # libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_17
-dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_17
-dep: # libgfortran4       conda-forge/linux-64::libgfortran4-7.5.0-h14aa051_20
-dep: # libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_17
-dep: # libstdcxx          conda-forge/linux-64::libstdcxx-15.2.0-h934c35e_17
-dep: # libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_17
-dep: # sysroot_linux-64   conda-forge/noarch::sysroot_linux-64-2.39-hc4b9eeb_5
-dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
-[coble-create] End time: 2026-02-11 23:58:23
-[coble-create] Duration: 225s
-
-[coble-create] Start time: 2026-02-11 23:58:23 31/82
-install: conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
-dep: # binutils           conda-forge/linux-64::binutils-2.36.1-hdd6e379_2
-dep: # c-compiler         conda-forge/linux-64::c-compiler-1.1.2-h36c2ea0_0
-dep: # cxx-compiler       conda-forge/linux-64::cxx-compiler-1.1.2-h0efe328_0
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 204s
-
-[coble-create] Start time: 2026-02-12 00:01:47 33/82
-install: umask 0022
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 34/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 35/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 36/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 37/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 38/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 39/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 40/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 41/82
-install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-[coble-create] End time: 2026-02-12 00:01:47
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:47 42/82
-install: conda env config vars set CC="/home/ralcraft/miniforge3/envs/r-360/bin/gcc"
-[coble-create] End time: 2026-02-12 00:01:48
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-12 00:01:48 43/82
-install: conda env config vars set CXX="/home/ralcraft/miniforge3/envs/r-360/bin/g++"
-[coble-create] End time: 2026-02-12 00:01:48
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:48 44/82
-install: conda env config vars set FC="/home/ralcraft/miniforge3/envs/r-360/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-12 00:01:48
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:48 45/82
-install: conda env config vars set F77="/home/ralcraft/miniforge3/envs/r-360/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-12 00:01:49
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-12 00:01:49 46/82
-install: conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:49
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:49 47/82
-install: conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:49
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:49 48/82
-install: conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-12 00:01:50 49/82
-install: conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 50/82
-install: export CC="/home/ralcraft/miniforge3/envs/r-360/bin/gcc"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 51/82
-install: export CXX="/home/ralcraft/miniforge3/envs/r-360/bin/g++"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 52/82
-install: export FC="/home/ralcraft/miniforge3/envs/r-360/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 53/82
-install: export F77="/home/ralcraft/miniforge3/envs/r-360/bin/x86_64-conda-linux-gnu-gfortran"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 54/82
-install: export CFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 55/82
-install: export CXXFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 56/82
-install: export CPPFLAGS="-I$CONDA_PREFIX/include"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 57/82
-install: export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-[coble-create] End time: 2026-02-12 00:01:50
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:01:50 59/82
-install: conda install -y  --no-update-deps  'sysroot_linux-64=2.17' 
-dep: # Building graph of deps:   0%|          | 0/29 [00:00<?, ?it/s]Examining conda-forge/noarch::tzdata==2025c=hc9c84f9_1:   0%|          | 0/29 [00:00<?, ?it/s]Examining sysroot_linux-64=2.17:   3%|▎         | 1/29 [00:00<00:00, 12264.05it/s]            Examining @/linux-64::__archspec==1=skylake:   7%|▋         | 2/29 [00:00<00:00, 3968.12it/s]Examining conda-forge/linux-64::libgcc==15.2.0=he0feb66_17:  10%|█         | 3/29 [00:00<00:00, 5423.67it/s]Examining conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20:  14%|█▍        | 4/29 [00:00<00:00, 4985.80it/s]Examining conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17:  17%|█▋        | 5/29 [00:00<00:00, 346.98it/s]             Examining @/linux-64::__cuda==13.0=0:  21%|██        | 6/29 [00:00<00:00, 383.25it/s]                         Examining conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33:  24%|██▍       | 7/29 [00:00<00:00, 440.06it/s]Examining conda-forge/linux-64::ld_impl_linux-64==2.36.1=hea4e1c9_2:  28%|██▊       | 8/29 [00:00<00:00, 442.18it/s] Examining conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33:  31%|███       | 9/29 [00:00<00:00, 495.20it/s]Examining conda-forge/linux-64::binutils==2.36.1=hdd6e379_2:  34%|███▍      | 10/29 [00:00<00:00, 520.62it/s]       Examining conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0:  38%|███▊      | 11/29 [00:00<00:00, 556.96it/s]Examining conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17:  41%|████▏     | 12/29 [00:00<00:00, 492.17it/s]Examining conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0:  45%|████▍     | 13/29 [00:00<00:00, 526.44it/s]    Examining conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13:  48%|████▊     | 14/29 [00:00<00:00, 501.81it/s]Examining conda-forge/linux-64::libgomp==15.2.0=he0feb66_17:  52%|█████▏    | 15/29 [00:00<00:00, 438.60it/s]         Examining conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2:  55%|█████▌    | 16/29 [00:00<00:00, 465.47it/s]Examining @/linux-64::__glibc==2.39=0:  59%|█████▊    | 17/29 [00:00<00:00, 483.93it/s]                                    Examining @/linux-64::__linux==6.6.87.2=0:  62%|██████▏   | 18/29 [00:00<00:00, 511.48it/s]Examining conda-forge/linux-64::libgfortran4==7.5.0=h14aa051_20:  66%|██████▌   | 19/29 [00:00<00:00, 539.15it/s]Examining conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33:  69%|██████▉   | 20/29 [00:00<00:00, 566.69it/s]Examining kernel-headers_linux-64:  72%|███████▏  | 21/29 [00:00<00:00, 571.80it/s]                              Examining @/linux-64::__unix==0=0:  76%|███████▌  | 22/29 [00:00<00:00, 595.66it/s]Examining conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17:  79%|███████▉  | 23/29 [00:00<00:00, 622.04it/s]Examining conda-forge/linux-64::_libgcc_mutex==0.1=conda_forge:  83%|████████▎ | 24/29 [00:00<00:00, 647.78it/s]Examining @/linux-64::__conda==26.1.0=0:  86%|████████▌ | 25/29 [00:00<00:00, 670.33it/s]                       Examining conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33:  90%|████████▉ | 26/29 [00:00<00:00, 696.25it/s]Examining conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13:  93%|█████████▎| 27/29 [00:00<00:00, 702.69it/s]Examining conda-forge/linux-64::_openmp_mutex==4.5=2_gnu:  97%|█████████▋| 28/29 [00:00<00:00, 714.18it/s]                                                                                                                      Determining conflicts:   0%|          | 0/29 [00:00<?, ?it/s]Examining conflict for gcc_linux-64 gfortran_impl_linux-64 tzdata binutils_linux-64 gcc_impl_linux-64 gfortran_linux-64 binutils_impl_linux-64 gxx_linux-64 sysroot_linux-64 gxx_impl_linux-64:   0%|          | 0/29 [00:00<?, ?it/s]Examining conflict for gcc_linux-64 gfortran_impl_linux-64 binutils_linux-64 binutils cxx-compiler c-compiler gfortran_linux-64 gcc_impl_linux-64 binutils_impl_linux-64 gxx_linux-64 sysroot_linux-64 gxx_impl_linux-64:   3%|▎         | 1/29 [00:00<00:01, 20.32it/s]Examining conflict for gcc_linux-64 kernel-headers_linux-64 gfortran_impl_linux-64 binutils_linux-64 gcc_impl_linux-64 gfortran_linux-64 binutils_impl_linux-64 gxx_linux-64 sysroot_linux-64 gxx_impl_linux-64:   7%|▋         | 2/29 [00:00<00:00, 35.58it/s]         Examining conflict for libgcc gfortran_impl_linux-64 libgcc-ng cxx-compiler libstdcxx libstdcxx-ng c-compiler gcc_impl_linux-64:  10%|█         | 3/29 [00:00<00:00, 27.36it/s]                                                                                Examining conflict for libgcc gfortran_impl_linux-64 libgcc-ng cxx-compiler libstdcxx libstdcxx-ng c-compiler gcc_impl_linux-64:  14%|█▍        | 4/29 [00:00<00:00, 36.44it/s]Examining conflict for libgcc gcc_linux-64 gfortran_impl_linux-64 libgcc-ng binutils_linux-64 cxx-compiler libstdcxx libstdcxx-ng c-compiler gfortran_linux-64 gcc_impl_linux-64 libgomp binutils_impl_linux-64 __glibc gxx_linux-64 gxx_impl_linux-64 _openmp_mutex:  14%|█▍        | 4/29 [00:00<00:00, 36.44it/s]Examining conflict for libgcc gcc_linux-64 gfortran_impl_linux-64 gcc_impl_linux-64 libgomp gxx_impl_linux-64 _openmp_mutex:  17%|█▋        | 5/29 [00:00<00:00, 36.44it/s]                                                                                                                                         Examining conflict for libgcc gfortran_impl_linux-64 cxx-compiler gcc_impl_linux-64 c-compiler _libgcc_mutex _openmp_mutex:  21%|██        | 6/29 [00:00<00:00, 36.44it/s] Examining conflict for libgcc gfortran_impl_linux-64 libgcc-ng cxx-compiler libstdcxx c-compiler gcc_impl_linux-64 _openmp_mutex:  24%|██▍       | 7/29 [00:00<00:00, 36.44it/s]Examining conflict for libgcc gfortran_impl_linux-64 libgcc-ng cxx-compiler libstdcxx c-compiler gcc_impl_linux-64 _openmp_mutex:  28%|██▊       | 8/29 [00:00<00:00, 23.13it/s]Examining conflict for gfortran_linux-64 gfortran_impl_linux-64:  28%|██▊       | 8/29 [00:00<00:00, 23.13it/s]                                                                 Examining conflict for gfortran_impl_linux-64 gcc_linux-64:  31%|███       | 9/29 [00:00<00:00, 23.13it/s]     Examining conflict for gcc_linux-64 gfortran_impl_linux-64 cxx-compiler libstdcxx-ng c-compiler gfortran_linux-64 gcc_impl_linux-64 gxx_impl_linux-64:  34%|███▍      | 10/29 [00:00<00:00, 23.13it/s]Examining conflict for gcc_linux-64 gfortran_impl_linux-64 cxx-compiler libstdcxx-ng c-compiler gfortran_linux-64 gcc_impl_linux-64 gxx_impl_linux-64:  38%|███▊      | 11/29 [00:00<00:00, 23.65it/s]Examining conflict for gfortran_impl_linux-64 cxx-compiler libstdcxx libstdcxx-ng gcc_impl_linux-64:  38%|███▊      | 11/29 [00:00<00:00, 23.65it/s]                                                  Examining conflict for gcc_linux-64 gfortran_impl_linux-64 libgcc-ng cxx-compiler c-compiler gfortran_linux-64 gcc_impl_linux-64 gxx_impl_linux-64:  41%|████▏     | 12/29 [00:00<00:00, 23.65it/s]Examining conflict for gxx_linux-64 gfortran_impl_linux-64:  45%|████▍     | 13/29 [00:00<00:00, 23.65it/s]                                                                                        Examining conflict for gxx_linux-64 gfortran_impl_linux-64:  48%|████▊     | 14/29 [00:00<00:00, 20.77it/s]Examining conflict for gcc_linux-64 gfortran_impl_linux-64 binutils_linux-64 binutils c-compiler gfortran_linux-64 gcc_impl_linux-64 binutils_impl_linux-64 gxx_linux-64 gxx_impl_linux-64:  48%|████▊     | 14/29 [00:00<00:00, 20.77it/s]Examining conflict for gcc_linux-64 gfortran_impl_linux-64 c-compiler gfortran_linux-64 gcc_impl_linux-64 gxx_linux-64 gxx_impl_linux-64:  52%|█████▏    | 15/29 [00:00<00:00, 20.77it/s]                                                  Examining conflict for gfortran_linux-64 gfortran_impl_linux-64 libgfortran4:  55%|█████▌    | 16/29 [00:00<00:00, 20.77it/s]                                                            Examining conflict for gcc_linux-64 cxx-compiler c-compiler gfortran_linux-64 gxx_linux-64:  59%|█████▊    | 17/29 [00:00<00:00, 20.77it/s]Examining conflict for gcc_linux-64 binutils_linux-64 cxx-compiler c-compiler gfortran_linux-64 gxx_linux-64:  62%|██████▏   | 18/29 [00:00<00:00, 20.77it/s]Examining conflict for gcc_linux-64 binutils_linux-64 cxx-compiler c-compiler gfortran_linux-64 gxx_linux-64:  66%|██████▌   | 19/29 [00:00<00:00, 28.35it/s]Examining conflict for ld_impl_linux-64 binutils_linux-64 binutils gcc_impl_linux-64 binutils_impl_linux-64:  66%|██████▌   | 19/29 [00:00<00:00, 28.35it/s] Examining conflict for c-compiler binutils cxx-compiler:  69%|██████▉   | 20/29 [00:00<00:00, 28.35it/s]                                                    Examining conflict for c-compiler cxx-compiler:  72%|███████▏  | 21/29 [00:00<00:00, 28.35it/s]         Examining conflict for gxx_linux-64 gxx_impl_linux-64 cxx-compiler:  76%|███████▌  | 22/29 [00:00<00:00, 28.35it/s]Examining conflict for gxx_linux-64 cxx-compiler:  79%|███████▉  | 23/29 [00:00<00:00, 28.35it/s]                                                                                                                   
-dep: # conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17 -> libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17 -> libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge|conda-forge/linux-64::_openmp_mutex==4.5=2_gnu
-dep: # conda-forge/linux-64::_openmp_mutex==4.5=2_gnu
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> libgcc-ng[version='>=7.5.0'] -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0'] -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libgcc-ng[version='>=7.5.0'] -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libgcc-ng[version='>=4.9'] -> _openmp_mutex[version='>=4.5']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> binutils_impl_linux-64[version='2.36.1.*|>=2.35.1|>=2.38|>=2.44|>=2.45|>=2.40|>=2.39|>=2.36.1|>=2.31.1']
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> gcc_impl_linux-64==7.5.0=hda68d29_13 -> binutils_impl_linux-64[version='>=2.31.1']
-dep: # conda-forge|conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> binutils_linux-64==2.36=hf3e587d_33 -> binutils_impl_linux-64=2.36
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> binutils_impl_linux-64[version='>=2.31.1']
-dep: # conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> binutils_linux-64==2.36=hf3e587d_33 -> binutils_impl_linux-64[version='2.36.*|>=2.35.1|>=2.31.1']
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> binutils_linux-64==2.36=hf3e587d_33 -> binutils_impl_linux-64=2.36
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> binutils_impl_linux-64=2.36
-dep: # conda-forge/linux-64::binutils==2.36.1=hdd6e379_2 -> binutils_impl_linux-64[version='>=2.36.1,<2.36.2.0a0']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> binutils -> binutils_impl_linux-64[version='2.32|>=2.32,<2.33.0a0|>=2.33.1,<2.33.2.0a0|>=2.35.1,<2.35.2.0a0|>=2.38,<2.39.0a0|>=2.40,<2.41.0a0|>=2.44,<2.45.0a0|>=2.45.1,<2.45.2.0a0|>=2.45,<2.46.0a0|>=2.43,<2.44.0a0|>=2.42,<2.43.0a0|>=2.39,<2.40.0a0|>=2.36.1,<2.36.2.0a0|>=2.35,<2.36.0a0|>=2.34,<2.35.0a0|>=2.32,<3.0a0',build=5]
-dep: # conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libstdcxx-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> binutils -> libstdcxx-ng[version='>=7.3.0']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64=7.5.0 -> libstdcxx-ng[version='>=4.9|>=7.5.0']
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> gcc_impl_linux-64==7.5.0=hda68d29_13 -> libstdcxx-ng[version='>=7.5.0']
-dep: # conda-forge|conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> binutils_impl_linux-64[version='>=2.31.1'] -> libstdcxx-ng[version='>=4.9|>=7.3.0|>=7']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libstdcxx-ng[version='>=10.3.0|>=10.4.0|>=11.1.0|>=11.2.0|>=9.3.0|>=8.4.0|>=7.5.0|>=14.1.0|>=13.3.0|>=13.2.0|>=13.1.0|>=12.4.0|>=12.3.0|>=12.2.0|>=12.1.0|>=11.4.0|>=11.3.0|>=9.5.0|>=9.4.0|>=8.5.0']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libstdcxx-ng[version='>=4.9']
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gfortran_impl_linux-64=7.5.0 -> libstdcxx-ng[version='>=4.9']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libstdcxx-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> gxx_linux-64=7 -> libstdcxx-ng==7.2.0=h24385c6_1
-dep: # conda-forge|conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> c-compiler==1.1.2=h36c2ea0_0
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> libgcc-ng[version='>=7.5.0'] -> libgcc[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h767d61c_2|h767d61c_2|h767d61c_2|h767d61c_3|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_13|he0feb66_17|h767d61c_2|h767d61c_2|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_12|he0feb66_13|he0feb66_14|h767d61c_2|h767d61c_5|h767d61c_5|h767d61c_6|he0feb66_13|h69a1729_4|h69a1729_7|he0feb66_17|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_7|h767d61c_4|h767d61c_3|he0feb66_17|he0feb66_16|he0feb66_15|h767d61c_4|h767d61c_3|h77fa898_1|h77fa898_1|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_4|h77fa898_1|h77fa898_1']
-dep: # conda-forge/linux-64::libgcc==15.2.0=he0feb66_17
-dep: # conda-forge|conda-forge/linux-64::libgcc==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17 -> libstdcxx==15.2.0=h934c35e_17 -> libgcc==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17 -> libgcc==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0'] -> libgcc[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h767d61c_2|h767d61c_2|h767d61c_2|h767d61c_3|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_13|he0feb66_17|h767d61c_2|h767d61c_2|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_12|he0feb66_13|he0feb66_14|h767d61c_2|h767d61c_5|h767d61c_5|h767d61c_6|he0feb66_13|h69a1729_4|h69a1729_7|he0feb66_17|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_7|h767d61c_4|h767d61c_3|he0feb66_17|he0feb66_16|he0feb66_15|h767d61c_4|h767d61c_3|h77fa898_1|h77fa898_1|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_4|h77fa898_1|h77fa898_1']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libgcc-ng[version='>=7.5.0'] -> libgcc[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h767d61c_2|h767d61c_2|h767d61c_2|h767d61c_3|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_13|he0feb66_17|h767d61c_2|h767d61c_2|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_12|he0feb66_13|he0feb66_14|h767d61c_2|h767d61c_5|h767d61c_5|h767d61c_6|he0feb66_13|h69a1729_4|h69a1729_7|he0feb66_17|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_7|h767d61c_4|h767d61c_3|he0feb66_17|he0feb66_16|he0feb66_15|h767d61c_4|h767d61c_3|h77fa898_1|h77fa898_1|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_4|h77fa898_1|h77fa898_1']
-dep: # conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17 -> libgcc==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libgcc[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|>=12.4.0|>=13.3.0|>=13.4.0|>=14.1.0|>=14.2.0|>=14.3.0|>=15.2.0|>=15.1.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h767d61c_2|h767d61c_2|h767d61c_2|h767d61c_3|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_13|he0feb66_17|h767d61c_2|h767d61c_2|h767d61c_5|h767d61c_6|h767d61c_7|he0feb66_12|he0feb66_13|he0feb66_14|h767d61c_2|h767d61c_5|h767d61c_5|h767d61c_6|he0feb66_13|h69a1729_4|h69a1729_7|he0feb66_17|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_7|h767d61c_4|h767d61c_3|he0feb66_17|he0feb66_16|he0feb66_15|h767d61c_4|h767d61c_3|h77fa898_1|h77fa898_1|he0feb66_16|he0feb66_15|he0feb66_14|he0feb66_12|h767d61c_4|h77fa898_1|h77fa898_1']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> sysroot_linux-64 -> kernel-headers_linux-64[version='2.6.32|2.6.32|2.6.32|2.6.32|2.6.32|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|3.10.0|4.18.0|4.18.0|5.14.0|6.12.0|6.12.0|6.12.0|6.12.0|5.14.0|5.14.0|5.14.0|5.14.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0|4.18.0',build='he073ed8_15|h77966d4_10|h4a8ded7_14|h4a8ded7_15|he073ed8_0|h8bc681e_5|h8bc681e_6|h8bc681e_7|he073ed8_8|h8bc681e_0|he073ed8_1|h528b178_0|h3108a97_1|h3108a97_0|h57e8cba_10|he073ed8_5|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_3|he073ed8_2|he073ed8_9|he073ed8_4|he073ed8_3|he073ed8_2|he073ed8_1|he073ed8_18|he073ed8_17|h4a8ded7_16|h4a8ded7_13|h4a8ded7_12|h4a8ded7_11|he073ed8_17|he073ed8_16|he073ed8_14|h77966d4_13']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64=7.5.0 -> libgomp[version='>=7.5.0']
-dep: # conda-forge|conda-forge/linux-64::libgomp==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgomp[version='>=7.5.0']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libgomp[version='>=10.3.0|>=10.4.0|>=11.1.0|>=11.2.0|>=14.3.0|>=15.2.0|>=9.3.0|>=8.4.0|>=7.5.0|>=15.1.0|>=14.2.0|>=14.1.0|>=13.4.0|>=13.3.0|>=13.2.0|>=13.1.0|>=12.4.0|>=12.3.0|>=12.2.0|>=12.1.0|>=11.4.0|>=11.3.0|>=9.5.0|>=9.4.0|>=8.5.0']
-dep: # conda-forge/linux-64::libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5'] -> libgomp[version='>=7.3.0|>=7.5.0']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgomp[version='>=7.5.0']
-dep: # conda-forge/linux-64::_openmp_mutex==4.5=2_gnu -> libgomp[version='>=7.5.0']
-dep: # conda-forge/linux-64::libgomp==15.2.0=he0feb66_17
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> gxx_impl_linux-64=7.5.0
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> gxx_linux-64=7 -> gxx_impl_linux-64[version='7.2.0.*|7.3.0.*|7.5.0.*']
-dep: # conda-forge|conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13
-dep: # conda-forge/linux-64::_openmp_mutex==4.5=2_gnu -> libgomp[version='>=7.5.0'] -> _libgcc_mutex==0.1=main
-dep: # conda-forge/linux-64::libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5'] -> _libgcc_mutex==0.1[build='conda_forge|main']
-dep: # conda-forge/linux-64::_openmp_mutex==4.5=2_gnu -> _libgcc_mutex==0.1=conda_forge
-dep: # conda-forge|conda-forge/linux-64::_libgcc_mutex==0.1=conda_forge
-dep: # conda-forge/linux-64::_libgcc_mutex==0.1=conda_forge
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libgcc-ng[version='>=7.5.0'] -> _libgcc_mutex[version='*|0.1|0.1',build='conda_forge|main']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libgcc-ng[version='>=4.9'] -> _libgcc_mutex[version='*|0.1|0.1',build='conda_forge|main']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0'] -> _libgcc_mutex[version='*|0.1|0.1',build='conda_forge|main']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> libgcc-ng[version='>=7.5.0'] -> _libgcc_mutex[version='*|0.1|0.1',build='conda_forge|main']
-dep: # conda-forge/linux-64::binutils==2.36.1=hdd6e379_2 -> binutils_impl_linux-64[version='>=2.36.1,<2.36.2.0a0'] -> sysroot_linux-64
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> gcc_linux-64=7 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> sysroot_linux-64
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> sysroot_linux-64
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> sysroot_linux-64
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> gxx_linux-64=7 -> sysroot_linux-64
-dep: # conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2 -> sysroot_linux-64
-dep: # conda-forge|conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libstdcxx[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|>=12.4.0|>=13.3.0|>=13.4.0|>=14.1.0|>=14.2.0|>=14.3.0|>=15.2.0|>=15.1.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h934c35e_16|h8f9b012_2|h8f9b012_2|h8f9b012_4|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h8f9b012_2|h8f9b012_3|h8f9b012_4|h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h39759b7_4|h39759b7_7|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_5|h8f9b012_5|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_6|h8f9b012_5|h8f9b012_3|hc0a3c3a_1|hc0a3c3a_1|h934c35e_17|h934c35e_14|h8f9b012_5|h8f9b012_4|h8f9b012_3|h8f9b012_2|h8f9b012_2|hc0a3c3a_1|h8f9b012_2|hc0a3c3a_1']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libstdcxx-ng[version='>=7.5.0'] -> libstdcxx[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h934c35e_16|h8f9b012_2|h8f9b012_2|h8f9b012_4|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h8f9b012_2|h8f9b012_3|h8f9b012_4|h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h39759b7_4|h39759b7_7|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_5|h8f9b012_5|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_6|h8f9b012_5|h8f9b012_3|hc0a3c3a_1|hc0a3c3a_1|h934c35e_17|h934c35e_14|h8f9b012_5|h8f9b012_4|h8f9b012_3|h8f9b012_2|h8f9b012_2|hc0a3c3a_1|h8f9b012_2|hc0a3c3a_1']
-dep: # conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17 -> libstdcxx==15.2.0=h934c35e_17
-dep: # conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libstdcxx-ng[version='>=7.5.0'] -> libstdcxx[version='12.4.0|12.4.0|13.3.0|13.3.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.1.0|14.2.0|14.2.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0',build='h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h934c35e_16|h8f9b012_2|h8f9b012_2|h8f9b012_4|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h8f9b012_2|h8f9b012_3|h8f9b012_4|h8f9b012_6|h8f9b012_7|h934c35e_12|h934c35e_13|h934c35e_15|h39759b7_4|h39759b7_7|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_5|h8f9b012_5|h934c35e_17|h934c35e_16|h934c35e_14|h8f9b012_6|h8f9b012_5|h8f9b012_3|hc0a3c3a_1|hc0a3c3a_1|h934c35e_17|h934c35e_14|h8f9b012_5|h8f9b012_4|h8f9b012_3|h8f9b012_2|h8f9b012_2|hc0a3c3a_1|h8f9b012_2|hc0a3c3a_1']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libgcc-ng[version='>=4.9|>=7.5.0']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libgcc-ng[version='11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.4.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.3.0|14.1.0|<=9.3.0|>=10.3.0|>=10.4.0|>=11.1.0|>=11.2.0|>=9.3.0|>=8.4.0|>=14.1.0|>=13.3.0|>=13.2.0|>=13.1.0|>=12.4.0|>=12.3.0|>=12.2.0|>=12.1.0|>=11.4.0|>=11.3.0|>=9.5.0|>=9.4.0|>=8.5.0',build='h77fa898_8|h77fa898_9|h77fa898_11|h77fa898_13|h77fa898_8|h77fa898_9|h77fa898_12|h77fa898_13|h77fa898_8|h77fa898_11|h77fa898_12|h77fa898_13|h77fa898_0|h77fa898_10|h77fa898_9|h77fa898_0|h77fa898_11|h77fa898_10|h77fa898_12|h77fa898_10']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libstdcxx-ng[version='>=7.5.0'] -> libgcc-ng[version='11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.4.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.3.0|14.1.0',build='h77fa898_8|h77fa898_9|h77fa898_11|h77fa898_13|h77fa898_8|h77fa898_9|h77fa898_12|h77fa898_13|h77fa898_8|h77fa898_11|h77fa898_12|h77fa898_13|h77fa898_0|h77fa898_10|h77fa898_9|h77fa898_0|h77fa898_11|h77fa898_10|h77fa898_12|h77fa898_10']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> libgcc-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17
-dep: # conda-forge|conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libgcc-ng[version='>=7.5.0']
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gfortran_impl_linux-64=7.5.0 -> libgcc-ng[version='>=4.9|>=7.5.0']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> binutils -> libgcc-ng[version='>=7.3.0']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64=7.5.0 -> libgcc-ng[version='>=4.9|>=7.5.0']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> binutils_impl_linux-64[version='>=2.31.1'] -> libgcc-ng[version='11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.4.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.3.0|14.1.0|>=7|>=7.3.0',build='h77fa898_8|h77fa898_9|h77fa898_11|h77fa898_13|h77fa898_8|h77fa898_9|h77fa898_12|h77fa898_13|h77fa898_8|h77fa898_11|h77fa898_12|h77fa898_13|h77fa898_0|h77fa898_10|h77fa898_9|h77fa898_0|h77fa898_11|h77fa898_10|h77fa898_12|h77fa898_10']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> gxx_linux-64=7 -> binutils_linux-64[version='2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.33.1|2.35.1|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|2.36|2.36|2.36|2.35|2.35|2.35|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.33.1|2.33.1',build='h6176602_0|h6176602_10|h6176602_11|h6176602_14|h9595d00_16|h9595d00_17|h47ac705_22|h47ac705_25|hc3fd857_29|hf3e587d_31|hf3e587d_32|hc67e822_8|hc67e822_9|hc67e822_10|hc67e822_11|hc67e822_14|19|h6176602_2|h6176602_3|h6176602_7|h6176602_9|h9595d00_15|h454624a_30|h6176602_8|h6176602_6|had2808c_27|26|25|hc67e822_15|hc67e822_13|hc67e822_12|hc67e822_7|hc67e822_3|hc67e822_2|hf3e587d_33|h67ddf6f_30|heab0d09_28|h47ac705_27|h47ac705_26|h47ac705_23|h47ac705_21|hc952b39_20|hc952b39_19|hc952b39_18|h6176602_13|h6176602_12']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> binutils -> binutils_linux-64[version='2.28.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.33.1|2.35.1|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|2.36|2.36|2.36|2.35|2.35|2.35|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.34|2.33.1|2.33.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1|2.31.1',build='h6176602_0|h6176602_10|h6176602_11|h6176602_12|h6176602_14|h9595d00_16|hc952b39_19|hc952b39_20|h47ac705_22|h47ac705_25|h47ac705_26|h47ac705_27|hf3e587d_31|hf3e587d_32|hf3e587d_33|he4fe6c7_1|hc67e822_2|hc67e822_8|hc67e822_10|hc67e822_11|hc67e822_15|19|had2808c_27|h6176602_2|h6176602_3|h6176602_7|h6176602_9|h9595d00_15|h454624a_30|h6176602_8|h6176602_6|h6176602_1|26|25|hc67e822_14|hc67e822_13|hc67e822_12|hc67e822_9|hc67e822_7|hc67e822_3|h67ddf6f_30|hc3fd857_29|heab0d09_28|h47ac705_23|h47ac705_21|hc952b39_18|h9595d00_17|h6176602_13']
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> binutils_linux-64==2.36=hf3e587d_33
-dep: # conda-forge|conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> binutils_linux-64==2.36=hf3e587d_33
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> binutils_linux-64==2.36=hf3e587d_33
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gfortran_impl_linux-64=7.5.0
-dep: # conda-forge|conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20
-dep: # conda-forge/linux-64::binutils==2.36.1=hdd6e379_2 -> binutils_impl_linux-64[version='>=2.36.1,<2.36.2.0a0'] -> ld_impl_linux-64==2.36.1[build='hea4e1c9_1|hea4e1c9_2|hea4e1c9_0']
-dep: # conda-forge|conda-forge/linux-64::ld_impl_linux-64==2.36.1=hea4e1c9_2
-dep: # conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2 -> ld_impl_linux-64==2.36.1=hea4e1c9_2
-dep: # conda-forge/linux-64::ld_impl_linux-64==2.36.1=hea4e1c9_2
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> binutils_impl_linux-64[version='>=2.31.1'] -> ld_impl_linux-64[version='2.32|2.33.1|2.33.1|2.33.1|2.35.1|2.38|2.38|2.40|2.44|2.45.1|2.45.1|2.45.1|2.45.1|2.45|2.45|2.45|2.45|2.45|2.45|2.45|2.45|2.45|2.45|2.45|2.44|2.44|2.44|2.44|2.44|2.44|2.43|2.43|2.43|2.43|2.43|2.43|2.42|2.40|2.40|2.40|2.40|2.40|2.40|2.40|2.40|2.40|2.39|2.39|2.36.1|2.36.1|2.36.1|2.35.1|2.35.1|2.35.1|2.35.1|2.35|2.34|2.34|2.34|2.34|2.34|2.34',build='h53a641e_6|h53a641e_5|h53a641e_6|h53a641e_7|hc38a660_9|h769bd43_9|hed1e6ac_0|hea4e1c9_1|hea4e1c9_0|hea4e1c9_1|hea4e1c9_2|hc81fddc_0|hcc3a1bd_1|h41732ed_0|hf3520f5_3|hf3520f5_4|hf3520f5_7|h02bd663_0|h712a8e2_2|h712a8e2_4|h712a8e2_5|h1423503_0|ha97dd6f_2|h1aa0949_3|h1aa0949_0|ha15bf96_1|default_1234567_2|bootstrap_ha15bf96_3|default_hbd61a6d_101|h7274673_9|h1181459_1|h12ee557_0|h153f514_2|h1181459_0|h53a641e_7|default_hbd61a6d_100|bootstrap_ha15bf96_1|bootstrap_ha15bf96_0|default_hbd61a6d_105|default_hbd61a6d_104|bootstrap_ha15bf96_5|bootstrap_ha15bf96_4|default_1234567_3|boostrap_ha15bf96_2|hbd61a6d_1|h1aa0949_5|h1aa0949_4|h1423503_1|h712a8e2_3|h712a8e2_1|h712a8e2_0|hf3520f5_6|hf3520f5_5|hf3520f5_2|hf3520f5_1|h55db66e_0|hea4e1c9_2|hed1e6ac_1|hc38a660_8|h53a641e_8|h53a641e_8|h53a641e_6']
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> binutils_impl_linux-64=2.36 -> ld_impl_linux-64==2.36.1[build='hea4e1c9_1|hea4e1c9_2|hea4e1c9_0']
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gcc_linux-64==7.5.0=h47867f9_33
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> c-compiler==1.1.2=h36c2ea0_0 -> gcc_linux-64[version='7.*|7.5.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.2.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0|7.3.0',build='h553295d_12|h553295d_13|h553295d_16|h553295d_18|ha781d05_22|ha781d05_23|hcce3721_25|hf34d7eb_26|hf34d7eb_28|h47867f9_31|h47867f9_32|h47867f9_33|h29fd5c9_3|h22f992b_7|hf1c97a4_14|haf1f6fa_15|19|h553295d_6|h553295d_7|h553295d_8|h553295d_15|h8f34230_30|h553295d_9|h553295d_3|h553295d_2|h550dcbe_27|26|25|h217957b_13|hd763dfe_12|h4118e58_11|h196ecd4_10|h60973fd_9|h6f34251_8|hecb3f9c_2|hc7b1ceb_1|h47867f9_30|he2a3fca_29|hf34d7eb_27|ha781d05_21|h09487f9_20|h09487f9_19|h553295d_17|h553295d_14|h553295d_11|h553295d_10|h553295d_0']
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> gcc_linux-64==7.5.0=h47867f9_33
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> gcc_linux-64=7
-dep: # conda-forge|conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> gxx_impl_linux-64=7.5.0 -> libstdcxx-devel_linux-64==7.5.0[build='h4084dd6_14|h4084dd6_16|hb016644_19|hb016644_20|hf0c5c8d_17|hb016644_18|h4084dd6_17|h4084dd6_15']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libstdcxx-devel_linux-64[version='13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|15.2.0',build='h6963c3b_113|h9f08a49_114|h9f08a49_115|h9f08a49_116|h9f08a49_117|hd446a21_113|hd446a21_114|hd446a21_115|hd446a21_116|hd446a21_117|h9f08a49_113|h6963c3b_117|h6963c3b_116|h6963c3b_115|h6963c3b_114']
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> binutils
-dep: # conda-forge/linux-64::binutils==2.36.1=hdd6e379_2
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> c-compiler==1.1.2=h36c2ea0_0 -> binutils
-dep: # conda-forge|conda-forge/linux-64::binutils==2.36.1=hdd6e379_2
-dep: # conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> gcc_linux-64=7 -> gcc_impl_linux-64[version='7.2.0.*|7.3.0.*|7.5.0.*']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64=7.5.0
-dep: # conda-forge|conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0']
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64[version='7.5.0.*|>=7.5.0|>=7.2.0']
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> gcc_impl_linux-64==7.5.0=hda68d29_13
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64[version='7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0.*',build='hda68d29_9|hda68d29_12|hdb87b24_15|hd9e1a51_17|habd7529_18|habd7529_19|habd7529_20|h7105cf2_17|hdb87b24_16|hdb87b24_14|hda68d29_13|hda68d29_11|hda68d29_10']
-dep: # conda-forge|conda-forge/linux-64::libgfortran4==7.5.0=h14aa051_20
-dep: # conda-forge/linux-64::libgfortran4==7.5.0=h14aa051_20
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> gfortran_impl_linux-64=7.5.0 -> libgfortran4[version='>=7.5.0,<8.0a0']
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libgfortran4[version='>=7.5.0,<8.0a0']
-dep: # conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> gxx_linux-64=7
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33
-dep: # conda-forge|conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33
-dep: # conda-forge/noarch::tzdata==2025c=hc9c84f9_1
-dep: # conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> sysroot_linux-64 -> tzdata
-dep: # conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> gcc_impl_linux-64[version='>=7.5.0'] -> libgcc-devel_linux-64[version='10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.3.0|10.4.0|10.4.0|10.4.0|10.4.0|11.1.0|11.1.0|11.1.0|11.1.0|11.1.0|11.1.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|11.2.0|14.3.0|15.2.0|9.3.0|8.4.0|7.5.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.2.0|15.1.0|15.1.0|15.1.0|15.1.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.3.0|14.2.0|14.2.0|14.1.0|14.1.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.4.0|13.3.0|13.3.0|13.3.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.2.0|13.1.0|12.4.0|12.4.0|12.4.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.3.0|12.2.0|12.2.0|12.1.0|12.1.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.4.0|11.3.0|11.3.0|11.3.0|11.3.0|9.5.0|9.5.0|9.5.0|9.5.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.4.0|9.3.0|9.3.0|9.3.0|9.3.0|9.3.0|9.3.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.5.0|8.4.0|8.4.0|8.4.0|8.4.0|8.4.0|8.4.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0|7.5.0',build='h42c25f5_15|h3b9816e_14|h3b9816e_16|h82e8279_9|h82e8279_10|h82e8279_11|h82e8279_12|h82e8279_13|h82e8279_14|h82e8279_15|ha5d7ed8_19|hfd08b2a_15|h7864c58_18|h7864c58_19|hd854feb_3|hd854feb_4|hd854feb_6|hd854feb_9|hd854feb_10|hd854feb_16|h367e8d2_17|h0a57e50_19|he6cfe16_3|he6cfe16_4|he6cfe16_6|he6cfe16_7|he6cfe16_8|he6cfe16_9|he6cfe16_12|he6cfe16_13|he6cfe16_14|h74af60c_16|hd38fd1e_18|hd38fd1e_19|h80e7780_4|h0952999_8|h0952999_9|h0952999_10|h0952999_11|h0952999_13|h0952999_14|h16e4278_16|h210ce93_18|h922705a_1|h922705a_2|h922705a_103|h922705a_104|hc2b0fca_106|h515aa5d_106|h8f596e0_108|h8f596e0_109|h8f596e0_110|h8f596e0_113|h8bca6fd_103|h8bca6fd_104|h0223996_107|h6b66f73_108|h6b66f73_109|h6b66f73_111|ha4f9413_101|he3cc6c4_0|ha9c7c90_0|ha9c7c90_2|ha9c7c90_103|ha9c7c90_104|ha9c7c90_105|h95c4c6d_106|hdb50d1a_108|hdb50d1a_109|hdb50d1a_110|hdb50d1a_111|hba01cd7_102|hba01cd7_103|hba01cd7_104|hba01cd7_106|hd1d28cc_112|hd1d28cc_116|h5d3d1c9_100|hf649bbc_113|hf649bbc_114|h4c094af_103|h4c094af_105|h73f6952_106|hcc6f6b0_117|hbbeae57_17|hd257e2f_17|hb95220a_17|h1234567_0|h1234567_1|he7458c1_104|hcb64138_107|hcc6f6b0_116|hcc6f6b0_115|hcc6f6b0_114|hcc6f6b0_113|hcc6f6b0_112|h73f6952_107|h73f6952_105|h4c094af_104|h4c094af_102|hf649bbc_117|hf649bbc_116|hf649bbc_115|hf649bbc_112|h85bb3a7_107|h85bb3a7_106|h85bb3a7_105|h85bb3a7_104|h85bb3a7_103|h85bb3a7_102|h9c4974d_102|h41c2201_101|h5d3d1c9_101|hd1d28cc_117|hd1d28cc_115|hd1d28cc_114|hd1d28cc_113|hba01cd7_107|hba01cd7_105|hc03c837_102|h84ea5a7_101|h84ea5a7_100|hdb50d1a_113|hdb50d1a_112|hceb6213_107|hceb6213_106|ha9c7c90_1|h1762d19_102|ha4f9413_100|h6b66f73_113|h6b66f73_112|h6b66f73_110|h0223996_106|h2af2641_106|h8bca6fd_105|h8bca6fd_2|h8bca6fd_1|h8bca6fd_0|h3b97bd3_19|h3b97bd3_18|h1ec3361_17|h1ec3361_16|h8f596e0_112|h8f596e0_111|h515aa5d_107|h922705a_105|h922705a_0|h210ce93_19|h16e4278_17|h0952999_16|h0952999_15|h0952999_12|h80e7780_8|h80e7780_7|h80e7780_6|h80e7780_5|h80e7780_3|h74af60c_17|he6cfe16_16|he6cfe16_15|he6cfe16_11|he6cfe16_10|he6cfe16_5|h0a57e50_18|h367e8d2_16|hd854feb_15|hd854feb_14|hd854feb_13|hd854feb_12|hd854feb_11|hd854feb_8|hd854feb_7|hd854feb_5|hfd08b2a_17|hfd08b2a_16|hfd08b2a_14|ha5d7ed8_18|h82e8279_17|h82e8279_16|h82e8279_8|h5d8c923_19|h5d8c923_18|h3b9816e_17|h3b9816e_15|hda03d7c_20|hda03d7c_19|hda03d7c_18|h42c25f5_17|h42c25f5_16|h42c25f5_14']
-dep: # conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> gcc_impl_linux-64=7.5.0 -> libgcc-devel_linux-64==7.5.0[build='hda03d7c_19|hbbeae57_17|hda03d7c_20|hda03d7c_18|h42c25f5_17|h42c25f5_16|h42c25f5_15|h42c25f5_14']The following specifications were found to be incompatible with your system:
-dep: # - feature:/linux-64::__glibc==2.39=0
-dep: # - feature:|@/linux-64::__glibc==2.39=0
-dep: # - conda-forge/linux-64::_openmp_mutex==4.5=2_gnu -> libgomp[version='>=7.5.0'] -> __glibc[version='>=2.17,<3.0.a0|>=2.28,<3.0.a0']
-dep: # - conda-forge/linux-64::binutils_impl_linux-64==2.36.1=h193b22a_2 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::binutils_linux-64==2.36=hf3e587d_33 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::c-compiler==1.1.2=h36c2ea0_0 -> libgcc-ng[version='>=7.5.0'] -> __glibc[version='>=2.17']
-dep: # - conda-forge/linux-64::cxx-compiler==1.1.2=h0efe328_0 -> libgcc-ng[version='>=7.5.0'] -> __glibc[version='>=2.17']
-dep: # - conda-forge/linux-64::gcc_impl_linux-64==7.5.0=hda68d29_13 -> libgcc-ng[version='>=7.5.0'] -> __glibc[version='>=2.17,<3.0.a0|>=2.17|>=2.28,<3.0.a0|>=2.39|>=2.34|>=2.28']
-dep: # - conda-forge/linux-64::gcc_linux-64==7.5.0=h47867f9_33 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::gfortran_impl_linux-64==7.5.0=h56cb351_20 -> libgcc-ng[version='>=4.9'] -> __glibc[version='>=2.17|>=2.39|>=2.34|>=2.28']
-dep: # - conda-forge/linux-64::gfortran_linux-64==7.5.0=h78c8a43_33 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::gxx_impl_linux-64==7.5.0=h64c220c_13 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::gxx_linux-64==7.5.0=h555fc39_33 -> sysroot_linux-64 -> __glibc[version='>=2.28|>=2.34|>=2.39']
-dep: # - conda-forge/linux-64::libgcc-ng==15.2.0=h69a702a_17 -> libgcc==15.2.0=he0feb66_17 -> __glibc[version='>=2.17,<3.0.a0']
-dep: # - conda-forge/linux-64::libgcc==15.2.0=he0feb66_17 -> __glibc[version='>=2.17,<3.0.a0']
-dep: # - conda-forge/linux-64::libgcc==15.2.0=he0feb66_17 -> _openmp_mutex[version='>=4.5'] -> __glibc[version='>=2.28,<3.0.a0']
-dep: # - conda-forge/linux-64::libgomp==15.2.0=he0feb66_17 -> __glibc[version='>=2.17,<3.0.a0']
-dep: # - conda-forge/linux-64::libstdcxx-ng==15.2.0=hdf11a46_17 -> libstdcxx==15.2.0=h934c35e_17 -> __glibc[version='>=2.17,<3.0.a0']
-dep: # - conda-forge/linux-64::libstdcxx==15.2.0=h934c35e_17 -> __glibc[version='>=2.17,<3.0.a0']
-[coble-create] End time: 2026-02-12 00:13:05
-[coble-create] Duration: 675s
-
-[coble-create] Start time: 2026-02-12 00:13:05 61/82
-install: unset LD_LIBRARY_PATH
-[coble-create] End time: 2026-02-12 00:13:05
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:13:05 62/82
-install: CONDA_BASE=$(conda info --base)
-[coble-create] End time: 2026-02-12 00:13:05
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:13:05 64/82
-install: ARCH=$(uname -m)
-[coble-create] End time: 2026-02-12 00:13:05
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:13:05 66/82
-install: bash "/home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-r-source.sh" "3.6.0"
-[coble-create] End time: 2026-02-12 00:13:10
-[coble-create] Duration: 5s
-
-[coble-create] Start time: 2026-02-12 00:13:10 68/82
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-02-12 00:13:11
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-12 00:13:11 69/82
-install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-02-12 00:13:11
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:13:11 71/82
-install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-02-12 00:13:11
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-12 00:13:11 73/82
-install: Rscript -e 'install.packages("remotes", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
-    # ERROR: from stderr found: /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-create.sh: line 198: Rscript: command not found
-[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/utils/r-360/r-360_summary.txt
-[coble-errors] Errors found, exiting due to --skip-errors flag
-[coble-create] End time: 2026-02-12 00:13:11
