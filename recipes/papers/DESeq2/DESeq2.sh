@@ -3,18 +3,18 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 22:09:47 GMT
+# Capture time: 22:43:59 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
-conda env remove --name deseq2 -y 2>/dev/null || true
-conda create --no-default-packages --name deseq2 -y
+conda env remove --name DESeq2 -y 2>/dev/null || true
+conda create --no-default-packages --name DESeq2 -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
@@ -23,7 +23,7 @@ conda  clean --all -y --force-pkgs-dirs
 conda deactivate | true
 conda deactivate | true
 # activate environment
-conda activate deseq2
+conda activate DESeq2
 
 export PYTHONNOUSERSITE=1
 export | grep PYTHONNOUSERSITE
@@ -77,11 +77,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-samr' \
 'r-PoiClaClu' 
 
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/papers/DESeq2/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for DESeq2 environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
-# Extra validation file: DESeq2.R
-cp recipes/papers/DESeq2/validate/DESeq2.R ${CONDA_PREFIX}/bin/DESeq2.R
-chmod +x ${CONDA_PREFIX}/bin/DESeq2.R
 

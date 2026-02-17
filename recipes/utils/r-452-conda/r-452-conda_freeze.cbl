@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 10:36:11 GMT
+# Capture time: 23:40:27 GMT
 # Captured by: ralcraft
 
 coble:
@@ -91,7 +91,7 @@ conda:
   - epoxy=1.5.10@conda-forge
   - exceptiongroup=1.3.1@conda-forge
   - executing=2.2.1@conda-forge
-  - expat=2.7.3@conda-forge
+  - expat=2.7.4@conda-forge
   - fftw=3.3.10@conda-forge
   - font-ttf-dejavu-sans-mono=2.37@conda-forge
   - font-ttf-inconsolata=3.000@conda-forge
@@ -174,7 +174,7 @@ conda:
   - libegl-devel=1.7.0@conda-forge
   - libegl=1.7.0@conda-forge
   - libev=4.33@conda-forge
-  - libexpat=2.7.3@conda-forge
+  - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
   - libfreetype6=2.14.1@conda-forge
   - libfreetype=2.14.1@conda-forge
@@ -354,6 +354,7 @@ r-conda:
   - assertthat=0.2.1@conda-forge
   - backports=1.5.0@conda-forge
   - base64enc=0.1_6@conda-forge
+  - biocmanager=1.30.27@conda-forge
   - bit64=4.6.0_1@conda-forge
   - bit=4.6.0@conda-forge
   - blob=1.3.0@conda-forge
@@ -484,6 +485,7 @@ r-conda:
   - recommended=4.5@conda-forge
   - rematch2=2.1.2@conda-forge
   - rematch=2.0.0@conda-forge
+  - remotes=2.5.0@conda-forge
   - repr=1.1.7@conda-forge
   - reprex=2.1.1@conda-forge
   - reshape2=1.4.5@conda-forge
@@ -537,7 +539,6 @@ bioc-conda:
   - s4vectors=0.48.0@bioconda
 
 r-package:
-  - BiocManager=1.30.27@RSPM
   - brew=1.0-10@RSPM
   - brio=1.1.5@RSPM
   - credentials=2.0.3@RSPM
@@ -557,7 +558,6 @@ r-package:
   - praise=1.0.0@RSPM
   - profvis=0.4.0@RSPM
   - rcmdcheck=1.4.0@RSPM
-  - remotes=2.5.0@RSPM
   - roxygen2=7.3.3@RSPM
   - rprojroot=2.1.1@RSPM
   - rversions=3.0.0@RSPM

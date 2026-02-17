@@ -1,11 +1,11 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 22:13:34 GMT
+# Capture time: 22:48:32 GMT
 # Captured by: ralcraft
 
 coble:
 
-  - environment: deseq2
+  - environment: DESeq2
 
 channels:
   - defaults

@@ -1,93 +1,93 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-02-16 at 22:16:00 GMT
+[coble-create] Summary log started by ralcraft on 2026-02-16 at 22:40:08 GMT
 ------------------------------------------------
 
-[coble-create] Start time: 2026-02-16 22:16:01 1/68
+[coble-create] Start time: 2026-02-16 22:40:08 1/72
 install: source ~/.bashrc
-[coble-create] End time: 2026-02-16 22:16:01
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:01 3/68
-install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-[coble-create] End time: 2026-02-16 22:16:02
+[coble-create] End time: 2026-02-16 22:40:09
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-02-16 22:16:02 5/68
+[coble-create] Start time: 2026-02-16 22:40:09 3/72
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-16 22:40:10
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-16 22:40:10 5/72
 install: conda env remove --name sylver -y 2>/dev/null || true
-[coble-create] End time: 2026-02-16 22:16:05
+[coble-create] End time: 2026-02-16 22:40:14
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-16 22:40:14 7/72
+install: conda create --no-default-packages --name sylver -y
+[coble-create] End time: 2026-02-16 22:40:29
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-02-16 22:40:29 9/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-16 22:40:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:29 10/72
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-16 22:40:29
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:29 11/72
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-02-16 22:40:32
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-02-16 22:16:05 7/68
-install: conda create --no-default-packages --name sylver -y
-[coble-create] End time: 2026-02-16 22:16:17
-[coble-create] Duration: 12s
-
-[coble-create] Start time: 2026-02-16 22:16:17 9/68
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-16 22:16:17
+[coble-create] Start time: 2026-02-16 22:40:32 13/72
+install: conda deactivate | true
+[coble-create] End time: 2026-02-16 22:40:32
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:16:17 10/68
-install: unset PYTHONPATH
-[coble-create] End time: 2026-02-16 22:16:17
+[coble-create] Start time: 2026-02-16 22:40:32 14/72
+install: conda deactivate | true
+[coble-create] End time: 2026-02-16 22:40:32
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:16:17 11/68
-install: conda  clean --all -y --force-pkgs-dirs
-[coble-create] End time: 2026-02-16 22:16:18
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-16 22:16:18 13/68
-install: conda deactivate | true
-[coble-create] End time: 2026-02-16 22:16:19
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-16 22:16:19 14/68
-install: conda deactivate | true
-[coble-create] End time: 2026-02-16 22:16:20
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-02-16 22:16:20 15/68
+[coble-create] Start time: 2026-02-16 22:40:32 15/72
 install: conda activate sylver
-[coble-create] End time: 2026-02-16 22:16:20
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:20 16/68
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-02-16 22:16:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:21 17/68
-install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-02-16 22:16:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:21 18/68
-install: conda config --env --remove-key channels
-[coble-create] End time: 2026-02-16 22:16:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:21 20/68
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-02-16 22:16:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-02-16 22:16:21 21/68
-install: conda config --env --add channels r
-[coble-create] End time: 2026-02-16 22:16:22
+[coble-create] End time: 2026-02-16 22:40:33
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-02-16 22:16:22 23/68
+[coble-create] Start time: 2026-02-16 22:40:33 16/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-16 22:40:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:33 17/72
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-16 22:40:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:33 18/72
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-16 22:40:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:33 20/72
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-16 22:40:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-16 22:40:34 21/72
+install: conda config --env --add channels r
+[coble-create] End time: 2026-02-16 22:40:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:40:34 23/72
 install: CONDA_BASE=$(conda info --base)
-[coble-create] End time: 2026-02-16 22:16:22
+[coble-create] End time: 2026-02-16 22:40:34
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:16:22 25/68
+[coble-create] Start time: 2026-02-16 22:40:34 25/72
 install: ARCH=$(uname -m)
-[coble-create] End time: 2026-02-16 22:16:22
+[coble-create] End time: 2026-02-16 22:40:34
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:16:22 27/68
+[coble-create] Start time: 2026-02-16 22:40:34 27/72
 install: conda install -y --solver=libmamba --no-update-deps -c r 'r-base=3.6.0'
 dep: # _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
 dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
@@ -160,22 +160,22 @@ dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
 dep: # xz                 pkgs/main/linux-64::xz-5.6.4-h5eee18b_1
 dep: # zlib               pkgs/main/linux-64::zlib-1.2.13-hd233ad5_2
 dep: # zstd               pkgs/main/linux-64::zstd-1.5.6-hc292b87_0
-[coble-create] End time: 2026-02-16 22:16:51
-[coble-create] Duration: 29s
+[coble-create] End time: 2026-02-16 22:41:12
+[coble-create] Duration: 38s
 
-[coble-create] Start time: 2026-02-16 22:16:51 29/68
+[coble-create] Start time: 2026-02-16 22:41:12 29/72
 install: conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
 dep: # r-biocmanager      r/noarch::r-biocmanager-1.30.4-r36h6115d3f_0
 dep: # r-remotes          r/noarch::r-remotes-2.0.4-r36h6115d3f_0
-[coble-create] End time: 2026-02-16 22:17:05
-[coble-create] Duration: 14s
+[coble-create] End time: 2026-02-16 22:41:28
+[coble-create] Duration: 16s
 
-[coble-create] Start time: 2026-02-16 22:17:06 31/68
+[coble-create] Start time: 2026-02-16 22:41:29 31/72
 install: conda config --env --remove channels r
-[coble-create] End time: 2026-02-16 22:17:06
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-02-16 22:41:29
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:17:06 33/68
+[coble-create] Start time: 2026-02-16 22:41:29 33/72
 install: conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 dep: # binutils           conda-forge/linux-64::binutils-2.44-h4852527_5
 dep: # c-compiler         conda-forge/linux-64::c-compiler-1.11.0-h4d9bdce_0
@@ -187,31 +187,31 @@ dep: # gcc                conda-forge/linux-64::gcc-14.3.0-h76bdaa0_7
 dep: # gfortran           conda-forge/linux-64::gfortran-14.3.0-he448592_7
 dep: # gxx                conda-forge/linux-64::gxx-14.3.0-he448592_7
 dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2~ --> conda-forge/noarch::ca-certificates-2026.1.4-hbd8a1cb_0
-[coble-create] End time: 2026-02-16 22:17:28
-[coble-create] Duration: 22s
+[coble-create] End time: 2026-02-16 22:41:54
+[coble-create] Duration: 25s
 
-[coble-create] Start time: 2026-02-16 22:17:28 35/68
+[coble-create] Start time: 2026-02-16 22:41:54 35/72
 install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-02-16 22:17:29
+[coble-create] End time: 2026-02-16 22:41:55
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-02-16 22:17:29 37/68
+[coble-create] Start time: 2026-02-16 22:41:55 37/72
 install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-02-16 22:17:29
+[coble-create] End time: 2026-02-16 22:41:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:17:29 39/68
+[coble-create] Start time: 2026-02-16 22:41:55 39/72
 install: sed -i 's/x86_64-conda_cos6-linux-gnu/x86_64-conda-linux-gnu/g' ${CONDA_PREFIX}/lib/R/etc/Makeconf
-[coble-create] End time: 2026-02-16 22:17:29
+[coble-create] End time: 2026-02-16 22:41:55
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:17:29 42/68
+[coble-create] Start time: 2026-02-16 22:41:55 42/72
 install: conda install -y --solver=libmamba --no-update-deps  'libcurl' 
     # All requested packages already installed.
-[coble-create] End time: 2026-02-16 22:17:41
-[coble-create] Duration: 12s
+[coble-create] End time: 2026-02-16 22:42:09
+[coble-create] Duration: 14s
 
-[coble-create] Start time: 2026-02-16 22:17:41 53/68
+[coble-create] Start time: 2026-02-16 22:42:09 53/72
 install: conda install -y --solver=libmamba --no-update-deps  'r-BiocManager'  'r-remotes'  'r-tidyverse=1.3.1'  'r-effsize=0.8.1'  'r-magrittr=2.0.1'  'r-tidyverse=1.3.1'  'r-ggplot2'  'r-ggrepel=0.9.1'  'r-VennDiagram=1.6.20' 
 dep: # libblas            conda-forge/linux-64::libblas-3.9.0-28_h59b9bed_openblas
 dep: # libiconv           conda-forge/linux-64::libiconv-1.18-h3b78370_2
@@ -329,10 +329,10 @@ dep: # r-withr            conda-forge/noarch::r-withr-2.4.2-r36hc72bb7e_0
 dep: # r-xfun             conda-forge/linux-64::r-xfun-0.23-r36hcfec24a_0
 dep: # r-xml2             conda-forge/linux-64::r-xml2-1.3.2-r36h0357c0b_1
 dep: # r-yaml             conda-forge/linux-64::r-yaml-2.2.1-r36hcfec24a_1
-[coble-create] End time: 2026-02-16 22:18:04
-[coble-create] Duration: 23s
+[coble-create] End time: 2026-02-16 22:42:35
+[coble-create] Duration: 26s
 
-[coble-create] Start time: 2026-02-16 22:18:04 59/68
+[coble-create] Start time: 2026-02-16 22:42:35 59/72
 install: conda install -y --solver=libmamba --no-update-deps  'bioconductor-affy=1.64.0'  'bioconductor-fgsea=1.12.0'  'bioconductor-GSVA=1.34.0'  'bioconductor-org.Hs.eg.db=3.10.0' 
 dep: # bioconductor-affy  bioconda/linux-64::bioconductor-affy-1.64.0-r36h516909a_0
 dep: # bioconductor-affy~ bioconda/linux-64::bioconductor-affyio-1.56.0-r36h516909a_0
@@ -376,31 +376,41 @@ dep: # r-snow             conda-forge/noarch::r-snow-0.4_3-r36h6115d3f_1002
 dep: # r-sourcetools      conda-forge/linux-64::r-sourcetools-0.1.7-r36he1b5a44_1002
 dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.3-r36hcdcec82_1
 dep: # r-xtable           conda-forge/noarch::r-xtable-1.8_4-r36h6115d3f_3
-[coble-create] End time: 2026-02-16 22:19:07
-[coble-create] Duration: 63s
+[coble-create] End time: 2026-02-16 22:43:26
+[coble-create] Duration: 51s
 
-[coble-create] Start time: 2026-02-16 22:19:07 61/68
+[coble-create] Start time: 2026-02-16 22:43:26 61/72
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/survival/survival_3.2-11.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
-[coble-create] End time: 2026-02-16 22:19:09
+[coble-create] End time: 2026-02-16 22:43:28
 [coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-02-16 22:19:09 63/68
+[coble-create] Start time: 2026-02-16 22:43:28 63/72
 install: Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=1)'
 dep: # * DONE (BiocVersion)
 dep: # * DONE (limma)
-[coble-create] End time: 2026-02-16 22:19:25
-[coble-create] Duration: 16s
+[coble-create] End time: 2026-02-16 22:43:47
+[coble-create] Duration: 19s
 
-[coble-create] Start time: 2026-02-16 22:19:25 65/68
-install: cp recipes/icr/sylver/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-16 22:19:25
+[coble-create] Start time: 2026-02-16 22:43:47 65/72
+install: cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+[coble-create] End time: 2026-02-16 22:43:47
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-02-16 22:19:25 67/68
+[coble-create] Start time: 2026-02-16 22:43:47 67/72
+install: echo "COBLE validation: No script has been specified for sylver environment."
+[coble-create] End time: 2026-02-16 22:43:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:43:47 69/72
+install: VALIDATE_EOF
+[coble-create] End time: 2026-02-16 22:43:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:43:47 71/72
 install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-02-16 22:19:25
+[coble-create] End time: 2026-02-16 22:43:47
 [coble-create] Duration: 0s
 --------------------------------------
-[coble-create] Recipe created at: 2026-02-16 22:19:25
-[coble-create] Recipe took: 0h 3m 24s
+[coble-create] Recipe created at: 2026-02-16 22:43:47
+[coble-create] Recipe took: 0h 3m 39s
 --------------------------------------

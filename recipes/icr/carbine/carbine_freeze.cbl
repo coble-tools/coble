@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-15
-# Capture time: 22:49:15 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:40:05 GMT
 # Captured by: ralcraft
 
 coble:
@@ -117,7 +117,7 @@ conda:
   - libedit=3.1.20250104@conda-forge
   - libegl=1.7.0@conda-forge
   - libev=4.33@conda-forge
-  - libexpat=2.7.3@conda-forge
+  - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
   - libfreetype6=2.14.1@conda-forge
   - libfreetype=2.14.1@conda-forge
@@ -180,7 +180,7 @@ conda:
   - pillow=12.1.1@conda-forge
   - pip=26.0.1@conda-forge
   - pixman=0.46.4@conda-forge
-  - platformdirs=4.9.1@conda-forge
+  - platformdirs=4.9.2@conda-forge
   - prompt-toolkit=3.0.52@conda-forge
   - pthread-stubs=0.4@conda-forge
   - ptyprocess=0.7.0@conda-forge

@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 21:24:12 GMT
+# Capture time: 23:08:46 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name r-362-conda -y 2>/dev/null || true
@@ -79,8 +79,9 @@ Rscript -e 'install.packages("devtools", repos="https://packagemanager.posit.co/
 # bioc-package:
 Rscript -e 'BiocManager::install("DESEq2", dependencies=NA, Ncpus=1)'
 Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=1)'
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/utils/r-362-conda/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for r-362-conda environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

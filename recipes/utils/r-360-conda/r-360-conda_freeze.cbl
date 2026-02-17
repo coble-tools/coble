@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 17:55:52 GMT
+# Capture time: 23:08:45 GMT
 # Captured by: ralcraft
 
 coble:
@@ -147,12 +147,22 @@ conda:
 
 r-conda:
   - askpass=1.1@conda-forge
+
+r-conda:
+  - biocmanager=1.30.4@r
+
+r-conda:
   - httr=1.4.2@conda-forge
   - jsonlite=1.7.2@conda-forge
   - lattice=0.20_44@conda-forge
   - matrix=1.3_3@conda-forge
   - mime=0.10@conda-forge
   - r6=2.5.0@conda-forge
+
+r-conda:
+  - remotes=2.0.4@r
+
+r-conda:
   - survival=3.2_11@conda-forge
   - sys=3.4@conda-forge
 
@@ -162,7 +172,6 @@ bioc-conda:
 
 r-package:
   - BH=1.72.0-3@RSPM
-  - BiocManager=1.30.10@RSPM
   - DBI=1.1.0@RSPM
   - DT=0.13@RSPM
   - MASS=7.3-51.5@RSPM
@@ -248,7 +257,6 @@ r-package:
   - readr=1.3.1@RSPM
   - readxl=1.3.1@RSPM
   - rematch=1.0.1@RSPM
-  - remotes=2.1.1@RSPM
   - reprex=0.3.0@RSPM
   - reshape2=1.4.3@RSPM
   - rex=1.1.2@RSPM

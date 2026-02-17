@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 10:25:59 GMT
+# Capture time: 23:30:07 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -49,8 +49,9 @@ conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y --solver=libmamba  -c conda-forge 'r-base=4.5.2'
-conda install -y --solver=libmamba  'conda-forge::python=3.14.0'
+conda install -y --solver=libmamba --no-update-deps -c conda-forge 'r-base=4.5.2'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps 'conda-forge::python=3.14.0'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
@@ -72,7 +73,14 @@ conda install -y --solver=libmamba --no-update-deps -c conda-forge cython protob
 conda install -y --solver=libmamba --no-update-deps -c conda-forge libtool autoconf cmake pkg-config
 # Language core system libraries
 conda install -y --solver=libmamba --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
+# Compile version 11.4 on linux for architecture x86_64
+conda install -y --solver=libmamba --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
+# Detected Linux x86_64 - using linux-64 compilers
 conda install -y --solver=libmamba --no-update-deps -c conda-forge 'gcc_linux-64=11.4' 'gxx_linux-64=11.4' 'gfortran_linux-64=11.4'
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
+ln -sf /usr/bin/ld ${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld
 # Flag: Directive: ncpus, Value: 8
 
 # r-conda:
@@ -91,8 +99,9 @@ Rscript -e 'install.packages("devtools", repos="https://packagemanager.posit.co/
 # bioc-package:
 Rscript -e 'BiocManager::install("DESEq2", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=8)'
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/utils/r-452-conda/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for r-452-conda environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

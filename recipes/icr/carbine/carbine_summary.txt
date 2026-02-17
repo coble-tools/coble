@@ -718,3 +718,202 @@ dep: # * DONE (partykit)
 
 [coble-create] Start time: 2026-02-16 22:25:49 115/157
 install: conda install -y --solver=libmamba --no-update-deps  'r-biocmanager'  'r-ggthemes'  'r-clisymbols'  'r-reshape2'  'r-BMix'  'r-gtools'  'r-akima'  'r-peakPick'  'r-R.utils'  'r-XML'  'r-restfulr'  'r-rjson'  'r-interp'  'r-reticulate' 
+dep: # libxml2-devel      conda-forge/linux-64::libxml2-devel-2.15.1-h26afc86_0
+dep: # r-akima            conda-forge/linux-64::r-akima-0.6_3.6-r44heaba542_1
+dep: # r-bmix             bioconda/noarch::r-bmix-1.0.0-r44hdfd78af_0
+dep: # r-clisymbols       conda-forge/noarch::r-clisymbols-1.2.0-r44hc72bb7e_1007
+dep: # r-deldir           conda-forge/linux-64::r-deldir-2.0_4-r44heaba542_2
+dep: # r-ggthemes         conda-forge/noarch::r-ggthemes-5.2.0-r44hc72bb7e_0
+dep: # r-gtools           conda-forge/linux-64::r-gtools-3.9.5-r44h54b55ab_2
+dep: # r-here             conda-forge/noarch::r-here-1.0.2-r44hc72bb7e_0
+dep: # r-interp           conda-forge/linux-64::r-interp-1.1_6-r44ha36cffa_3
+dep: # r-peakpick         bioconda/noarch::r-peakpick-0.11-r44hdfd78af_0
+dep: # r-png              conda-forge/linux-64::r-png-0.1_8-r44h6b2d295_3
+dep: # r-r.methodss3      conda-forge/noarch::r-r.methodss3-1.8.2-r44hc72bb7e_4
+dep: # r-r.oo             conda-forge/noarch::r-r.oo-1.27.1-r44hc72bb7e_1
+dep: # r-r.utils          conda-forge/noarch::r-r.utils-2.13.0-r44hc72bb7e_1
+dep: # r-rcpptoml         conda-forge/linux-64::r-rcpptoml-0.2.3-r44h3697838_1
+dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.17-r44h46721d4_2
+dep: # r-restfulr         bioconda/linux-64::r-restfulr-0.0.16-r44h5ef9028_0
+dep: # r-reticulate       conda-forge/linux-64::r-reticulate-1.45.0-r44h3697838_0
+dep: # r-rjson            conda-forge/linux-64::r-rjson-0.2.23-r44h3697838_1
+dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.22-r44hf705907_0
+[coble-create] End time: 2026-02-16 22:26:15
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-16 22:26:16 117/157
+install: Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (ggrepel)
+dep: # * DONE (ggsci)
+dep: # * DONE (ggsignif)
+dep: # * DONE (gridExtra)
+dep: # * DONE (polynom)
+dep: # * DONE (ggpubr)
+[coble-create] End time: 2026-02-16 22:26:40
+[coble-create] Duration: 24s
+
+[coble-create] Start time: 2026-02-16 22:26:40 119/157
+install: Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+dep: # * DONE (ggsci)
+[coble-create] End time: 2026-02-16 22:26:45
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-16 22:26:45 126/157
+install: conda install -y --solver=libmamba --no-update-deps  'bioconda::bioconductor-rtracklayer=1.66.0'  'bioconda::bioconductor-genomicfeatures=1.58.0'  'bioconda::bioconductor-delayedarray=0.32.0'  'bioconda::bioconductor-summarizedexperiment=1.36.0'  'bioconda::bioconductor-genomicalignments=1.42.0' 
+dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.68.0-r44hdfd78af_0
+dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.66.0-r44h3df3fcb_0
+dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocio-1.16.0-r44hdfd78af_0
+dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.32.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicalignments-1.42.0-r44h3df3fcb_1
+dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomicfeatures-1.58.0-r44hdfd78af_0
+dep: # bioconductor-kegg~ bioconda/noarch::bioconductor-keggrest-1.46.0-r44hdfd78af_0
+dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.18.0-r44hdfd78af_0
+dep: # bioconductor-rtra~ bioconda/linux-64::bioconductor-rtracklayer-1.66.0-r44h15a9599_1
+dep: # bioconductor-s4ar~ bioconda/linux-64::bioconductor-s4arrays-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsearray-1.6.0-r44h3df3fcb_1
+dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.36.0-r44hdfd78af_0
+dep: # r-plogr            conda-forge/noarch::r-plogr-0.2.0-r44hc72bb7e_1007
+dep: # r-rsqlite          conda-forge/linux-64::r-rsqlite-2.4.6-r44h3697838_0
+[coble-create] End time: 2026-02-16 22:27:11
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-16 22:27:11 128/157
+install: Rscript -e 'BiocManager::install("TxDb.Hsapiens.UCSC.hg19.knownGene", dependencies=NA, Ncpus=1)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (TxDb.Hsapiens.UCSC.hg19.knownGene)
+[coble-create] End time: 2026-02-16 22:27:37
+[coble-create] Duration: 26s
+
+[coble-create] Start time: 2026-02-16 22:27:37 130/157
+install: Rscript -e 'BiocManager::install("BSgenome.Hsapiens.UCSC.hg19", dependencies=NA, Ncpus=1)'
+dep: # * DONE (BSgenome)
+dep: # * DONE (BSgenome.Hsapiens.UCSC.hg19)
+[coble-create] End time: 2026-02-16 22:29:09
+[coble-create] Duration: 92s
+
+[coble-create] Start time: 2026-02-16 22:29:09 132/157
+install: Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=1)'
+[coble-create] End time: 2026-02-16 22:29:15
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-02-16 22:29:15 134/157
+install: Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=1)'
+dep: # * DONE (clue)
+dep: # * DONE (GlobalOptions)
+dep: # * DONE (circlize)
+dep: # * DONE (GetoptLong)
+dep: # * DONE (ComplexHeatmap)
+[coble-create] End time: 2026-02-16 22:29:44
+[coble-create] Duration: 29s
+
+[coble-create] Start time: 2026-02-16 22:29:44 136/157
+install: Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
+dep: # * DONE (VariantAnnotation)
+[coble-create] End time: 2026-02-16 22:30:26
+[coble-create] Duration: 42s
+
+[coble-create] Start time: 2026-02-16 22:30:26 138/157
+install: Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # * DONE (BH)
+dep: # * DONE (dndscv)
+[coble-create] End time: 2026-02-16 22:31:01
+[coble-create] Duration: 35s
+
+[coble-create] Start time: 2026-02-16 22:31:01 140/157
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # BMix         (1.0.0  -> 1e9b09bbd...) [GitHub]
+dep: # easypar      (1.0.0  -> 226e2162e...) [GitHub]
+dep: # peakPick     (0.11   -> 1737a1884...) [GitHub]
+dep: # filelock     (NA     -> 1.0.3       ) [CRAN]
+dep: # BiocFileC... (NA     -> 2.10.2      ) [CRAN]
+dep: # biomaRt      (NA     -> 2.58.2      ) [CRAN]
+dep: # vroom        (1.6.7  -> 1.7.0       ) [CRAN]
+dep: # data.table   (1.17.8 -> 1.18.2.1    ) [CRAN]
+dep: # easypar (1.0.0 -> 226e2162e...) [GitHub]
+dep: # pio     (0.1.0 -> 2cfe575ba...) [GitHub]
+dep: # * DONE (filelock)
+dep: # * DONE (vroom)
+dep: # * DONE (data.table)
+dep: # * DONE (BiocFileCache)
+dep: # * DONE (biomaRt)
+dep: # * DONE (easypar)
+dep: # * DONE (pio)
+dep: # * DONE (BMix)
+dep: # * DONE (peakPick)
+dep: # * DONE (CNAqc)
+[coble-create] End time: 2026-02-16 22:33:28
+[coble-create] Duration: 147s
+
+[coble-create] Start time: 2026-02-16 22:33:28 142/157
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/ctree/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # igraph       (NA -> 2.2.2 ) [CRAN]
+dep: # tweenr       (NA -> 2.0.3 ) [CRAN]
+dep: # graphlayouts (NA -> 1.2.2 ) [CRAN]
+dep: # tidygraph    (NA -> 1.3.1 ) [CRAN]
+dep: # viridis      (NA -> 0.6.5 ) [CRAN]
+dep: # ggforce      (NA -> 0.5.0 ) [CRAN]
+dep: # matrixcalc   (NA -> 1.0-6 ) [CRAN]
+dep: # entropy      (NA -> 1.3.2 ) [CRAN]
+dep: # ggraph       (NA -> 2.2.2 ) [CRAN]
+dep: # * DONE (igraph)
+dep: # * DONE (polyclip)
+dep: # * DONE (tweenr)
+dep: # * DONE (viridis)
+dep: # * DONE (matrixcalc)
+dep: # * DONE (entropy)
+dep: # * DONE (graphlayouts)
+dep: # * DONE (tidygraph)
+dep: # * DONE (ggforce)
+dep: # * DONE (ggraph)
+dep: # * DONE (ctree)
+[coble-create] End time: 2026-02-16 22:37:20
+[coble-create] Duration: 232s
+
+[coble-create] Start time: 2026-02-16 22:37:20 144/157
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # ctree (NA -> df8dc8395...) [GitHub]
+dep: # * DONE (ctree)
+dep: # * DONE (VIBER)
+[coble-create] End time: 2026-02-16 22:37:40
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-02-16 22:37:40 146/157
+install: Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # dndscv (NA -> 69007c2bb...) [GitHub]
+dep: # * DONE (dndscv)
+dep: # * DONE (mobster)
+[coble-create] End time: 2026-02-16 22:38:44
+[coble-create] Duration: 64s
+
+[coble-create] Start time: 2026-02-16 22:38:44 148/157
+install: Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+dep: # mobster (NA -> 85c898f08...) [GitHub]
+dep: # * DONE (mobster)
+dep: # * DONE (VIBER)
+dep: # * DONE (evoverse)
+[coble-create] End time: 2026-02-16 22:39:46
+[coble-create] Duration: 62s
+
+[coble-create] Start time: 2026-02-16 22:39:46 150/157
+install: cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+[coble-create] End time: 2026-02-16 22:39:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:39:46 152/157
+install: echo "COBLE validation: No script has been specified for carbine environment."
+[coble-create] End time: 2026-02-16 22:39:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:39:46 154/157
+install: VALIDATE_EOF
+[coble-create] End time: 2026-02-16 22:39:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-16 22:39:46 156/157
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-16 22:39:46
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-16 22:39:46
+[coble-create] Recipe took: 0h 19m 27s
+--------------------------------------

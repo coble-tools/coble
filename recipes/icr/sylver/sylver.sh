@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 22:15:59 GMT
+# Capture time: 22:40:06 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name sylver -y 2>/dev/null || true
@@ -80,8 +80,9 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/survival/survival_3.2-11.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
 # bioc-package:
 Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=1)'
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/icr/sylver/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for sylver environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

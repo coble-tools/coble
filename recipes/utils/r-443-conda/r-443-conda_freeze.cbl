@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 08:25:57 GMT
+# Capture time: 23:30:05 GMT
 # Captured by: ralcraft
 
 coble:
@@ -99,7 +99,7 @@ conda:
   - epoxy=1.5.10@conda-forge
   - exceptiongroup=1.3.1@conda-forge
   - executing=2.2.1@conda-forge
-  - expat=2.7.3@conda-forge
+  - expat=2.7.4@conda-forge
   - fftw=3.3.10@conda-forge
   - font-ttf-dejavu-sans-mono=2.37@conda-forge
   - font-ttf-inconsolata=3.000@conda-forge
@@ -187,7 +187,7 @@ conda:
   - libegl-devel=1.7.0@conda-forge
   - libegl=1.7.0@conda-forge
   - libev=4.33@conda-forge
-  - libexpat=2.7.3@conda-forge
+  - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
   - libfreetype6=2.14.1@conda-forge
   - libfreetype=2.14.1@conda-forge
@@ -273,7 +273,7 @@ conda:
   - pip=26.0.1@conda-forge
   - pixman=0.46.4@conda-forge
   - pkg-config=0.29.2@conda-forge
-  - platformdirs=4.9.1@conda-forge
+  - platformdirs=4.9.2@conda-forge
   - proj=9.7.1@conda-forge
   - prometheus_client=0.24.1@conda-forge
   - prompt-toolkit=3.0.52@conda-forge

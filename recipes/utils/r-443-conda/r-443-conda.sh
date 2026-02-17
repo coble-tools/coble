@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 08:19:57 GMT
+# Capture time: 23:24:38 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -38,19 +38,22 @@ conda config --env --add channels conda-forge
 #####################################################
 # COBLE:Reproducible environment: carbine, (c) ICR 2026
 #####################################################
+# compilers:
+
+# Language compile tools
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y --solver=libmamba  'r-base=4.4.3'
-conda install -y --solver=libmamba  r-remotes r-biocmanager
-conda install -y --solver=libmamba  'python=3.12'
+# deps: --no-update-deps
+conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.3'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps 'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
 # flags:
-# Language compile tools
-conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 
 # Including system dependencies for source installations
 # Essential shared packages
