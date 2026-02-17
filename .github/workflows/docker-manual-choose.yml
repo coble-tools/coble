@@ -1,4 +1,4 @@
-name: Dual Arch Docker Image (Manual)
+name: Choose Arch Docker Image (Manual)
 
 on:
   workflow_dispatch:
