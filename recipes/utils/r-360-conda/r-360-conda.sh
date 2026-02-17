@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-12
-# Capture time: 13:59:52 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:48:34 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name r-360-conda -y 2>/dev/null || true
@@ -42,53 +42,44 @@ conda config --env --add channels r
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y  -c r 'r-base=3.6.0'
+conda install -y --solver=libmamba --no-update-deps -c r 'r-base=3.6.0'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
 # bash:
 conda config --env --remove channels r
-# flags:
-conda config --env --add channels bioconda
-conda config --env --add channels conda-forge
 # compilers:
 
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=7' 'gxx_linux-64=7' 'gfortran_linux-64=7'
-conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
-# Set up compiler symlinks for R package compilation - COS6 compatibility
-umask 0022
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-# Set up compiler symlinks for R package compilation - standard aliases
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Set compiler flags for R package compilation
-conda env config vars set CC="$CONDA_PREFIX/bin/gcc"
-conda env config vars set CXX="$CONDA_PREFIX/bin/g++"
-conda env config vars set FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-# Also as export to avoid de/activations
-export CC="$CONDA_PREFIX/bin/gcc"
-export CXX="$CONDA_PREFIX/bin/g++"
-export FC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-export F77="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran"
-export CFLAGS="-I$CONDA_PREFIX/include"
-export CXXFLAGS="-I$CONDA_PREFIX/include"
-export CPPFLAGS="-I$CONDA_PREFIX/include"
-export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib --sysroot=$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot"
-
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+# flags:
+conda config --env --add channels bioconda
+conda config --env --add channels conda-forge
+# bash:
+# This sed line is required when mixing r versions from the r channel with conda-forge source installs
+sed -i 's/x86_64-conda_cos6-linux-gnu/x86_64-conda-linux-gnu/g' ${CONDA_PREFIX}/lib/R/etc/Makeconf
+# conda:
+conda install -y --solver=libmamba --no-update-deps \
+'libcurl' 
+# r-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'r-matrix' \
+'r-survival' \
+'r-curl' \
+'r-httr' 
+# bioc-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'bioconductor-s4vectors' 
 # r-package:
-Rscript -e 'install.packages("remotes", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("biocmanager", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("tidyverse", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=TRUE, Ncpus=1, method="wget")'
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/utils/r-360-conda/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+Rscript -e 'install.packages("remotes", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("BiocManager", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("tidyverse", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("data.table", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("devtools", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1, method="wget")'
+# bioc-package:
+Rscript -e 'BiocManager::install("DESEq2", dependencies=NA, Ncpus=1)'
+Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=1)'
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for r-360-conda environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

@@ -3,22 +3,25 @@
 #######################################
 coble:
   - environment: coble-env
-channels:
-# note the reverse order of priority  
+channels:    
   - r
-  - bioconda
-  - conda-forge
-  - defaults
+compilers:    
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01  
 languages:
-  - r-base=3.6.0@source
-flags:
-  - dependencies: NA
-  - compile-tools: 13.1
-  - build-tools: false
-  - priority: strict
+  - r-base=3.6.0@r
+bash:
+  - conda config --env --remove channels r
+compilers:  
+  - compile-tools: true
+flags:      
+  - system-tools: false
   - channel: bioconda
-  - channel: conda-forge  
-  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
+  - channel: conda-forge   
+bash:
+  - # This sed line is required when mixing r versions from the r channel with conda-forge source installs
+  - sed -i 's/x86_64-conda_cos6-linux-gnu/x86_64-conda-linux-gnu/g' ${CONDA_PREFIX}/lib/R/etc/Makeconf
+conda:
+  - libcurl
 r-conda:
   - BiocManager
   - remotes

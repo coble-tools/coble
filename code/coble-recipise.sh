@@ -151,7 +151,7 @@ UPDATE_CONDA="--no-update-deps"
 UPDATE_R="default"
 #UPDATE_BIOC="TRUE"
 NCPUS="1"
-DEPS_CONDA=""
+DEPS_CONDA="--no-update-deps"
 DEPS_PYTHON=""
 DEPS_R="NA"
 PRIORITY="strict"
@@ -401,35 +401,61 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
                 echo "# Essential shared packages" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
                 if [[ $r_count -gt 0 ]]; then                
                     echo "# System r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
                     echo "" >> "$RECIPE_FILE"            
                 fi
                 if [[ $python_count -gt 0 ]]; then
                     echo "# Essential python packages" >> "$RECIPE_FILE"                
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge cython protobuf" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge cython protobuf" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"            
                 fi  
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"                    
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
                                                         
             
             elif [[ "${directive_lower}" == "compile-version" ]]; then
                 version="${value_lower}"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                                    
+                ARCH=$(uname -m)
+                OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+                echo "# Compile version $version on $OS for architecture $ARCH" >> "$RECIPE_FILE"
+                add_ver=""
+                if [[ $version != "true" ]]; then
+                    add_ver="=$version"
+                fi                                                
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                # Installing for architecture
+                if [[ $OS == "linux" && $ARCH == "x86_64" ]]; then
+                    echo "# Detected Linux x86_64 - using linux-64 compilers" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge 'gcc_linux-64$add_ver' 'gxx_linux-64$add_ver' 'gfortran_linux-64$add_ver'" >>  "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"                
+                    echo "ln -sf /usr/bin/ld \${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld" >> "$RECIPE_FILE"                
+                elif [[ $OS == "linux" ]]; then
+                    echo "# Detected Linux $ARCH - using generic linux compilers" >> "$RECIPE_FILE"
+                elif [[ $OS == "darwin" && $ARCH == "x86_64" ]]; then
+                    echo "# Detected MacOS x86_64 - using osx-64 compilers" >> "$RECIPE_FILE"
+                elif [[ $OS == "darwin" ]]; then
+                    echo "# Detected MacOS $ARCH - using generic osx compilers" >> "$RECIPE_FILE"
+                else
+                    echo "# Unrecognized OS/architecture ($OS/$ARCH) - using generic linux compilers" >> "$RECIPE_FILE"
+                fi
+                
+                
             elif [[ "${directive_lower}" == "compile-tools" ]]; then                                
                 if [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"                    
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"
-                fi                                                
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
+                fi                                                                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 #echo "umask 0022" >> "$RECIPE_FILE"
@@ -440,7 +466,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
                 
                 # Add to your recipe file BEFORE running R installs
@@ -505,7 +531,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"
                 fi
-            fi
+            fi    
         elif [[ "$CURRENT_SECTION" == "compilers:"* ]]; then
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             pkg_entry="$(echo "$pkg_entry" | cut -d':' -f2-)"
@@ -532,14 +558,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                        
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"                                        
                     
                 elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"  
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge compilers" >>  "$RECIPE_FILE"                                      
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"                                      
                 fi                                                
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
@@ -608,7 +634,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "    fi; \\" >> "$RECIPE_FILE"
                 #echo "done" >> "$RECIPE_FILE"
                     
-                if [[ "$src" == "" ]]; then                    
+                if [[ "$src" == "" ]]; then   
+                    echo "# deps: $DEPS_CONDA" >> "$RECIPE_FILE"                 
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                    
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"                                        
                 elif [[ "$src" == "source" ]]; then
@@ -619,9 +646,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     #echo "Rscript -e 'install.packages(\"testthat\", repos = \"https://cloud.r-project.org\", method=\"wget\")'" >> "$RECIPE_FILE"
                     #echo "Rscript -e 'install.packages(\"remotes\", repos=\"${CRAN_REPO}\", dependencies=FALSE, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
                     #echo "Rscript -e 'install.packages(\"BiocManager\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"                    
-            else                    
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                    
-                    #echo "${CONDA_ALIAS} install -y ${DEPS_CONDA} -c conda-forge r-remotes r-biocmanager" >> "$RECIPE_FILE"                    
+                else                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                                        
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    

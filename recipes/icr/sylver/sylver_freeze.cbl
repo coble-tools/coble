@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-01-25
-# Capture time: 16:10:24 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:43:58 GMT
 # Captured by: ralcraft
 
 coble:
@@ -8,53 +8,46 @@ coble:
   - environment: sylver
 
 channels:
-  - r
   - defaults
   - bioconda
   - conda-forge
 
+languages:
+  - r-base=3.6.0@r
 flags:
-  - compile-paths: true
+  - compile-tools: true
   - dependencies: false
   - priority: flexible
 
-languages:
-  - r-base=3.6.0@source
-flags:
-  - export: CC="/home/ralcraft/miniforge3/bin/gcc"
-  - export: CFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: CPPFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: CXX="/home/ralcraft/miniforge3/bin/g++"
-  - export: CXXFLAGS="-I/home/ralcraft/miniforge3/envs/sylver/include"
-  - export: F77="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: FC="/home/ralcraft/miniforge3/bin/x86_64-conda-linux-gnu-gfortran"
-  - export: LDFLAGS="-L/home/ralcraft/miniforge3/envs/sylver/lib -Wl,-rpath,/home/ralcraft/miniforge3/envs/sylver/lib"
-  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
+conda:
+  - binutils=2.44@conda-forge
 
 conda:
-  - binutils=2.40@conda-forge
-  - binutils_impl_linux-64=2.40@conda-forge
-  - binutils_linux-64=2.40@conda-forge
-  - gcc=13.1.0@conda-forge
-  - gcc_impl_linux-64=13.1.0@conda-forge
-  - gcc_linux-64=13.1.0@conda-forge
-  - gxx=13.1.0@conda-forge
-  - gxx_impl_linux-64=13.1.0@conda-forge
-  - gxx_linux-64=13.1.0@conda-forge
+  - binutils_impl_linux-64=2.44@defaults
+  - binutils_linux-64=2.44@defaults
+
+conda:
+  - conda-gcc-specs=14.3.0@conda-forge
+  - gcc=14.3.0@conda-forge
+  - gcc_impl_linux-64=14.3.0@conda-forge
+  - gcc_linux-64=14.3.0@conda-forge
+  - gxx=14.3.0@conda-forge
+  - gxx_impl_linux-64=14.3.0@conda-forge
+  - gxx_linux-64=14.3.0@conda-forge
 
 conda:
   - icu=58.2@defaults
   - libcurl=7.67.0@defaults
 
 conda:
-  - libgcc-devel_linux-64=13.1.0@conda-forge
+  - libgcc-devel_linux-64=14.3.0@conda-forge
 
 conda:
   - libgcc-ng=15.2.0@defaults
   - libgcc=15.2.0@defaults
 
 conda:
-  - libstdcxx-devel_linux-64=13.1.0@conda-forge
+  - libstdcxx-devel_linux-64=14.3.0@conda-forge
 
 conda:
   - libstdcxx-ng=15.2.0@defaults
@@ -64,25 +57,36 @@ conda:
   - bzip2=1.0.8@defaults
 
 conda:
-  - c-compiler=1.10.0@conda-forge
+  - c-compiler=1.11.0@conda-forge
   - ca-certificates=2026.1.4@conda-forge
 
 conda:
   - cairo=1.14.12@defaults
+
+conda:
+  - compilers=1.11.0@conda-forge
+
+conda:
   - curl=7.67.0@defaults
 
 conda:
-  - cxx-compiler=1.10.0@conda-forge
+  - cxx-compiler=1.11.0@conda-forge
 
 conda:
-  - expat=2.7.3@defaults
+  - expat=2.7.4@defaults
   - fontconfig=2.14.1@defaults
-  - freetype=2.13.3@defaults
+
+conda:
+  - fortran-compiler=1.11.0@conda-forge
+
+conda:
+  - freetype=2.14.1@defaults
   - fribidi=1.0.16@defaults
 
 conda:
-  - gfortran_impl_linux-64=13.1.0@conda-forge
-  - gfortran_linux-64=13.1.0@conda-forge
+  - gfortran=14.3.0@conda-forge
+  - gfortran_impl_linux-64=14.3.0@conda-forge
+  - gfortran_linux-64=14.3.0@conda-forge
 
 conda:
   - glib=2.56.2@defaults
@@ -91,20 +95,14 @@ conda:
   - jpeg=9f@defaults
   - kernel-headers_linux-64=4.18.0@defaults
   - krb5=1.16.4@defaults
-
-conda:
-  - ld_impl_linux-64=2.40@conda-forge
-
-conda:
-  - lerc=4.0.0@defaults
+  - ld_impl_linux-64=2.44@defaults
 
 conda:
   - libblas=3.9.0@conda-forge
 
 conda:
-  - libdeflate=1.22@defaults
   - libedit=3.1.20230828@defaults
-  - libexpat=2.7.3@defaults
+  - libexpat=2.7.4@defaults
   - libffi=3.2.1@defaults
   - libgfortran-ng=7.5.0@defaults
   - libgfortran4=7.5.0@defaults
@@ -120,11 +118,11 @@ conda:
   - libpng=1.6.54@defaults
 
 conda:
-  - libsanitizer=13.1.0@conda-forge
+  - libsanitizer=14.3.0@conda-forge
 
 conda:
   - libssh2=1.10.0@defaults
-  - libtiff=4.7.1@defaults
+  - libtiff=4.2.0@defaults
   - libuuid=1.41.5@defaults
   - libxcb=1.17.0@defaults
   - libxml2=2.9.14@defaults
@@ -309,9 +307,6 @@ bioc-conda:
   - zlibbioc=1.32.0@bioconda
 
 r-package:
-
-r-package:
-  - survival=3.2-11
 
 bioc-package:
   - BiocVersion=3.10.1

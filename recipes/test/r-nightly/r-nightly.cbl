@@ -7,11 +7,12 @@ channels:
   - defaults
   - bioconda
   - conda-forge  
+compilers:  
+  - compile-tools: true  
 languages:
   - r-base=devel@source
 flags:
-  - dependencies: NA
-  - compile-tools: true
+  - dependencies: NA  
   - build-tools: false   
-r-conda:    
+r-package:    
   - tidyverse

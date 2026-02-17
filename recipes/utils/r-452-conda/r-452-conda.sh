@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 23:24:38 GMT
+# Capture time: 23:30:07 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -13,8 +13,8 @@ if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/nul
 # Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
-conda env remove --name r-443-conda -y 2>/dev/null || true
-conda create --no-default-packages --name r-443-conda -y
+conda env remove --name r-452-conda -y 2>/dev/null || true
+conda create --no-default-packages --name r-452-conda -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
@@ -23,7 +23,7 @@ conda  clean --all -y --force-pkgs-dirs
 conda deactivate | true
 conda deactivate | true
 # activate environment
-conda activate r-443-conda
+conda activate r-452-conda
 
 export PYTHONNOUSERSITE=1
 export | grep PYTHONNOUSERSITE
@@ -31,28 +31,31 @@ export | grep PYTHONNOUSERSITE
 conda config --env --remove-key channels
 conda config --env --set channel_priority strict
 conda config --env --add channels defaults
+conda config --env --add channels r
 conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
 
 # INSTALL SECTION FOR CONDA
-#####################################################
-# COBLE:Reproducible environment: carbine, (c) ICR 2026
-#####################################################
+##########################################################
+# COBLE: Complex Bioinformatics Example, (c) ICR 2026
+##########################################################
+
 # compilers:
 
 # Language compile tools
 conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-# deps: --no-update-deps
-conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.3'
+conda install -y --solver=libmamba --no-update-deps -c conda-forge 'r-base=4.5.2'
 conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
-conda install -y --solver=libmamba --no-update-deps 'python=3.12'
+conda install -y --solver=libmamba --no-update-deps 'conda-forge::python=3.14.0'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
+
 # flags:
 
 # Including system dependencies for source installations
@@ -70,18 +73,35 @@ conda install -y --solver=libmamba --no-update-deps -c conda-forge cython protob
 conda install -y --solver=libmamba --no-update-deps -c conda-forge libtool autoconf cmake pkg-config
 # Language core system libraries
 conda install -y --solver=libmamba --no-update-deps -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite
-conda env config vars set QT_QPA_PLATFORM=offscreen
-export QT_QPA_PLATFORM=offscreen
-conda env config vars set OTEL_SDK_DISABLED=true
-export OTEL_SDK_DISABLED=true
-conda env config vars set R_OTEL_DISABLED=true
-export R_OTEL_DISABLED=true
-# conda:
+# Compile version 11.4 on linux for architecture x86_64
+conda install -y --solver=libmamba --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
+# Detected Linux x86_64 - using linux-64 compilers
+conda install -y --solver=libmamba --no-update-deps -c conda-forge 'gcc_linux-64=11.4' 'gxx_linux-64=11.4' 'gfortran_linux-64=11.4'
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
+ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
+ln -sf /usr/bin/ld ${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld
+# Flag: Directive: ncpus, Value: 8
+
+# r-conda:
 conda install -y --solver=libmamba --no-update-deps \
-'arviz' 
+'r-matrix' \
+'r-survival' 
+# bioc-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'bioconductor-s4vectors' 
+# r-package:
+Rscript -e 'install.packages("remotes", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+Rscript -e 'install.packages("BiocManager", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+Rscript -e 'install.packages("tidyverse", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+Rscript -e 'install.packages("data.table", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+Rscript -e 'install.packages("devtools", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=8, method="wget")'
+# bioc-package:
+Rscript -e 'BiocManager::install("DESEq2", dependencies=NA, Ncpus=8)'
+Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=8)'
 cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
 #!/usr/bin/env bash
-echo "COBLE validation: No script has been specified for r-443-conda environment."
+echo "COBLE validation: No script has been specified for r-452-conda environment."
 VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

@@ -1,4 +1,4 @@
-recipe=r-360-conda
+recipe=r-nightly
 
 # Build for conda
 ```bash

@@ -1,52 +1,49 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-16
-# Capture time: 23:30:05 GMT
+# Capture time: 23:40:27 GMT
 # Captured by: ralcraft
 
 coble:
 
-  - environment: r-443-conda
+  - environment: r-452-conda
 
 channels:
   - defaults
+  - r
   - bioconda
   - conda-forge
 
 languages:
-  - r-base=4.4.3@conda-forge
-  - python=3.12.12@conda-forge
+  - r-base=4.5.2@conda-forge
+  - python=3.14.0@conda-forge
 flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: OTEL_SDK_DISABLED="true"
   - export: PYTHONNOUSERSITE="1"
-  - export: QT_QPA_PLATFORM="offscreen"
-  - export: R_OTEL_DISABLED="true"
 
 conda:
-  - binutils=2.45.1@conda-forge
-  - binutils_impl_linux-64=2.45.1@conda-forge
-  - binutils_linux-64=2.45.1@conda-forge
-  - conda-gcc-specs=14.3.0@conda-forge
-  - gcc=14.3.0@conda-forge
-  - gcc_impl_linux-64=14.3.0@conda-forge
-  - gcc_linux-64=14.3.0@conda-forge
-  - gxx=14.3.0@conda-forge
-  - gxx_impl_linux-64=14.3.0@conda-forge
-  - gxx_linux-64=14.3.0@conda-forge
+  - binutils=2.40@conda-forge
+  - binutils_impl_linux-64=2.40@conda-forge
+  - binutils_linux-64=2.40@conda-forge
+  - conda-gcc-specs=11.4.0@conda-forge
+  - gcc=11.4.0@conda-forge
+  - gcc_impl_linux-64=11.4.0@conda-forge
+  - gcc_linux-64=11.4.0@conda-forge
+  - gxx=11.4.0@conda-forge
+  - gxx_impl_linux-64=11.4.0@conda-forge
+  - gxx_linux-64=11.4.0@conda-forge
   - icu=75.1@conda-forge
   - libcblas=3.11.0@conda-forge
   - libcups=2.3.3@conda-forge
   - libcurl=8.18.0@conda-forge
-  - libgcc-devel_linux-64=14.3.0@conda-forge
+  - libgcc-devel_linux-64=11.4.0@conda-forge
   - libgcc-ng=15.2.0@conda-forge
   - libgcc=15.2.0@conda-forge
-  - libstdcxx-devel_linux-64=14.3.0@conda-forge
+  - libstdcxx-devel_linux-64=11.4.0@conda-forge
   - libstdcxx-ng=15.2.0@conda-forge
   - libstdcxx=15.2.0@conda-forge
   - libzlib=1.3.1@conda-forge
-  - zlib-ng=2.3.3@conda-forge
   - zlib=1.3.1@conda-forge
   - adwaita-icon-theme=49.0@conda-forge
   - anyio=4.12.1@conda-forge
@@ -54,7 +51,6 @@ conda:
   - argon2-cffi-bindings=25.1.0@conda-forge
   - argon2-cffi=25.1.0@conda-forge
   - arrow=1.4.0@conda-forge
-  - arviz=0.23.4@conda-forge
   - asttokens=3.0.1@conda-forge
   - async-lru=2.1.0@conda-forge
   - at-spi2-atk=2.38.0@conda-forge
@@ -68,13 +64,11 @@ conda:
   - bleach-with-css=6.3.0@conda-forge
   - bleach=6.3.0@conda-forge
   - blosc=1.21.6@conda-forge
-  - brotli-bin=1.2.0@conda-forge
   - brotli-python=1.2.0@conda-forge
-  - brotli=1.2.0@conda-forge
   - bwidget=1.10.1@conda-forge
   - bzip2=1.0.8@conda-forge
   - c-ares=1.34.6@conda-forge
-  - c-compiler=1.11.0@conda-forge
+  - c-compiler=1.5.2@conda-forge
   - ca-certificates=2026.1.4@conda-forge
   - cached-property=1.5.2@conda-forge
   - cached_property=1.5.2@conda-forge
@@ -84,12 +78,10 @@ conda:
   - charset-normalizer=3.4.4@conda-forge
   - cmake=4.2.3@conda-forge
   - comm=0.2.3@conda-forge
-  - compilers=1.11.0@conda-forge
-  - contourpy=1.3.3@conda-forge
-  - cpython=3.12.12@conda-forge
+  - compilers=1.5.2@conda-forge
+  - cpython=3.14.3@conda-forge
   - curl=8.18.0@conda-forge
-  - cxx-compiler=1.11.0@conda-forge
-  - cycler=0.12.1@conda-forge
+  - cxx-compiler=1.5.2@conda-forge
   - cython=3.2.4@conda-forge
   - dav1d=1.2.1@conda-forge
   - dbus=1.16.2@conda-forge
@@ -107,8 +99,7 @@ conda:
   - font-ttf-ubuntu=0.83@conda-forge
   - fontconfig=2.15.0@conda-forge
   - fonts-conda-forge=1@conda-forge
-  - fonttools=4.61.1@conda-forge
-  - fortran-compiler=1.11.0@conda-forge
+  - fortran-compiler=1.5.2@conda-forge
   - fqdn=1.5.1@conda-forge
   - freetype=2.14.1@conda-forge
   - freexl=2.0.0@conda-forge
@@ -116,9 +107,9 @@ conda:
   - gdal=3.12.2@conda-forge
   - gdk-pixbuf=2.44.5@conda-forge
   - geos=3.14.1@conda-forge
-  - gfortran=14.3.0@conda-forge
-  - gfortran_impl_linux-64=14.3.0@conda-forge
-  - gfortran_linux-64=14.3.0@conda-forge
+  - gfortran=11.4.0@conda-forge
+  - gfortran_impl_linux-64=11.4.0@conda-forge
+  - gfortran_linux-64=11.4.0@conda-forge
   - ghostscript=10.06.0@conda-forge
   - giflib=5.2.2@conda-forge
   - glib-tools=2.86.3@conda-forge
@@ -129,8 +120,6 @@ conda:
   - gts=0.7.6@conda-forge
   - h11=0.16.0@conda-forge
   - h2=4.3.0@conda-forge
-  - h5netcdf=1.8.1@conda-forge
-  - h5py=3.15.1@conda-forge
   - harfbuzz=12.2.0@conda-forge
   - hdf5=1.14.6@conda-forge
   - hicolor-icon-theme=0.17@conda-forge
@@ -166,11 +155,9 @@ conda:
   - jupyterlab_server=2.28.0@conda-forge
   - kernel-headers_linux-64=6.12.0@conda-forge
   - keyutils=1.6.3@conda-forge
-  - kiwisolver=1.4.9@conda-forge
   - krb5=1.22.2@conda-forge
   - lark=1.3.1@conda-forge
-  - lcms2=2.18@conda-forge
-  - ld_impl_linux-64=2.45.1@conda-forge
+  - ld_impl_linux-64=2.40@conda-forge
   - lerc=4.0.0@conda-forge
   - libabseil=20260107.1@conda-forge
   - libaec=1.1.5@conda-forge
@@ -213,6 +200,7 @@ conda:
   - libltdl=2.4.3a@conda-forge
   - liblzma-devel=5.8.2@conda-forge
   - liblzma=5.8.2@conda-forge
+  - libmpdec=4.0.0@conda-forge
   - libnghttp2=1.67.0@conda-forge
   - libnsl=2.0.1@conda-forge
   - libopenblas=0.3.30@conda-forge
@@ -221,7 +209,7 @@ conda:
   - libprotobuf=6.33.5@conda-forge
   - librsvg=2.60.0@conda-forge
   - librttopo=1.1.0@conda-forge
-  - libsanitizer=14.3.0@conda-forge
+  - libsanitizer=11.4.0@conda-forge
   - libsodium=1.0.18@conda-forge
   - libspatialite=5.1.0@conda-forge
   - libsqlite=3.51.2@conda-forge
@@ -246,7 +234,6 @@ conda:
   - matplotlib-inline=0.2.1@conda-forge
   - minizip=4.0.10@conda-forge
   - mistune=3.2.0@conda-forge
-  - munkres=1.1.4@conda-forge
   - muparser=2.3.5@conda-forge
   - nbclient=0.10.4@conda-forge
   - nbconvert-core=7.17.0@conda-forge
@@ -261,7 +248,6 @@ conda:
   - openssl=3.6.1@conda-forge
   - overrides=7.7.0@conda-forge
   - packaging=26.0@conda-forge
-  - pandas=3.0.0@conda-forge
   - pandoc=3.9@conda-forge
   - pandocfilters=1.5.0@conda-forge
   - pango=1.56.4@conda-forge
@@ -269,7 +255,6 @@ conda:
   - pcre2=10.47@conda-forge
   - perl=5.32.1@conda-forge
   - pexpect=4.9.0@conda-forge
-  - pillow=12.1.1@conda-forge
   - pip=26.0.1@conda-forge
   - pixman=0.46.4@conda-forge
   - pkg-config=0.29.2@conda-forge
@@ -284,18 +269,16 @@ conda:
   - pure_eval=0.2.3@conda-forge
   - pycparser=2.22@conda-forge
   - pygments=2.19.2@conda-forge
-  - pyparsing=3.3.2@conda-forge
   - pysocks=1.7.1@conda-forge
   - python-dateutil=2.9.0.post0@conda-forge
   - python-fastjsonschema=2.21.2@conda-forge
-  - python-gil=3.12.12@conda-forge
+  - python-gil=3.14.3@conda-forge
   - python-json-logger=2.0.7@conda-forge
   - python-tzdata=2025.3@conda-forge
-  - python_abi=3.12@conda-forge
+  - python_abi=3.14@conda-forge
   - pytz=2025.2@conda-forge
   - pyyaml=6.0.3@conda-forge
   - pyzmq=27.1.0@conda-forge
-  - qhull=2020.2@conda-forge
   - rav1e=0.7.1@conda-forge
   - readline=8.3@conda-forge
   - referencing=0.37.0@conda-forge
@@ -305,7 +288,6 @@ conda:
   - rfc3987-syntax=1.1.0@conda-forge
   - rhash=1.4.6@conda-forge
   - rpds-py=0.30.0@conda-forge
-  - scipy=1.17.0@conda-forge
   - sed=4.9@conda-forge
   - send2trash=2.1.0@conda-forge
   - setuptools=82.0.0@conda-forge
@@ -329,7 +311,6 @@ conda:
   - typing_utils=0.1.0@conda-forge
   - tzdata=2025c@conda-forge
   - udunits2=2.2.28@conda-forge
-  - unicodedata2=17.0.1@conda-forge
   - uri-template=1.3.0@conda-forge
   - uriparser=0.9.8@conda-forge
   - urllib3=2.6.3@conda-forge
@@ -338,10 +319,7 @@ conda:
   - webcolors=25.10.0@conda-forge
   - webencodings=0.5.1@conda-forge
   - websocket-client=1.9.0@conda-forge
-  - wheel=0.46.3@conda-forge
   - x265=3.5@conda-forge
-  - xarray-einstats=0.9.1@conda-forge
-  - xarray=2026.2.0@conda-forge
   - xerces-c=3.3.0@conda-forge
   - xkeyboard-config=2.46@conda-forge
   - xorg-libice=1.1.2@conda-forge
@@ -408,7 +386,7 @@ r-conda:
   - dtplyr=1.3.3@conda-forge
   - e1071=1.7_17@conda-forge
   - ellipsis=0.3.2@conda-forge
-  - essentials=4.4@conda-forge
+  - essentials=4.5@conda-forge
   - evaluate=1.0.5@conda-forge
   - fansi=1.0.7@conda-forge
   - farver=2.1.2@conda-forge
@@ -504,7 +482,7 @@ r-conda:
   - readr=2.1.6@conda-forge
   - readxl=1.4.5@conda-forge
   - recipes=1.3.1@conda-forge
-  - recommended=4.4@conda-forge
+  - recommended=4.5@conda-forge
   - rematch2=2.1.2@conda-forge
   - rematch=2.0.0@conda-forge
   - remotes=2.5.0@conda-forge
@@ -525,7 +503,7 @@ r-conda:
   - shape=1.4.6.1@conda-forge
   - shiny=1.12.1@conda-forge
   - sourcetools=0.1.7_1@conda-forge
-  - sparsevctrs=0.3.5@conda-forge
+  - sparsevctrs=0.3.6@conda-forge
   - spatial=7.3_18@conda-forge
   - squarem=2021.1@conda-forge
   - stringi=1.8.7@conda-forge
@@ -548,7 +526,7 @@ r-conda:
   - uuid=1.2_2@conda-forge
   - vctrs=0.7.1@conda-forge
   - viridislite=0.4.3@conda-forge
-  - vroom=1.6.7@conda-forge
+  - vroom=1.7.0@conda-forge
   - withr=3.0.2@conda-forge
   - xfun=0.56@conda-forge
   - xml2=1.5.2@conda-forge
@@ -556,22 +534,59 @@ r-conda:
   - xts=0.14.1@conda-forge
   - zoo=1.8_15@conda-forge
 
-r-package:
+bioc-conda:
+  - biocgenerics=0.56.0@bioconda
+  - s4vectors=0.48.0@bioconda
 
-pip:
-  - matplotlib==3.10.8
+r-package:
+  - brew=1.0-10@RSPM
+  - brio=1.1.5@RSPM
+  - credentials=2.0.3@RSPM
+  - desc=1.4.3@RSPM
+  - devtools=2.4.6@RSPM
+  - diffobj=0.3.6@RSPM
+  - downlit=0.4.5@RSPM
+  - gert=2.3.1@RSPM
+  - gh=1.5.0@RSPM
+  - gitcreds=0.1.2@RSPM
+  - httr2=1.2.2@RSPM
+  - ini=0.3.1@RSPM
+  - miniUI=0.1.2@RSPM
+  - pkgbuild=1.4.8@RSPM
+  - pkgdown=2.2.0@RSPM
+  - pkgload=1.5.0@RSPM
+  - praise=1.0.0@RSPM
+  - profvis=0.4.0@RSPM
+  - rcmdcheck=1.4.0@RSPM
+  - roxygen2=7.3.3@RSPM
+  - rprojroot=2.1.1@RSPM
+  - rversions=3.0.0@RSPM
+  - sessioninfo=1.2.3@RSPM
+  - testthat=3.3.2@RSPM
+  - urlchecker=1.0.1@RSPM
+  - usethis=3.2.1@RSPM
+  - waldo=0.6.2@RSPM
+  - whisker=0.4.1@RSPM
+  - xopen=1.0.1@RSPM
+  - zip=2.3.3@RSPM
+
+bioc-package:
+  - BiocVersion=3.22.0
+  - GenomicRanges=1.62.1
+  - IRanges=2.44.0
+  - Seqinfo=1.0.0
 
 # r-package(unknown source):
-#  - compiler=4.4.3
-#  - datasets=4.4.3
-#  - grDevices=4.4.3
-#  - graphics=4.4.3
-#  - grid=4.4.3
-#  - methods=4.4.3
-#  - parallel=4.4.3
-#  - splines=4.4.3
-#  - stats4=4.4.3
-#  - stats=4.4.3
-#  - tcltk=4.4.3
-#  - tools=4.4.3
-#  - utils=4.4.3
+#  - compiler=4.5.2
+#  - datasets=4.5.2
+#  - grDevices=4.5.2
+#  - graphics=4.5.2
+#  - grid=4.5.2
+#  - methods=4.5.2
+#  - parallel=4.5.2
+#  - splines=4.5.2
+#  - stats4=4.5.2
+#  - stats=4.5.2
+#  - tcltk=4.5.2
+#  - tools=4.5.2
+#  - utils=4.5.2

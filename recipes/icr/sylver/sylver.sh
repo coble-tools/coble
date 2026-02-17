@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-11
-# Capture time: 09:23:55 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:40:06 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -18,6 +18,10 @@ conda create --no-default-packages --name sylver -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
+conda  clean --all -y --force-pkgs-dirs
+# deactivate environment
+conda deactivate | true
+conda deactivate | true
 # activate environment
 conda activate sylver
 
@@ -27,54 +31,36 @@ export | grep PYTHONNOUSERSITE
 conda config --env --remove-key channels
 conda config --env --set channel_priority strict
 conda config --env --add channels r
-conda config --env --add channels bioconda
-conda config --env --add channels conda-forge
-conda config --env --add channels defaults
 
 # INSTALL SECTION FOR CONDA
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
 #######################################
-# note the reverse order of priority
+# compilers:
+# Flag: Directive: cran-repo, Value: 
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y  -c r 'r-base=3.6.0' r-remotes r-biocmanager
-# flags:
-# Flag: Directive: dependencies, Value: na
+conda install -y --solver=libmamba --no-update-deps -c r 'r-base=3.6.0'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+# bash:
+conda config --env --remove channels r
+# compilers:
 
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=13.1' 'gxx_linux-64=13.1' 'gfortran_linux-64=13.1'
-conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
-# Set up compiler symlinks for R package compilation - COS6 compatibility
-umask 0022
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-# Set up compiler symlinks for R package compilation - standard aliases
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Set compiler flags for R package compilation
-conda env config vars set CC="/home/ralcraft/miniforge3/envs/pytest/bin/gcc"
-conda env config vars set CXX="/home/ralcraft/miniforge3/envs/pytest/bin/g++"
-conda env config vars set FC="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set F77="/home/ralcraft/miniforge3/envs/pytest/bin/x86_64-conda-linux-gnu-gfortran"
-conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
-conda deactivate
-conda activate sylver
-
-conda config --env --set channel_priority strict
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+# flags:
 conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
+# bash:
+# This sed line is required when mixing r versions from the r channel with conda-forge source installs
+sed -i 's/x86_64-conda_cos6-linux-gnu/x86_64-conda-linux-gnu/g' ${CONDA_PREFIX}/lib/R/etc/Makeconf
+# conda:
+conda install -y --solver=libmamba --no-update-deps \
+'libcurl' 
 # r-conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'r-BiocManager' \
 'r-remotes' \
 'r-tidyverse=1.3.1' \
@@ -85,17 +71,18 @@ conda install -y  --no-update-deps \
 'r-ggrepel=0.9.1' \
 'r-VennDiagram=1.6.20' 
 # bioc-conda:
-conda install -y  --no-update-deps \
+conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-affy=1.64.0' \
 'bioconductor-fgsea=1.12.0' \
 'bioconductor-GSVA=1.34.0' \
 'bioconductor-org.Hs.eg.db=3.10.0' 
 # r-package:
-Rscript -e 'remotes::install_version("survival", version="3.2-11", repos="https://cloud.r-project.org", dependencies=NA, upgrade="default", Ncpus=4)'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/survival/survival_3.2-11.tar.gz", repos="https://packagemanager.posit.co/cran/2020-04-01", type="source", method="wget" )'
 # bioc-package:
-Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=4)'
-
-# Validate script available in environment at CONDA PREFIX: validate.sh
-cp recipes/icr/sylver/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=1)'
+cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
+#!/usr/bin/env bash
+echo "COBLE validation: No script has been specified for sylver environment."
+VALIDATE_EOF
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

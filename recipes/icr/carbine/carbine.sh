@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-15
-# Capture time: 09:31:23 GMT
+# Capture date: 2026-02-16
+# Capture time: 22:20:17 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -43,9 +43,10 @@ conda config --env --add channels conda-forge
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
-conda install -y --solver=libmamba  'r-base=4.4.3'
-conda install -y --solver=libmamba  r-remotes r-biocmanager
-conda install -y --solver=libmamba  'python=3.12'
+# deps: --no-update-deps
+conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.3'
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps 'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
@@ -142,13 +143,14 @@ Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=1)'
 Rscript -e 'BiocManager::install("ComplexHeatmap", dependencies=NA, Ncpus=1)'
 Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
 # flags:
-# Flag: Directive: dependencies, Value: false
+# Flag: Directive: dependencies, Value: na
 # r-url:
-Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=FALSE, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/ctree/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
 
 
 
