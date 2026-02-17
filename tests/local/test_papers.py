@@ -2,12 +2,13 @@
 import os
 import subprocess
 
+DOCKER_MODE=True
+
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 coble_path = os.path.join(cwd, "code", "coble")
 recipe_path = os.path.join(cwd, "recipes")
 
-def do_block(section, recipe):
-    """Test that the old version of r that needs compiling runs."""
+def do_block(section, recipe):    
     args = [coble_path,
         "build",
         "--recipe",
@@ -21,11 +22,32 @@ def do_block(section, recipe):
     print(result.stdout)
     return result.returncode
 
+def do_docker(section, recipe):    
+    args = [coble_path,
+        "build",
+        "--recipe",
+        f"{recipe_path}/{section}/{recipe}/{recipe}.cbl",
+        "--env",
+        recipe,
+        "--containers",
+        "docker,singularity",
+        "--validate",
+        f"{recipe_path}/{section}/{recipe}/validate/validate.sh",
+
+    ]
+    print("Running command:", " ".join(args))
+    result = subprocess.run(args, cwd=cwd, capture_output=True, text=True,shell=False)    
+    print(result.stdout)
+    return result.returncode
+
 def test_ok():
     assert 0 == 0
 
 def test_DESeq2():
-    success = do_block("papers", "DESeq2")    
+    if DOCKER_MODE:
+        success = do_docker("papers", "DESeq2")    
+    else:
+        success = do_block("papers", "DESeq2")    
     assert success == 0   
 
 

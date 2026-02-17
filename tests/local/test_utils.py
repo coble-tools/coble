@@ -2,12 +2,13 @@
 import os
 import subprocess
 
+DOCKER_MODE=True
+
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 coble_path = os.path.join(cwd, "code", "coble")
 recipe_path = os.path.join(cwd, "recipes")
 
-def do_block(section, recipe):
-    """Test that the old version of r that needs compiling runs."""
+def do_block(section, recipe):    
     args = [coble_path,
         "build",
         "--recipe",
@@ -21,23 +22,53 @@ def do_block(section, recipe):
     print(result.stdout)
     return result.returncode
 
+def do_docker(section, recipe):    
+    args = [coble_path,
+        "build",
+        "--recipe",
+        f"{recipe_path}/{section}/{recipe}/{recipe}.cbl",
+        "--env",
+        recipe,
+        "--containers",
+        "docker,singularity",
+        "--validate",
+        f"{recipe_path}/{section}/{recipe}/validate/validate.sh",
+    ]
+    print("Running command:", " ".join(args))
+    result = subprocess.run(args, cwd=cwd, capture_output=True, text=True,shell=False)    
+    print(result.stdout)
+    return result.returncode
+
 def test_ok():
     assert 0 == 0
 
 def test_360():
-    success = do_block("utils", "r-360-conda")        
+    if DOCKER_MODE:
+        success = do_docker("utils", "r-360-conda")    
+    else:
+        success = do_block("utils", "r-360-conda")
     assert success == 0   
 
 def test_362():
-    success = do_block("utils", "r-362-conda")    
+    if DOCKER_MODE:
+        success = do_docker("utils", "r-362-conda")    
+    else:
+        success = do_block("utils", "r-362-conda")    
     assert success == 0   
 
 def test_443():
-    success = do_block("utils", "r-443-conda")    
+    if DOCKER_MODE:
+        success = do_docker("utils", "r-443-conda")    
+    else:
+        success = do_block("utils", "r-443-conda")
     assert success == 0   
 
 def test_452():
-    success = do_block("utils", "r-452-conda")    
+    
+    if DOCKER_MODE:
+        success = do_docker("utils", "r-452-conda")    
+    else:
+        success = do_block("utils", "r-452-conda")
     assert success == 0   
 
 if __name__ == "__main__":        
