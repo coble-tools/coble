@@ -16,11 +16,3 @@ python -m pip install -U "setuptools>=68" wheel packaging
 pip install -r requirements.txt
 ```
 
-```bash
-code/coble build \
---recipe recipes/papers/chief/chief.cbl \
---env chief \
---validate recipes/papers/chief/validate/validate.sh \
---val-folder recipes/papers/chief/validate \
---rebuild
-```

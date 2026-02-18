@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-16
-# Capture time: 23:08:45 GMT
+# Capture date: 2026-02-18
+# Capture time: 12:11:03 GMT
 # Captured by: ralcraft
 
 coble:
@@ -96,11 +96,13 @@ conda:
   - kernel-headers_linux-64=4.18.0@defaults
   - krb5=1.16.4@defaults
   - ld_impl_linux-64=2.44@defaults
+  - lerc=4.0.0@defaults
 
 conda:
   - libblas=3.9.0@conda-forge
 
 conda:
+  - libdeflate=1.22@defaults
   - libedit=3.1.20230828@defaults
   - libexpat=2.7.4@defaults
   - libffi=3.2.1@defaults
@@ -121,7 +123,7 @@ conda:
 
 conda:
   - libssh2=1.10.0@defaults
-  - libtiff=4.2.0@defaults
+  - libtiff=4.7.1@defaults
   - libuuid=1.41.5@defaults
   - libxcb=1.17.0@defaults
   - libxml2=2.9.14@defaults

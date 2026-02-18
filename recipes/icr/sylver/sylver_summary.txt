@@ -414,3 +414,149 @@ install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
 [coble-create] Recipe created at: 2026-02-16 22:43:47
 [coble-create] Recipe took: 0h 3m 39s
 --------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-17 at 09:39:40 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-17 09:39:41 1/10
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:39:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:39:41 2/10
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-17 09:39:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:39:41 3/10
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:39:42
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:39:42 4/10
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:39:43
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:39:43 5/10
+install: conda activate sylver
+[coble-create] End time: 2026-02-17 09:39:44
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:39:44 6/10
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:39:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:39:44 7/10
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-17 09:39:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:39:44 8/10
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-17 09:39:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:39:44 9/10
+install: cp recipes/icr/sylver/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-17 09:39:44
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-17 09:39:44
+[coble-create] Recipe took: 0h 0m 3s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-17 at 09:41:13 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-17 09:41:14 1/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:41:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:14 2/8
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-17 09:41:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:14 3/8
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:41:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:15 4/8
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:41:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:16 5/8
+install: conda activate sylver
+[coble-create] End time: 2026-02-17 09:41:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:17 6/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:41:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:17 7/8
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-17 09:41:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:17 8/8
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-17 09:41:17
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-17 09:41:17
+[coble-create] Recipe took: 0h 0m 3s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-17 at 09:41:43 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-17 09:41:44 1/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:41:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:44 2/8
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-17 09:41:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:44 3/8
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:41:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:45 4/8
+install: conda deactivate | true
+[coble-create] End time: 2026-02-17 09:41:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:46 5/8
+install: conda activate sylver
+[coble-create] End time: 2026-02-17 09:41:47
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-17 09:41:47 6/8
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-17 09:41:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:47 7/8
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-17 09:41:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-17 09:41:47 8/8
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-17 09:41:47
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-17 09:41:47
+[coble-create] Recipe took: 0h 0m 3s
+--------------------------------------
