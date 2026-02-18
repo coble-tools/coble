@@ -2,20 +2,26 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-01-25
-# Capture time: 16:04:09 GMT
+# Capture date: 2026-02-13
+# Capture time: 09:23:14 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
 #####################################################
 
 conda env remove --name metabolites -y 2>/dev/null || true
 conda create --no-default-packages --name metabolites -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
+# clean up conda cache first
+conda  clean --all -y --force-pkgs-dirs
+# deactivate environment
+conda deactivate | true
+conda deactivate | true
 # activate environment
 conda activate metabolites
 
@@ -28,16 +34,14 @@ conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
 
 # INSTALL SECTION FOR CONDA
-#####################################################
-# COBLE:Reproducible environment: BASIC, (c) ICR 2026
-#####################################################
-# note the reverse order of priority
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2026
+#######################################
 # languages:
 conda install -y  'conda-forge::python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
-conda deactivate
-conda activate metabolites
+export PYTHONNOUSERSITE=1
 # flags:
 # Flag: Directive: dependencies, Value: na
 # conda:
@@ -53,10 +57,14 @@ conda install -y  --no-update-deps \
 'jupyterlab' \
 'ipykernel' \
 'ipywidgets' \
-'streamlit>=1.30' \
+'streamlit' \
 'plotly' 
 # bash:
 python -m ipykernel install --user --name JupyterICR --display-name "Jupyter ICR 2026"
 
 
+
+# Validate script available in environment at CONDA PREFIX: validate.sh
+cp recipes/icr/metabolites/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

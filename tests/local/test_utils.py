@@ -5,6 +5,7 @@ import subprocess
 DOCKER_MODE=True
 
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+file_dir = os.path.dirname(__file__)
 coble_path = os.path.join(cwd, "code", "coble")
 recipe_path = os.path.join(cwd, "recipes")
 
@@ -23,19 +24,13 @@ def do_block(section, recipe):
     return result.returncode
 
 def do_docker(section, recipe):    
-    args = [coble_path,
-        "build",
-        "--recipe",
-        f"{recipe_path}/{section}/{recipe}/{recipe}.cbl",
-        "--env",
-        recipe,
-        "--containers",
-        "docker,singularity",
-        "--validate",
-        f"{recipe_path}/{section}/{recipe}/validate/validate.sh",
+    args = ["bash",
+        f"{file_dir}/docker.sh",
+        section,
+        recipe,        
     ]
     print("Running command:", " ".join(args))
-    result = subprocess.run(args, cwd=cwd, capture_output=True, text=True,shell=False)    
+    result = subprocess.run(args, cwd=cwd, capture_output=True, text=True,shell=False)            
     print(result.stdout)
     return result.returncode
 

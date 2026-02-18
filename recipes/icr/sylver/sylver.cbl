@@ -8,7 +8,7 @@ channels:
 compilers:    
   - cran-repo: https://packagemanager.posit.co/cran/2020-04-01  
 languages:
-  - r-base=3.6.0@r
+ - r-base=3.6.0@override:r,defaults
 bash:
   - conda config --env --remove channels r
 compilers:  

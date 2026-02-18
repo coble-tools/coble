@@ -643,6 +643,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	                echo "# R source installation requested" >> "$RECIPE_FILE"
                     echo "bash \"$script_dir/coble-r-source.sh\" \"$ver\"" >> "$RECIPE_FILE"                    
+                elif [[ "$src" == override* ]]; then
+                    channels=$(echo "$src" | cut -d':' -f2-)
+                    channels="-c $(echo "$channels" | sed 's/,/ -c /g')"
+                    channels="--override-channels $channels"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} $channels '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
                 else                    
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                                        
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"

@@ -1,3 +1,20 @@
+# DESEq2 Environment for Publication Reproducibility
+
+The docker impage on GitHub has an amd64 version. 
+
+To download the docker image and use it locally do (mounting your current working directory to the workspace inside the container and starting in workspace):
+```bash
+docker pull icrsc/coble:papers-DESeq2-amd64
+docker run --rm -it -v .:/workspace -w /workspace icrsc/coble:papers-DESeq2-amd64
+validate.sh
+```
+
+To download as singularity to use eg on HPC (you retain access to the host inside a singularity image).
+
+```bash
+singularity pull cbl-papers-DESeq2.sif docker://icrsc/coble:papers-DESeq2-amd64
+singularity shell cbl-papers-DESeq2.sif
+```
 
 ```bash
 code/coble build \
@@ -16,6 +33,8 @@ code/coble build \
 --containers docker,singularity
 --rebuild
 ```
+
+
 
 Now simply typing in `validate.sh` at the command line starts this script.
 Or to retrieve from docker

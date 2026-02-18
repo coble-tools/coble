@@ -12,6 +12,7 @@
 
 #FROM --platform=$TARGETPLATFORM continuumio/miniconda3:latest
 FROM continuumio/miniconda3:24.9.2-0
+#FROM condaforge/miniforge3:26.1.0-0
 
 WORKDIR /app
 
