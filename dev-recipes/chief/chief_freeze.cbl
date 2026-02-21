@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-11
-# Capture time: 15:26:58 GMT
+# Capture date: 2026-02-21
+# Capture time: 18:11:19 GMT
 # Captured by: ralcraft
 
 coble:
@@ -13,254 +13,148 @@ channels:
   - conda-forge
 
 languages:
-  - python=3.8.20@conda-forge
+  - python=3.10.19@conda-forge
 flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/chief/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
 
 conda:
+  - icu=78.2@conda-forge
+  - libcblas=3.11.0@conda-forge
   - libgcc-ng=15.2.0@conda-forge
   - libgcc=15.2.0@conda-forge
+  - libstdcxx-ng=15.2.0@conda-forge
+  - libstdcxx=15.2.0@conda-forge
   - libzlib=1.3.1@conda-forge
+  - zlib-ng=2.3.3@conda-forge
+  - asttokens=3.0.1@conda-forge
+  - backports.zstd=1.3.0@conda-forge
+  - brotli-python=1.2.0@conda-forge
   - bzip2=1.0.8@conda-forge
   - ca-certificates=2026.1.4@conda-forge
+  - certifi=2026.1.4@conda-forge
+  - charset-normalizer=3.4.4@conda-forge
+  - comm=0.2.3@conda-forge
+  - debugpy=1.8.20@conda-forge
+  - decorator=5.2.1@conda-forge
+  - exceptiongroup=1.3.1@conda-forge
+  - executing=2.2.1@conda-forge
+  - h2=4.3.0@conda-forge
+  - hpack=4.1.0@conda-forge
+  - hyperframe=6.1.0@conda-forge
+  - idna=3.11@conda-forge
+  - ipykernel=7.2.0@conda-forge
+  - ipython=8.37.0@conda-forge
+  - jedi=0.19.2@conda-forge
+  - joblib=1.5.3@conda-forge
+  - jupyter_client=8.8.0@conda-forge
+  - jupyter_core=5.9.1@conda-forge
+  - keyutils=1.6.3@conda-forge
+  - krb5=1.21.3@conda-forge
+  - lcms2=2.18@conda-forge
   - ld_impl_linux-64=2.45.1@conda-forge
+  - lerc=4.0.0@conda-forge
+  - libblas=3.11.0@conda-forge
+  - libdeflate=1.25@conda-forge
+  - libedit=3.1.20250104@conda-forge
+  - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
+  - libfreetype6=2.14.1@conda-forge
+  - libfreetype=2.14.1@conda-forge
+  - libgfortran5=15.2.0@conda-forge
+  - libgfortran=15.2.0@conda-forge
   - libgomp=15.2.0@conda-forge
-  - liblzma-devel=5.8.2@conda-forge
+  - libjpeg-turbo=3.1.2@conda-forge
+  - liblapack=3.11.0@conda-forge
   - liblzma=5.8.2@conda-forge
   - libnsl=2.0.1@conda-forge
+  - libopenblas=0.3.30@conda-forge
+  - libpng=1.6.55@conda-forge
+  - libsodium=1.0.20@conda-forge
   - libsqlite=3.51.2@conda-forge
+  - libtiff=4.7.1@conda-forge
   - libuuid=2.41.3@conda-forge
+  - libxcb=1.17.0@conda-forge
   - libxcrypt=4.4.36@conda-forge
+  - matplotlib-inline=0.2.1@conda-forge
   - ncurses=6.5@conda-forge
+  - nest-asyncio=1.6.0@conda-forge
+  - numpy=2.2.6@conda-forge
+  - openjpeg=2.5.4@conda-forge
   - openssl=3.6.1@conda-forge
-  - pip=22.1.2@conda-forge
+  - packaging=26.0@conda-forge
+  - pandas=2.3.3@conda-forge
+  - parso=0.8.6@conda-forge
+  - pexpect=4.9.0@conda-forge
+  - pickleshare=0.7.5@conda-forge
+  - pillow=12.1.1@conda-forge
+  - pip=26.0.1@conda-forge
+  - platformdirs=4.9.2@conda-forge
+  - prompt-toolkit=3.0.52@conda-forge
+  - psutil=7.2.2@conda-forge
+  - pthread-stubs=0.4@conda-forge
+  - ptyprocess=0.7.0@conda-forge
+  - pure_eval=0.2.3@conda-forge
+  - pygments=2.19.2@conda-forge
+  - pysocks=1.7.1@conda-forge
+  - python-dateutil=2.9.0.post0@conda-forge
+  - python-tzdata=2025.3@conda-forge
+  - python_abi=3.10@conda-forge
+  - pytz=2025.2@conda-forge
+  - pyyaml=6.0.3@conda-forge
+  - pyzmq=27.1.0@conda-forge
   - readline=8.3@conda-forge
-  - setuptools=70.3.0@conda-forge
+  - requests=2.32.5@conda-forge
+  - scikit-learn=1.7.2@conda-forge
+  - scipy=1.15.2@conda-forge
+  - setuptools=82.0.0@conda-forge
+  - six=1.17.0@conda-forge
+  - stack_data=0.6.3@conda-forge
+  - threadpoolctl=3.6.0@conda-forge
   - tk=8.6.13@conda-forge
-  - wheel=0.45.1@conda-forge
-  - xz-gpl-tools=5.8.2@conda-forge
-  - xz-tools=5.8.2@conda-forge
-  - xz=5.8.2@conda-forge
+  - tornado=6.5.4@conda-forge
+  - traitlets=5.14.3@conda-forge
+  - typing_extensions=4.15.0@conda-forge
+  - tzdata=2025c@conda-forge
+  - urllib3=2.6.3@conda-forge
+  - wcwidth=0.6.0@conda-forge
+  - wheel=0.46.3@conda-forge
+  - xorg-libxau=1.0.12@conda-forge
+  - xorg-libxdmcp=1.1.5@conda-forge
+  - yaml=0.2.5@conda-forge
+  - zeromq=4.3.5@conda-forge
   - zstd=1.5.7@conda-forge
 
 pip:
-  - Babel==2.10.1
-  - Click==7.0
-  - Jinja2==3.1.2
-  - Keras-Preprocessing==1.1.2
-  - Markdown==3.3.6
-  - MarkupSafe==2.1.1
-  - Pillow==10.0.0
-  - PyJWT==1.7.1
-  - PySocks==1.7.1
-  - PyWavelets==1.4.1
-  - PyYAML==5.3.1
-  - Pygments==2.12.0
-  - SecretStorage==2.3.1
-  - Send2Trash==1.8.0
-  - Werkzeug==2.1.2
-  - absl-py==1.0.0
+  - Jinja2==3.1.6
+  - MarkupSafe==3.0.2
   - addict==2.4.0
-  - anyio==3.5.0
-  - argon2-cffi-bindings==21.2.0
-  - argon2-cffi==21.3.0
-  - astor==0.8.1
-  - asttokens==3.0.1
-  - astunparse==1.6.3
-  - attrs==25.3.0
-  - autograd-gamma==0.5.0
-  - autograd==1.6.2
-  - backcall==0.2.0
-  - beautifulsoup4==4.11.1
-  - bleach==6.1.0
-  - blinker==1.4
-  - cachetools==5.0.0
-  - certifi==2021.10.8
-  - cffi==1.15.0
-  - chardet==3.0.4
-  - charset-normalizer==2.0.12
-  - colorama==0.4.3
-  - colorbrewer==0.2.0
-  - contourpy==1.1.1
-  - cryptography==2.8
-  - cycler==0.11.0
-  - debugpy==1.6.0
-  - decorator==5.1.1
-  - defusedxml==0.7.1
-  - distro==1.4.0
-  - docopt==0.6.2
-  - ecos==2.0.12
-  - einops==0.6.1
-  - entrypoints==0.4
-  - et-xmlfile==1.1.0
-  - exceptiongroup==1.1.3
-  - executing==2.2.1
-  - exhaustive-weighted-random-sampler==0.0.2
-  - fastjsonschema==2.15.3
-  - filelock==3.12.2
-  - flatbuffers==2.0
-  - fonttools==4.33.3
-  - formulaic==0.6.4
-  - fsspec==2023.6.0
-  - future==0.18.3
-  - gast==0.5.3
-  - google-auth-oauthlib==0.4.6
-  - google-auth==2.6.6
-  - google-pasta==0.2.0
-  - graphlib-backport==1.0.3
-  - grpcio==1.45.0
-  - h11==0.14.0
-  - h5py==3.6.0
-  - httplib2==0.14.0
-  - huggingface-hub==0.16.4
-  - idna==3.3
-  - imageio==2.31.1
-  - importlib-metadata==4.11.3
-  - importlib-resources==5.7.1
-  - interface-meta==1.3.0
-  - ipykernel==6.13.0
-  - ipython-genutils==0.2.0
-  - ipython==8.3.0
-  - iterative-stratification==0.1.7
-  - jedi==0.18.1
-  - jeepney==0.9.0
-  - joblib==1.3.1
-  - json5==0.9.6
-  - jsonschema-specifications==2023.12.1
-  - jsonschema==4.23.0
-  - jupyter-client==7.3.0
-  - jupyter-server==1.24.0
-  - jupyter_core==5.8.1
-  - jupyterlab-language-pack-zh-CN==3.3.post3
-  - jupyterlab-pygments==0.2.2
-  - jupyterlab-server==2.13.0
-  - jupyterlab==3.3.4
-  - keras==2.8.0
-  - keyring==18.0.1
-  - kiwisolver==1.4.2
-  - launchpadlib==1.10.13
-  - lazr.restfulclient==0.14.2
-  - lazr.uri==1.0.3
-  - lazy_loader==0.3
-  - libclang==14.0.1
-  - lifelines==0.27.7
-  - matplotlib-inline==0.1.3
-  - matplotlib==3.5.2
-  - mistune==0.8.4
+  - cuda-bindings==12.9.4
+  - cuda-pathfinder==1.2.2
+  - filelock==3.20.0
+  - fsspec==2025.12.0
   - mpmath==1.3.0
-  - nbclassic==0.3.7
-  - nbclient==0.6.0
-  - nbconvert==6.5.0
-  - nbformat==5.3.0
-  - nest-asyncio==1.5.5
-  - networkx==3.1
-  - notebook-shim==0.1.0
-  - notebook==6.4.11
-  - numexpr==2.8.4
-  - numpy==1.22.3
-  - nvidia-cublas-cu12==12.1.3.1
-  - nvidia-cuda-cupti-cu12==12.1.105
-  - nvidia-cuda-nvrtc-cu12==12.1.105
-  - nvidia-cuda-runtime-cu12==12.1.105
-  - nvidia-cudnn-cu12==9.1.0.70
-  - nvidia-cufft-cu12==11.0.2.54
-  - nvidia-curand-cu12==10.3.2.106
-  - nvidia-cusolver-cu12==11.4.5.107
-  - nvidia-cusparse-cu12==12.1.0.106
-  - nvidia-nccl-cu12==2.20.5
-  - nvidia-nvjitlink-cu12==12.9.86
-  - nvidia-nvtx-cu12==12.1.105
-  - nystrom-attention==0.0.11
-  - oauthlib==3.2.0
-  - opencv-python==4.5.5.64
-  - openpyxl==3.1.2
-  - openslide-python==1.3.0
-  - opt-einsum==3.3.0
-  - osqp==0.6.3
-  - outcome==1.3.0
-  - packaging==21.3
-  - pandas==1.4.2
-  - pandocfilters==1.5.0
-  - parso==0.8.3
-  - pbr==7.0.3
-  - pexpect==4.8.0
-  - pickleshare==0.7.5
-  - pipreqs==0.4.13
-  - pkgutil_resolve_name==1.3.10
-  - platformdirs==4.3.6
-  - prettytable==3.9.0
-  - prometheus-client==0.14.1
-  - prompt-toolkit==3.0.29
-  - protobuf==4.23.4
-  - psutil==5.9.0
-  - ptyprocess==0.7.0
-  - pure-eval==0.2.2
-  - pyasn1-modules==0.2.8
-  - pyasn1==0.4.8
-  - pycparser==2.21
-  - pyecharts==2.0.4
-  - pyparsing==3.0.8
-  - pyrsistent==0.18.1
-  - python-dateutil==2.8.2
-  - pytz==2022.1
-  - pyzmq==22.3.0
-  - qdldl==0.1.7.post0
-  - referencing==0.35.1
-  - requests-oauthlib==1.3.1
-  - requests==2.27.1
-  - rpds-py==0.20.1
-  - rsa==4.8
-  - safetensors==0.3.1
-  - scikit-image==0.21.0
-  - scikit-learn==1.2.2
-  - scikit-survival==0.21.0
-  - scipy==1.8.0
-  - seaborn==0.11.2
-  - selenium==4.14.0
-  - simplejson==3.16.0
-  - six==1.16.0
-  - snapshot-selenium==0.0.2
-  - sniffio==1.2.0
-  - sortedcontainers==2.4.0
-  - soupsieve==2.3.2.post1
-  - ssh-import-id==5.10
-  - stack-data==0.2.0
-  - sympy==1.13.3
-  - tensorboard-data-server==0.6.1
-  - tensorboard-plugin-wit==1.8.1
-  - tensorboard==2.8.0
-  - tensorboardX==2.6.1
-  - tensorflow-gpu==2.8.0
-  - termcolor==1.1.0
-  - terminado==0.13.3
-  - testresources==2.0.2
-  - tf-estimator-nightly==2.8.0.dev2021122109
-  - thop==0.0.31.post2005241907
-  - threadpoolctl==3.2.0
-  - tifffile==2023.7.10
-  - timm==0.5.4
-  - tinycss2==1.1.1
-  - torch==2.4.1
-  - torchvision==0.19.1
-  - tornado==6.1
-  - tqdm==4.64.0
-  - traitlets==5.1.1
-  - trio-websocket==0.11.1
-  - trio==0.22.2
-  - triton==3.0.0
-  - typing_extensions==4.2.0
-  - tzdata==2025.3
-  - urllib3==1.26.9
-  - wadllib==1.3.3
-  - wcwidth==0.2.5
-  - webencodings==0.5.1
-  - websocket-client==1.3.2
-  - wrapt==1.14.0
-  - wsproto==1.2.0
-  - xlwings==0.30.12
-  - yarg==0.1.9
-  - zipp==3.8.0
+  - networkx==3.4.2
+  - nvidia-cublas-cu12==12.8.4.1
+  - nvidia-cuda-cupti-cu12==12.8.90
+  - nvidia-cuda-nvrtc-cu12==12.8.93
+  - nvidia-cuda-runtime-cu12==12.8.90
+  - nvidia-cudnn-cu12==9.10.2.21
+  - nvidia-cufft-cu12==11.3.3.83
+  - nvidia-cufile-cu12==1.13.1.3
+  - nvidia-curand-cu12==10.3.9.90
+  - nvidia-cusolver-cu12==11.7.3.90
+  - nvidia-cusparse-cu12==12.5.8.93
+  - nvidia-cusparselt-cu12==0.7.1
+  - nvidia-nccl-cu12==2.27.5
+  - nvidia-nvjitlink-cu12==12.8.93
+  - nvidia-nvshmem-cu12==3.4.5
+  - nvidia-nvtx-cu12==12.8.90
+  - sympy==1.14.0
+  - torch==2.10.0+cu128
+  - torchaudio==2.10.0
+  - torchvision==0.25.0
+  - triton==3.6.0

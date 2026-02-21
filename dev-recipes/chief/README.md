@@ -1,3 +1,20 @@
+# Chief coble
+```bash
+code/coble build \
+--recipe dev-recipes/chief/chief.cbl \
+--env chief \
+--validate dev-recipes/chief/validate/validate.sh \
+--val-folder dev-recipes/chief/validate \
+--containers conda \
+--rebuild
+
+code/coble export \
+--xrecipe dev-recipes/chief/chief_export.cbl \
+--env chief \
+--debug
+```
+
+
 
 # Chief
 https://github.com/hms-dbmi/CHIEF?tab=readme-ov-file

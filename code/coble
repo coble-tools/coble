@@ -19,6 +19,7 @@ show_help() {
 	echo "  template   get a starter recipe of 5 given options"
 	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"		
 	echo "  freeze  capture the packages from an existing environment"
+	echo "  export  export the packages from an existing environment to a recipe file"
 	echo "  network  generate a network graph from a frozen environment file"
 	echo "  linux-deps  install system dependencies for building R from source on Debian/Ubuntu"
 	echo "Example:"
@@ -77,7 +78,7 @@ if [[ "$1" == "linux-deps" ]]; then
 fi
 
 # if the first command is not valid show help and exit
-valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network")
+valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export")
 if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
     echo "[coble] Not a valid command provided: $1." >&2
     show_help
@@ -204,6 +205,11 @@ fi
 if [[ "$1" == "capture" || "$1" == "freeze" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-capture.sh" "${@:2}"
+	exit $?
+fi
+if [[ "$1" == "export" ]]; then
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/coble-export.sh" "${@:2}"
 	exit $?
 fi
 
