@@ -1,4 +1,4 @@
-name: Choose Arch Github/Docker Image (Manual)
+name: Choose Arch GitHub/Docker Image (Manual)
 
 on:
   workflow_dispatch:
@@ -31,6 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -74,11 +78,11 @@ jobs:
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
             --code-source local \
-            --image ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
+            --image ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
 
       - name: Ensure image is pushed
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
+          docker push ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
 
       # Monitor disk space
       - name: Check disk space after build
@@ -103,6 +107,10 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -146,11 +154,11 @@ jobs:
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
             --code-source local \
-            --image ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
+            --image ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
 
       - name: Ensure image is pushed
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
+          docker push ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
 
       # Monitor disk space
       - name: Check disk space after build
@@ -178,20 +186,24 @@ jobs:
       (needs.build_amd64.result == 'success' || needs.build_arm64.result == 'success')
     runs-on: ubuntu-latest
     steps:
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create multi-arch manifest
         run: |
-          TAG=ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
+          TAG=ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
           IMAGES=""
           if [ "${{ needs.build_amd64.result }}" == "success" ]; then
-            IMAGES="$IMAGES ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64"
+            IMAGES="$IMAGES ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64"
           fi
           if [ "${{ needs.build_arm64.result }}" == "success" ]; then
-            IMAGES="$IMAGES ghcr.io/${{ github.repository_owner }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64"
+            IMAGES="$IMAGES ghcr.io/${{ env.OWNER }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64"
           fi
           echo "Creating manifest from:$IMAGES"
           docker buildx imagetools create -t $TAG $IMAGES
