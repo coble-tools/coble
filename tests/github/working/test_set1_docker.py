@@ -7,10 +7,11 @@ cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))
 def test_coble_small_docker():
     """Test that the small env runs."""
     result = subprocess.run([
-        'bash', 'code/coble', 'build', 
-        '--recipe', 'tests/fixtures/small.cbl', 
+        'bash', 'code/coble', 'build',
+        '--recipe', 'tests/fixtures/small.cbl',
         '--validate', 'tests/fixtures/validate.sh',
-        '--env', 'xsmall', 
+        '--env', 'xsmall',
+        '--code-source', 'local',
         '--containers', 'docker'
     ], cwd=cwd, capture_output=True, text=True)
     assert result.returncode == 0
