@@ -14,6 +14,7 @@ on:
       arch:
         description: 'Architecture to build (amd64, arm64 or both)'
         required: true
+        type: choice
         default: 'both'
         options:
           - amd64
@@ -165,7 +166,10 @@ jobs:
 
   manifest:
     needs: [build_amd64, build_arm64]
-    if: ${{ github.event.inputs.arch == 'both' }}
+    if: |
+      always() &&
+      github.event.inputs.arch == 'both' &&
+      (needs.build_amd64.result == 'success' || needs.build_arm64.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: docker/login-action@v3
@@ -175,6 +179,12 @@ jobs:
       - name: Create multi-arch manifest
         run: |
           TAG=${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}
-          docker buildx imagetools create -t $TAG \
-            ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64 \
-            ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
+          IMAGES=""
+          if [ "${{ needs.build_amd64.result }}" == "success" ]; then
+            IMAGES="$IMAGES ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64"
+          fi
+          if [ "${{ needs.build_arm64.result }}" == "success" ]; then
+            IMAGES="$IMAGES ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64"
+          fi
+          echo "Creating manifest from:$IMAGES"
+          docker buildx imagetools create -t $TAG $IMAGES
