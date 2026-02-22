@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-22
-# Capture time: 16:55:23 GMT
+# Capture time: 19:58:39 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda

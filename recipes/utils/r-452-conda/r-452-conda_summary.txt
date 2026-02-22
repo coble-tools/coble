@@ -138,3 +138,19 @@ install: conda config --env --add channels conda-forge
 install: conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 [coble-create] End time: 2026-02-22 16:55:28
 [coble-create] Duration: 1s
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-22 at 19:58:40 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-22 19:58:40 1/67
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-22 19:58:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-22 19:58:40 2/67
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-22 19:58:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-22 19:58:40 3/67
+install: conda deactivate | true

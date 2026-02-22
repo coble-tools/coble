@@ -5,7 +5,7 @@
 ##############
 #mapfile -t result < <("$script_dir/coble-recipise.sh --recipe YAML_FILE --output RECIPE --env ENV")
 #success="${result[0]}"
-#recipe_file="${result[1]}"            
+#recipe_file="${result[1]}"
 ##############
 # Inputs ----
 # 1. --recipe yamlfile
@@ -131,13 +131,13 @@ if [[ -z "$RECIPE_FILE" ]]; then
     # replace dots with _
     base_name="${YAML_FILE##*/}"
     base_name_noext="${base_name%.*}"
-    RESULTS_DIR="$(dirname "$YAML_FILE")"	
-    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.sh"    
+    RESULTS_DIR="$(dirname "$YAML_FILE")"
+    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.sh"
 fi
 # if recipe file already exists copy it
 if [[ -f "$RECIPE_FILE" ]]; then
     cp "$RECIPE_FILE" "$RECIPE_FILE".bak
-    echo "[coble-recipise] Existing recipe file backed up to: $RECIPE_FILE.bak" >&2    
+    echo "[coble-recipise] Existing recipe file backed up to: $RECIPE_FILE.bak" >&2
 fi
 : > "$RECIPE_FILE"
 
@@ -168,10 +168,10 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
 	echo "#!/usr/bin/env bash"
     echo ""
     echo "#####################################################"
-    echo -e "# COBLE:recipe, (c) ICR 2026"    
+    echo -e "# COBLE:recipe, (c) ICR 2026"
     CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
-	CAPTURE_USER=$(whoami)	
+	CAPTURE_USER=$(whoami)
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"
@@ -183,11 +183,11 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
 
     # Initialize conda - try .bashrc first, fall back to conda init
     echo -e "if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval \"\$(conda shell.bash hook)\"; fi; fi"
-    
+
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
-    echo "#####################################################"    
-    echo ""    
+    echo "#####################################################"
+    echo ""
 } > "$RECIPE_FILE"
 
 ### 01 Language checking checking ########################################
@@ -198,22 +198,22 @@ CURRENT_SECTION="bash"
 r_count=0
 python_count=0
 while IFS= read -r line; do
-    # Trim leading/trailing whitespace    
+    # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
     if [[ "$line" == "languages:"* ]]; then
         CURRENT_SECTION="languages"
     elif [[ "$line" == "channels:"* ]]; then
-        CURRENT_SECTION="channels"          
+        CURRENT_SECTION="channels"
     elif [[ -z "$line" ]]; then
         CURRENT_SECTION=""
     elif [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
         CURRENT_SECTION=""
-    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then    
+    elif [[ "$CURRENT_SECTION" == "languages" && "$line" == "-"* ]]; then
         if [[ "$line" == *"r-"* ]]; then
-            r_count=$((r_count + 1))            
-        elif [[ "$line" == *"python"* ]]; then            
+            r_count=$((r_count + 1))
+        elif [[ "$line" == *"python"* ]]; then
             python_count=$((python_count + 1))
-        fi        
+        fi
     fi
 done < "$YAML_FILE"
 echo -e "$languages_line" >> "$RECIPE_FILE"
@@ -231,7 +231,7 @@ echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 
-echo "[coble-recipise] Clearing default channels." >&2      
+echo "[coble-recipise] Clearing default channels." >&2
 echo "# Channels section" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --remove-key channels" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
@@ -261,7 +261,7 @@ while IFS= read -r line; do
         CURRENT_SECTION=""
     # any line with a : at start is a new section
     elif [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
-        CURRENT_SECTION=""    
+        CURRENT_SECTION=""
     elif [[ "$CURRENT_SECTION" == "channels" && "$line" == "-"* ]]; then
         # remove trailing and leading white space
         channel_name="$(echo -e "${line#- }" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
@@ -276,7 +276,7 @@ echo "# INSTALL SECTION FOR CONDA" >> "$RECIPE_FILE"
 CURRENT_SECTION=""
 while IFS= read -r line || [[ -n "$line" ]]; do
     # Trim leading/trailing whitespace
-    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"    
+    line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
     if [[ "$line" == "flags:"* \
         || "$line" == "variables:"* \
         || "$line" == "channels:"* \
@@ -296,7 +296,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "find:"* \
         || "$line" == "bioc-package:"* \
         || "$line" == "package-bioc:"* ]]; then
-        CURRENT_SECTION="$line"        
+        CURRENT_SECTION="$line"
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
 
@@ -305,11 +305,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
           echo "# $line" >> "$RECIPE_FILE"
         fi
         if [[ "$line" == *conda* ]]; then
-          echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"          
-        fi      
+          echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"
+        fi
         #if [[ "$line" == *languages* ]]; then
         #  echo "> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
-        #fi      
+        #fi
     elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:"* ]]; then
         line="${line#- }"
         pkg_entry="${line%%#*}"  # remove comments
@@ -319,9 +319,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
         IFS='@' read -r pkg src path <<< "$pkg_entry"
         IFS='=' read -r pkg_only ver <<< "$pkg"
-        
-        # For flags, parse directive and value from 'directive = value' format        
-        if [[ "$CURRENT_SECTION" == "channels:"* ]]; then            
+
+        # For flags, parse directive and value from 'directive = value' format
+        if [[ "$CURRENT_SECTION" == "channels:"* ]]; then
             continue
         elif [[ "$CURRENT_SECTION" == "flags:"* ]]; then
             #echo "[coble-recipise] Processing flag: $pkg_entry" >&2
@@ -332,95 +332,95 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             directive="${directive## }"
             directive="${directive%% }"
             directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
-            value="${value## }" 
-            value="${value%% }"                                        
-            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')                                                
-            if [[ "${directive_lower}" == "dependencies" && "$value_lower" == "true" ]]; then                                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+            value="${value## }"
+            value="${value%% }"
+            value_lower=$(echo "$value" | tr '[:upper:]' '[:lower:]')
+            if [[ "${directive_lower}" == "dependencies" && "$value_lower" == "true" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="TRUE"
-            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "false" ]]; then                                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "false" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 DEPS_CONDA="--no-deps"
                 DEPS_PYTHON="--no-deps"
-                DEPS_R="FALSE"            
-            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "na" ]]; then                                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                DEPS_R="FALSE"
+            elif [[ "${directive_lower}" == "dependencies" && "$value_lower" == "na" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 DEPS_CONDA=""
                 DEPS_PYTHON=""
                 DEPS_R="NA"
-            elif [[ "${directive_lower}" == "export" ]]; then                
+            elif [[ "${directive_lower}" == "export" ]]; then
                 #echo "export ${value}" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
                 echo "export ${value}" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
-            elif [[ "${directive_lower}" == "alias" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                CONDA_ALIAS="$value"            
-            elif [[ "${directive_lower}" == "cran-repo" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                CRAN_REPO="$value"            
-            elif [[ "${directive_lower}" == "ncpus" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                NCPUS="$value"                
-            elif [[ "${directive_lower}" == "solver" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                SOLVER="$value"                
-            elif [[ "${directive_lower}" == "priority" ]]; then                
-                PRIORITY="$value"                
+            elif [[ "${directive_lower}" == "alias" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                CONDA_ALIAS="$value"
+            elif [[ "${directive_lower}" == "cran-repo" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                CRAN_REPO="$value"
+            elif [[ "${directive_lower}" == "ncpus" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                NCPUS="$value"
+            elif [[ "${directive_lower}" == "solver" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                SOLVER="$value"
+            elif [[ "${directive_lower}" == "priority" ]]; then
+                PRIORITY="$value"
                 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
-            elif [[ "${directive_lower}" == "channel" ]]; then                                          
+            elif [[ "${directive_lower}" == "channel" ]]; then
                 echo "${CONDA_EXE} config --env --add channels $value" >> "$RECIPE_FILE"
-            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then                                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                UPDATE_CONDA="--no-update-deps"    
+            elif [[ "${directive_lower}" == "updates" && "$value_lower" == "false" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                UPDATE_CONDA="--no-update-deps"
                 UPDATE_R="never"
                 #="FALSE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "true" ]]; then
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 UPDATE_CONDA="--update-deps"
                 UPDATE_R="always"
                 #UPDATE_BIOC="TRUE"
             elif [[ "${directive_lower}" == "updates" && "$value_lower" == "default" ]]; then
-                echo "# R Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                echo "# R Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 # don't do anything to conda
                 UPDATE_R="default"
             elif [[ "${directive_lower}" == "updates" ]]; then
-                echo "# Conda Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
+                echo "# Conda Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 UPDATE_CONDA="$value_lower"
-                # don't do anything to R                
-            
-            elif [[ "${directive_lower}" == "network-viz" && "${value_lower}" == "true" ]]; then                
+                # don't do anything to R
+
+            elif [[ "${directive_lower}" == "network-viz" && "${value_lower}" == "true" ]]; then
                 echo "# Tools for network graph of r-packages" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge r-tidyverse r-visnetwork r-igraph r-ggraph" >>  "$RECIPE_FILE"
-                echo "" >> "$RECIPE_FILE"            
-                                                
-            elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then                
+                echo "" >> "$RECIPE_FILE"
+
+            elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then
                 echo "" >> "$RECIPE_FILE"
                 echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
                 echo "# Essential shared packages" >> "$RECIPE_FILE"
                 echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
-                if [[ $r_count -gt 0 ]]; then                
+                if [[ $r_count -gt 0 ]]; then
                     echo "# System r packages" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
                     echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"                    
-                    echo "" >> "$RECIPE_FILE"            
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"
+                    echo "" >> "$RECIPE_FILE"
                 fi
                 if [[ $python_count -gt 0 ]]; then
-                    echo "# Essential python packages" >> "$RECIPE_FILE"                
+                    echo "# Essential python packages" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge cython protobuf" >> "$RECIPE_FILE"
-                    echo "" >> "$RECIPE_FILE"            
-                fi  
+                    echo "" >> "$RECIPE_FILE"
+                fi
                 # language build tools
                 echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"                    
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"
                 echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"                                              
-                                                        
-            
+                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
+
+
             elif [[ "${directive_lower}" == "compile-version" ]]; then
                 version="${value_lower}"
                 ARCH=$(uname -m)
@@ -429,7 +429,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 add_ver=""
                 if [[ $version != "true" ]]; then
                     add_ver="=$version"
-                fi                                                
+                fi
                 echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
                 # Installing for architecture
                 if [[ $OS == "linux" && $ARCH == "x86_64" ]]; then
@@ -437,8 +437,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge 'gcc_linux-64$add_ver' 'gxx_linux-64$add_ver' 'gfortran_linux-64$add_ver'" >>  "$RECIPE_FILE"
                     echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                     echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"                
-                    echo "ln -sf /usr/bin/ld \${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld" >> "$RECIPE_FILE"                
+                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
+                    echo "ln -sf /usr/bin/ld \${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld" >> "$RECIPE_FILE"
                 elif [[ $OS == "linux" ]]; then
                     echo "# Detected Linux $ARCH - using generic linux compilers" >> "$RECIPE_FILE"
                 elif [[ $OS == "darwin" && $ARCH == "x86_64" ]]; then
@@ -448,14 +448,14 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 else
                     echo "# Unrecognized OS/architecture ($OS/$ARCH) - using generic linux compilers" >> "$RECIPE_FILE"
                 fi
-                
-                
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then                                
+
+
+            elif [[ "${directive_lower}" == "compile-tools" ]]; then
                 if [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"                    
+                    echo "# Language compile tools" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
-                fi                                                                                                
+                fi
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 #echo "umask 0022" >> "$RECIPE_FILE"
@@ -466,31 +466,31 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "# Set up compiler symlinks for R package compilation - standard aliases" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
-                
-                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
-                
+
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
+
                 # Add to your recipe file BEFORE running R installs
-                #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
+                #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                #echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"                
+                #echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
-                #echo "# Also as export to avoid de/activation" >> "$RECIPE_FILE"                
+                #echo "# Also as export to avoid de/activation" >> "$RECIPE_FILE"
                 #echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 #echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                 #echo "export FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 #echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                 #echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"                
+                #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
-                #echo "" >> "$RECIPE_FILE"              
-            elif [[ "${directive_lower}" == "compile-paths" ]]; then                
-                # only compile-paths no installs                
+                #echo "" >> "$RECIPE_FILE"
+            elif [[ "${directive_lower}" == "compile-paths" ]]; then
+                # only compile-paths no installs
                 echo "" >> "$RECIPE_FILE"
                 version="${value_lower}"
                 if [[ "$version" == "false" ]]; then
@@ -498,7 +498,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     continue
                 fi
                 if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile paths to recipe." >&2                  
+                    echo "[coble-recipise] Adding default compile paths to recipe." >&2
                     # symlinks
                     #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                     echo "umask 0022" >> "$RECIPE_FILE"
@@ -509,41 +509,41 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                     #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                     #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                    #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                    #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
                     # Add to your recipe file BEFORE running R installs
-                    #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
+                    #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
-                    #echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"                    
+                    #echo "${CONDA_EXE} env config vars set F77=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
-                    #echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"                           
-                    #echo "# Also as export to avoid de/activatin" >> "$RECIPE_FILE"                
+                    #echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
+                    #echo "# Also as export to avoid de/activatin" >> "$RECIPE_FILE"
                     #echo "export CC=\"$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                     #echo "export CXX=\"$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                     #echo "export FC=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
-                    #echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"                    
+                    #echo "export F77=\"$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
                     #echo "export CFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                     #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
                     echo "" >> "$RECIPE_FILE"
                 fi
-            fi    
+            fi
         elif [[ "$CURRENT_SECTION" == "compilers:"* ]]; then
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             pkg_entry="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
             directive="${directive%% }"
-            directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')            
+            directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
             pkg_entry="${pkg_entry## }"
-            pkg_entry="${pkg_entry%% }"            
+            pkg_entry="${pkg_entry%% }"
             echo "[coble-recipise] Processing compiler directive: $directive $pkg_entry" >&2
-            if [[ "${directive_lower}" == "cran-repo" ]]; then                
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"             
-                CRAN_REPO="$pkg_entry"            
+            if [[ "${directive_lower}" == "cran-repo" ]]; then
+                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
+                CRAN_REPO="$pkg_entry"
             elif [[ "${directive_lower}" == "compile-tools" ]]; then
                 echo "[coble-recipise] Compile tools" >&2
                 # if compile-tools = true then add compiler installs
@@ -552,21 +552,21 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 version="${pkg_entry}"
                 if [[ "$version" == "false" ]]; then
                     echo "[coble-recipise] Not adding compile tools to recipe." >&2
-                    continue                
+                    continue
                 elif [[ "$version" == "true" ]]; then
                     echo "[coble-recipise] Adding default compile tools to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64" >>  "$RECIPE_FILE"
                     #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"                                        
-                    
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
+
                 elif [[ "$version" != "false" ]]; then
                     echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
                     echo "# Language compile tools" >> "$RECIPE_FILE"
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"                    
-                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"  
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"                                      
-                fi                                                
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge 'gcc_linux-64=$version' 'gxx_linux-64=$version' 'gfortran_linux-64=$version'" >>  "$RECIPE_FILE"
+                    #echo "${CONDA_ALIAS} install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
+                fi
                 # symlinks
                 #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
                 #echo "umask 0022" >> "$RECIPE_FILE"
@@ -578,9 +578,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/cc" >> "$RECIPE_FILE"
                 #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"                                                
+                #echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/c++" >> "$RECIPE_FILE"
                 # Add to your recipe file BEFORE running R installs
-                #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"                
+                #echo "# Set compiler flags for R package compilation" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set FC=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
@@ -589,7 +589,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "${CONDA_EXE} env config vars set CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} env config vars set LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
-                #echo "# Also as export to avoid de/activations" >> "$RECIPE_FILE"                
+                #echo "# Also as export to avoid de/activations" >> "$RECIPE_FILE"
                 #echo "export CC=\"\$CONDA_PREFIX/bin/gcc\"" >> "$RECIPE_FILE"
                 #echo "export CXX=\"\$CONDA_PREFIX/bin/g++\"" >> "$RECIPE_FILE"
                 #echo "export FC=\"\$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran\"" >> "$RECIPE_FILE"
@@ -598,18 +598,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "export CXXFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export CPPFLAGS=\"-I\$CONDA_PREFIX/include\"" >> "$RECIPE_FILE"
                 #echo "export LDFLAGS=\"-L\$CONDA_PREFIX/lib -Wl,-rpath,\$CONDA_PREFIX/lib --sysroot=\$CONDA_PREFIX/x86_64-conda-linux-gnu/sysroot\"" >> "$RECIPE_FILE"
-                #echo "" >> "$RECIPE_FILE"              
-            fi 
-        
-        elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then    
+                #echo "" >> "$RECIPE_FILE"
+            fi
+
+        elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then
             # trim whitespace from src
             src="${src## }"    # remove leading spaces
             src="${src%% }"    # remove trailing spaces
             pkg_only="${pkg_only## }"
-            pkg_only="${pkg_only%% }"            
+            pkg_only="${pkg_only%% }"
             if [[ "$pkg_only" == *"no-deps"* ]]; then
                 DEPS_CONDA="--no-deps"
-            elif [[ "$pkg_only" == "r-base" ]]; then                    
+            elif [[ "$pkg_only" == "r-base" ]]; then
                 # R may need compilers for itself so simlink the system tools into the env first
                 echo "CONDA_BASE=\$(conda info --base)" >> "$RECIPE_FILE"
                 echo "ARCH=\$(uname -m)" >> "$RECIPE_FILE"
@@ -620,9 +620,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "    PREFIX=\"aarch64-conda-linux-gnu\"; \\" >> "$RECIPE_FILE"
                 #echo "fi" >> "$RECIPE_FILE"
                 #echo "" >> "$RECIPE_FILE"
-                
+
                 #echo "# Symlink all compiler/binutils tools" >> "$RECIPE_FILE"
-                
+
                 #echo "for tool in \\" >> "$RECIPE_FILE"
                 #echo "    gcc g++ gfortran cpp cc c++ f77 f95 \\" >> "$RECIPE_FILE"
                 #echo "    ar nm ranlib ld ld.gold as \\" >> "$RECIPE_FILE"
@@ -633,31 +633,31 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "        ln -sf \$(which \$tool) \$CONDA_BASE/bin/\${PREFIX}-\$tool; \\" >> "$RECIPE_FILE"
                 #echo "    fi; \\" >> "$RECIPE_FILE"
                 #echo "done" >> "$RECIPE_FILE"
-                    
-                if [[ "$src" == "" ]]; then   
-                    echo "# deps: $DEPS_CONDA" >> "$RECIPE_FILE"                 
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                    
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"                                        
+
+                if [[ "$src" == "" ]]; then
+                    echo "# deps: $DEPS_CONDA" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"
                 elif [[ "$src" == "source" ]]; then
                     echo "[coble-recipise] R source installation requested" >&2
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	                echo "# R source installation requested" >> "$RECIPE_FILE"
-                    echo "bash \"$script_dir/coble-r-source.sh\" \"$ver\"" >> "$RECIPE_FILE"                    
+                    echo "bash \"$script_dir/coble-r-source.sh\" \"$ver\"" >> "$RECIPE_FILE"
                 elif [[ "$src" == override* ]]; then
                     channels=$(echo "$src" | cut -d':' -f2-)
                     channels="-c $(echo "$channels" | sed 's/,/ -c /g')"
                     channels="--override-channels $channels"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} $channels '$pkg'" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"
-                else                    
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                                        
+                else
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
-            elif [[ "$pkg_only" == "python" ]]; then                                    
+            elif [[ "$pkg_only" == "python" ]]; then
                 if [[ "$src" == "" ]]; then
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"
-                else                    
+                else
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
@@ -666,39 +666,39 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 #echo "${CONDA_EXE} deactivate" >> "$RECIPE_FILE"
                 #echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
                 #echo "echo 'python ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
-            fi            
-        elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then            
+            fi
+        elif [[ "$CURRENT_SECTION" == "conda-r:"* || "$CURRENT_SECTION" == "r-conda:"*  ]]; then
             if [[ "$src" != "" ]]; then
                 echo "'$src::r-$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'r-$pkg' \\" >> "$RECIPE_FILE"
-            fi                        
-        elif [[ "$CURRENT_SECTION" == "conda-bioc:"* || "$CURRENT_SECTION" == "bioc-conda:"*  ]]; then                                    
+            fi
+        elif [[ "$CURRENT_SECTION" == "conda-bioc:"* || "$CURRENT_SECTION" == "bioc-conda:"*  ]]; then
             if [[ "$src" != "" ]]; then
                 echo "'$src::bioconductor-$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'bioconductor-$pkg' \\" >> "$RECIPE_FILE"
-            fi                                    
-        elif [[  "$CURRENT_SECTION" == "conda:"* ]]; then            
+            fi
+        elif [[  "$CURRENT_SECTION" == "conda:"* ]]; then
             if [[ "$src" != "" ]]; then
                 echo "'$src::$pkg' \\" >> "$RECIPE_FILE"
             else
                 echo "'$pkg' \\" >> "$RECIPE_FILE"
-            fi                                                            
-        elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then                        
+            fi
+        elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
-                #echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"                
-                url=https://cran.r-project.org/src/contrib/Archive/${pkg_only}/${pkg_only}_${ver}.tar.gz                
+                #echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+                url=https://cran.r-project.org/src/contrib/Archive/${pkg_only}/${pkg_only}_${ver}.tar.gz
                 echo "Rscript -e 'install.packages(\"$url\", repos=\"${CRAN_REPO}\", type=\"source\", method=\"wget\" )'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
             else
                 echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
             fi
-        elif [[ "$CURRENT_SECTION" == "r-version:"* ]]; then          
+        elif [[ "$CURRENT_SECTION" == "r-version:"* ]]; then
 
-            echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"            
-        
+            echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
+
         elif [[ "$CURRENT_SECTION" == "r-github:"* || "$CURRENT_SECTION" == "github-r:"* ]]; then
             if [[ -n "$src" ]]; then
                 echo "Rscript -e 'remotes::install_github(\"$pkg_only\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", subdir=\"$src\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
@@ -717,7 +717,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
 
         elif [[ "$CURRENT_SECTION" == "package-bioc:"* || "$CURRENT_SECTION" == "bioc-package:"* ]]; then
-            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"        
+            echo "Rscript -e 'BiocManager::install(\"${pkg_only}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "pip:"* ]]; then
             pip_pkg="$pkg"
             # If the package name contains 'https' and does not start with 'git', prepend 'git+'
@@ -748,23 +748,23 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ $pkg_manager == "unknown" ]]; then
                 echo "[coble-resolve] Unknown: $line" >&2
                 echo "# Unknown package: $line" >> "$RECIPE_FILE"
-            else            
+            else
                 # Use the return value
                 #echo "[coble-resolve] Manager: $pkg_manager" >&2
                 #echo "[coble-resolve] Recipe: $recipe_line" >&2
-                #echo "[coble-resolve] Yaml: $yaml_line" >&2                                
-                echo "${recipe_line}" >> "$RECIPE_FILE"                              
+                #echo "[coble-resolve] Yaml: $yaml_line" >&2
+                echo "${recipe_line}" >> "$RECIPE_FILE"
             fi
         fi
-    else                                
+    else
         # remove a trailing \ if needed
         sed -i '${s/\\$//}' "$RECIPE_FILE"
         # if it is a comment
-        if [[ "$line" == \#* ]]; then            
+        if [[ "$line" == \#* ]]; then
             echo "$line" >> "$RECIPE_FILE"
         # if line is a space we preserve it
         elif [[ -z "$line" ]]; then
-            echo "" >> "$RECIPE_FILE"        
+            echo "" >> "$RECIPE_FILE"
         fi
     fi
 done < "$YAML_FILE"
@@ -772,6 +772,7 @@ done < "$YAML_FILE"
 sed -i '${s/\\$//}' "$RECIPE_FILE"
 
 # copy line for validation script if VAL__FILE is not ""
+echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
 if [[ -n "$VAL_FILE" ]]; then
     echo "" >> "$RECIPE_FILE"
     echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"
@@ -781,20 +782,20 @@ else
         echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
         echo '#!/usr/bin/env bash'
         echo "echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\""
-        echo 'VALIDATE_EOF'        
+        echo 'VALIDATE_EOF'
     } >> "$RECIPE_FILE"
 fi
 echo "chmod +x \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 
 # if VAL_FOLDER is present, copy all files to bin (except validate.sh)
-if [[ -n "$VAL_FOLDER" && -d "$VAL_FOLDER" ]]; then    
+if [[ -n "$VAL_FOLDER" && -d "$VAL_FOLDER" ]]; then
     for vf in "$VAL_FOLDER"/*; do
         [[ -f "$vf" ]] || continue  # Skip if not a file
         vf_base=$(basename "$vf")
-        
+
         # Skip validate.sh as it's copied separately
         [[ "$vf_base" == "validate.sh" ]] && continue
-        
+
         echo "# Extra validation file: $vf_base" >> "$RECIPE_FILE"
         echo "cp $vf \${CONDA_PREFIX}/bin/$vf_base" >> "$RECIPE_FILE"
         echo "chmod +x \${CONDA_PREFIX}/bin/$vf_base" >> "$RECIPE_FILE"
