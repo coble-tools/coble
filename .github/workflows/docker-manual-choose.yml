@@ -30,31 +30,31 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      
+
       # Free up disk space before building
       - name: Free up disk space
         run: |
           echo "Disk space before cleanup:"
           df -h /
-          
+
           # Remove unnecessary tools/packages
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache
           sudo rm -rf /usr/local/.cargo
-          
+
           # Clean apt cache
           sudo apt-get clean
           sudo apt-get autoclean
           sudo apt-get autoremove -y
-          
+
           # Clean docker system
           docker system prune -af --volumes || true
-          
+
           echo "Disk space after cleanup:"
           df -h /
-      
+
       - name: Build and push
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -68,11 +68,11 @@ jobs:
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
             --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
-      
+
       - name: Ensure image is pushed
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
-      
+
       # Monitor disk space
       - name: Check disk space after build
         if: always()
@@ -83,7 +83,7 @@ jobs:
           docker images | head -20
           echo "Docker system info:"
           docker system df
-      
+
       # Clean up Docker artifacts after build
       - name: Cleanup Docker artifacts
         if: always()
@@ -100,31 +100,31 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      
+
       # Free up disk space before building
       - name: Free up disk space
         run: |
           echo "Disk space before cleanup:"
           df -h /
-          
+
           # Remove unnecessary tools/packages
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
           sudo rm -rf /opt/hostedtoolcache
           sudo rm -rf /usr/local/.cargo
-          
+
           # Clean apt cache
           sudo apt-get clean
           sudo apt-get autoclean
           sudo apt-get autoremove -y
-          
+
           # Clean docker system
           docker system prune -af --volumes || true
-          
+
           echo "Disk space after cleanup:"
           df -h /
-      
+
       - name: Build and push
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -137,12 +137,13 @@ jobs:
             --val-folder recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate \
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
+            --code-source local \
             --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
-      
+
       - name: Ensure image is pushed
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64
-      
+
       # Monitor disk space
       - name: Check disk space after build
         if: always()
@@ -153,7 +154,7 @@ jobs:
           docker images | head -20
           echo "Docker system info:"
           docker system df
-      
+
       # Clean up Docker artifacts after build
       - name: Cleanup Docker artifacts
         if: always()
