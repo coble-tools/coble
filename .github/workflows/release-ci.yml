@@ -1,0 +1,29 @@
+name: Update Version
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update version in meta.yaml
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          # Strip leading 'v' if present (e.g. v1.2.3 -> 1.2.3)
+          VERSION=${VERSION#v}
+          sed -i "s/{% set version = \".*\" %}/{% set version = \"${VERSION}\" %}/" conda-recipe/meta.yaml
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add conda-recipe/meta.yaml
+          git commit -m "chore: bump version to ${{ github.event.release.tag_name }}"
+          git push origin main

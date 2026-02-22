@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-16
-# Capture time: 23:30:07 GMT
+# Capture date: 2026-02-22
+# Capture time: 16:55:23 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name r-452-conda -y 2>/dev/null || true
@@ -50,7 +50,7 @@ CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
 
 conda install -y --solver=libmamba --no-update-deps -c conda-forge 'r-base=4.5.2'
-conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager r-renv
 conda install -y --solver=libmamba --no-update-deps 'conda-forge::python=3.14.0'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
@@ -99,9 +99,8 @@ Rscript -e 'install.packages("devtools", repos="https://packagemanager.posit.co/
 # bioc-package:
 Rscript -e 'BiocManager::install("DESEq2", dependencies=NA, Ncpus=8)'
 Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=8)'
-cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
-#!/usr/bin/env bash
-echo "COBLE validation: No script has been specified for r-452-conda environment."
-VALIDATE_EOF
+
+# Validate script available in environment at CONDA PREFIX: validate.sh
+cp recipes/utils/r-452-conda/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 

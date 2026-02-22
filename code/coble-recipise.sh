@@ -637,7 +637,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 if [[ "$src" == "" ]]; then   
                     echo "# deps: $DEPS_CONDA" >> "$RECIPE_FILE"                 
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'" >> "$RECIPE_FILE"                    
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"                                        
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"                                        
                 elif [[ "$src" == "source" ]]; then
                     echo "[coble-recipise] R source installation requested" >&2
                     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -648,10 +648,10 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                     channels="-c $(echo "$channels" | sed 's/,/ -c /g')"
                     channels="--override-channels $channels"
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} $channels '$pkg'" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"
                 else                    
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"                                        
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} r-remotes r-biocmanager r-renv" >> "$RECIPE_FILE"
                 fi
                 #echo "echo 'r-base ==$ver.*' >> \$CONDA_PREFIX/conda-meta/pinned" >> "$RECIPE_FILE"
             elif [[ "$pkg_only" == "python" ]]; then                                    

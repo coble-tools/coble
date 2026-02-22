@@ -60,6 +60,7 @@ recipes/**
 !recipes/**/validate/*
 !recipes/**/*_summary.txt
 !recipes/**/*.sh
+!recipes/**/*.Dockerfile
 
 cbl-icr-small.sif
 cbl-carbine.sif
