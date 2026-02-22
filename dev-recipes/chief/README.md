@@ -2,7 +2,7 @@
 ```bash
 code/coble build \
 --recipe dev-recipes/chief/chief.cbl \
---env chief \
+--env ./CHIEF \
 --validate dev-recipes/chief/validate/validate.sh \
 --val-folder dev-recipes/chief/validate \
 --containers conda \
