@@ -1,16 +1,15 @@
 ################### GENERIC COBLE DOCKERFILE ############################
 # Build with local recipe:
 #
-# docker build -f code/coble.Dockerfile \
-#   --build-arg RECIPE_CBL=my-recipe.cbl \
-#   --build-arg BUILD_TAG=my-env \
-#   --build-arg GITHUB_PAT=mytoken \
-#   --build-arg VAL_FILE=validate.sh \
-#   --build-arg VAL_FOLDER=folder to copy \
-#   -t cbl-my-env .
+#    docker build -f "$DOCKERFILE" \
+#    --build-arg RECIPE_CBL="$INPUT_RECIPE" \
+#    --build-arg BUILD_TAG="$ENV_NAME" \
+#    --build-arg GITHUB_PAT="$GITHUB_PAT" \
+#    --build-arg VAL_FILE="$VAL_FILE" \
+#    --build-arg VAL_FOLDER="$VAL_FOLDER" \
+#    --no-cache \
+#    -t "$IMAGE_NAME" .
 #########################################################################
-
-#FROM --platform=$TARGETPLATFORM continuumio/miniconda3:latest
 FROM continuumio/miniconda3:24.9.2-0
 #FROM condaforge/miniforge3:26.1.0-0
 
@@ -57,39 +56,6 @@ RUN conda update -n base -c defaults conda -y && \
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
-# Install system dependencies
-# RUN apt-get -o Acquire::Retries=3 -o Acquire::AllowReleaseInfoChange=true update && \
-#     apt-get install -y --no-install-recommends \
-#         build-essential \
-#         gfortran \
-#         libreadline-dev \
-#         binutils-gold \
-#         zlib1g-dev \
-#         libgomp1 \
-#         gettext \
-#         curl \
-#         git \
-#         wget \
-#         default-jdk-headless \
-#         libmagick++-dev \
-#         libx11-dev \
-#         libxt-dev \
-#         ca-certificates \
-#         libcurl4-openssl-dev \
-#         libssl-dev \
-#         libxml2-dev \
-#         libfontconfig1-dev \
-#         libharfbuzz-dev \
-#         libfribidi-dev \
-#         libfreetype6-dev \
-#         libpng-dev \
-#         libtiff5-dev \
-#         libjpeg-dev \
-#         libicu-dev \
-#         libbz2-dev \
-#         liblzma-dev \
-#         libpcre2-dev \
-#     && rm -rf /var/lib/apt/lists/*
 RUN apt-get -o Acquire::Retries=3 update && \
     apt-get install -y --no-install-recommends \
         curl \

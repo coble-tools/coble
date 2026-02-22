@@ -15,7 +15,8 @@ code/coble build --recipe recipes/utils/$recipe/$recipe.cbl \
 --env $recipe \
 --validate recipes/utils/$recipe/validate/validate.sh \
 --val-folder recipes/utils/$recipe/validate/ \
---containers docker,singularity
+--containers docker,singularity \
+--dry-run
 #--banner ICR
 #--target linux/amd64,linux/arm64 \
 ```
