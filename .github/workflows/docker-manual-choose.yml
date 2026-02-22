@@ -67,6 +67,7 @@ jobs:
             --val-folder recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate \
             --env ${{ github.event.inputs.cbl }} \
             --containers docker \
+            --code-source local \
             --image ${{ secrets.DOCKER_HUB_USERNAME }}/coble:${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64
 
       - name: Ensure image is pushed

@@ -29,12 +29,14 @@ RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
 HAS_R=0
+DRY_RUN=false
 
 show_help() {
 	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
 	echo "  --frozen  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
-	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"	
-    echo "  --debug   Keep interim logs for debugging (optional)"    
+	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
+    echo "  --debug   Keep interim logs for debugging (optional)"
+	echo "  --dry-run Show the commands that would be run without executing them"
     echo "  -h,--help Show this help message and exit"
 }
 
@@ -46,15 +48,19 @@ while [[ $# -gt 0 ]]; do
 		--env)
 			ENV_INPUT="$2"
 			shift; shift
-			;;		
+			;;
 		--frozen)
-			AGGREGATE_TXT="$2"			
+			AGGREGATE_TXT="$2"
 			shift; shift
 			;;
         --debug)
             KEEP_LOGS=1
-            shift; 
+            shift;
             ;;
+		--dry-run)
+			DRY_RUN=true
+			shift;
+			;;
 		-h|--help)
 			show_help
 			exit 0
@@ -64,6 +70,11 @@ while [[ $# -gt 0 ]]; do
 			;;
 	esac
 done
+# If dry run we simply exit
+if [[ "$DRY_RUN" == true ]]; then
+	echo "[coble-capture] DRY RUN: Not executing capture stage" >&2
+	exit 0
+fi
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
 	echo "[coble-freeze] Error: --frozen output file must be specified." >&2
@@ -71,8 +82,8 @@ if [[ -z "$AGGREGATE_TXT" ]]; then
 	exit 1
 fi
 # Default results dur is the directory of the output file
-if [[ $RESULTS_DIR == "" ]]; then		
-	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"	
+if [[ $RESULTS_DIR == "" ]]; then
+	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"
 fi
 echo "[coble-freeze] Capturing conda environment to $RESULTS_DIR" >&2
 
@@ -86,13 +97,13 @@ if [[ -z "$ENV_INPUT" ]]; then
 		echo "[coble-freeze] Please activate a conda environment or use --env to specify one." >&2
 		exit 2
 	fi
-	echo "[coble-freeze] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
+	echo "[coble-freeze] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"
 	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
 	ENV_NAME="$ACTIVE_ENV_NAME"
 elif [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
     # take of the last / for the name
-    ENV_NAME="${ENV_INPUT##*/}"    
+    ENV_NAME="${ENV_INPUT##*/}"
 	# Check if the prefix directory exists and contains conda-meta
 	if [[ ! -d "$ENV_INPUT" || ! -d "$ENV_INPUT/conda-meta" ]]; then
 		echo "[coble-freeze] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
@@ -102,7 +113,7 @@ elif [[ "$ENV_INPUT" == */* ]]; then
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
-    ENV_NAME="$ENV_INPUT"   
+    ENV_NAME="$ENV_INPUT"
 	# Check if the environment name exists in conda env list
 	if ! conda env list | awk '{print $1}' | grep -qx "$ENV_INPUT"; then
 		echo "[coble-freeze] Error: The specified environment name does not exist: $ENV_INPUT" >&2
@@ -145,7 +156,7 @@ echo "[coble-freeze] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACK
 # if Rscript is in the environment, run the Rscript to get package info
 if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
 	echo "    R is not available in conda environment" >&2
-else    	
+else
 	RSCRIPT="$script_dir/coble-capture-r.R"
 	if conda run $ENV_FORMATTED Rscript "$RSCRIPT" "$TMP_R_PACKAGES_TXT"; then
         echo "R script completed successfully"
@@ -168,7 +179,7 @@ while IFS= read -r line; do
 	[[ "$line" =~ ^#.*$ ]] && continue
 	[[ "$line" == "" ]] && continue
 	[[ "$line" == *pypi* ]] && continue
-	# Parse: Name Version Build Channel        
+	# Parse: Name Version Build Channel
 	pkg=$(echo "$line" | awk '{print $1}')
 	ver=$(echo "$line" | awk '{print $2}')
 	src=$(echo "$line" | awk '{print $4}')
@@ -200,7 +211,7 @@ if [ -f "$TMP_R_PACKAGES_TXT" ]; then # && [ $HAS_R -eq 1 ]; then
 		if ! $header_skipped; then
 			header_skipped=true
 			continue
-		fi		
+		fi
         if [[ "$line" == *github* ]]; then
 			# Extract fields for install_github reproducibility
 			pkg=$(echo -e "$line" | cut -f1)
@@ -301,7 +312,7 @@ awk 'BEGIN {OFS="\t"}
         if ($1 == "Manager") prefix = "1_";
         if ($1 == "conda") prefix = "2_";
         else if ($1 == "r-conda") prefix = "3_";
-        else if ($1 == "bioc-conda") prefix = "4_";        
+        else if ($1 == "bioc-conda") prefix = "4_";
         else if ($1 == "r-package") prefix = "5_";
         else if ($1 == "bioc-package") prefix = "6_";
         else if ($1 == "r-github") prefix = "7_";
@@ -319,7 +330,7 @@ awk 'BEGIN {OFS="\t"}
   # All other conda packages
   tail -n +2 "$TMP_SORTED1" | grep -E "^(conda|r-conda|bioc-conda)"
   # everything else
-  tail -n +2 "$TMP_SORTED1" | grep -v -E "^(conda|r-conda|bioc-conda)"    
+  tail -n +2 "$TMP_SORTED1" | grep -v -E "^(conda|r-conda|bioc-conda)"
 ) | awk -F'\t' 'NR==1 {print; next} {split($2, p, "="); pkg=tolower(p[1]); if (!seen[pkg]++) print}' > "$TMP_SORTED"
 
 # Loop through the TMP file and build a list variable with r-conda base and python and then echo the list out after
@@ -334,9 +345,9 @@ while IFS=$'\t' read -r manager pkg src path; do
         HAS_R=1
         echo "[coble-freeze] R detected in environment."
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
-        PYTHON_VERSION="python=${pkg#python=}@$src"    
+        PYTHON_VERSION="python=${pkg#python=}@$src"
         echo "[coble-freeze] Python detected in environment."
-	elif [[ "$manager" == "conda" && ( "$pkg" == "gcc="* || "$pkg" == "gxx="* ) ]]; then        
+	elif [[ "$manager" == "conda" && ( "$pkg" == "gcc="* || "$pkg" == "gxx="* ) ]]; then
         COMPILE_VERSION="${pkg#*=}"
         echo "[coble-freeze] Compile tools detected in environment."
     fi
@@ -357,19 +368,19 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e ""
 	echo -e "  - environment: $ENV_NAME"
 	echo -e ""
-	echo -e "channels:"    
+	echo -e "channels:"
     conda config --show channels $ENV_FORMATTED | grep -E '^\s*-\s' | sed 's/^\s*-\s*//' | tac | while read -r channel; do
         echo "  - $channel"
     done
 	#echo -e "  - defaults"
 	#echo -e "  - r"
 	#echo -e "  - bioconda"
-	#echo -e "  - conda-forge"	
+	#echo -e "  - conda-forge"
 	echo -e ""
 	#echo -e "flags:"
-	#echo -e "  - compile-tools: true"        
+	#echo -e "  - compile-tools: true"
 	#echo -e "  - dependencies: false"
-    #echo -e "  - priority: flexible"        	
+    #echo -e "  - priority: flexible"
     #echo -e ""
 	echo -e "languages:"
     #echo -e "  - no-deps"
@@ -381,17 +392,17 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	fi
     # Get env vars and format for YAML
 	echo -e "flags:"
-	echo -e "  - compile-tools: true"        
+	echo -e "  - compile-tools: true"
 	echo -e "  - dependencies: false"
-    echo -e "  - priority: flexible"        	
+    echo -e "  - priority: flexible"
 	conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | sort | while IFS='=' read -r key value; do
-    	# don't want to repat any of the settings that are the compiler tools we set elsewhere		
+    	# don't want to repat any of the settings that are the compiler tools we set elsewhere
 		not_key=("CC" "CXX" "LD" "FC" "F77" "CFLAGS" "CXXFLAGS" "CPPFLAGS" "LDFLAGS")
 		if [[ ! " ${not_key[@]} " =~ " ${key} " ]]; then
 			echo "  - export: $key=\"$value\""
-		fi		
+		fi
 	done
-    #if [[ -n "$COMPILE_VERSION" ]]; then        
+    #if [[ -n "$COMPILE_VERSION" ]]; then
     #    echo -e "  - compile-tools: $COMPILE_VERSION"
     #fi
 } > "$AGGREGATE_TXT"
@@ -406,51 +417,51 @@ while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
 		header_skipped=true
 		continue
-	fi	
+	fi
     # Deduplicate by pkgver (case-insensitive)
 	pkgver_key="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
 	if [[ -n "${seen_pkgver[$pkgver_key]}" ]]; then
 		continue
 	fi
 	seen_pkgver[$pkgver_key]=1
-	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=	
+	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
     if [[ "$pkg" == _* ]] || \
 	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
 	#[[ "$src" == *System/Manual* ]] || \
 	[[ "$pkg" == *base=* ]] || \
 	[[ "$pkg" == python=* ]]; then
 		continue
-	fi    
+	fi
     if [[  "$src" != "$current_channel"  && "$src" != *"unknown"*  ]]; then
         current_channel="$src"
-    #	# New manager/channel section    
+    #	# New manager/channel section
 		echo -e "" >> "$AGGREGATE_TXT"
 		#echo -e "flags:" >> "$AGGREGATE_TXT"
-        #echo -e "  - channel: $src" >> "$AGGREGATE_TXT"        		
+        #echo -e "  - channel: $src" >> "$AGGREGATE_TXT"
 		echo -e "$manager:" >> "$AGGREGATE_TXT"
-		current_manager="$manager"			
+		current_manager="$manager"
     elif [[ "$manager" != "$current_manager" ]]; then
 		# New manager section
         echo "new manager: $manager"
-		echo -e "" >> "$AGGREGATE_TXT"		
+		echo -e "" >> "$AGGREGATE_TXT"
         echo -e "$manager:" >> "$AGGREGATE_TXT"
-		current_manager="$manager"		
-	fi	
-	if [[ "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ]]; then        
-        if [[ HAS_R -eq 0 ]]; then        
-		    continue		
+		current_manager="$manager"
+	fi
+	if [[ "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ]]; then
+        if [[ HAS_R -eq 0 ]]; then
+		    continue
 		fi
-    fi    
-	outline=""	
+    fi
+	outline=""
     if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" || "$src" == "pip" ]]; then
-		echo -e "  - $pkg" >> "$AGGREGATE_TXT"        
+		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
 	elif [[ -n "$path" ]]; then
-		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"        
-	elif [[ "$src" == *"System/Manual"* ]]; then        
-        my_find_list+=("$pkg")				
+		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
+	elif [[ "$src" == *"System/Manual"* ]]; then
+        my_find_list+=("$pkg")
     else
-		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"        
-	fi	
+		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
+	fi
 done < "$TMP_SORTED"
 
 # Check if list has items and write out
@@ -458,7 +469,7 @@ if [[ ${#my_find_list[@]} -gt 0 ]]; then
     echo "" >> "$AGGREGATE_TXT"
     echo "# r-package(unknown source):" >> "$AGGREGATE_TXT"
     for pkg in "${my_find_list[@]}"; do
-        echo "#  - $pkg" >> "$AGGREGATE_TXT"		
+        echo "#  - $pkg" >> "$AGGREGATE_TXT"
     done
 fi
 
@@ -468,7 +479,7 @@ echo "[coble-freeze] Final aggregated package list at $AGGREGATE_TXT" >&2
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
     echo "[coble-freeze] Cleaning up temporary files..."
-    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED1" "$TMP_SORTED"    
+    rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED1" "$TMP_SORTED"
 elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "[coble-freeze] Temporary files retained for inspection:" >&2
     echo "  $TMP_CONDA_LIST_TXT" >&2
@@ -480,7 +491,7 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
 fi
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
-echo "[coble] To activate environment call:" >&2	
-echo "        conda activate $ENV_INPUT" >&2	
+echo "[coble] To activate environment call:" >&2
+echo "        conda activate $ENV_INPUT" >&2
 
 

@@ -29,12 +29,14 @@ RESULTS_DIR=""
 KEEP_LOGS=0
 AGGREGATE_TXT=""
 HAS_R=0
+DRY_RUN=false
 
 show_help() {
 	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
 	echo "  --xrecipe RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
-	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"	
-    echo "  --debug   Keep interim logs for debugging (optional)"    
+	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
+    echo "  --debug   Keep interim logs for debugging (optional)"
+	echo "  --dry-run Show the commands that would be run without executing them"
     echo "  -h,--help Show this help message and exit"
 }
 
@@ -46,15 +48,19 @@ while [[ $# -gt 0 ]]; do
 		--env)
 			ENV_INPUT="$2"
 			shift; shift
-			;;		
+			;;
 		--xrecipe)
-			AGGREGATE_TXT="$2"			
+			AGGREGATE_TXT="$2"
 			shift; shift
 			;;
         --debug)
             KEEP_LOGS=1
-            shift; 
+            shift;
             ;;
+		--dry-run)
+			DRY_RUN=true
+			shift;
+			;;
 		-h|--help)
 			show_help
 			exit 0
@@ -64,6 +70,11 @@ while [[ $# -gt 0 ]]; do
 			;;
 	esac
 done
+# If dry run we simply exit
+if [[ "$DRY_RUN" == true ]]; then
+	echo "[coble-capture] DRY RUN: Not executing capture stage" >&2
+	exit 0
+fi
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
 	echo "[coble-export] Error: --xrecipe output file must be specified." >&2
@@ -71,10 +82,10 @@ if [[ -z "$AGGREGATE_TXT" ]]; then
 	exit 1
 fi
 # Default results dur is the directory of the output file
-if [[ $RESULTS_DIR == "" ]]; then		
-	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"	
+if [[ $RESULTS_DIR == "" ]]; then
+	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"
 fi
-# 
+#
 echo "[coble-export] Capturing conda environment to $RESULTS_DIR" >&2
 
 # Parse named arguments
@@ -87,13 +98,13 @@ if [[ -z "$ENV_INPUT" ]]; then
 		echo "[coble-export] Please activate a conda environment or use --env to specify one." >&2
 		exit 2
 	fi
-	echo "[coble-export] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
+	echo "[coble-export] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"
 	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
 	ENV_NAME="$ACTIVE_ENV_NAME"
 elif [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
     # take of the last / for the name
-    ENV_NAME="${ENV_INPUT##*/}"    
+    ENV_NAME="${ENV_INPUT##*/}"
 	# Check if the prefix directory exists and contains conda-meta
 	if [[ ! -d "$ENV_INPUT" || ! -d "$ENV_INPUT/conda-meta" ]]; then
 		echo "[coble-export] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
@@ -103,7 +114,7 @@ elif [[ "$ENV_INPUT" == */* ]]; then
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
-    ENV_NAME="$ENV_INPUT"   
+    ENV_NAME="$ENV_INPUT"
 	# Check if the environment name exists in conda env list
 	if ! conda env list | awk '{print $1}' | grep -qx "$ENV_INPUT"; then
 		echo "[coble-export] Error: The specified environment name does not exist: $ENV_INPUT" >&2

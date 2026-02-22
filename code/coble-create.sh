@@ -36,35 +36,41 @@ TIME_FILE=""
 KEEP_LOGS=0
 OUTDIR="."
 EXIT_ON_ERROR=1
+DRY_RUN=false
 
 show_help() {
-    echo "Usage: $0  --env NEW_ENV --recipe-bash RECIPE_FILE"    
-    echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"    
-    echo "  --recipe-bash    RECIPE    Specify input recipe shell script (required)"        
+    echo "Usage: $0  --env NEW_ENV --recipe-bash RECIPE_FILE"
+    echo "  --env      NEW_ENV Overwrite to a new environment from the generated recipe script"
+    echo "  --recipe-bash    RECIPE    Specify input recipe shell script (required)"
     echo "  --debug    Keep interim logs for debugging (optional)"
     echo "  --skip-errors  Exit on first error (not default behavior)"
+    echo "  --dry-run  Show the commands that would be run without executing them"
     echo "  -h,--help  Show this help message and exit"
 }
 
 while [[ $# -gt 0 ]]; do
     key="$1"
-    case $key in        
+    case $key in
         --recipe-bash)
             RECIPE_FILE="$2"
             shift; shift
-            ;;        
+            ;;
         --env)
             NEW_ENV="$2"
             shift; shift
-            ;;        
+            ;;
         --debug)
             KEEP_LOGS=1
-            shift; 
+            shift;
             ;;
         --skip-errors)
             EXIT_ON_ERROR=0
-            shift; 
-            ;;        
+            shift;
+            ;;
+        --dry-run)
+            DRY_RUN=true
+            shift;
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -80,6 +86,11 @@ if [[ -z "$NEW_ENV" ]]; then
     echo "[coble-create] Error: --env NEW_ENV is required." >&2
     show_help
     exit 1
+fi
+
+if [[ "$DRY_RUN" == true ]]; then
+    echo "[coble-create] DRY RUN: Not executing create stage" >&2
+    exit 0
 fi
 
 NEW_ENV_NAME=""
@@ -108,8 +119,8 @@ echo "[coble-create] Updating environment '$NEW_ENV_NAME' from recipe file: $REC
 mkdir -p "$OUTDIR"
 base_name="${RECIPE_FILE##*/}"
 base_name_noext="${base_name%.*}"
-RESULTS_DIR="$(dirname "$RECIPE_FILE")"	
-root_file="$RESULTS_DIR/${base_name_noext}"    
+RESULTS_DIR="$(dirname "$RECIPE_FILE")"
+root_file="$RESULTS_DIR/${base_name_noext}"
 
 LOG_FILE="${root_file}.log"
 ERROR_FILE="${root_file}.err"
@@ -121,7 +132,7 @@ RECIPE_DEP_FILE="${root_file}_dep.txt"
 : > "$ERROR_FILE"
 CAPTURE_DATE=$(date '+%Y-%m-%d')
 CAPTURE_TIME=$(date '+%H:%M:%S %Z')
-CAPTURE_USER=$(whoami)	
+CAPTURE_USER=$(whoami)
 echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$RECIPE_DONE_FILE"
 #echo "# Adding to env captured by $CAPTURE_USER on $CAPTURE_DATE at $CAPTURE_TIME" >> "$TIME_FILE"
 # Redirect stdout and stderr to log file
@@ -149,9 +160,9 @@ echo "[coble-create] Summary log started by $CAPTURE_USER on $CAPTURE_DATE at $C
 echo "------------------------------------------------" >> "$TIME_FILE"
 
 # Detect file type
-case "$RECIPE_FILE" in    
+case "$RECIPE_FILE" in
     *.delta|*.sh)
-        # Shell script input: would run directly (not yet implemented)        
+        # Shell script input: would run directly (not yet implemented)
         RECIPE_FILE="$RECIPE_FILE"
         ;;
     *)
@@ -175,7 +186,7 @@ BEGIN_TIME=$(date +%s)
 run_line() {
     local line="$1"
     # TODO: implement logic to process $line
-    echo "[coble-create] Running $current_line/$total_lines:"    
+    echo "[coble-create] Running $current_line/$total_lines:"
     echo "[coble-create] System info"
     echo "[coble-create] CPU cores: $(command -v nproc >/dev/null && nproc || sysctl -n hw.ncpu)"
     echo "[coble-create] Disk usage:"
@@ -189,36 +200,36 @@ run_line() {
         echo "No memory info command found"
     fi
     echo "#####################################################"
-    echo "$buffer"    
+    echo "$buffer"
     # export to the TIME_FILE the start time
     START_TIME=$(date +%s)
     echo "" >> "$TIME_FILE"
     echo "[coble-create] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
-    echo "install: $buffer" >> "$TIME_FILE"    
+    echo "install: $buffer" >> "$TIME_FILE"
     eval "$buffer"
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
     # Now run the error checking on the log and err files
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE"
-    err_code=$?    
+    err_code=$?
     if [[ $err_code -eq 0 ]]; then
-        echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-        echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"    
+        echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
+        echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"
     else
         # the last install failed so remove it from done file
         sed -i '' -e '$d' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$d' "$RECIPE_DONE_FILE"
         sed -i '' -e '$s/^/#/' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/#/' "$RECIPE_DONE_FILE"
-        echo "# Removed final line due to error" >> "$RECIPE_DONE_FILE"        
+        echo "# Removed final line due to error" >> "$RECIPE_DONE_FILE"
         if [[ "$EXIT_ON_ERROR" == "1" ]]; then
             echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
-            echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"                
+            echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
             exit 1
-        else 
+        else
             echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$TIME_FILE"
-            echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
-            echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"            
-        fi    
+            echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
+            echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"
+        fi
     fi
     echo "#####################################################"
     if [[ $? -ne 0 ]]; then
@@ -231,22 +242,22 @@ run_line() {
 
 
 
-while IFS= read -r line || [[ -n "$line" ]]; do    
+while IFS= read -r line || [[ -n "$line" ]]; do
     # Copy the last log file to LOG_FILE_date and start a new one
-    # but only if it has more than 10 lines    
+    # but only if it has more than 10 lines
     echo "$line" >> "$RECIPE_DONE_FILE"
-    line_count=$(wc -l < "$LOG_FILE")    
+    line_count=$(wc -l < "$LOG_FILE")
     if [[ $line_count -gt 3 ]]; then
         if [[ $KEEP_LOGS -eq 1 ]]; then
-            cp "$LOG_FILE" "${LOG_FILE%.log}.log_${current_line}_${total_lines}.log"            
-        fi        
+            cp "$LOG_FILE" "${LOG_FILE%.log}.log_${current_line}_${total_lines}.log"
+        fi
         : > "$LOG_FILE"
     fi
     line_count=$(wc -l < "$ERROR_FILE")
     if [[ $line_count -gt 3 ]]; then
         if [[ $KEEP_LOGS -eq 1 ]]; then
-            cp "$ERROR_FILE" "${ERROR_FILE%.err}.err_${current_line}_${total_lines}.err"            
-        fi        
+            cp "$ERROR_FILE" "${ERROR_FILE%.err}.err_${current_line}_${total_lines}.err"
+        fi
         : > "$ERROR_FILE"
     fi
     current_line=$((current_line + 1))
@@ -255,20 +266,20 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         continue
     fi
 
-    # if the line starts with a # ignore it    
-    if [[ -z "$line" || "$line" == \#* ]]; then        
+    # if the line starts with a # ignore it
+    if [[ -z "$line" || "$line" == \#* ]]; then
         continue
     fi
-    # If line ends with backslash, strip it and keep accumulating 
-    if [[ $line == *\\ ]]; then 
-      buffer+="${line%\\} " 
-      continue 
-    else 
-      buffer+="$line" 
+    # If line ends with backslash, strip it and keep accumulating
+    if [[ $line == *\\ ]]; then
+      buffer+="${line%\\} "
+      continue
+    else
+      buffer+="$line"
     fi
     # Run the accumulated command
-    run_line "$buffer"    
-    # Reset buffer for the next command 
+    run_line "$buffer"
+    # Reset buffer for the next command
     buffer=""
 done < "$RECIPE_FILE"
 # It needs to recognise if it has a final command to run without a newline
@@ -284,10 +295,10 @@ minutes=$(((DURATION % 3600) / 60))
 seconds=$((DURATION % 60))
 
 
-echo "--------------------------------------" >> "$TIME_FILE"    
-echo "[coble-create] Recipe created at: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"    
+echo "--------------------------------------" >> "$TIME_FILE"
+echo "[coble-create] Recipe created at: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
 echo "[coble-create] Recipe took: ${hours}h ${minutes}m ${seconds}s" >> "$TIME_FILE"
-echo "--------------------------------------" >> "$TIME_FILE"        
+echo "--------------------------------------" >> "$TIME_FILE"
 
 echo "[coble-create] Recreate process completed." >&2
 echo "[coble-create] To activate the new environment, run:" >&2

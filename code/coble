@@ -17,7 +17,7 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 show_help() {
 	echo "Usage: $0 <command> [options]"
 	echo "  template   get a starter recipe of 5 given options"
-	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"		
+	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
 	echo "  freeze  capture the packages from an existing environment"
 	echo "  export  export the packages from an existing environment to a recipe file"
 	echo "  network  generate a network graph from a frozen environment file"
@@ -26,7 +26,7 @@ show_help() {
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
-	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"	
+	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"
 	echo "  $0 freeze --frozen my.cbl --env my-env"
 	echo "  $0 network --frozen my.cbl --env my-env"
 }
@@ -54,9 +54,9 @@ for i in "${!copied_inputs[@]}"; do
 		fi
 		echo "[coble] Container build flag detected: $container_type"  >&2
 		break
-	fi		
-done				
-	
+	fi
+done
+
 echo "[coble] Containers to build: $containers" >&2
 
 # echo out all the inputs
@@ -68,7 +68,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 	exit 0
 fi
 
-# For docker and CI we first install system dependencies for building R from source, 
+# For docker and CI we first install system dependencies for building R from source,
 # then call the template script to get the recipe, then build the container, then capture and network if requested
 # we do it seperately first so exit out after installing linux deps if that is the command
 if [[ "$1" == "linux-deps" ]]; then
@@ -93,21 +93,21 @@ if [[ "$1" == "template" ]]; then
 fi
 
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
-if [[ "$container_type" == *"conda"* ]]; then	
-if [[ "$1" == "build" || "$1" == "update" ]]; then	
+if [[ "$container_type" == *"conda"* ]]; then
+if [[ "$1" == "build" || "$1" == "update" ]]; then
 	# detect if there is a rebuild --rebuild flag in the args
 	build_action="$1"
 	if [[ " $* " == *" --rebuild "* ]]; then
 		REBUILD_FLAG="--rebuild"
 		# and remove it from the args
 		set -- "${@/--rebuild/}"
-		echo "[coble] Rebuild flag detected, will rebuild conda environment" >&2		
+		echo "[coble] Rebuild flag detected, will rebuild conda environment" >&2
 		build_action="build"
 	else
 		REBUILD_FLAG=""
 		build_action="update"
 	fi
-	
+
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
 	echo "[coble 1/5] Resolving cbl..." >&2
@@ -115,54 +115,54 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	if [[ "$finds" == "Y" ]]; then
 		echo "[coble] Finds were resolved, please check the yml input before resuming." >&2
 		exit 1
-	fi	
-	
+	fi
+
 	echo "[coble 2/5] Resolved cbl, proceeding to rationalise." >&2
-	success=$("$script_dir/coble-rationalise.sh" "${@:2}")	
+	success=$("$script_dir/coble-rationalise.sh" "${@:2}")
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] CBL rationalisation failed, please check the yml input before resuming." >&2
 		exit 1
 	fi
-				
-	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2	
+
+	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2
 	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
 		exit 1
-	fi	
-	
+	fi
+
 	base_name="${recipe_file##*/}"
     base_name_noext="${base_name%.*}"
-    RESULTS_DIR="$(dirname "$recipe_file")"	    	
+    RESULTS_DIR="$(dirname "$recipe_file")"
 	done_recipe="$RESULTS_DIR/${base_name_noext}.done"
 	summary_file="$RESULTS_DIR/${base_name_noext}_summary.txt"
 	capture_file="$RESULTS_DIR/${base_name_noext}_freeze.cbl"
-	
-    
+
+
     if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then
 	    echo "[coble 3/5] Created recipe, rebuilding environment." >&2
 	    : > "$done_recipe"
 		: > "$summary_file"
 	fi
-				
+
 	update_success=$("$script_dir/coble-update.sh" --done-recipe "$done_recipe" --all-recipe "$recipe_file")
-	if [[ $? -ne 0 ]]; then		 
+	if [[ $? -ne 0 ]]; then
 		echo "[coble] Error in updating recipe, please review logs before resuming." >&2
 		exit 1
-	fi		
-	
+	fi
+
 	base_name="${recipe_file##*/}"
     base_name_noext="${base_name%.*}"
-    RESULTS_DIR="$(dirname "$recipe_file")"	
-    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.delta"    
+    RESULTS_DIR="$(dirname "$recipe_file")"
+    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.delta"
 
-	echo "[coble 4/5] Created recipe, proceeding to creation from $RECIPE_FILE" >&2	
-		
+	echo "[coble 4/5] Created recipe, proceeding to creation from $RECIPE_FILE" >&2
+
 	result=$("$script_dir/coble-create.sh" --recipe-bash "$RECIPE_FILE" "${@:2}")
-				
-	if [[ $? -ne 0 ]]; then		 
+
+	if [[ $? -ne 0 ]]; then
 		echo "[coble] Error in environment creation, please review logs before resuming." >&2
 
 		end_time=$(date +%s)
@@ -170,18 +170,18 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	    hours=$((duration / 3600))
 	    minutes=$(((duration % 3600) / 60))
 	    seconds=$((duration % 60))
-	    echo "[coble] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2	
+	    echo "[coble] Time taken to get here $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2
 		exit 1
 	fi
-	
-	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2	
-    # replace --recipe existring with capture file    
-	#recipe_dir="$(dirname "$recipe_file")"	
+
+	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2
+    # replace --recipe existring with capture file
+	#recipe_dir="$(dirname "$recipe_file")"
 	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
-		
+
 	# Do not do this by default as it is very time consuming and very experimental
 	# The function network allows it to be done as a seperate step
-	#echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2	    
+	#echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2
 	#result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
 
 	echo "[coble] Environment creation complete." >&2
@@ -190,7 +190,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	hours=$((duration / 3600))
 	minutes=$(((duration % 3600) / 60))
 	seconds=$((duration % 60))
-	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2			
+	echo "[coble] Completed coble at $(date) (Duration: ${hours}h ${minutes}m ${seconds}s)" >&2
 fi
 fi
 

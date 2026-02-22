@@ -197,6 +197,13 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
         exit 0
     fi
     echo "[coble-docker] Using regular docker build (native platform)..."
+    echo "[coble-docker] Building Docker image $IMAGE_NAME with build args"
+    echo "  RECIPE_CBL=$INPUT_RECIPE"
+    echo "  BUILD_TAG=$ENV_NAME"
+    echo "  GITHUB_PAT=***"
+    echo "  VAL_FILE=$VAL_FILE"
+    echo "  VAL_FOLDER=$VAL_FOLDER"
+    echo "  CODE_SOURCE=$CODE_SOURCE"
     #docker build --progress=plain -f "$DOCKERFILE" \
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
