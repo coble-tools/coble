@@ -1,4 +1,4 @@
-name: Choose Arch Docker Image (Manual)
+name: Choose Arch Github/Docker Image (Manual)
 
 on:
   workflow_dispatch:
