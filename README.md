@@ -8,9 +8,15 @@ Created by the RSE team at the ICR for and with the Breast Cancer Research Data 
 Documentation:
 - GitHub Docs Site: [icr-rse-group.github.io/coble/](https://icr-rse-group.github.io/coble/)  
 - GitHub repo: [github.com/ICR-RSE-Group/coble](https://github.com/ICR-RSE-Group/coble)  
-- GitHub Issues: [github.com/ICR-RSE-Group/coble/issues](https://github.com/ICR-RSE-Group/coble/issues)  
-
+- GitHub Issues: [github.com/ICR-RSE-Group/coble/issues](https://github.com/ICR-RSE-Group/coble/issues)
 ---  
+
+## Using the docker images
+For a coble recipe e.g. papers-DESEq2:
+```bash
+docker pull ghcr.io/icr-rse-group/coble:papers-deseq2
+
+```
 
 ## Installation
 
