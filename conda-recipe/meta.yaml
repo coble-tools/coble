@@ -19,7 +19,7 @@ requirements:
 test:
   source_files:
     - tests/conda/tests.sh
-  commands:    
+  commands:
     - bash tests/conda/tests.sh
     - test -f $PREFIX/bin/coble  # Just check the files exist
     - test -f $PREFIX/bin/coble-capture.sh
@@ -37,12 +37,12 @@ test:
     - test -f $PREFIX/bin/coble-tml_basic.sh
     - test -f $PREFIX/bin/coble-tml_fix.sh
     - test -f $PREFIX/bin/coble-tml_versions.sh
-    
+
 about:
-  home: https://icr-rse-group.github.io/coble/
+  home: https://coble-tools.github.io/coble/
   license: MIT
   license_file: LICENSE
   summary: 'COBLE: COnda BuiLdEr'
   description: |
     A utility to help build conda environments for reproducibility in research software.
-  dev_url: https://github.com/ICR-RSE-Group/coble
+  dev_url: https://github.com/coble-tools/coble

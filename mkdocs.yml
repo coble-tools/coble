@@ -1,7 +1,7 @@
 site_name: COBLE Documentation
 site_description: Documentation for COBLE - COnda BuiLdEr
 site_author: RSE team at ICR
-repo_url: https://github.com/ICR-RSE-Group/coble
+repo_url: https://github.com/coble-tools/coble
 repo_name: icr-rse/coble
 
 theme:
@@ -55,13 +55,13 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - toc:
-      permalink: true  
-  
+      permalink: true
+
 nav:
   - Overview:
     - Home: index.md
     - Installation: overview/install.md
-    - Motivation: overview/motivation.md  
+    - Motivation: overview/motivation.md
     - Visualisation: overview/network.md
   - COBLE:
     - Recipe-anatomy: coble/anatomy.md
@@ -71,7 +71,7 @@ nav:
     - Libraries: coble/libraries.md
     - R-versions: coble/r-versions.md
     - icr-cluster: coble/icr.md
-    - hpc-cluster: coble/hpc.md    
+    - hpc-cluster: coble/hpc.md
   - Recipes:
     - Overview: recipes.md
     - Basic: recipes/basic.md
@@ -83,8 +83,8 @@ nav:
     - SYLVER(Find): tutorials/sylver.md
     - CountReg(Fix): tutorials/countreg.md
     - Troubleshooting: tutorials/troubleshooting.md
-  - Containers: 
-    - Containers: containers.md    
-    - Docker-Singularity: containers/docker-build.md  
+  - Containers:
+    - Containers: containers.md
+    - Docker-Singularity: containers/docker-build.md
   - Troubleshooting: tutorials/troubleshooting.md
   - About: about.md

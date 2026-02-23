@@ -34,7 +34,7 @@ ENV CODE_SOURCE=${CODE_SOURCE}
 LABEL org.opencontainers.image.version="${BUILD_TAG}" \
     org.opencontainers.image.title="coble-${BUILD_TAG}" \
     org.opencontainers.image.description="COBLE reproducible bioinformatics environment" \
-    org.opencontainers.image.source="https://github.com/ICR-RSE-Group/coble" \
+    org.opencontainers.image.source="https://github.com/coble-tools/coble" \
     org.opencontainers.image.licenses="MIT"
 
 # Set timeouts
@@ -94,9 +94,9 @@ RUN if [ "$CODE_SOURCE" = "local" ]; then \
         echo "Cloning COBLE from GitHub..." && \
         rm -rf /app/coble && \
         if [ -n "${GITHUB_PAT}" ]; then \
-            git clone https://${GITHUB_PAT}@github.com/ICR-RSE-Group/coble.git /app/coble; \
+            git clone https://${GITHUB_PAT}@github.com/coble-tools/coble.git /app/coble; \
         else \
-            git clone https://github.com/ICR-RSE-Group/coble.git /app/coble; \
+            git clone https://github.com/coble-tools/coble.git /app/coble; \
         fi && \
         cd /app/coble && \
         git checkout ${CODE_SOURCE} && \
@@ -189,8 +189,8 @@ RUN echo '╔══════════════════════�
     #echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
     echo '║        (c) ICR 2026 RSE and BCDS                             ║' >> /etc/motd && \
     #echo '║        For help, see:                                        ║' >> /etc/motd && \
-    #echo '║        - https://icr-rse-group.github.io/coble/              ║' >> /etc/motd && \
-    #echo '║        - https://github.com/ICR-RSE-Group/coble/issues       ║' >> /etc/motd && \
+    #echo '║        - https://coble-tools.github.io/coble/              ║' >> /etc/motd && \
+    #echo '║        - https://github.com/coble-tools/coble/issues       ║' >> /etc/motd && \
     echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd
 # Ensure the message is shown on shell startup
 RUN echo "cat /etc/motd" >> /root/.bashrc && \

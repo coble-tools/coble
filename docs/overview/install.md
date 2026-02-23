@@ -15,13 +15,13 @@ When installed through conda, the utility and all the scripts are in the path so
 COBLE is a high-level bash utility that uses other package managers to build environments. It requires *bash*, *conda*, *R* and *python* to be installed and accessible from the command line as needed. It also has the option to use *docker*, and *singularity*/*apptainer*. These are all referred to by triggering the relevant package manager commands from bash and if you have alternative installations you can alias the executables.
 
 ## To install conda
-We recommend the miniforge version in conda-forge which defaults to the conda-forge channel: 
-[install miniforge](https://github.com/conda-forge/miniforge)  
+We recommend the miniforge version in conda-forge which defaults to the conda-forge channel:
+[install miniforge](https://github.com/conda-forge/miniforge)
 
 ## The **.bashrc**
 The utility is not tied to **conda**, you can use any executable you like by passing the --alias setting. This means that rather than handle all the possible inits for hooks for the different package managers, COBLE sources the ~./bashrc, so it is there that you need to ensure that your package manager has the necessary hooks.
 
-Generally this accomplished by following the install instructions which will end up with somethin glike `conda init` and the instruction to resstart your shell.  
+Generally this accomplished by following the install instructions which will end up with somethin glike `conda init` and the instruction to resstart your shell.
 ```bash
 # In your ~/.bashrc
 # For conda and mamba installed through conda
@@ -43,11 +43,11 @@ which can be commented out.
 
 ## Github installation
 ```bash
-git clone git@github.com:ICR-RSE-Group/coble.git
+git clone git@github.com:coble-tools/coble.git
 # Test it, and you can also test/(find the help for) each of the child commands:
-coble/code/coble -h 
-coble/code/coble recipe -h 
-coble/code/coble build -h 
+coble/code/coble -h
+coble/code/coble recipe -h
+coble/code/coble build -h
 ```
 You need to add the folder coble/code to the path or refer to the coble utility script by full or relative path.
 

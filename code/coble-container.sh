@@ -149,7 +149,7 @@ RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
 DOCKERLOGFILE="${RESULTS_DIR}/${ENV_NAME}_docker_build.log"
 if [[ $CODE_SOURCE == "main" ]]; then
-    CODE_SOURCE=$(git ls-remote git@github.com:ICR-RSE-Group/coble.git refs/heads/main | awk '{print $1}')
+    CODE_SOURCE=$(git ls-remote git@github.com:coble-tools/coble.git refs/heads/main | awk '{print $1}')
     echo "Using specific COBLE code version: $CODE_SOURCE"
 fi
 

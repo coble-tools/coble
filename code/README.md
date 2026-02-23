@@ -1,16 +1,16 @@
 # COBLE: COnda BuiLdEr
-`COBLE - COnda BuiLdEr: Build and manage conda environments`  
-Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.  
-*Contacts: Rachel Alcraft, Syed Haider*  
+`COBLE - COnda BuiLdEr: Build and manage conda environments`
+Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.
+*Contacts: Rachel Alcraft, Syed Haider*
 
----  
+---
 
 Documentation:
-- GitHub Docs Site: [icr-rse-group.github.io/coble/](https://icr-rse-group.github.io/coble/)  
-- GitHub repo: [github.com/ICR-RSE-Group/coble](https://github.com/ICR-RSE-Group/coble)  
-- GitHub Issues: [github.com/ICR-RSE-Group/coble/issues](https://github.com/ICR-RSE-Group/coble/issues)  
+- GitHub Docs Site: [coble-tools.github.io/coble/](https://coble-tools.github.io/coble/)
+- GitHub repo: [github.com/coble-tools/coble](https://github.com/coble-tools/coble)
+- GitHub Issues: [github.com/coble-tools/coble/issues](https://github.com/coble-tools/coble/issues)
 
----  
+---
 
 ## Installation
 
@@ -28,7 +28,7 @@ When installed through conda the utility and all the scripts are in the path so 
 
 ### Github installation
 ```bash
-git clone git@github.com:ICR-RSE-Group/coble.git
-coble/code/coble -h 
+git clone git@github.com:coble-tools/coble.git
+coble/code/coble -h
 ```
 You need to add the folder `coble/code` to the path or refer to the coble utility script by full or relative path.

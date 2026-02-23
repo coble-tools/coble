@@ -7,7 +7,7 @@
 #####################################################
 coble:
   - environment: This is just a descriptive field but `capture` saves the end name
-channels: # note the reverse order of priority  
+channels: # note the reverse order of priority
   - bioconda
   - conda-forge
 languages:
@@ -26,8 +26,8 @@ flags:
   - solver: libmamba # classic
 conda:
   - pandas
-r-conda:    
-  - data.table  
+r-conda:
+  - data.table
 bioc-package:
   - snow
 bioc-conda:
@@ -36,8 +36,8 @@ r-package:
   - generics
 pip:
   - scanoramaCT
-  - https://github.com/ICR-RSE-Group/gitalma.git
-r-url:  
+  - https://github.com/coble-tools/gitalma.git
+r-url:
   - https://github.com/tidyverse/magrittr/archive/refs/heads/main.zip
 bash:
   - ls -la

@@ -10,5 +10,5 @@ coble build --recipe bioinf.cbl --env coble-bioinf-env
 ```
 
 ### Recipe cbl
-The recipe cbl file is 508 lines long so not included here but can be found on github:  
-[bioinf.cbl](https://github.com/ICR-RSE-Group/coble/blob/main/code/tml_bioinf.cbl)  
+The recipe cbl file is 508 lines long so not included here but can be found on github:
+[bioinf.cbl](https://github.com/coble-tools/coble/blob/main/code/tml_bioinf.cbl)
