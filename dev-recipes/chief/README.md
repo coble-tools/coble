@@ -8,10 +8,15 @@ code/coble build \
 --containers conda \
 --rebuild
 
-code/coble export \
---xrecipe dev-recipes/chief/chief_export.cbl \
---env chief \
---debug
+code/coble build \
+--recipe dev-recipes/chief/chief-dev.cbl \
+--env ./CHIEF-DEV \
+--validate dev-recipes/chief/validate/validate.sh \
+--val-folder dev-recipes/chief/validate \
+--containers conda \
+--rebuild
+
+
 ```
 
 
@@ -41,10 +46,10 @@ conda install -y \
 	pandas \
 	scikit-learn \
 	ipykernel
-	
+
 conda install -y \
     --solver=libmamba \
-	tensorflow	
+	tensorflow
 
 conda install -y \
     --solver=libmamba \
