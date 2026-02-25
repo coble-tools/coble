@@ -18,18 +18,18 @@ FLAVOUR="basic"
 
 # Parse arguments ########################################################
 show_help() {
-    echo "----- coble recipe help ----------"    
-    echo "Usage: $0 --recipe YAML_FILE"    
-    echo "  --recipe     CBL                    Specify recipe CBL file - it will be populated with this version's example template"    
-    echo "  --flavour   find/python/r/mixed     Type of environment to create (default: mixed)"
+    echo "----- coble recipe help ----------"
+    echo "Usage: $0 --recipe YAML_FILE"
+    echo "  --recipe     CBL                    Specify recipe CBL file - it will be populated with this version's example template"
+    echo "  --flavour   basic/template/find/bash/torch     Type of environment to create (default: mixed)"
     echo "  -h, --help  Show this help message and exit"
-    echo "------------------------------------"    
+    echo "------------------------------------"
 }
 while [[ $# -gt 0 ]]; do
   case $1 in
     --recipe) YAML_FILE="$2"; shift 2 ;;
     --flavour) FLAVOUR="$2"; shift 2 ;;
-    -h|--help) show_help; exit 0 ;;    
+    -h|--help) show_help; exit 0 ;;
     *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
 done
@@ -41,31 +41,22 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p "$(dirname "$YAML_FILE")"
 
 # copy file in same dir as this script to YAML_FILE
-if [[ "$FLAVOUR" =~ ^(basic)$ ]]; then    
+if [[ "$FLAVOUR" =~ ^(basic)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_basic.cbl" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(versions)$ ]]; then    
+    cp "$script_dir/tml_basic.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(torch)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_versions.cbl" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(bioinf)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_bioinf.cbl" "$YAML_FILE"    
-elif [[ "$FLAVOUR" =~ ^(bash)$ ]]; then    
+    cp "$script_dir/tml_torch.cbl" "$YAML_FILE"
+elif [[ "$FLAVOUR" =~ ^(bash)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_bash.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then # SYLVER tutorial    
+elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then # SYLVER tutorial
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_find.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then    
+elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(fix)$ ]]; then # COUNTREG tutorial    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_fix.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(fixed)$ ]]; then    
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_fixed.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(template)$ ]]; then    
+elif [[ "$FLAVOUR" =~ ^(template)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_template.cbl" "$YAML_FILE"
 else

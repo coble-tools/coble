@@ -25,6 +25,7 @@ conda:
   - requests
   - openslide
   - openslide-python
+  - h5py
 bash:
   - python -m pip install pip install torch==$TORCH torchvision==$TORCHVISION torchaudio==$TORCHAUDIO --index-url https://download.pytorch.org/whl/$CUDA
   - wget "https://drive.google.com/uc?export=download&id=1JV7aj9rKqGedXY1TdDfi3dP07022hcgZ" -O timm-0.5.4.tar
@@ -33,6 +34,9 @@ bash:
 pip:
   - addict
   - gdown
+  - iterative-stratification
+  - exhaustive-weighted-random-sampler
+  - scikit-survival
 flags:
   - export: LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 bash:
@@ -48,5 +52,7 @@ bash:
   - mv $CONDA_PREFIX/CHIEF/example $CONDA_PREFIX/CHIEF/exsample
   - mv $CONDA_PREFIX/CHIEF/example_csv $CONDA_PREFIX/CHIEF/exsample_csvconda activate
   - mv ./model_weight/Text_embedding.pth ./model_weight/Text_emdding.pth
-  # need to edit some code if pytirch version is > 2.5
+  # need to edit some code if pytorch version is > 2.5
+  - sed -i 's/torch.load(\(.*\))/torch.load(\1, weights_only=False)/g' $CONDA_PREFIX/CHIEF/Get_CHIEF_WSI_level_feature.py
+  - sed -i 's/np\.Inf/np.inf/g' $CONDA_PREFIX/CHIEF//Downstream/Tumor_origin/src/classification.py
 

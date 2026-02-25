@@ -48,21 +48,22 @@ git log --oneline -n 5
 echo "6. Run their first python script: Get_CHIEF_patch_feature.py"
 cd $CONDA_PREFIX/CHIEF
 echo "Code run with PyTorch 2.6 on NVIDIA RTX PRO 500 Blackwell; weights_only=False added to torch.load calls due to PyTorch 2.6 API change. Results are otherwise identical."
-sed -i 's/torch.load(\(.*\))/torch.load(\1, weights_only=False)/g' Get_CHIEF_WSI_level_feature.py
-echo "edit line 20 of Get_CHIEF_patch_feature.py to add weights_only=False to torch.load calls"
-ech "Before edit:"
-echo "td = torch.load(r'./model_weight/CHIEF_CTransPath.pth')"
-echo "After edit:"
-echo "td = torch.load(r'./model_weight/CHIEF_CTransPath.pth', weights_only=False)"
+#sed -i 's/torch.load(\(.*\))/torch.load(\1, weights_only=False)/g' Get_CHIEF_WSI_level_feature.py
+#echo "edit line 20 of Get_CHIEF_patch_feature.py to add weights_only=False to torch.load calls"
+#ech "Before edit:"
+#echo "td = torch.load(r'./model_weight/CHIEF_CTransPath.pth')"
+#echo "After edit:"
+#echo "td = torch.load(r'./model_weight/CHIEF_CTransPath.pth', weights_only=False)"
 python Get_CHIEF_patch_feature.py
 
 
 
 echo "7. Run their second python script: Get_CHIEF_WSI_level_feature.py"
-echo "Unfortunately we have to get their pt file from a docker image!"
+echo "Unfortunately we have to get all their pt file from a docker image!"
 docker run -d --name chief_temp chiefcontainer/chief:v1.11
 mkdir -p ./Downstream/Tumor_origin/src/feature/tcga
-docker cp chief_temp:/root/CHIEF/Downstream/Tumor_origin/src/feature/tcga/TCGA-LN-A8I1-01Z-00-DX1.F2C4FBC3-1FFA-45E9-9483-C3F1B2B7EF2D.pt ./Downstream/Tumor_origin/src/feature/tcga/
+#docker cp chief_temp:/root/CHIEF/Downstream/Tumor_origin/src/feature/tcga/TCGA-LN-A8I1-01Z-00-DX1.F2C4FBC3-1FFA-45E9-9483-C3F1B2B7EF2D.pt ./Downstream/Tumor_origin/src/feature/tcga/
+docker cp chief_temp:/root/CHIEF/Downstream/Tumor_origin/src/feature/tcga/. ./feature/tcga/
 docker stop chief_temp
 docker rm chief_temp
 python3 Get_CHIEF_WSI_level_feature.py
@@ -70,6 +71,14 @@ python3 Get_CHIEF_WSI_level_feature.py
 echo "8. Run their third python script: Get_CHIEF_WSI_level_feature.py"
 python3 Get_CHIEF_WSI_level_feature.py
 
+echo "9. Fine tune model - doesn't work due to missing data"
+cd ./Downstream/Tumor_origin/src
+# Training/Val/Test Splits is here(./Downstream/Tumor_origin/src/csv)
+CUDA_VISIBLE_DEVICES=0 python3 train_valid_test.py --classification_type='tumor_origin' --exec_mode='train' --exp_name='tcga_only_7_1_2'
 
+
+echo "10. Fine tune model - doesn't work due to missing data"
+cd ./Downstream/Tumor_origin/src
+CUDA_VISIBLE_DEVICES=0 python3 classification_eval.py --config_path configs/colon.yaml --dataset_name Dataset_PT
 
 

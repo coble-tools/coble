@@ -1,5 +1,43 @@
-#!/usr/bin/env bash
+#######################################
+# COBLE:Reproducible environment yaml, (c) ICR 2026
+# PyTorch environment
+#######################################
 
+coble:
+  - environment: torch
+channels:
+  - conda-forge
+flags:
+  # The flags control which version of PyTorch is installed
+  # This may need some trial and error for your hardware
+  - export: CUDA="cu128"
+  - export: TORCH="2.7.0"
+  - export: TORCHVISION="0.22.0"
+languages:
+  - python=3.10
+conda:
+  - typing_extensions
+  - pillow
+  - pyyaml
+  - pandas
+  - scikit-learn
+  - ipykernel
+  - requests
+  - openslide
+  - openslide-python
+  - h5py
+  - timm
+bash:
+  - python -m pip install torch==$TORCH torchvision==$TORCHVISION torchaudio==$TORCH --index-url https://download.pytorch.org/whl/$CUDA
+pip:
+  - addict
+  - gdown
+  - iterative-stratification
+  - exhaustive-weighted-random-sampler
+  - scikit-survival
+flags:
+  - export: LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+validate:
 echo "# VALIDATING THE CHIEF ENVIRONMENT FOR GPU SUPPORT"
 echo "1. Check the GPU capability"
 nvidia-smi

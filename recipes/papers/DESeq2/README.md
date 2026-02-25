@@ -1,19 +1,24 @@
 # DESEq2 Environment for Publication Reproducibility
 
-The docker impage on GitHub has an amd64 version. 
+The docker impage on GitHub has an amd64 version.
 
 To download the docker image and use it locally do (mounting your current working directory to the workspace inside the container and starting in workspace):
 ```bash
-docker pull icrsc/coble:papers-DESeq2-amd64
-docker run --rm -it -v .:/workspace -w /workspace icrsc/coble:papers-DESeq2-amd64
+# Docker
+docker pull ghcr.io/coble-tools/coble:papers-deseq2
+docker run --rm -it -v .:/workspace ghcr.io/coble-tools/coble:papers-deseq2
 validate.sh
 ```
 
 To download as singularity to use eg on HPC (you retain access to the host inside a singularity image).
 
 ```bash
-singularity pull cbl-papers-DESeq2.sif docker://icrsc/coble:papers-DESeq2-amd64
-singularity shell cbl-papers-DESeq2.sif
+# Docker
+docker pull ghcr.io/coble-tools/coble:papers-deseq2
+docker run --rm -it -v .:/workspace ghcr.io/coble-tools/coble:papers-deseq2
+# Singularity
+singularity build coble-papers-deseq2.sif docker://ghcr.io/coble-tools/coble:papers-deseq2
+singularity shell coble-papers-deseq2.sif
 ```
 
 ```bash
@@ -39,10 +44,16 @@ code/coble build \
 Now simply typing in `validate.sh` at the command line starts this script.
 Or to retrieve from docker
 
-docker run --rm -it -v /my/code/path:/app icrsc/coble:publications-DESeq2
+# Docker
+docker pull ghcr.io/coble-tools/coble:papers-deseq2
+docker run --rm -it -v .:/workspace ghcr.io/coble-tools/coble:papers-deseq2
+# Singularity
+singularity build coble-papers-deseq2.sif docker://ghcr.io/coble-tools/coble:papers-deseq2
+singularity shell coble-papers-deseq2.sif
+Bioinformatics
 
 
-singularity shell /data/rds/DIT/SCICOM/SCRSE/shared/singularity/cbl-deseq2.sif
+
 
 ## Notes on the replication of the original environment for DESEq2.
 

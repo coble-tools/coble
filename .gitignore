@@ -90,3 +90,5 @@ tests/github/*.txt
 tests/github/logs/*
 tests/github_docker/logs/*
 CHIEF-DEV/*
+*.png
+temp/*
