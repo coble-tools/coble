@@ -302,7 +302,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         if [[ "$line" == *conda* ]]; then
           echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"
         fi
-    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:"* ]] || [[ "$CURRENT_SECTION" == "validate:"* ]]; then
+    elif [[ "$CURRENT_SECTION" == "validate:"* ]]; then
+        line="${line#- }"
+        echo "[coble-recipise] Adding line to validate: $line" >&2
+        echo "echo \"${line//\"/\\\"}\" >> \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
+    elif [[ -n "$CURRENT_SECTION" && "$line" == "-"* ]] || [[ "$CURRENT_SECTION" == "bash:"* ]]; then
         line="${line#- }"
         pkg_entry="${line%%#*}"  # remove comments
         pkg_entry="${pkg_entry## }"  # remove leading whitespace
@@ -523,9 +527,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 fi
             elif [[ "$pkg_only" == "python" ]]; then
                 if [[ "$src" == "" ]]; then
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} \"$pkg\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'">> "$RECIPE_FILE"
                 else
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} \"$src::$pkg\"" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
@@ -545,9 +549,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         elif [[  "$CURRENT_SECTION" == "conda:"* ]]; then
             if [[ "$src" != "" ]]; then
-                echo "'$src::$pkg' \\" >> "$RECIPE_FILE"
+                echo "$src::$pkg \\" >> "$RECIPE_FILE"
             else
-                echo "'$pkg' \\" >> "$RECIPE_FILE"
+                echo "$pkg \\" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "package-r:"* || "$CURRENT_SECTION" == "r-package:"* ]]; then
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
@@ -585,19 +589,16 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "python -m pip install \"git+${pkg_entry}\" $DEPS_PYTHON" >> "$RECIPE_FILE"
             elif [[ "$pip_pkg" == https* ]]; then
                 echo "python -m pip install '${pkg_entry}' $DEPS_PYTHON" >> "$RECIPE_FILE"
-            elif [[ -z "$ver" ]]; then
-                echo "python -m pip install '${pkg_only}' $DEPS_PYTHON" >> "$RECIPE_FILE"
+            #elif [[ -z "$ver" ]]; then
+            #    echo "python -m pip install '${pkg_only}' $DEPS_PYTHON" >> "$RECIPE_FILE"
             else
-                echo "python -m pip install '${pkg_only}==$ver' $DEPS_PYTHON" >> "$RECIPE_FILE"
+                echo "python -m pip install '$line' $DEPS_PYTHON" >> "$RECIPE_FILE"
             fi
 
         elif [[ "$CURRENT_SECTION" == "bash:"* ]]; then
             echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
             # Preserve literal \n in bash commands
             echo "${line//\\n/\\\\n}" >> "$RECIPE_FILE"
-        elif [[ "$CURRENT_SECTION" == "validate:"* ]]; then
-            echo "[coble-recipise] Adding line to validate: $pkg_entry" >&2
-            echo "echo \"${line//\"/\\\"}\" >> \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "find:"* ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -631,7 +632,7 @@ done < "$YAML_FILE"
 sed -i '${s/\\$//}' "$RECIPE_FILE"
 
 # copy line for validation script if VAL__FILE is not ""
-echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
+#echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
 if [[ -n "$VAL_FILE" ]]; then
     echo "" >> "$RECIPE_FILE"
     echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"

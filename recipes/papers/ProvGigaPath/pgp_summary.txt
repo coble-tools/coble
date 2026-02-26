@@ -1,0 +1,688 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-26 at 15:25:20 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-26 15:25:20 1/115
+install: source ~/.bashrc
+[coble-create] End time: 2026-02-26 15:25:21
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:25:21 3/115
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-26 15:25:21
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:21 5/115
+install: conda env remove --name pgp -y 2>/dev/null || true
+[coble-create] End time: 2026-02-26 15:25:25
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-26 15:25:25 7/115
+install: conda create --no-default-packages --name pgp -y
+[coble-create] End time: 2026-02-26 15:25:39
+[coble-create] Duration: 14s
+
+[coble-create] Start time: 2026-02-26 15:25:39 9/115
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-26 15:25:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:39 10/115
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-26 15:25:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:39 11/115
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-02-26 15:25:43
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-02-26 15:25:43 13/115
+install: conda deactivate | true
+[coble-create] End time: 2026-02-26 15:25:44
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:25:44 14/115
+install: conda deactivate | true
+[coble-create] End time: 2026-02-26 15:25:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:44 15/115
+install: conda activate pgp
+[coble-create] End time: 2026-02-26 15:25:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:44 16/115
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-26 15:25:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:44 17/115
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-26 15:25:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:44 18/115
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-26 15:25:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:25:45 20/115
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-26 15:25:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:45 21/115
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-26 15:25:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:45 23/115
+install: conda config --env --add channels nvidia
+[coble-create] End time: 2026-02-26 15:25:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:25:45 25/115
+install: conda config --env --add channels pytorch
+[coble-create] End time: 2026-02-26 15:25:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:25:46 27/115
+install: conda install -y --solver=libmamba --no-update-deps 'python=3.9'
+dep: # _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+dep: # bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2025.12.2-h06a4308_0
+dep: # expat              pkgs/main/linux-64::expat-2.7.4-h7354ed3_0
+dep: # ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h153f514_2
+dep: # libexpat           pkgs/main/linux-64::libexpat-2.7.4-h7354ed3_0
+dep: # libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_1
+dep: # libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_7
+dep: # libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_7
+dep: # libgomp            pkgs/main/linux-64::libgomp-15.2.0-h4751f2c_7
+dep: # libnsl             pkgs/main/linux-64::libnsl-2.0.0-h5eee18b_0
+dep: # libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_7
+dep: # libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-15.2.0-hc03a8fd_7
+dep: # libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0
+dep: # libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0
+dep: # libzlib            pkgs/main/linux-64::libzlib-1.3.1-hb25bd0a_0
+dep: # ncurses            pkgs/main/linux-64::ncurses-6.5-h7934f7d_0
+dep: # openssl            pkgs/main/linux-64::openssl-3.0.19-h1b28b03_0
+dep: # pip                pkgs/main/noarch::pip-26.0.1-pyhc872135_0
+dep: # pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1
+dep: # python             pkgs/main/linux-64::python-3.9.25-h0dcde21_1
+dep: # readline           pkgs/main/linux-64::readline-8.3-hc2a1206_0
+dep: # setuptools         pkgs/main/linux-64::setuptools-80.9.0-py39h06a4308_0
+dep: # sqlite             pkgs/main/linux-64::sqlite-3.51.1-he0a8d7e_0
+dep: # tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0
+dep: # tzdata             pkgs/main/noarch::tzdata-2025c-he532380_0
+dep: # wheel              pkgs/main/linux-64::wheel-0.45.1-py39h06a4308_0
+dep: # xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1
+dep: # xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0
+dep: # xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0
+dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
+dep: # xz                 pkgs/main/linux-64::xz-5.6.4-h5eee18b_1
+dep: # zlib               pkgs/main/linux-64::zlib-1.3.1-hb25bd0a_0
+[coble-create] End time: 2026-02-26 15:26:04
+[coble-create] Duration: 18s
+
+[coble-create] Start time: 2026-02-26 15:26:04 29/115
+install: python -m site
+[coble-create] End time: 2026-02-26 15:26:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:26:04 31/115
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-26 15:26:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:26:04 32/115
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-26 15:26:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:26:04 34/115
+install: conda install -y --solver=libmamba --no-update-deps  pip 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-26 15:26:13
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-02-26 15:26:13 42/115
+install: conda install -y --solver=libmamba --no-update-deps  cuda  packaging  pytorch=2.0.0  torchvision=0.15.0  torchaudio=2.0.0  pytorch-cuda=11.8 
+dep: # aom                pkgs/main/linux-64::aom-3.12.1-h7934f7d_0
+dep: # binutils_impl_lin~ pkgs/main/linux-64::binutils_impl_linux-64-2.44-h4b9a079_2
+dep: # binutils_linux-64  pkgs/main/linux-64::binutils_linux-64-2.44-hc03a8fd_2
+dep: # blas               pkgs/main/linux-64::blas-1.0-mkl
+dep: # brotlicffi         pkgs/main/linux-64::brotlicffi-1.0.9.2-py39hbdd6827_2
+dep: # cairo              pkgs/main/linux-64::cairo-1.18.4-h44eff21_0
+dep: # certifi            pkgs/main/linux-64::certifi-2025.10.5-py39h06a4308_0
+dep: # cffi               pkgs/main/linux-64::cffi-2.0.0-py39h4eded50_0
+dep: # charset-normalizer pkgs/main/linux-64::charset-normalizer-3.4.4-py39h06a4308_0
+dep: # cuda               nvidia/linux-64::cuda-11.8.0-0
+dep: # cuda-cccl          nvidia/linux-64::cuda-cccl-13.1.115-hf678805_0
+dep: # cuda-cccl_linux-64 nvidia/noarch::cuda-cccl_linux-64-13.1.115-0
+dep: # cuda-command-line~ nvidia/linux-64::cuda-command-line-tools-11.8.0-0
+dep: # cuda-compiler      nvidia/linux-64::cuda-compiler-13.1.0-ha63b06e_0
+dep: # cuda-crt-dev_linu~ nvidia/noarch::cuda-crt-dev_linux-64-13.1.80-0
+dep: # cuda-crt-tools     nvidia/linux-64::cuda-crt-tools-13.1.80-0
+dep: # cuda-ctadvisor     nvidia/linux-64::cuda-ctadvisor-13.1.80-h3b4bcfc_1
+dep: # cuda-cudart        nvidia/linux-64::cuda-cudart-11.8.89-0
+dep: # cuda-cudart-dev    nvidia/linux-64::cuda-cudart-dev-11.8.89-0
+dep: # cuda-cudart-dev_l~ nvidia/noarch::cuda-cudart-dev_linux-64-13.1.80-hbe36340_0
+dep: # cuda-cudart-stati~ nvidia/noarch::cuda-cudart-static_linux-64-13.1.80-hbe36340_0
+dep: # cuda-cudart_linux~ nvidia/noarch::cuda-cudart_linux-64-13.1.80-h61a3acf_0
+dep: # cuda-cuobjdump     nvidia/linux-64::cuda-cuobjdump-13.1.80-h6205011_0
+dep: # cuda-cupti         nvidia/linux-64::cuda-cupti-11.8.87-0
+dep: # cuda-cuxxfilt      nvidia/linux-64::cuda-cuxxfilt-13.1.80-h6205011_0
+dep: # cuda-demo-suite    nvidia/linux-64::cuda-demo-suite-12.4.127-0
+dep: # cuda-documentation nvidia/linux-64::cuda-documentation-12.4.127-0
+dep: # cuda-driver-dev    nvidia/linux-64::cuda-driver-dev-13.1.80-h3b4bcfc_0
+dep: # cuda-driver-dev_l~ nvidia/noarch::cuda-driver-dev_linux-64-13.1.80-hbe36340_0
+dep: # cuda-gdb           nvidia/linux-64::cuda-gdb-13.1.115-h4f1e1d6_0
+dep: # cuda-libraries     nvidia/linux-64::cuda-libraries-11.8.0-0
+dep: # cuda-libraries-dev nvidia/linux-64::cuda-libraries-dev-12.6.2-0
+dep: # cuda-memcheck      nvidia/linux-64::cuda-memcheck-11.8.86-0
+dep: # cuda-nsight        nvidia/linux-64::cuda-nsight-13.1.115-hf678805_0
+dep: # cuda-nvcc          nvidia/linux-64::cuda-nvcc-13.1.80-h959976e_0
+dep: # cuda-nvcc-dev_lin~ nvidia/noarch::cuda-nvcc-dev_linux-64-13.1.80-0
+dep: # cuda-nvcc-impl     nvidia/linux-64::cuda-nvcc-impl-13.1.80-hbe36340_0
+dep: # cuda-nvcc-tools    nvidia/linux-64::cuda-nvcc-tools-13.1.80-h3b4bcfc_0
+dep: # cuda-nvcc_linux-64 nvidia/linux-64::cuda-nvcc_linux-64-13.1.80-h27567d6_0
+dep: # cuda-nvdisasm      nvidia/linux-64::cuda-nvdisasm-13.1.115-he32a221_0
+dep: # cuda-nvml-dev      nvidia/linux-64::cuda-nvml-dev-13.1.115-he32a221_0
+dep: # cuda-nvprof        nvidia/linux-64::cuda-nvprof-12.4.127-0
+dep: # cuda-nvprune       nvidia/linux-64::cuda-nvprune-13.1.80-h6205011_0
+dep: # cuda-nvrtc         nvidia/linux-64::cuda-nvrtc-11.8.89-0
+dep: # cuda-nvrtc-dev     nvidia/linux-64::cuda-nvrtc-dev-11.8.89-0
+dep: # cuda-nvtx          nvidia/linux-64::cuda-nvtx-11.8.86-0
+dep: # cuda-nvvm-dev_lin~ nvidia/noarch::cuda-nvvm-dev_linux-64-13.1.80-0
+dep: # cuda-nvvm-impl     nvidia/linux-64::cuda-nvvm-impl-13.1.80-h9f10756_0
+dep: # cuda-nvvm-tools    nvidia/linux-64::cuda-nvvm-tools-13.1.80-h9f10756_0
+dep: # cuda-nvvp          nvidia/linux-64::cuda-nvvp-12.4.127-0
+dep: # cuda-opencl        nvidia/linux-64::cuda-opencl-13.1.115-h4f1e1d6_0
+dep: # cuda-opencl-dev    nvidia/linux-64::cuda-opencl-dev-13.1.115-h4f1e1d6_0
+dep: # cuda-profiler-api  nvidia/linux-64::cuda-profiler-api-13.1.115-hf678805_0
+dep: # cuda-runtime       nvidia/linux-64::cuda-runtime-11.8.0-0
+dep: # cuda-sanitizer-api nvidia/linux-64::cuda-sanitizer-api-13.1.118-hc1e0326_0
+dep: # cuda-tileiras      nvidia/linux-64::cuda-tileiras-13.1.80-h4f1e1d6_1
+dep: # cuda-toolkit       nvidia/linux-64::cuda-toolkit-11.8.0-0
+dep: # cuda-tools         nvidia/linux-64::cuda-tools-11.8.0-0
+dep: # cuda-version       nvidia/noarch::cuda-version-13.1-hd92462c_3
+dep: # cuda-visual-tools  nvidia/linux-64::cuda-visual-tools-12.6.2-0
+dep: # dav1d              pkgs/main/linux-64::dav1d-1.2.1-h5eee18b_0
+dep: # ffmpeg             pytorch/linux-64::ffmpeg-4.3-hf484d3e_0
+dep: # filelock           pkgs/main/linux-64::filelock-3.17.0-py39h06a4308_0
+dep: # fontconfig         pkgs/main/linux-64::fontconfig-2.15.0-h2c49b7f_0
+dep: # freetype           pkgs/main/linux-64::freetype-2.14.1-hf5b9546_0
+dep: # fribidi            pkgs/main/linux-64::fribidi-1.0.16-h9fb5f84_0
+dep: # gcc_impl_linux-64  pkgs/main/linux-64::gcc_impl_linux-64-15.2.0-h36674fd_7
+dep: # gcc_linux-64       pkgs/main/linux-64::gcc_linux-64-15.2.0-h1ca4c6b_12
+dep: # gds-tools          nvidia/linux-64::gds-tools-1.16.1.26-h2e6a4e3_0
+dep: # gmp                pkgs/main/linux-64::gmp-6.3.0-h6a678d5_0
+dep: # gmpy2              pkgs/main/linux-64::gmpy2-2.2.1-py39h5eee18b_0
+dep: # gnutls             pkgs/main/linux-64::gnutls-3.6.15-he1e5248_0
+dep: # graphite2          pkgs/main/linux-64::graphite2-1.3.14-h295c915_1
+dep: # gxx_impl_linux-64  pkgs/main/linux-64::gxx_impl_linux-64-15.2.0-h6e002af_7
+dep: # gxx_linux-64       pkgs/main/linux-64::gxx_linux-64-15.2.0-h94d4220_12
+dep: # harfbuzz           pkgs/main/linux-64::harfbuzz-10.2.0-hdfddeaa_1
+dep: # icu                pkgs/main/linux-64::icu-73.1-h6a678d5_0
+dep: # idna               pkgs/main/linux-64::idna-3.11-py39h06a4308_0
+dep: # intel-openmp       pkgs/main/linux-64::intel-openmp-2023.1.0-hdb19cb5_46306
+dep: # jinja2             pkgs/main/linux-64::jinja2-3.1.6-py39h06a4308_0
+dep: # jpeg               pkgs/main/linux-64::jpeg-9f-h5ce9db8_0
+dep: # kernel-headers_li~ pkgs/main/noarch::kernel-headers_linux-64-4.18.0-h3108a97_1
+dep: # lame               pkgs/main/linux-64::lame-3.100-hbd0596d_1
+dep: # lcms2              pkgs/main/linux-64::lcms2-2.17-heab6991_0
+dep: # lerc               pkgs/main/linux-64::lerc-4.0.0-h6a678d5_0
+dep: # libavif            pkgs/main/linux-64::libavif-1.3.0-h3539ee5_0
+dep: # libcublas          nvidia/linux-64::libcublas-11.11.3.6-0
+dep: # libcublas-dev      nvidia/linux-64::libcublas-dev-11.11.3.6-0
+dep: # libcufft           nvidia/linux-64::libcufft-10.9.0.58-0
+dep: # libcufft-dev       nvidia/linux-64::libcufft-dev-10.9.0.58-0
+dep: # libcufile          nvidia/linux-64::libcufile-1.16.1.26-h3b4bcfc_0
+dep: # libcufile-dev      nvidia/linux-64::libcufile-dev-1.16.1.26-h2e6a4e3_0
+dep: # libcurand          nvidia/linux-64::libcurand-10.4.1.81-h1b6c897_0
+dep: # libcurand-dev      nvidia/linux-64::libcurand-dev-10.4.1.81-h1b6c897_0
+dep: # libcusolver        nvidia/linux-64::libcusolver-11.4.1.48-0
+dep: # libcusolver-dev    nvidia/linux-64::libcusolver-dev-11.4.1.48-0
+dep: # libcusparse        nvidia/linux-64::libcusparse-11.7.5.86-0
+dep: # libcusparse-dev    nvidia/linux-64::libcusparse-dev-11.7.5.86-0
+dep: # libdeflate         pkgs/main/linux-64::libdeflate-1.22-h5eee18b_0
+dep: # libgcc-devel_linu~ pkgs/main/noarch::libgcc-devel_linux-64-15.2.0-hcb64138_107
+dep: # libglib            pkgs/main/linux-64::libglib-2.86.3-h8b17d9a_0
+dep: # libiconv           pkgs/main/linux-64::libiconv-1.18-h75a1612_0
+dep: # libidn2            pkgs/main/linux-64::libidn2-2.3.4-h5eee18b_0
+dep: # libnpp             nvidia/linux-64::libnpp-11.8.0.86-0
+dep: # libnpp-dev         nvidia/linux-64::libnpp-dev-11.8.0.86-0
+dep: # libnvfatbin        nvidia/linux-64::libnvfatbin-13.1.115-he32a221_0
+dep: # libnvfatbin-dev    nvidia/linux-64::libnvfatbin-dev-13.1.115-he32a221_0
+dep: # libnvjitlink       nvidia/linux-64::libnvjitlink-13.1.115-he32a221_0
+dep: # libnvjitlink-dev   nvidia/linux-64::libnvjitlink-dev-13.1.115-he32a221_0
+dep: # libnvjpeg          nvidia/linux-64::libnvjpeg-11.9.0.86-0
+dep: # libnvjpeg-dev      nvidia/linux-64::libnvjpeg-dev-11.9.0.86-0
+dep: # libnvptxcompiler-~ nvidia/linux-64::libnvptxcompiler-dev-13.1.80-0
+dep: # libnvptxcompiler-~ nvidia/noarch::libnvptxcompiler-dev_linux-64-13.1.80-0
+dep: # libopenjpeg        pkgs/main/linux-64::libopenjpeg-2.5.4-hee96239_1
+dep: # libpng             pkgs/main/linux-64::libpng-1.6.54-hee55ce4_0
+dep: # libsanitizer       pkgs/main/linux-64::libsanitizer-15.2.0-h56912e6_7
+dep: # libstdcxx-devel_l~ pkgs/main/noarch::libstdcxx-devel_linux-64-15.2.0-hcb64138_107
+dep: # libtasn1           pkgs/main/linux-64::libtasn1-4.21.0-h27ab2c4_0
+dep: # libtiff            pkgs/main/linux-64::libtiff-4.7.1-h029b1ac_0
+dep: # libunistring       pkgs/main/linux-64::libunistring-0.9.10-h27cfd23_0
+dep: # libwebp-base       pkgs/main/linux-64::libwebp-base-1.6.0-hb7bb969_0
+dep: # libxml2            pkgs/main/linux-64::libxml2-2.13.9-h2c43086_0
+dep: # lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1
+dep: # markupsafe         pkgs/main/linux-64::markupsafe-3.0.2-py39h5eee18b_0
+dep: # mkl                pkgs/main/linux-64::mkl-2023.1.0-h213fc3f_46344
+dep: # mkl-service        pkgs/main/linux-64::mkl-service-2.4.0-py39h5eee18b_2
+dep: # mkl_fft            pkgs/main/linux-64::mkl_fft-1.3.11-py39h5eee18b_0
+dep: # mkl_random         pkgs/main/linux-64::mkl_random-1.2.8-py39h1128e8f_0
+dep: # mpc                pkgs/main/linux-64::mpc-1.3.1-h5eee18b_0
+dep: # mpfr               pkgs/main/linux-64::mpfr-4.2.1-h5eee18b_0
+dep: # mpmath             pkgs/main/linux-64::mpmath-1.3.0-py39h06a4308_0
+dep: # nettle             pkgs/main/linux-64::nettle-3.7.3-hbbd107a_1
+dep: # networkx           pkgs/main/linux-64::networkx-3.2.1-py39h06a4308_0
+dep: # nsight-compute     nvidia/linux-64::nsight-compute-2024.1.1.4-0
+dep: # numpy              pkgs/main/linux-64::numpy-2.0.1-py39h5f9d8c6_1
+dep: # numpy-base         pkgs/main/linux-64::numpy-base-2.0.1-py39hb5e798b_1
+dep: # ocl-icd            pkgs/main/linux-64::ocl-icd-2.3.3-h47b2149_0
+dep: # opencl-headers     pkgs/main/linux-64::opencl-headers-2025.07.22-hfb20e49_0
+dep: # openh264           pkgs/main/linux-64::openh264-2.1.1-h4ff587b_0
+dep: # openjpeg           pkgs/main/linux-64::openjpeg-2.5.4-h4e0627c_1
+dep: # packaging          pkgs/main/linux-64::packaging-25.0-py39h06a4308_1
+dep: # pcre2              pkgs/main/linux-64::pcre2-10.46-hf426167_0
+dep: # pillow             pkgs/main/linux-64::pillow-11.3.0-py39hb1c3d2d_0
+dep: # pixman             pkgs/main/linux-64::pixman-0.46.4-h7934f7d_0
+dep: # pycparser          pkgs/main/linux-64::pycparser-2.23-py39h06a4308_0
+dep: # pysocks            pkgs/main/linux-64::pysocks-1.7.1-py39h06a4308_1
+dep: # pytorch            pytorch/linux-64::pytorch-2.0.0-py3.9_cuda11.8_cudnn8.7.0_0
+dep: # pytorch-cuda       pytorch/linux-64::pytorch-cuda-11.8-h7e8668a_6
+dep: # pytorch-mutex      pytorch/noarch::pytorch-mutex-1.0-cuda
+dep: # requests           pkgs/main/linux-64::requests-2.32.5-py39h06a4308_0
+dep: # sympy              pkgs/main/linux-64::sympy-1.14.0-py39h06a4308_0
+dep: # sysroot_linux-64   pkgs/main/noarch::sysroot_linux-64-2.28-h3108a97_1
+dep: # tbb                pkgs/main/linux-64::tbb-2021.8.0-hdb19cb5_0
+dep: # torchaudio         pytorch/linux-64::torchaudio-2.0.0-py39_cu118
+dep: # torchtriton        pytorch/linux-64::torchtriton-2.0.0-py39
+dep: # torchvision        pytorch/linux-64::torchvision-0.15.0-py39_cu118
+dep: # typing_extensions  pkgs/main/linux-64::typing_extensions-4.15.0-py39h06a4308_0
+dep: # urllib3            pkgs/main/linux-64::urllib3-2.5.0-py39h06a4308_0
+dep: # xorg-libxext       pkgs/main/linux-64::xorg-libxext-1.3.6-h9b100fa_0
+dep: # xorg-libxrender    pkgs/main/linux-64::xorg-libxrender-0.9.12-h9b100fa_0
+dep: # zstd               pkgs/main/linux-64::zstd-1.5.6-hc292b87_0
+[coble-create] End time: 2026-02-26 15:30:25
+[coble-create] Duration: 252s
+
+[coble-create] Start time: 2026-02-26 15:30:25 44/115
+install: conda env config vars set CUDA_HOME=$CONDA_PREFIX
+[coble-create] End time: 2026-02-26 15:30:26
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:26 45/115
+install: export CUDA_HOME=$CONDA_PREFIX
+[coble-create] End time: 2026-02-26 15:30:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:26 46/115
+install: conda env config vars set TORCH_CUDA_ARCH_LIST="8.0"
+[coble-create] End time: 2026-02-26 15:30:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:26 47/115
+install: export TORCH_CUDA_ARCH_LIST="8.0"
+[coble-create] End time: 2026-02-26 15:30:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:26 48/115
+install: python -m pip install flash-attn==2.5.8 --no-build-isolation
+[coble-create] End time: 2026-02-26 15:30:28
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:28 50/115
+install: python -m pip install 'numpy==1.26.4' 
+    Successfully installed numpy-1.26.4
+[coble-create] End time: 2026-02-26 15:30:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:29 52/115
+install: python -m pip install 'omegaconf' 
+    Successfully installed PyYAML-6.0.3 antlr4-python3-runtime-4.9.3 omegaconf-2.3.0
+[coble-create] End time: 2026-02-26 15:30:30
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:30 54/115
+install: python -m pip install 'torchmetrics==0.10.3' 
+    Requirement already satisfied: numpy>=1.17.2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torchmetrics==0.10.3) (1.26.4)
+    Requirement already satisfied: torch>=1.3.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torchmetrics==0.10.3) (2.0.0)
+    Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torchmetrics==0.10.3) (25.0)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.3.1->torchmetrics==0.10.3) (3.17.0)
+    Requirement already satisfied: typing-extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.3.1->torchmetrics==0.10.3) (4.15.0)
+    Requirement already satisfied: sympy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.3.1->torchmetrics==0.10.3) (1.14.0)
+    Requirement already satisfied: networkx in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.3.1->torchmetrics==0.10.3) (3.2.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.3.1->torchmetrics==0.10.3) (3.1.6)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->torch>=1.3.1->torchmetrics==0.10.3) (3.0.2)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from sympy->torch>=1.3.1->torchmetrics==0.10.3) (1.3.0)
+    Successfully installed torchmetrics-0.10.3
+[coble-create] End time: 2026-02-26 15:30:30
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:30 56/115
+install: python -m pip install 'fvcore' 
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from fvcore) (1.26.4)
+    Requirement already satisfied: pyyaml>=5.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from fvcore) (6.0.3)
+    Requirement already satisfied: Pillow in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from fvcore) (11.3.0)
+    Requirement already satisfied: typing_extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from iopath>=0.1.7->fvcore) (4.15.0)
+    Successfully installed fvcore-0.1.5.post20221221 iopath-0.1.10 portalocker-3.2.0 tabulate-0.9.0 termcolor-3.1.0 tqdm-4.67.3 yacs-0.1.8
+[coble-create] End time: 2026-02-26 15:30:31
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:31 58/115
+install: python -m pip install 'iopath' 
+    Requirement already satisfied: iopath in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (0.1.10)
+    Requirement already satisfied: tqdm in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from iopath) (4.67.3)
+    Requirement already satisfied: typing_extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from iopath) (4.15.0)
+    Requirement already satisfied: portalocker in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from iopath) (3.2.0)
+[coble-create] End time: 2026-02-26 15:30:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:31 60/115
+install: python -m pip install 'xformers==0.0.18' 
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from xformers==0.0.18) (1.26.4)
+    Requirement already satisfied: torch==2.0.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from xformers==0.0.18) (2.0.0)
+    Requirement already satisfied: typing-extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pyre-extensions==0.0.23->xformers==0.0.18) (4.15.0)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch==2.0.0->xformers==0.0.18) (3.17.0)
+    Requirement already satisfied: sympy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch==2.0.0->xformers==0.0.18) (1.14.0)
+    Requirement already satisfied: networkx in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch==2.0.0->xformers==0.0.18) (3.2.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch==2.0.0->xformers==0.0.18) (3.1.6)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->torch==2.0.0->xformers==0.0.18) (3.0.2)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from sympy->torch==2.0.0->xformers==0.0.18) (1.3.0)
+    Successfully installed mypy-extensions-1.1.0 pyre-extensions-0.0.23 typing-inspect-0.9.0 xformers-0.0.18
+[coble-create] End time: 2026-02-26 15:30:33
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:33 62/115
+install: python -m pip install 'huggingface-hub==0.20.2' 
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (3.17.0)
+    Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (2.32.5)
+    Requirement already satisfied: tqdm>=4.42.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (4.67.3)
+    Requirement already satisfied: pyyaml>=5.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (6.0.3)
+    Requirement already satisfied: typing-extensions>=3.7.4.3 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (4.15.0)
+    Requirement already satisfied: packaging>=20.9 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub==0.20.2) (25.0)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface-hub==0.20.2) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface-hub==0.20.2) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface-hub==0.20.2) (2.5.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface-hub==0.20.2) (2025.10.5)
+    Successfully installed fsspec-2025.10.0 huggingface-hub-0.20.2
+[coble-create] End time: 2026-02-26 15:30:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:34 64/115
+install: python -m pip install 'h5py' 
+    Requirement already satisfied: numpy>=1.19.3 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from h5py) (1.26.4)
+    Successfully installed h5py-3.14.0
+[coble-create] End time: 2026-02-26 15:30:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:34 66/115
+install: python -m pip install 'pandas' 
+    Requirement already satisfied: numpy>=1.22.4 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas) (1.26.4)
+    Successfully installed pandas-2.3.3 python-dateutil-2.9.0.post0 pytz-2025.2 six-1.17.0 tzdata-2025.3
+[coble-create] End time: 2026-02-26 15:30:37
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-26 15:30:37 68/115
+install: python -m pip install 'pillow' 
+    Requirement already satisfied: pillow in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (11.3.0)
+[coble-create] End time: 2026-02-26 15:30:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:37 70/115
+install: python -m pip install 'tqdm' 
+    Requirement already satisfied: tqdm in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (4.67.3)
+[coble-create] End time: 2026-02-26 15:30:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:37 72/115
+install: python -m pip install 'einops' 
+    Successfully installed einops-0.8.2
+[coble-create] End time: 2026-02-26 15:30:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:38 74/115
+install: python -m pip install 'webdataset' 
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from webdataset) (1.26.4)
+    Requirement already satisfied: pyyaml in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from webdataset) (6.0.3)
+    Successfully installed braceexpand-0.1.7 webdataset-0.2.100
+[coble-create] End time: 2026-02-26 15:30:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:38 76/115
+install: python -m pip install 'matplotlib' 
+    Requirement already satisfied: numpy>=1.23 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib) (1.26.4)
+    Requirement already satisfied: packaging>=20.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib) (25.0)
+    Requirement already satisfied: pillow>=8 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib) (11.3.0)
+    Requirement already satisfied: python-dateutil>=2.7 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib) (2.9.0.post0)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from python-dateutil>=2.7->matplotlib) (1.17.0)
+    Successfully installed contourpy-1.3.0 cycler-0.12.1 fonttools-4.60.2 importlib-resources-6.5.2 kiwisolver-1.4.7 matplotlib-3.9.4 pyparsing-3.3.2 zipp-3.23.0
+[coble-create] End time: 2026-02-26 15:30:40
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:40 78/115
+install: python -m pip install 'lifelines' 
+    Requirement already satisfied: numpy>=1.14.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from lifelines) (1.26.4)
+    Requirement already satisfied: pandas<3.0,>=2.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from lifelines) (2.3.3)
+    Requirement already satisfied: matplotlib>=3.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from lifelines) (3.9.4)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas<3.0,>=2.1->lifelines) (2.9.0.post0)
+    Requirement already satisfied: pytz>=2020.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas<3.0,>=2.1->lifelines) (2025.2)
+    Requirement already satisfied: tzdata>=2022.7 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas<3.0,>=2.1->lifelines) (2025.3)
+    Requirement already satisfied: typing-extensions>=4.2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from formulaic>=0.2.2->lifelines) (4.15.0)
+    Requirement already satisfied: contourpy>=1.0.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (1.3.0)
+    Requirement already satisfied: cycler>=0.10 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (0.12.1)
+    Requirement already satisfied: fonttools>=4.22.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (4.60.2)
+    Requirement already satisfied: kiwisolver>=1.3.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (1.4.7)
+    Requirement already satisfied: packaging>=20.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (25.0)
+    Requirement already satisfied: pillow>=8 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (11.3.0)
+    Requirement already satisfied: pyparsing>=2.3.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (3.3.2)
+    Requirement already satisfied: importlib-resources>=3.2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from matplotlib>=3.0->lifelines) (6.5.2)
+    Requirement already satisfied: zipp>=3.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from importlib-resources>=3.2.0->matplotlib>=3.0->lifelines) (3.23.0)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from python-dateutil>=2.8.2->pandas<3.0,>=2.1->lifelines) (1.17.0)
+    Successfully installed autograd-1.8.0 autograd-gamma-0.5.0 formulaic-1.2.1 interface-meta-1.3.0 lifelines-0.30.1 narwhals-2.17.0 scipy-1.13.1 wrapt-2.1.1
+[coble-create] End time: 2026-02-26 15:30:43
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-26 15:30:43 80/115
+install: python -m pip install 'scikit-survival' 
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-survival) (1.26.4)
+    Requirement already satisfied: pandas>=1.4.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-survival) (2.3.3)
+    Requirement already satisfied: scipy>=1.3.2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-survival) (1.13.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from osqp!=0.6.0,!=0.6.1->scikit-survival) (3.1.6)
+    Requirement already satisfied: setuptools in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from osqp!=0.6.0,!=0.6.1->scikit-survival) (80.9.0)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas>=1.4.0->scikit-survival) (2.9.0.post0)
+    Requirement already satisfied: pytz>=2020.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas>=1.4.0->scikit-survival) (2025.2)
+    Requirement already satisfied: tzdata>=2022.7 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from pandas>=1.4.0->scikit-survival) (2025.3)
+    Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from python-dateutil>=2.8.2->pandas>=1.4.0->scikit-survival) (1.17.0)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->osqp!=0.6.0,!=0.6.1->scikit-survival) (3.0.2)
+    Successfully installed ecos-2.0.14 joblib-1.5.3 numexpr-2.10.2 osqp-1.1.1 scikit-learn-1.5.2 scikit-survival-0.23.1 threadpoolctl-3.6.0
+[coble-create] End time: 2026-02-26 15:30:45
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:45 82/115
+install: python -m pip install 'scikit-learn' 
+    Requirement already satisfied: scikit-learn in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (1.5.2)
+    Requirement already satisfied: numpy>=1.19.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-learn) (1.26.4)
+    Requirement already satisfied: scipy>=1.6.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-learn) (1.13.1)
+    Requirement already satisfied: joblib>=1.2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-learn) (1.5.3)
+    Requirement already satisfied: threadpoolctl>=3.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-learn) (3.6.0)
+[coble-create] End time: 2026-02-26 15:30:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:45 84/115
+install: python -m pip install 'tensorboard' 
+    Requirement already satisfied: numpy>=1.12.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from tensorboard) (1.26.4)
+    Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from tensorboard) (25.0)
+    Requirement already satisfied: pillow in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from tensorboard) (11.3.0)
+    Requirement already satisfied: setuptools>=41.0.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from tensorboard) (80.9.0)
+    Requirement already satisfied: typing-extensions~=4.12 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from grpcio>=1.48.2->tensorboard) (4.15.0)
+    Requirement already satisfied: zipp>=3.20 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from importlib-metadata>=4.4->markdown>=2.6.8->tensorboard) (3.23.0)
+    Requirement already satisfied: markupsafe>=2.1.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from werkzeug>=1.0.1->tensorboard) (3.0.2)
+    Successfully installed absl-py-2.3.1 grpcio-1.78.0 importlib-metadata-8.7.1 markdown-3.9 protobuf-6.33.5 tensorboard-2.20.0 tensorboard-data-server-0.7.2 werkzeug-3.1.6
+[coble-create] End time: 2026-02-26 15:30:47
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:47 86/115
+install: python -m pip install 'fairscale' 
+    Requirement already satisfied: torch>=1.8.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from fairscale) (2.0.0)
+    Requirement already satisfied: numpy>=1.22.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from fairscale) (1.26.4)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.8.0->fairscale) (3.17.0)
+    Requirement already satisfied: typing-extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.8.0->fairscale) (4.15.0)
+    Requirement already satisfied: sympy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.8.0->fairscale) (1.14.0)
+    Requirement already satisfied: networkx in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.8.0->fairscale) (3.2.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.8.0->fairscale) (3.1.6)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->torch>=1.8.0->fairscale) (3.0.2)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from sympy->torch>=1.8.0->fairscale) (1.3.0)
+    Successfully installed fairscale-0.4.13
+[coble-create] End time: 2026-02-26 15:30:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:48 88/115
+install: python -m pip install 'wandb' 
+    Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from wandb) (25.0)
+    Requirement already satisfied: protobuf!=4.21.0,!=5.28.0,<7,>=3.15.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from wandb) (6.33.5)
+    Requirement already satisfied: pyyaml in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from wandb) (6.0.3)
+    Requirement already satisfied: requests<3,>=2.0.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from wandb) (2.32.5)
+    Requirement already satisfied: typing-extensions<5,>=4.8 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from wandb) (4.15.0)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests<3,>=2.0.0->wandb) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests<3,>=2.0.0->wandb) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests<3,>=2.0.0->wandb) (2.5.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests<3,>=2.0.0->wandb) (2025.10.5)
+    Successfully installed annotated-types-0.7.0 click-8.1.8 eval-type-backport-0.3.1 gitdb-4.0.12 gitpython-3.1.46 platformdirs-4.4.0 pydantic-2.12.5 pydantic-core-2.41.5 sentry-sdk-2.53.0 smmap-5.0.2 typing-inspection-0.4.2 wandb-0.25.0
+[coble-create] End time: 2026-02-26 15:30:50
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:50 90/115
+install: python -m pip install 'timm>=1.0.3' 
+    Requirement already satisfied: torch in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from timm>=1.0.3) (2.0.0)
+    Requirement already satisfied: torchvision in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from timm>=1.0.3) (0.15.0)
+    Requirement already satisfied: pyyaml in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from timm>=1.0.3) (6.0.3)
+    Requirement already satisfied: huggingface_hub in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from timm>=1.0.3) (0.20.2)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (3.17.0)
+    Requirement already satisfied: fsspec>=2023.5.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (2025.10.0)
+    Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (2.32.5)
+    Requirement already satisfied: tqdm>=4.42.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (4.67.3)
+    Requirement already satisfied: typing-extensions>=3.7.4.3 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (4.15.0)
+    Requirement already satisfied: packaging>=20.9 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface_hub->timm>=1.0.3) (25.0)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface_hub->timm>=1.0.3) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface_hub->timm>=1.0.3) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface_hub->timm>=1.0.3) (2.5.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->huggingface_hub->timm>=1.0.3) (2025.10.5)
+    Requirement already satisfied: sympy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch->timm>=1.0.3) (1.14.0)
+    Requirement already satisfied: networkx in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch->timm>=1.0.3) (3.2.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch->timm>=1.0.3) (3.1.6)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->torch->timm>=1.0.3) (3.0.2)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from sympy->torch->timm>=1.0.3) (1.3.0)
+    Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torchvision->timm>=1.0.3) (1.26.4)
+    Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torchvision->timm>=1.0.3) (11.3.0)
+    Successfully installed safetensors-0.7.0 timm-1.0.25
+[coble-create] End time: 2026-02-26 15:30:51
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:51 92/115
+install: python -m pip install 'packaging==23.2' 
+    Successfully installed packaging-23.2
+[coble-create] End time: 2026-02-26 15:30:52
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:52 94/115
+install: python -m pip install 'ninja==1.11.1.1' 
+    Successfully installed ninja-1.11.1.1
+[coble-create] End time: 2026-02-26 15:30:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:52 96/115
+install: python -m pip install 'transformers==4.36.2' 
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (3.17.0)
+    Requirement already satisfied: huggingface-hub<1.0,>=0.19.3 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (0.20.2)
+    Requirement already satisfied: numpy>=1.17 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (1.26.4)
+    Requirement already satisfied: packaging>=20.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (23.2)
+    Requirement already satisfied: pyyaml>=5.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (6.0.3)
+    Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (2.32.5)
+    Requirement already satisfied: safetensors>=0.3.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (0.7.0)
+    Requirement already satisfied: tqdm>=4.27 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from transformers==4.36.2) (4.67.3)
+    Requirement already satisfied: fsspec>=2023.5.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub<1.0,>=0.19.3->transformers==4.36.2) (2025.10.0)
+    Requirement already satisfied: typing-extensions>=3.7.4.3 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from huggingface-hub<1.0,>=0.19.3->transformers==4.36.2) (4.15.0)
+    Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->transformers==4.36.2) (3.4.4)
+    Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->transformers==4.36.2) (3.11)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->transformers==4.36.2) (2.5.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from requests->transformers==4.36.2) (2025.10.5)
+    Successfully installed regex-2026.1.15 tokenizers-0.15.2 transformers-4.36.2
+[coble-create] End time: 2026-02-26 15:30:55
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-26 15:30:55 98/115
+install: python -m pip install 'monai==1.3.1' 
+    Requirement already satisfied: torch>=1.9 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from monai==1.3.1) (2.0.0)
+    Requirement already satisfied: numpy>=1.20 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from monai==1.3.1) (1.26.4)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.9->monai==1.3.1) (3.17.0)
+    Requirement already satisfied: typing-extensions in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.9->monai==1.3.1) (4.15.0)
+    Requirement already satisfied: sympy in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.9->monai==1.3.1) (1.14.0)
+    Requirement already satisfied: networkx in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.9->monai==1.3.1) (3.2.1)
+    Requirement already satisfied: jinja2 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from torch>=1.9->monai==1.3.1) (3.1.6)
+    Requirement already satisfied: MarkupSafe>=2.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from jinja2->torch>=1.9->monai==1.3.1) (3.0.2)
+    Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from sympy->torch>=1.9->monai==1.3.1) (1.3.0)
+    Successfully installed monai-1.3.1
+[coble-create] End time: 2026-02-26 15:30:56
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:56 100/115
+install: python -m pip install 'openslide-python' 
+    Requirement already satisfied: Pillow in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from openslide-python) (11.3.0)
+    Successfully installed openslide-python-1.4.2
+[coble-create] End time: 2026-02-26 15:30:57
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:30:57 102/115
+install: python -m pip install 'openslide-bin' 
+    Successfully installed openslide-bin-4.0.0.11
+[coble-create] End time: 2026-02-26 15:30:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:57 104/115
+install: python -m pip install 'scikit-image' 
+    Requirement already satisfied: numpy>=1.23 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-image) (1.26.4)
+    Requirement already satisfied: scipy>=1.9 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-image) (1.13.1)
+    Requirement already satisfied: networkx>=2.8 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-image) (3.2.1)
+    Requirement already satisfied: pillow>=9.1 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-image) (11.3.0)
+    Requirement already satisfied: packaging>=21 in /home/ralcraft/miniforge3/envs/pgp/lib/python3.9/site-packages (from scikit-image) (23.2)
+    Successfully installed imageio-2.37.2 lazy-loader-0.4 scikit-image-0.24.0 tifffile-2024.8.30
+[coble-create] End time: 2026-02-26 15:30:59
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-02-26 15:30:59 106/115
+install: mkdir -p $CONDA_PREFIX/GitHub
+[coble-create] End time: 2026-02-26 15:30:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:30:59 108/115
+install: git clone https://github.com/prov-gigapath/prov-gigapath.git $CONDA_PREFIX/GitHub
+[coble-create] End time: 2026-02-26 15:31:02
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-26 15:31:02 110/115
+install: python -m pip install -e $CONDA_PREFIX/GitHub
+    Successfully installed gigapath-0.1.0
+[coble-create] End time: 2026-02-26 15:31:04
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-26 15:31:04 112/115
+install: cp recipes/papers/ProvGigaPath/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-26 15:31:04
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-26 15:31:04 114/115
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-02-26 15:31:04
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-02-26 15:31:04
+[coble-create] Recipe took: 0h 5m 44s
+--------------------------------------

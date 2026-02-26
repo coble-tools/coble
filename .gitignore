@@ -92,3 +92,4 @@ tests/github_docker/logs/*
 CHIEF-DEV/*
 *.png
 temp/*
+outputs/*
