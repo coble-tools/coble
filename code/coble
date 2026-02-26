@@ -43,6 +43,23 @@ echo '╚═══════════════════════�
 
 
 echo "[coble] Starting coble at $(date)" >&2
+
+# Initialize Conda by sourcing .bash_profile and .bashrc
+if [ -f "$HOME/.bash_profile" ]; then
+    source "$HOME/.bash_profile"
+fi
+
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
+# Check if Conda is available and initialized
+if [[ "$(type -t conda)" != "function" || -z "$CONDA_EXE" ]]; then
+    echo "[coble] Conda is not initialized in this shell." >&2
+    echo "[coble] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1  # Stop the script immediately
+fi
+
 copied_inputs=("$@")
 container_type="conda"
 for i in "${!copied_inputs[@]}"; do

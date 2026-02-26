@@ -17,12 +17,18 @@
 # 3. log files in outdir
 ###############
 
-# Initialize conda - try .bashrc first, fall back to conda init
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-else
-    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
-    if command -v conda &> /dev/null; then
+# Initialize Conda for Bash by sourcing .bash_profile and .bashrc
+if [ -f "$HOME/.bash_profile" ]; then
+    source "$HOME/.bash_profile"
+fi
+
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
+# If 'conda' is still not available, initialize using the shell hook
+if ! type conda >/dev/null 2>&1; then
+    if command -v conda >/dev/null 2>&1; then
         eval "$(conda shell.bash hook)"
     fi
 fi
