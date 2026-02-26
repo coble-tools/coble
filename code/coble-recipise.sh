@@ -43,6 +43,17 @@ echo "[coble-recipise] Starting recipise process..." >&2
 MAX_DEACTIVATIONS=5
 count=0
 
+remove_trailing_backslash() { 
+    local file="$1" 
+    local tmp 
+ 
+    tmp="$(mktemp)" || return 1 
+    sed '$ s/\\$//' "$file" > "$tmp" || { rm -f "$tmp"; return 1; } 
+ 
+    cp "$file" "$file.bak" || { rm -f "$tmp"; return 1; } 
+    mv "$tmp" "$file" 
+} 
+
 
 # Parse named arguments
 show_help() {
@@ -298,7 +309,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+	remove_trailing_backslash "$RECIPE_FILE"
+       
 
         if [[ "$line" != "channels:" ]]; then
           #echo "" >> "$RECIPE_FILE"
@@ -758,7 +770,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     else
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+	remove_trailing_backslash "$RECIPE_FILE"
         # if it is a comment
         if [[ "$line" == \#* ]]; then
             echo "$line" >> "$RECIPE_FILE"
@@ -769,7 +781,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     fi
 done < "$YAML_FILE"
 # remove a trailing \ if needed
-sed -i '${s/\\$//}' "$RECIPE_FILE"
+remove_trailing_backslash "$RECIPE_FILE"
 
 # copy line for validation script if VAL__FILE is not ""
 echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
