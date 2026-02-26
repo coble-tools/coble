@@ -15,6 +15,23 @@
 #   bash code/coble-r-source.sh 4.3.2
 #   bash code/coble-r-source.sh devel
 
+
+# Initialize Conda for Bash by sourcing .bash_profile and .bashrc
+if [ -f "$HOME/.bash_profile" ]; then
+    source "$HOME/.bash_profile"
+fi
+
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
+# If 'conda' is still not available, initialize using the shell hook
+if ! type conda >/dev/null 2>&1; then
+    if command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook)"
+    fi
+fi
+
 set -euo pipefail
 
 # ---- 0. Parse arguments ----
@@ -244,9 +261,6 @@ about:
   summary: Placeholder for source-built R ${R_VERSION}
 EOF
 
-
-source ~/.bashrc
-if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi
 conda build /tmp/r-base-recipe
 conda install --use-local r-base=${R_VERSION}
 
