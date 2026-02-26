@@ -11,14 +11,13 @@
 #
 #################################################################################
 
-# Initialize conda - try .bashrc first, fall back to conda init
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-else
-    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
-    if command -v conda &> /dev/null; then
-        eval "$(conda shell.bash hook)"
-    fi
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
+    eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
 fi
 
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
@@ -369,9 +368,9 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e "  - environment: $ENV_NAME"
 	echo -e ""
 	echo -e "channels:"
-    conda config --show channels $ENV_FORMATTED | grep -E '^\s*-\s' | sed 's/^\s*-\s*//' | tac | while read -r channel; do
-        echo "  - $channel"
-    done
+	conda config --show channels $ENV_FORMATTED | grep -E '^[[:space:]]*-[[:space:]]' | sed 's/^[[:space:]]*-[[:space:]]*//' | awk '{lines[NR]=$0} END {for (i=NR; i>=1; i--) print lines[i]}' | while read -r channel; do
+		echo "  - $channel"
+	done
 	#echo -e "  - defaults"
 	#echo -e "  - r"
 	#echo -e "  - bioconda"
@@ -395,8 +394,14 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e "  - compile-tools: true"
 	echo -e "  - dependencies: false"
     echo -e "  - priority: flexible"
-	conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | sort | while IFS='=' read -r key value; do
-    	# don't want to repat any of the settings that are the compiler tools we set elsewhere
+	conda env config vars list | sort | while IFS='=' read -r key value; do
+		key="${key%% *}"
+		value="${value## }"
+		value="${value%% }"
+		if [[ ! "$key" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+			continue
+		fi
+     	# don't want to repat any of the settings that are the compiler tools we set elsewhere
 		not_key=("CC" "CXX" "LD" "FC" "F77" "CFLAGS" "CXXFLAGS" "CPPFLAGS" "LDFLAGS")
 		if [[ ! " ${not_key[@]} " =~ " ${key} " ]]; then
 			echo "  - export: $key=\"$value\""
@@ -407,59 +412,69 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
     #fi
 } > "$AGGREGATE_TXT"
 
-# Now loop through the sorted file and keep as a variable the current mananager
+# Now loop through the sorted file and keep as a variable the current manager
 current_manager=""
 current_channel=""
 header_skipped=false
-declare -A seen_pkgver
+seen_pkgver=""          # Use a colon-delimited string instead of associative array
 my_find_list=()
+
 while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
 		header_skipped=true
 		continue
 	fi
+
     # Deduplicate by pkgver (case-insensitive)
 	pkgver_key="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
-	if [[ -n "${seen_pkgver[$pkgver_key]}" ]]; then
-		continue
-	fi
-	seen_pkgver[$pkgver_key]=1
+	case ":$seen_pkgver:" in
+        *":$pkgver_key:"*) continue ;;  # skip duplicates
+    esac
+	seen_pkgver="$seen_pkgver:$pkgver_key"
+
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
-    if [[ "$pkg" == _* ]] || \
-	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
-	#[[ "$src" == *System/Manual* ]] || \
-	[[ "$pkg" == *base=* ]] || \
-	[[ "$pkg" == python=* ]]; then
+	if [[ "$pkg" == _* ]] || \
+	   [[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
+	   #[[ "$src" == *System/Manual* ]] || \
+	   [[ "$pkg" == *base=* ]] || \
+	   [[ "$pkg" == python=* ]]; then
 		continue
 	fi
-    if [[  "$src" != "$current_channel"  && "$src" != *"unknown"*  ]]; then
-        current_channel="$src"
-    #	# New manager/channel section
+
+	# New channel section
+	if [[ "$src" != "$current_channel" && "$src" != *"unknown"* ]]; then
+		current_channel="$src"
+		# New manager/channel section
 		echo -e "" >> "$AGGREGATE_TXT"
 		#echo -e "flags:" >> "$AGGREGATE_TXT"
-        #echo -e "  - channel: $src" >> "$AGGREGATE_TXT"
+		#echo -e "  - channel: $src" >> "$AGGREGATE_TXT"
 		echo -e "$manager:" >> "$AGGREGATE_TXT"
 		current_manager="$manager"
-    elif [[ "$manager" != "$current_manager" ]]; then
-		# New manager section
-        echo "new manager: $manager"
+
+	# New manager section
+	elif [[ "$manager" != "$current_manager" ]]; then
+		echo "new manager: $manager"
 		echo -e "" >> "$AGGREGATE_TXT"
-        echo -e "$manager:" >> "$AGGREGATE_TXT"
+		echo -e "$manager:" >> "$AGGREGATE_TXT"
 		current_manager="$manager"
 	fi
+
+	# Skip R packages if HAS_R is 0
 	if [[ "$manager" == "r-conda" || "$manager" == "bioc-conda" || "$manager" == "r-package" || "$manager" == "bioc-package" ]]; then
-        if [[ HAS_R -eq 0 ]]; then
-		    continue
+		if [[ "$HAS_R" -eq 0 ]]; then
+			continue
 		fi
-    fi
+	fi
+
 	outline=""
-    if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" || "$src" == "pip" ]]; then
+	# Output based on source/path
+	if [[ "$src" == "pypi" || "$src" == "CRAN" || "$src" == "Bioconductor" || "$src" == "pip" ]]; then
 		echo -e "  - $pkg" >> "$AGGREGATE_TXT"
 	elif [[ -n "$path" ]]; then
 		echo -e "  - $pkg@$src@$path" >> "$AGGREGATE_TXT"
 	elif [[ "$src" == *"System/Manual"* ]]; then
-        my_find_list+=("$pkg")
-    else
+		my_find_list+=("$pkg")
+	else
 		echo -e "  - $pkg@$src" >> "$AGGREGATE_TXT"
 	fi
 done < "$TMP_SORTED"
@@ -493,5 +508,4 @@ fi
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 echo "[coble] To activate environment call:" >&2
 echo "        conda activate $ENV_INPUT" >&2
-
 
