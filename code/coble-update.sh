@@ -38,12 +38,13 @@ update_recipe="$RESULTS_DIR/${base_name_noext}.delta"
 
 
 print_array() {
-    local arr=("$@")
-    local recipe_file="${arr[-1]}"
-    unset 'arr[-1]'  # Remove filename from array
+    # Last argument is the file
+    local recipe_file="${!#}"  # ${!#} expands to the last positional parameter
+    local i
 
-    for element in "${arr[@]}"; do
-        echo "$element" >> "$recipe_file"
+    # Loop over all arguments except the last
+    for ((i=1; i < $#; i++)); do
+        echo "${!i}" >> "$recipe_file"
     done
 }
 
