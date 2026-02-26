@@ -12,13 +12,14 @@
 #################################################################################
 
 # Initialize conda - try .bashrc first, fall back to conda init
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+elif [ -f "$HOME/.bash_profile" ]; then
+    source "$HOME/.bash_profile"
 else
-    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
-    if command -v conda &> /dev/null; then
-        eval "$(conda shell.bash hook)"
-    fi
+	echo "[coble] Conda is not initialized in this shell." >&2
+    echo "[coble] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1  # Stop the script immediately
 fi
 
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
