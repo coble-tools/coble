@@ -11,16 +11,17 @@ srun --pty -t 1:00:00 -p gpudev --gres=gpu:1 bash
 
 ```
 code/coble build \
---recipe recipes/papers/ProvGigaPath/ProvGigaPath.cbl \
+--recipe recipes/papers/ProvGigaPath/pgp.cbl \
+--env pgp \
 --validate recipes/papers/ProvGigaPath/validate.sh \
---env ProvGigaPath \
 --rebuild
 
 code/coble build \
 --recipe recipes/papers/ProvGigaPath/pgp.cbl \
 --env pgp \
 --validate recipes/papers/ProvGigaPath/validate.sh \
---rebuild
+--code-source local \
+--containers docker,singularity
 ```
 
 # Accessing hugging fact through time

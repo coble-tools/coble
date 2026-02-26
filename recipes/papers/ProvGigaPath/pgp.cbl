@@ -15,10 +15,11 @@ conda:
 conda:
   - cuda
   - packaging
-  - pytorch=2.0.0
-  - torchvision=0.15.0
-  - torchaudio=2.0.0
-  - pytorch-cuda=11.8
+  - pytorch::pytorch=2.0.0
+  - pytorch::torchvision=0.15.0
+  - pytorch::torchaudio=2.0.0
+  - pytorch::pytorch-cuda=11.8
+  - nvidia::cuda-cudart>=11.8,<12.0
 flags:
   - export: CUDA_HOME=$CONDA_PREFIX
   - export: TORCH_CUDA_ARCH_LIST="8.0"
@@ -56,6 +57,6 @@ pip:
 bash:
   - # Cloning the repo to CONDA_PREFIX for easy access in notebooks
   - mkdir -p $CONDA_PREFIX/GitHub
-  - git clone https://github.com/prov-gigapath/prov-gigapath.git $CONDA_PREFIX/GitHub
+  - git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
+  - cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter
   - python -m pip install -e $CONDA_PREFIX/GitHub
-  - python -m pip uninstall xformers -y

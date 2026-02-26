@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-26
-# Capture time: 15:31:13 GMT
+# Capture time: 22:43:02 GMT
 # Captured by: ralcraft
 
 coble:
@@ -271,7 +271,6 @@ pip:
   - formulaic==1.2.1
   - fsspec==2025.10.0
   - fvcore==0.1.5.post20221221
-  - git+https://github.com/prov-gigapath/prov-gigapath.git@3505f87e197d167522be491bb3f18fb5a08ca584#egg==
   - gitdb==4.0.12
   - grpcio==1.78.0
   - h5py==3.14.0
