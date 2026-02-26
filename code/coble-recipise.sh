@@ -753,7 +753,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             # Build arguments array
             find_args=(--pkg "$pkg_only" --version "$ver")
             # Call and capture return value
-            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
+            result=()
+            while IFS= read -r line; do
+                result+=("$line")
+            done < <("$script_dir/coble-find.sh" "${find_args[@]}")
+
             pkg_manager="${result[0]}"
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"

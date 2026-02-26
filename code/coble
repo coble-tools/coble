@@ -125,9 +125,14 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	fi
 
 	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2
-	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
+	result=()
+	while IFS= read -r line; do
+		result+=("$line")
+	done < <("$script_dir/coble-recipise.sh" "${@:2}")
+
 	success="${result[0]}"
 	recipe_file="${result[1]}"
+
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
 		exit 1

@@ -132,7 +132,11 @@ while IFS= read -r origline || [[ -n "$origline" ]]; do
             # output the request to the yaml
             echo "# $origline" >> "$YAML_FILE"
             # Call and capture return value
-            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
+            result=()
+            while IFS= read -r line; do
+                result+=("$line")
+            done < <("$script_dir/coble-find.sh" "${find_args[@]}")
+
             pkg_manager="${result[0]}"
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"
