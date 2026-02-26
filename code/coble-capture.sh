@@ -20,6 +20,12 @@ if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
     eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
 fi
 
+if ! type conda >/dev/null 2>&1; then
+    echo "[coble-capture] Conda is not initialized in this shell." >&2
+    echo "[coble-capture] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1
+fi
+
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
 
 # Default values
@@ -508,4 +514,3 @@ fi
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 echo "[coble] To activate environment call:" >&2
 echo "        conda activate $ENV_INPUT" >&2
-

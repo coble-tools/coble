@@ -17,20 +17,19 @@
 # 3. log files in outdir
 ###############
 
-# Initialize Conda for Bash by sourcing .bash_profile and .bashrc
-if [ -f "$HOME/.bash_profile" ]; then
-    source "$HOME/.bash_profile"
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
+    eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
 fi
 
-if [ -f "$HOME/.bashrc" ]; then
-    source "$HOME/.bashrc"
-fi
-
-# If 'conda' is still not available, initialize using the shell hook
 if ! type conda >/dev/null 2>&1; then
-    if command -v conda >/dev/null 2>&1; then
-        eval "$(conda shell.bash hook)"
-    fi
+    echo "[coble-create] Conda is not initialized in this shell." >&2
+    echo "[coble-create] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1
 fi
 
 ENV_OUTPUT=""
@@ -313,10 +312,6 @@ echo "    conda activate $NEW_ENV" >&2
 exec >&- 2>&-
 echo Y
 exit 0
-
-
-
-
 
 
 

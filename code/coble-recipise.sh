@@ -192,8 +192,8 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     #echo 'eval "$('"$CONDA_ALIAS"' shell hook --shell=bash)"'
     # echo -e "source ~/.bashrc"
 
-    # Initialize conda - try .bashrc first, fall back to conda init
-    echo -e "if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi; if [ -f ~/.bashrc ]; then source ~/.bashrc; fi; if ! type conda >/dev/null 2>&1; then if command -v conda >/dev/null 2>&1; then eval \"\$(conda shell.bash hook)\"; else echo '[coble] Conda not found. Please install Conda.' >&2; exit 1; fi; fi"
+    echo -e "if [[ \"\$(uname -s)\" == Darwin* ]]; then source \"\$HOME/.bash_profile\" 2>/dev/null || true; else source \"\$HOME/.bashrc\" 2>/dev/null || true; fi"
+    echo -e "if ! type conda >/dev/null 2>&1 && [ -n \"\${CONDA_EXE:-}\" ]; then eval \"\$(\"\$CONDA_EXE\" shell.bash hook 2>/dev/null)\" 2>/dev/null; fi"
 
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
@@ -827,8 +827,4 @@ echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
 echo "$RECIPE_FILE"
-
-
-
-
 
