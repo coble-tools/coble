@@ -93,3 +93,4 @@ CHIEF-DEV/*
 *.png
 temp/*
 outputs/*
+*.*.tar*

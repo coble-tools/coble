@@ -1,7 +1,7 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-27
-# Capture time: 09:10:41 GMT
-# Captured by: rachel
+# Capture time: 10:51:16 GMT
+# Captured by: ralcraft
 
 coble:
 
@@ -9,8 +9,8 @@ coble:
 
 channels:
   - conda-forge
+  - bioconda
   - defaults
-  - nvidia
   - pytorch
 
 languages:
@@ -19,9 +19,17 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
+  - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/pgp"
   - export: PYTHONNOUSERSITE="1"
+  - export: TORCH_CUDA_ARCH_LIST="8.0"
 
 conda:
+  - binutils_impl_linux-64=2.44@defaults
+  - binutils_linux-64=2.44@defaults
+  - gcc_impl_linux-64=15.2.0@defaults
+  - gcc_linux-64=15.2.0@defaults
+  - gxx_impl_linux-64=15.2.0@defaults
+  - gxx_linux-64=15.2.0@defaults
   - icu=73.1@defaults
 
 conda:
@@ -29,18 +37,20 @@ conda:
   - libcublas=11.11.3.6@nvidia
   - libcufft-dev=10.9.0.58@nvidia
   - libcufft=10.9.0.58@nvidia
-  - libcufile-dev=1.9.1.3@nvidia
-  - libcufile=1.9.1.3@nvidia
-  - libcurand-dev=10.3.5.147@nvidia
-  - libcurand=10.3.5.147@nvidia
+  - libcufile-dev=1.16.1.26@nvidia
+  - libcufile=1.16.1.26@nvidia
+  - libcurand-dev=10.4.1.81@nvidia
+  - libcurand=10.4.1.81@nvidia
   - libcusolver-dev=11.4.1.48@nvidia
   - libcusolver=11.4.1.48@nvidia
   - libcusparse-dev=11.7.5.86@nvidia
   - libcusparse=11.7.5.86@nvidia
 
 conda:
+  - libgcc-devel_linux-64=15.2.0@defaults
   - libgcc-ng=15.2.0@defaults
   - libgcc=15.2.0@defaults
+  - libstdcxx-devel_linux-64=15.2.0@defaults
   - libstdcxx-ng=15.2.0@defaults
   - libstdcxx=15.2.0@defaults
   - zlib=1.2.13@defaults
@@ -55,39 +65,56 @@ conda:
   - charset-normalizer=3.4.4@defaults
 
 conda:
-  - cuda-cccl=12.4.127@nvidia
+  - cuda-cccl=13.1.115@nvidia
+  - cuda-cccl_linux-64=13.1.115@nvidia
   - cuda-command-line-tools=11.8.0@nvidia
-  - cuda-compiler=12.6.2@nvidia
+  - cuda-compiler=13.1.0@nvidia
+  - cuda-crt-dev_linux-64=13.1.80@nvidia
+  - cuda-crt-tools=13.1.80@nvidia
+  - cuda-ctadvisor=13.1.80@nvidia
   - cuda-cudart-dev=11.8.89@nvidia
+  - cuda-cudart-dev_linux-64=13.1.80@nvidia
+  - cuda-cudart-static_linux-64=13.1.80@nvidia
   - cuda-cudart=11.8.89@nvidia
-  - cuda-cuobjdump=12.4.127@nvidia
+  - cuda-cudart_linux-64=13.1.80@nvidia
+  - cuda-cuobjdump=13.1.80@nvidia
   - cuda-cupti=11.8.87@nvidia
-  - cuda-cuxxfilt=12.4.127@nvidia
+  - cuda-cuxxfilt=13.1.80@nvidia
   - cuda-demo-suite=12.4.127@nvidia
   - cuda-documentation=12.4.127@nvidia
-  - cuda-driver-dev=12.4.127@nvidia
-  - cuda-gdb=12.4.127@nvidia
-  - cuda-libraries-dev=12.6.0@nvidia
+  - cuda-driver-dev=13.1.80@nvidia
+  - cuda-driver-dev_linux-64=13.1.80@nvidia
+  - cuda-gdb=13.1.115@nvidia
+  - cuda-libraries-dev=12.6.2@nvidia
   - cuda-libraries=11.8.0@nvidia
   - cuda-memcheck=11.8.86@nvidia
-  - cuda-nsight=12.4.127@nvidia
-  - cuda-nvcc=12.4.131@nvidia
-  - cuda-nvdisasm=12.4.127@nvidia
-  - cuda-nvml-dev=12.4.127@nvidia
+  - cuda-nsight=13.1.115@nvidia
+  - cuda-nvcc-dev_linux-64=13.1.80@nvidia
+  - cuda-nvcc-impl=13.1.80@nvidia
+  - cuda-nvcc-tools=13.1.80@nvidia
+  - cuda-nvcc=13.1.80@nvidia
+  - cuda-nvcc_linux-64=13.1.80@nvidia
+  - cuda-nvdisasm=13.1.115@nvidia
+  - cuda-nvml-dev=13.1.115@nvidia
   - cuda-nvprof=12.4.127@nvidia
-  - cuda-nvprune=12.4.127@nvidia
+  - cuda-nvprune=13.1.80@nvidia
   - cuda-nvrtc-dev=11.8.89@nvidia
   - cuda-nvrtc=11.8.89@nvidia
   - cuda-nvtx=11.8.86@nvidia
+  - cuda-nvvm-dev_linux-64=13.1.80@nvidia
+  - cuda-nvvm-impl=13.1.80@nvidia
+  - cuda-nvvm-tools=13.1.80@nvidia
   - cuda-nvvp=12.4.127@nvidia
-  - cuda-opencl-dev=12.4.127@nvidia
-  - cuda-opencl=12.4.127@nvidia
-  - cuda-profiler-api=12.4.127@nvidia
+  - cuda-opencl-dev=13.1.115@nvidia
+  - cuda-opencl=13.1.115@nvidia
+  - cuda-profiler-api=13.1.115@nvidia
   - cuda-runtime=11.8.0@nvidia
-  - cuda-sanitizer-api=12.4.127@nvidia
+  - cuda-sanitizer-api=13.1.118@nvidia
+  - cuda-tileiras=13.1.80@nvidia
   - cuda-toolkit=11.8.0@nvidia
   - cuda-tools=11.8.0@nvidia
-  - cuda-visual-tools=12.6.0@nvidia
+  - cuda-version=13.1@nvidia
+  - cuda-visual-tools=12.6.2@nvidia
   - cuda=11.8.0@nvidia
 
 conda:
@@ -104,7 +131,7 @@ conda:
   - fribidi=1.0.16@defaults
 
 conda:
-  - gds-tools=1.9.1.3@nvidia
+  - gds-tools=1.16.1.26@nvidia
 
 conda:
   - gmp=6.3.0@defaults
@@ -116,6 +143,7 @@ conda:
   - intel-openmp=2023.1.0@defaults
   - jinja2=3.1.6@defaults
   - jpeg=9f@defaults
+  - kernel-headers_linux-64=4.18.0@defaults
   - lame=3.100@defaults
   - lcms2=2.17@defaults
   - ld_impl_linux-64=2.44@defaults
@@ -137,16 +165,19 @@ conda:
   - libnsl=2.0.0@defaults
 
 conda:
-  - libnvfatbin-dev=12.4.127@nvidia
-  - libnvfatbin=12.4.127@nvidia
-  - libnvjitlink-dev=12.4.127@nvidia
-  - libnvjitlink=12.4.127@nvidia
+  - libnvfatbin-dev=13.1.115@nvidia
+  - libnvfatbin=13.1.115@nvidia
+  - libnvjitlink-dev=13.1.115@nvidia
+  - libnvjitlink=13.1.115@nvidia
   - libnvjpeg-dev=11.9.0.86@nvidia
   - libnvjpeg=11.9.0.86@nvidia
+  - libnvptxcompiler-dev=13.1.80@nvidia
+  - libnvptxcompiler-dev_linux-64=13.1.80@nvidia
 
 conda:
   - libopenjpeg=2.5.4@defaults
   - libpng=1.6.54@defaults
+  - libsanitizer=15.2.0@defaults
   - libtasn1=4.21.0@defaults
   - libtiff=4.7.1@defaults
   - libunistring=0.9.10@defaults
@@ -170,11 +201,11 @@ conda:
   - nsight-compute=2024.1.1.4@nvidia
 
 conda:
-  - numpy=2.0.1@defaults
+  - ocl-icd=2.3.3@defaults
+  - opencl-headers=2025.07.22@defaults
   - openh264=2.1.1@defaults
   - openjpeg=2.5.4@defaults
   - openssl=3.0.19@defaults
-  - packaging=25.0@defaults
   - pcre2=10.46@defaults
   - pillow=11.3.0@defaults
   - pip=26.0.1@defaults
@@ -194,6 +225,7 @@ conda:
   - setuptools=80.9.0@defaults
   - sqlite=3.51.1@defaults
   - sympy=1.14.0@defaults
+  - sysroot_linux-64=2.28@defaults
   - tbb=2021.8.0@defaults
   - tk=8.6.15@defaults
 
@@ -204,7 +236,6 @@ conda:
 
 conda:
   - typing_extensions=4.15.0@defaults
-  - tzdata=2025c@defaults
   - urllib3=2.5.0@defaults
   - wheel=0.45.1@defaults
   - xorg-libx11=1.8.12@defaults
@@ -217,5 +248,90 @@ conda:
   - zstd=1.5.6@defaults
 
 pip:
+  - GitPython==3.1.46
+  - ImageIO==2.37.2
+  - Markdown==3.9
+  - PyYAML==6.0.3
+  - Werkzeug==3.1.6
+  - absl-py==2.3.1
+  - annotated-types==0.7.0
+  - antlr4-python3-runtime==4.9.3
+  - autograd-gamma==0.5.0
+  - autograd==1.8.0
+  - braceexpand==0.1.7
+  - click==8.1.8
+  - contourpy==1.3.0
+  - cycler==0.12.1
+  - ecos==2.0.14
+  - einops==0.8.2
+  - eval_type_backport==0.3.1
+  - fairscale==0.4.13
+  - fonttools==4.60.2
+  - formulaic==1.2.1
+  - fsspec==2025.10.0
+  - fvcore==0.1.5.post20221221
+  - gitdb==4.0.12
+  - grpcio==1.78.0
+  - h5py==3.14.0
+  - huggingface-hub==0.20.2
+  - importlib_metadata==8.7.1
+  - importlib_resources==6.5.2
+  - interface-meta==1.3.0
+  - iopath==0.1.10
+  - joblib==1.5.3
+  - kiwisolver==1.4.7
+  - lazy_loader==0.4
+  - lifelines==0.30.1
+  - matplotlib==3.9.4
+  - monai==1.3.1
+  - mypy_extensions==1.1.0
+  - narwhals==2.17.0
+  - ninja==1.11.1.1
+  - numexpr==2.10.2
+  - numpy==1.26.4
+  - omegaconf==2.3.0
+  - openslide-bin==4.0.0.11
+  - openslide-python==1.4.2
+  - osqp==1.1.1
+  - packaging==23.2
+  - pandas==2.3.3
+  - platformdirs==4.4.0
+  - portalocker==3.2.0
+  - protobuf==6.33.5
+  - pydantic==2.12.5
+  - pydantic_core==2.41.5
+  - pyparsing==3.3.2
+  - pyre-extensions==0.0.23
+  - python-dateutil==2.9.0.post0
+  - pytz==2025.2
+  - regex==2026.1.15
+  - safetensors==0.7.0
+  - scikit-image==0.24.0
+  - scikit-learn==1.5.2
+  - scikit-survival==0.23.1
+  - scipy==1.13.1
+  - sentry-sdk==2.53.0
+  - six==1.17.0
+  - smmap==5.0.2
+  - tabulate==0.9.0
+  - tensorboard-data-server==0.7.2
+  - tensorboard==2.20.0
+  - termcolor==3.1.0
+  - threadpoolctl==3.6.0
+  - tifffile==2024.8.30
+  - timm==1.0.25
+  - tokenizers==0.15.2
   - torch==2.0.0
+  - torchmetrics==0.10.3
+  - tqdm==4.67.3
+  - transformers==4.36.2
   - triton==2.0.0
+  - typing-inspect==0.9.0
+  - typing-inspection==0.4.2
+  - tzdata==2025.3
+  - wandb==0.25.0
+  - webdataset==0.2.100
+  - wrapt==2.1.1
+  - xformers==0.0.18
+  - yacs==0.1.8
+  - zipp==3.23.0
