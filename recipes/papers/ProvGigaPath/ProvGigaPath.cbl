@@ -26,6 +26,8 @@ bash:
 flags:
   - export: CUDA_HOME=$CONDA_PREFIX
   - export: TORCH_CUDA_ARCH_LIST="8.0"
+pip:
+  - psutil
 bash:
   - python -m pip install flash-attn==2.5.8 --no-build-isolation
 pip:

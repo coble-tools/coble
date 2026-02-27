@@ -1,0 +1,151 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-02-27 at 23:53:02 GMT
+------------------------------------------------
+
+[coble-create] Start time: 2026-02-27 23:53:02 1/120
+install: source ~/.bashrc
+[coble-create] End time: 2026-02-27 23:53:03
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:53:03 3/120
+install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
+[coble-create] End time: 2026-02-27 23:53:04
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:53:04 5/120
+install: conda env remove --name ProvGigaPath -y 2>/dev/null || true
+[coble-create] End time: 2026-02-27 23:53:09
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-02-27 23:53:09 7/120
+install: conda create --no-default-packages --name ProvGigaPath -y
+[coble-create] End time: 2026-02-27 23:53:28
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-02-27 23:53:28 9/120
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-27 23:53:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:28 10/120
+install: unset PYTHONPATH
+[coble-create] End time: 2026-02-27 23:53:28
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:28 11/120
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-02-27 23:53:31
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-02-27 23:53:31 13/120
+install: conda deactivate | true
+[coble-create] End time: 2026-02-27 23:53:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:53:32 14/120
+install: conda deactivate | true
+[coble-create] End time: 2026-02-27 23:53:33
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:53:33 15/120
+install: conda activate ProvGigaPath
+[coble-create] End time: 2026-02-27 23:53:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:33 16/120
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-27 23:53:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:33 17/120
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-02-27 23:53:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:33 18/120
+install: conda config --env --remove-key channels
+[coble-create] End time: 2026-02-27 23:53:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:34 20/120
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-02-27 23:53:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:34 21/120
+install: conda config --env --add channels defaults
+[coble-create] End time: 2026-02-27 23:53:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:34 23/120
+install: conda config --env --add channels nvidia
+[coble-create] End time: 2026-02-27 23:53:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:53:35 25/120
+install: conda config --env --add channels pytorch
+[coble-create] End time: 2026-02-27 23:53:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:35 27/120
+install: conda install -y --solver=libmamba --no-update-deps 'python=3.9'
+dep: # _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
+dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu
+dep: # bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2025.12.2-h06a4308_0
+dep: # expat              pkgs/main/linux-64::expat-2.7.4-h7354ed3_0
+dep: # ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h153f514_2
+dep: # libexpat           pkgs/main/linux-64::libexpat-2.7.4-h7354ed3_0
+dep: # libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_1
+dep: # libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_7
+dep: # libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_7
+dep: # libgomp            pkgs/main/linux-64::libgomp-15.2.0-h4751f2c_7
+dep: # libnsl             pkgs/main/linux-64::libnsl-2.0.0-h5eee18b_0
+dep: # libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_7
+dep: # libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-15.2.0-hc03a8fd_7
+dep: # libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0
+dep: # libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0
+dep: # libzlib            pkgs/main/linux-64::libzlib-1.3.1-hb25bd0a_0
+dep: # ncurses            pkgs/main/linux-64::ncurses-6.5-h7934f7d_0
+dep: # openssl            pkgs/main/linux-64::openssl-3.5.5-h1b28b03_0
+dep: # pip                pkgs/main/noarch::pip-26.0.1-pyhc872135_0
+dep: # pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1
+dep: # python             pkgs/main/linux-64::python-3.9.25-h0dcde21_1
+dep: # readline           pkgs/main/linux-64::readline-8.3-hc2a1206_0
+dep: # setuptools         pkgs/main/linux-64::setuptools-80.9.0-py39h06a4308_0
+dep: # sqlite             pkgs/main/linux-64::sqlite-3.51.1-he0a8d7e_0
+dep: # tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0
+dep: # tzdata             pkgs/main/noarch::tzdata-2025c-he532380_0
+dep: # wheel              pkgs/main/linux-64::wheel-0.45.1-py39h06a4308_0
+dep: # xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1
+dep: # xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0
+dep: # xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0
+dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
+dep: # xz                 pkgs/main/linux-64::xz-5.6.4-h5eee18b_1
+dep: # zlib               pkgs/main/linux-64::zlib-1.3.1-hb25bd0a_0
+[coble-create] End time: 2026-02-27 23:53:59
+[coble-create] Duration: 24s
+
+[coble-create] Start time: 2026-02-27 23:53:59 29/120
+install: python -m site
+[coble-create] End time: 2026-02-27 23:53:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:53:59 31/120
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-27 23:54:00
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-02-27 23:54:00 32/120
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-02-27 23:54:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-02-27 23:54:00 34/120
+install: conda install -y --solver=libmamba --no-update-deps  pip 
+    # All requested packages already installed.
+[coble-create] End time: 2026-02-27 23:54:13
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-02-27 23:54:13 42/120
+install: conda install -y --solver=libmamba --no-update-deps  cuda  packaging  pytorch::pytorch=2.0.0  pytorch::torchvision=0.15.0  pytorch::torchaudio=2.0.0  pytorch::pytorch-cuda=11.8 

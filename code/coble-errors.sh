@@ -13,7 +13,7 @@ EXIT_ON_ERROR="$4"
 DONE_FILE="$OUTPUT_FILE"
 RECIPE_FILE="$OUTPUT_FILE"
 
-# convert to int if it is blank  
+# convert to int if it is blank
 found_errors=false
 
 #### ERRORS TO CHECK FOR #########
@@ -26,16 +26,17 @@ stdout_patterns=(
     "nothing provides"
     "please re-install it"
     "Could not solve for environment specs"
-    "Failed to build"     
-    "ERROR: compilation failed" 
+    "Failed to build"
+    "ERROR: compilation failed"
     "HTTP error 404"
     #"ClobberError"
     "SafetyError"
     "LinkError: post-link script failed for package"
     "Error in rawToChar"
+    "ModuleNotFoundError: No module named"
 )
 error_patterns=(
-    "* removing"    
+    "* removing"
     #"fatal"
     "EnvironmentNotWritableError"
     "Rscript: command not found"
@@ -51,16 +52,17 @@ error_patterns=(
     "LibMambaUnsatisfiableError"
     "Error in loadNamespace(x)"
     "there is no package"
-    "Failed to build" 
+    "Failed to build"
     "packages failed:"
-    "ERROR: compilation failed" 
+    "ERROR: compilation failed"
     "HTTP error 404"
     #"ClobberError"
     "SafetyError"
     "LinkError: post-link script failed for package"
     "Error in rawToChar"
+    "ModuleNotFoundError: No module named"
 )
-done_patterns=(    
+done_patterns=(
     "Successfully installed"
     #"** this is package"
     "Requirement already satisfied"
@@ -71,9 +73,9 @@ dep_patterns=(
     "DONE ("
     "linux-64::"
     "linux-aarch64::"
-    "noarch::"   
-    "[GitHub]" 
-    " ) [CRAN]" 
+    "noarch::"
+    "[GitHub]"
+    " ) [CRAN]"
     #" +"
 )
 
@@ -107,7 +109,7 @@ fi
 if [ -f "$CAPTURE_ERR_FILE" ]; then
     while read -r match; do
         echo "    # ERROR: from stderr found: $match" >> "$RECIPE_FILE"
-        found_errors=true        
+        found_errors=true
     done < <(grep -F -f "$error_pat_file" "$CAPTURE_ERR_FILE")
     while read -r match; do
         echo "    $match" >> "$DONE_FILE"
@@ -120,8 +122,8 @@ fi
 # Clean up temp files
 rm -f "$stdout_pat_file" "$error_pat_file" "$done_pat_file" "$dep_pat_file"
 if [[ "$found_errors" == true ]]; then
-    echo "[coble-errors] Errors were found during recreation. Please review the recipe file: $RECIPE_FILE" >> "$DONE_FILE"    
-    exit 1    
+    echo "[coble-errors] Errors were found during recreation. Please review the recipe file: $RECIPE_FILE" >> "$DONE_FILE"
+    exit 1
 else
     exit 0
 fi

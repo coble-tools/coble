@@ -11,14 +11,14 @@ srun --pty -t 1:00:00 -p gpudev --gres=gpu:1 bash
 
 ```
 code/coble build \
---recipe recipes/papers/ProvGigaPath/pgp.cbl \
---env pgp \
+--recipe recipes/papers/ProvGigaPath/ProvGigaPath.cbl \
+--env ProvGigaPath \
 --validate recipes/papers/ProvGigaPath/validate/validate.sh \
 --rebuild
 
 code/coble build \
---recipe recipes/papers/ProvGigaPath/pgp.cbl \
---env pgp \
+--recipe recipes/papers/ProvGigaPath/ProvGigaPath.cbl \
+--env provpigapath \
 --validate recipes/papers/ProvGigaPath/validate/validate.sh \
 --code-source local \
 --containers docker,singularity
