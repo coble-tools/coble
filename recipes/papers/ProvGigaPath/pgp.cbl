@@ -19,7 +19,10 @@ conda:
   - pytorch::torchvision=0.15.0
   - pytorch::torchaudio=2.0.0
   - pytorch::pytorch-cuda=11.8
-  - nvidia::cuda-cudart>=11.8,<12.0
+conda:
+  - nvidia::cuda-cudart
+bash:
+  - conda config --env --remove channels nvidia
 flags:
   - export: CUDA_HOME=$CONDA_PREFIX
   - export: TORCH_CUDA_ARCH_LIST="8.0"
