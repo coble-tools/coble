@@ -17,8 +17,39 @@ from gigapath.pipeline import run_inference_with_tile_encoder
 from gigapath.pipeline import run_inference_with_slide_encoder
 
 
-# Please set your Hugging Face API token
-assert "HF_TOKEN" in os.environ, "Please set the HF_TOKEN environment variable to your Hugging Face API token"
+
+# ── Environment Configuration ──────────────────────────────────────
+print("=" * 60)
+print("ENVIRONMENT CONFIGURATION")
+print("=" * 60)
+
+# Required
+HF_TOKEN = os.environ.get("HF_TOKEN")
+if not HF_TOKEN:
+    raise EnvironmentError("HF_TOKEN is not set. Please set it to your Hugging Face API token.")
+print(f"HF_TOKEN:           ✅ set")
+
+# Optional but important in container environments
+HF_HOME = os.environ.get("HF_HOME", os.path.expanduser("~/.cache/huggingface"))
+if "HF_HOME" not in os.environ:
+    print(f"HF_HOME:            ⚠️  not set, using default: {HF_HOME}")
+    print(f"                    In Singularity/Docker set HF_HOME to a writable path")
+else:
+    print(f"HF_HOME:            ✅ {HF_HOME}")
+
+TMPDIR = os.environ.get("TMPDIR", "/tmp")
+if "TMPDIR" not in os.environ:
+    print(f"TMPDIR:             ⚠️  not set, using default: {TMPDIR}")
+    print(f"                    In Singularity/Docker set TMPDIR to a writable path")
+else:
+    print(f"TMPDIR:             ✅ {TMPDIR}")
+
+print("=" * 60)
+
+local_dir = os.path.join(HF_HOME, "downloads")
+tmp_dir = os.path.join(TMPDIR, "outputs/preprocessing/")
+slide_dir = os.path.join(TMPDIR, "outputs/preprocessing/output/", os.path.basename(slide_path)) + "/"
+
 
 # Check GPU compatibility
 def get_gpu_sm():
@@ -109,7 +140,6 @@ slide_device = get_slide_encoder_device(sm)
 report_hardware(sm, tile_device, slide_device)
 
 # Download a sample slide
-local_dir = os.path.join(os.path.expanduser("~"), ".cache/")
 slide_path = os.path.join(local_dir, "sample_data/PROV-000-000001.ndpi")
 if not os.path.exists(slide_path):
     print("Downloading sample slide...")
@@ -118,8 +148,6 @@ else:
     print(f"Sample slide already cached at {slide_path}")
 
 # Tiling
-tmp_dir = 'outputs/preprocessing/'
-slide_dir = "outputs/preprocessing/output/" + os.path.basename(slide_path) + "/"
 if os.path.exists(slide_dir) and len(os.listdir(slide_dir)) > 0:
     print(f"Tiles already exist at {slide_dir}, skipping tiling")
 else:
