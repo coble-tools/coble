@@ -48,6 +48,7 @@ print("=" * 60)
 
 local_dir = os.path.join(HF_HOME, "downloads")
 tmp_dir = os.path.join(TMPDIR, "outputs/preprocessing/")
+slide_path = os.path.join(local_dir, "sample_data/PROV-000-000001.ndpi")
 slide_dir = os.path.join(TMPDIR, "outputs/preprocessing/output/", os.path.basename(slide_path)) + "/"
 
 
@@ -140,7 +141,6 @@ slide_device = get_slide_encoder_device(sm)
 report_hardware(sm, tile_device, slide_device)
 
 # Download a sample slide
-slide_path = os.path.join(local_dir, "sample_data/PROV-000-000001.ndpi")
 if not os.path.exists(slide_path):
     print("Downloading sample slide...")
     huggingface_hub.hf_hub_download("prov-gigapath/prov-gigapath", filename="sample_data/PROV-000-000001.ndpi", local_dir=local_dir, force_download=False)
