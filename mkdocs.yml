@@ -67,24 +67,24 @@ nav:
     - Recipe-anatomy: coble/anatomy.md
     - Outputs-anatomy: coble/outputs.md
     - Finding-packages: coble/finding.md
-    - Workflow: coble/workflow.md
+    #- Workflow: coble/workflow.md
     - Libraries: coble/libraries.md
-    - R-versions: coble/r-versions.md
-    - icr-cluster: coble/icr.md
-    - hpc-cluster: coble/hpc.md
-  - Recipes:
-    - Overview: recipes.md
-    - Basic: recipes/basic.md
-    - Bash: recipes/bash.md
-    - Versions: recipes/versions.md
-    - Bioinformatics: recipes/bioinf.md
-  - Tutorials:
-    - Overview: tutorial.md
-    - SYLVER(Find): tutorials/sylver.md
-    - CountReg(Fix): tutorials/countreg.md
-    - Troubleshooting: tutorials/troubleshooting.md
+    - hpc-clusters: coble/hpc.md
+    - Troubleshooting: coble/troubleshooting.md
+  #- Recipes:
+  #  - Overview: recipes.md
+  #  - Basic: recipes/basic.md
+  #  - Bash: recipes/bash.md
+  #  - Versions: recipes/versions.md
+  #  - Bioinformatics: recipes/bioinf.md
+  #- Tutorials:
+  #  - Overview: tutorial.md
+  #  - SYLVER(Find): tutorials/sylver.md
+  #  - CountReg(Fix): tutorials/countreg.md
+  #  - Troubleshooting: tutorials/troubleshooting.md
   - Containers:
     - Containers: containers.md
     - Docker-Singularity: containers/docker-build.md
-  - Troubleshooting: tutorials/troubleshooting.md
+    - Community: containers/community.md
+  #- Troubleshooting: tutorials/troubleshooting.md
   - About: about.md

@@ -24,13 +24,28 @@ code/coble build \
 --containers docker,singularity
 ```
 
-# Accessing hugging fact through time
+## Accessing hugging fact through time
 
-# add to the .bashrc
+### add to the .bashrc
 export HF_TOKEN=hf_**********
 
 
-hf auth login
-import timm
-model = timm.create_model("hf_hub:prov-gigapath/prov-gigapath", pretrained=True)
+## Access from packages
+### Docker
+docker pull \
+ghcr.io/coble-tools/coble:papers-provgigapath
+
+docker run --rm -it -v .:/workspace \
+--gpus all -e HF_TOKEN \
+ghcr.io/coble-tools/coble:papers-provgigapath
+
+### Singularity
+singularity build \
+coble-papers-provgigapath.sif \
+docker://ghcr.io/coble-tools/coble:papers-provgigapath
+
+singularity shell --nv \
+--bind .:/workspace \
+--env HF_TOKEN=$HF_TOKEN \
+coble-papers-provgigapath.sif
 
