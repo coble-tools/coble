@@ -37,19 +37,11 @@ if "HF_HOME" not in os.environ:
 else:
     print(f"HF_HOME:            ✅ {HF_HOME}")
 
-TMPDIR = os.environ.get("TMPDIR", "/tmp")
-if "TMPDIR" not in os.environ:
-    print(f"TMPDIR:             ⚠️  not set, using default: {TMPDIR}")
-    print(f"                    In Singularity/Docker set TMPDIR to a writable path")
-else:
-    print(f"TMPDIR:             ✅ {TMPDIR}")
-
-print("=" * 60)
 
 local_dir = os.path.join(HF_HOME, "downloads")
-tmp_dir = os.path.join(TMPDIR, "outputs/preprocessing/")
+tmp_dir = os.path.join(HF_HOME, "tmp/outputs/preprocessing/")
 slide_path = os.path.join(local_dir, "sample_data/PROV-000-000001.ndpi")
-slide_dir = os.path.join(TMPDIR, "outputs/preprocessing/output/", os.path.basename(slide_path)) + "/"
+slide_dir = os.path.join(tmp_dir, "output", os.path.basename(slide_path)) + "/"
 
 
 # Check GPU compatibility
@@ -177,7 +169,10 @@ else:
 # Here, we enable the use of global pooling for the output embeddings.
 print("Loading tile and slide encoder models (may take time on first run if not cached)...")
 start = time.time()
-tile_encoder, slide_encoder_model = load_tile_slide_encoder(global_pool=True)
+tile_encoder, slide_encoder_model = load_tile_slide_encoder(
+    global_pool=True,
+    local_dir=os.environ.get("HF_HUB_CACHE", os.path.join(os.path.expanduser("~"), ".cache/"))
+)
 tile_encoder = tile_encoder.to(tile_device)
 slide_encoder_model = slide_encoder_model.to(slide_device)
 print(f"Models loaded in {time.time() - start:.1f}s")
