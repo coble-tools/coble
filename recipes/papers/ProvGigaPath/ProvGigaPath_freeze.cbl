@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 14:34:26 GMT
+# Capture time: 15:37:04 GMT
 # Captured by: ralcraft
 
 coble:
@@ -20,7 +20,7 @@ flags:
   - dependencies: false
   - priority: flexible
   - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/ProvGigaPath"
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: TORCH_CUDA_ARCH_LIST="8.0"
 
