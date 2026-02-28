@@ -83,8 +83,8 @@ def get_slide_encoder_device(sm):
         return "cpu"
     if not is_sm_supported_by_pytorch(sm):
         return "cpu"
-    if sm < 75:
-        return "cpu"
+    #if sm < 75:
+    #    return "cpu"
     elif sm >= 120:
         return "cpu"
     return "cuda"
