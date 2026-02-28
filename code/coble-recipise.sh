@@ -193,7 +193,7 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     # echo -e "source ~/.bashrc"
 
     echo -e "if [[ \"\$(uname -s)\" == Darwin* ]]; then source \"\$HOME/.bash_profile\" 2>/dev/null || true; else source \"\$HOME/.bashrc\" 2>/dev/null || true; fi"
-    echo -e "if ! type conda >/dev/null 2>&1 && [ -n \"\${CONDA_EXE:-}\" ]; then eval \"\$(\"\$CONDA_EXE\" shell.bash hook 2>/dev/null)\" 2>/dev/null; fi"
+    echo -e "if [[ \"\$(type -t conda 2>/dev/null || true)\" != \"function\" ]]; then if [ -n \"\${CONDA_EXE:-}\" ]; then eval \"\$(\"\$CONDA_EXE\" shell.bash hook 2>/dev/null)\" 2>/dev/null; elif command -v conda >/dev/null 2>&1; then eval \"\$(conda shell.bash hook 2>/dev/null)\" 2>/dev/null; fi; fi"
 
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
@@ -233,10 +233,10 @@ echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# clean up conda cache first" >> "$RECIPE_FILE"
 echo  "${CONDA_EXE}  clean --all -y --force-pkgs-dirs" >> "$RECIPE_FILE"
 echo "# deactivate environment" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
+echo "conda deactivate || true" >> "$RECIPE_FILE"
+echo "conda deactivate || true" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
@@ -244,7 +244,7 @@ echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} config --env --remove-key channels" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --remove-key channels >/dev/null 2>&1 || true" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
@@ -827,4 +827,3 @@ echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
 echo "$RECIPE_FILE"
-

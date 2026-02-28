@@ -22,8 +22,12 @@ case "$(uname -s)" in
     *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
 esac
 
-if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
-    eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
 fi
 
 if ! type conda >/dev/null 2>&1; then
@@ -212,13 +216,14 @@ run_line() {
     echo "[coble-create] Start time: $(date '+%Y-%m-%d %H:%M:%S') $current_line/$total_lines" >> "$TIME_FILE"
     echo "install: $buffer" >> "$TIME_FILE"
     eval "$buffer"
+    cmd_status=$?
     END_TIME=$(date +%s)
     DURATION=$((END_TIME - START_TIME))
     # Now run the error checking on the log and err files
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     "$script_dir/coble-errors.sh" "$LOG_FILE" "$ERROR_FILE" "$TIME_FILE"
     err_code=$?
-    if [[ $err_code -eq 0 ]]; then
+    if [[ $cmd_status -eq 0 && $err_code -eq 0 ]]; then
         echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
         echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"
     else
@@ -227,18 +232,18 @@ run_line() {
         sed -i '' -e '$s/^/#/' "$RECIPE_DONE_FILE" 2>/dev/null || sed -i -e '$s/^/#/' "$RECIPE_DONE_FILE"
         echo "# Removed final line due to error" >> "$RECIPE_DONE_FILE"
         if [[ "$EXIT_ON_ERROR" == "1" ]]; then
-            echo "[coble-errors] Errors found, exiting due to --skip-errors flag" >> "$TIME_FILE"
+            echo "[coble-errors] Command/check failure detected (cmd_status=$cmd_status, err_code=$err_code), exiting" >> "$TIME_FILE"
             echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
             exit 1
         else
-            echo "[coble-errors] Errors found, NOT exiting due to --skip-errors flag" >> "$TIME_FILE"
+            echo "[coble-errors] Command/check failure detected (cmd_status=$cmd_status, err_code=$err_code), continuing due to --skip-errors" >> "$TIME_FILE"
             echo "[coble-create] End time: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TIME_FILE"
             echo "[coble-create] Duration: ${DURATION}s" >> "$TIME_FILE"
         fi
     fi
     echo "#####################################################"
-    if [[ $? -ne 0 ]]; then
-        echo "[coble-create] Error: Command failed: $buffer" >&2
+    if [[ $cmd_status -ne 0 ]]; then
+        echo "[coble-create] Error: Command failed (exit=$cmd_status): $buffer" >&2
         echo N
         exit 3
     fi
@@ -312,6 +317,3 @@ echo "    conda activate $NEW_ENV" >&2
 exec >&- 2>&-
 echo Y
 exit 0
-
-
-

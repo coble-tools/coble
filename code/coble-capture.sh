@@ -16,8 +16,12 @@ case "$(uname -s)" in
     *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
 esac
 
-if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
-    eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
 fi
 
 if ! type conda >/dev/null 2>&1; then
@@ -374,7 +378,7 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e "  - environment: $ENV_NAME"
 	echo -e ""
 	echo -e "channels:"
-	conda config --show channels $ENV_FORMATTED | grep -E '^[[:space:]]*-[[:space:]]' | sed 's/^[[:space:]]*-[[:space:]]*//' | awk '{lines[NR]=$0} END {for (i=NR; i>=1; i--) print lines[i]}' | while read -r channel; do
+	{ conda config --env --show channels 2>/dev/null || conda config --show channels; } | grep -E '^[[:space:]]*-[[:space:]]' | sed 's/^[[:space:]]*-[[:space:]]*//' | awk '{lines[NR]=$0} END {for (i=NR; i>=1; i--) print lines[i]}' | while read -r channel; do
 		echo "  - $channel"
 	done
 	#echo -e "  - defaults"

@@ -16,8 +16,12 @@ case "$(uname -s)" in
     *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
 esac
 
-if ! type conda >/dev/null 2>&1 && [ -n "${CONDA_EXE:-}" ]; then
-    eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
 fi
 
 if ! type conda >/dev/null 2>&1; then
@@ -169,6 +173,3 @@ conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
 conda list $ENV_FORMATTED --explicit > "$TMP_CONDA_LIST_EXPLICIT_TXT"
 conda list $ENV_FORMATTED --explicit --md5 > "$TMP_CONDA_LIST_EXPLICIT_MD5_TXT"
 conda list $ENV_FORMATTED --revisions > "$TMP_CONDA_HISTORY_TXT"
-
-
-
