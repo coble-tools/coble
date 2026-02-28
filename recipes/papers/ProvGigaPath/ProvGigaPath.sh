@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 15:41:03 GMT
+# Capture time: 15:58:15 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -103,8 +103,8 @@ python -m pip install 'scikit-image'
 # bash:
 # Cloning the repo to CONDA_PREFIX for easy access in notebooks
 mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
+git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
 mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter && python -m pip install -e . && cd $mydir
-cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter && python -m pip install -e .
 
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/papers/ProvGigaPath/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
