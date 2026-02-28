@@ -117,11 +117,17 @@ def report_hardware(sm, tile_device, slide_device, max_tiles):
     else:
         flash_attn = "✅"
 
-    if slide_device == "cuda":
+    if slide_device == "cuda" and sm >= 75:
+        # full reproduction with flash_attn
+        max_tiles = "all"
         reproduction = "✅ Full reproduction possible"
-    elif tile_device == "cuda":
-        reproduction = "⚠️  Partial - tile encoder on CUDA, slide encoder on CPU"
+    elif slide_device == "cuda":
+        # xformers fallback, VRAM limited
+        max_tiles = "all"
+        reproduction = "⚠️  Partial - xformers fallback, not flash_attn, results valid"
     else:
+        # CPU
+        max_tiles = "20"
         reproduction = "❌ CPU only - results valid but slow"
 
     print(f"GPU:                {gpu_name}")
