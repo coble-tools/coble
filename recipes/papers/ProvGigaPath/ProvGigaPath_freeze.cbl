@@ -1,11 +1,11 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-27
-# Capture time: 10:51:16 GMT
+# Capture date: 2026-02-28
+# Capture time: 07:50:14 GMT
 # Captured by: ralcraft
 
 coble:
 
-  - environment: pgp
+  - environment: ProvGigaPath
 
 channels:
   - conda-forge
@@ -19,7 +19,7 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
-  - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/pgp"
+  - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/ProvGigaPath"
   - export: PYTHONNOUSERSITE="1"
   - export: TORCH_CUDA_ARCH_LIST="8.0"
 
@@ -205,7 +205,7 @@ conda:
   - opencl-headers=2025.07.22@defaults
   - openh264=2.1.1@defaults
   - openjpeg=2.5.4@defaults
-  - openssl=3.0.19@defaults
+  - openssl=3.5.5@defaults
   - pcre2=10.46@defaults
   - pillow=11.3.0@defaults
   - pip=26.0.1@defaults
@@ -266,10 +266,12 @@ pip:
   - einops==0.8.2
   - eval_type_backport==0.3.1
   - fairscale==0.4.13
+  - flash-attn==2.5.8
   - fonttools==4.60.2
   - formulaic==1.2.1
   - fsspec==2025.10.0
   - fvcore==0.1.5.post20221221
+  - git+https://github.com/rachelicr/prov-gigapath.git@19ee6896b2118c1c273f0df9587fd8fce43a458e#egg==
   - gitdb==4.0.12
   - grpcio==1.78.0
   - h5py==3.14.0
@@ -298,6 +300,7 @@ pip:
   - platformdirs==4.4.0
   - portalocker==3.2.0
   - protobuf==6.33.5
+  - psutil==7.2.2
   - pydantic==2.12.5
   - pydantic_core==2.41.5
   - pyparsing==3.3.2

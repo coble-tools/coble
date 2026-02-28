@@ -13,7 +13,6 @@ languages:
 conda:
   - pip
 conda:
-  - cuda
   - packaging
   - pytorch::pytorch=2.0.0
   - pytorch::torchvision=0.15.0

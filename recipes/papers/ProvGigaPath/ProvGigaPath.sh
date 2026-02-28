@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-27
-# Capture time: 23:53:00 GMT
+# Capture date: 2026-02-28
+# Capture time: 07:39:14 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -65,6 +65,8 @@ conda env config vars set CUDA_HOME=$CONDA_PREFIX
 export CUDA_HOME=$CONDA_PREFIX
 conda env config vars set TORCH_CUDA_ARCH_LIST="8.0"
 export TORCH_CUDA_ARCH_LIST="8.0"
+# pip:
+python -m pip install 'psutil' 
 # bash:
 python -m pip install flash-attn==2.5.8 --no-build-isolation
 # pip:
