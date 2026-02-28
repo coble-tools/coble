@@ -43,6 +43,26 @@ echo '╚═══════════════════════�
 
 
 echo "[coble] Starting coble at $(date)" >&2
+
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
+fi
+
+if ! type conda >/dev/null 2>&1; then
+	echo "[coble] Conda is not initialized in this shell." >&2
+    echo "[coble] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1
+fi
+
 copied_inputs=("$@")
 container_type="conda"
 for i in "${!copied_inputs[@]}"; do
@@ -125,9 +145,14 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	fi
 
 	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2
-	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
+	result=()
+	while IFS= read -r line; do
+		result+=("$line")
+	done < <("$script_dir/coble-recipise.sh" "${@:2}")
+
 	success="${result[0]}"
 	recipe_file="${result[1]}"
+
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
 		exit 1

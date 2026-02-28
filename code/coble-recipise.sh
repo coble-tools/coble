@@ -43,6 +43,17 @@ echo "[coble-recipise] Starting recipise process..." >&2
 MAX_DEACTIVATIONS=5
 count=0
 
+remove_trailing_backslash() { 
+    local file="$1" 
+    local tmp 
+ 
+    tmp="$(mktemp)" || return 1 
+    sed '$ s/\\$//' "$file" > "$tmp" || { rm -f "$tmp"; return 1; } 
+ 
+    cp "$file" "$file.bak" || { rm -f "$tmp"; return 1; } 
+    mv "$tmp" "$file" 
+} 
+
 
 # Parse named arguments
 show_help() {
@@ -179,10 +190,10 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
     echo -e "# source bashrc for conda"
     #echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
     #echo 'eval "$('"$CONDA_ALIAS"' shell hook --shell=bash)"'
-    echo -e "source ~/.bashrc"
+    # echo -e "source ~/.bashrc"
 
-    # Initialize conda - try .bashrc first, fall back to conda init
-    echo -e "if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval \"\$(conda shell.bash hook)\"; fi; fi"
+    echo -e "if [[ \"\$(uname -s)\" == Darwin* ]]; then source \"\$HOME/.bash_profile\" 2>/dev/null || true; else source \"\$HOME/.bashrc\" 2>/dev/null || true; fi"
+    echo -e "if [[ \"\$(type -t conda 2>/dev/null || true)\" != \"function\" ]]; then if [ -n \"\${CONDA_EXE:-}\" ]; then eval \"\$(\"\$CONDA_EXE\" shell.bash hook 2>/dev/null)\" 2>/dev/null; elif command -v conda >/dev/null 2>&1; then eval \"\$(conda shell.bash hook 2>/dev/null)\" 2>/dev/null; fi; fi"
 
     echo "# Using conda executable $CONDA_EXE: $(which $CONDA_EXE)"
     echo "# Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)"
@@ -222,10 +233,10 @@ echo "unset PYTHONPATH" >> "$RECIPE_FILE"
 echo "# clean up conda cache first" >> "$RECIPE_FILE"
 echo  "${CONDA_EXE}  clean --all -y --force-pkgs-dirs" >> "$RECIPE_FILE"
 echo "# deactivate environment" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} deactivate | true" >> "$RECIPE_FILE"
+echo "conda deactivate || true" >> "$RECIPE_FILE"
+echo "conda deactivate || true" >> "$RECIPE_FILE"
 echo "# activate environment" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} activate ${ENV_INPUT}" >> "$RECIPE_FILE"
+echo "conda activate ${ENV_INPUT}" >> "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 echo "export PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
 echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
@@ -233,7 +244,7 @@ echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} config --env --remove-key channels" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --remove-key channels >/dev/null 2>&1 || true" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
@@ -298,7 +309,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+	remove_trailing_backslash "$RECIPE_FILE"
+       
 
         if [[ "$line" != "channels:" ]]; then
           #echo "" >> "$RECIPE_FILE"
@@ -741,7 +753,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             # Build arguments array
             find_args=(--pkg "$pkg_only" --version "$ver")
             # Call and capture return value
-            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
+            result=()
+            while IFS= read -r line; do
+                result+=("$line")
+            done < <("$script_dir/coble-find.sh" "${find_args[@]}")
+
             pkg_manager="${result[0]}"
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"
@@ -758,7 +774,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     else
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+	remove_trailing_backslash "$RECIPE_FILE"
         # if it is a comment
         if [[ "$line" == \#* ]]; then
             echo "$line" >> "$RECIPE_FILE"
@@ -769,7 +785,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     fi
 done < "$YAML_FILE"
 # remove a trailing \ if needed
-sed -i '${s/\\$//}' "$RECIPE_FILE"
+remove_trailing_backslash "$RECIPE_FILE"
 
 # copy line for validation script if VAL__FILE is not ""
 echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
@@ -778,12 +794,16 @@ if [[ -n "$VAL_FILE" ]]; then
     echo "# Validate script available in environment at CONDA PREFIX: validate.sh" >> "$RECIPE_FILE"
     echo "cp $VAL_FILE \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 else
-    {
-        echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
-        echo '#!/usr/bin/env bash'
-        echo "echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\""
-        echo 'VALIDATE_EOF'
-    } >> "$RECIPE_FILE"
+    # {
+    #     echo 'cat > ${CONDA_PREFIX}/bin/validate.sh << '\''VALIDATE_EOF'\'''
+    #     echo '#!/usr/bin/env bash'
+    #     echo "echo \"COBLE validation: No script has been specified for $ENV_NAME environment.\""
+    #     echo 'VALIDATE_EOF'
+    # } >> "$RECIPE_FILE"
+    echo "# Validation section - creating the validation to CONDA_PREFIX" >> "$RECIPE_FILE"
+    echo ": > \$CONDA_PREFIX/bin/validate.sh" >> "$RECIPE_FILE"
+    echo "echo '#!/usr/bin/env bash' >> \$CONDA_PREFIX/bin/validate.sh" >> "$RECIPE_FILE"
+    echo "echo 'echo \"No validation supplied\"' >> \$CONDA_PREFIX/bin/validate.sh" >> "$RECIPE_FILE"
 fi
 echo "chmod +x \${CONDA_PREFIX}/bin/validate.sh" >> "$RECIPE_FILE"
 
@@ -807,8 +827,3 @@ echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
 echo "$RECIPE_FILE"
-
-
-
-
-

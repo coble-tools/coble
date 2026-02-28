@@ -11,14 +11,23 @@
 #
 #################################################################################
 
-# Initialize conda - try .bashrc first, fall back to conda init
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-else
-    # If .bashrc doesn't exist (e.g., in CI), initialize conda directly
-    if command -v conda &> /dev/null; then
-        eval "$(conda shell.bash hook)"
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
     fi
+fi
+
+if ! type conda >/dev/null 2>&1; then
+	echo "[coble-export] Conda is not initialized in this shell." >&2
+    echo "[coble-export] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1
 fi
 
 # Usage: ./coble-capture.sh --frozen <recipe_file> [--env ENV]
@@ -164,10 +173,3 @@ conda list $ENV_FORMATTED > "$TMP_CONDA_LIST_TXT"
 conda list $ENV_FORMATTED --explicit > "$TMP_CONDA_LIST_EXPLICIT_TXT"
 conda list $ENV_FORMATTED --explicit --md5 > "$TMP_CONDA_LIST_EXPLICIT_MD5_TXT"
 conda list $ENV_FORMATTED --revisions > "$TMP_CONDA_HISTORY_TXT"
-
-
-
-
-
-
-

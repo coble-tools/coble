@@ -15,6 +15,27 @@
 #   bash code/coble-r-source.sh 4.3.2
 #   bash code/coble-r-source.sh devel
 
+
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
+fi
+
+if ! type conda >/dev/null 2>&1; then
+    echo "ERROR: Conda is not initialized in this shell."
+    echo "       Please run: conda init bash"
+    echo "       Then restart your shell and try again."
+    exit 1
+fi
+
 set -euo pipefail
 
 # ---- 0. Parse arguments ----
@@ -244,9 +265,6 @@ about:
   summary: Placeholder for source-built R ${R_VERSION}
 EOF
 
-
-source ~/.bashrc
-if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi
 conda build /tmp/r-base-recipe
 conda install --use-local r-base=${R_VERSION}
 

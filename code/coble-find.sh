@@ -10,8 +10,16 @@ skip_variants=false
 YAML_FILE=""
 INCLUDE_R_FORGE=false # by default no as it is usually down
 
-# declare associative array once at the top of your script 
-declare -A VARIANT_MANAGERS
+# Build variants and map
+get_variant_manager() {
+    case "$1" in
+        "$pkg") echo "Conda (conda-forge)" ;;
+        "r-$pkg") echo "Conda (r)" ;;
+        "r-r$pkg") echo "Conda (r)" ;;
+        "bioconductor-$pkg") echo "Conda (bioconda)" ;;
+        *) echo "" ;;
+    esac
+}
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -142,51 +150,65 @@ check_and_print() {
 ###################################################################
 ### SEARCHING conda ######################
 ###################################################################
-# Build variants and map
 variants=("$pkg")
-VARIANT_MANAGERS["$pkg"]="Conda (conda-forge)"
 
 if [[ "$skip_variants" != true ]]; then
     variants+=("r-$pkg")
-    VARIANT_MANAGERS["r-$pkg"]="Conda (r)"
-    
     variants+=("r-r$pkg")
-    VARIANT_MANAGERS["r-r$pkg"]="Conda (r)"
-
     variants+=("bioconductor-$pkg")
-    VARIANT_MANAGERS["bioconductor-$pkg"]="Conda (bioconda)"
 fi
 
 # Track what we've already found to avoid duplicates
-declare -A found_combinations
+found_combinations=""
 
+# Loop through each possible variant of the package
 for variant in "${variants[@]}"; do
-    #echo "[coble-find] Checking variant: $variant" >&2
-    manager="${VARIANT_MANAGERS[$variant]}"
-    
+
+    # Determine which manager label this variant belongs to
+    manager="$(get_variant_manager "$variant")"
+
+    # Safety check – skip empty variants (shouldn't happen, but defensive)
     if [[ -n "$variant" ]]; then
+
+        # Check across all relevant Anaconda channels
         for channel in bioconda conda-forge r; do
-            # Get all versions from API
+
+            # Query Anaconda API for all versions of this variant in the channel
+            # Extract version fields from JSON
+            # Remove duplicates using sort -u
             versions=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
                       grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
-                      sort -u)  # ← Remove duplicates
-            
+                      sort -u)
+
+            # Continue only if versions were returned
             if [[ -n "$versions" ]]; then
+
+                # If a specific version was requested, filter to that version only
                 if [[ -n "$ver" ]]; then
-                    # Filter to specific version if requested
                     versions=$(echo "$versions" | grep -x "$ver")
                 fi
-                
-                # Loop through ALL matching versions
+
+                # Iterate through all matching versions
                 while IFS= read -r version; do
                     if [[ -n "$version" ]]; then
-                        # Create unique key to avoid duplicates across channels
+
+                        # Create unique key (variant|version|channel)
+                        # Used to prevent duplicates across channels
                         combo_key="$variant|$version|$channel"
-                        if [[ -z "${found_combinations[$combo_key]}" ]]; then
-                            found_combinations[$combo_key]=1
-                            echo "[coble-find] Found $variant version $version in channel $channel" >&2
-                            check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
-                        fi
+
+                        # Deduplicate using colon-delimited pseudo-set
+                        case ":$found_combinations:" in
+                            *":$combo_key:"*) continue ;;  # Skip if already processed
+                        esac
+
+                        # Mark this combination as seen
+                        found_combinations="$found_combinations:$combo_key"
+
+                        # Log discovery
+                        echo "[coble-find] Found $variant version $version in channel $channel" >&2
+
+                        # Pass result to printer function
+                        check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
                     fi
                 done <<< "$versions"
             fi
@@ -242,16 +264,19 @@ done
 ###################################################################
 
 echo "[coble-find] Checking Bioconductor" >&2
-declare -A bioc_variants=(
-  ["main"]="https://bioconductor.org/packages/release/bioc/VIEWS"
-  ["experiment"]="https://bioconductor.org/packages/release/data/experiment/VIEWS"
-  ["annotation"]="https://bioconductor.org/packages/release/data/annotation/VIEWS"
-  ["workflows"]="https://bioconductor.org/packages/release/workflows/VIEWS"
+
+bioc_categories=("main" "experiment" "annotation" "workflows")
+bioc_urls=(
+  "https://bioconductor.org/packages/release/bioc/VIEWS"
+  "https://bioconductor.org/packages/release/data/experiment/VIEWS"
+  "https://bioconductor.org/packages/release/data/annotation/VIEWS"
+  "https://bioconductor.org/packages/release/workflows/VIEWS"
 )
 
-for category in "${!bioc_variants[@]}"; do
-  #echo "[coble-find] Checking category $category" >&2
-  url="${bioc_variants[$category]}"
+for i in "${!bioc_categories[@]}"; do
+  category="${bioc_categories[$i]}"
+  url="${bioc_urls[$i]}"
+
   bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" '
     /^Package:/ {pkgname=$2}

@@ -2,7 +2,24 @@
 # Turn the currently activated conda environment into a netwrok graph
 
 
-source ~/.bashrc
+case "$(uname -s)" in
+    Darwin*) source "$HOME/.bash_profile" 2>/dev/null || true ;;
+    *)       source "$HOME/.bashrc" 2>/dev/null || true ;;
+esac
+
+if [[ "$(type -t conda 2>/dev/null || true)" != "function" ]]; then
+    if [ -n "${CONDA_EXE:-}" ]; then
+        eval "$("$CONDA_EXE" shell.bash hook 2>/dev/null)" 2>/dev/null
+    elif command -v conda >/dev/null 2>&1; then
+        eval "$(conda shell.bash hook 2>/dev/null)" 2>/dev/null
+    fi
+fi
+
+if ! type conda >/dev/null 2>&1; then
+    echo "[coble-network] Conda is not initialized in this shell." >&2
+    echo "[coble-network] Please run: 'conda init bash' and restart your shell." >&2
+    exit 1
+fi
 
 # Usage: ./coble-network.sh --frozen <recipe_file> [--env ENV]
 
@@ -138,5 +155,3 @@ done < "$AGGREGATE_TXT"
 --title "COBLE Network Dependencies (c) ICR 2026 - Conda Environment: $ENV_NAME"
 
 echo "[coble-network] Network visualization complete. Output written to $DEPS_TXT" >&2
-
-
