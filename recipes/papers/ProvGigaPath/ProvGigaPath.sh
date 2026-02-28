@@ -3,14 +3,14 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 15:58:15 GMT
+# Capture time: 16:27:37 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
 #####################################################
 
 conda env remove --name ProvGigaPath -y 2>/dev/null || true
@@ -104,7 +104,7 @@ python -m pip install 'scikit-image'
 # Cloning the repo to CONDA_PREFIX for easy access in notebooks
 mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
 git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
-mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter && python -m pip install -e . && cd $mydir
+mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && python -m pip install -e . && cd $mydir
 
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/papers/ProvGigaPath/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh

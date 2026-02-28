@@ -64,4 +64,4 @@ bash:
   - # Cloning the repo to CONDA_PREFIX for easy access in notebooks
   - mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
   - git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
-  - mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter && python -m pip install -e . && cd $mydir
+  - mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && python -m pip install -e . && cd $mydir
