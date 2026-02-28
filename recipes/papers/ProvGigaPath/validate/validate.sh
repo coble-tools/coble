@@ -171,7 +171,7 @@ print("Loading tile and slide encoder models (may take time on first run if not 
 start = time.time()
 tile_encoder, slide_encoder_model = load_tile_slide_encoder(
     global_pool=True,
-    local_dir=os.environ.get("HF_HUB_CACHE", os.path.join(os.path.expanduser("~"), ".cache/"))
+    local_dir=local_dir
 )
 tile_encoder = tile_encoder.to(tile_device)
 slide_encoder_model = slide_encoder_model.to(slide_device)
