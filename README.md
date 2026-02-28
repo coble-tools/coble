@@ -12,11 +12,26 @@ Documentation:
 ---
 
 ## Using the docker images
-For a coble recipe e.g. papers-DESEq2:
+The community docker images can be run in either docker or singualrity. Fiurst pull the image (you only need to do this once), and then you can run the image as a bash terminal with the environment ready activated.
+An example is given here for papers-DESEq2:
 ```bash
-docker pull ghcr.io/coble-tools/coble:papers-deseq2
+# Docker
+docker pull \
+ghcr.io/coble-tools/coble:papers-deseq2
 
+docker run --rm -it -v .:/workspace \
+ghcr.io/coble-tools/coble:papers-deseq2
+
+# Singularity
+singularity build \
+coble-papers-deseq2.sif \
+docker://ghcr.io/coble-tools/coble:papers-deseq2
+
+singularity shell \
+coble-papers-deseq2.sif
 ```
+
+Further information is here: [Coble Community Containers](https://coble-tools.github.io/coble/containers/community/)
 
 ## Installation
 

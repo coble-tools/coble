@@ -3,8 +3,8 @@
 If you have a recipe that you would like to contribute to the Coble project, please follow these guidelines:
 
 ## Naming and Structure
-**Naming Convention:** Please use your instutution for folder in a recognisable format then a project name eg "icr/sylver". You will then create a directory and cbl file in recipes like:  
-`recipes/icr/sylver/sylver.cbl`  
+**Naming Convention:** Please use your instutution for folder in a recognisable format then a project name eg "icr/sylver". You will then create a directory and cbl file in recipes like:
+`recipes/icr/sylver/sylver.cbl`
 
 **Publication or pre-print:** The recipes are intended for academic papers in publication or pre-print for reproducibility. Please ensure that your recipe is associated with a relevant publication or pre-print and include a README.md that has the following info:
 - Full reference to the publication or pre-print
@@ -14,9 +14,9 @@ If you have a recipe that you would like to contribute to the Coble project, ple
 - Instructions on how to use the recipe
 - Any additional information about the recipe that may be useful for users
 
-**dockerhub**  
-If you include the `.DOCKERHUB` file for build to dockerhub, the image will be called: `icrsc/coble:icr-sylver` and available at: 
-[dockerhub/coble](https://hub.docker.com/repository/docker/icrsc/coble/general)  
+**dockerhub**
+If you include the `.DOCKERHUB` file for build to dockerhub, the image will be called: `coble/coble:icr-sylver` and available at:
+[packages/coble](https://github.com/coble-tools/coble/pkgs/container/coble)
 
 ## Validation
 For local builds, a validate script is optional, but for a container the validation is required so that someone can run the container then simplty run `validate.sh` to check success. It is up to you how meaningful and comprehensive the `validate.sh` file is, we will automatically only verify its existence. This file must go in the folder next to the recipe and be named "validate.sh" and should be a bash script that performs some checks on the environment or runs some code. Please look at the examples already given in recipes for guidance.

@@ -14,7 +14,7 @@ singularity/*
 COBLE-ENV/bin/ahost
 docs/first.txt
 environment.yml
-site/*  
+site/*
 containers/singularity/*
 !containers/singularity/.gitkeep
 *.sif
@@ -89,3 +89,9 @@ tests/github/*.html
 tests/github/*.txt
 tests/github/logs/*
 tests/github_docker/logs/*
+CHIEF-DEV/*
+*.png
+temp/*
+outputs/*
+*.*.tar*
+cache/*

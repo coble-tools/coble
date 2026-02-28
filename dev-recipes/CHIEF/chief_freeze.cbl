@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-21
-# Capture time: 18:11:19 GMT
+# Capture date: 2026-02-24
+# Capture time: 22:21:00 GMT
 # Captured by: ralcraft
 
 coble:
@@ -18,8 +18,12 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
+  - export: CUDA="cu128"
   - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/chief/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
+  - export: TORCH="2.6.0"
+  - export: TORCHAUDIO="2.6.0"
+  - export: TORCHVISION="0.21.0"
 
 conda:
   - icu=78.2@conda-forge
@@ -35,6 +39,7 @@ conda:
   - brotli-python=1.2.0@conda-forge
   - bzip2=1.0.8@conda-forge
   - ca-certificates=2026.1.4@conda-forge
+  - cairo=1.18.4@conda-forge
   - certifi=2026.1.4@conda-forge
   - charset-normalizer=3.4.4@conda-forge
   - comm=0.2.3@conda-forge
@@ -42,6 +47,13 @@ conda:
   - decorator=5.2.1@conda-forge
   - exceptiongroup=1.3.1@conda-forge
   - executing=2.2.1@conda-forge
+  - font-ttf-dejavu-sans-mono=2.37@conda-forge
+  - font-ttf-inconsolata=3.000@conda-forge
+  - font-ttf-source-code-pro=2.038@conda-forge
+  - font-ttf-ubuntu=0.83@conda-forge
+  - fontconfig=2.17.1@conda-forge
+  - fonts-conda-forge=1@conda-forge
+  - gdk-pixbuf=2.44.5@conda-forge
   - h2=4.3.0@conda-forge
   - hpack=4.1.0@conda-forge
   - hyperframe=6.1.0@conda-forge
@@ -59,6 +71,7 @@ conda:
   - lerc=4.0.0@conda-forge
   - libblas=3.11.0@conda-forge
   - libdeflate=1.25@conda-forge
+  - libdicom=1.2.0@conda-forge
   - libedit=3.1.20250104@conda-forge
   - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
@@ -66,7 +79,9 @@ conda:
   - libfreetype=2.14.1@conda-forge
   - libgfortran5=15.2.0@conda-forge
   - libgfortran=15.2.0@conda-forge
+  - libglib=2.86.4@conda-forge
   - libgomp=15.2.0@conda-forge
+  - libiconv=1.18@conda-forge
   - libjpeg-turbo=3.1.2@conda-forge
   - liblapack=3.11.0@conda-forge
   - liblzma=5.8.2@conda-forge
@@ -79,19 +94,25 @@ conda:
   - libuuid=2.41.3@conda-forge
   - libxcb=1.17.0@conda-forge
   - libxcrypt=4.4.36@conda-forge
+  - libxml2-16=2.15.1@conda-forge
+  - libxml2=2.15.1@conda-forge
   - matplotlib-inline=0.2.1@conda-forge
   - ncurses=6.5@conda-forge
   - nest-asyncio=1.6.0@conda-forge
   - numpy=2.2.6@conda-forge
   - openjpeg=2.5.4@conda-forge
+  - openslide-python=1.4.3@conda-forge
+  - openslide=4.0.0@conda-forge
   - openssl=3.6.1@conda-forge
   - packaging=26.0@conda-forge
   - pandas=2.3.3@conda-forge
   - parso=0.8.6@conda-forge
+  - pcre2=10.47@conda-forge
   - pexpect=4.9.0@conda-forge
   - pickleshare=0.7.5@conda-forge
   - pillow=12.1.1@conda-forge
   - pip=26.0.1@conda-forge
+  - pixman=0.46.4@conda-forge
   - platformdirs=4.9.2@conda-forge
   - prompt-toolkit=3.0.52@conda-forge
   - psutil=7.2.2@conda-forge
@@ -122,20 +143,25 @@ conda:
   - urllib3=2.6.3@conda-forge
   - wcwidth=0.6.0@conda-forge
   - wheel=0.46.3@conda-forge
+  - xorg-libice=1.1.2@conda-forge
+  - xorg-libsm=1.2.6@conda-forge
+  - xorg-libx11=1.8.13@conda-forge
   - xorg-libxau=1.0.12@conda-forge
   - xorg-libxdmcp=1.1.5@conda-forge
+  - xorg-libxext=1.3.7@conda-forge
+  - xorg-libxrender=0.9.12@conda-forge
   - yaml=0.2.5@conda-forge
   - zeromq=4.3.5@conda-forge
   - zstd=1.5.7@conda-forge
 
 pip:
   - Jinja2==3.1.6
-  - MarkupSafe==3.0.2
+  - MarkupSafe==3.0.3
   - addict==2.4.0
   - cuda-bindings==12.9.4
-  - cuda-pathfinder==1.2.2
-  - filelock==3.20.0
-  - fsspec==2025.12.0
+  - cuda-pathfinder==1.3.5
+  - filelock==3.24.3
+  - fsspec==2026.2.0
   - mpmath==1.3.0
   - networkx==3.4.2
   - nvidia-cublas-cu12==12.8.4.1
@@ -154,7 +180,6 @@ pip:
   - nvidia-nvshmem-cu12==3.4.5
   - nvidia-nvtx-cu12==12.8.90
   - sympy==1.14.0
-  - torch==2.10.0+cu128
-  - torchaudio==2.10.0
+  - torch==2.10.0
   - torchvision==0.25.0
   - triton==3.6.0

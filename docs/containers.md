@@ -7,7 +7,7 @@ Docker and Singularity images build together by passing in `--containers docker,
 ```bash
 coble build --recipe config/basic.cbl --env my-env --containers docker,singularity
 ```
-Your GITHUB_PAT authentication token [from github](https://github.com/settings/tokens) is automatically passed though ion case of any API calls to githib. You set this in your .bashrc in the usual way after creating the PAT in github from settings/ (`export GITHUB_PAT="ghp_*******************************"`) 
+Your GITHUB_PAT authentication token [from github](https://github.com/settings/tokens) is automatically passed though ion case of any API calls to githib. You set this in your .bashrc in the usual way after creating the PAT in github from settings/ (`export GITHUB_PAT="ghp_*******************************"`)
 
 This outputs:
 - `cbl-my-env.tar` a docker file
@@ -15,7 +15,7 @@ This outputs:
 
 To run them as a command line terminal with the environments activated:
 ```bash
-# Docker: 
+# Docker:
 # Optionally load the tar
 docker load -i cbl-my-env.tar
 # Then run it
@@ -28,7 +28,7 @@ singularity build cbl-my-env.sif docker://cbl-my-env
 singularity shell cbl-my-env.sif
 
 # If the docker has been uploaded to dockerhub, e.g. from the coble/recipes, it can be downloaded as a sif file
-singularity build cbl-icr-small.sif docker://icrsc/coble:icr-small
+singularity build coble-papers-deseq2.sif docker://ghcr.io/coble-tools/coble:papers-deseq2
 ```
 
 The conda environment is pre-activated and they look like this:
