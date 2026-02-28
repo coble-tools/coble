@@ -15,53 +15,19 @@ from gigapath.pipeline import load_tile_slide_encoder
 from gigapath.pipeline import run_inference_with_tile_encoder
 from gigapath.pipeline import run_inference_with_slide_encoder
 
+if os.environ.get("APPTAINER_CONTAINER") or os.environ.get("SINGULARITY_CONTAINER"):
+    os.environ["LD_LIBRARY_PATH"] = "/.singularity.d/libs:" + os.environ.get("LD_LIBRARY_PATH", "")
 
 # ── Memory Check ───────────────────────────────────────────────────
 print("=" * 60)
 print("MEMORY CHECK")
 print("=" * 60)
 
-def get_available_memory_gb():
-    return psutil.virtual_memory().available / 1024**3
-
-def get_memory_limit_gb():
-    """Check cgroup memory limit (SLURM sets this)"""
-    try:
-        with open('/sys/fs/cgroup/memory/memory.limit_in_bytes') as f:
-            limit = int(f.read().strip())
-            if limit < 2**60:  # ignore if set to effectively unlimited
-                return limit / 1024**3
-    except:
-        pass
-    try:
-        with open('/sys/fs/cgroup/memory.max') as f:
-            val = f.read().strip()
-            if val != 'max':
-                return int(val) / 1024**3
-    except:
-        pass
-    return None
-
-available_gb = get_available_memory_gb()
-cgroup_limit_gb = get_memory_limit_gb()
-effective_gb = min(available_gb, cgroup_limit_gb) if cgroup_limit_gb else available_gb
+available_gb = psutil.virtual_memory().available / 1024**3
+MEMORY_CAP_TILES = max(5, int((available_gb - 20) / 0.5))
 
 print(f"Memory available:   {available_gb:.0f}GB")
-if cgroup_limit_gb:
-    print(f"Cgroup limit:       {cgroup_limit_gb:.0f}GB")
-print(f"Effective memory:   {effective_gb:.0f}GB")
-
-# Both models together need ~30GB minimum to load
-MIN_MEMORY_GB = 30
-if effective_gb < MIN_MEMORY_GB:
-    print(f"❌ Insufficient memory ({effective_gb:.0f}GB), minimum required is {MIN_MEMORY_GB}GB")
-    print(f"   On SLURM request more memory: srun --mem=48G ...")
-    sys.exit(1)
-
-# Scale max tiles to available memory - rough heuristic: ~0.5GB per tile on CPU
-# Leave 20GB headroom for models themselves
-MEMORY_CAP_TILES = max(5, int((effective_gb - 20) / 0.5))
-print(f"✅ Sufficient memory ({effective_gb:.0f}GB)")
+print(f"⚠️  Minimum recommended: 80GB — if killed, request more: srun --mem=80G")
 print(f"   Memory-based tile cap: {MEMORY_CAP_TILES}")
 print("=" * 60)
 

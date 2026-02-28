@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 07:50:14 GMT
+# Capture time: 14:34:26 GMT
 # Captured by: ralcraft
 
 coble:
@@ -20,37 +20,24 @@ flags:
   - dependencies: false
   - priority: flexible
   - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/ProvGigaPath"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: TORCH_CUDA_ARCH_LIST="8.0"
 
 conda:
-  - binutils_impl_linux-64=2.44@defaults
-  - binutils_linux-64=2.44@defaults
-  - gcc_impl_linux-64=15.2.0@defaults
-  - gcc_linux-64=15.2.0@defaults
-  - gxx_impl_linux-64=15.2.0@defaults
-  - gxx_linux-64=15.2.0@defaults
   - icu=73.1@defaults
 
 conda:
-  - libcublas-dev=11.11.3.6@nvidia
   - libcublas=11.11.3.6@nvidia
-  - libcufft-dev=10.9.0.58@nvidia
   - libcufft=10.9.0.58@nvidia
-  - libcufile-dev=1.16.1.26@nvidia
   - libcufile=1.16.1.26@nvidia
-  - libcurand-dev=10.4.1.81@nvidia
   - libcurand=10.4.1.81@nvidia
-  - libcusolver-dev=11.4.1.48@nvidia
   - libcusolver=11.4.1.48@nvidia
-  - libcusparse-dev=11.7.5.86@nvidia
   - libcusparse=11.7.5.86@nvidia
 
 conda:
-  - libgcc-devel_linux-64=15.2.0@defaults
   - libgcc-ng=15.2.0@defaults
   - libgcc=15.2.0@defaults
-  - libstdcxx-devel_linux-64=15.2.0@defaults
   - libstdcxx-ng=15.2.0@defaults
   - libstdcxx=15.2.0@defaults
   - zlib=1.2.13@defaults
@@ -65,57 +52,13 @@ conda:
   - charset-normalizer=3.4.4@defaults
 
 conda:
-  - cuda-cccl=13.1.115@nvidia
-  - cuda-cccl_linux-64=13.1.115@nvidia
-  - cuda-command-line-tools=11.8.0@nvidia
-  - cuda-compiler=13.1.0@nvidia
-  - cuda-crt-dev_linux-64=13.1.80@nvidia
-  - cuda-crt-tools=13.1.80@nvidia
-  - cuda-ctadvisor=13.1.80@nvidia
-  - cuda-cudart-dev=11.8.89@nvidia
-  - cuda-cudart-dev_linux-64=13.1.80@nvidia
-  - cuda-cudart-static_linux-64=13.1.80@nvidia
   - cuda-cudart=11.8.89@nvidia
-  - cuda-cudart_linux-64=13.1.80@nvidia
-  - cuda-cuobjdump=13.1.80@nvidia
   - cuda-cupti=11.8.87@nvidia
-  - cuda-cuxxfilt=13.1.80@nvidia
-  - cuda-demo-suite=12.4.127@nvidia
-  - cuda-documentation=12.4.127@nvidia
-  - cuda-driver-dev=13.1.80@nvidia
-  - cuda-driver-dev_linux-64=13.1.80@nvidia
-  - cuda-gdb=13.1.115@nvidia
-  - cuda-libraries-dev=12.6.2@nvidia
   - cuda-libraries=11.8.0@nvidia
-  - cuda-memcheck=11.8.86@nvidia
-  - cuda-nsight=13.1.115@nvidia
-  - cuda-nvcc-dev_linux-64=13.1.80@nvidia
-  - cuda-nvcc-impl=13.1.80@nvidia
-  - cuda-nvcc-tools=13.1.80@nvidia
-  - cuda-nvcc=13.1.80@nvidia
-  - cuda-nvcc_linux-64=13.1.80@nvidia
-  - cuda-nvdisasm=13.1.115@nvidia
-  - cuda-nvml-dev=13.1.115@nvidia
-  - cuda-nvprof=12.4.127@nvidia
-  - cuda-nvprune=13.1.80@nvidia
-  - cuda-nvrtc-dev=11.8.89@nvidia
   - cuda-nvrtc=11.8.89@nvidia
   - cuda-nvtx=11.8.86@nvidia
-  - cuda-nvvm-dev_linux-64=13.1.80@nvidia
-  - cuda-nvvm-impl=13.1.80@nvidia
-  - cuda-nvvm-tools=13.1.80@nvidia
-  - cuda-nvvp=12.4.127@nvidia
-  - cuda-opencl-dev=13.1.115@nvidia
-  - cuda-opencl=13.1.115@nvidia
-  - cuda-profiler-api=13.1.115@nvidia
   - cuda-runtime=11.8.0@nvidia
-  - cuda-sanitizer-api=13.1.118@nvidia
-  - cuda-tileiras=13.1.80@nvidia
-  - cuda-toolkit=11.8.0@nvidia
-  - cuda-tools=11.8.0@nvidia
   - cuda-version=13.1@nvidia
-  - cuda-visual-tools=12.6.2@nvidia
-  - cuda=11.8.0@nvidia
 
 conda:
   - dav1d=1.2.1@defaults
@@ -129,11 +72,6 @@ conda:
   - fontconfig=2.15.0@defaults
   - freetype=2.14.1@defaults
   - fribidi=1.0.16@defaults
-
-conda:
-  - gds-tools=1.16.1.26@nvidia
-
-conda:
   - gmp=6.3.0@defaults
   - gmpy2=2.2.1@defaults
   - gnutls=3.6.15@defaults
@@ -143,7 +81,6 @@ conda:
   - intel-openmp=2023.1.0@defaults
   - jinja2=3.1.6@defaults
   - jpeg=9f@defaults
-  - kernel-headers_linux-64=4.18.0@defaults
   - lame=3.100@defaults
   - lcms2=2.17@defaults
   - ld_impl_linux-64=2.44@defaults
@@ -158,26 +95,17 @@ conda:
   - libidn2=2.3.4@defaults
 
 conda:
-  - libnpp-dev=11.8.0.86@nvidia
   - libnpp=11.8.0.86@nvidia
 
 conda:
   - libnsl=2.0.0@defaults
 
 conda:
-  - libnvfatbin-dev=13.1.115@nvidia
-  - libnvfatbin=13.1.115@nvidia
-  - libnvjitlink-dev=13.1.115@nvidia
-  - libnvjitlink=13.1.115@nvidia
-  - libnvjpeg-dev=11.9.0.86@nvidia
   - libnvjpeg=11.9.0.86@nvidia
-  - libnvptxcompiler-dev=13.1.80@nvidia
-  - libnvptxcompiler-dev_linux-64=13.1.80@nvidia
 
 conda:
   - libopenjpeg=2.5.4@defaults
   - libpng=1.6.54@defaults
-  - libsanitizer=15.2.0@defaults
   - libtasn1=4.21.0@defaults
   - libtiff=4.7.1@defaults
   - libunistring=0.9.10@defaults
@@ -196,13 +124,6 @@ conda:
   - ncurses=6.5@defaults
   - nettle=3.7.3@defaults
   - networkx=3.2.1@defaults
-
-conda:
-  - nsight-compute=2024.1.1.4@nvidia
-
-conda:
-  - ocl-icd=2.3.3@defaults
-  - opencl-headers=2025.07.22@defaults
   - openh264=2.1.1@defaults
   - openjpeg=2.5.4@defaults
   - openssl=3.5.5@defaults
@@ -225,7 +146,6 @@ conda:
   - setuptools=80.9.0@defaults
   - sqlite=3.51.1@defaults
   - sympy=1.14.0@defaults
-  - sysroot_linux-64=2.28@defaults
   - tbb=2021.8.0@defaults
   - tk=8.6.15@defaults
 
@@ -271,7 +191,7 @@ pip:
   - formulaic==1.2.1
   - fsspec==2025.10.0
   - fvcore==0.1.5.post20221221
-  - git+https://github.com/rachelicr/prov-gigapath.git@19ee6896b2118c1c273f0df9587fd8fce43a458e#egg==
+  - git+https://github.com/rachelicr/prov-gigapath.git@9bc7b84d0b5d82e91f8005d2bf5f90c6b1e82b97#egg==
   - gitdb==4.0.12
   - grpcio==1.78.0
   - h5py==3.14.0
