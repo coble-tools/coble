@@ -195,6 +195,15 @@ slide_embeds = run_inference_with_slide_encoder(
 print(slide_embeds.keys())
 
 
-EOF
+EOF#
+
+
+PYTHON_EXIT=$?
+
 echo "--------------------------"
-echo "Validation complete!"
+if [ $PYTHON_EXIT -ne 0 ]; then
+    echo "Validation FAILED (exit code $PYTHON_EXIT)"
+    exit $PYTHON_EXIT
+else
+    echo "Validation complete!"
+fi

@@ -25,6 +25,8 @@ bash:
 flags:
   - export: CUDA_HOME=$CONDA_PREFIX
   - export: TORCH_CUDA_ARCH_LIST="8.0"
+  - export: LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
+bash:
 pip:
   - psutil
 bash:
