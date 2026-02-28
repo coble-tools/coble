@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 07:39:14 GMT
+# Capture time: 11:45:54 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -49,7 +49,6 @@ conda install -y --solver=libmamba --no-update-deps \
 pip 
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
-cuda \
 packaging \
 pytorch::pytorch=2.0.0 \
 pytorch::torchvision=0.15.0 \
@@ -65,6 +64,9 @@ conda env config vars set CUDA_HOME=$CONDA_PREFIX
 export CUDA_HOME=$CONDA_PREFIX
 conda env config vars set TORCH_CUDA_ARCH_LIST="8.0"
 export TORCH_CUDA_ARCH_LIST="8.0"
+conda env config vars set LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
+# bash:
 # pip:
 python -m pip install 'psutil' 
 # bash:
@@ -107,4 +109,7 @@ cd $CONDA_PREFIX/GitHub/prov-gigapath && git switch fix/respect-device-parameter
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/papers/ProvGigaPath/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
+# Extra validation file: validate.py
+cp recipes/papers/ProvGigaPath/validate/validate.py ${CONDA_PREFIX}/bin/validate.py
+chmod +x ${CONDA_PREFIX}/bin/validate.py
 

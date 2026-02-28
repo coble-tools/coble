@@ -14,12 +14,14 @@ code/coble build \
 --recipe recipes/papers/ProvGigaPath/ProvGigaPath.cbl \
 --env ProvGigaPath \
 --validate recipes/papers/ProvGigaPath/validate/validate.sh \
+--val-folder recipes/papers/ProvGigaPath/validate \
 --rebuild
 
 code/coble build \
 --recipe recipes/papers/ProvGigaPath/ProvGigaPath.cbl \
 --env provpigapath \
 --validate recipes/papers/ProvGigaPath/validate/validate.sh \
+--val-folder recipes/papers/ProvGigaPath/validate \
 --code-source local \
 --containers docker,singularity
 ```
