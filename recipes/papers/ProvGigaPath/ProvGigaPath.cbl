@@ -65,3 +65,4 @@ bash:
   - mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
   - git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
   - mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && python -m pip install -e . && cd $mydir
+  - ln -s $CONDA_PREFIX/lib/libnvrtc.so.11.2 $CONDA_PREFIX/lib/libnvrtc.so

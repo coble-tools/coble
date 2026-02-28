@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-02-28
-# Capture time: 16:06:27 GMT
+# Capture time: 19:18:32 GMT
 # Captured by: ralcraft
 
 coble:
@@ -20,7 +20,7 @@ flags:
   - dependencies: false
   - priority: flexible
   - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/ProvGigaPath"
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
+  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: TORCH_CUDA_ARCH_LIST="8.0"
 
@@ -191,7 +191,7 @@ pip:
   - formulaic==1.2.1
   - fsspec==2025.10.0
   - fvcore==0.1.5.post20221221
-  - git+https://github.com/rachelicr/prov-gigapath.git@9bc7b84d0b5d82e91f8005d2bf5f90c6b1e82b97#egg==
+  - git+https://github.com/rachelicr/prov-gigapath.git@c5b7d97097ce2fb244c1c76494b11fa26daa74e1#egg==
   - gitdb==4.0.12
   - grpcio==1.78.0
   - h5py==3.14.0
