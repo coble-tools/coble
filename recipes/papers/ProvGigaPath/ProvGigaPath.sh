@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-28
-# Capture time: 19:06:06 GMT
+# Capture date: 2026-03-01
+# Capture time: 10:26:35 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -56,7 +56,8 @@ pytorch::torchaudio=2.0.0 \
 pytorch::pytorch-cuda=11.8 
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
-nvidia::cuda-cudart 
+nvidia::cuda-cudart \
+nvidia::cuda-nvcc=11.8 
 # bash:
 conda config --env --remove channels nvidia
 # flags:
@@ -66,6 +67,9 @@ conda env config vars set TORCH_CUDA_ARCH_LIST="8.0"
 export TORCH_CUDA_ARCH_LIST="8.0"
 conda env config vars set LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
+#bash:
+# this is set for the build and in conda activate it is set for the environment
+#- export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
 # bash:
 # pip:
 python -m pip install 'psutil' 
@@ -105,6 +109,16 @@ python -m pip install 'scikit-image'
 mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
 git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
 mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && python -m pip install -e . && cd $mydir
+# necessary sim links
+ln -s $CONDA_PREFIX/lib/libnvrtc.so.11.2 $CONDA_PREFIX/lib/libnvrtc.so
+# correct LD_LIB on activation
+unset LD_LIBRARY_PATH
+conda env config vars unset LD_LIBRARY_PATH
+mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+echo 'if [ -n "$APPTAINER_CONTAINER" ] || [ -n "$SINGULARITY_CONTAINER" ]; then' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+echo '    export LD_LIBRARY_PATH=/.singularity.d/libs:$LD_LIBRARY_PATH' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+echo 'fi' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/papers/ProvGigaPath/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh

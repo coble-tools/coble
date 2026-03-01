@@ -4,37 +4,28 @@
 #######################################
 
 coble:
-  - environment: pgp
+  - environment: basometro
 channels:
   - conda-forge
-flags:
-  # The flags control which version of PyTorch is installed
-  # This may need some trial and error for your hardware
-  # paper: cu118, 2.0.0, 0.15.0
-  # dev-dpu: cu118, 2,3.0, 0.18.0
-  # RA laptop: cu128, 2.7.0, 0.22.0
-  - export: CUDA="cu128"
-  - export: TORCH="2.7.0"
-  - export: TORCHVISION="0.22.0"
 languages:
-  - python=3.8
+  - python=3.10
 pip:
   - pydata-google-auth==1.9.0
   - pydot==3.0.3
   - pydotplus==2.0.2
-  - PyDrive==1.3.1
+  #- PyDrive==1.3.1
   - PyDrive2==1.21.3
   - pyerfa==2.0.1.5
   - pygit2==1.16.0
   - Pygments==2.18.0
-  - PyGObject==3.42.1
+  #- PyGObject==3.42.1
   - PyJWT==2.10.1
-  - pylibcudf-cu12 @ https://pypi.nvidia.com/pylibcudf-cu12/pylibcudf_cu12-24.10.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
-  - pylibcugraph-cu12==24.10.0
-  - pylibraft-cu12==24.10.0
+  #- pylibcudf-cu12 @ https://pypi.nvidia.com/pylibcudf-cu12/pylibcudf_cu12-24.10.1-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+  #- pylibcugraph-cu12==24.10.0
+  #- pylibraft-cu12==24.10.0
   - pymc==5.19.1
   - pymystem3==0.2.0
-  - pynvjitlink-cu12==0.4.0
+  #- pynvjitlink-cu12==0.4.0
   - pyogrio==0.10.0
   - PyOpenGL==3.1.7
   - pyOpenSSL==24.2.1
@@ -59,7 +50,7 @@ pip:
   - requests-toolbelt==1.0.0
   - requirements-parser==0.9.0
   - rich==13.9.4
-  - rmm-cu12==24.10.0
+  #- rmm-cu12==24.10.0
   - rpds-py==0.22.3
   - seaborn==0.13.2
   - sklearn-pandas==2.2.0
@@ -100,10 +91,10 @@ pip:
   - transformers==4.47.0
   - tweepy==4.14.0
   - typeguard==4.4.1
-  - typer==0.15.1
+  - typer
   - types-pytz==2024.2.0.20241003
   - types-setuptools==75.6.0.20241126
-  - typing_extensions==4.12.2
+  - typing_extensions
   - tzdata==2024.2
   - tzlocal==5.2
   - uc-micro-py==1.0.3
@@ -111,3 +102,20 @@ pip:
   - uritemplate==4.1.1
   - urllib3==2.2.3
   - zipp==3.21.0
+  - ipykernel
+  - jupyterlab
+  - graphviz
+  - ipywidgets
+  - plotly
+  - openpyxl
+
+bash:
+  - python -m ipykernel install --user --name=mat-basometro --display-name='Python (mat-basometro)'
+  - mkdir -p $CONDA_PREFIX/GitHub/mat-basometro
+  - git clone https://github.com/Yuri-Nassar/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
+  - rm -rf $CONDA_PREFIX/GitHub/mat-basometro-run/.git
+  - unzip $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv.zip -d $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/
+  - cp $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro.csv
+  - jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/mat-basometro/mattree_basometro.ipynb
+  - jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/preprocessing/basometro_preprocess.ipynb
+

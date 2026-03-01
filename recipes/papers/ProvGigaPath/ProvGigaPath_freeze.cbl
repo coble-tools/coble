@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-02-28
-# Capture time: 19:18:32 GMT
+# Capture date: 2026-03-01
+# Capture time: 10:34:45 GMT
 # Captured by: ralcraft
 
 coble:
@@ -20,7 +20,6 @@ flags:
   - dependencies: false
   - priority: flexible
   - export: CUDA_HOME="/home/ralcraft/miniforge3/envs/ProvGigaPath"
-  - export: LD_LIBRARY_PATH="/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib:/home/ralcraft/miniforge3/envs/ProvGigaPath/lib/python3.9/site-packages/torch/lib:/home/ralcraft/miniforge3/envs/pytest/lib:"
   - export: PYTHONNOUSERSITE="1"
   - export: TORCH_CUDA_ARCH_LIST="8.0"
 
@@ -55,6 +54,7 @@ conda:
   - cuda-cudart=11.8.89@nvidia
   - cuda-cupti=11.8.87@nvidia
   - cuda-libraries=11.8.0@nvidia
+  - cuda-nvcc=11.8.89@nvidia
   - cuda-nvrtc=11.8.89@nvidia
   - cuda-nvtx=11.8.86@nvidia
   - cuda-runtime=11.8.0@nvidia

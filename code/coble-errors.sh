@@ -34,6 +34,7 @@ stdout_patterns=(
     "LinkError: post-link script failed for package"
     "Error in rawToChar"
     "ModuleNotFoundError: No module named"
+    "which is incompatible"
 )
 error_patterns=(
     "* removing"
@@ -61,6 +62,7 @@ error_patterns=(
     "LinkError: post-link script failed for package"
     "Error in rawToChar"
     "ModuleNotFoundError: No module named"
+    "which is incompatible"
 )
 done_patterns=(
     "Successfully installed"

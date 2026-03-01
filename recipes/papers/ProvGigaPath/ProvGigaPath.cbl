@@ -20,12 +20,16 @@ conda:
   - pytorch::pytorch-cuda=11.8
 conda:
   - nvidia::cuda-cudart
+  - nvidia::cuda-nvcc=11.8
 bash:
   - conda config --env --remove channels nvidia
 flags:
   - export: CUDA_HOME=$CONDA_PREFIX
   - export: TORCH_CUDA_ARCH_LIST="8.0"
   - export: LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
+#bash:
+  # this is set for the build and in conda activate it is set for the environment
+  #- export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib:$LD_LIBRARY_PATH
 bash:
 pip:
   - psutil
@@ -65,4 +69,13 @@ bash:
   - mkdir -p $CONDA_PREFIX/GitHub/prov-gigapath
   - git clone https://github.com/rachelicr/prov-gigapath.git $CONDA_PREFIX/GitHub/prov-gigapath
   - mydir=$(pwd) && cd $CONDA_PREFIX/GitHub/prov-gigapath && python -m pip install -e . && cd $mydir
+  - # necessary sim links
   - ln -s $CONDA_PREFIX/lib/libnvrtc.so.11.2 $CONDA_PREFIX/lib/libnvrtc.so
+  - # correct LD_LIB on activation
+  - unset LD_LIBRARY_PATH
+  - conda env config vars unset LD_LIBRARY_PATH
+  - mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+  - echo 'if [ -n "$APPTAINER_CONTAINER" ] || [ -n "$SINGULARITY_CONTAINER" ]; then' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  - echo '    export LD_LIBRARY_PATH=/.singularity.d/libs:$LD_LIBRARY_PATH' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  - echo 'fi' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+  - echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib:$CONDA_PREFIX/lib/python3.9/site-packages/torch/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh

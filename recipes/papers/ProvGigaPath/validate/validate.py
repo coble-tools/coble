@@ -28,7 +28,7 @@ MEMORY_CAP_TILES = max(5, int((available_gb - 20) / 0.5))
 
 print(f"Memory available:   {available_gb:.0f}GB")
 print(f"⚠️  Minimum recommended: 80GB — if killed, request more: srun --mem=80G")
-print(f"   Memory-based tile cap: {MEMORY_CAP_TILES}")
+#print(f"   Memory-based tile cap: {MEMORY_CAP_TILES}")
 print("=" * 60)
 
 
@@ -95,6 +95,13 @@ def report_hardware(sm, tile_device, slide_device, max_tiles):
     print("=" * 60)
     print(f"PyTorch version:    {torch.__version__}")
     print(f"CUDA available:     {torch.cuda.is_available()}")
+
+    try:
+        from flash_attn.flash_attn_interface import flash_attn_func as _test
+        flash_attn_installed = True
+    except ImportError:
+        flash_attn_installed = False
+    print(f"flash-attn installed: {'✅' if flash_attn_installed else '❌'}")
 
     if sm is None:
         print(f"GPU:                None")
@@ -166,7 +173,7 @@ else:
 
 
 # ── Tiling ─────────────────────────────────────────────────────────
-if os.path.exists(slide_dir) and len(os.listdir(slide_dir)) > 0:
+if os.path.exists(slide_dir) and len([f for f in os.listdir(slide_dir) if f.endswith('.png')]) > 0:
     print(f"Tiles already exist at {slide_dir}, skipping tiling")
 else:
     print("Tiling slide...")

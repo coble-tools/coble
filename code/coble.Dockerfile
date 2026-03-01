@@ -71,6 +71,7 @@ RUN apt-get -o Acquire::Retries=3 update && \
         libglpk-dev \
         libxml2-dev \
         libgmp-dev \
+        graphviz \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/* \
     && apt-get clean
