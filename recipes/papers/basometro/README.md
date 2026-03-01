@@ -13,3 +13,24 @@ code/coble build \
 --rebuild
 ```
 
+```
+docker run --rm -it -v .:/workspace \
+ghcr.io/coble-tools/coble:papers-basometro
+```
+
+```
+docker run -p 8888:8888 ghcr.io/coble-tools/coble:papers-basometro bash -c "
+    /opt/conda/envs/basometro/bin/python -m ipykernel install \
+        --name=mat-basometro \
+        --display-name='Python (mat-basometro)' \
+        --prefix=/opt/conda/envs/basometro && \
+    /opt/conda/envs/basometro/bin/jupyter lab \
+        --ip=0.0.0.0 \
+        --port=8888 \
+        --no-browser \
+        --allow-root \
+        --ServerApp.token='' \
+        --ServerApp.password='' \
+        --notebook-dir=/opt/conda/envs/basometro/GitHub/mat-basometro
+"
+```

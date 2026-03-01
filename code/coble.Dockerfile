@@ -72,6 +72,7 @@ RUN apt-get -o Acquire::Retries=3 update && \
         libxml2-dev \
         libgmp-dev \
         graphviz \
+        unzip \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/* \
     && apt-get clean
