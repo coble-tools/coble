@@ -204,24 +204,4 @@ jobs:
           echo "Creating manifest from:$IMAGES"
           docker buildx imagetools create -t $TAG $IMAGES
 
-      - name: Delete arch-specific tags
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PACKAGE="coble"
-          TAG_AMD64="${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-amd64"
-          TAG_ARM64="${{ github.event.inputs.folder }}-${{ github.event.inputs.cbl }}-arm64"
-
-          for TAG in $TAG_AMD64 $TAG_ARM64; do
-            VERSION_ID=$(gh api \
-              /orgs/${{ env.OWNER }}/packages/container/$PACKAGE/versions \
-              --paginate \
-              --jq ".[] | select(.metadata.container.tags[] == \"$TAG\") | .id")
-            if [ -n "$VERSION_ID" ]; then
-              echo "Deleting tag $TAG (version $VERSION_ID)"
-              gh api --method DELETE \
-                /orgs/${{ env.OWNER }}/packages/container/$PACKAGE/versions/$VERSION_ID
-            else
-              echo "Tag $TAG not found, skipping"
-            fi
-          done
+      
