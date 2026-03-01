@@ -108,6 +108,7 @@ pip:
   - ipywidgets
   - plotly
   - openpyxl
+  - kaleido==0.2.1
 
 bash:
   - python -m ipykernel install --user --name=mat-basometro --display-name='Python (mat-basometro)'
