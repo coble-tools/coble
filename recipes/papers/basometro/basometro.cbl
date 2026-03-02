@@ -113,10 +113,9 @@ pip:
 bash:
   - python -m ipykernel install --user --name=mat-basometro --display-name='Python (mat-basometro)'
   - mkdir -p $CONDA_PREFIX/GitHub/mat-basometro
-  - git clone https://github.com/Yuri-Nassar/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
+  - git clone https://github.com/rachelicr/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
   - rm -rf $CONDA_PREFIX/GitHub/mat-basometro-run/.git
   - unzip $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv.zip -d $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/
   - cp $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro.csv
-  - jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/mat-basometro/mattree_basometro.ipynb
-  - jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/preprocessing/basometro_preprocess.ipynb
+  #- jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/mat-basometro/mattree_basometro.ipynb
 

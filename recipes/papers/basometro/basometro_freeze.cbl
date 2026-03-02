@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-03-01
-# Capture time: 10:16:59 GMT
+# Capture date: 2026-03-02
+# Capture time: 11:54:50 GMT
 # Captured by: ralcraft
 
 coble:
@@ -93,11 +93,12 @@ pip:
   - debugpy==1.8.20
   - decorator==5.2.1
   - defusedxml==0.7.1
+  - et_xmlfile==2.0.0
   - etuples==0.3.10
   - exceptiongroup==1.3.1
   - executing==2.2.1
   - fastjsonschema==2.21.2
-  - filelock==3.24.3
+  - filelock==3.25.0
   - fonttools==4.61.1
   - fqdn==1.5.1
   - fsspec==2026.2.0
@@ -107,6 +108,7 @@ pip:
   - google-auth-oauthlib==1.3.0
   - google-auth==2.49.0.dev0
   - googleapis-common-protos==1.72.0
+  - graphviz==0.21
   - greenlet==3.3.2
   - h11==0.16.0
   - h5netcdf==1.8.1
@@ -119,6 +121,7 @@ pip:
   - idna==3.11
   - ipykernel==7.2.0
   - ipython==8.38.0
+  - ipywidgets==8.1.8
   - isoduration==20.11.0
   - jedi==0.19.2
   - joblib==1.5.3
@@ -135,6 +138,8 @@ pip:
   - jupyterlab==4.5.5
   - jupyterlab_pygments==0.3.0
   - jupyterlab_server==2.28.0
+  - jupyterlab_widgets==3.0.16
+  - kaleido==0.2.1
   - kiwisolver==1.4.9
   - langcodes==3.5.1
   - lark==1.3.1
@@ -149,6 +154,7 @@ pip:
   - msgpack==1.1.2
   - multipledispatch==1.0.0
   - murmurhash==1.0.15
+  - narwhals==2.17.0
   - nbclient==0.10.4
   - nbconvert==7.17.0
   - nbformat==5.10.4
@@ -175,6 +181,7 @@ pip:
   - nvidia-nvtx-cu12==12.8.90
   - oauth2client==4.1.3
   - oauthlib==3.3.1
+  - openpyxl==3.1.5
   - overrides==7.7.0
   - pandas==2.3.3
   - pandocfilters==1.5.1
@@ -184,6 +191,7 @@ pip:
   - pexpect==4.9.0
   - pillow==12.1.1
   - platformdirs==4.9.2
+  - plotly==6.5.2
   - preshed==3.0.12
   - prometheus_client==0.24.1
   - prompt_toolkit==3.0.52
@@ -304,6 +312,7 @@ pip:
   - webcolors==25.10.0
   - webencodings==0.5.1
   - websocket-client==1.9.0
+  - widgetsnbextension==4.0.15
   - wrapt==2.1.1
   - xarray-einstats==0.8.0
   - xarray==2025.6.1
