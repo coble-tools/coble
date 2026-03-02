@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-03-01
-# Capture time: 10:12:44 GMT
+# Capture date: 2026-03-02
+# Capture time: 11:51:35 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -138,12 +138,26 @@ python -m pip install 'urllib3==2.2.3'
 python -m pip install 'zipp==3.21.0' 
 python -m pip install 'ipykernel' 
 python -m pip install 'jupyterlab' 
+python -m pip install 'graphviz' 
+python -m pip install 'ipywidgets' 
+python -m pip install 'plotly' 
+python -m pip install 'openpyxl' 
+python -m pip install 'kaleido==0.2.1' 
+
 # bash:
 python -m ipykernel install --user --name=mat-basometro --display-name='Python (mat-basometro)'
 mkdir -p $CONDA_PREFIX/GitHub/mat-basometro
-git clone https://github.com/Yuri-Nassar/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
-echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
-echo 'echo "COBLE validation: No script has been specified for basometro environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+git clone https://github.com/rachelicr/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
+#- rm -rf $CONDA_PREFIX/GitHub/mat-basometro-run/.git
+unzip $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv.zip -d $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/
+cp $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro.csv
+#- jupyter nbconvert --to notebook --inplace --ExecutePreprocessor.kernel_name=mat-basometro $CONDA_PREFIX/GitHub/mat-basometro/mattree_basometro.ipynb
+
+
+# Validate script available in environment at CONDA PREFIX: validate.sh
+cp recipes/papers/basometro/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
-chmod +x ${CONDA_PREFIX}/bin/validate.sh
+# Extra validation file: validate.py
+cp recipes/papers/basometro/validate/validate.py ${CONDA_PREFIX}/bin/validate.py
+chmod +x ${CONDA_PREFIX}/bin/validate.py
 

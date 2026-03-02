@@ -1,83 +1,83 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-03-01 at 10:12:47 GMT
+[coble-create] Summary log started by ralcraft on 2026-03-02 at 11:51:37 GMT
 ------------------------------------------------
 
-[coble-create] Start time: 2026-03-01 10:12:48 1/216
+[coble-create] Start time: 2026-03-02 11:51:37 1/230
 install: source ~/.bashrc
-[coble-create] End time: 2026-03-01 10:12:48
+[coble-create] End time: 2026-03-02 11:51:37
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:12:48 3/216
+[coble-create] Start time: 2026-03-02 11:51:37 3/230
 install: if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-[coble-create] End time: 2026-03-01 10:12:47
-[coble-create] Duration: -1s
+[coble-create] End time: 2026-03-02 11:51:38
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:12:47 5/216
+[coble-create] Start time: 2026-03-02 11:51:38 5/230
 install: conda env remove --name basometro -y 2>/dev/null || true
-[coble-create] End time: 2026-03-01 10:12:54
-[coble-create] Duration: 7s
+[coble-create] End time: 2026-03-02 11:51:43
+[coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-03-01 10:12:54 7/216
+[coble-create] Start time: 2026-03-02 11:51:43 7/230
 install: conda create --no-default-packages --name basometro -y
-[coble-create] End time: 2026-03-01 10:13:17
-[coble-create] Duration: 23s
+[coble-create] End time: 2026-03-02 11:51:56
+[coble-create] Duration: 13s
 
-[coble-create] Start time: 2026-03-01 10:13:17 9/216
+[coble-create] Start time: 2026-03-02 11:51:56 9/230
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-03-01 10:13:17
+[coble-create] End time: 2026-03-02 11:51:56
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:17 10/216
+[coble-create] Start time: 2026-03-02 11:51:56 10/230
 install: unset PYTHONPATH
-[coble-create] End time: 2026-03-01 10:13:17
+[coble-create] End time: 2026-03-02 11:51:56
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:17 11/216
+[coble-create] Start time: 2026-03-02 11:51:56 11/230
 install: conda  clean --all -y --force-pkgs-dirs
-[coble-create] End time: 2026-03-01 10:13:17
+[coble-create] End time: 2026-03-02 11:51:57
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:51:57 13/230
+install: conda deactivate | true
+[coble-create] End time: 2026-03-02 11:51:57
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:17 13/216
+[coble-create] Start time: 2026-03-02 11:51:57 14/230
 install: conda deactivate | true
-[coble-create] End time: 2026-03-01 10:13:19
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-03-02 11:51:58
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:13:19 14/216
-install: conda deactivate | true
-[coble-create] End time: 2026-03-01 10:13:19
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-03-01 10:13:19 15/216
+[coble-create] Start time: 2026-03-02 11:51:58 15/230
 install: conda activate basometro
-[coble-create] End time: 2026-03-01 10:13:20
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:51:58
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:20 16/216
+[coble-create] Start time: 2026-03-02 11:51:58 16/230
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-03-01 10:13:20
+[coble-create] End time: 2026-03-02 11:51:58
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:20 17/216
+[coble-create] Start time: 2026-03-02 11:51:58 17/230
 install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-03-01 10:13:20
+[coble-create] End time: 2026-03-02 11:51:58
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:20 18/216
+[coble-create] Start time: 2026-03-02 11:51:58 18/230
 install: conda config --env --remove-key channels
-[coble-create] End time: 2026-03-01 10:13:21
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:13:21 20/216
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-03-01 10:13:21
+[coble-create] End time: 2026-03-02 11:51:58
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:22 21/216
+[coble-create] Start time: 2026-03-02 11:51:58 20/230
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-03-02 11:51:58
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:51:58 21/230
 install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-03-01 10:13:22
+[coble-create] End time: 2026-03-02 11:51:59
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:13:22 23/216
+[coble-create] Start time: 2026-03-02 11:51:59 23/230
 install: conda install -y --solver=libmamba --no-update-deps 'python=3.10'
 dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-20_gnu
 dep: # bzip2              conda-forge/linux-64::bzip2-1.0.8-hda65f42_9
@@ -107,45 +107,45 @@ dep: # tk                 conda-forge/linux-64::tk-8.6.13-noxft_h366c992_103
 dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
 dep: # wheel              conda-forge/noarch::wheel-0.46.3-pyhd8ed1ab_0
 dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
-[coble-create] End time: 2026-03-01 10:13:51
-[coble-create] Duration: 29s
+[coble-create] End time: 2026-03-02 11:52:21
+[coble-create] Duration: 22s
 
-[coble-create] Start time: 2026-03-01 10:13:51 25/216
+[coble-create] Start time: 2026-03-02 11:52:21 25/230
 install: python -m site
-[coble-create] End time: 2026-03-01 10:13:51
+[coble-create] End time: 2026-03-02 11:52:21
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:51 27/216
+[coble-create] Start time: 2026-03-02 11:52:21 27/230
 install: conda env config vars set PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-03-01 10:13:51
+[coble-create] End time: 2026-03-02 11:52:21
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:51 28/216
+[coble-create] Start time: 2026-03-02 11:52:21 28/230
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-03-01 10:13:51
+[coble-create] End time: 2026-03-02 11:52:21
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:51 29/216
+[coble-create] Start time: 2026-03-02 11:52:21 29/230
 install: python -m pip install 'pydata-google-auth==1.9.0' 
     Requirement already satisfied: setuptools in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pydata-google-auth==1.9.0) (82.0.0)
     Successfully installed certifi-2026.2.25 cffi-2.0.0 charset_normalizer-3.4.4 cryptography-46.0.5 google-auth-2.49.0.dev0 google-auth-oauthlib-1.3.0 idna-3.11 oauthlib-3.3.1 pyasn1-0.6.2 pyasn1-modules-0.4.2 pycparser-3.0 pydata-google-auth-1.9.0 requests-2.32.5 requests-oauthlib-2.0.0 typing-extensions-4.15.0 urllib3-2.6.3
-[coble-create] End time: 2026-03-01 10:13:54
-[coble-create] Duration: 3s
+[coble-create] End time: 2026-03-02 11:52:23
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:13:54 31/216
+[coble-create] Start time: 2026-03-02 11:52:23 31/230
 install: python -m pip install 'pydot==3.0.3' 
     Successfully installed pydot-3.0.3 pyparsing-3.3.2
-[coble-create] End time: 2026-03-01 10:13:54
+[coble-create] End time: 2026-03-02 11:52:23
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:13:54 33/216
+[coble-create] Start time: 2026-03-02 11:52:23 33/230
 install: python -m pip install 'pydotplus==2.0.2' 
     Requirement already satisfied: pyparsing>=2.0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pydotplus==2.0.2) (3.3.2)
     Successfully installed pydotplus-2.0.2
-[coble-create] End time: 2026-03-01 10:13:55
+[coble-create] End time: 2026-03-02 11:52:24
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:13:55 35/216
+[coble-create] Start time: 2026-03-02 11:52:24 35/230
 install: python -m pip install 'PyDrive2==1.21.3' 
     Requirement already satisfied: cffi>=1.12 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cryptography<44->PyDrive2==1.21.3) (2.0.0)
     Requirement already satisfied: pycparser in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cffi>=1.12->cryptography<44->PyDrive2==1.21.3) (3.0)
@@ -159,36 +159,36 @@ install: python -m pip install 'PyDrive2==1.21.3'
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3.0.0,>=2.20.0->google-api-core!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.0,<3.0.0,>=1.31.5->google-api-python-client>=1.12.5->PyDrive2==1.21.3) (2026.2.25)
     Requirement already satisfied: pyasn1>=0.1.7 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from oauth2client>=4.0.0->PyDrive2==1.21.3) (0.6.2)
     Successfully installed PyDrive2-1.21.3 PyYAML-6.0.3 cryptography-43.0.3 google-api-core-2.30.0 google-api-python-client-2.190.0 google-auth-httplib2-0.3.0 googleapis-common-protos-1.72.0 httplib2-0.31.2 oauth2client-4.1.3 proto-plus-1.27.1 protobuf-6.33.5 pyOpenSSL-24.2.1 rsa-4.9.1 six-1.17.0 uritemplate-4.2.0
-[coble-create] End time: 2026-03-01 10:13:57
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-03-02 11:52:25
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:13:57 37/216
+[coble-create] Start time: 2026-03-02 11:52:25 37/230
 install: python -m pip install 'pyerfa==2.0.1.5' 
     Successfully installed numpy-2.2.6 pyerfa-2.0.1.5
-[coble-create] End time: 2026-03-01 10:14:01
-[coble-create] Duration: 4s
+[coble-create] End time: 2026-03-02 11:52:27
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:14:01 39/216
+[coble-create] Start time: 2026-03-02 11:52:27 39/230
 install: python -m pip install 'pygit2==1.16.0' 
     Requirement already satisfied: cffi>=1.17.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pygit2==1.16.0) (2.0.0)
     Requirement already satisfied: pycparser in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cffi>=1.17.0->pygit2==1.16.0) (3.0)
     Successfully installed pygit2-1.16.0
-[coble-create] End time: 2026-03-01 10:14:02
+[coble-create] End time: 2026-03-02 11:52:28
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:02 41/216
+[coble-create] Start time: 2026-03-02 11:52:28 41/230
 install: python -m pip install 'Pygments==2.18.0' 
     Successfully installed Pygments-2.18.0
-[coble-create] End time: 2026-03-01 10:14:04
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-03-01 10:14:04 43/216
-install: python -m pip install 'PyJWT==2.10.1' 
-    Successfully installed PyJWT-2.10.1
-[coble-create] End time: 2026-03-01 10:14:04
+[coble-create] End time: 2026-03-02 11:52:28
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:04 45/216
+[coble-create] Start time: 2026-03-02 11:52:28 43/230
+install: python -m pip install 'PyJWT==2.10.1' 
+    Successfully installed PyJWT-2.10.1
+[coble-create] End time: 2026-03-02 11:52:29
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:52:29 45/230
 install: python -m pip install 'pymc==5.19.1' 
     Requirement already satisfied: numpy>=1.25.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pymc==5.19.1) (2.2.6)
     Requirement already satisfied: typing-extensions>=3.7.4 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pymc==5.19.1) (4.15.0)
@@ -197,11 +197,11 @@ install: python -m pip install 'pymc==5.19.1'
     Requirement already satisfied: pyparsing>=3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from matplotlib>=3.8->arviz>=0.13.0->pymc==5.19.1) (3.3.2)
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib>=3.8->arviz>=0.13.0->pymc==5.19.1) (1.17.0)
     Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich>=13.7.1->pymc==5.19.1) (2.18.0)
-    Successfully installed arviz-0.23.4 cachetools-7.0.1 cloudpickle-3.1.2 cons-0.4.7 contourpy-1.3.2 cycler-0.12.1 etuples-0.3.10 filelock-3.24.3 fonttools-4.61.1 h5netcdf-1.8.1 h5py-3.15.1 kiwisolver-1.4.9 logical-unification-0.4.7 markdown-it-py-4.0.0 matplotlib-3.10.8 mdurl-0.1.2 miniKanren-1.0.5 multipledispatch-1.0.0 numpy-1.26.4 pandas-2.3.3 pillow-12.1.1 platformdirs-4.9.2 pymc-5.19.1 pytensor-2.26.4 python-dateutil-2.9.0.post0 pytz-2025.2 rich-14.3.3 scipy-1.15.3 threadpoolctl-3.6.0 toolz-1.1.0 tzdata-2025.3 xarray-2025.6.1 xarray-einstats-0.8.0
-[coble-create] End time: 2026-03-01 10:14:13
-[coble-create] Duration: 9s
+    Successfully installed arviz-0.23.4 cachetools-7.0.1 cloudpickle-3.1.2 cons-0.4.7 contourpy-1.3.2 cycler-0.12.1 etuples-0.3.10 filelock-3.25.0 fonttools-4.61.1 h5netcdf-1.8.1 h5py-3.15.1 kiwisolver-1.4.9 logical-unification-0.4.7 markdown-it-py-4.0.0 matplotlib-3.10.8 mdurl-0.1.2 miniKanren-1.0.5 multipledispatch-1.0.0 numpy-1.26.4 pandas-2.3.3 pillow-12.1.1 platformdirs-4.9.2 pymc-5.19.1 pytensor-2.26.4 python-dateutil-2.9.0.post0 pytz-2025.2 rich-14.3.3 scipy-1.15.3 threadpoolctl-3.6.0 toolz-1.1.0 tzdata-2025.3 xarray-2025.6.1 xarray-einstats-0.8.0
+[coble-create] End time: 2026-03-02 11:52:39
+[coble-create] Duration: 10s
 
-[coble-create] Start time: 2026-03-01 10:14:13 47/216
+[coble-create] Start time: 2026-03-02 11:52:39 47/230
 install: python -m pip install 'pymystem3==0.2.0' 
     Requirement already satisfied: requests in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pymystem3==0.2.0) (2.32.5)
     Requirement already satisfied: charset_normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->pymystem3==0.2.0) (3.4.4)
@@ -209,146 +209,146 @@ install: python -m pip install 'pymystem3==0.2.0'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->pymystem3==0.2.0) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->pymystem3==0.2.0) (2026.2.25)
     Successfully installed pymystem3-0.2.0
-[coble-create] End time: 2026-03-01 10:14:14
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:39
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:14 49/216
+[coble-create] Start time: 2026-03-02 11:52:40 49/230
 install: python -m pip install 'pyogrio==0.10.0' 
     Requirement already satisfied: certifi in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pyogrio==0.10.0) (2026.2.25)
     Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pyogrio==0.10.0) (1.26.4)
     Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pyogrio==0.10.0) (26.0)
     Successfully installed pyogrio-0.10.0
-[coble-create] End time: 2026-03-01 10:14:15
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:40
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:15 51/216
+[coble-create] Start time: 2026-03-02 11:52:40 51/230
 install: python -m pip install 'PyOpenGL==3.1.7' 
     Successfully installed PyOpenGL-3.1.7
-[coble-create] End time: 2026-03-01 10:14:16
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:42
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:14:16 53/216
+[coble-create] Start time: 2026-03-02 11:52:42 53/230
 install: python -m pip install 'pyOpenSSL==24.2.1' 
     Requirement already satisfied: pyOpenSSL==24.2.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (24.2.1)
     Requirement already satisfied: cryptography<44,>=41.0.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pyOpenSSL==24.2.1) (43.0.3)
     Requirement already satisfied: cffi>=1.12 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cryptography<44,>=41.0.5->pyOpenSSL==24.2.1) (2.0.0)
     Requirement already satisfied: pycparser in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cffi>=1.12->cryptography<44,>=41.0.5->pyOpenSSL==24.2.1) (3.0)
-[coble-create] End time: 2026-03-01 10:14:16
+[coble-create] End time: 2026-03-02 11:52:42
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:16 55/216
+[coble-create] Start time: 2026-03-02 11:52:42 55/230
 install: python -m pip install 'pyparsing==3.2.0' 
     Successfully installed pyparsing-3.2.0
-[coble-create] End time: 2026-03-01 10:14:17
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:14:17 57/216
-install: python -m pip install 'pyperclip==1.9.0' 
-    Successfully installed pyperclip-1.9.0
-[coble-create] End time: 2026-03-01 10:14:17
+[coble-create] End time: 2026-03-02 11:52:42
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:17 59/216
+[coble-create] Start time: 2026-03-02 11:52:42 57/230
+install: python -m pip install 'pyperclip==1.9.0' 
+    Successfully installed pyperclip-1.9.0
+[coble-create] End time: 2026-03-02 11:52:43
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:52:43 59/230
 install: python -m pip install 'pyproj==3.7.0' 
     Requirement already satisfied: certifi in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pyproj==3.7.0) (2026.2.25)
     Successfully installed pyproj-3.7.0
-[coble-create] End time: 2026-03-01 10:14:18
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:43
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:18 61/216
+[coble-create] Start time: 2026-03-02 11:52:43 61/230
 install: python -m pip install 'pyshp==2.3.1' 
     Successfully installed pyshp-2.3.1
-[coble-create] End time: 2026-03-01 10:14:19
+[coble-create] End time: 2026-03-02 11:52:44
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:19 63/216
+[coble-create] Start time: 2026-03-02 11:52:44 63/230
 install: python -m pip install 'python-dateutil==2.8.2' 
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil==2.8.2) (1.17.0)
     Successfully installed python-dateutil-2.8.2
-[coble-create] End time: 2026-03-01 10:14:19
+[coble-create] End time: 2026-03-02 11:52:44
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:19 65/216
+[coble-create] Start time: 2026-03-02 11:52:44 65/230
 install: python -m pip install 'python-louvain==0.16' 
     Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-louvain==0.16) (1.26.4)
     Successfully installed networkx-3.4.2 python-louvain-0.16
-[coble-create] End time: 2026-03-01 10:14:20
+[coble-create] End time: 2026-03-02 11:52:45
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:20 67/216
+[coble-create] Start time: 2026-03-02 11:52:45 67/230
 install: python -m pip install 'python-slugify==8.0.4' 
     Successfully installed python-slugify-8.0.4 text-unidecode-1.3
-[coble-create] End time: 2026-03-01 10:14:21
+[coble-create] End time: 2026-03-02 11:52:46
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:21 69/216
+[coble-create] Start time: 2026-03-02 11:52:46 69/230
 install: python -m pip install 'python-utils==3.9.1' 
     Requirement already satisfied: typing_extensions>3.10.0.2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-utils==3.9.1) (4.15.0)
     Successfully installed python-utils-3.9.1
-[coble-create] End time: 2026-03-01 10:14:22
+[coble-create] End time: 2026-03-02 11:52:46
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:22 71/216
+[coble-create] Start time: 2026-03-02 11:52:46 71/230
 install: python -m pip install 'pytz==2024.2' 
     Successfully installed pytz-2024.2
-[coble-create] End time: 2026-03-01 10:14:22
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:52:47
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:22 73/216
+[coble-create] Start time: 2026-03-02 11:52:47 73/230
 install: python -m pip install 'pyviz_comms==3.0.3' 
     Successfully installed param-2.3.2 pyviz_comms-3.0.3
-[coble-create] End time: 2026-03-01 10:14:23
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:14:23 75/216
-install: python -m pip install 'PyYAML==6.0.2' 
-    Successfully installed PyYAML-6.0.2
-[coble-create] End time: 2026-03-01 10:14:23
+[coble-create] End time: 2026-03-02 11:52:47
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:23 77/216
-install: python -m pip install 'pyzmq==24.0.1' 
-    Successfully installed pyzmq-24.0.1
-[coble-create] End time: 2026-03-01 10:14:24
+[coble-create] Start time: 2026-03-02 11:52:47 75/230
+install: python -m pip install 'PyYAML==6.0.2' 
+    Successfully installed PyYAML-6.0.2
+[coble-create] End time: 2026-03-02 11:52:48
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:24 79/216
+[coble-create] Start time: 2026-03-02 11:52:48 77/230
+install: python -m pip install 'pyzmq==24.0.1' 
+    Successfully installed pyzmq-24.0.1
+[coble-create] End time: 2026-03-02 11:52:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:52:48 79/230
 install: python -m pip install 'qdldl==0.1.7.post4' 
     Requirement already satisfied: numpy>=1.7 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from qdldl==0.1.7.post4) (1.26.4)
     Requirement already satisfied: scipy>=0.13.2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from qdldl==0.1.7.post4) (1.15.3)
     Successfully installed qdldl-0.1.7.post4
-[coble-create] End time: 2026-03-01 10:14:24
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:52:49
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:24 81/216
+[coble-create] Start time: 2026-03-02 11:52:49 81/230
 install: python -m pip install 'ratelim==0.1.6' 
     Successfully installed decorator-5.2.1 ratelim-0.1.6
-[coble-create] End time: 2026-03-01 10:14:25
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:49
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:25 83/216
+[coble-create] Start time: 2026-03-02 11:52:49 83/230
 install: python -m pip install 'referencing==0.35.1' 
     Successfully installed attrs-25.4.0 referencing-0.35.1 rpds-py-0.30.0
-[coble-create] End time: 2026-03-01 10:14:26
+[coble-create] End time: 2026-03-02 11:52:50
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:26 85/216
+[coble-create] Start time: 2026-03-02 11:52:50 85/230
 install: python -m pip install 'regex==2024.11.6' 
     Successfully installed regex-2024.11.6
-[coble-create] End time: 2026-03-01 10:14:27
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:50
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:27 87/216
+[coble-create] Start time: 2026-03-02 11:52:50 87/230
 install: python -m pip install 'requests==2.32.3' 
     Requirement already satisfied: charset-normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests==2.32.3) (3.4.4)
     Requirement already satisfied: idna<4,>=2.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests==2.32.3) (3.11)
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests==2.32.3) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests==2.32.3) (2026.2.25)
     Successfully installed requests-2.32.3
-[coble-create] End time: 2026-03-01 10:14:27
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:52:51
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:27 89/216
+[coble-create] Start time: 2026-03-02 11:52:51 89/230
 install: python -m pip install 'requests-oauthlib==1.3.1' 
     Requirement already satisfied: oauthlib>=3.0.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests-oauthlib==1.3.1) (3.3.1)
     Requirement already satisfied: requests>=2.0.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests-oauthlib==1.3.1) (2.32.3)
@@ -357,10 +357,10 @@ install: python -m pip install 'requests-oauthlib==1.3.1'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests>=2.0.0->requests-oauthlib==1.3.1) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests>=2.0.0->requests-oauthlib==1.3.1) (2026.2.25)
     Successfully installed requests-oauthlib-1.3.1
-[coble-create] End time: 2026-03-01 10:14:28
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:51
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:28 91/216
+[coble-create] Start time: 2026-03-02 11:52:51 91/230
 install: python -m pip install 'requests-toolbelt==1.0.0' 
     Requirement already satisfied: requests<3.0.0,>=2.0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests-toolbelt==1.0.0) (2.32.3)
     Requirement already satisfied: charset-normalizer<4,>=2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3.0.0,>=2.0.1->requests-toolbelt==1.0.0) (3.4.4)
@@ -368,32 +368,32 @@ install: python -m pip install 'requests-toolbelt==1.0.0'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3.0.0,>=2.0.1->requests-toolbelt==1.0.0) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3.0.0,>=2.0.1->requests-toolbelt==1.0.0) (2026.2.25)
     Successfully installed requests-toolbelt-1.0.0
-[coble-create] End time: 2026-03-01 10:14:28
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-03-01 10:14:28 93/216
-install: python -m pip install 'requirements-parser==0.9.0' 
-    Successfully installed requirements-parser-0.9.0 types-setuptools-82.0.0.20260210
-[coble-create] End time: 2026-03-01 10:14:29
+[coble-create] End time: 2026-03-02 11:52:52
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:29 95/216
+[coble-create] Start time: 2026-03-02 11:52:52 93/230
+install: python -m pip install 'requirements-parser==0.9.0' 
+    Successfully installed requirements-parser-0.9.0 types-setuptools-82.0.0.20260210
+[coble-create] End time: 2026-03-02 11:52:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:52:52 95/230
 install: python -m pip install 'rich==13.9.4' 
     Requirement already satisfied: markdown-it-py>=2.2.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich==13.9.4) (4.0.0)
     Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich==13.9.4) (2.18.0)
     Requirement already satisfied: typing-extensions<5.0,>=4.0.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich==13.9.4) (4.15.0)
     Requirement already satisfied: mdurl~=0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich==13.9.4) (0.1.2)
     Successfully installed rich-13.9.4
-[coble-create] End time: 2026-03-01 10:14:29
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-03-01 10:14:29 97/216
-install: python -m pip install 'rpds-py==0.22.3' 
-    Successfully installed rpds-py-0.22.3
-[coble-create] End time: 2026-03-01 10:14:30
+[coble-create] End time: 2026-03-02 11:52:53
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:30 99/216
+[coble-create] Start time: 2026-03-02 11:52:53 97/230
+install: python -m pip install 'rpds-py==0.22.3' 
+    Successfully installed rpds-py-0.22.3
+[coble-create] End time: 2026-03-02 11:52:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:52:53 99/230
 install: python -m pip install 'seaborn==0.13.2' 
     Requirement already satisfied: numpy!=1.24.0,>=1.20 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from seaborn==0.13.2) (1.26.4)
     Requirement already satisfied: pandas>=1.2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from seaborn==0.13.2) (2.3.3)
@@ -410,10 +410,10 @@ install: python -m pip install 'seaborn==0.13.2'
     Requirement already satisfied: tzdata>=2022.7 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pandas>=1.2->seaborn==0.13.2) (2025.3)
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib!=3.6.1,>=3.4->seaborn==0.13.2) (1.17.0)
     Successfully installed seaborn-0.13.2
-[coble-create] End time: 2026-03-01 10:14:31
+[coble-create] End time: 2026-03-02 11:52:54
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:31 101/216
+[coble-create] Start time: 2026-03-02 11:52:54 101/230
 install: python -m pip install 'sklearn-pandas==2.2.0' 
     Requirement already satisfied: scipy>=1.5.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from sklearn-pandas==2.2.0) (1.15.3)
     Requirement already satisfied: pandas>=1.1.4 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from sklearn-pandas==2.2.0) (2.3.3)
@@ -424,61 +424,61 @@ install: python -m pip install 'sklearn-pandas==2.2.0'
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil>=2.8.2->pandas>=1.1.4->sklearn-pandas==2.2.0) (1.17.0)
     Requirement already satisfied: threadpoolctl>=3.1.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from scikit-learn>=0.23.0->sklearn-pandas==2.2.0) (3.6.0)
     Successfully installed joblib-1.5.3 scikit-learn-1.7.2 sklearn-pandas-2.2.0
-[coble-create] End time: 2026-03-01 10:14:32
+[coble-create] End time: 2026-03-02 11:52:55
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:32 103/216
+[coble-create] Start time: 2026-03-02 11:52:55 103/230
 install: python -m pip install 'slicer==0.0.8' 
     Successfully installed slicer-0.0.8
-[coble-create] End time: 2026-03-01 10:14:33
+[coble-create] End time: 2026-03-02 11:52:56
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:33 105/216
+[coble-create] Start time: 2026-03-02 11:52:56 105/230
 install: python -m pip install 'smart-open==7.0.5' 
     Successfully installed smart-open-7.0.5 wrapt-2.1.1
-[coble-create] End time: 2026-03-01 10:14:34
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:52:56
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:34 107/216
+[coble-create] Start time: 2026-03-02 11:52:56 107/230
 install: python -m pip install 'smmap==5.0.1' 
     Successfully installed smmap-5.0.1
-[coble-create] End time: 2026-03-01 10:14:34
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-03-01 10:14:34 109/216
-install: python -m pip install 'sniffio==1.3.1' 
-    Successfully installed sniffio-1.3.1
-[coble-create] End time: 2026-03-01 10:14:35
+[coble-create] End time: 2026-03-02 11:52:57
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:35 111/216
-install: python -m pip install 'snowballstemmer==2.2.0' 
-    Successfully installed snowballstemmer-2.2.0
-[coble-create] End time: 2026-03-01 10:14:35
+[coble-create] Start time: 2026-03-02 11:52:57 109/230
+install: python -m pip install 'sniffio==1.3.1' 
+    Successfully installed sniffio-1.3.1
+[coble-create] End time: 2026-03-02 11:52:57
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:35 113/216
+[coble-create] Start time: 2026-03-02 11:52:57 111/230
+install: python -m pip install 'snowballstemmer==2.2.0' 
+    Successfully installed snowballstemmer-2.2.0
+[coble-create] End time: 2026-03-02 11:52:58
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:52:58 113/230
 install: python -m pip install 'soundfile==0.12.1' 
     Requirement already satisfied: cffi>=1.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from soundfile==0.12.1) (2.0.0)
     Requirement already satisfied: pycparser in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from cffi>=1.0->soundfile==0.12.1) (3.0)
     Successfully installed soundfile-0.12.1
-[coble-create] End time: 2026-03-01 10:14:36
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:14:36 115/216
-install: python -m pip install 'soupsieve==2.6' 
-    Successfully installed soupsieve-2.6
-[coble-create] End time: 2026-03-01 10:14:36
+[coble-create] End time: 2026-03-02 11:52:58
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:36 117/216
+[coble-create] Start time: 2026-03-02 11:52:58 115/230
+install: python -m pip install 'soupsieve==2.6' 
+    Successfully installed soupsieve-2.6
+[coble-create] End time: 2026-03-02 11:52:58
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:52:58 117/230
 install: python -m pip install 'soxr==0.5.0.post1' 
     Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from soxr==0.5.0.post1) (1.26.4)
     Successfully installed soxr-0.5.0.post1
-[coble-create] End time: 2026-03-01 10:14:37
+[coble-create] End time: 2026-03-02 11:52:59
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:37 119/216
+[coble-create] Start time: 2026-03-02 11:52:59 119/230
 install: python -m pip install 'spacy==3.7.5' 
     Requirement already satisfied: requests<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from spacy==3.7.5) (2.32.3)
     Requirement already satisfied: setuptools in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from spacy==3.7.5) (82.0.0)
@@ -496,55 +496,55 @@ install: python -m pip install 'spacy==3.7.5'
     Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich>=12.3.0->typer<1.0.0,>=0.3.0->spacy==3.7.5) (2.18.0)
     Requirement already satisfied: mdurl~=0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer<1.0.0,>=0.3.0->spacy==3.7.5) (0.1.2)
     Successfully installed MarkupSafe-3.0.3 annotated-doc-0.0.4 annotated-types-0.7.0 blis-0.7.11 catalogue-2.0.10 click-8.3.1 cloudpathlib-0.23.0 confection-0.1.5 cymem-2.0.13 jinja2-3.1.6 langcodes-3.5.1 murmurhash-1.0.15 preshed-3.0.12 pydantic-2.12.5 pydantic-core-2.41.5 shellingham-1.5.4 spacy-3.7.5 spacy-legacy-3.0.12 spacy-loggers-1.0.5 srsly-2.5.2 thinc-8.2.5 tqdm-4.67.3 typer-0.24.1 typer-slim-0.24.0 typing-inspection-0.4.2 wasabi-1.1.3 weasel-0.4.3
-[coble-create] End time: 2026-03-01 10:14:38
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:53:02
+[coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-03-01 10:14:38 121/216
+[coble-create] Start time: 2026-03-02 11:53:02 121/230
 install: python -m pip install 'spacy-legacy==3.0.12' 
     Requirement already satisfied: spacy-legacy==3.0.12 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (3.0.12)
-[coble-create] End time: 2026-03-01 10:14:39
+[coble-create] End time: 2026-03-02 11:53:03
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:39 123/216
+[coble-create] Start time: 2026-03-02 11:53:03 123/230
 install: python -m pip install 'spacy-loggers==1.0.5' 
     Requirement already satisfied: spacy-loggers==1.0.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (1.0.5)
-[coble-create] End time: 2026-03-01 10:14:39
+[coble-create] End time: 2026-03-02 11:53:03
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:39 125/216
+[coble-create] Start time: 2026-03-02 11:53:03 125/230
 install: python -m pip install 'SQLAlchemy==2.0.36' 
     Requirement already satisfied: typing-extensions>=4.6.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from SQLAlchemy==2.0.36) (4.15.0)
     Successfully installed SQLAlchemy-2.0.36 greenlet-3.3.2
-[coble-create] End time: 2026-03-01 10:14:40
+[coble-create] End time: 2026-03-02 11:53:04
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:40 127/216
+[coble-create] Start time: 2026-03-02 11:53:04 127/230
 install: python -m pip install 'sqlglot==25.1.0' 
     Successfully installed sqlglot-25.1.0
-[coble-create] End time: 2026-03-01 10:14:41
+[coble-create] End time: 2026-03-02 11:53:05
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:41 129/216
+[coble-create] Start time: 2026-03-02 11:53:05 129/230
 install: python -m pip install 'sqlparse==0.5.3' 
     Successfully installed sqlparse-0.5.3
-[coble-create] End time: 2026-03-01 10:14:42
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:53:05
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:42 131/216
+[coble-create] Start time: 2026-03-02 11:53:05 131/230
 install: python -m pip install 'srsly==2.5.0' 
     Requirement already satisfied: catalogue<2.1.0,>=2.0.3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from srsly==2.5.0) (2.0.10)
     Successfully installed srsly-2.5.0
-[coble-create] End time: 2026-03-01 10:14:42
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:53:06
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:42 133/216
+[coble-create] Start time: 2026-03-02 11:53:06 133/230
 install: python -m pip install 'stanio==0.5.1' 
     Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stanio==0.5.1) (1.26.4)
     Successfully installed stanio-0.5.1
-[coble-create] End time: 2026-03-01 10:14:43
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:53:06
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:43 135/216
+[coble-create] Start time: 2026-03-02 11:53:06 135/230
 install: python -m pip install 'statsmodels==0.14.4' 
     Requirement already satisfied: numpy<3,>=1.22.3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from statsmodels==0.14.4) (1.26.4)
     Requirement already satisfied: scipy!=1.9.2,>=1.8 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from statsmodels==0.14.4) (1.15.3)
@@ -555,28 +555,28 @@ install: python -m pip install 'statsmodels==0.14.4'
     Requirement already satisfied: tzdata>=2022.7 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pandas!=2.1.0,>=1.4->statsmodels==0.14.4) (2025.3)
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil>=2.8.2->pandas!=2.1.0,>=1.4->statsmodels==0.14.4) (1.17.0)
     Successfully installed patsy-1.0.2 statsmodels-0.14.4
-[coble-create] End time: 2026-03-01 10:14:45
+[coble-create] End time: 2026-03-02 11:53:08
 [coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:14:45 137/216
+[coble-create] Start time: 2026-03-02 11:53:08 137/230
 install: python -m pip install 'StrEnum==0.4.15' 
     Successfully installed StrEnum-0.4.15
-[coble-create] End time: 2026-03-01 10:14:45
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-03-01 10:14:45 139/216
-install: python -m pip install 'stringzilla==3.11.1' 
-    Successfully installed stringzilla-3.11.1
-[coble-create] End time: 2026-03-01 10:14:46
+[coble-create] End time: 2026-03-02 11:53:09
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:46 141/216
+[coble-create] Start time: 2026-03-02 11:53:09 139/230
+install: python -m pip install 'stringzilla==3.11.1' 
+    Successfully installed stringzilla-3.11.1
+[coble-create] End time: 2026-03-02 11:53:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:53:09 141/230
 install: python -m pip install 'sympy==1.13.1' 
     Successfully installed mpmath-1.3.0 sympy-1.13.1
-[coble-create] End time: 2026-03-01 10:14:49
+[coble-create] End time: 2026-03-02 11:53:12
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-03-01 10:14:50 143/216
+[coble-create] Start time: 2026-03-02 11:53:12 143/230
 install: python -m pip install 'tables==3.10.1' 
     Requirement already satisfied: numpy>=1.20.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from tables==3.10.1) (1.26.4)
     Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from tables==3.10.1) (26.0)
@@ -587,38 +587,38 @@ install: python -m pip install 'tables==3.10.1'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->blosc2>=2.3.0->tables==3.10.1) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->blosc2>=2.3.0->tables==3.10.1) (2026.2.25)
     Successfully installed blosc2-4.1.0 msgpack-1.1.2 ndindex-1.10.1 numexpr-2.14.1 py-cpuinfo-9.0.0 tables-3.10.1
-[coble-create] End time: 2026-03-01 10:14:51
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:53:14
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:14:51 145/216
+[coble-create] Start time: 2026-03-02 11:53:14 145/230
 install: python -m pip install 'tabulate==0.9.0' 
     Successfully installed tabulate-0.9.0
-[coble-create] End time: 2026-03-01 10:14:52
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:14:52 147/216
-install: python -m pip install 'tbb==2022.0.0' 
-    Successfully installed tbb-2022.0.0 tcmlib-1.4.1
-[coble-create] End time: 2026-03-01 10:14:53
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-03-01 10:14:53 149/216
-install: python -m pip install 'tcmlib==1.2.0' 
-    Successfully installed tcmlib-1.2.0
-[coble-create] End time: 2026-03-01 10:14:53
+[coble-create] End time: 2026-03-02 11:53:14
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:14:53 151/216
+[coble-create] Start time: 2026-03-02 11:53:14 147/230
+install: python -m pip install 'tbb==2022.0.0' 
+    Successfully installed tbb-2022.0.0 tcmlib-1.4.1
+[coble-create] End time: 2026-03-02 11:53:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:53:15 149/230
+install: python -m pip install 'tcmlib==1.2.0' 
+    Successfully installed tcmlib-1.2.0
+[coble-create] End time: 2026-03-02 11:53:15
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:53:15 151/230
 install: python -m pip install 'tifffile==2024.12.12' 
     Requirement already satisfied: numpy in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from tifffile==2024.12.12) (1.26.4)
     Successfully installed tifffile-2024.12.12
-[coble-create] End time: 2026-03-01 10:14:54
+[coble-create] End time: 2026-03-02 11:53:16
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:14:54 153/216
+[coble-create] Start time: 2026-03-02 11:53:16 153/230
 install: python -m pip install 'timm==1.0.12' 
     Requirement already satisfied: pyyaml in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from timm==1.0.12) (6.0.2)
-    Requirement already satisfied: filelock>=3.10.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface_hub->timm==1.0.12) (3.24.3)
+    Requirement already satisfied: filelock>=3.10.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface_hub->timm==1.0.12) (3.25.0)
     Requirement already satisfied: packaging>=20.9 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface_hub->timm==1.0.12) (26.0)
     Requirement already satisfied: tqdm>=4.42.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface_hub->timm==1.0.12) (4.67.3)
     Requirement already satisfied: typer in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface_hub->timm==1.0.12) (0.24.1)
@@ -639,18 +639,18 @@ install: python -m pip install 'timm==1.0.12'
     Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich>=12.3.0->typer->huggingface_hub->timm==1.0.12) (2.18.0)
     Requirement already satisfied: mdurl~=0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->huggingface_hub->timm==1.0.12) (0.1.2)
     Successfully installed anyio-4.12.1 cuda-bindings-12.9.4 cuda-pathfinder-1.4.0 exceptiongroup-1.3.1 fsspec-2026.2.0 h11-0.16.0 hf-xet-1.3.2 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-1.5.0 nvidia-cublas-cu12-12.8.4.1 nvidia-cuda-cupti-cu12-12.8.90 nvidia-cuda-nvrtc-cu12-12.8.93 nvidia-cuda-runtime-cu12-12.8.90 nvidia-cudnn-cu12-9.10.2.21 nvidia-cufft-cu12-11.3.3.83 nvidia-cufile-cu12-1.13.1.3 nvidia-curand-cu12-10.3.9.90 nvidia-cusolver-cu12-11.7.3.90 nvidia-cusparse-cu12-12.5.8.93 nvidia-cusparselt-cu12-0.7.1 nvidia-nccl-cu12-2.27.5 nvidia-nvjitlink-cu12-12.8.93 nvidia-nvshmem-cu12-3.4.5 nvidia-nvtx-cu12-12.8.90 safetensors-0.7.0 sympy-1.14.0 timm-1.0.12 torch-2.10.0 torchvision-0.25.0 triton-3.6.0
-[coble-create] End time: 2026-03-01 10:16:13
-[coble-create] Duration: 79s
+[coble-create] End time: 2026-03-02 11:54:02
+[coble-create] Duration: 46s
 
-[coble-create] Start time: 2026-03-01 10:16:13 155/216
+[coble-create] Start time: 2026-03-02 11:54:02 155/230
 install: python -m pip install 'tinycss2==1.4.0' 
     Successfully installed tinycss2-1.4.0 webencodings-0.5.1
-[coble-create] End time: 2026-03-01 10:16:14
+[coble-create] End time: 2026-03-02 11:54:03
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:14 157/216
+[coble-create] Start time: 2026-03-02 11:54:03 157/230
 install: python -m pip install 'tokenizers==0.21.0' 
-    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (3.24.3)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (3.25.0)
     Requirement already satisfied: fsspec>=2023.5.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (2026.2.0)
     Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (1.3.2)
     Requirement already satisfied: packaging>=20.9 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (26.0)
@@ -663,49 +663,49 @@ install: python -m pip install 'tokenizers==0.21.0'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->huggingface-hub<1.0,>=0.16.4->tokenizers==0.21.0) (2026.2.25)
     Successfully installed huggingface-hub-0.36.2 tokenizers-0.21.0
-[coble-create] End time: 2026-03-01 10:16:15
+[coble-create] End time: 2026-03-02 11:54:04
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:15 159/216
+[coble-create] Start time: 2026-03-02 11:54:04 159/230
 install: python -m pip install 'toml==0.10.2' 
     Successfully installed toml-0.10.2
-[coble-create] End time: 2026-03-01 10:16:16
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:54:04
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:16 161/216
+[coble-create] Start time: 2026-03-02 11:54:04 161/230
 install: python -m pip install 'tomli==2.2.1' 
     Successfully installed tomli-2.2.1
-[coble-create] End time: 2026-03-01 10:16:17
+[coble-create] End time: 2026-03-02 11:54:05
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:17 163/216
+[coble-create] Start time: 2026-03-02 11:54:05 163/230
 install: python -m pip install 'toolz==0.12.1' 
     Successfully installed toolz-0.12.1
-[coble-create] End time: 2026-03-01 10:16:18
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:54:05
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:18 165/216
+[coble-create] Start time: 2026-03-02 11:54:05 165/230
 install: python -m pip install 'tqdm==4.67.1' 
     Successfully installed tqdm-4.67.1
-[coble-create] End time: 2026-03-01 10:16:19
+[coble-create] End time: 2026-03-02 11:54:06
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:19 167/216
+[coble-create] Start time: 2026-03-02 11:54:06 167/230
 install: python -m pip install 'traitlets==5.7.1' 
     Successfully installed traitlets-5.7.1
-[coble-create] End time: 2026-03-01 10:16:20
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:54:06
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:20 169/216
+[coble-create] Start time: 2026-03-02 11:54:06 169/230
 install: python -m pip install 'traittypes==0.2.1' 
     Requirement already satisfied: traitlets>=4.2.2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from traittypes==0.2.1) (5.7.1)
     Successfully installed traittypes-0.2.1
-[coble-create] End time: 2026-03-01 10:16:20
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:54:07
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:20 171/216
+[coble-create] Start time: 2026-03-02 11:54:07 171/230
 install: python -m pip install 'transformers==4.47.0' 
-    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from transformers==4.47.0) (3.24.3)
+    Requirement already satisfied: filelock in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from transformers==4.47.0) (3.25.0)
     Requirement already satisfied: huggingface-hub<1.0,>=0.24.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from transformers==4.47.0) (0.36.2)
     Requirement already satisfied: numpy>=1.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from transformers==4.47.0) (1.26.4)
     Requirement already satisfied: packaging>=20.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from transformers==4.47.0) (26.0)
@@ -723,10 +723,10 @@ install: python -m pip install 'transformers==4.47.0'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->transformers==4.47.0) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests->transformers==4.47.0) (2026.2.25)
     Successfully installed transformers-4.47.0
-[coble-create] End time: 2026-03-01 10:16:25
-[coble-create] Duration: 5s
+[coble-create] End time: 2026-03-02 11:54:10
+[coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-03-01 10:16:25 173/216
+[coble-create] Start time: 2026-03-02 11:54:10 173/230
 install: python -m pip install 'tweepy==4.14.0' 
     Requirement already satisfied: oauthlib<4,>=3.2.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from tweepy==4.14.0) (3.3.1)
     Requirement already satisfied: requests<3,>=2.27.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from tweepy==4.14.0) (2.32.3)
@@ -736,17 +736,17 @@ install: python -m pip install 'tweepy==4.14.0'
     Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3,>=2.27.0->tweepy==4.14.0) (2.6.3)
     Requirement already satisfied: certifi>=2017.4.17 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from requests<3,>=2.27.0->tweepy==4.14.0) (2026.2.25)
     Successfully installed tweepy-4.14.0
-[coble-create] End time: 2026-03-01 10:16:26
+[coble-create] End time: 2026-03-02 11:54:11
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:26 175/216
+[coble-create] Start time: 2026-03-02 11:54:11 175/230
 install: python -m pip install 'typeguard==4.4.1' 
     Requirement already satisfied: typing-extensions>=4.10.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from typeguard==4.4.1) (4.15.0)
     Successfully installed typeguard-4.4.1
-[coble-create] End time: 2026-03-01 10:16:27
+[coble-create] End time: 2026-03-02 11:54:12
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:27 177/216
+[coble-create] Start time: 2026-03-02 11:54:12 177/230
 install: python -m pip install 'typer' 
     Requirement already satisfied: typer in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (0.24.1)
     Requirement already satisfied: click>=8.2.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from typer) (8.3.1)
@@ -757,71 +757,71 @@ install: python -m pip install 'typer'
     Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich>=12.3.0->typer) (2.18.0)
     Requirement already satisfied: typing-extensions<5.0,>=4.0.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from rich>=12.3.0->typer) (4.15.0)
     Requirement already satisfied: mdurl~=0.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer) (0.1.2)
-[coble-create] End time: 2026-03-01 10:16:27
+[coble-create] End time: 2026-03-02 11:54:12
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:27 179/216
+[coble-create] Start time: 2026-03-02 11:54:12 179/230
 install: python -m pip install 'types-pytz==2024.2.0.20241003' 
     Successfully installed types-pytz-2024.2.0.20241003
-[coble-create] End time: 2026-03-01 10:16:28
+[coble-create] End time: 2026-03-02 11:54:13
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:28 181/216
+[coble-create] Start time: 2026-03-02 11:54:13 181/230
 install: python -m pip install 'types-setuptools==75.6.0.20241126' 
     Successfully installed types-setuptools-75.6.0.20241126
-[coble-create] End time: 2026-03-01 10:16:29
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:54:13
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:29 183/216
+[coble-create] Start time: 2026-03-02 11:54:13 183/230
 install: python -m pip install 'typing_extensions' 
     Requirement already satisfied: typing_extensions in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (4.15.0)
-[coble-create] End time: 2026-03-01 10:16:30
+[coble-create] End time: 2026-03-02 11:54:14
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:30 185/216
+[coble-create] Start time: 2026-03-02 11:54:14 185/230
 install: python -m pip install 'tzdata==2024.2' 
     Successfully installed tzdata-2024.2
-[coble-create] End time: 2026-03-01 10:16:28
-[coble-create] Duration: -2s
+[coble-create] End time: 2026-03-02 11:54:15
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:28 187/216
+[coble-create] Start time: 2026-03-02 11:54:15 187/230
 install: python -m pip install 'tzlocal==5.2' 
     Successfully installed tzlocal-5.2
-[coble-create] End time: 2026-03-01 10:16:30
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-03-02 11:54:15
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:30 189/216
+[coble-create] Start time: 2026-03-02 11:54:15 189/230
 install: python -m pip install 'uc-micro-py==1.0.3' 
     Successfully installed uc-micro-py-1.0.3
-[coble-create] End time: 2026-03-01 10:16:34
-[coble-create] Duration: 4s
+[coble-create] End time: 2026-03-02 11:54:17
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-03-01 10:16:34 191/216
+[coble-create] Start time: 2026-03-02 11:54:17 191/230
 install: python -m pip install 'umf==0.9.1' 
     Requirement already satisfied: tcmlib==1.2 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from umf==0.9.1) (1.2.0)
     Successfully installed umf-0.9.1
-[coble-create] End time: 2026-03-01 10:16:35
+[coble-create] End time: 2026-03-02 11:54:18
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:35 193/216
+[coble-create] Start time: 2026-03-02 11:54:18 193/230
 install: python -m pip install 'uritemplate==4.1.1' 
     Successfully installed uritemplate-4.1.1
-[coble-create] End time: 2026-03-01 10:16:35
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-03-02 11:54:19
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:35 195/216
+[coble-create] Start time: 2026-03-02 11:54:19 195/230
 install: python -m pip install 'urllib3==2.2.3' 
     Successfully installed urllib3-2.2.3
-[coble-create] End time: 2026-03-01 10:16:36
+[coble-create] End time: 2026-03-02 11:54:20
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:36 197/216
+[coble-create] Start time: 2026-03-02 11:54:20 197/230
 install: python -m pip install 'zipp==3.21.0' 
     Successfully installed zipp-3.21.0
-[coble-create] End time: 2026-03-01 10:16:37
+[coble-create] End time: 2026-03-02 11:54:21
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-03-01 10:16:37 199/216
+[coble-create] Start time: 2026-03-02 11:54:21 199/230
 install: python -m pip install 'ipykernel' 
     Requirement already satisfied: packaging>=22 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipykernel) (26.0)
     Requirement already satisfied: traitlets>=5.4.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipykernel) (5.7.1)
@@ -833,10 +833,10 @@ install: python -m pip install 'ipykernel'
     Requirement already satisfied: platformdirs>=2.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from jupyter-core!=6.0.*,>=5.1->ipykernel) (4.9.2)
     Requirement already satisfied: six>=1.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from python-dateutil>=2.8.2->jupyter-client>=8.8.0->ipykernel) (1.17.0)
     Successfully installed asttokens-3.0.1 comm-0.2.3 debugpy-1.8.20 executing-2.2.1 ipykernel-7.2.0 ipython-8.38.0 jedi-0.19.2 jupyter-client-8.8.0 jupyter-core-5.9.1 matplotlib-inline-0.2.1 nest-asyncio-1.6.0 parso-0.8.6 pexpect-4.9.0 prompt_toolkit-3.0.52 psutil-7.2.2 ptyprocess-0.7.0 pure-eval-0.2.3 pyzmq-27.1.0 stack_data-0.6.3 tornado-6.5.4 traitlets-5.14.3 wcwidth-0.6.0
-[coble-create] End time: 2026-03-01 10:16:41
-[coble-create] Duration: 4s
+[coble-create] End time: 2026-03-02 11:54:28
+[coble-create] Duration: 7s
 
-[coble-create] Start time: 2026-03-01 10:16:41 201/216
+[coble-create] Start time: 2026-03-02 11:54:28 201/230
 install: python -m pip install 'jupyterlab' 
     Requirement already satisfied: httpx<1,>=0.25.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from jupyterlab) (0.28.1)
     Requirement already satisfied: ipykernel!=6.30.0,>=6.5.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from jupyterlab) (7.2.0)
@@ -891,44 +891,103 @@ install: python -m pip install 'jupyterlab'
     Requirement already satisfied: asttokens>=2.1.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stack_data->ipython>=7.23.1->ipykernel!=6.30.0,>=6.5.0->jupyterlab) (3.0.1)
     Requirement already satisfied: pure-eval in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stack_data->ipython>=7.23.1->ipykernel!=6.30.0,>=6.5.0->jupyterlab) (0.2.3)
     Successfully installed argon2-cffi-25.1.0 argon2-cffi-bindings-25.1.0 arrow-1.4.0 async-lru-2.2.0 babel-2.18.0 beautifulsoup4-4.14.3 bleach-6.3.0 defusedxml-0.7.1 fastjsonschema-2.21.2 fqdn-1.5.1 isoduration-20.11.0 json5-0.13.0 jsonpointer-3.0.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-events-0.12.0 jupyter-lsp-2.3.0 jupyter-server-2.17.0 jupyter-server-terminals-0.5.4 jupyterlab-4.5.5 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.0 lark-1.3.1 mistune-3.2.0 nbclient-0.10.4 nbconvert-7.17.0 nbformat-5.10.4 notebook-shim-0.2.4 overrides-7.7.0 pandocfilters-1.5.1 prometheus-client-0.24.1 python-json-logger-4.0.0 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rfc3987-syntax-1.1.0 rpds-py-0.30.0 send2trash-2.1.0 terminado-0.18.1 uri-template-1.3.0 webcolors-25.10.0 websocket-client-1.9.0
-[coble-create] End time: 2026-03-01 10:16:46
-[coble-create] Duration: 4s
+[coble-create] End time: 2026-03-02 11:54:31
+[coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-03-01 10:16:46 203/216
+[coble-create] Start time: 2026-03-02 11:54:31 203/230
+install: python -m pip install 'graphviz' 
+    Successfully installed graphviz-0.21
+[coble-create] End time: 2026-03-02 11:54:31
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:54:31 205/230
+install: python -m pip install 'ipywidgets' 
+    Requirement already satisfied: comm>=0.1.3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipywidgets) (0.2.3)
+    Requirement already satisfied: ipython>=6.1.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipywidgets) (8.38.0)
+    Requirement already satisfied: traitlets>=4.3.1 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipywidgets) (5.14.3)
+    Requirement already satisfied: decorator in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (5.2.1)
+    Requirement already satisfied: exceptiongroup in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (1.3.1)
+    Requirement already satisfied: jedi>=0.16 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (0.19.2)
+    Requirement already satisfied: matplotlib-inline in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (0.2.1)
+    Requirement already satisfied: pexpect>4.3 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (4.9.0)
+    Requirement already satisfied: prompt_toolkit<3.1.0,>=3.0.41 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (3.0.52)
+    Requirement already satisfied: pygments>=2.4.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (2.18.0)
+    Requirement already satisfied: stack_data in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (0.6.3)
+    Requirement already satisfied: typing_extensions>=4.6 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from ipython>=6.1.0->ipywidgets) (4.15.0)
+    Requirement already satisfied: wcwidth in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from prompt_toolkit<3.1.0,>=3.0.41->ipython>=6.1.0->ipywidgets) (0.6.0)
+    Requirement already satisfied: parso<0.9.0,>=0.8.4 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from jedi>=0.16->ipython>=6.1.0->ipywidgets) (0.8.6)
+    Requirement already satisfied: ptyprocess>=0.5 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from pexpect>4.3->ipython>=6.1.0->ipywidgets) (0.7.0)
+    Requirement already satisfied: executing>=1.2.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stack_data->ipython>=6.1.0->ipywidgets) (2.2.1)
+    Requirement already satisfied: asttokens>=2.1.0 in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stack_data->ipython>=6.1.0->ipywidgets) (3.0.1)
+    Requirement already satisfied: pure-eval in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from stack_data->ipython>=6.1.0->ipywidgets) (0.2.3)
+    Successfully installed ipywidgets-8.1.8 jupyterlab_widgets-3.0.16 widgetsnbextension-4.0.15
+[coble-create] End time: 2026-03-02 11:54:32
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:54:32 207/230
+install: python -m pip install 'plotly' 
+    Requirement already satisfied: packaging in /home/ralcraft/miniforge3/envs/basometro/lib/python3.10/site-packages (from plotly) (26.0)
+    Successfully installed narwhals-2.17.0 plotly-6.5.2
+[coble-create] End time: 2026-03-02 11:54:34
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-03-02 11:54:34 209/230
+install: python -m pip install 'openpyxl' 
+    Successfully installed et-xmlfile-2.0.0 openpyxl-3.1.5
+[coble-create] End time: 2026-03-02 11:54:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:54:35 211/230
+install: python -m pip install 'kaleido==0.2.1' 
+    Successfully installed kaleido-0.2.1
+[coble-create] End time: 2026-03-02 11:54:37
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-03-02 11:54:37 213/230
 install: python -m ipykernel install --user --name=mat-basometro --display-name='Python (mat-basometro)'
-[coble-create] End time: 2026-03-01 10:16:46
+[coble-create] End time: 2026-03-02 11:54:37
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:46 205/216
+[coble-create] Start time: 2026-03-02 11:54:37 215/230
 install: mkdir -p $CONDA_PREFIX/GitHub/mat-basometro
-[coble-create] End time: 2026-03-01 10:16:46
+[coble-create] End time: 2026-03-02 11:54:37
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:46 207/216
-install: git clone https://github.com/Yuri-Nassar/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
-[coble-create] End time: 2026-03-01 10:16:53
-[coble-create] Duration: 7s
+[coble-create] Start time: 2026-03-02 11:54:37 217/230
+install: git clone https://github.com/rachelicr/mat-basometro.git $CONDA_PREFIX/GitHub/mat-basometro
+[coble-create] End time: 2026-03-02 11:54:42
+[coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-03-01 10:16:53 209/216
-install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-03-01 10:16:53
+[coble-create] Start time: 2026-03-02 11:54:42 219/230
+install: unzip $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv.zip -d $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/
+[coble-create] End time: 2026-03-02 11:54:43
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-03-02 11:54:43 221/230
+install: cp $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro_v2.csv $CONDA_PREFIX/GitHub/mat-basometro/datasets/basometro/basometro.csv
+[coble-create] End time: 2026-03-02 11:54:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:53 211/216
-install: echo 'echo "COBLE validation: No script has been specified for basometro environment."' >> ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-03-01 10:16:53
+[coble-create] Start time: 2026-03-02 11:54:43 223/230
+install: cp recipes/papers/basometro/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-03-02 11:54:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:53 213/216
+[coble-create] Start time: 2026-03-02 11:54:43 225/230
 install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-03-01 10:16:53
+[coble-create] End time: 2026-03-02 11:54:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-03-01 10:16:53 215/216
-install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-03-01 10:16:53
+[coble-create] Start time: 2026-03-02 11:54:43 227/230
+install: cp recipes/papers/basometro/validate/validate.py ${CONDA_PREFIX}/bin/validate.py
+[coble-create] End time: 2026-03-02 11:54:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-03-02 11:54:43 229/230
+install: chmod +x ${CONDA_PREFIX}/bin/validate.py
+[coble-create] End time: 2026-03-02 11:54:43
 [coble-create] Duration: 0s
 --------------------------------------
-[coble-create] Recipe created at: 2026-03-01 10:16:53
-[coble-create] Recipe took: 0h 4m 5s
+[coble-create] Recipe created at: 2026-03-02 11:54:43
+[coble-create] Recipe took: 0h 3m 6s
 --------------------------------------
