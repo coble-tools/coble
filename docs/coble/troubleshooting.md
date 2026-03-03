@@ -22,7 +22,7 @@ conda env list
 ```
 
 ## New R version - bioconductor not built
-You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran. 
+You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran.
 
 ## Missing compiler tools
 Most are installed if you set the compile-tools and system-tools flag to true. Different versions of operating systems and code may have dependencies on old or newer compilers, so instead of just true you can specify a version eg `13.3.0`.
@@ -91,7 +91,7 @@ compilation terminated.
 make: *** [/home/ralcraft/miniconda/envs/452/lib/R/etc/Makeconf:204: init.o] Error 1
 ERROR: compilation failed for package ‘rgeos’
 ```
-I had to keep ryuing versions of sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
+I had to keep trying versions of sp until I found one that had header files and installed with `R4.5.2` 2.1.2 at `https://cran.r-project.org/src/contrib/Archive/sp/sp_2.1-3.tar.gz`.
 
 ## Conda quirks and know-how
 **update message** it can be annoying to get warning messages about updates when you just updated and the version is 0.01 out of date. You can supporess these warnings by passing a flag to the .condarc which you can do manually or by:

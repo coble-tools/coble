@@ -54,6 +54,7 @@ In this container, running “validate.sh” will run the initially published vi
 singularity shell --nv \
 --bind .:/workspace \
 --env HF_TOKEN=$HF_TOKEN \
+--env HF_HOME=$HF_HOME \
 /data/rds/DIT/SCICOM/SCRSE/shared/singularity/coble-papers-provgigapath.sif
 ```
 In this container, running “validate.sh” will run code taken from the demo notebook published in June 2025 (converted to a script): https://github.com/prov-gigapath/prov-gigapath/blob/main/demo/run_gigapath.ipynb. Some amendments were made to detect hardware and fallback to CPU where hardware is not compatible in order to make the environment truly usable. This required a minor amendment to the pipeline code of the repo to allow CPU as a fallback (https://github.com/rachelicr/prov-gigapath/tree/fix/respect-device-parameter).
