@@ -83,8 +83,7 @@ nav:
   #  - CountReg(Fix): tutorials/countreg.md
   #  - Troubleshooting: tutorials/troubleshooting.md
   - Containers:
-    - Containers: containers.md
-    - Docker-Singularity: containers/docker-build.md
-    - Community: containers/community.md
+    - Building Containers: containers.md
+    - Community Containers: containers/community.md
   #- Troubleshooting: tutorials/troubleshooting.md
   - About: about.md

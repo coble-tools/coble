@@ -14,6 +14,15 @@ code/coble build \
 ```
 
 ```
+code/coble build \
+--recipe recipes/papers/basometro/basometro.cbl \
+--env basometro \
+--validate recipes/papers/basometro/validate/validate.sh \
+--val-folder recipes/papers/basometro/validate \
+--containers docker,singularity
+```
+
+```
 docker run --rm -it -v .:/workspace \
 ghcr.io/coble-tools/coble:papers-basometro
 ```
