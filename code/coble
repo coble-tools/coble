@@ -110,21 +110,21 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	# TODO SKIP THIS IF sh passed in as input
-	echo "[coble 1/5] Resolving cbl..." >&2
+	echo "[coble 1/6] Resolving cbl..." >&2
 	finds=$("$script_dir/coble-resolve.sh" "${@:2}")
 	if [[ "$finds" == "Y" ]]; then
 		echo "[coble] Finds were resolved, please check the yml input before resuming." >&2
 		exit 1
 	fi
 
-	echo "[coble 2/5] Resolved cbl, proceeding to rationalise." >&2
+	echo "[coble 2/6] Resolved cbl, proceeding to rationalise." >&2
 	success=$("$script_dir/coble-rationalise.sh" "${@:2}")
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] CBL rationalisation failed, please check the yml input before resuming." >&2
 		exit 1
 	fi
 
-	echo "[coble 3/5] Rationalised cbl, proceeding to recipise." >&2
+	echo "[coble 3/6] Rationalised cbl, proceeding to recipise." >&2
 	mapfile -t result < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"
@@ -142,7 +142,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 
 
     if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then
-	    echo "[coble 3/5] Created recipe, rebuilding environment." >&2
+	    echo "[coble 3/6] Created recipe, rebuilding environment." >&2
 	    : > "$done_recipe"
 		: > "$summary_file"
 	fi
@@ -156,11 +156,12 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	base_name="${recipe_file##*/}"
     base_name_noext="${base_name%.*}"
     RESULTS_DIR="$(dirname "$recipe_file")"
-    RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.delta"
+    DELTA_FILE="$RESULTS_DIR/${base_name_noext}.delta"
+	RECIPE_FILE="$RESULTS_DIR/${base_name_noext}.cbl"
 
-	echo "[coble 4/5] Created recipe, proceeding to creation from $RECIPE_FILE" >&2
+	echo "[coble 4/6] Created recipe, proceeding to creation from $DELTA_FILE" >&2
 
-	result=$("$script_dir/coble-create.sh" --recipe-bash "$RECIPE_FILE" "${@:2}")
+	result=$("$script_dir/coble-create.sh" --recipe-bash "$DELTA_FILE" "${@:2}")
 
 	if [[ $? -ne 0 ]]; then
 		echo "[coble] Error in environment creation, please review logs before resuming." >&2
@@ -174,7 +175,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		exit 1
 	fi
 
-	echo "[coble 5/5] Created env, proceeding to freeze in file $capture_file" >&2
+	echo "[coble 5/6] Created env, proceeding to freeze in file $capture_file" >&2
     # replace --recipe existring with capture file
 	#recipe_dir="$(dirname "$recipe_file")"
 	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
@@ -183,6 +184,19 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	# The function network allows it to be done as a seperate step
 	#echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2
 	#result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
+
+	echo "[coble 6/6] Copying build artefacts to environment for record." >&2
+	mkdir -p "$CONDA_PREFIX/coble-build"
+	echo "[coble] Copying recipe file $RECIPE_FILE to $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
+	cp "$RECIPE_FILE" "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl"
+	echo "[coble] Copying capture file to $CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" >&2
+	cp "$capture_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl"
+	echo "[coble] Copying summary file to $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
+	cp "$summary_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt"
+	echo "[coble] Copying coble-build commands file $0-build to $CONDA_PREFIX/bin/coble-build" >&2
+	cp "$0-build" "$CONDA_PREFIX/bin/coble-build"
+	chmod +x "$CONDA_PREFIX/bin/coble-build"
+
 
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)

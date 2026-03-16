@@ -35,6 +35,7 @@ stdout_patterns=(
     "Error in rawToChar"
     "ModuleNotFoundError: No module named"
     "which is incompatible"
+    "ERROR: Command errored out with exit status 1:"
 )
 error_patterns=(
     "* removing"
@@ -63,6 +64,7 @@ error_patterns=(
     "Error in rawToChar"
     "ModuleNotFoundError: No module named"
     "which is incompatible"
+    "ERROR: Command errored out with exit status 1:"
 )
 done_patterns=(
     "Successfully installed"
