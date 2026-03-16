@@ -1,0 +1,117 @@
+#!/bin/bash
+
+CV="0.2"
+
+# Copied to the bin directory of the conda environment to interrogate the build
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_base="$(basename "$script_dir")"
+if [[ "$script_base" == "bin" ]]; then
+	install_context="conda"
+else
+	install_context="github"
+fi
+containers="conda"
+# Optionally, you can use $install_context in help or logic
+# Detect operating system
+os_type="$(uname)"
+
+show_help() {
+	echo "Usage: $0 <command> [options]"
+	echo "  version   show the coble version and date used to create the build"
+	echo "  recipe    show the recipe file used"
+	echo "  summary   show the summary information of the built"
+	echo "  versions  show the versions of key packages in the environment"
+	echo "e.g."
+	echo "  coble-build version"
+	echo "  coble-build recipe"
+	echo "  coble-build summary"
+	echo "  coble-build versions"
+}
+
+start_time=$(date +%s)
+
+echo '╔════════════════════════════════════════════════════════════╗'
+echo "║        COBLE Reproducible Environment v$CV                 ║"
+echo '║        (c) ICR 2026 RSE and BCDS                           ║'
+echo '║        For help, see:                                      ║'
+echo '║        - https://coble-tools.github.io/coble/              ║'
+echo '║        - https://github.com/coble-tools/coble/issues       ║'
+echo '╚════════════════════════════════════════════════════════════╝'
+
+
+#echo "[coble] Starting coble at $(date)" >&2
+copied_inputs=("$@")
+container_type="conda"
+for i in "${!copied_inputs[@]}"; do
+	#echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
+	if [[ "${copied_inputs[$i]}" == "--containers" ]]; then
+		next_index=$((i + 1))
+		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
+			container_type=$(echo "${copied_inputs[$next_index]}" | tr '[:upper:]' '[:lower:]')
+		fi
+		#echo "[coble] Container build flag detected: $container_type"  >&2
+		break
+	fi
+done
+# echo out all the inputs
+echo "[coble] command entered: coble $*" >&2
+
+# Global help option
+# search for the *.cbl file in the same directory as this script and use its name as the base for looking up the recipe, capture, and summary files
+base_name_noext=""
+for file in "$CONDA_PREFIX/coble-build"/*_summary.txt; do
+	#echo "[coble] Checking for recipe file in $CONDA_PREFIX/coble-build: $file" >&2
+	if [ -f "$file" ]; then
+		base_name_noext=$(basename "$file" .txt)
+		# remove _summary from the end of the base name
+		base_name_noext="${base_name_noext%_summary}"
+		#echo "[coble] Found summary file: $file, using base name: $base_name_noext" >&2
+		break
+	fi
+done
+echo "COBLE Environment: $base_name_noext" >&2
+
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+		show_help
+		exit 0
+elif [[ "$1" == "version" ]]; then
+	echo "COBLE Version: $CV" >&2
+	# get timestamp of file $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt
+	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" ]; then
+		build_date=$(date -r "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" +"%Y-%m-%d %H:%M:%S")
+		echo "COBLE Build Date: $build_date" >&2
+	else
+		echo "Build Date: Unknown (summary file not found)" >&2
+	fi
+elif [[ "$1" == "recipe" ]]; then
+	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl" ]; then
+		echo "# Recipe file: $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
+		cat "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl"
+	else
+		echo "Recipe file not found at $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
+	fi
+elif [[ "$1" == "summary" ]]; then
+	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" ]; then
+		echo "# Summary file: $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
+		cat "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt"
+	else
+		echo "Summary file not found at $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
+	fi
+elif [[ "$1" == "versions" ]]; then
+	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" ]; then
+		echo "# Freeze file: $CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" >&2
+		cat "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl"
+	elif [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_export.cbl" ]; then
+		echo "# Freeze file: $CONDA_PREFIX/coble-build/${base_name_noext}_export.cbl" >&2
+		cat "$CONDA_PREFIX/coble-build/${base_name_noext}_export.cbl"
+	else
+		echo "Freeze/Export file not found at $CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" >&2
+	fi
+
+else
+	echo "[coble] No valid command provided. Showing help." >&2
+	show_help
+	exit 0
+fi
+
