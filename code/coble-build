@@ -75,7 +75,7 @@ echo "COBLE Environment: $base_name_noext" >&2
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 		show_help
 		exit 0
-elif [[ "$1" == "version" ]]; then
+elif [[ "$1" == "version" || "$1" == "-v" || "$1" == "--version" ]]; then
 	echo "COBLE Version: $CV" >&2
 	# get timestamp of file $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt
 	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" ]; then
@@ -84,21 +84,21 @@ elif [[ "$1" == "version" ]]; then
 	else
 		echo "Build Date: Unknown (summary file not found)" >&2
 	fi
-elif [[ "$1" == "recipe" ]]; then
+elif [[ "$1" == "recipe" || "$1" == "-r" || "$1" == "--recipe" ]]; then
 	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl" ]; then
 		echo "# Recipe file: $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
 		cat "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl"
 	else
 		echo "Recipe file not found at $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
 	fi
-elif [[ "$1" == "summary" ]]; then
+elif [[ "$1" == "summary" || "$1" == "-s" || "$1" == "--summary" ]]; then
 	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" ]; then
 		echo "# Summary file: $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
 		cat "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt"
 	else
 		echo "Summary file not found at $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
 	fi
-elif [[ "$1" == "versions" ]]; then
+elif [[ "$1" == "versions"` || "$1" == "--versions" ]]; then
 	if [ -f "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" ]; then
 		echo "# Freeze file: $CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" >&2
 		cat "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl"

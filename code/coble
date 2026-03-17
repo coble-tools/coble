@@ -186,17 +186,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	#result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
 
 	echo "[coble 6/6] Copying build artefacts to environment for record." >&2
-	mkdir -p "$CONDA_PREFIX/coble-build"
-	echo "[coble] Copying recipe file $RECIPE_FILE to $CONDA_PREFIX/coble-build/${base_name_noext}.cbl" >&2
-	cp "$RECIPE_FILE" "$CONDA_PREFIX/coble-build/${base_name_noext}.cbl"
-	echo "[coble] Copying capture file to $CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl" >&2
-	cp "$capture_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl"
-	echo "[coble] Copying summary file to $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
-	cp "$summary_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt"
-	echo "[coble] Copying coble-build commands file $0-build to $CONDA_PREFIX/bin/coble-build" >&2
-	cp "$0-build" "$CONDA_PREFIX/bin/coble-build"
-	chmod +x "$CONDA_PREFIX/bin/coble-build"
-
+	result=$("$script_dir/coble-build-copy.sh" "${@:2}")
 
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
