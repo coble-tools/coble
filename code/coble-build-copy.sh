@@ -27,7 +27,6 @@ fi
 ENV_INPUT=""
 
 show_help() {
-	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
     echo "  -h,--help Show this help message and exit"
 }
@@ -55,32 +54,16 @@ if [[ "$DRY_RUN" == true ]]; then
 	echo "[coble-capture] DRY RUN: Not executing capture stage" >&2
 	exit 0
 fi
-# if there is no results file we have to exit
-if [[ -z "$AGGREGATE_TXT" ]]; then
-	echo "[coble-freeze] Error: --frozen output file must be specified." >&2
-	show_help
-	exit 1
-fi
-# Default results dur is the directory of the output file
-if [[ $RESULTS_DIR == "" ]]; then
-	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"
-fi
-echo "[coble-freeze] Capturing conda environment to $RESULTS_DIR" >&2
 
 # Parse named arguments
 # Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
 if [[ -z "$ENV_INPUT" ]]; then
-	ACTIVE_ENV_NAME=$(echo "$CONDA_DEFAULT_ENV")
-	ACTIVE_PREFIX=$(echo "$CONDA_PREFIX")
-	if [[ -z "$ACTIVE_ENV_NAME" ]]; then
-		echo "[coble-freeze] Error: No conda environment is currently activated and none was specified." >&2
-		echo "[coble-freeze] Please activate a conda environment or use --env to specify one." >&2
-		exit 2
-	fi
-	echo "[coble-freeze] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"
-	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
-	ENV_NAME="$ACTIVE_ENV_NAME"
-elif [[ "$ENV_INPUT" == */* ]]; then
+
+	echo "[coble-capture] Please activate a conda environment or use --env to specify one." >&2
+	exit 2
+fi
+
+if [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
     # take of the last / for the name
     ENV_NAME="${ENV_INPUT##*/}"
