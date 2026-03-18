@@ -95,20 +95,22 @@ echo "[coble] Copying capture file to $CONDA_PREFIX/coble-build/${base_name_noex
 cp "$capture_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_freeze.cbl"
 echo "[coble] Copying summary file to $CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt" >&2
 cp "$summary_file" "$CONDA_PREFIX/coble-build/${base_name_noext}_summary.txt"
-echo "[coble] Copying coble-build commands file $0-build to $CONDA_PREFIX/bin/coble-build" >&2
-cp "$0-build" "$CONDA_PREFIX/bin/coble-build"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+COBLE_BUILD_SOURCE="$SCRIPT_DIR/coble-build"
+echo "[coble] Copying coble-build commands file $COBLE_BUILD_SOURCE to $CONDA_PREFIX/bin/coble-build" >&2
+cp "$COBLE_BUILD_SOURCE" "$CONDA_PREFIX/bin/coble-build"
 chmod +x "$CONDA_PREFIX/bin/coble-build"
 
 
 
-echo "[coble-build-copy] Environment setup complete >&2
+echo "[coble-build-copy] Environment setup complete" >&2
 echo "[coble] To activate environment call:" >&2
 echo "    conda activate $ENV_INPUT" >&2
 echo "  then validate the environment with:" >&2
 echo "    validate.sh" >&2
 echo "  or if you want to stream the output to a log file:" >&2
 echo "    validate.sh | tee validate.log" >&2
-echo "  to check the coble build in the conda environment call >&2
+echo "  to check the coble build in the conda environment call:" >&2
 echo "    coble-build --help" >&2
 echo "    coble-build version #etc" >&2
 

@@ -96,3 +96,6 @@ outputs/*
 *.*.tar*
 cache/*
 output/*
+boltz_results_affinity/*
+build
+call

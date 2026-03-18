@@ -1,5 +1,5 @@
 ##########################################################
-# COBLE: for django dev
+# COBLE: for altanalyze
 ##########################################################
 coble:
   - environment: alt-analyze
@@ -32,3 +32,4 @@ python -m pip install altanalyze --no-deps
 (cd $CONDA_PREFIX/lib/python2.7/site-packages/altanalyze && unzip -o Config.zip && unzip -o AltDatabase.zip)
 sed -i 's/subprocess.Popen(out)$/subprocess.Popen(out, stdout=sys.stdout, stderr=sys.stderr); pipe.wait()/' $CONDA_PREFIX/lib/python2.7/site-packages/altanalyze/__init__.py
 altanalyze --update Official --species Hs --platform RNASeq --version EnsMart72
+altanalyze --update Official --species Hs --platform RNASeq --version EnsMart100

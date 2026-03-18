@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-22
-# Capture time: 19:58:39 GMT
+# Capture date: 2026-03-18
+# Capture time: 21:57:00 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
 #####################################################
 
 conda env remove --name r-452-conda -y 2>/dev/null || true
