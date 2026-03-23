@@ -26,6 +26,16 @@ flags:
 
 conda:
   - cmdstan=2.38.0
+
+flags:
+  - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+
+conda:
+  - zlib
+  - arviz=0.23.4
+  - pytz
+  - cmdstanpy=1.3.0
+
 bash:
   - ARCH=$(uname -m)
   - if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu"; fi
@@ -34,15 +44,7 @@ bash:
   - if [ "$ARCH" = "aarch64" ]; then echo "TBB_CXX_TYPE = gcc" >> "$CMDSTAN_PATH/make/local"; fi
   - if [ "$ARCH" = "aarch64" ]; then echo "CPPFLAGS =" >> "$CMDSTAN_PATH/make/local"; fi
 
-flags:
-  - export: CMDSTAN=$CONDA_PREFIX/bin/cmdstan
-  #- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
-  #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 conda:
-  - zlib
-  - arviz=0.23.4
-  - pytz
-  - cmdstanpy=1.3.0
   - ipython
   - matplotlib
   - pandas=3.0.0
