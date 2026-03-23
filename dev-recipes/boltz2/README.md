@@ -26,3 +26,6 @@ docker://ghcr.io/coble-tools/coble:papers-boltz2
 
 singularity shell --nv \
 coble-papers-boltz2.sif
+
+singularity shell --nv \
+cbl-boltz2.sif

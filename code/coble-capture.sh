@@ -491,10 +491,7 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
 fi
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
-echo "[coble] To activate environment call:" >&2
-echo "    conda activate $ENV_INPUT" >&2
-echo "  then validate the environment with:" >&2
-echo "    validate.sh" >&2
-echo "  or if you want to stream the output to a log file:" >&2
-echo "    validate.sh | tee validate.log" >&2
+
+echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_freeze.cbl" >&2
+cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_freeze.cbl"
 

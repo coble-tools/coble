@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-02-16
-# Capture time: 22:20:17 GMT
+# Capture date: 2026-03-23
+# Capture time: 15:30:10 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/envs/pytest/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name carbine -y 2>/dev/null || true
@@ -45,11 +45,16 @@ ARCH=$(uname -m)
 
 # deps: --no-update-deps
 conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.3'
-conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager
+conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager r-renv
 conda install -y --solver=libmamba --no-update-deps 'python=3.12'
 python -m site
 conda env config vars set PYTHONNOUSERSITE=1
 export PYTHONNOUSERSITE=1
+# compilers:
+
+# Language compile tools
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+# Flag: Directive: cran-repo, Value: 
 # bash:
 R CMD javareconf
 # flags:
@@ -65,7 +70,7 @@ export R_OTEL_DISABLED=true
 
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
-'cmdstan=2.38.0' 
+cmdstan=2.38.0 
 # bash:
 ARCH=$(uname -m)
 if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
@@ -81,16 +86,16 @@ export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
-'zlib' \
-'arviz' \
-'pytz' \
-'cmdstanpy=1.3.0' \
-'ipython' \
-'matplotlib' \
-'pandas=3.0.0' \
-'scipy=1.17.0' \
-'seaborn=0.13.2' \
-'xz' 
+zlib \
+arviz \
+pytz \
+cmdstanpy=1.3.0 \
+ipython \
+matplotlib \
+pandas=3.0.0 \
+scipy=1.17.0 \
+seaborn=0.13.2 \
+xz 
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-doBy' \
@@ -107,9 +112,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-vegan' \
 'r-shiny' 
 # r-package:
-Rscript -e 'install.packages("vcfR", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("covr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("partykit", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("vcfR", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("covr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("partykit", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=1, method="wget")'
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-biocmanager' \
@@ -127,8 +132,8 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-interp' \
 'r-reticulate' 
 # r-package:
-Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
-Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/latest", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("ggpubr", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=1, method="wget")'
+Rscript -e 'install.packages("ggsci", repos="https://packagemanager.posit.co/cran/2026-02-01", dependencies=NA, Ncpus=1, method="wget")'
 # bioc-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'bioconda::bioconductor-rtracklayer=1.66.0' \
@@ -145,18 +150,26 @@ Rscript -e 'BiocManager::install("VariantAnnotation", dependencies=NA, Ncpus=1)'
 # flags:
 # Flag: Directive: dependencies, Value: na
 # r-url:
-Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/ctree/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
-Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/latest",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/im3sanger/dndscv/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/CNAqc/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/ctree/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/VIBER/archive/refs/heads/master.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagnalab/mobster/archive/refs/heads/binomial_noise.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
+Rscript -e 'remotes::install_url("https://github.com/caravagn/evoverse/archive/refs/heads/development.tar.gz", repos="https://packagemanager.posit.co/cran/2026-02-01",dependencies=NA, upgrade="default", Ncpus=1)'
 
 
 
-cat > ${CONDA_PREFIX}/bin/validate.sh << 'VALIDATE_EOF'
-#!/usr/bin/env bash
-echo "COBLE validation: No script has been specified for carbine environment."
-VALIDATE_EOF
+# Validate script available in environment at CONDA PREFIX: validate.sh
+cp recipes/icr/carbine/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
+# Extra validation file: run.stan
+cp recipes/icr/carbine/validate//run.stan ${CONDA_PREFIX}/bin/run.stan
+chmod +x ${CONDA_PREFIX}/bin/run.stan
+# Extra validation file: run_stan.py
+cp recipes/icr/carbine/validate//run_stan.py ${CONDA_PREFIX}/bin/run_stan.py
+chmod +x ${CONDA_PREFIX}/bin/run_stan.py
+mkdir -p ${CONDA_PREFIX}/coble-recipe
+cp recipes/icr/carbine/carbine.cbl ${CONDA_PREFIX}/coble-recipe
+cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
+cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
 
