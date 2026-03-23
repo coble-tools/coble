@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-03-23
-# Capture time: 18:23:35 GMT
+# Capture time: 18:55:24 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -71,6 +71,18 @@ export R_OTEL_DISABLED=true
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
 cmdstan=2.38.0 
+
+# flags:
+conda env config vars set CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
+
+# conda:
+conda install -y --solver=libmamba --no-update-deps \
+zlib \
+arviz=0.23.4 \
+pytz \
+cmdstanpy=1.3.0 
+
 # bash:
 ARCH=$(uname -m)
 if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu"; fi
@@ -79,17 +91,8 @@ if [ "$ARCH" = "aarch64" ]; then echo "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${T
 if [ "$ARCH" = "aarch64" ]; then echo "TBB_CXX_TYPE = gcc" >> "$CMDSTAN_PATH/make/local"; fi
 if [ "$ARCH" = "aarch64" ]; then echo "CPPFLAGS =" >> "$CMDSTAN_PATH/make/local"; fi
 
-# flags:
-conda env config vars set CMDSTAN=$CONDA_PREFIX/bin/cmdstan
-export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
-#- export: CPPFLAGS=$(echo $CPPFLAGS | sed 's|-I/usr/include||g')
-#- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
-zlib \
-arviz=0.23.4 \
-pytz \
-cmdstanpy=1.3.0 \
 ipython \
 matplotlib \
 pandas=3.0.0 \
