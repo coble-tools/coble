@@ -13,7 +13,7 @@ languages:
   - python=3.12
 compilers:
   - compile-tools: true
-  - cran-repo: https://packagemanager.posit.co/cran/2026-02-01  
+  - cran-repo: https://packagemanager.posit.co/cran/2026-02-01
 bash:
   - R CMD javareconf
 flags:
@@ -37,7 +37,7 @@ flags:
   #- export: CXXFLAGS=$(echo $CXXFLAGS | sed 's|-I/usr/include||g')
 conda:
   - zlib
-  - arviz
+  - arviz=0.23.4
   - pytz
   - cmdstanpy=1.3.0
   - ipython
