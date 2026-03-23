@@ -659,6 +659,17 @@ if [[ -n "$VAL_FOLDER" && -d "$VAL_FOLDER" ]]; then
     done
 fi
 
+# Copy recipe file to CONDA_PREFIX for reference
+echo "[coble-recipise] cp $YAML_FILE ${CONDA_PREFIX}/" >&2
+echo "mkdir -p \${CONDA_PREFIX}/coble-recipe" >> "$RECIPE_FILE"
+echo "cp $YAML_FILE \${CONDA_PREFIX}/coble-recipe" >> "$RECIPE_FILE"
+
+# copy all contents of coble/bin into bin of env for access to coble tools
+echo "[coble-recipise] Copying coble tools into environment bin for access within environment" >&2
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo "cp $script_dir/coble \${CONDA_PREFIX}/bin/" >> "$RECIPE_FILE"
+echo "cp $script_dir/coble-* \${CONDA_PREFIX}/bin/" >> "$RECIPE_FILE"
+
 echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"

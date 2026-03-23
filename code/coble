@@ -16,12 +16,12 @@ echo "[coble] Detected OS: $os_type, Install context: $install_context" >&2
 
 show_help() {
 	echo "Usage: $0 <command> [options]"
-	echo "  template   get a starter recipe of 5 given options"
-	echo "  build    build (--rebuild) or update the conda enviroment from the recipe input"
-	echo "  freeze  capture the packages from an existing environment"
-	echo "  export  export the packages from an existing environment to a recipe file"
-	echo "  network  generate a network graph from a frozen environment file"
-	echo "  linux-deps  install system dependencies for building R from source on Debian/Ubuntu"
+	echo "  template  get a starter recipe of 5 given options"
+	echo "  build     build (--rebuild) or update the conda enviroment from the recipe input"
+	echo "  freeze    capture the packages from an existing environment"
+	echo "  export    export the packages from an existing environment to a recipe file"
+	echo "  network   generate a network graph from a frozen environment file"
+	echo "  me        find the details of a recipe from within a coble generated environment"
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
@@ -29,6 +29,7 @@ show_help() {
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"
 	echo "  $0 freeze --frozen my.cbl --env my-env"
 	echo "  $0 network --frozen my.cbl --env my-env"
+	echo "  $0 me "
 }
 
 start_time=$(date +%s)
@@ -57,8 +58,6 @@ for i in "${!copied_inputs[@]}"; do
 	fi
 done
 
-echo "[coble] Containers to build: $containers" >&2
-
 # echo out all the inputs
 echo "[coble] command entered: coble $*" >&2
 
@@ -78,11 +77,40 @@ if [[ "$1" == "linux-deps" ]]; then
 fi
 
 # if the first command is not valid show help and exit
-valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export")
+valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export" "me")
 if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
     echo "[coble] Not a valid command provided: $1." >&2
     show_help
     exit 1
+fi
+
+if [[ "$1" == "me" ]]; then
+	recipe_root="$CONDA_PREFIX/coble-recipe"
+	if [[ ! -d "$recipe_root" ]]; then
+		echo "[coble] No recipe directory found at $recipe_root" >&2
+		exit 1
+	fi
+
+	echo "[coble-me] Listing coble recipe files in $recipe_root:" >&2
+	find "$recipe_root" -type f -name "*.cbl" -printf "  %TY-%Tm-%Td %TH:%TM:%TS %p\n" | sort
+
+	cbl_count=0
+	echo "[coble-me] Showing top header for export cbl file" >&2
+	while IFS= read -r cbl_file; do
+		[[ -n "$cbl_file" ]] || continue
+		cbl_count=$((cbl_count + 1))
+		echo "===== $cbl_file ====="
+		head -n 4 "$cbl_file"
+		echo ""
+	done < <(find "$recipe_root" -type f -name "*_freeze.cbl" | sort)
+
+	if [[ $cbl_count -eq 0 ]]; then
+		echo "[cobl-me] No _freeze.cbl files found in $recipe_root" >&2
+		exit 0
+	fi
+
+
+	exit 0
 fi
 
 # If the first argument is 'template', call coble-template.sh and exit
@@ -91,6 +119,8 @@ if [[ "$1" == "template" ]]; then
 	"$script_dir/coble-template.sh" "${@:2}"
 	exit $?
 fi
+
+echo "[coble] Containers to build: $containers" >&2
 
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
 if [[ "$container_type" == *"conda"* ]]; then
@@ -185,8 +215,16 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	#echo "[coble 5/5] Created env, proceeding to network from file $capture_file" >&2
 	#result=$("$script_dir/coble-network.sh" --frozen "$capture_file" "${@:2}")
 
-	echo "[coble 6/6] Copying build artefacts to environment for record." >&2
-	result=$("$script_dir/coble-build-copy.sh" "${@:2}")
+	echo "[coble 6/6] Completed succesfully." >&2
+	echo "[coble] To activate environment call:" >&2
+	echo "    conda activate $ENV_INPUT" >&2
+	echo "  then validate the environment with:" >&2
+	echo "    validate.sh" >&2
+	echo "  or if you want to stream the output to a log file:" >&2
+	echo "    validate.sh | tee validate.log" >&2
+	echo "  for info on the environment created, use the command:" >&2
+	echo "    coble me" >&2
+
 
 	echo "[coble] Environment creation complete." >&2
 	end_time=$(date +%s)
