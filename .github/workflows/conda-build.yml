@@ -67,6 +67,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/coble-tools/coble.git
+          git pull --rebase origin main
           git add conda-recipe/meta.yaml
           git commit -m "Release v${{ steps.version.outputs.new_version }}"
           git tag "v${{ steps.version.outputs.new_version }}"
