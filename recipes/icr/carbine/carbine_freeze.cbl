@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
 # Capture date: 2026-03-23
-# Capture time: 15:30:27 GMT
+# Capture time: 18:40:26 GMT
 # Captured by: ralcraft
 
 coble:
@@ -53,10 +53,7 @@ conda:
   - zlib=1.3.2@conda-forge
   - alsa-lib=1.2.15.3@conda-forge
   - argcomplete=3.6.3@conda-forge
-  - arviz-plots=1.0.0@conda-forge
-  - arviz-stats-core=1.0.0@conda-forge
-  - arviz-stats=1.0.0@conda-forge
-  - arviz=1.0.0@conda-forge
+  - arviz=0.23.4@conda-forge
   - asttokens=3.0.1@conda-forge
   - brotli-bin=1.2.0@conda-forge
   - brotli=1.2.0@conda-forge
@@ -65,6 +62,8 @@ conda:
   - c-ares=1.34.6@conda-forge
   - c-compiler=1.11.0@conda-forge
   - ca-certificates=2026.2.25@conda-forge
+  - cached-property=1.5.2@conda-forge
+  - cached_property=1.5.2@conda-forge
   - cairo=1.18.4@conda-forge
   - cmdstan=2.38.0@conda-forge
   - cmdstanpy=1.3.0@conda-forge
@@ -93,7 +92,10 @@ conda:
   - gfortran_linux-64=14.3.0@conda-forge
   - graphite2=1.3.14@conda-forge
   - gsl=2.7@conda-forge
-  - harfbuzz=13.2.0@conda-forge
+  - h5netcdf=1.8.1@conda-forge
+  - h5py=3.15.1@conda-forge
+  - harfbuzz=13.2.1@conda-forge
+  - hdf5=1.14.6@conda-forge
   - ipython=9.11.0@conda-forge
   - ipython_pygments_lexers=1.1.1@conda-forge
   - jedi=0.19.2@conda-forge
@@ -105,6 +107,7 @@ conda:
   - lcms2=2.18@conda-forge
   - ld_impl_linux-64=2.45.1@conda-forge
   - lerc=4.1.0@conda-forge
+  - libaec=1.1.5@conda-forge
   - libblas=3.11.0@conda-forge
   - libbrotlicommon=1.2.0@conda-forge
   - libbrotlidec=1.2.0@conda-forge
@@ -177,6 +180,7 @@ conda:
   - pillow=12.1.1@conda-forge
   - pip=26.0.1@conda-forge
   - pixman=0.46.4@conda-forge
+  - platformdirs=4.9.4@conda-forge
   - prompt-toolkit=3.0.52@conda-forge
   - pthread-stubs=0.4@conda-forge
   - ptyprocess=0.7.0@conda-forge
@@ -437,7 +441,7 @@ r-conda:
   - r.oo=1.27.1@conda-forge
   - r.utils=2.13.0@conda-forge
   - r6=2.6.1@conda-forge
-  - ragg=1.5.1@conda-forge
+  - ragg=1.5.2@conda-forge
   - rappdirs=0.3.4@conda-forge
   - rbibutils=2.4.1@conda-forge
   - rcolorbrewer=1.1_3@conda-forge

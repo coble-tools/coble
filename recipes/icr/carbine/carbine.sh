@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-03-23
-# Capture time: 15:30:10 GMT
+# Capture time: 18:23:35 GMT
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -73,12 +73,12 @@ conda install -y --solver=libmamba --no-update-deps \
 cmdstan=2.38.0 
 # bash:
 ARCH=$(uname -m)
-if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
-CMDSTAN_PATH=$(python -c "import cmdstanpy; print(cmdstanpy.cmdstan_path())") && \
-printf "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot
-TBB_CXX_TYPE = gcc
-CPPFLAGS =
-" >> $CMDSTAN_PATH/make/local; fi
+if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu"; fi
+if [ "$ARCH" = "aarch64" ]; then CMDSTAN_PATH=$(python -c 'import cmdstanpy; print(cmdstanpy.cmdstan_path())'); fi
+if [ "$ARCH" = "aarch64" ]; then echo "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot" >> "$CMDSTAN_PATH/make/local"; fi
+if [ "$ARCH" = "aarch64" ]; then echo "TBB_CXX_TYPE = gcc" >> "$CMDSTAN_PATH/make/local"; fi
+if [ "$ARCH" = "aarch64" ]; then echo "CPPFLAGS =" >> "$CMDSTAN_PATH/make/local"; fi
+
 # flags:
 conda env config vars set CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
@@ -87,7 +87,7 @@ export CMDSTAN=$CONDA_PREFIX/bin/cmdstan
 # conda:
 conda install -y --solver=libmamba --no-update-deps \
 zlib \
-arviz \
+arviz=0.23.4 \
 pytz \
 cmdstanpy=1.3.0 \
 ipython \
