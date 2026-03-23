@@ -77,7 +77,7 @@ if [[ "$1" == "linux-deps" ]]; then
 fi
 
 # if the first command is not valid show help and exit
-valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export" "me")
+valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export" "me" "validate")
 if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
     echo "[coble] Not a valid command provided: $1." >&2
     show_help
@@ -105,12 +105,26 @@ if [[ "$1" == "me" ]]; then
 	done < <(find "$recipe_root" -type f -name "*_freeze.cbl" | sort)
 
 	if [[ $cbl_count -eq 0 ]]; then
-		echo "[cobl-me] No _freeze.cbl files found in $recipe_root" >&2
+		echo "[coble-me] No _freeze.cbl files found in $recipe_root" >&2
 		exit 0
 	fi
 
 
 	exit 0
+fi
+
+if [[ "$1" == "validate" ]]; then
+	if [[ -z "$CONDA_PREFIX" ]]; then
+		echo "[coble] No active conda environment found, cannot validate." >&2
+		exit 1
+	elif [[ ! -f "$CONDA_PREFIX/bin/validate.sh" ]]; then
+		echo "[coble] No validate.sh script found in $CONDA_PREFIX/bin, cannot validate." >&2
+		exit 1
+	else
+		echo "[coble] Running validate.sh from $CONDA_PREFIX/bin" >&2
+		"$CONDA_PREFIX/bin/validate.sh"
+		exit $?
+	fi
 fi
 
 # If the first argument is 'template', call coble-template.sh and exit
