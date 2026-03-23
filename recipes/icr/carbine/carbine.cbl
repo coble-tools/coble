@@ -28,9 +28,6 @@ conda:
   - cmdstan=2.38.0
 bash:
   - ARCH=$(uname -m)
-  #- if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu" && \
-  #- CMDSTAN_PATH=$(python -c "import cmdstanpy; print(cmdstanpy.cmdstan_path())") && \
-  #- printf "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot\nTBB_CXX_TYPE = gcc\nCPPFLAGS =\n" >> $CMDSTAN_PATH/make/local; fi
   - if [ "$ARCH" = "aarch64" ]; then TRIPLET="${ARCH}-conda-linux-gnu"; fi
   - if [ "$ARCH" = "aarch64" ]; then CMDSTAN_PATH=$(python -c 'import cmdstanpy; print(cmdstanpy.cmdstan_path())'); fi
   - if [ "$ARCH" = "aarch64" ]; then echo "CXXFLAGS_OS = --sysroot=$CONDA_PREFIX/${TRIPLET}/sysroot" >> "$CMDSTAN_PATH/make/local"; fi
