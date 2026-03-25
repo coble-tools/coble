@@ -1,6 +1,6 @@
 # COBLE:capture, (c) ICR 2026
-# Capture date: 2026-03-23
-# Capture time: 19:12:25 GMT
+# Capture date: 2026-03-25
+# Capture time: 16:29:34 GMT
 # Captured by: ralcraft
 
 coble:
@@ -85,7 +85,7 @@ conda:
   - fonts-conda-forge=1@conda-forge
   - fonttools=4.62.0@conda-forge
   - fortran-compiler=1.11.0@conda-forge
-  - freetype=2.14.2@conda-forge
+  - freetype=2.14.3@conda-forge
   - fribidi=1.0.16@conda-forge
   - gfortran=14.3.0@conda-forge
   - gfortran_impl_linux-64=14.3.0@conda-forge
@@ -93,7 +93,7 @@ conda:
   - graphite2=1.3.14@conda-forge
   - gsl=2.7@conda-forge
   - h5netcdf=1.8.1@conda-forge
-  - h5py=3.15.1@conda-forge
+  - h5py=3.16.0@conda-forge
   - harfbuzz=13.2.1@conda-forge
   - hdf5=1.14.6@conda-forge
   - ipython=9.11.0@conda-forge
@@ -119,8 +119,8 @@ conda:
   - libev=4.33@conda-forge
   - libexpat=2.7.4@conda-forge
   - libffi=3.5.2@conda-forge
-  - libfreetype6=2.14.2@conda-forge
-  - libfreetype=2.14.2@conda-forge
+  - libfreetype6=2.14.3@conda-forge
+  - libfreetype=2.14.3@conda-forge
   - libgfortran-ng=15.2.0@conda-forge
   - libgfortran5=15.2.0@conda-forge
   - libgfortran=15.2.0@conda-forge
@@ -210,7 +210,7 @@ conda:
   - tktable=2.10@conda-forge
   - toml=0.10.2@conda-forge
   - tomlkit=0.14.0@conda-forge
-  - tornado=6.5.4@conda-forge
+  - tornado=6.5.5@conda-forge
   - tqdm=4.67.3@conda-forge
   - traitlets=5.14.3@conda-forge
   - typing_extensions=4.15.0@conda-forge
@@ -458,7 +458,7 @@ r-conda:
   - rematch2=2.1.2@conda-forge
   - rematch=2.0.0@conda-forge
   - remotes=2.5.0@conda-forge
-  - renv=1.1.8@conda-forge
+  - renv=1.2.0@conda-forge
   - reprex=2.1.1@conda-forge
   - reshape2=1.4.5@conda-forge
 
@@ -603,7 +603,6 @@ bioc-package:
 
 r-github:
   - ctree=1.1.0@github@caravagn/ctree/df8dc8395725f396e9f7cefa3a9e46d3b7b113ec
-  - mobster=1.0.0@github@caravagn/mobster/85c898f087b46e15f79144bf57bdc019678e2481
 
 pip:
   - shiboken6==6.10.2
@@ -617,6 +616,7 @@ pip:
 #  - graphics=4.4.3
 #  - grid=4.4.3
 #  - methods=4.4.3
+#  - mobster=1.0.0
 #  - parallel=4.4.3
 #  - splines=4.4.3
 #  - stats4=4.4.3
