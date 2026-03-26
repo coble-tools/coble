@@ -11,6 +11,12 @@ validate.sh
 
 To download as singularity to use eg on HPC (you retain access to the host inside a singularity image).
 
+
+```
+docker pull ghcr.io/coble-tools/coble:icr-carbine
+docker run --rm -it -v .:/workspace -w /workspace ghcr.io/coble-tools/coble:icr-carbine
+```
+
 ```bash
 singularity pull cbl-icr-carbine.sif docker://icrsc/coble:icr-carbine
 singularity shell cbl-icr-carbine.sif
