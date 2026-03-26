@@ -52,9 +52,16 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/coble-tools/coble.git
-          git stash
+          # Only stash if there are actual changes
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            git stash
+            STASHED=true
+          fi
           git pull --rebase origin main
-          git stash pop
+
+          if [ "$STASHED" = "true" ]; then
+            git stash pop
+          fi
           git add conda-recipe/meta.yaml
           git commit -m "Release v${{ github.event.inputs.version }}"
           git tag "v${{ github.event.inputs.version }}"
