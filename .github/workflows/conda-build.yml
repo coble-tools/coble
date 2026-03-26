@@ -62,8 +62,15 @@ jobs:
           if [ "$STASHED" = "true" ]; then
             git stash pop
           fi
-          git add conda-recipe/meta.yaml
-          git commit -m "Release v${{ github.event.inputs.version }}"
+
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            git add conda-recipe/meta.yaml
+            git commit -m "Release v${{ github.event.inputs.version }}"
+          else
+            echo "Nothing to commit, skipping."
+          fi
+
+
           git tag "v${{ github.event.inputs.version }}"
           git push origin main
           git push origin "v${{ github.event.inputs.version }}"
