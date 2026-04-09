@@ -496,6 +496,6 @@ fi
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 
-echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_freeze.cbl" >&2
-cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_freeze.cbl"
+echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_export.cbl" >&2
+cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_export.cbl"
 

@@ -1,0 +1,8 @@
+6. network
+╔════════════════════════════════════════════════════════════╗
+║        COBLE Reproducible Environment v0.2                 ║
+║        (c) ICR 2026 RSE and BCDS                           ║
+║        For help, see:                                      ║
+║        - https://coble-tools.github.io/coble/              ║
+║        - https://github.com/coble-tools/coble/issues       ║
+╚════════════════════════════════════════════════════════════╝

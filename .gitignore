@@ -103,10 +103,12 @@ call
 boltz_results_prot-lig/*
 tests/github/publication/*
 !tests/github/publication/codex.cbl
+!tests/github/publication/codex-vis.cbl
 !tests/github/publication/find.cbl
 !tests/github/publication/stjc.cbl
 !tests/github/publication/commands.sh
 !tests/github/publication/test_set1_pub.py
 !tests/github/publication/commands.docx
 !tests/github/publication/commands.md
+!tests/github/publication/log.txt
 

@@ -9,7 +9,8 @@ LOG="$this_dir/log.txt"
 # reset log
 > "$LOG"
 
-choose_steps=1,2,3,4,5,*,7,8
+choose_steps=1,2,3,4,5,6,7,8,9
+#choose_steps=6
 # A simple filecheck for correctness
 incorrect=0
 
@@ -51,13 +52,13 @@ fi
 
 if [[ $choose_steps == *"3"* ]]; then
     echo "3. Debug and validation" | tee -a "$LOG"
-    rm -rf "${this_dir}/validate_logs"
+    rm -rf "${this_dir}/codex_export.cbl"
     code/coble build \
-      --recipe codex.cbl \
+      --recipe "${this_dir}/codex.cbl" \
       --env codex \
       --rebuild \
-      --validate validate.sh \
-      --val-folder validate \
+      --validate "${this_dir}/validate/validate.sh" \
+      --val-folder "${this_dir}/validate/" \
       --skip-errors | tee -a "$LOG"
 
     if [[ -f "${this_dir}/codex_export.cbl" ]]; then
@@ -97,7 +98,10 @@ fi
 
 if [[ $choose_steps == *"6"* ]]; then
     echo "6. network" | tee -a "$LOG"
-    code/coble network --export "${this_dir}/codex-export.cbl" --env codex | tee -a "$LOG"
+
+    code/coble build --recipe "${this_dir}/codex-vis.cbl" --env codex-vis | tee -a "$LOG"
+
+    code/coble network --export "${this_dir}/codex-vis-export.cbl" --env codex-vis | tee -a "$LOG"
 
     if [[ -f "${this_dir}/codex_dependencies.cbl" ]]; then
         echo "Exported recipe file found: ${this_dir}/codex_dependencies.cbl" | tee -a "$LOG"
@@ -135,24 +139,24 @@ fi
 
 if [[ $choose_steps == *"9"* ]]; then
     echo "9 Validation in containers" | tee -a "$LOG"
-    coble build \
-      --recipe "${this_dir}/codex.cbl" \
+    code/coble build \
+      --recipe tests/github/publication/codex.cbl \
       --env codex \
-      --containers docker,singularity \
-      --validate "${this_dir}/validate/validate.sh" \
-      --val-folder "${this_dir}/validate" | tee -a "$LOG"
+      --validate tests/github/publication/validate/validate.sh \
+      --val-folder tests/github/publication/validate/ \
+      --containers docker,singularity | tee -a "$LOG"
 
-    if [[ -f "${this_dir}/cbl-codex.tar" ]]; then
-        echo "Docker: ${this_dir}/cbl-codex.tar" | tee -a "$LOG"
+    if [[ -f "cbl-codex.tar" ]]; then
+        echo "Docker: cbl-codex.tar" | tee -a "$LOG"
     else
-        echo "Error: Docker not found: ${this_dir}/cbl-codex.tar" | tee -a "$LOG"
+        echo "Error: Docker not found: cbl-codex.tar" | tee -a "$LOG"
         incorrect=$((incorrect + 1))
     fi
 
-    if [[ -f "${this_dir}/cbl-codex.sif" ]]; then
-        echo "Singularity: ${this_dir}/cbl-codex.sif" | tee -a "$LOG"
+    if [[ -f "cbl-codex.sif" ]]; then
+        echo "Singularity: cbl-codex.sif" | tee -a "$LOG"
     else
-        echo "Error: Singularity not found: ${this_dir}/cbl-codex.sif" | tee -a "$LOG"
+        echo "Error: Singularity not found: cbl-codex.sif" | tee -a "$LOG"
         incorrect=$((incorrect + 1))
     fi
 fi
@@ -161,47 +165,54 @@ if [[ $incorrect -gt 0 ]]; then
     echo "There were $incorrect errors detected in the commands test." | tee -a "$LOG"
 else
     echo "All commands tests passed successfully!" | tee -a "$LOG"
+
+    # clear up files we don't need
+    rm -rf "${this_dir}/codex_docker_build.log"
+    rm -rf "cbl-codex.tar"
+    rm -rf "cbl-codex.sif"
+
+    rm -rf "${this_dir}/codex_export.cbl.bak"
+    rm -rf "${this_dir}/codex_export_summary.txt"
+    rm -rf "${this_dir}/codex_export.cbl.tmp"
+    rm -rf "${this_dir}/codex_export.delta"
+    rm -rf "${this_dir}/codex_export.done"
+    rm -rf "${this_dir}/codex_export.err"
+    rm -rf "${this_dir}/codex_export.log"
+    rm -rf "${this_dir}/codex_export.sh"
+    rm -rf "${this_dir}/codex_export.sh.bak"
+
+    rm -rf "${this_dir}/codex.cbl.bak"
+    rm -rf "${this_dir}/codex_summary.txt"
+    rm -rf "${this_dir}/codex.cbl.tmp"
+    rm -rf "${this_dir}/codex.delta"
+    rm -rf "${this_dir}/codex.done"
+    rm -rf "${this_dir}/codex.err"
+    rm -rf "${this_dir}/codex.log"
+    rm -rf "${this_dir}/codex.sh"
+    rm -rf "${this_dir}/codex.sh.bak"
+
+    rm -rf "${this_dir}/find.cbl.bak"
+    rm -rf "${this_dir}/find_summary.txt"
+    rm -rf "${this_dir}/find.cbl.tmp"
+    rm -rf "${this_dir}/find.delta"
+    rm -rf "${this_dir}/find.done"
+    rm -rf "${this_dir}/find.err"
+    rm -rf "${this_dir}/find.log"
+    rm -rf "${this_dir}/find.sh"
+    rm -rf "${this_dir}/find.sh.bak"
+
+    rm -rf "${this_dir}/stjc.cbl.bak"
+    rm -rf "${this_dir}/stjc_summary.txt"
+    rm -rf "${this_dir}/stjc.cbl.tmp"
+    rm -rf "${this_dir}/stjc.delta"
+    rm -rf "${this_dir}/stjc.done"
+    rm -rf "${this_dir}/stjc.err"
+    rm -rf "${this_dir}/stjc.log"
+    rm -rf "${this_dir}/stjc.sh"
+    rm -rf "${this_dir}/stjc.sh.bak"
+
 fi
 
-# clear up files we don't need
-rm -rf "${this_dir}/codex_export.cbl.bak"
-rm -rf "${this_dir}/codex_export_summary.txt"
-rm -rf "${this_dir}/codex_export.cbl.tmp"
-rm -rf "${this_dir}/codex_export.delta"
-rm -rf "${this_dir}/codex_export.done"
-rm -rf "${this_dir}/codex_export.err"
-rm -rf "${this_dir}/codex_export.log"
-rm -rf "${this_dir}/codex_export.sh"
-rm -rf "${this_dir}/codex_export.sh.bak"
 
-rm -rf "${this_dir}/codex.cbl.bak"
-rm -rf "${this_dir}/codex_summary.txt"
-rm -rf "${this_dir}/codex.cbl.tmp"
-rm -rf "${this_dir}/codex.delta"
-rm -rf "${this_dir}/codex.done"
-rm -rf "${this_dir}/codex.err"
-rm -rf "${this_dir}/codex.log"
-rm -rf "${this_dir}/codex.sh"
-rm -rf "${this_dir}/codex.sh.bak"
-
-rm -rf "${this_dir}/find.cbl.bak"
-rm -rf "${this_dir}/find_summary.txt"
-rm -rf "${this_dir}/find.cbl.tmp"
-rm -rf "${this_dir}/find.delta"
-rm -rf "${this_dir}/find.done"
-rm -rf "${this_dir}/find.err"
-rm -rf "${this_dir}/find.log"
-rm -rf "${this_dir}/find.sh"
-rm -rf "${this_dir}/find.sh.bak"
-
-rm -rf "${this_dir}/stjc.cbl.bak"
-rm -rf "${this_dir}/stjc_summary.txt"
-rm -rf "${this_dir}/stjc.cbl.tmp"
-rm -rf "${this_dir}/stjc.delta"
-rm -rf "${this_dir}/stjc.done"
-rm -rf "${this_dir}/stjc.err"
-rm -rf "${this_dir}/stjc.log"
-rm -rf "${this_dir}/stjc.sh"
-rm -rf "${this_dir}/stjc.sh.bak"
 
 exit ${PIPESTATUS[0]}
