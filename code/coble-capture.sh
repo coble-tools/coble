@@ -359,7 +359,7 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)
-	echo -e "# COBLE:capture, (c) ICR 2026"
+	echo -e "# COBLE:export, (c) ICR 2026"
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"

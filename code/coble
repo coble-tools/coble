@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Detect install context (bin vs code dir)
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -102,10 +102,10 @@ if [[ "$1" == "me" ]]; then
 		echo "===== $cbl_file ====="
 		head -n 4 "$cbl_file"
 		echo ""
-	done < <(find "$recipe_root" -type f -name "*_freeze.cbl" | sort)
+	done < <(find "$recipe_root" -type f -name "*_export.cbl" | sort)
 
 	if [[ $cbl_count -eq 0 ]]; then
-		echo "[coble-me] No _freeze.cbl files found in $recipe_root" >&2
+		echo "[coble-me] No _export.cbl files found in $recipe_root" >&2
 		exit 0
 	fi
 
@@ -182,7 +182,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
     RESULTS_DIR="$(dirname "$recipe_file")"
 	done_recipe="$RESULTS_DIR/${base_name_noext}.done"
 	summary_file="$RESULTS_DIR/${base_name_noext}_summary.txt"
-	capture_file="$RESULTS_DIR/${base_name_noext}_freeze.cbl"
+	capture_file="$RESULTS_DIR/${base_name_noext}_export.cbl"
 
 
     if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then
