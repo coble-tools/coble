@@ -99,3 +99,5 @@ output/*
 boltz_results_affinity/*
 build
 call
+.cache/*
+boltz_results_prot-lig/*
