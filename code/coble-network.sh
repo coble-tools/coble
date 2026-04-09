@@ -14,8 +14,8 @@ AGGREGATE_TXT=""
 
 show_help() {
 	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
-	echo "  --frozen  clb    Specify input frozen cble file"
-	echo "  --env     ENV    Specify conda environment name or prefix (optional, default is current activated environment)"	    
+	echo "  --export  clb    Specify export cbl file"
+	echo "  --env     ENV    Specify conda environment name or prefix (optional, default is current activated environment)"
     echo "  -h,--help        Show this help message and exit"
 }
 
@@ -27,11 +27,11 @@ while [[ $# -gt 0 ]]; do
 		--env)
 			ENV_INPUT="$2"
 			shift; shift
-			;;		
-		--frozen)
-			AGGREGATE_TXT="$2"			
+			;;
+		--export)
+			AGGREGATE_TXT="$2"
 			shift; shift
-			;;        
+			;;
 		-h|--help)
 			show_help
 			exit 0
@@ -43,13 +43,13 @@ while [[ $# -gt 0 ]]; do
 done
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
-	echo "[coble-network] Error: --frozen input file must be specified." >&2
+	echo "[coble-network] Error: --export input file must be specified." >&2
 	show_help
 	exit 1
 fi
 # Default results dur is the directory of the output file
-if [[ $RESULTS_DIR == "" ]]; then		
-	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"	
+if [[ $RESULTS_DIR == "" ]]; then
+	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"
 fi
 echo "[coble-network] Capturing conda environment to $RESULTS_DIR" >&2
 
@@ -63,13 +63,13 @@ if [[ -z "$ENV_INPUT" ]]; then
 		echo "[coble-network] Please activate a conda environment or use --env to specify one." >&2
 		exit 2
 	fi
-	echo "[coble-network] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"    
+	echo "[coble-network] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"
 	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
 	ENV_NAME="$ACTIVE_ENV_NAME"
 elif [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
     # take of the last / for the name
-    ENV_NAME="${ENV_INPUT##*/}"    
+    ENV_NAME="${ENV_INPUT##*/}"
 	# Check if the prefix directory exists and contains conda-meta
 	if [[ ! -d "$ENV_INPUT" || ! -d "$ENV_INPUT/conda-meta" ]]; then
 		echo "[coble-network] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
@@ -79,7 +79,7 @@ elif [[ "$ENV_INPUT" == */* ]]; then
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
-    ENV_NAME="$ENV_INPUT"   
+    ENV_NAME="$ENV_INPUT"
 	# Check if the environment name exists in conda env list
 	if ! conda env list | awk '{print $1}' | grep -qx "$ENV_INPUT"; then
 		echo "[coble-network] Error: The specified environment name does not exist: $ENV_INPUT" >&2
@@ -107,8 +107,8 @@ while IFS= read -r line; do
 	# trim leading spaces again
 	line="$(echo "$line" | sed 's/^[[:space:]]*//')"
 	# skip empty lines and lines with colons
-	[[ "$line" == "" ]] && continue		
-	[[ "$line" == *":"* ]] && continue		
+	[[ "$line" == "" ]] && continue
+	[[ "$line" == *":"* ]] && continue
 	# parse the line into package and version
 	pkg=$(echo "$line" | cut -d'=' -f1)
 	ver=$(echo "$line" | cut -d'=' -f2)
@@ -120,14 +120,14 @@ while IFS= read -r line; do
 	# take of trailing and leading spaces
 	pkg=$(echo "$pkg" | xargs)
 	ver=$(echo "$ver" | xargs)
-	
+
 	if [[ " ${keep_list[*]} " =~ " $pkg " ]]; then
 		echo "[coble-network] Skipping package (in keep list): $pkg"
 		continue
-	else		
+	else
 		keep_list+=("$pkg")
 		echo "[coble-network] Capturing package: $pkg==$ver"
-		"$script_dir/coble-deps-r.R" "$pkg" -o "$DEPS_TXT"										
+		"$script_dir/coble-deps-r.R" "$pkg" -o "$DEPS_TXT"
 	fi
 done < "$AGGREGATE_TXT"
 

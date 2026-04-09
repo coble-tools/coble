@@ -1,148 +1,207 @@
 #!/usr/bin/env bash
 
-# Call from code folder: tests/github/publication/commands.sh
+# To run this script:
+#$ tests/github/publication/commands.sh
 
 this_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+LOG="$this_dir/log.txt"
+# reset log
+> "$LOG"
 
+choose_steps=1,2,3,4,5,*,7,8
+# A simple filecheck for correctness
+incorrect=0
 
-codex_recipe="${this_dir}/codex.cbl"
-echo "Using recipe: $codex_recipe"
-code/coble build --recipe /home/ralcraft/DEV/gh-rse/BCRDS/coble/tests/github/publication/codex.cbl --env codex
+# Delete all files we are going to create
+rm -rf "${this_dir}/codex_export.cbl"
+rm -rf "${this_dir}/codex_export_export.cbl"
+rm -rf "${this_dir}/basic.cbl"
+rm -rf "${this_dir}/codex-export.cbl"
+rm -rf "${this_dir}/codex_dependencies.txt"
+rm -rf "${this_dir}/found.cbl"
+rm -rf "${this_dir}/stjc_export.cbl"
+rm -rf "${this_dir}/cbl-codex.tar"
+rm -rf "${this_dir}/cbl-codex.sif"
 
+# if 1 in steps
+if [[ $choose_steps == *"1"* ]]; then
+    echo "1. Basic coble command" | tee -a "$LOG"
+    code/coble build --recipe "${this_dir}/codex.cbl" --env codex --rebuild | tee -a "$LOG"
 
-# coble build -–recipe codex.cbl -–env codex \
-# --containers conda,docker,singularity
+    if [[ -f "${this_dir}/codex_export.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/codex_export.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/codex_export.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# coble build –-recipe codex.cbl -–env codex
+if [[ $choose_steps == *"2"* ]]; then
+    echo "2. Mirrored coble command" | tee -a "$LOG"
+    code/coble build --recipe "${this_dir}/codex_export.cbl" --env codex-mirror --rebuild | tee -a "$LOG"
 
-# coble build -–recipe codex_export.cbl -–env codex-mirror
+    if [[ -f "${this_dir}/codex_export_export.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/codex_export_export.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/codex_export_export.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# conda activate codex-mirror
+if [[ $choose_steps == *"3"* ]]; then
+    echo "3. Debug and validation" | tee -a "$LOG"
+    rm -rf "${this_dir}/validate_logs"
+    code/coble build \
+      --recipe codex.cbl \
+      --env codex \
+      --rebuild \
+      --validate validate.sh \
+      --val-folder validate \
+      --skip-errors | tee -a "$LOG"
 
-# coble build \
-# --recipe codex.cbl \
-# --env codex \
-# --rebuild \
-# --validate validate.sh \
-# --val-folder validate \
-# --skip-errors \
-# --debug \
-# --alias mamba
+    if [[ -f "${this_dir}/codex_export.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/codex_export.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/codex_export.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# coble template \
-# --recipe codex.cbl \
-# --flavour basic
+if [[ $choose_steps == *"4"* ]]; then
+    echo "4. Templates" | tee -a "$LOG"
+    code/coble template \
+      --recipe basic.cbl \
+      --flavour basic | tee -a "$LOG"
 
-# coble export \
-# --export codex-export.cbl \
-# --env codex \
-# --debug
+    if [[ -f "${this_dir}/basic.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/basic.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/basic.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# coble network \
-# --recipe codex-export.cbl \
-# --env codex
+if [[ $choose_steps == *"5"* ]]; then
+    echo "5. export" | tee -a "$LOG"
+    code/coble export --export "${this_dir}/codex-export.cbl" --env codex | tee -a "$LOG"
 
+    if [[ -f "${this_dir}/codex-export.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/codex-export.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/codex-export.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
 
-# channels:
-#   - bioconda
-#   - conda-forge
-# languages:
-#   - r-base=4.5.2
-#   - python=3.14
-# flags:
-#   - dependencies: NA
-#   - system-tools: false
-#   - compile-tools: false
-#   - compile-paths: true
-#   - export: VAR1=VALUE1
-#   - ncpus: 4
-#   - priority: strict
-# conda:
-#   - package
-# r-conda:
-#   - package
-# bioc-package:
-#   - package
-# bioc-conda:
-#   - package
-# r-package:
-#   - package
-# pip:
-#   - package
-#   - https://package.url
-# r-url:
-#   - https://package.url
-# r-github:
-#   - group/package
-# bash:
-# # can put
-# # anything
+fi
 
-# coble:
-#   - environment: find
-# channels:
-#   - bioconda
-#   - conda-forge
-# find:
-#  - SummarizedExperiment
-#  - DESeq2
-#  - Seurat
-#  - requests
+if [[ $choose_steps == *"6"* ]]; then
+    echo "6. network" | tee -a "$LOG"
+    code/coble network --export "${this_dir}/codex-export.cbl" --env codex | tee -a "$LOG"
 
-#  coble build --recipe find.cbl --env find
+    if [[ -f "${this_dir}/codex_dependencies.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/codex_dependencies.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/codex_dependencies.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-#  coble:
-#   - environment: stjc
-# channels:
-#   - bioconda
-#   - conda-forge
-# languages:
-#   - r-base=4.5.2
-#   - python=3.14
-# bioc-package:
-#   - stJoincount
+if [[ $choose_steps == *"7"* ]]; then
+    echo "7. find" | tee -a "$LOG"
+    rm -rf "${this_dir}/found.cbl"
+    cp "${this_dir}/find.cbl" "${this_dir}/found.cbl"
+    code/coble build --recipe "${this_dir}/found.cbl" --env found | tee -a "$LOG"
 
-# coble build --recipe stjc.cbl --env stjc
+    if [[ -f "${this_dir}/found.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/found.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/found.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# coble:
-#   - environment: stjc
-# channels:
-#   - bioconda
-#   - conda-forge
-# languages:
-#   - r-base=4.5.2
-#   - python=3.14
-# r-conda:
-#   - png
-#   - terra
-#   - units
-#   - s2
-#   - magick
-#   - reticulate
-#   - raster
-#   - sf
-#   - shiny
-#   - miniUI
-#   - spdep
-# bioc-package:
-#   - stJoincount
+if [[ $choose_steps == *"8"* ]]; then
+    echo "8. StJoinCount" | tee -a "$LOG"
+    code/coble build --recipe "${this_dir}/stjc.cbl" --env stjc | tee -a "$LOG"
 
+    if [[ -f "${this_dir}/stjc_export.cbl" ]]; then
+        echo "Exported recipe file found: ${this_dir}/stjc_export.cbl" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/stjc_export.cbl" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# coble build \
-# --recipe codex.cbl \
-# --env codex \
-# --validate validate.sh \
-# --val-folder validate
+if [[ $choose_steps == *"9"* ]]; then
+    echo "9 Validation in containers" | tee -a "$LOG"
+    coble build \
+      --recipe "${this_dir}/codex.cbl" \
+      --env codex \
+      --containers docker,singularity \
+      --validate "${this_dir}/validate/validate.sh" \
+      --val-folder "${this_dir}/validate" | tee -a "$LOG"
 
-# $ docker load -i cbl-codex.tar
-# $ docker run --rm -it -v .:/app cbl-codex
+    if [[ -f "${this_dir}/cbl-codex.tar" ]]; then
+        echo "Docker: ${this_dir}/cbl-codex.tar" | tee -a "$LOG"
+    else
+        echo "Error: Docker not found: ${this_dir}/cbl-codex.tar" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
 
-# $ singularity shell cbl- codex.sif
+    if [[ -f "${this_dir}/cbl-codex.sif" ]]; then
+        echo "Singularity: ${this_dir}/cbl-codex.sif" | tee -a "$LOG"
+    else
+        echo "Error: Singularity not found: ${this_dir}/cbl-codex.sif" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+fi
 
-# # Docker
-# docker pull ghcr.io/coble-tools/coble:papers-deseq2
-# docker run --rm -it -v .:/workspace ghcr.io/coble-tools/coble:papers-deseq2
-# # Singularity
-# singularity build coble-papers-deseq2.sif docker://ghcr.io/coble-tools/coble:papers-deseq2
-# singularity shell coble-papers-deseq2.sif
+if [[ $incorrect -gt 0 ]]; then
+    echo "There were $incorrect errors detected in the commands test." | tee -a "$LOG"
+else
+    echo "All commands tests passed successfully!" | tee -a "$LOG"
+fi
+
+# clear up files we don't need
+rm -rf "${this_dir}/codex_export.cbl.bak"
+rm -rf "${this_dir}/codex_export_summary.txt"
+rm -rf "${this_dir}/codex_export.cbl.tmp"
+rm -rf "${this_dir}/codex_export.delta"
+rm -rf "${this_dir}/codex_export.done"
+rm -rf "${this_dir}/codex_export.err"
+rm -rf "${this_dir}/codex_export.log"
+rm -rf "${this_dir}/codex_export.sh"
+rm -rf "${this_dir}/codex_export.sh.bak"
+
+rm -rf "${this_dir}/codex.cbl.bak"
+rm -rf "${this_dir}/codex_summary.txt"
+rm -rf "${this_dir}/codex.cbl.tmp"
+rm -rf "${this_dir}/codex.delta"
+rm -rf "${this_dir}/codex.done"
+rm -rf "${this_dir}/codex.err"
+rm -rf "${this_dir}/codex.log"
+rm -rf "${this_dir}/codex.sh"
+rm -rf "${this_dir}/codex.sh.bak"
+
+rm -rf "${this_dir}/find.cbl.bak"
+rm -rf "${this_dir}/find_summary.txt"
+rm -rf "${this_dir}/find.cbl.tmp"
+rm -rf "${this_dir}/find.delta"
+rm -rf "${this_dir}/find.done"
+rm -rf "${this_dir}/find.err"
+rm -rf "${this_dir}/find.log"
+rm -rf "${this_dir}/find.sh"
+rm -rf "${this_dir}/find.sh.bak"
+
+rm -rf "${this_dir}/stjc.cbl.bak"
+rm -rf "${this_dir}/stjc_summary.txt"
+rm -rf "${this_dir}/stjc.cbl.tmp"
+rm -rf "${this_dir}/stjc.delta"
+rm -rf "${this_dir}/stjc.done"
+rm -rf "${this_dir}/stjc.err"
+rm -rf "${this_dir}/stjc.log"
+rm -rf "${this_dir}/stjc.sh"
+rm -rf "${this_dir}/stjc.sh.bak"
+
+exit ${PIPESTATUS[0]}

@@ -1,19 +1,19 @@
 import subprocess
+import os
 
+cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-
-def test_set1_pub():
-    """Test that the publication env runs."""
+def do_pub_test():
+    """Test that the old version of r that needs compiling runs."""
     result = subprocess.run([
-        'bash', 'code/coble', 'build',
-        '--recipe', 'tests/fixtures/publication.cbl',
-        '--env', 'publication1',
-        '--rebuild'
-    ], capture_output=True, text=True)
+        'bash', 'tests/github/publication/commands.sh'],
+        cwd=cwd, capture_output=True, text=True,shell=False)
     print(result.stdout)
-    assert result.returncode == 0
+    return result.returncode
 
+def test_publication():
+    success = do_pub_test()
+    assert success == 0
 
 if __name__ == "__main__":
-    test_set1_pub()
-    
+    test_publication()

@@ -32,12 +32,12 @@ HAS_R=0
 DRY_RUN=false
 
 show_help() {
-	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
-	echo "  --frozen  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "Usage: $0 --export <recipe_file> [--env ENV]"
+	echo "  --export  RECIPE   Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-    echo "  --debug   Keep interim logs for debugging (optional)"
-	echo "  --dry-run Show the commands that would be run without executing them"
-    echo "  -h,--help Show this help message and exit"
+    echo "  --debug            Keep interim logs for debugging (optional)"
+	echo "  --dry-run          Show the commands that would be run without executing them"
+    echo "  -h,--help          Show this help message and exit"
 }
 
 echo "[coble-capture] Start processing arguments..." >&2
@@ -53,7 +53,11 @@ while [[ $# -gt 0 ]]; do
 			AGGREGATE_TXT="$2"
 			shift; shift
 			;;
-        --debug)
+        --export)
+			AGGREGATE_TXT="$2"
+			shift; shift
+			;;
+		--debug)
             KEEP_LOGS=1
             shift;
             ;;
