@@ -8,6 +8,8 @@ compilers:
 languages:
   - r-base=4.4.2
   - python=3.12.12
+flags:
+  - system-tools: true
 conda:
   - cairo=1.18
   - pango=1.56

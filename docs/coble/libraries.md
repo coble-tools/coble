@@ -22,11 +22,13 @@ The list of R versions can be found here:
 [https://cran.rstudio.com/bin/windows/base/old/](https://cran.rstudio.com/bin/windows/base/old/)
 
 
-When installing an old version of R, the recommendation is to use a cran snapshot from about a year after the release date. This is done in the compiler seciton of coble - here for 1st April 2020 should be good for R 3.6.
+When installing an old version of R, the recommendation is to use a cran snapshot from about a year after the release date. This is done in the compiler section of coble - here for 1st April 2020 should be good for R 3.6.
 
 ```yaml
+
 compilers:
   - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
-  ```
+
+```
 
 ---
