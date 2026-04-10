@@ -647,6 +647,9 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 done < "$YAML_FILE"
 # remove a trailing \ if needed
 sed -i '${s/\\$//}' "$RECIPE_FILE"
+echo "" >> "$RECIPE_FILE"
+echo "# End of recipe" >> "$RECIPE_FILE"
+echo "# Validation script setup" >> "$RECIPE_FILE"
 
 # copy line for validation script if VAL__FILE is not ""
 #echo "echo \"CONDA_PREFIX=\${CONDA_PREFIX}\"" >> "$RECIPE_FILE"
