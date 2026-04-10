@@ -7,8 +7,8 @@
 [![Pytest Work](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml)  
 
 
-# COBLE: COnda BuiLdEr
-`COBLE - COnda BuiLdEr: Build and manage conda environments`
+# COBLE
+`COBLE - COnda BuiLdEr: Build and manage conda environments`  
 Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.
 *Contacts: Rachel Alcraft, Syed Haider*
 
