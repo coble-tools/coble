@@ -43,8 +43,8 @@ def test_coble_circle():
     """
     rebuild=True
     input_file = 'tests/fixtures/circle.cbl'
-    freeze_1 = 'tests/fixtures/circle_freeze.cbl'
-    freeze_2 = 'tests/fixtures/circle_freeze_freeze.cbl'
+    freeze_1 = 'tests/fixtures/circle_export.cbl'
+    freeze_2 = 'tests/fixtures/circle_export_export.cbl'
 
     params1 = ['bash', 'code/coble', 'build',
     '--recipe', input_file,
