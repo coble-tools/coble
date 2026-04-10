@@ -39,6 +39,16 @@ echo "[coble-recipise] Starting recipise process..." >&2
 MAX_DEACTIVATIONS=5
 count=0
 
+remove_trailing_backslash() {
+    local file="$1"
+    local tmp
+
+    tmp="$(mktemp)" || return 1
+    sed '$ s/\\$//' "$file" > "$tmp" || { rm -f "$tmp"; return 1; }
+
+    cp "$file" "$file.bak" || { rm -f "$tmp"; return 1; }
+    mv "$tmp" "$file"
+}
 
 # Parse named arguments
 show_help() {
@@ -289,7 +299,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+        remove_trailing_backslash "$RECIPE_FILE"
         if [[ "$line" != "channels:" ]]; then
           echo "# $line" >> "$RECIPE_FILE"
         fi
@@ -604,8 +614,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
             # Build arguments array
             find_args=(--pkg "$pkg_only" --version "$ver")
+
             # Call and capture return value
-            mapfile -t result < <("$script_dir/coble-find.sh" "${find_args[@]}")
+            result=()
+            while IFS= read -r line; do
+                result+=("$line")
+            done < <("$script_dir/coble-find.sh" "${find_args[@]}")
+
             pkg_manager="${result[0]}"
             recipe_line="${result[1]}"
             yaml_line="${result[2]}"
@@ -618,7 +633,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         fi
     else
         # remove a trailing \ if needed
-        sed -i '${s/\\$//}' "$RECIPE_FILE"
+        remove_trailing_backslash "$RECIPE_FILE"
         # if it is a comment
         if [[ "$line" == \#* ]]; then
             echo "$line" >> "$RECIPE_FILE"

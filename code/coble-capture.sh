@@ -373,9 +373,9 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e "  - environment: $ENV_NAME"
 	echo -e ""
 	echo -e "channels:"
-    conda config --show channels $ENV_FORMATTED | grep -E '^\s*-\s' | sed 's/^\s*-\s*//' | tac | while read -r channel; do
-        echo "  - $channel"
-    done
+	{ conda config --env --show channels 2>/dev/null || conda config --show channels; } | grep -E '^[[:space:]]*-[[:space:]]' | sed 's/^[[:space:]]*-[[:space:]]*//' | awk '{lines[NR]=$0} END {for (i=NR; i>=1; i--) print lines[i]}' | while read -r channel; do
+		echo "  - $channel"
+	done
 	#echo -e "  - defaults"
 	#echo -e "  - r"
 	#echo -e "  - bioconda"
@@ -399,7 +399,13 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	echo -e "  - compile-tools: true"
 	echo -e "  - dependencies: false"
     echo -e "  - priority: flexible"
-	conda env config vars list | grep -E '^\w+\s*=' | sed 's/\s*=\s*/=/' | sort | while IFS='=' read -r key value; do
+	conda env config vars list | sort | while IFS='=' read -r key value; do
+		key="${key%% *}"
+		value="${value## }"
+		value="${value%% }"
+		if [[ ! "$key" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+			continue
+		fi
     	# don't want to repat any of the settings that are the compiler tools we set elsewhere
 		not_key=("CC" "CXX" "LD" "FC" "F77" "CFLAGS" "CXXFLAGS" "CPPFLAGS" "LDFLAGS")
 		if [[ ! " ${not_key[@]} " =~ " ${key} " ]]; then
@@ -411,11 +417,11 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
     #fi
 } > "$AGGREGATE_TXT"
 
-# Now loop through the sorted file and keep as a variable the current mananager
+# Now loop through the sorted file and keep as a variable the current manager
 current_manager=""
 current_channel=""
 header_skipped=false
-declare -A seen_pkgver
+seen_pkgver=""          # Use a colon-delimited string instead of associative array
 my_find_list=()
 while IFS=$'\t' read -r manager pkg src path; do
 	if ! $header_skipped; then
@@ -424,17 +430,17 @@ while IFS=$'\t' read -r manager pkg src path; do
 	fi
     # Deduplicate by pkgver (case-insensitive)
 	pkgver_key="$(echo "$pkg" | tr '[:upper:]' '[:lower:]')"
-	if [[ -n "${seen_pkgver[$pkgver_key]}" ]]; then
-		continue
-	fi
-	seen_pkgver[$pkgver_key]=1
+	case ":$seen_pkgver:" in
+        *":$pkgver_key:"*) continue ;;  # skip duplicates
+    esac
+	seen_pkgver="$seen_pkgver:$pkgver_key"
 	# Skip packages that are system-related, start with an underscore, are System/Manual, or start with python=
     if [[ "$pkg" == _* ]] || \
-	[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
-	#[[ "$src" == *System/Manual* ]] || \
-	[[ "$pkg" == *base=* ]] || \
-	[[ "$pkg" == python=* ]]; then
-		continue
+		[[ "$pkg" =~ (windows|osx|darwin|unix|system) ]] || \
+		#[[ "$src" == *System/Manual* ]] || \
+		[[ "$pkg" == *base=* ]] || \
+		[[ "$pkg" == python=* ]]; then
+			continue
 	fi
     if [[  "$src" != "$current_channel"  && "$src" != *"unknown"*  ]]; then
         current_channel="$src"

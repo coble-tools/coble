@@ -10,10 +10,27 @@ skip_variants=false
 YAML_FILE=""
 INCLUDE_R_FORGE=false # by default no as it is usually down
 
-# declare associative array once at the top of your script 
-declare -A VARIANT_MANAGERS
+# Build variants and map
+get_variant_manager() {
+    case "$1" in
+        "$pkg") echo "Conda (conda-forge)" ;;
+        "r-$pkg") echo "Conda (r)" ;;
+        "r-r$pkg") echo "Conda (r)" ;;
+        "bioconductor-$pkg") echo "Conda (bioconda)" ;;
+        *) echo "" ;;
+    esac
+}
 
-# Parse arguments
+# Parse arguments# Build variants and map
+get_variant_manager() {
+    case "$1" in
+        "$pkg") echo "Conda (conda-forge)" ;;
+        "r-$pkg") echo "Conda (r)" ;;
+        "r-r$pkg") echo "Conda (r)" ;;
+        "bioconductor-$pkg") echo "Conda (bioconda)" ;;
+        *) echo "" ;;
+    esac
+}
 while [[ $# -gt 0 ]]; do
   case $1 in
     --pkg) pkg="$2"; shift 2 ;;
@@ -21,7 +38,7 @@ while [[ $# -gt 0 ]]; do
     --all) all=true; shift ;;
     --skip-variants) skip_variants=true; shift ;;
     --include-r-forge) INCLUDE_R_FORGE=true; shift ;;
-    --recipe) YAML_FILE="$2"; shift 2 ;;     
+    --recipe) YAML_FILE="$2"; shift 2 ;;
     *) echo "Unknown option: $1" >&2; exit 1 ;;
   esac
 done
@@ -49,33 +66,33 @@ check_and_print() {
     name_ver="$pkg_name"
 
     echo "[coble-found] $source, $pkg_name, $pkg_ver, $pkg_orig, $ver_orig, $channel, $bioc_ver" >&2
-    
+
     if [[ -n "$pkg_ver" ]]; then
         echo "  $pkg_name $pkg_ver" >&2
         name_ver="$pkg_name=$pkg_ver"
     else
-        name_ver="$pkg_name"         
-    fi    
+        name_ver="$pkg_name"
+    fi
     yaml_line="  - $name_ver"
 
     case $source in
         "Conda (bioconda)")
             recipe_line="conda install -y -c conda-forge -c $channel '$name_ver' --no-update-deps"
             #manager="conda-bioc:"
-            manager="conda:"            
+            manager="conda:"
             ;;
         "Conda (conda-forge)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             manager="conda:"
             if [[ "$name_ver" == r-base* || "$name_ver" == python* ]]; then
-              manager="languages:"            
+              manager="languages:"
             fi
             ;;
         "Conda (r)")
             recipe_line="conda install -y -c $channel '$name_ver' --no-update-deps"
             #manager="conda-r:"
             if [[ "$name_ver" == r-base* || "$name_ver" == python* ]]; then
-              manager="languages:"            
+              manager="languages:"
             fi
             manager="conda:"
             ;;
@@ -109,17 +126,17 @@ check_and_print() {
             recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
             manager="r-github:"
             yaml_line="  - $pkg_name"
-            ;;        
+            ;;
         "c++-github")
             recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
             manager="?r?c++-github:"
             yaml_line="  - $pkg_name"
-            ;;        
+            ;;
         "???-github")
             recipe_line="Rscript -e 'remotes::install_github(\"$channel\", dependencies=TRUE)'"
             manager="???-github:"
             yaml_line="  - $pkg_name"
-            ;;        
+            ;;
         "python-url")
             recipe_line="python -m pip install $channel"
             manager="pip:"
@@ -127,66 +144,68 @@ check_and_print() {
             ;;
     esac
 
-        
+
     [[ -n "$channel" ]] && yaml_line+="@$channel"
 
     if [[ $all == false ]]; then
         #echo "$manager"
         #echo "$recipe_line"
         #echo "$yaml_line"
-        echo "found|$manager" >> "$YAML_FILE"        
+        echo "found|$manager" >> "$YAML_FILE"
         echo "$yaml_line" >> "$YAML_FILE"
         #exit 0
-    fi        
+    fi
 }
 ###################################################################
 ### SEARCHING conda ######################
 ###################################################################
 # Build variants and map
 variants=("$pkg")
-VARIANT_MANAGERS["$pkg"]="Conda (conda-forge)"
 
 if [[ "$skip_variants" != true ]]; then
     variants+=("r-$pkg")
-    VARIANT_MANAGERS["r-$pkg"]="Conda (r)"
-    
     variants+=("r-r$pkg")
-    VARIANT_MANAGERS["r-r$pkg"]="Conda (r)"
-
     variants+=("bioconductor-$pkg")
-    VARIANT_MANAGERS["bioconductor-$pkg"]="Conda (bioconda)"
 fi
 
 # Track what we've already found to avoid duplicates
-declare -A found_combinations
+found_combinations=""
 
 for variant in "${variants[@]}"; do
-    #echo "[coble-find] Checking variant: $variant" >&2
-    manager="${VARIANT_MANAGERS[$variant]}"
-    
+     # Determine which manager label this variant belongs to
+    manager="$(get_variant_manager "$variant")"
+    # Safety check – skip empty variants (shouldn't happen, but defensive)
+
     if [[ -n "$variant" ]]; then
         for channel in bioconda conda-forge r; do
-            # Get all versions from API
+            # Query Anaconda API for all versions of this variant in the channel
+            # Extract version fields from JSON
+            # Remove duplicates using sort -u
             versions=$(curl -s "https://api.anaconda.org/package/$channel/$variant" | \
                       grep -o '"version": *"[^"]*"' | cut -d'"' -f4 | \
-                      sort -u)  # ← Remove duplicates
-            
+                      sort -u)
+
+            # Continue only if versions were returned
             if [[ -n "$versions" ]]; then
+                # If a specific version was requested, filter to that version only
                 if [[ -n "$ver" ]]; then
-                    # Filter to specific version if requested
                     versions=$(echo "$versions" | grep -x "$ver")
                 fi
-                
-                # Loop through ALL matching versions
+                # Iterate through all matching versions
                 while IFS= read -r version; do
                     if [[ -n "$version" ]]; then
                         # Create unique key to avoid duplicates across channels
                         combo_key="$variant|$version|$channel"
-                        if [[ -z "${found_combinations[$combo_key]}" ]]; then
-                            found_combinations[$combo_key]=1
-                            echo "[coble-find] Found $variant version $version in channel $channel" >&2
-                            check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
-                        fi
+                        # Deduplicate using colon-delimited pseudo-set
+                        case ":$found_combinations:" in
+                            *":$combo_key:"*) continue ;;  # Skip if already processed
+                        esac
+                        # Mark this combination as seen
+                        found_combinations="$found_combinations:$combo_key"
+                        # Log discovery
+                        echo "[coble-find] Found $variant version $version in channel $channel" >&2
+                        # Pass result to printer function
+                        check_and_print "$manager" "$variant" "$version" "$pkg" "$ver" "$channel"
                     fi
                 done <<< "$versions"
             fi
@@ -215,7 +234,7 @@ fi
 for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pkg:0:1} | tr '[:lower:]' '[:upper:]')${pkg:1}"; do
   #echo "[coble-find] Checking CRAN archive candidate $candidate" >&2
   url="https://cran.r-project.org/src/contrib/Archive/$candidate/"
-  
+
   if [[ -n "$ver" ]]; then
     # Look for specific version in archive
     pkg_entry=$(curl -s "$url" | grep -Eo "${candidate}_${ver}\.tar\.gz" | head -n1)
@@ -223,11 +242,11 @@ for candidate in "$pkg" "$(echo $pkg | tr '[:lower:]' '[:upper:]')" "$(echo ${pk
     # Get first available version
     pkg_entry=$(curl -s "$url" | grep -Eo '[A-Za-z0-9]+_[0-9][^"]*\.tar\.gz' | head -n1)
   fi
-  
+
   if [[ -n "$pkg_entry" ]]; then
     IFS='_' read -r pkg_name verpart <<< "$pkg_entry"
     pkg_ver=${verpart%.tar.gz}
-    
+
     # Only proceed if version matches what was requested (or no version specified)
     if [[ -z "$ver" ]] || [[ "$pkg_ver" == "$ver" ]]; then
       check_and_print "CRAN (archive)" "$pkg_name" "$pkg_ver" "$pkg" "$ver" "CRAN"
@@ -242,16 +261,17 @@ done
 ###################################################################
 
 echo "[coble-find] Checking Bioconductor" >&2
-declare -A bioc_variants=(
-  ["main"]="https://bioconductor.org/packages/release/bioc/VIEWS"
-  ["experiment"]="https://bioconductor.org/packages/release/data/experiment/VIEWS"
-  ["annotation"]="https://bioconductor.org/packages/release/data/annotation/VIEWS"
-  ["workflows"]="https://bioconductor.org/packages/release/workflows/VIEWS"
+bioc_categories=("main" "experiment" "annotation" "workflows")
+bioc_urls=(
+  "https://bioconductor.org/packages/release/bioc/VIEWS"
+  "https://bioconductor.org/packages/release/data/experiment/VIEWS"
+  "https://bioconductor.org/packages/release/data/annotation/VIEWS"
+  "https://bioconductor.org/packages/release/workflows/VIEWS"
 )
 
-for category in "${!bioc_variants[@]}"; do
-  #echo "[coble-find] Checking category $category" >&2
-  url="${bioc_variants[$category]}"
+for i in "${!bioc_categories[@]}"; do
+  category="${bioc_categories[$i]}"
+  url="${bioc_urls[$i]}"
   bio_line=$(curl -s "$url" | \
   awk -v p="$pkg" -v v="$ver" '
     /^Package:/ {pkgname=$2}
@@ -333,7 +353,7 @@ search_github_repo() {
 
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
-     check_and_print "r-github" "$pkg" "" "$pkg" "" "${results}"  
+     check_and_print "r-github" "$pkg" "" "$pkg" "" "${results}"
   fi
 }
 search_github_repo $pkg
@@ -356,7 +376,7 @@ results=$(curl -s "$url" \
 
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
-     check_and_print "c++-github" "$pkg" "" "$pkg" "" "${results}"  
+     check_and_print "c++-github" "$pkg" "" "$pkg" "" "${results}"
   fi
 }
 search_github_cpp $pkg
@@ -381,7 +401,7 @@ search_github_python() {
 
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
-     check_and_print "python-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"  
+     check_and_print "python-url" "$pkg" "" "$pkg" "" "${results}/archive/refs/heads/master.zip"
   #else
   #    echo "[coble-find] No github python repo found for $q gives $result" >&2
   fi
@@ -405,7 +425,7 @@ search_github_any() {
 
   # Return concatenated string or empty
   if [[ -n "$results" ]]; then
-     check_and_print "???-github" "$pkg" "" "$pkg" "" "${results}"  
+     check_and_print "???-github" "$pkg" "" "$pkg" "" "${results}"
   fi
 }
 #search_github_any $pkg
