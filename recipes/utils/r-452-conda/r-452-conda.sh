@@ -2,15 +2,15 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-03-18
-# Capture time: 21:57:00 GMT
+# Capture date: 2026-04-10
+# Capture time: 13:34:06 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name r-452-conda -y 2>/dev/null || true
@@ -103,4 +103,8 @@ Rscript -e 'BiocManager::install("GenomicRanges", dependencies=NA, Ncpus=8)'
 # Validate script available in environment at CONDA PREFIX: validate.sh
 cp recipes/utils/r-452-conda/validate/validate.sh ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
+mkdir -p ${CONDA_PREFIX}/coble-recipe
+cp recipes/utils/r-452-conda/r-452-conda.cbl ${CONDA_PREFIX}/coble-recipe
+cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
+cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
 

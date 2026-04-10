@@ -31,4 +31,4 @@ def test_coble_small():
     assert 'usage' in result.stdout.lower() or 'help' in result.stdout.lower()
 
 if __name__ == "__main__":
-    test_coble_help()
+    test_coble_small()

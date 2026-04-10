@@ -244,8 +244,6 @@ about:
   summary: Placeholder for source-built R ${R_VERSION}
 EOF
 
-
-source ~/.bashrc
 if [ -f ~/.bashrc ]; then source ~/.bashrc; else if command -v conda &> /dev/null; then eval "$(conda shell.bash hook)"; fi
 conda build /tmp/r-base-recipe
 conda install --use-local r-base=${R_VERSION}
