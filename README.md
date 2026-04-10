@@ -1,5 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)  
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19498498.svg)](https://doi.org/10.5281/zenodo.19498498)  
+
 [![Conda Version](https://img.shields.io/conda/vn/rachelsa/coble?label=coble)](https://anaconda.org/rachelsa/coble)  
 
 
