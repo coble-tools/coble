@@ -4,8 +4,8 @@
 
 [![Conda Version](https://img.shields.io/conda/vn/rachelsa/coble?label=coble)](https://anaconda.org/rachelsa/coble)  
 
-
-[![CI Tests](https://github.com/coble-tools/coble/actions/workflows/tests.yml/badge.svg)](https://github.com/coble-tools/coble/actions)  
+[![Pytest Public](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml)  
+[![Pytest Work](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml)  
 
 
 # COBLE: COnda BuiLdEr
