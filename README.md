@@ -1,7 +1,7 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)  
-[![Conda Version](https://img.shields.io/conda/vn/rachelsa/coble?label=coble)](https://anaconda.org/rachelsa/coble)  
-[![Pytest Public](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml)  
-[![Pytest Work](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)
+[![Conda Version](https://img.shields.io/conda/vn/rachelsa/coble?label=coble)](https://anaconda.org/rachelsa/coble)
+[![Pytest Public](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_pub.yml)
+[![Pytest Work](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml/badge.svg)](https://github.com/coble-tools/coble/actions/workflows/pytest_work.yml)
 
 
 # COBLE
