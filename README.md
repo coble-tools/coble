@@ -1,6 +1,6 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)
-[![CI Tests](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/tests.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions)
-[![Lint](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/lint.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)  
+[![CI Tests](https://github.com/coble-tools/coble/actions/workflows/tests.yml/badge.svg)](https://github.com/coble-tools/coble/actions)  
+
 
 
 # COBLE: COnda BuiLdEr
