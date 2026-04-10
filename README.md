@@ -1,3 +1,8 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19233617.svg)](https://doi.org/10.5281/zenodo.19233617)
+[![CI Tests](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/tests.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions)
+[![Lint](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/lint.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions)
+
+
 # COBLE: COnda BuiLdEr
 `COBLE - COnda BuiLdEr: Build and manage conda environments`
 Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.
