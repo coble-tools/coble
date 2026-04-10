@@ -1,5 +1,4 @@
-name: Testing Conda-Pytest
-
+name: Testing Conda-Publication
 on:
   push:
     branches: [ main ]
