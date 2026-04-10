@@ -10,7 +10,7 @@ LOG="$this_dir/log.txt"
 > "$LOG"
 
 choose_steps=1,2,3,4,5,6,7,8,9
-#choose_steps=6
+choose_steps=6
 # A simple filecheck for correctness
 incorrect=0
 
@@ -99,14 +99,21 @@ fi
 if [[ $choose_steps == *"6"* ]]; then
     echo "6. network" | tee -a "$LOG"
 
-    code/coble build --recipe "${this_dir}/codex-vis.cbl" --env codex-vis | tee -a "$LOG"
+    code/coble build --recipe "${this_dir}/netvis.cbl" --env netvis | tee -a "$LOG"
 
-    code/coble network --export "${this_dir}/codex-vis-export.cbl" --env codex-vis | tee -a "$LOG"
+    code/coble network --export "${this_dir}/netvis_export.cbl" --env netvis | tee -a "$LOG"
 
-    if [[ -f "${this_dir}/codex_dependencies.cbl" ]]; then
-        echo "Exported recipe file found: ${this_dir}/codex_dependencies.cbl" | tee -a "$LOG"
+    if [[ -f "${this_dir}/netvis_dependencies.txt" ]]; then
+        echo "Exported recipe file found: ${this_dir}/netvis_dependencies.txt" | tee -a "$LOG"
     else
-        echo "Error: Exported recipe file not found: ${this_dir}/codex_dependencies.cbl" | tee -a "$LOG"
+        echo "Error: Exported recipe file not found: ${this_dir}/codex_dependencies.txt" | tee -a "$LOG"
+        incorrect=$((incorrect + 1))
+    fi
+
+    if [[ -f "${this_dir}/netvis_network_interactive.html" ]]; then
+        echo "Exported recipe file found: ${this_dir}/netvis_network_interactive.html" | tee -a "$LOG"
+    else
+        echo "Error: Exported recipe file not found: ${this_dir}/netvis_network_interactive.html" | tee -a "$LOG"
         incorrect=$((incorrect + 1))
     fi
 fi
@@ -210,6 +217,16 @@ else
     rm -rf "${this_dir}/stjc.log"
     rm -rf "${this_dir}/stjc.sh"
     rm -rf "${this_dir}/stjc.sh.bak"
+
+    rm -rf "${this_dir}/netvis.cbl.bak"
+    rm -rf "${this_dir}/netvis_summary.txt"
+    rm -rf "${this_dir}/netvis.cbl.tmp"
+    rm -rf "${this_dir}/netvis.delta"
+    rm -rf "${this_dir}/netvis.done"
+    rm -rf "${this_dir}/netvis.err"
+    rm -rf "${this_dir}/netvis.log"
+    rm -rf "${this_dir}/netvis.sh"
+    rm -rf "${this_dir}/netvis.sh.bak"
 
 fi
 
