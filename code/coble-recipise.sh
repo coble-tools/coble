@@ -646,7 +646,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     fi
 done < "$YAML_FILE"
 # remove a trailing \ if needed
-sed -i '${s/\\$//}' "$RECIPE_FILE"
+remove_trailing_backslash "$RECIPE_FILE"
 echo "" >> "$RECIPE_FILE"
 echo "# End of recipe" >> "$RECIPE_FILE"
 echo "# Validation script setup" >> "$RECIPE_FILE"
