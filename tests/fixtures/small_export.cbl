@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-04-10
-# Capture time: 13:39:15 BST
+# Capture time: 13:45:12 BST
 # Captured by: ralcraft
 
 coble:
@@ -9,6 +9,7 @@ coble:
 
 channels:
   - defaults
+  - r
   - bioconda
   - conda-forge
 
