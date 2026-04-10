@@ -56,9 +56,9 @@ elif [[ "$FLAVOUR" =~ ^(find)$ ]]; then # SYLVER tutorial
 elif [[ "$FLAVOUR" =~ ^(sylver)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     cp "$script_dir/tml_sylver.cbl" "$YAML_FILE"
-elif [[ "$FLAVOUR" =~ ^(template)$ ]]; then
+elif [[ "$FLAVOUR" =~ ^(full)$ ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    cp "$script_dir/tml_template.cbl" "$YAML_FILE"
+    cp "$script_dir/tml_full.cbl" "$YAML_FILE"
 else
     echo "[coble-template] Unknown flavour: $FLAVOUR" >&2
     exit 1

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Detect install context (bin vs code dir)
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -18,7 +18,6 @@ show_help() {
 	echo "Usage: $0 <command> [options]"
 	echo "  template  get a starter recipe of 5 given options"
 	echo "  build     build (--rebuild) or update the conda enviroment from the recipe input"
-	echo "  freeze    capture the packages from an existing environment"
 	echo "  export    export the packages from an existing environment to a recipe file"
 	echo "  network   generate a network graph from a frozen environment file"
 	echo "  me        find the details of a recipe from within a coble generated environment"
@@ -27,7 +26,7 @@ show_help() {
 	echo "  $0 build --recipe my.cbl --env my-env"
 	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"
-	echo "  $0 freeze --frozen my.cbl --env my-env"
+	echo "  $0 export --frozen my.cbl --env my-env"
 	echo "  $0 network --frozen my.cbl --env my-env"
 	echo "  $0 me "
 }
@@ -77,7 +76,7 @@ if [[ "$1" == "linux-deps" ]]; then
 fi
 
 # if the first command is not valid show help and exit
-valid_commands=("template" "build" "update" "contain" "capture" "freeze" "network" "export" "me" "validate")
+valid_commands=("template" "build" "update" "contain" "capture" "network" "export" "me" "validate")
 if [[ ! " ${valid_commands[*]} " =~ " $1 " ]]; then
     echo "[coble] Not a valid command provided: $1." >&2
     show_help
@@ -102,10 +101,10 @@ if [[ "$1" == "me" ]]; then
 		echo "===== $cbl_file ====="
 		head -n 4 "$cbl_file"
 		echo ""
-	done < <(find "$recipe_root" -type f -name "*_freeze.cbl" | sort)
+	done < <(find "$recipe_root" -type f -name "*_export.cbl" | sort)
 
 	if [[ $cbl_count -eq 0 ]]; then
-		echo "[coble-me] No _freeze.cbl files found in $recipe_root" >&2
+		echo "[coble-me] No _export.cbl files found in $recipe_root" >&2
 		exit 0
 	fi
 
@@ -182,7 +181,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
     RESULTS_DIR="$(dirname "$recipe_file")"
 	done_recipe="$RESULTS_DIR/${base_name_noext}.done"
 	summary_file="$RESULTS_DIR/${base_name_noext}_summary.txt"
-	capture_file="$RESULTS_DIR/${base_name_noext}_freeze.cbl"
+	capture_file="$RESULTS_DIR/${base_name_noext}_export.cbl"
 
 
     if [[ "$REBUILD_FLAG" == "--rebuild" ]]; then
@@ -219,10 +218,10 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 		exit 1
 	fi
 
-	echo "[coble 5/6] Created env, proceeding to freeze in file $capture_file" >&2
+	echo "[coble 5/6] Created env, proceeding to export in file $capture_file" >&2
     # replace --recipe existring with capture file
 	#recipe_dir="$(dirname "$recipe_file")"
-	result=$("$script_dir/coble-capture.sh" --frozen "$capture_file" "${@:2}")
+	result=$("$script_dir/coble-capture.sh" --export "$capture_file" "${@:2}")
 
 	# Do not do this by default as it is very time consuming and very experimental
 	# The function network allows it to be done as a seperate step
@@ -258,14 +257,9 @@ if [[ "$1" == "contain" ]] || [[ "$1" == "build" && ( "$container_type" == *"doc
 fi
 
 # If the first argument is 'capture', call coble-capture.sh and exit
-if [[ "$1" == "capture" || "$1" == "freeze" ]]; then
+if [[ "$1" == "capture" || "$1" == "freeze" || "$1" == "export" ]]; then
 	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	"$script_dir/coble-capture.sh" "${@:2}"
-	exit $?
-fi
-if [[ "$1" == "export" ]]; then
-	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-	"$script_dir/coble-export.sh" "${@:2}"
 	exit $?
 fi
 

@@ -24,6 +24,7 @@ flags:
   - alias: conda # sets the conda alias to use - conda / mamba / micromamba a user path etc, only fir the solver eg mamba install
   - ncpus: 4 # number of cpus to use for r package installs
   - solver: libmamba # classic
+  - cran-repo: https://packagemanager.posit.co/cran/2020-04-01 # dated cran repo to ensure reproducibility of r package installs
 conda:
   - pandas
 r-conda:

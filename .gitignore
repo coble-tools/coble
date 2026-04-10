@@ -101,3 +101,14 @@ build
 call
 .cache/*
 boltz_results_prot-lig/*
+tests/github/publication/*
+!tests/github/publication/codex.cbl
+!tests/github/publication/netvis.cbl
+!tests/github/publication/find.cbl
+!tests/github/publication/stjc.cbl
+!tests/github/publication/commands.sh
+!tests/github/publication/test_set1_pub.py
+!tests/github/publication/commands.docx
+!tests/github/publication/commands.md
+
+dev-recipes/netvis/netvis_network_interactive_files/*

@@ -32,12 +32,12 @@ HAS_R=0
 DRY_RUN=false
 
 show_help() {
-	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
-	echo "  --frozen  RECIPE  Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
+	echo "Usage: $0 --export <recipe_file> [--env ENV]"
+	echo "  --export  RECIPE   Specify output recipe file (optional, default: ./coble-reciped-reproduce.sh)"
 	echo "  --env     ENV      Specify conda environment name or prefix (optional, default is current activated environment)"
-    echo "  --debug   Keep interim logs for debugging (optional)"
-	echo "  --dry-run Show the commands that would be run without executing them"
-    echo "  -h,--help Show this help message and exit"
+    echo "  --debug            Keep interim logs for debugging (optional)"
+	echo "  --dry-run          Show the commands that would be run without executing them"
+    echo "  -h,--help          Show this help message and exit"
 }
 
 echo "[coble-capture] Start processing arguments..." >&2
@@ -53,7 +53,11 @@ while [[ $# -gt 0 ]]; do
 			AGGREGATE_TXT="$2"
 			shift; shift
 			;;
-        --debug)
+        --export)
+			AGGREGATE_TXT="$2"
+			shift; shift
+			;;
+		--debug)
             KEEP_LOGS=1
             shift;
             ;;
@@ -359,7 +363,7 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
 	CAPTURE_TIME=$(date '+%H:%M:%S %Z')
 	CAPTURE_USER=$(whoami)
-	echo -e "# COBLE:capture, (c) ICR 2026"
+	echo -e "# COBLE:export, (c) ICR 2026"
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"
@@ -492,6 +496,6 @@ fi
 
 echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
 
-echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_freeze.cbl" >&2
-cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_freeze.cbl"
+echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_export.cbl" >&2
+cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_export.cbl"
 

@@ -24,15 +24,15 @@ def file_diffs(file1, file2):
         print(lines2)
         print("-" * 40)
 
-        
+
         max_lines = max(len(lines1), len(lines2))
         for i in range(30,max_lines):
             line1 = lines1[i].rstrip() if i < len(lines1) else ''
             line2 = lines2[i].rstrip() if i < len(lines2) else ''
             if line1 != line2:
                 diffs.append((i + 1, line1, line2))
-    return diffs
-    
+    return diffs, len(lines1[30:]), len(lines2[30:])
+
 def test_coble_circle():
     """Test that the circular env runs.
     It is a multi stage test:
@@ -43,27 +43,31 @@ def test_coble_circle():
     """
     rebuild=True
     input_file = 'tests/fixtures/circle.cbl'
-    freeze_1 = 'tests/fixtures/circle_freeze.cbl'
-    freeze_2 = 'tests/fixtures/circle_freeze_freeze.cbl'
+    freeze_1 = 'tests/fixtures/circle_export.cbl'
+    freeze_2 = 'tests/fixtures/circle_export_export.cbl'
 
-    params1 = ['bash', 'code/coble', 'build', 
-    '--recipe', input_file, 
+    params1 = ['bash', 'code/coble', 'build',
+    '--recipe', input_file,
     '--env', 'circular1']
-    params2 = ['bash', 'code/coble', 'build', 
-    '--recipe', freeze_1, 
-    '--env', 'circular2']    
+    params2 = ['bash', 'code/coble', 'build',
+    '--recipe', freeze_1,
+    '--env', 'circular2']
     if rebuild:
         params1.append('--rebuild')
         params2.append('--rebuild')
     result1 = subprocess.run(params1, cwd=cwd, capture_output=True, text=True)
     result2 = subprocess.run(params2, cwd=cwd, capture_output=True, text=True)
 
-    diffs = file_diffs(freeze_1, freeze_2)
+    diffs, lena, lenb = file_diffs(freeze_1, freeze_2)
     print(diffs)
+    print(f"Length of file 1 (after line 30): {lena}")
+    print(f"Length of file 2 (after line 30): {lenb}")
 
     assert result1.returncode == 0
     assert result2.returncode == 0
-    assert len(diffs) == 0
-    
+    assert len(diffs) == 0#
+    assert lena > 0
+    assert lenb > 0
+
 if __name__ == "__main__":
     test_coble_circle()
