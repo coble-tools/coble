@@ -42,10 +42,12 @@ jobs:
         run: |
           conda install -c conda-forge conda-build anaconda-client conda-index -y
 
-      - name: Set version in meta.yaml
+      - name: Set versions in release files
         run: |
           sed -i "s/{% set version = \".*\" %}/{% set version = \"${{ github.event.inputs.version }}\" %}/" conda-recipe/meta.yaml
           sed -i "s/^  number: .*/  number: 0/" conda-recipe/meta.yaml
+          sed -i "s/^version: .*/version: ${{ github.event.inputs.version }}/" CITATION.cff
+          sed -i "s/^VERSION=\".*\"/VERSION=\"${{ github.event.inputs.version }}\"/" code/coble
 
       - name: Commit and tag
         run: |
@@ -62,9 +64,9 @@ jobs:
           if [ "$STASHED" = "true" ]; then
             git stash pop
           fi
-                                           
+
           if ! git diff --quiet || ! git diff --cached --quiet; then
-            git add conda-recipe/meta.yaml
+            git add conda-recipe/meta.yaml CITATION.cff code/coble
             git commit -m "Release v${{ github.event.inputs.version }}"
           else
             echo "Nothing to commit, skipping."

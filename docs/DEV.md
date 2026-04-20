@@ -23,7 +23,7 @@ The draft pull request alerts to the fact of the work and the files changed, and
 This project release process assumes you always do both manual actions:
 
 1. Run the Conda Release workflow with a new version
-2. Publish a GitHub Release using the created tag
+2. Manually publish a GitHub Release using the created tag
 
 Tag creation is automatic inside the Conda Release workflow.
 
@@ -50,7 +50,10 @@ Set these repository secrets (GitHub -> Settings -> Secrets and variables -> Act
 4. Wait for the workflow to finish successfully.
 
 What this workflow does:
-- Updates `conda-recipe/meta.yaml` version
+- Updates versions in:
+  - `conda-recipe/meta.yaml`
+  - `CITATION.cff`
+  - `code/coble`
 - Commits to `main` (if changed)
 - Creates and pushes tag `vX.Y.Z`
 - Builds and uploads the Conda package
@@ -60,22 +63,15 @@ What this workflow does:
 7. Set release title (for example: `vX.Y.Z`) and notes.
 8. Click `Publish release`.
 
-What publishing the GitHub Release does:
-- Triggers `.github/workflows/release-ci.yml`
-- Bumps versions in:
-  - `conda-recipe/meta.yaml`
-  - `CITATION.cff`
-  - `code/coble`
-- Commits those updates to `main`
-
 ### Quick Verification Checklist
 
 After release, confirm:
 
 1. Tag `vX.Y.Z` exists in GitHub.
 2. GitHub Release `vX.Y.Z` is published.
-3. Conda package `coble-X.Y.Z-0` is available on Anaconda.org.
-4. Version bump commit from `release-ci.yml` is on `main`.
+3. Zenodo record for `vX.Y.Z` is created/updated.
+4. Conda package `coble-X.Y.Z-0` is available on Anaconda.org.
+5. Version files (`meta.yaml`, `CITATION.cff`, `code/coble`) are on `X.Y.Z` in `main`.
 
 ### If Something Fails
 
