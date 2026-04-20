@@ -21,7 +21,7 @@ For documentation on the GitHub repo: GitHub
 
 ## Contributions and Feedback
 We welcome feedback, suggestions, bug reports, pull requests and support requests in our GitHub issues:  [coble/issues](https://github.com/coble-tools/coble/issues).  
-We welcome submissions for community containers as per guidelines below.
+We welcome submissions for community containers as per [guidelines below](#community-containers)  
 
 ## Installation
 
@@ -43,7 +43,7 @@ You need to add the location `...coble/code` to the path or refer to the coble u
 
 ## Community Containers
 The community docker images can be run in either docker or singualrity. Fiurst pull the image (you only need to do this once), and then you can run the image as a bash terminal with the environment ready activated.
-An example is given here for papers-DESEq2, setting it as an environment variable to maie it easy to re-use.
+An example is given here for papers-DESEq2, setting it as an environment variable to maid it easy to re-use.
 ```bash
 # Docker
 COBLE_VERSION=papers-deseq2
