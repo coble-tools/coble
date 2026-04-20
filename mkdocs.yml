@@ -61,6 +61,7 @@ nav:
   - Overview:
     - Home: index.md
     - Installation: overview/install.md
+    - QuickStart: overview/quick.md
     - Motivation: overview/motivation.md
     - Visualisation: overview/network.md
   - COBLE:

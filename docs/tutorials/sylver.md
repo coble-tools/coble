@@ -56,6 +56,7 @@ Note that defaults is the higherst priority in the strict channel order due to d
 
 <details>
 <summary>sylver.cbl</summary>
+
 ```yaml
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
@@ -118,6 +119,7 @@ It will return **IN PLACE** an updated cbl file with the best efforts it could m
 This is what we now have:
 <details>
 <summary>sylver.cbl</summary>
+
 ```yaml
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
@@ -270,12 +272,14 @@ found|pip:
 
 #   - cdsr_models
 ```
+
 </details>
 
 Each section has been commented, and there is a `found|packagemanager` we can edit it down to something that seems sensible on first effort. We can remove channels and let conda resolve those, and prioritise conda over package managers if we can. The languages sections starts empty, we will move r up to it.  We need to add a change to the channel priority after the old version of R has installed.
 
 <details>
 <summary>tutorials/sylver/sylver.cbl</summary>
+
 ```yaml
 coble:
   - environment: coble-env
@@ -315,6 +319,7 @@ r-package:
   - survival=3.2-11
 bioc-package:
   - limma=3.42.2
+
 #   - cdsr_models
 ```
 </details>
@@ -322,7 +327,9 @@ bioc-package:
 We can see that cdsr_models was not found, and I can neaten the conda installs to specify biocmanager and R. I will remove cdsr_models for this tutorial (further explanation coming). The automatic prepend of r and bioconductor facilitates moving the packages around for troubleshooting or version change. Because 3.6.0 is quite old we need some flexibility so we move the order around in the flags.
 
 <details>
+
 <summary>tutorials/sylver/sylver.cbl</summary>
+
 ```yaml
 coble:
   - environment: coble-env
@@ -386,7 +393,9 @@ coble build --recipe tutorials/sylver/sylver.cbl --env my-env
 ```
 
 <details>
-<summary>Final version: tutorials/sylver/sylver.cbl</summary>yaml
+
+<summary>Final version: tutorials/sylver/sylver.cbl</summary>
+
 ```yaml
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
