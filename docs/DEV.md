@@ -13,7 +13,7 @@ Conda requires a set of tests to be run, these are in `tests/conda`
 Made from actions in CI/CD, choose `Choose Arch GitHub/Docker Image (Manual)` -> `Run workflow` and specify the branch then 3 options: institution, name and architecture.
 
 ## Issues and Pull requests
-Please raise an issue for any work to be done, and when ready create a draft poll request relevant to the issue e.g. issue-123-added-container.
+Please raise an issue for any work to be done, and when ready create a draft pull request relevant to the issue e.g. issue-123-added-container.
 The draft pull request alerts to the fact of the work and the files changed, and runs the tests. When ready confirm pull request and notify owner by requesting a review.  
 
 
