@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "COBLE"
+authors:
+  - family-names: "Alcraft"
+    given-names: "Rachel"
+    orcid: "https://orcid.org/0000-0003-2674-6321"
+  - family-names: "Haider"
+    given-names: "Syed"
+    orcid: "https://orcid.org/0000-0001-6685-5480"
+message: "If you use this software, please cite it using these metadata."
+type: software
+date-released: 2026-04-20
+version: 0.1.1
+license: GPL-3.0
+repository-code: "https://github.com/your-username/coble"
