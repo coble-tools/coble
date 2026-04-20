@@ -101,4 +101,4 @@ For conda: the build will have created a file  `codex_export.cbl` with the versi
 ```bash
 coble build --recipe codex_export.cbl --env codex-mirror
 ```
-The docker build will have created a Dockerfuile (commented header section that shows the build args) that can be rebuilt directly, or of course an image that can be used directly as above.  
+The docker build will have created a Dockerfile (with commented header section that shows the build args) that can be rebuilt directly, or of course an image that can be used directly as above.  
