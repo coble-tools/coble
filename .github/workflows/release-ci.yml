@@ -20,10 +20,24 @@ jobs:
           VERSION=${VERSION#v}
           sed -i "s/{% set version = \".*\" %}/{% set version = \"${VERSION}\" %}/" conda-recipe/meta.yaml
 
+      - name: Update version in CITATION.cff
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          # Strip leading 'v' if present (e.g. v1.2.3 -> 1.2.3)
+          VERSION=${VERSION#v}
+          sed -i "s/^version: .*/version: ${VERSION}/" CITATION.cff
+
+      - name: Update version in code/coble
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          # Strip leading 'v' if present (e.g. v1.2.3 -> 1.2.3)
+          VERSION=${VERSION#v}
+          sed -i "s/^VERSION=\".*\"/VERSION=\"${VERSION}\"/" code/coble
+
       - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add conda-recipe/meta.yaml
+          git add conda-recipe/meta.yaml CITATION.cff code/coble
           git commit -m "chore: bump version to ${{ github.event.release.tag_name }}"
           git push origin main

@@ -188,11 +188,11 @@ ENV GITHUB_PAT=
 
 # Add a Message of the Day (MOTD)
 RUN echo '╔══════════════════════════════════════════════════════════════╗' > /etc/motd && \
-    #echo '║        COBLE Container v0.2                                  ║' >> /etc/motd && \
+    echo '║        COBLE Container                                       ║' >> /etc/motd && \
     echo '║        (c) ICR 2026 RSE and BCDS                             ║' >> /etc/motd && \
-    #echo '║        For help, see:                                        ║' >> /etc/motd && \
-    #echo '║        - https://coble-tools.github.io/coble/              ║' >> /etc/motd && \
-    #echo '║        - https://github.com/coble-tools/coble/issues       ║' >> /etc/motd && \
+    echo '║        For help, see:                                        ║' >> /etc/motd && \
+    echo '║        - https://coble-tools.github.io/coble/                ║' >> /etc/motd && \
+    echo '║        - https://github.com/coble-tools/coble/issues         ║' >> /etc/motd && \
     echo '╚══════════════════════════════════════════════════════════════╝' >> /etc/motd
 # Ensure the message is shown on shell startup
 RUN echo "cat /etc/motd" >> /root/.bashrc && \
