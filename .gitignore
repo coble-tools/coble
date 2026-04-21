@@ -111,3 +111,4 @@ tests/github/publication/*
 !tests/github/publication/commands.docx
 !tests/github/publication/commands.md
 xdev-recipes/*
+lib/*
