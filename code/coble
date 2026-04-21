@@ -50,15 +50,22 @@ echo '╚═══════════════════════�
 echo "[coble] Starting coble at $(date)" >&2
 copied_inputs=("$@")
 container_type="conda"
+env_name = ""
 for i in "${!copied_inputs[@]}"; do
 	#echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
-	if [[ "${copied_inputs[$i]}" == "--containers" ]]; then
+	if [[ "${copied_inputs[$i]}" == "--env" ]]; then
+		next_index=$((i + 1))
+		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
+			env_name=$(echo "${copied_inputs[$next_index]}" | tr '[:upper:]' '[:lower:]')
+			ENV_INPUT="$env_name"
+			echo "[coble] Environment name detected: $env_name"  >&2
+		fi
+	elif [[ "${copied_inputs[$i]}" == "--containers" ]]; then
 		next_index=$((i + 1))
 		if [[ $next_index -lt ${#copied_inputs[@]} ]]; then
 			container_type=$(echo "${copied_inputs[$next_index]}" | tr '[:upper:]' '[:lower:]')
 		fi
 		echo "[coble] Container build flag detected: $container_type"  >&2
-		break
 	fi
 done
 
@@ -246,9 +253,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	echo "[coble] To activate environment call:" >&2
 	echo "    conda activate $ENV_INPUT" >&2
 	echo "  then validate the environment with:" >&2
-	echo "    validate.sh" >&2
-	echo "  or if you want to stream the output to a log file:" >&2
-	echo "    validate.sh | tee validate.log" >&2
+	echo "    coble validate">&2
 	echo "  for info on the environment created, use the command:" >&2
 	echo "    coble me" >&2
 
