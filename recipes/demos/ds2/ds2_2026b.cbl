@@ -16,7 +16,7 @@ compilers:
   - cran-repo: https://packagemanager.posit.co/cran/2026-04-01
 flags:
   - system-tools: true
-bioc-package:
+bioc-conda:
   - DESeq2
 
 

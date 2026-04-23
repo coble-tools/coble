@@ -21,8 +21,6 @@ import configparser
 from packaging.requirements import Requirement
 import tomllib
 
-BIOCVERSION = "3.22"
-
 def fetch_r_github(url):
     headers = {"Authorization": f"token {os.environ['GITHUB_PAT']}"}
     owner, repo, commit = url.split("/")
@@ -100,26 +98,42 @@ def fetch_pypi(package, pkgver):
 
     return date, deps, url
 
-def get_bioc_package_info(package_name, bioc_version=BIOCVERSION):
+def get_all_bioc_package_info(bioc_version="3.22"):
     """Fetch package info from Bioconductor"""
     url = f"https://bioconductor.org/packages/json/{bioc_version}/bioc/packages.json"
-    print(f"Fetching Bioconductor package index from: {url}")
-
     try:
+        print(f"Fetching Bioconductor package index from: {url}")
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
             all_packages = response.json()
-            if package_name in all_packages:
-                return all_packages[package_name], url
-            else:
-                print(f"Package '{package_name}' not found on Bioconductor")
-                return None, url
-        else:
-            print(f"Failed to fetch Bioconductor index: {response.status_code}")
-            return None, url
+            return all_packages
     except requests.exceptions.RequestException as e:
         print(f"Error fetching package index: {e}")
-        return None, url
+        return None
+    return None
+
+def get_bioc_package_info(package_name, all_packages=None, bioc_version="3.22"):
+    """Fetch package info from Bioconductor"""
+    url = f"https://bioconductor.org/packages/json/{bioc_version}/bioc/packages.json"
+
+    if all_packages is None:
+        try:
+            print(f"Fetching Bioconductor package index from: {url}")
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                all_packages = response.json()
+            else:
+                print(f"Failed to fetch Bioconductor index: {response.status_code}")
+                return None, url
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching package index: {e}")
+            return None, url
+
+    if all_packages is not None:
+        if package_name in all_packages:
+            return all_packages[package_name], url
+
+    return None, url
 
 def parse_bioc_release_history(data, pkgver):
     """Get all Bioconductor releases with dates"""
@@ -240,6 +254,9 @@ def main(input_file, ouput_file):
             lines.append(line)
 
 
+    BIOCVERSION = "3.22"
+    BIOCDATA = None
+
     for line in lines:
         if line[-1] == ":":
             current_pm = ""
@@ -253,6 +270,10 @@ def main(input_file, ouput_file):
             if line[0] == "-":
                 line = line[1:].strip()
             packages[current_pm].add(line)
+            if "BiocVersion" in line:
+                BIOCVERSION = ".".join(line.split('=')[1].split(".")[0:-1])
+                print(f"Found Bioconductor version: {BIOCVERSION}")
+                BIOCDATA = get_all_bioc_package_info(bioc_version=BIOCVERSION)
 
 
     for pm, pkgs in packages.items():
@@ -326,7 +347,7 @@ def main(input_file, ouput_file):
                     with open(ouput_file, "a") as f:
                         f.write(f"{pm}\t{line}\t{url}\t{pkg}\t{ver}\t{rel}\t{';'.join(deps)}\n")
                 elif pm in ["bioc-package"]:
-                    info, url = get_bioc_package_info(pkg)
+                    info, url = get_bioc_package_info(pkg, bioc_version=BIOCVERSION, all_packages=BIOCDATA)
                     if info is not None:
                         ver, rel, deps = parse_bioc_release_history(info, ver)
                     else:
@@ -354,12 +375,6 @@ def main(input_file, ouput_file):
 
 
 
-
-
-
-
-
-
 if __name__ == "__main__":
     if len(sys.argv) <= 2:
         print("Usage: coble-disentangle.py <input_file> <output_file>")
@@ -372,3 +387,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     main(input_file, output_file)
+    print(f"Disentanglement complete. Output written to: {output_file}")

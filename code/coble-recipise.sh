@@ -569,11 +569,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 #echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 url=https://cran.r-project.org/src/contrib/Archive/${pkg_only}/${pkg_only}_${ver}.tar.gz
-                echo "Rscript -e 'install.packages(\"$url\", repos=\"${CRAN_REPO}\", type=\"source\", method=\"wget\" )'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"$url\", repos=NULL, type=\"source\")'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-version:"* ]]; then
 

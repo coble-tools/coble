@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-04-23
-# Capture time: 07:25:36 BST
+# Capture time: 12:40:48 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -12,8 +12,8 @@ if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; t
 # Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
-conda env remove --name deseq206 -y 2>/dev/null || true
-conda create --no-default-packages --name deseq206 -y
+conda env remove --name ds26a -y 2>/dev/null || true
+conda create --no-default-packages --name ds26a -y
 export PYTHONNOUSERSITE=1
 unset PYTHONPATH
 # clean up conda cache first
@@ -22,7 +22,7 @@ conda  clean --all -y --force-pkgs-dirs
 conda deactivate | true
 conda deactivate | true
 # activate environment
-conda activate deseq206
+conda activate ds26a
 
 export PYTHONNOUSERSITE=1
 export | grep PYTHONNOUSERSITE
@@ -33,7 +33,12 @@ conda config --env --add channels bioconda
 conda config --env --add channels conda-forge
 
 # INSTALL SECTION FOR CONDA
-# code/coble build --recipe recipes/papers/DESeq2/DESeq2_2026.cbl --env deseq206 --rebuild
+# code/coble build --recipe recipes/papers/DESeq2/DESeq2_2026a.cbl --env deseq206a --rebuild
+
+# code/coble-disentangle.py recipes/papers/DESeq2/DESeq2_2026_export.cbl recipes/papers/DESeq2/DESeq2_2026_network.txt
+# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_2026_network.txt --hue date --out recipes/papers/DESeq2/DESeq2_2026_networkd.html
+# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_2026_network.txt --hue manager --out recipes/papers/DESeq2/DESeq2_2026_networkm.html
+
 # languages:
 CONDA_BASE=$(conda info --base)
 ARCH=$(uname -m)
@@ -71,11 +76,11 @@ Rscript -e 'BiocManager::install("DESeq2", dependencies=NA, Ncpus=1)'
 # End of recipe
 # Validation script setup
 echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
-echo 'echo "COBLE validation: No script has been specified for deseq206 environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+echo 'echo "COBLE validation: No script has been specified for ds26a environment."' >> ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 mkdir -p ${CONDA_PREFIX}/coble-recipe
-cp recipes/papers/DESeq2/DESeq2_2026.cbl ${CONDA_PREFIX}/coble-recipe
+cp recipes/demos/ds2/ds2_2026a.cbl ${CONDA_PREFIX}/coble-recipe
 cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
 cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
 

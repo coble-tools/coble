@@ -1,11 +1,11 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-04-23
-# Capture time: 07:32:14 BST
+# Capture time: 12:53:35 BST
 # Captured by: ralcraft
 
 coble:
 
-  - environment: deseq206
+  - environment: ds26b
 
 channels:
   - defaults
@@ -355,10 +355,12 @@ conda:
   - zstd=1.5.7@conda-forge
 
 r-conda:
+  - abind=1.4_8@conda-forge
   - askpass=1.2.1@conda-forge
   - assertthat=0.2.1@conda-forge
   - backports=1.5.1@conda-forge
   - base64enc=0.1_6@conda-forge
+  - bh=1.90.0_1@conda-forge
   - biocmanager=1.30.27@conda-forge
   - bit64=4.8.0@conda-forge
   - bit=4.6.0@conda-forge
@@ -402,6 +404,8 @@ r-conda:
   - foreign=0.8_91@conda-forge
   - formatr=1.14@conda-forge
   - fs=1.6.7@conda-forge
+  - futile.logger=1.4.9@conda-forge
+  - futile.options=1.0.1@conda-forge
   - future.apply=1.20.2@conda-forge
   - future=1.70.0@conda-forge
   - gargle=1.6.1@conda-forge
@@ -436,6 +440,7 @@ r-conda:
   - kernsmooth=2.23_26@conda-forge
   - knitr=1.51@conda-forge
   - labeling=0.4.3@conda-forge
+  - lambda.r=1.2.4@conda-forge
   - later=1.4.8@conda-forge
   - lattice=0.22_9@conda-forge
   - lava=1.9.0@conda-forge
@@ -443,11 +448,13 @@ r-conda:
   - lifecycle=1.0.5@conda-forge
   - listenv=0.10.1@conda-forge
   - lobstr=1.2.1@conda-forge
+  - locfit=1.5_9.12@conda-forge
   - lubridate=1.9.5@conda-forge
   - magrittr=2.0.5@conda-forge
   - maps=3.4.3@conda-forge
   - mass=7.3_65@conda-forge
   - matrix=1.7_5@conda-forge
+  - matrixstats=1.5.0@conda-forge
   - memoise=2.0.1@conda-forge
   - mgcv=1.9_4@conda-forge
   - mime=0.13@conda-forge
@@ -483,6 +490,7 @@ r-conda:
   - rbokeh=0.5.2@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
   - rcpp=1.1.1@conda-forge
+  - rcpparmadillo=15.2.6_1@conda-forge
   - rcppeigen=0.3.4.0.2@conda-forge
   - readr=2.2.0@conda-forge
   - readxl=1.4.5@conda-forge
@@ -508,6 +516,7 @@ r-conda:
   - selectr=0.5_1@conda-forge
   - shape=1.4.6.1@conda-forge
   - shiny=1.13.0@conda-forge
+  - snow=0.4_4@conda-forge
   - sourcetools=0.1.7_2@conda-forge
   - sparsevctrs=0.3.6@conda-forge
   - spatial=7.3_18@conda-forge
@@ -540,32 +549,22 @@ r-conda:
   - xts=0.14.2@conda-forge
   - zoo=1.8_15@conda-forge
 
-r-package:
-  - BH=1.90.0-1
-  - RcppArmadillo=15.2.6-1
-  - abind=1.4-8
-  - futile.logger=1.4.9
-  - futile.options=1.0.1
-  - lambda.r=1.2.4
-  - locfit=1.5-9.12
-  - matrixStats=1.5.0
-  - snow=0.4-4
+bioc-conda:
+  - biocgenerics=0.56.0@bioconda
+  - biocparallel=1.44.0@bioconda
+  - delayedarray=0.36.0@bioconda
+  - deseq2=1.50.2@bioconda
+  - genomicranges=1.62.1@bioconda
+  - iranges=2.44.0@bioconda
+  - matrixgenerics=1.22.0@bioconda
+  - s4arrays=1.10.1@bioconda
+  - s4vectors=0.48.0@bioconda
+  - seqinfo=1.0.0@bioconda
+  - sparsearray=1.10.8@bioconda
+  - summarizedexperiment=1.40.0@bioconda
+  - xvector=0.50.0@bioconda
 
-bioc-package:
-  - BiocGenerics=0.56.0
-  - BiocParallel=1.44.0
-  - BiocVersion=3.22.0
-  - DESeq2=1.50.2
-  - DelayedArray=0.36.1
-  - GenomicRanges=1.62.1
-  - IRanges=2.44.0
-  - MatrixGenerics=1.22.0
-  - S4Arrays=1.10.1
-  - S4Vectors=0.48.1
-  - Seqinfo=1.0.0
-  - SparseArray=1.10.10
-  - SummarizedExperiment=1.40.0
-  - XVector=0.50.0
+r-package:
 
 # r-package(unknown source):
 #  - compiler=4.5.2
