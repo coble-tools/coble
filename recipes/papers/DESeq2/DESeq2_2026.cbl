@@ -1,8 +1,8 @@
 # code/coble build --recipe recipes/papers/DESeq2/DESeq2_2026.cbl --env deseq206 --rebuild
 
-# code/coble-disentangle.py recipes/papers/DESeq2/DESeq2_2026_export.cbl recipes/papers/DESeq2/DESeq2_26_network.txt
-# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_26_network.txt --hue date --out recipes/papers/DESeq2/DESeq2_26_networkd.html
-# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_26_network.txt --hue manager --out recipes/papers/DESeq2/DESeq226_networkm.html
+# code/coble-disentangle.py recipes/papers/DESeq2/DESeq2_2026_export.cbl recipes/papers/DESeq2/DESeq2_2026_network.txt
+# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_2026_network.txt --hue date --out recipes/papers/DESeq2/DESeq2_2026_networkd.html
+# python code/coble-plot-network.py recipes/papers/DESeq2/DESeq2_2026_network.txt --hue manager --out recipes/papers/DESeq2/DESeq2_2026_networkm.html
 
 coble:
   - environment: DESeq2

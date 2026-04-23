@@ -125,27 +125,21 @@ def parse_bioc_release_history(data, pkgver):
     """Get all Bioconductor releases with dates"""
     if not data:
         print("No data to parse for Bioconductor package.")
-        return None
-    print(data)
-    dependencies = {}
-    # Bioconductor organizes by release version
-    if "releases" in data:
-        for release_version, release_info in data["releases"].items():
-            if release_version == pkgver:
-                dependencies = {
-                    "depends": release_info.get("Depends", []),
-                    "imports": release_info.get("Imports", []),
-                    "linkingto": release_info.get("LinkingTo", []),
-                    "suggests": release_info.get("Suggests", []),
-                }
-                return release_version, release_info.get("date"), dependencies["depends"]
+        return "", None, []
+    release_date = data.get("Date/Publication")
+    depends  = data.get("Depends", [])
+    imports  = data.get("Imports", [])
+    all_deps = depends + imports
+    for i, dep in enumerate(all_deps):
+        req = dep.split("(")[0].strip()
+        all_deps[i] = req
+    return pkgver, release_date, all_deps
 
-    return "", None, []
 
 
 def get_cran_package_info(package_name):
     """Fetch package info from CRAN"""
-    url = f"https://crandb.r-pkg.org/{package_name}"
+    url = f"https://crandb.r-pkg.org/{package_name.replace('=', '/')}"
 
     try:
         response = requests.get(url, timeout=5)
@@ -162,12 +156,11 @@ def parse_cran_release_history(data, pkgver):
     """Get all CRAN releases with dates"""
     if not data:
         return None
-    # Timeline contains version history
-    if "timeline" in data:
-        for version, timestamp in data["timeline"].items():
-            if version == pkgver:
-                return version, datetime.fromisoformat(timestamp.replace("Z", "+00:00")).date(), data.get("Depends", "").split(", ")
-    return "", None, []
+    release_date = data.get("Date/Publication")  # "2019-09-18 14:30:02 UTC"
+    depends = data.get("Depends", {})   # {"R": ">= 3.0.0"}
+    imports = data.get("Imports", {})   # {"formatR": "*"}
+    dep_names = list(depends.keys()) + list(imports.keys())  # ["R", "formatR"]
+    return pkgver, release_date, dep_names
 
 def get_conda_package_info(package_name, channel):
     """Fetch package info from Anaconda Cloud API"""
@@ -235,6 +228,7 @@ def main(input_file, ouput_file):
     print(f"output_file: {ouput_file}")
     with open(ouput_file, "w") as f:
         f.write(f"Manager\tLib\tUrl\tPackage\tVersion\tReleaseDate\tDependencies\n")
+
     lines = []
     with open(input_file, "r") as f:
         for lne in f:
@@ -243,18 +237,22 @@ def main(input_file, ouput_file):
                 continue
             if line.startswith("#"):
                 continue
-            if line[-1] == ":":
+            lines.append(line)
+
+
+    for line in lines:
+        if line[-1] == ":":
+            current_pm = ""
+            if line[:-1] in packages:
+                current_pm = line[:-1]
+                print(f"Switching to package manager: {current_pm}")
+            elif line[:-1] not in not_used:
+                print(f"Warning: Unrecognized package manager '{line[:-1]}' in line: {line}")
                 current_pm = ""
-                if line[:-1] in packages:
-                    current_pm = line[:-1]
-                    print(f"Switching to package manager: {current_pm}")
-                elif line[:-1] not in not_used:
-                    print(f"Warning: Unrecognized package manager '{line[:-1]}' in line: {line}")
-                    current_pm = ""
-            elif current_pm != "":
-                if line[0] == "-":
-                    line = line[1:].strip()
-                packages[current_pm].add(line)
+        elif current_pm != "":
+            if line[0] == "-":
+                line = line[1:].strip()
+            packages[current_pm].add(line)
 
 
     for pm, pkgs in packages.items():
@@ -293,7 +291,7 @@ def main(input_file, ouput_file):
                     rel=""
                 elif pm in ["r-package", "bioc-package"]:
                     pkg=line.split("=")[0]
-                    ver=line.split("0")[-1]
+                    ver=line.split("=")[-1]
                     rel=""
                     cnl="cran" if pm == "r-package" else "bioconductor"
 
