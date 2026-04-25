@@ -114,3 +114,4 @@ xdev-recipes/*
 lib/*
 recipes/papers/DESeq2/DESeq2_2026_export2.cbl
 recipes/icr/bcds/bcds_freeze2.cbl
+githubs/*
