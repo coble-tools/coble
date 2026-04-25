@@ -16,6 +16,16 @@ code/coble-disentangle.py recipes/demos/ds2/ds2_2020b_export.cbl recipes/demos/d
 code/coble-disentangle.py recipes/demos/ds2/ds2_2026a_export.cbl recipes/demos/ds2/ds2_2026a_network.txt
 code/coble-disentangle.py recipes/demos/ds2/ds2_2026b_export.cbl recipes/demos/ds2/ds2_2026b_network.txt
 
+And then create a time series graph
+
+python code/coble-plot-timeline.py \
+recipes/demos/ds2/ds2_2020a_network.txt,\
+recipes/demos/ds2/ds2_2020b_network.txt,\
+recipes/demos/ds2/ds2_2026a_network.txt,\
+recipes/demos/ds2/ds2_2026a_network.txt \
+--out recipes/demos/ds2/ds2_time.html
+
+
 
 And then run for network graph with adjustable settings
 

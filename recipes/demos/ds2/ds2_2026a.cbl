@@ -14,8 +14,8 @@ languages:
 compilers:
   - compile-tools: true
   - cran-repo: https://packagemanager.posit.co/cran/2026-04-01
-flags:
-  - system-tools: true
+#flags:
+#  - system-tools: true
 bioc-package:
   - DESeq2
 
