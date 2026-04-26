@@ -1,83 +1,83 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-04-25 at 22:26:14 BST
+[coble-create] Summary log started by ralcraft on 2026-04-26 at 13:22:12 BST
 ------------------------------------------------
 
-[coble-create] Start time: 2026-04-25 22:26:15 1/120
+[coble-create] Start time: 2026-04-26 13:22:13 1/120
 install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
-[coble-create] End time: 2026-04-25 22:26:15
+[coble-create] End time: 2026-04-26 13:22:13
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:15 3/120
-install: conda env remove --name tumori -y 2>/dev/null || true
-[coble-create] End time: 2026-04-25 22:26:18
-[coble-create] Duration: 3s
+[coble-create] Start time: 2026-04-26 13:22:13 3/120
+install: conda env remove --name tumori363 -y 2>/dev/null || true
+[coble-create] End time: 2026-04-26 13:22:17
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-04-25 22:26:18 5/120
-install: conda create --no-default-packages --name tumori -y
-[coble-create] End time: 2026-04-25 22:26:28
-[coble-create] Duration: 10s
+[coble-create] Start time: 2026-04-26 13:22:17 5/120
+install: conda create --no-default-packages --name tumori363 -y
+[coble-create] End time: 2026-04-26 13:22:35
+[coble-create] Duration: 18s
 
-[coble-create] Start time: 2026-04-25 22:26:28 7/120
+[coble-create] Start time: 2026-04-26 13:22:35 7/120
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-04-25 22:26:28
+[coble-create] End time: 2026-04-26 13:22:35
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:28 8/120
+[coble-create] Start time: 2026-04-26 13:22:35 8/120
 install: unset PYTHONPATH
-[coble-create] End time: 2026-04-25 22:26:28
+[coble-create] End time: 2026-04-26 13:22:35
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:28 9/120
+[coble-create] Start time: 2026-04-26 13:22:35 9/120
 install: conda  clean --all -y --force-pkgs-dirs
-[coble-create] End time: 2026-04-25 22:26:30
+[coble-create] End time: 2026-04-26 13:22:37
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-04-26 13:22:37 11/120
+install: conda deactivate | true
+[coble-create] End time: 2026-04-26 13:22:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 13:22:37 12/120
+install: conda deactivate | true
+[coble-create] End time: 2026-04-26 13:22:38
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-04-25 22:26:30 11/120
-install: conda deactivate | true
-[coble-create] End time: 2026-04-25 22:26:30
+[coble-create] Start time: 2026-04-26 13:22:38 13/120
+install: conda activate tumori363
+[coble-create] End time: 2026-04-26 13:22:38
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:30 12/120
-install: conda deactivate | true
-[coble-create] End time: 2026-04-25 22:26:30
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-04-25 22:26:30 13/120
-install: conda activate tumori
-[coble-create] End time: 2026-04-25 22:26:30
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-04-25 22:26:30 14/120
+[coble-create] Start time: 2026-04-26 13:22:38 14/120
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-04-25 22:26:30
+[coble-create] End time: 2026-04-26 13:22:38
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:30 15/120
+[coble-create] Start time: 2026-04-26 13:22:38 15/120
 install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-04-25 22:26:30
+[coble-create] End time: 2026-04-26 13:22:38
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:30 16/120
+[coble-create] Start time: 2026-04-26 13:22:38 16/120
 install: conda config --env --show channels | grep -q 'channels:' && conda config --env --remove-key channels || true
-[coble-create] End time: 2026-04-25 22:26:31
+[coble-create] End time: 2026-04-26 13:22:39
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-04-25 22:26:31 18/120
+[coble-create] Start time: 2026-04-26 13:22:39 18/120
 install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-04-25 22:26:31
+[coble-create] End time: 2026-04-26 13:22:39
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:31 19/120
+[coble-create] Start time: 2026-04-26 13:22:39 19/120
 install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-04-25 22:26:32
+[coble-create] End time: 2026-04-26 13:22:40
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-04-25 22:26:32 21/120
+[coble-create] Start time: 2026-04-26 13:22:40 21/120
 install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-04-25 22:26:32
+[coble-create] End time: 2026-04-26 13:22:40
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:26:32 23/120
+[coble-create] Start time: 2026-04-26 13:22:40 23/120
 install: conda install -y --solver=libmamba --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
 dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-20_gnu
 dep: # binutils           conda-forge/linux-64::binutils-2.45.1-default_h4852527_102
@@ -104,50 +104,50 @@ dep: # libzlib            conda-forge/linux-64::libzlib-1.3.2-h25fd6f3_2
 dep: # sysroot_linux-64   conda-forge/noarch::sysroot_linux-64-2.39-hc4b9eeb_6
 dep: # tzdata             conda-forge/noarch::tzdata-2025c-hc9c84f9_1
 dep: # zstd               conda-forge/linux-64::zstd-1.5.7-hb78ec9c_6
-[coble-create] End time: 2026-04-25 22:26:54
-[coble-create] Duration: 22s
+[coble-create] End time: 2026-04-26 13:23:08
+[coble-create] Duration: 28s
 
-[coble-create] Start time: 2026-04-25 22:26:54 25/120
+[coble-create] Start time: 2026-04-26 13:23:08 25/120
 install: conda install -y --solver=libmamba --no-update-deps -c conda-forge 'gcc_linux-64=7.5' 'gxx_linux-64=7.5' 'gfortran_linux-64=7.5'
 dep: # gfortran_impl_lin~ conda-forge/linux-64::gfortran_impl_linux-64-7.5.0-h56cb351_20
 dep: # gfortran_linux-64  conda-forge/linux-64::gfortran_linux-64-7.5.0-h78c8a43_33
 dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_18
 dep: # libgfortran4       conda-forge/linux-64::libgfortran4-7.5.0-h14aa051_20
 dep: # libstdcxx-ng       conda-forge/linux-64::libstdcxx-ng-15.2.0-hdf11a46_18
-[coble-create] End time: 2026-04-25 22:27:17
-[coble-create] Duration: 23s
+[coble-create] End time: 2026-04-26 13:23:39
+[coble-create] Duration: 31s
 
-[coble-create] Start time: 2026-04-25 22:27:17 27/120
+[coble-create] Start time: 2026-04-26 13:23:39 27/120
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-[coble-create] End time: 2026-04-25 22:27:17
+[coble-create] End time: 2026-04-26 13:23:39
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:27:17 28/120
+[coble-create] Start time: 2026-04-26 13:23:39 28/120
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-[coble-create] End time: 2026-04-25 22:27:17
+[coble-create] End time: 2026-04-26 13:23:39
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:27:17 29/120
+[coble-create] Start time: 2026-04-26 13:23:39 29/120
 install: ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/gfortran
-[coble-create] End time: 2026-04-25 22:27:17
+[coble-create] End time: 2026-04-26 13:23:39
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:27:17 30/120
+[coble-create] Start time: 2026-04-26 13:23:39 30/120
 install: ln -sf /usr/bin/ld ${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld
-[coble-create] End time: 2026-04-25 22:27:17
+[coble-create] End time: 2026-04-26 13:23:39
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:27:17 31/120
+[coble-create] Start time: 2026-04-26 13:23:39 31/120
 install: CONDA_BASE=$(conda info --base)
-[coble-create] End time: 2026-04-25 22:27:17
-[coble-create] Duration: 0s
+[coble-create] End time: 2026-04-26 13:23:40
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-04-25 22:27:17 33/120
+[coble-create] Start time: 2026-04-26 13:23:40 33/120
 install: ARCH=$(uname -m)
-[coble-create] End time: 2026-04-25 22:27:17
+[coble-create] End time: 2026-04-26 13:23:40
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:27:17 35/120
+[coble-create] Start time: 2026-04-26 13:23:40 35/120
 install: conda install -y --solver=libmamba --no-update-deps 'r-base=3.6.3'
 dep: # _r-mutex           conda-forge/noarch::_r-mutex-1.0.1-anacondar_1
 dep: # bwidget            conda-forge/linux-64::bwidget-1.10.1-ha770c72_1
@@ -215,19 +215,19 @@ dep: # xz                 conda-forge/linux-64::xz-5.8.3-ha02ee65_0
 dep: # xz-gpl-tools       conda-forge/linux-64::xz-gpl-tools-5.8.3-ha02ee65_0
 dep: # xz-tools           conda-forge/linux-64::xz-tools-5.8.3-hb03c661_0
 dep: # zlib               conda-forge/linux-64::zlib-1.2.13-h4ab18f5_6
-[coble-create] End time: 2026-04-25 22:27:40
-[coble-create] Duration: 23s
+[coble-create] End time: 2026-04-26 13:24:07
+[coble-create] Duration: 27s
 
-[coble-create] Start time: 2026-04-25 22:27:40 37/120
+[coble-create] Start time: 2026-04-26 13:24:07 37/120
 install: conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager r-renv
 dep: # r-biocmanager      conda-forge/noarch::r-biocmanager-1.30.15-r36hc72bb7e_0
 dep: # r-remotes          conda-forge/noarch::r-remotes-2.3.0-r36hc72bb7e_0
 dep: # r-renv             conda-forge/noarch::r-renv-0.13.2-r36hc72bb7e_0
-[coble-create] End time: 2026-04-25 22:27:51
-[coble-create] Duration: 11s
+[coble-create] End time: 2026-04-26 13:24:23
+[coble-create] Duration: 16s
 
-[coble-create] Start time: 2026-04-25 22:27:51 42/120
-install: conda install -y --solver=libmamba --no-update-deps  'r-testthat'  'r-isoband'  'r-rsvd' 
+[coble-create] Start time: 2026-04-26 13:24:23 43/120
+install: conda install -y --solver=libmamba --no-update-deps  'r-testthat'  'r-isoband'  'r-rsvd'  'r-RcppAnnoy=0.0.16' 
 dep: # r-assertthat       conda-forge/noarch::r-assertthat-0.2.1-r36h6115d3f_2
 dep: # r-backports        conda-forge/linux-64::r-backports-1.2.1-r36hcfec24a_0
 dep: # r-brio             conda-forge/linux-64::r-brio-1.1.2-r36hcfec24a_0
@@ -255,6 +255,7 @@ dep: # r-processx         conda-forge/linux-64::r-processx-3.5.2-r36hcfec24a_0
 dep: # r-ps               conda-forge/linux-64::r-ps-1.6.0-r36hcfec24a_0
 dep: # r-r6               conda-forge/noarch::r-r6-2.5.0-r36hc72bb7e_0
 dep: # r-rcpp             conda-forge/linux-64::r-rcpp-1.0.6-r36h03ef668_0
+dep: # r-rcppannoy        conda-forge/linux-64::r-rcppannoy-0.0.16-r36h0357c0b_1
 dep: # r-rematch2         conda-forge/noarch::r-rematch2-2.1.2-r36h6115d3f_1
 dep: # r-rlang            conda-forge/linux-64::r-rlang-0.4.11-r36hcfec24a_0
 dep: # r-rprojroot        conda-forge/noarch::r-rprojroot-2.0.2-r36hc72bb7e_0
@@ -266,163 +267,159 @@ dep: # r-utf8             conda-forge/linux-64::r-utf8-1.2.1-r36hcfec24a_0
 dep: # r-vctrs            conda-forge/linux-64::r-vctrs-0.3.8-r36hcfec24a_1
 dep: # r-waldo            conda-forge/noarch::r-waldo-0.2.5-r36hc72bb7e_0
 dep: # r-withr            conda-forge/noarch::r-withr-2.4.2-r36hc72bb7e_0
-[coble-create] End time: 2026-04-25 22:28:11
-[coble-create] Duration: 20s
+[coble-create] End time: 2026-04-26 13:24:47
+[coble-create] Duration: 24s
 
-[coble-create] Start time: 2026-04-25 22:28:11 44/120
-install: Rscript -e 'install.packages("cowplot", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (nlme)
+[coble-create] Start time: 2026-04-26 13:24:47 45/120
+install: Rscript -e 'install.packages("cowplot", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (viridisLite)
+dep: # * DONE (labeling)
+dep: # * DONE (lazyeval)
+dep: # * DONE (RColorBrewer)
+dep: # * DONE (gtable)
 dep: # * DONE (colorspace)
 dep: # * DONE (MASS)
-dep: # * DONE (farver)
-dep: # * DONE (labeling)
-dep: # * DONE (RColorBrewer)
-dep: # * DONE (viridisLite)
-dep: # * DONE (gtable)
-dep: # * DONE (mgcv)
 dep: # * DONE (munsell)
+dep: # * DONE (plyr)
+dep: # * DONE (nlme)
 dep: # * DONE (scales)
+dep: # * DONE (mgcv)
+dep: # * DONE (stringi)
+dep: # * DONE (stringr)
+dep: # * DONE (reshape2)
 dep: # * DONE (ggplot2)
 dep: # * DONE (cowplot)
-[coble-create] End time: 2026-04-25 22:29:14
-[coble-create] Duration: 63s
+[coble-create] End time: 2026-04-26 13:27:42
+[coble-create] Duration: 175s
 
-[coble-create] Start time: 2026-04-25 22:29:14 46/120
-install: Rscript -e 'install.packages("destiny", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-[coble-create] End time: 2026-04-25 22:29:16
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-04-25 22:29:16 48/120
-install: Rscript -e 'install.packages("dplyr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:27:42 47/120
+install: Rscript -e 'install.packages("dplyr", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (plogr)
 dep: # * DONE (purrr)
 dep: # * DONE (BH)
-dep: # * DONE (plogr)
 dep: # * DONE (tidyselect)
 dep: # * DONE (dplyr)
-[coble-create] End time: 2026-04-25 22:30:46
-[coble-create] Duration: 90s
+[coble-create] End time: 2026-04-26 13:29:38
+[coble-create] Duration: 116s
 
-[coble-create] Start time: 2026-04-25 22:30:46 50/120
-install: Rscript -e 'install.packages("ggplot2", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:29:38 49/120
+install: Rscript -e 'install.packages("ggplot2", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (ggplot2)
-[coble-create] End time: 2026-04-25 22:30:56
+[coble-create] End time: 2026-04-26 13:29:48
 [coble-create] Duration: 10s
 
-[coble-create] Start time: 2026-04-25 22:30:56 52/120
-install: Rscript -e 'install.packages("ggrepel", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:29:48 51/120
+install: Rscript -e 'install.packages("ggrepel", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (ggrepel)
-[coble-create] End time: 2026-04-25 22:31:05
-[coble-create] Duration: 9s
-
-[coble-create] Start time: 2026-04-25 22:31:05 54/120
-install: Rscript -e 'install.packages("igraph", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (igraph)
-[coble-create] End time: 2026-04-25 22:32:04
-[coble-create] Duration: 59s
-
-[coble-create] Start time: 2026-04-25 22:32:04 56/120
-install: Rscript -e 'install.packages("irlba", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (irlba)
-[coble-create] End time: 2026-04-25 22:32:10
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-04-25 22:32:10 58/120
-install: Rscript -e 'install.packages("knitr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (mime)
-dep: # * DONE (stringi)
-dep: # * DONE (highr)
-dep: # * DONE (yaml)
-dep: # * DONE (xfun)
-dep: # * DONE (markdown)
-dep: # * DONE (stringr)
-dep: # * DONE (knitr)
-[coble-create] End time: 2026-04-25 22:34:08
-[coble-create] Duration: 118s
-
-[coble-create] Start time: 2026-04-25 22:34:08 60/120
-install: Rscript -e 'install.packages("Matrix", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (Matrix)
-[coble-create] End time: 2026-04-25 22:34:46
-[coble-create] Duration: 38s
-
-[coble-create] Start time: 2026-04-25 22:34:46 62/120
-install: Rscript -e 'install.packages("mgcv", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (mgcv)
-[coble-create] End time: 2026-04-25 22:35:07
-[coble-create] Duration: 21s
-
-[coble-create] Start time: 2026-04-25 22:35:07 64/120
-install: Rscript -e 'install.packages("pheatmap", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (pheatmap)
-[coble-create] End time: 2026-04-25 22:35:11
-[coble-create] Duration: 4s
-
-[coble-create] Start time: 2026-04-25 22:35:11 66/120
-install: Rscript -e 'install.packages("plyr", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (plyr)
-[coble-create] End time: 2026-04-25 22:35:19
+[coble-create] End time: 2026-04-26 13:29:57
 [coble-create] Duration: 8s
 
-[coble-create] Start time: 2026-04-25 22:35:19 68/120
-install: Rscript -e 'install.packages("RColorBrewer", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (RColorBrewer)
-[coble-create] End time: 2026-04-25 22:35:23
+[coble-create] Start time: 2026-04-26 13:29:57 53/120
+install: Rscript -e 'install.packages("igraph", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (igraph)
+[coble-create] End time: 2026-04-26 13:31:08
+[coble-create] Duration: 71s
+
+[coble-create] Start time: 2026-04-26 13:31:08 55/120
+install: Rscript -e 'install.packages("irlba", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (irlba)
+[coble-create] End time: 2026-04-26 13:31:12
 [coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-04-25 22:35:23 70/120
-install: Rscript -e 'install.packages("Rtsne", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (Rtsne)
-[coble-create] End time: 2026-04-25 22:35:34
-[coble-create] Duration: 11s
+[coble-create] Start time: 2026-04-26 13:31:12 57/120
+install: Rscript -e 'install.packages("knitr", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (highr)
+dep: # * DONE (mime)
+dep: # * DONE (xfun)
+dep: # * DONE (yaml)
+dep: # * DONE (markdown)
+dep: # * DONE (knitr)
+[coble-create] End time: 2026-04-26 13:31:29
+[coble-create] Duration: 17s
 
-[coble-create] Start time: 2026-04-25 22:35:34 72/120
-install: Rscript -e 'install.packages("rmarkdown", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-dep: # * DONE (htmltools)
-dep: # * DONE (base64enc)
+[coble-create] Start time: 2026-04-26 13:31:29 59/120
+install: Rscript -e 'install.packages("Matrix", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (Matrix)
+[coble-create] End time: 2026-04-26 13:32:17
+[coble-create] Duration: 48s
+
+[coble-create] Start time: 2026-04-26 13:32:17 61/120
+install: Rscript -e 'install.packages("mgcv", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (mgcv)
+[coble-create] End time: 2026-04-26 13:32:41
+[coble-create] Duration: 24s
+
+[coble-create] Start time: 2026-04-26 13:32:41 63/120
+install: Rscript -e 'install.packages("pheatmap", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (pheatmap)
+[coble-create] End time: 2026-04-26 13:32:45
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-04-26 13:32:45 65/120
+install: Rscript -e 'install.packages("plyr", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (plyr)
+[coble-create] End time: 2026-04-26 13:32:54
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-04-26 13:32:54 67/120
+install: Rscript -e 'install.packages("RColorBrewer", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (RColorBrewer)
+[coble-create] End time: 2026-04-26 13:32:58
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-04-26 13:32:58 69/120
+install: Rscript -e 'install.packages("Rtsne", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+dep: # * DONE (Rtsne)
+[coble-create] End time: 2026-04-26 13:33:13
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-04-26 13:33:13 71/120
+install: Rscript -e 'install.packages("rmarkdown", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (tinytex)
+dep: # * DONE (base64enc)
+dep: # * DONE (htmltools)
 dep: # * DONE (rmarkdown)
-[coble-create] End time: 2026-04-25 22:35:50
+[coble-create] End time: 2026-04-26 13:33:29
 [coble-create] Duration: 16s
 
-[coble-create] Start time: 2026-04-25 22:35:50 74/120
-install: Rscript -e 'install.packages("schex", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
-[coble-create] End time: 2026-04-25 22:35:51
-[coble-create] Duration: 1s
+[coble-create] Start time: 2026-04-26 13:33:29 73/120
+install: Rscript -e 'install.packages("schex", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
+[coble-create] End time: 2026-04-26 13:33:29
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-04-25 22:35:51 76/120
-install: Rscript -e 'install.packages("umap", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:33:29 75/120
+install: Rscript -e 'install.packages("umap", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (sys)
-dep: # * DONE (rappdirs)
-dep: # * DONE (RcppEigen)
 dep: # * DONE (askpass)
-dep: # * DONE (reticulate)
-dep: # * DONE (RSpectra)
 dep: # * DONE (openssl)
+dep: # * DONE (reticulate)
+dep: # * DONE (RcppEigen)
+dep: # * DONE (RSpectra)
 dep: # * DONE (umap)
-[coble-create] End time: 2026-04-25 22:37:30
-[coble-create] Duration: 99s
+[coble-create] End time: 2026-04-26 13:35:14
+[coble-create] Duration: 105s
 
-[coble-create] Start time: 2026-04-25 22:37:30 78/120
-install: Rscript -e 'install.packages("viridis", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:35:14 77/120
+install: Rscript -e 'install.packages("viridis", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (gridExtra)
 dep: # * DONE (viridis)
-[coble-create] End time: 2026-04-25 22:37:37
-[coble-create] Duration: 7s
+[coble-create] End time: 2026-04-26 13:35:19
+[coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-04-25 22:37:37 80/120
-install: Rscript -e 'install.packages("wesanderson", repos="https://packagemanager.posit.co/cran/2020-04-01", dependencies=NA, Ncpus=1)'
+[coble-create] Start time: 2026-04-26 13:35:19 79/120
+install: Rscript -e 'install.packages("wesanderson", repos="https://packagemanager.posit.co/cran/2019-11-01", dependencies=NA, Ncpus=8)'
 dep: # * DONE (wesanderson)
-[coble-create] End time: 2026-04-25 22:37:41
+[coble-create] End time: 2026-04-26 13:35:23
 [coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-04-25 22:37:41 82/120
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.18.tar.gz", repos=NULL, type="source")'
+[coble-create] Start time: 2026-04-26 13:35:23 81/120
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.16.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (RcppAnnoy)
-[coble-create] End time: 2026-04-25 22:37:52
-[coble-create] Duration: 11s
+[coble-create] End time: 2026-04-26 13:35:38
+[coble-create] Duration: 15s
 
-[coble-create] Start time: 2026-04-25 22:37:52 85/120
-install: conda install -y --solver=libmamba --no-update-deps  'bioconductor-batchelor' 
+[coble-create] Start time: 2026-04-26 13:35:38 85/120
+install: conda install -y --solver=libmamba --no-update-deps  'bioconductor-batchelor'  'bioconductor-destiny' 
 dep: # bioconductor-batc~ bioconda/linux-64::bioconductor-batchelor-1.2.1-r36he1b5a44_0
 dep: # bioconductor-beac~ bioconda/linux-64::bioconductor-beachmat-2.2.0-r36he1b5a44_0
 dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.46.0-r36h516909a_0
@@ -432,6 +429,7 @@ dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocparallel-1.20.0-r3
 dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocsingular-1.2.0-r36he1b5a44_0
 dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.12.0-r36h516909a_0
 dep: # bioconductor-dela~ bioconda/noarch::bioconductor-delayedmatrixstats-1.8.0-r36_0
+dep: # bioconductor-dest~ bioconda/linux-64::bioconductor-destiny-2.15.0-r36he1b5a44_0
 dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodb-1.22.0-r36_0
 dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodbdata-1.2.2-r36_0
 dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicranges-1.38.0-r36h516909a_0
@@ -445,43 +443,138 @@ dep: # bioconductor-sing~ bioconda/noarch::bioconductor-singlecellexperiment-1.8
 dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.16.0-r36_0
 dep: # bioconductor-xvec~ bioconda/linux-64::bioconductor-xvector-0.26.0-r36h516909a_0
 dep: # bioconductor-zlib~ bioconda/linux-64::bioconductor-zlibbioc-1.32.0-r36h516909a_0
+dep: # gmp                conda-forge/linux-64::gmp-6.3.0-hac33072_2
+dep: # r-abind            conda-forge/noarch::r-abind-1.4_5-r36h6115d3f_1003
 dep: # r-beeswarm         conda-forge/noarch::r-beeswarm-0.3.1-r36hc72bb7e_0
 dep: # r-bh               conda-forge/noarch::r-bh-1.75.0_0-r36hc72bb7e_0
 dep: # r-bitops           conda-forge/linux-64::r-bitops-1.0_7-r36hcfec24a_0
+dep: # r-boot             conda-forge/noarch::r-boot-1.3_28-r36hc72bb7e_0
+dep: # r-broom            conda-forge/noarch::r-broom-0.7.6-r36hc72bb7e_0
+dep: # r-car              conda-forge/noarch::r-car-3.0_10-r36h6115d3f_0
+dep: # r-cardata          conda-forge/noarch::r-cardata-3.0_4-r36h6115d3f_0
+dep: # r-cellranger       conda-forge/noarch::r-cellranger-1.1.0-r36h6115d3f_1003
+dep: # r-class            conda-forge/linux-64::r-class-7.3_19-r36hcfec24a_0
+dep: # r-clipr            conda-forge/noarch::r-clipr-0.7.1-r36h142f84f_0
 dep: # r-colorspace       conda-forge/linux-64::r-colorspace-2.0_1-r36hcfec24a_0
+dep: # r-conquer          conda-forge/linux-64::r-conquer-1.0.2-r36h6dc32e9_1
+dep: # r-cpp11            conda-forge/noarch::r-cpp11-0.2.7-r36hc72bb7e_0
+dep: # r-curl             conda-forge/linux-64::r-curl-4.3.1-r36hcfec24a_0
+dep: # r-data.table       conda-forge/linux-64::r-data.table-1.14.0-r36hcfec24a_0
+dep: # r-deoptimr         conda-forge/noarch::r-deoptimr-1.0_8-r36h6115d3f_1003
+dep: # r-dplyr            conda-forge/linux-64::r-dplyr-1.0.6-r36h03ef668_1
+dep: # r-e1071            conda-forge/linux-64::r-e1071-1.7_7-r36h03ef668_0
 dep: # r-farver           conda-forge/linux-64::r-farver-2.1.0-r36h03ef668_0
+dep: # r-forcats          conda-forge/noarch::r-forcats-0.5.1-r36hc72bb7e_0
+dep: # r-foreign          conda-forge/linux-64::r-foreign-0.8_76-r36hcdcec82_1
 dep: # r-formatr          conda-forge/noarch::r-formatr-1.9-r36hc72bb7e_0
 dep: # r-futile.logger    conda-forge/noarch::r-futile.logger-1.4.3-r36h6115d3f_1003
 dep: # r-futile.options   conda-forge/noarch::r-futile.options-1.0.1-r36h6115d3f_1002
+dep: # r-generics         conda-forge/noarch::r-generics-0.1.0-r36hc72bb7e_0
 dep: # r-ggbeeswarm       conda-forge/noarch::r-ggbeeswarm-0.6.0-r36_1003
 dep: # r-ggplot2          conda-forge/noarch::r-ggplot2-3.3.3-r36hc72bb7e_0
+dep: # r-ggthemes         conda-forge/noarch::r-ggthemes-4.2.4-r36hc72bb7e_0
 dep: # r-gridextra        conda-forge/noarch::r-gridextra-2.3-r36h6115d3f_1003
 dep: # r-gtable           conda-forge/noarch::r-gtable-0.3.0-r36h6115d3f_3
+dep: # r-haven            conda-forge/linux-64::r-haven-2.4.1-r36h2713e49_0
+dep: # r-highr            conda-forge/noarch::r-highr-0.9-r36hc72bb7e_0
+dep: # r-hms              conda-forge/noarch::r-hms-1.1.0-r36hc72bb7e_0
+dep: # r-igraph           conda-forge/linux-64::r-igraph-1.2.6-r36h084b37e_1
 dep: # r-irlba            conda-forge/linux-64::r-irlba-2.3.3-r36h7fa42b6_3
+dep: # r-knitr            conda-forge/noarch::r-knitr-1.33-r36hc72bb7e_0
 dep: # r-labeling         conda-forge/noarch::r-labeling-0.4.2-r36h142f84f_0
+dep: # r-laeken           conda-forge/noarch::r-laeken-0.5.1-r36h6115d3f_1
 dep: # r-lambda.r         conda-forge/noarch::r-lambda.r-1.2.4-r36h6115d3f_1
+dep: # r-lme4             conda-forge/linux-64::r-lme4-1.1_27-r36h03ef668_0
+dep: # r-lmtest           conda-forge/linux-64::r-lmtest-0.9_38-r36h31ca83e_1
+dep: # r-maptools         conda-forge/linux-64::r-maptools-1.1_1-r36hcfec24a_0
+dep: # r-markdown         conda-forge/linux-64::r-markdown-1.1-r36hcfec24a_1
 dep: # r-mass             conda-forge/linux-64::r-mass-7.3_54-r36hcfec24a_0
+dep: # r-matrixmodels     conda-forge/noarch::r-matrixmodels-0.5_0-r36hc72bb7e_0
 dep: # r-matrixstats      conda-forge/linux-64::r-matrixstats-0.58.0-r36hcfec24a_0
 dep: # r-mgcv             conda-forge/linux-64::r-mgcv-1.8_35-r36he454529_0
+dep: # r-mime             conda-forge/linux-64::r-mime-0.10-r36hcfec24a_0
+dep: # r-minqa            conda-forge/linux-64::r-minqa-1.2.4-r36h43222d4_1006
 dep: # r-munsell          conda-forge/noarch::r-munsell-0.5.0-r36h6115d3f_1003
 dep: # r-nlme             conda-forge/linux-64::r-nlme-3.1_152-r36h859d828_0
+dep: # r-nloptr           conda-forge/linux-64::r-nloptr-1.2.2.2-r36h0357c0b_0
+dep: # r-nnet             conda-forge/linux-64::r-nnet-7.3_16-r36hcfec24a_0
+dep: # r-numderiv         conda-forge/noarch::r-numderiv-2016.8_1.1-r36h6115d3f_3
+dep: # r-openxlsx         conda-forge/linux-64::r-openxlsx-4.2.3-r36h1b71b39_0
+dep: # r-pbkrtest         conda-forge/noarch::r-pbkrtest-0.5.1-r36hc72bb7e_0
+dep: # r-plyr             conda-forge/linux-64::r-plyr-1.8.6-r36h0357c0b_1
+dep: # r-prettyunits      conda-forge/noarch::r-prettyunits-1.1.1-r36h6115d3f_1
+dep: # r-progress         conda-forge/noarch::r-progress-1.2.2-r36h6115d3f_2
+dep: # r-proxy            conda-forge/linux-64::r-proxy-0.4_25-r36hcfec24a_0
+dep: # r-purrr            conda-forge/linux-64::r-purrr-0.3.4-r36hcfec24a_1
+dep: # r-quantreg         conda-forge/linux-64::r-quantreg-5.85-r36h52d45c5_0
+dep: # r-ranger           conda-forge/linux-64::r-ranger-0.12.1-r36h0357c0b_1
 dep: # r-rcolorbrewer     conda-forge/noarch::r-rcolorbrewer-1.1_2-r36h6115d3f_1003
-dep: # r-rcppannoy        conda-forge/linux-64::r-rcppannoy-0.0.18-r36h03ef668_0
+dep: # r-rcpparmadillo    conda-forge/linux-64::r-rcpparmadillo-0.10.4.0.0-r36h306847c_0
+dep: # r-rcppeigen        conda-forge/linux-64::r-rcppeigen-0.3.3.9.1-r36h306847c_0
 dep: # r-rcpphnsw         conda-forge/linux-64::r-rcpphnsw-0.3.0-r36h0357c0b_0
 dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.3-r36hcfec24a_0
+dep: # r-readr            conda-forge/linux-64::r-readr-1.4.0-r36h1b71b39_0
+dep: # r-readxl           conda-forge/linux-64::r-readxl-1.3.1-r36hde08347_4
+dep: # r-rematch          conda-forge/noarch::r-rematch-1.0.1-r36h6115d3f_1003
+dep: # r-reshape2         conda-forge/linux-64::r-reshape2-1.4.4-r36h0357c0b_1
+dep: # r-rio              conda-forge/noarch::r-rio-0.5.26-r36hc72bb7e_0
+dep: # r-robustbase       conda-forge/linux-64::r-robustbase-0.93_7-r36h52d45c5_0
 dep: # r-scales           conda-forge/noarch::r-scales-1.1.1-r36h6115d3f_0
+dep: # r-scatterplot3d    conda-forge/noarch::r-scatterplot3d-0.3_41-r36h6115d3f_1003
+dep: # r-smoother         conda-forge/noarch::r-smoother-1.1-r36_1002
 dep: # r-snow             conda-forge/noarch::r-snow-0.4_3-r36h6115d3f_1002
+dep: # r-sp               conda-forge/linux-64::r-sp-1.4_5-r36hcfec24a_0
+dep: # r-sparsem          conda-forge/linux-64::r-sparsem-1.81-r36h859d828_0
+dep: # r-statmod          conda-forge/linux-64::r-statmod-1.4.36-r36h92ddd45_0
+dep: # r-stringi          conda-forge/linux-64::r-stringi-1.5.3-r36hca8494e_0
+dep: # r-stringr          conda-forge/noarch::r-stringr-1.4.0-r36h6115d3f_2
+dep: # r-tidyr            conda-forge/linux-64::r-tidyr-1.1.3-r36h03ef668_0
+dep: # r-tidyselect       conda-forge/linux-64::r-tidyselect-1.1.1-r36hc72bb7e_0
+dep: # r-ttr              conda-forge/linux-64::r-ttr-0.24.2-r36hcdcec82_0
+dep: # r-vcd              conda-forge/noarch::r-vcd-1.4_8-r36h6115d3f_0
+dep: # r-vim              conda-forge/linux-64::r-vim-6.1.0-r36h03ef668_0
 dep: # r-vipor            conda-forge/noarch::r-vipor-0.4.5-r36h6115d3f_1003
 dep: # r-viridis          conda-forge/noarch::r-viridis-0.6.1-r36hc72bb7e_0
 dep: # r-viridislite      conda-forge/noarch::r-viridislite-0.4.0-r36hc72bb7e_0
-[coble-create] End time: 2026-04-25 22:38:28
-[coble-create] Duration: 36s
+dep: # r-xfun             conda-forge/linux-64::r-xfun-0.23-r36hcfec24a_0
+dep: # r-xts              conda-forge/linux-64::r-xts-0.12.1-r36hcdcec82_0
+dep: # r-yaml             conda-forge/linux-64::r-yaml-2.2.1-r36hcfec24a_1
+dep: # r-zip              conda-forge/linux-64::r-zip-2.1.1-r36hcfec24a_0
+dep: # r-zoo              conda-forge/linux-64::r-zoo-1.8_9-r36hcfec24a_0
+[coble-create] End time: 2026-04-26 13:36:22
+[coble-create] Duration: 44s
 
-[coble-create] Start time: 2026-04-25 22:38:28 87/120
-install: Rscript -e 'BiocManager::install("BiocNeighbors", dependencies=NA, Ncpus=1)'
-    # ERROR: from stderr found: ERROR: compilation failed for package ‘BiocNeighbors’
-    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/tumori/lib/R/library/BiocNeighbors’
+[coble-create] Start time: 2026-04-26 13:36:22 87/120
+install: Rscript -e 'BiocManager::install("BiocNeighbors", dependencies=NA, Ncpus=8)'
 dep: # * DONE (BiocVersion)
-[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/papers/tumorigenesis/tumorigenesis_summary.txt
+dep: # * DONE (BiocNeighbors)
+[coble-create] End time: 2026-04-26 13:37:15
+[coble-create] Duration: 53s
+
+[coble-create] Start time: 2026-04-26 13:37:15 89/120
+install: Rscript -e 'BiocManager::install("BiocParallel", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BiocParallel)
+[coble-create] End time: 2026-04-26 13:37:31
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-04-26 13:37:31 91/120
+install: Rscript -e 'BiocManager::install("BiocSingular", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BiocSingular)
+[coble-create] End time: 2026-04-26 13:37:54
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-04-26 13:37:54 93/120
+install: Rscript -e 'BiocManager::install("biomaRt", dependencies=NA, Ncpus=8)'
+    # ERROR: From stdout found: ERROR: compilation failed for package ‘curl’
+dep: # * DONE (blob)
+dep: # * DONE (withr)
+dep: # * DONE (fastmap)
+dep: # * DONE (DBI)
+dep: # * DONE (cachem)
+dep: # * DONE (bit)
+dep: # * DONE (memoise)
+dep: # * DONE (cli)
+dep: # * DONE (bit64)
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/papers/tumorigenesis/tumorigenesis363_summary.txt
 [coble-errors] Errors found (cmd_status=0, err_code=1), exiting due to --skip-errors flag
-[coble-create] End time: 2026-04-25 22:38:42
+[coble-create] End time: 2026-04-26 13:38:21

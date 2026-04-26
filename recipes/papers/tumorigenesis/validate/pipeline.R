@@ -25,7 +25,7 @@ STEP <- if (length(args) >= 2) as.integer(args[2]) else 6 # 1=start, 2=post-norm
 cat("[", format(Sys.time()), "] Starting - GOAL:", GOAL, "STEP:", STEP, "\n")
 
 PATH <- "/home/ralcraft/DEV/gh-rse/BCRDS/coble/recipes/papers/tumorigenesis/data/"
-GITHUB <- "/home/ralcraft/DEV/gh-rse/BCRDS/coble/githubs/Tumorigenesis2018/"
+GITHUB <- "/home/ralcraft/DEV/gh-rse/BCRDS/coble/githubs/Tumorigenesis2018/src/Tumorigenesis/"
 
 # ============================================
 # STEP 0 - Load DATA or CHECKPOINT LOADER
@@ -69,55 +69,17 @@ cat("[", format(Sys.time()), "] KeepForHvg restored -",
 #min.mean = 0.1
 #multiBatchNorm to scale across batches — we used logNormCounts instead!
 # ============================================
-
+oldwd <- getwd()
+setwd(GITHUB)
 # ============================================
 # STEP 1 - Normalisation
 # ============================================
 if (STEP <= 1) {
   cat("[", format(Sys.time()), "] Starting normalisation\n")
-
-  library(scran)
-  library(BiocSingular)
-  library(BiocParallel)
-
-  # Split by batch
-  sce1 <- sce_tumour[, sce_tumour$Batch == 1]
-  sce2 <- sce_tumour[, sce_tumour$Batch == 2]
-  sce3 <- sce_tumour[, sce_tumour$Batch == 3]
-
-  cat("[", format(Sys.time()), "] Cells per batch:",
-      ncol(sce1), ncol(sce2), ncol(sce3), "\n")
-
-  # Batch 1
-  cat("[", format(Sys.time()), "] QuickCluster batch 1\n")
-  set.seed(42)
-  clusters <- quickCluster(sce1, method="igraph", use.ranks=TRUE,
-      d=50, BSPARAM=IrlbaParam(), BPPARAM=MulticoreParam(4), min.mean=0.01)
-  sce1 <- computeSumFactors(sce1, clusters=clusters)
-
-  # Batch 2
-  cat("[", format(Sys.time()), "] QuickCluster batch 2\n")
-  set.seed(42)
-  clusters <- quickCluster(sce2, method="igraph", use.ranks=TRUE,
-      d=50, BSPARAM=IrlbaParam(), BPPARAM=MulticoreParam(4), min.mean=0.01)
-  sce2 <- computeSumFactors(sce2, clusters=clusters)
-
-  # Batch 3
-  cat("[", format(Sys.time()), "] QuickCluster batch 3\n")
-  set.seed(42)
-  clusters <- quickCluster(sce3, method="igraph", use.ranks=TRUE,
-      d=50, BSPARAM=IrlbaParam(), BPPARAM=MulticoreParam(4), min.mean=0.01)
-  sce3 <- computeSumFactors(sce3, clusters=clusters)
-
-  # multiBatchNorm
-  cat("[", format(Sys.time()), "] Running multiBatchNorm\n")
-  scemnorm <- batchelor::multiBatchNorm(sce1, sce2, sce3)
-  sce_tumour <- cbind(scemnorm[[1]], scemnorm[[2]], scemnorm[[3]])
-
-  f <- paste0(PATH, "sce_tumour_G", GOAL, "_01_norm.rds")
-  saveRDS(sce_tumour, f)
+  source("04_Normalization.R")
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
-  }
+}
+
 # ============================================
 # STEP 2 - HVG detection
 # ============================================
@@ -138,30 +100,7 @@ if (STEP <= 1) {
 # ============================================
 if (GOAL != "A" & STEP <= 2) {
   cat("[", format(Sys.time()), "] Starting HVG detection\n")
-
-  # Split by batch
-  sce1 <- sce_tumour[, sce_tumour$Batch == 1]
-  sce2 <- sce_tumour[, sce_tumour$Batch == 2]
-  sce3 <- sce_tumour[, sce_tumour$Batch == 3]
-
-  # Model variance per batch separately
-  dec.var1 <- modelGeneVar(sce1)
-  dec.var2 <- modelGeneVar(sce2)
-  dec.var3 <- modelGeneVar(sce3)
-
-  # Combine variance
-  combVar <- combineVar(dec.var1, dec.var2, dec.var3)
-
-  # Apply KeepForHvg filter then select HVGs
-  combVar <- combVar[rowData(sce_tumour)$KeepForHvg, ]
-  hvgs <- getTopHVGs(combVar)
-
-  cat("[", format(Sys.time()), "] HVGs selected:", length(hvgs), "\n")
-
-  metadata(sce_tumour)$hvgs <- hvgs
-
-  f <- paste0(PATH, "sce_tumour_G", GOAL, "_02_hvg.rds")
-  saveRDS(sce_tumour, f)
+  source("04_Normalization.R")
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
 }
 
@@ -187,38 +126,7 @@ if (GOAL != "A" & STEP <= 2) {
 # ============================================
 if (STEP <= 3 && GOAL == "B") {
   cat("[", format(Sys.time()), "] Starting fastMNN batch correction\n")
-
-  library(BiocSingular)
-  library(BiocParallel)
-
-  # Split by batch - matching their exact approach
-  sce1 <- sce_tumour[, sce_tumour$Batch == 1]
-  sce2 <- sce_tumour[, sce_tumour$Batch == 2]
-  sce3 <- sce_tumour[, sce_tumour$Batch == 3]
-
-  cat("[", format(Sys.time()), "] Cells per batch:",
-      ncol(sce1), ncol(sce2), ncol(sce3), "\n")
-
-  # Their exact parameters - note AnnoyParam commented out in their code
-  set.seed(300)
-  mnncor <- batchelor::fastMNN(sce1, sce2, sce3,
-      BPPARAM = MulticoreParam(workers=4),
-      k = 20,
-      d = 50,
-      BSPARAM = IrlbaParam(deferred=TRUE),
-      cos.norm = FALSE,
-      subset.row = metadata(sce_tumour)$hvgs)
-
-  cat("[", format(Sys.time()), "] fastMNN complete - corrected dims:",
-      dim(reducedDim(mnncor, "corrected")), "\n")
-  cat("[", format(Sys.time()), "] Lost variance per batch:",
-      metadata(mnncor)$merge.info$lost.var, "\n")
-
-  # Store corrected PCs back
-  reducedDim(sce_tumour, "corrected") <- reducedDim(mnncor, "corrected")
-
-  f <- paste0(PATH, "sce_tumour_G", GOAL, "_03_mnn.rds")
-  saveRDS(sce_tumour, f)
+  source("08_BatchCorrection.R")
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
 }
 
@@ -246,19 +154,7 @@ if (STEP <= 3 && GOAL == "B") {
 # ============================================
 if (STEP <= 4 && GOAL == "B") {
   cat("[", format(Sys.time()), "] Starting UMAP\n")
-
-  library(umap)
-
-  m.cor <- reducedDim(sce_tumour, "corrected")
-  ump.cor <- umap(m.cor, random_state=42)
-
-  reducedDim(sce_tumour, "UMAP") <- ump.cor$layout
-
-  # Store the umap object for graph extraction in clustering
-  metadata(sce_tumour)$umap <- ump.cor
-
-  f <- paste0(PATH, "sce_tumour_G", GOAL, "_04_umap.rds")
-  saveRDS(sce_tumour, f)
+  source("09_computeUMAP.R")
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
 
 }
@@ -267,44 +163,8 @@ if (STEP <= 4 && GOAL == "B") {
 # ============================================
 if (STEP <= 5 && GOAL == "B") {
   cat("[", format(Sys.time()), "] Starting clustering\n")
-
-
-  library(Matrix)
-  library(igraph)
-  library(scran)
-  source("functions.R")
-
-  # Ensure cell order matches UMAP graph
-  sce_tumour <- sce_tumour[, rownames(metadata(sce_tumour)$umap$knn$indexes)]
-
-  # Extract UMAP graph
-  cat("[", format(Sys.time()), "] Building graph from UMAP\n")
-  igr.cor <- get_umap_graph(metadata(sce_tumour)$umap)
-
-  # Walktrap clustering - steps=6 as per their code
-  cat("[", format(Sys.time()), "] Running walktrap\n")
-  set.seed(42)
-  ump.wktrp <- cluster_walktrap(igr.cor, steps=6)
-  sce_tumour$Cluster <- paste0("C", ump.wktrp$membership)
-
-  cat("[", format(Sys.time()), "] Clusters before merging:",
-      length(unique(sce_tumour$Cluster)), "\n")
-
-  # Merge clusters
-  cat("[", format(Sys.time()), "] Running mergeCluster\n")
-  rmgenes <- rownames(sce_tumour)[!rowData(sce_tumour)$KeepForHvg]
-  m <- logcounts(sce_tumour)
-  merged <- mergeCluster(m, factor(sce_tumour$Cluster),
-      removeGenes=rmgenes, block=sce_tumour$Batch)
-  sce_tumour$Cluster <- merged$NewCluster
-  sce_tumour$Cluster <- paste0("C", as.numeric(sce_tumour$Cluster))
-
-  cat("[", format(Sys.time()), "] Clusters after merging:",
-      length(unique(sce_tumour$Cluster)), "\n")
-
-  f <- paste0(PATH, "sce_tumour_G", GOAL, "_05_clusters.rds")
-  saveRDS(sce_tumour, f)
-  cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
+  source("10_Clustering.R")
+  cat("[", format(Sys.time()), "] Clustering complete\n")
 }
 # ============================================
 # STEP 6 - Plots
@@ -350,4 +210,6 @@ sink(f)
 print(sessionInfo())
 sink()
 
+
+setwd(oldwd)
 cat("[", format(Sys.time()), "] Session info saved:", f, "\n")

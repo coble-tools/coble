@@ -24,17 +24,26 @@ wget https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-10043#
 
 
 Using their sif
-cd githubs/Tumorigenesis2018
-singularity shell Tumorigenesis.sif
+singularity shell sifs/Tumorigenesis.sif
+Rscript /home/ralcraft/DEV/gh-rse/BCRDS/coble/recipes/papers/tumorigenesis/validate/pipeline.R B 1
 
-# I need a data folder at the same level at src
-project/
-├── src/
-│   └── Tumorigenesis/
-│       └── 01_MakeCountMatrix.Rmd
-└── data/
-    └── Tumorigenesis/
-        └── CellRangerOutput/
-            └── raw/
-                └── features.tsv.gz
+Rerun some of their scripts based on what is in the rds available:
+
+Steps reproduced (Goal B):
+
+✅ 04_Normalisation — rerun from raw counts using quickCluster per batch + multiBatchNorm. Reproducible and deterministic with set.seed(42).
+✅ 08_BatchCorrection — rerun HVG detection + fastMNN with set.seed(300). Core analytical step.
+✅ 09_computeUMAP — rerun UMAP with random_state=42. Deterministic with fixed seed.
+✅ 10_Clustering — rerun walktrap + mergeCluster with set.seed(42). Core analytical step.
+
+Steps skipped and why:
+
+❌ 01_MakeCountMatrix — requires raw FASTQs, not available
+❌ 02 — missing from repository
+❌ 03_QCReport — QC already applied in deposited RDS, cells already filtered
+❌ 05_computeDoubletScores — stochastic, already applied in deposited RDS, rerunning risks removing different cells and corrupting downstream analysis
+❌ 06_fastMNNforDoublets — intermediate step only needed for doublet identification, not final analysis
+❌ 07_DoubletID — stochastic doublet removal already applied in deposited RDS
+❌ 11_CellTypeInference — requires manual biological annotation, not computationally reproducible
+❌ 12_TumorTime — depends on manual annotation from 11
 
