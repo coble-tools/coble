@@ -25,15 +25,16 @@ STEP <- if (length(args) >= 2) as.integer(args[2]) else 6 # 1=start, 2=post-norm
 cat("[", format(Sys.time()), "] Starting - GOAL:", GOAL, "STEP:", STEP, "\n")
 
 PATH <- "/home/ralcraft/DEV/gh-rse/BCRDS/coble/recipes/papers/tumorigenesis/data/"
+GITHUB <- "/home/ralcraft/DEV/gh-rse/BCRDS/coble/githubs/Tumorigenesis2018/"
 
 # ============================================
 # STEP 0 - Load DATA or CHECKPOINT LOADER
 # ============================================
 if (GOAL == "A" || STEP == 1) {
-  message("[", Sys.time(), "] Loadeding - ", paste0(PATH, "BRCA1_SCE.rds"))
+  message("[", format(Sys.time()), "] Loadeding - ", paste0(PATH, "BRCA1_SCE.rds"))
   sce_tumour <- readRDS(paste0(PATH, "BRCA1_SCE.rds"))
   sce_tumour <- sce_tumour[, sce_tumour$Experiment == "Tumorigenesis"]
-  message("[", Sys.time(), "] RDS loaded - ", ncol(sce_tumour), " cells, ", nrow(sce_tumour), " genes")
+  message("[", format(Sys.time()), "] RDS loaded - ", ncol(sce_tumour), " cells, ", nrow(sce_tumour), " genes")
   if (GOAL == "A") {
     STEP <- "F"
   }
@@ -42,13 +43,13 @@ if (GOAL == "A" || STEP == 1) {
   if (STEP == 3) file_name <- paste0(PATH, "sce_tumour_G", GOAL, "_02_hvg.rds")
   if (STEP == 4) file_name <- paste0(PATH, "sce_tumour_G", GOAL, "_03_mnn.rds")
   if (STEP == 5) file_name <- paste0(PATH, "sce_tumour_G", GOAL, "_04_umap.rds")
-  message("[", Sys.time(), "] Loading - ", file_name)
+  message("[", format(Sys.time()), "] Loading - ", file_name)
   sce_tumour <- readRDS(file_name)
-  message("[", Sys.time(), "] RDS loaded - ", ncol(sce_tumour), " cells, ", nrow(sce_tumour), " genes")
+  message("[", format(Sys.time()), "] RDS loaded - ", ncol(sce_tumour), " cells, ", nrow(sce_tumour), " genes")
 
 } else {
 
-  message("[", Sys.time(), "] Error: GOAL must be A, B, C, D or E")
+  message("[", format(Sys.time()), "] Error: GOAL must be A, B, C, D or E")
   exit(1)
 
 }
@@ -116,8 +117,7 @@ if (STEP <= 1) {
   f <- paste0(PATH, "sce_tumour_G", GOAL, "_01_norm.rds")
   saveRDS(sce_tumour, f)
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
-  STEP <- 1
-}
+  }
 # ============================================
 # STEP 2 - HVG detection
 # ============================================
@@ -165,8 +165,6 @@ if (GOAL != "A" & STEP <= 2) {
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
 }
 
-exit(0)
-
 # ============================================
 # STEP 3 - Batch correction (fastMNN)
 # ===========================================
@@ -189,6 +187,9 @@ exit(0)
 # ============================================
 if (STEP <= 3 && GOAL == "B") {
   cat("[", format(Sys.time()), "] Starting fastMNN batch correction\n")
+
+  library(BiocSingular)
+  library(BiocParallel)
 
   # Split by batch - matching their exact approach
   sce1 <- sce_tumour[, sce_tumour$Batch == 1]
@@ -219,7 +220,6 @@ if (STEP <= 3 && GOAL == "B") {
   f <- paste0(PATH, "sce_tumour_G", GOAL, "_03_mnn.rds")
   saveRDS(sce_tumour, f)
   cat("[", format(Sys.time()), "] Saved:", f, "-", file.size(f)/1e6, "MB\n")
-  STEP <- 3
 }
 
 # ============================================
@@ -268,9 +268,10 @@ if (STEP <= 4 && GOAL == "B") {
 if (STEP <= 5 && GOAL == "B") {
   cat("[", format(Sys.time()), "] Starting clustering\n")
 
+
+  library(Matrix)
   library(igraph)
   library(scran)
-  library(Matrix)
   source("functions.R")
 
   # Ensure cell order matches UMAP graph
