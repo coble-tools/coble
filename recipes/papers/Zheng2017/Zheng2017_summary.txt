@@ -1,0 +1,358 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-01 at 15:49:47 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-01 15:49:47 1/97
+install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
+[coble-create] End time: 2026-05-01 15:49:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:49:47 3/97
+install: conda env remove --name Zheng2017 -y 2>/dev/null || true
+[coble-create] End time: 2026-05-01 15:49:48
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-01 15:49:48 5/97
+install: conda create --no-default-packages --name Zheng2017 -y
+[coble-create] End time: 2026-05-01 15:49:59
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-01 15:49:59 7/97
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-01 15:49:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:49:59 8/97
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-01 15:49:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:49:59 9/97
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-05-01 15:50:00
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-01 15:50:00 11/97
+install: conda deactivate | true
+[coble-create] End time: 2026-05-01 15:50:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:00 12/97
+install: conda deactivate | true
+[coble-create] End time: 2026-05-01 15:50:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:00 13/97
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-01 15:50:01
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-01 15:50:01 14/97
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-01 15:50:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:01 15/97
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-01 15:50:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:01 16/97
+install: conda config --env --show channels | grep -q 'channels:' && conda config --env --remove-key channels || true
+[coble-create] End time: 2026-05-01 15:50:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:01 18/97
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-01 15:50:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:01 19/97
+install: conda config --env --add channels intel
+[coble-create] End time: 2026-05-01 15:50:02
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-01 15:50:02 21/97
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/r
+[coble-create] End time: 2026-05-01 15:50:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:02 23/97
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/free
+[coble-create] End time: 2026-05-01 15:50:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:02 25/97
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/main
+[coble-create] End time: 2026-05-01 15:50:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:02 27/97
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-01 15:50:03
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-01 15:50:03 28/97
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-01 15:50:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:03 29/97
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-01 15:50:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:03 30/97
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-01 15:50:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:03 31/97
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-01 15:50:03
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:03 35/97
+install: conda install -y --solver=libmamba --no-update-deps  r-base=3.3.1  ncurses=5.9  _libgcc_mutex=0.1=free 
+dep: # _libgcc_mutex      pkgs/free/linux-64::_libgcc_mutex-0.1-free
+dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-4.5-3_gnu
+dep: # _r-mutex           pkgs/main/linux-64::_r-mutex-1.0.0-anacondar_1
+dep: # bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2026.3.19-h06a4308_0
+dep: # cairo              pkgs/free/linux-64::cairo-1.14.8-0
+dep: # curl               pkgs/main/linux-64::curl-7.69.1-hbc83047_0
+dep: # fontconfig         pkgs/free/linux-64::fontconfig-2.12.1-3
+dep: # freetype           pkgs/free/linux-64::freetype-2.5.5-2
+dep: # glib               pkgs/free/linux-64::glib-2.50.2-1
+dep: # gsl                pkgs/main/linux-64::gsl-2.7.1-h6e86dc7_1
+dep: # harfbuzz           pkgs/free/linux-64::harfbuzz-0.9.39-2
+dep: # icu                pkgs/free/linux-64::icu-54.1-0
+dep: # jpeg               pkgs/main/linux-64::jpeg-9f-h5ce9db8_0
+dep: # krb5               conda-forge/linux-64::krb5-1.17.1-h2fd8d38_0
+dep: # lerc               pkgs/main/linux-64::lerc-4.0.0-h6a678d5_0
+dep: # libcurl            pkgs/main/linux-64::libcurl-7.69.1-h20c2e04_0
+dep: # libdeflate         pkgs/main/linux-64::libdeflate-1.22-h5eee18b_0
+dep: # libedit            conda-forge/linux-64::libedit-3.1.20170329-0
+dep: # libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_1
+dep: # libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_18
+dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_18
+dep: # libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_18
+dep: # libiconv           pkgs/free/linux-64::libiconv-1.14-0
+dep: # libpng             pkgs/main/linux-64::libpng-1.6.54-hee55ce4_0
+dep: # libssh2            pkgs/main/linux-64::libssh2-1.10.0-h37d81fd_2
+dep: # libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+dep: # libtiff            pkgs/main/linux-64::libtiff-4.5.1-hffd6297_1
+dep: # libwebp-base       pkgs/main/linux-64::libwebp-base-1.6.0-hb7bb969_0
+dep: # libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0
+dep: # libxml2            pkgs/main/linux-64::libxml2-2.9.9-hea5a465_1
+dep: # lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1
+dep: # ncurses            pkgs/free/linux-64::ncurses-5.9-10
+dep: # openssl            pkgs/main/linux-64::openssl-1.1.1w-h7f8727e_0
+dep: # pango              pkgs/free/linux-64::pango-1.40.3-1
+dep: # pcre               pkgs/free/linux-64::pcre-8.39-1
+dep: # pixman             pkgs/main/linux-64::pixman-0.34.0-hceecf20_3
+dep: # pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1
+dep: # r-base             pkgs/r/linux-64::r-base-3.3.1-6
+dep: # readline           pkgs/main/linux-64::readline-7.0-hb321a52_4
+dep: # tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0
+dep: # xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1
+dep: # xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0
+dep: # xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0
+dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
+dep: # xz                 pkgs/main/linux-64::xz-5.2.10-h5eee18b_1
+dep: # zlib               pkgs/main/linux-64::zlib-1.2.13-hd233ad5_2
+dep: # zstd               pkgs/main/linux-64::zstd-1.5.5-hc292b87_0
+[coble-create] End time: 2026-05-01 15:50:23
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-05-01 15:50:23 37/97
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-01 15:50:23
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:23 40/97
+install: conda install -y --solver=libmamba --no-update-deps  libpng  libgfortran 
+dep: # libgfortran        pkgs/main/linux-64::libgfortran-15.2.0-h166f726_7
+dep: # libgfortran5       pkgs/main/linux-64::libgfortran5-15.2.0-hc633d37_7
+[coble-create] End time: 2026-05-01 15:50:34
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-01 15:50:34 42/97
+install: rm -rf $CONDA_PREFIX/lib/libgfortran.so.3
+[coble-create] End time: 2026-05-01 15:50:34
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 44/97
+install: wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-6/libgfortran3_6.4.0-17ubuntu1_amd64.deb
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 46/97
+install: dpkg -x libgfortran3_6.4.0-17ubuntu1_amd64.deb /tmp/libgfortran3
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 48/97
+install: cp /tmp/libgfortran3/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 50/97
+install: ln -s $CONDA_PREFIX/lib/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/libgfortran.so.3
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 52/97
+install: rm -rf $CONDA_PREFIX/lib/libreadline.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 54/97
+install: rm -rf $CONDA_PREFIX/lib/libtinfow.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 56/97
+install: rm -rf $CONDA_PREFIX/lib/libtinfo.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 58/97
+install: ln -s $CONDA_PREFIX/lib/libreadline.so.7 $CONDA_PREFIX/lib/libreadline.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 60/97
+install: ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfow.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 62/97
+install: ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfo.so.6
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 64/97
+install: sed -i 's/^CFLAGS = /CFLAGS = -fcommon /' $CONDA_PREFIX/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-01 15:50:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:50:35 66/97
+install: Rscript -e 'install.packages("Matrix", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (lattice)
+dep: # * DONE (Matrix)
+[coble-create] End time: 2026-05-01 15:50:54
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-05-01 15:50:54 68/97
+install: Rscript -e 'install.packages("ggplot2", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (RColorBrewer)
+dep: # * DONE (dichromat)
+dep: # * DONE (labeling)
+dep: # * DONE (R6)
+dep: # * DONE (magrittr)
+dep: # * DONE (viridisLite)
+dep: # * DONE (colorspace)
+dep: # * DONE (gtable)
+dep: # * DONE (digest)
+dep: # * DONE (munsell)
+dep: # * DONE (lazyeval)
+dep: # * DONE (rlang)
+dep: # * DONE (MASS)
+dep: # * DONE (Rcpp)
+dep: # * DONE (tibble)
+dep: # * DONE (plyr)
+dep: # * DONE (scales)
+dep: # * DONE (stringi)
+dep: # * DONE (stringr)
+dep: # * DONE (reshape2)
+dep: # * DONE (ggplot2)
+[coble-create] End time: 2026-05-01 15:52:23
+[coble-create] Duration: 89s
+
+[coble-create] Start time: 2026-05-01 15:52:23 70/97
+install: Rscript -e 'install.packages("Rtsne", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (Rtsne)
+[coble-create] End time: 2026-05-01 15:52:31
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-05-01 15:52:31 72/97
+install: Rscript -e 'install.packages("svd", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (svd)
+[coble-create] End time: 2026-05-01 15:52:35
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-01 15:52:35 74/97
+install: Rscript -e 'install.packages("dplyr", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (bindr)
+dep: # * DONE (plogr)
+dep: # * DONE (pkgconfig)
+dep: # * DONE (assertthat)
+dep: # * DONE (glue)
+dep: # * DONE (bindrcpp)
+dep: # * DONE (BH)
+dep: # * DONE (dplyr)
+[coble-create] End time: 2026-05-01 15:54:00
+[coble-create] Duration: 85s
+
+[coble-create] Start time: 2026-05-01 15:54:00 76/97
+install: Rscript -e 'install.packages("plyr", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (plyr)
+[coble-create] End time: 2026-05-01 15:54:07
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-01 15:54:07 78/97
+install: Rscript -e 'install.packages("data.table", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (data.table)
+[coble-create] End time: 2026-05-01 15:54:16
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-01 15:54:16 80/97
+install: Rscript -e 'install.packages("pheatmap", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (pheatmap)
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-01 15:54:20 82/97
+install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 84/97
+install: echo 'echo "COBLE validation: No script has been specified for Zheng2017 environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 86/97
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 88/97
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 90/97
+install: mkdir -p ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 92/97
+install: cp recipes/papers/Zheng2017/Zheng2017.cbl ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 94/97
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-01 15:54:20 96/97
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-05-01 15:54:20
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-01 15:54:20
+[coble-create] Recipe took: 0h 4m 33s
+--------------------------------------

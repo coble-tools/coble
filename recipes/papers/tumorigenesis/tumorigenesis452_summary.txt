@@ -972,3 +972,75 @@ install: Rscript -e 'BiocManager::install("edgeR", dependencies=NA, Ncpus=8)'
 
 [coble-create] Start time: 2026-04-26 15:07:50 111/132
 install: Rscript -e 'BiocManager::install("scater", dependencies=NA, Ncpus=8)'
+dep: # * DONE (RcppProgress)
+dep: # * DONE (vipor)
+dep: # * DONE (beeswarm)
+dep: # * DONE (ggbeeswarm)
+dep: # * DONE (Cairo)
+dep: # * DONE (ggrastr)
+dep: # * DONE (FNN)
+dep: # * DONE (RcppML)
+dep: # * DONE (uwot)
+dep: # * DONE (scater)
+[coble-create] End time: 2026-04-26 15:08:56
+[coble-create] Duration: 66s
+
+[coble-create] Start time: 2026-04-26 15:08:56 113/132
+install: Rscript -e 'BiocManager::install("scran", dependencies=NA, Ncpus=8)'
+dep: # * DONE (metapod)
+dep: # * DONE (bluster)
+dep: # * DONE (scran)
+[coble-create] End time: 2026-04-26 15:09:50
+[coble-create] Duration: 54s
+
+[coble-create] Start time: 2026-04-26 15:09:50 115/132
+install: Rscript -e 'BiocManager::install("topGO", dependencies=NA, Ncpus=8)'
+dep: # * DONE (graph)
+dep: # * DONE (GO.db)
+dep: # * DONE (topGO)
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 24s
+
+[coble-create] Start time: 2026-04-26 15:10:14 117/132
+install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 119/132
+install: echo 'echo "COBLE validation: No script has been specified for tumori452 environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 121/132
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 123/132
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 125/132
+install: mkdir -p ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 127/132
+install: cp recipes/papers/tumorigenesis/tumorigenesis452.cbl ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 129/132
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-04-26 15:10:14 131/132
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-04-26 15:10:14
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-04-26 15:10:14
+[coble-create] Recipe took: 0h 32m 20s
+--------------------------------------
