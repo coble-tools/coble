@@ -78,9 +78,9 @@ r-package:
   - lazyeval
 r-conda:
   - Rcpp=0.12.5
+  - plyr=1.8.4
 r-package:
   - Matrix=1.2-6
-  - plyr=1.8.4
   - gtable=0.2.0
   - scales=0.4.0
   - reshape2=1.4.1
