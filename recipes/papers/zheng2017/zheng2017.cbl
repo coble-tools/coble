@@ -24,6 +24,8 @@ conda:
   - r-base=3.3.1
   - ncurses=5.9
   - _libgcc_mutex=0.1=free
+  - gxx_linux-64
+  - make
 flags:
   - priority: strict
 conda:
