@@ -34,7 +34,10 @@ bash:
 # For Ubuntu 22.04/20.04 - grab the old deb manually
 rm -rf $CONDA_PREFIX/lib/libgfortran.so.3
 wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-6/libgfortran3_6.4.0-17ubuntu1_amd64.deb
-dpkg -x libgfortran3_6.4.0-17ubuntu1_amd64.deb /tmp/libgfortran3
+# Extract the .deb without dpkg
+ar x libgfortran3_6.4.0-17ubuntu1_amd64.deb
+mkdir -p /tmp/libgfortran3
+tar -xf data.tar.xz -C /tmp/libgfortran3
 # Copy the library into your conda env
 cp /tmp/libgfortran3/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/
 ln -s $CONDA_PREFIX/lib/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/libgfortran.so.3
