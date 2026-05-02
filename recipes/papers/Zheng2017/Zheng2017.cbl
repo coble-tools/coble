@@ -47,12 +47,14 @@ ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfo.so.6
 sed -i 's/^CFLAGS = /CFLAGS = -fcommon /' $CONDA_PREFIX/lib/R/etc/Makeconf
 
 r-package:
-  - Matrix
+  - lattice
+  - Matrix=1.2-6
   - ggplot2
   - Rtsne
   - svd
   - dplyr
   - plyr
-  - data.table
+  - chron
+  - data.table=1.9.6
   - pheatmap
 

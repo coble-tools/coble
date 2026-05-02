@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
-# Capture date: 2026-05-01
-# Capture time: 15:54:24 BST
+# Capture date: 2026-05-02
+# Capture time: 08:22:14 BST
 # Captured by: ralcraft
 
 coble:
@@ -114,7 +114,11 @@ conda:
 r-package:
   - BH=1.65.0-1@RSPM
   - MASS=7.3-47@RSPM
-  - Matrix=1.2-11@RSPM
+
+r-package:
+  - Matrix=1.2-6
+
+r-package:
   - R6=2.2.2@RSPM
   - RColorBrewer=1.1-2@RSPM
   - Rcpp=0.12.13@RSPM
@@ -122,8 +126,13 @@ r-package:
   - assertthat=0.2.0@RSPM
   - bindr=0.1@RSPM
   - bindrcpp=0.2@RSPM
+  - chron=2.3-51@RSPM
   - colorspace=1.3-2@RSPM
-  - data.table=1.10.4-1@RSPM
+
+r-package:
+  - data.table=1.9.6
+
+r-package:
   - dichromat=2.0-0@RSPM
   - digest=0.6.12@RSPM
   - dplyr=0.7.4@RSPM
