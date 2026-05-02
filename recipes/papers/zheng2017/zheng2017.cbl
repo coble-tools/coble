@@ -1,11 +1,11 @@
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
-# code/coble build --recipe recipes/papers/Zheng2017/Zheng2017.cbl --env Zheng2017 -- rebuild
+# code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --containers docker,singularity --validate recipes/papers/zheng2017/validate.sh
 #######################################
 coble:
   - environment: zheng2017
 channels:
-  - intel
+  - https://software.repos.intel.com/python/conda/
   - https://repo.anaconda.com/pkgs/r
   - https://repo.anaconda.com/pkgs/free
   - https://repo.anaconda.com/pkgs/main
@@ -16,6 +16,10 @@ flags:
   - priority: flexible
   - export: CFLAGS="-fcommon -O2"
   - export: PKG_CFLAGS="-fcommon"
+  - export: CXX="g++ -std=c++14"
+  - export: CXX1X="g++ -std=c++14"
+  - export: CXXFLAGS="-std=c++14"
+  - export: FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
 conda:
   - r-base=3.3.1
   - ncurses=5.9
@@ -34,6 +38,7 @@ dpkg -x libgfortran3_6.4.0-17ubuntu1_amd64.deb /tmp/libgfortran3
 # Copy the library into your conda env
 cp /tmp/libgfortran3/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/
 ln -s $CONDA_PREFIX/lib/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/libgfortran.so.3
+rm -rf libgfortran3_6.4.0-17ubuntu1_amd64.deb
 
 # More simlinks
 rm -rf $CONDA_PREFIX/lib/libreadline.so.6
@@ -42,19 +47,48 @@ rm -rf $CONDA_PREFIX/lib/libtinfo.so.6
 ln -s $CONDA_PREFIX/lib/libreadline.so.7 $CONDA_PREFIX/lib/libreadline.so.6
 ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfow.so.6
 ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfo.so.6
+ln -s $CONDA_PREFIX/lib/libffi.so.7 $CONDA_PREFIX/lib/libffi.so.6
 
 # grep a fix in makevar
 sed -i 's/^CFLAGS = /CFLAGS = -fcommon /' $CONDA_PREFIX/lib/R/etc/Makeconf
+echo "CXX = g++ -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
+echo "CXX1X = g++ -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
+echo "CXXFLAGS = -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
 
+# added in dependency layers for versioning
 r-package:
   - lattice
-  - Matrix=1.2-6
-  - ggplot2
-  - Rtsne
-  - svd
-  - dplyr
-  - plyr
   - chron
+  - DBI
+  - BH
+  - assertthat
+  - MASS
+  - digest=0.6.9
+  - RColorBrewer
+  - dichromat
+  - munsell
+  - labeling
+  - stringr
+  - R6
+  - lazyeval
+r-conda:
+  - Rcpp=0.12.5
+r-package:
+  - Matrix=1.2-6
+  - plyr=1.8.4
+  - gtable=0.2.0
+  - scales=0.4.0
+  - reshape2=1.4.1
+  - svd=0.3.3
   - data.table=1.9.6
-  - pheatmap
-
+r-package:
+  - ggplot2=2.1.0
+  - dplyr=0.4.3
+  - Rtsne=0.11
+r-package:
+  - pheatmap=1.0.8
+conda:
+  - cairo
+  - pango
+  - fonts-anaconda
+  - fontconfig

@@ -1,0 +1,1334 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 12:29:48 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 12:29:49 1/136
+install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
+[coble-create] End time: 2026-05-02 12:29:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:29:49 3/136
+install: conda env remove --name Zheng2017 -y 2>/dev/null || true
+[coble-create] End time: 2026-05-02 12:29:51
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-02 12:29:51 5/136
+install: conda create --no-default-packages --name Zheng2017 -y
+[coble-create] End time: 2026-05-02 12:30:10
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-05-02 12:30:10 7/136
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:30:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:10 8/136
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 12:30:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:10 9/136
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-05-02 12:30:11
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:11 11/136
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:30:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:11 12/136
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:30:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:11 13/136
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 12:30:12
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:12 14/136
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:30:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:12 15/136
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 12:30:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:12 16/136
+install: conda config --env --show channels | grep -q 'channels:' && conda config --env --remove-key channels || true
+[coble-create] End time: 2026-05-02 12:30:13
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:13 18/136
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:30:12
+[coble-create] Duration: -1s
+
+[coble-create] Start time: 2026-05-02 12:30:12 19/136
+install: conda config --env --add channels intel
+[coble-create] End time: 2026-05-02 12:30:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:12 21/136
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/r
+[coble-create] End time: 2026-05-02 12:30:13
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:13 23/136
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/free
+[coble-create] End time: 2026-05-02 12:30:14
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:14 25/136
+install: conda config --env --add channels https://repo.anaconda.com/pkgs/main
+[coble-create] End time: 2026-05-02 12:30:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:14 27/136
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 12:30:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:15 28/136
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:30:15
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:15 29/136
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:30:15
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:15 30/136
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:30:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:16 31/136
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:30:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:16 32/136
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:30:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:16 33/136
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:30:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:16 34/136
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:30:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:17 35/136
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:30:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:17 36/136
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:30:17
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:18 37/136
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:30:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:30:18 41/136
+install: conda install -y --solver=libmamba --no-update-deps  r-base=3.3.1  ncurses=5.9  _libgcc_mutex=0.1=free 
+dep: # _libgcc_mutex      pkgs/free/linux-64::_libgcc_mutex-0.1-free
+dep: # _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-4.5-3_gnu
+dep: # _r-mutex           pkgs/main/linux-64::_r-mutex-1.0.0-anacondar_1
+dep: # bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6
+dep: # ca-certificates    pkgs/main/linux-64::ca-certificates-2026.3.19-h06a4308_0
+dep: # cairo              pkgs/free/linux-64::cairo-1.14.8-0
+dep: # curl               pkgs/main/linux-64::curl-7.69.1-hbc83047_0
+dep: # fontconfig         pkgs/free/linux-64::fontconfig-2.12.1-3
+dep: # freetype           pkgs/free/linux-64::freetype-2.5.5-2
+dep: # glib               pkgs/free/linux-64::glib-2.50.2-1
+dep: # gsl                pkgs/main/linux-64::gsl-2.7.1-h6e86dc7_1
+dep: # harfbuzz           pkgs/free/linux-64::harfbuzz-0.9.39-2
+dep: # icu                pkgs/free/linux-64::icu-54.1-0
+dep: # jpeg               pkgs/main/linux-64::jpeg-9f-h5ce9db8_0
+dep: # krb5               conda-forge/linux-64::krb5-1.17.1-h2fd8d38_0
+dep: # lerc               pkgs/main/linux-64::lerc-4.0.0-h6a678d5_0
+dep: # libcurl            pkgs/main/linux-64::libcurl-7.69.1-h20c2e04_0
+dep: # libdeflate         pkgs/main/linux-64::libdeflate-1.22-h5eee18b_0
+dep: # libedit            conda-forge/linux-64::libedit-3.1.20170329-0
+dep: # libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_1
+dep: # libgcc             conda-forge/linux-64::libgcc-15.2.0-he0feb66_18
+dep: # libgcc-ng          conda-forge/linux-64::libgcc-ng-15.2.0-h69a702a_18
+dep: # libgomp            conda-forge/linux-64::libgomp-15.2.0-he0feb66_18
+dep: # libiconv           pkgs/free/linux-64::libiconv-1.14-0
+dep: # libpng             pkgs/main/linux-64::libpng-1.6.54-hee55ce4_0
+dep: # libssh2            pkgs/main/linux-64::libssh2-1.10.0-h37d81fd_2
+dep: # libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1
+dep: # libtiff            pkgs/main/linux-64::libtiff-4.5.1-hffd6297_1
+dep: # libwebp-base       pkgs/main/linux-64::libwebp-base-1.6.0-hb7bb969_0
+dep: # libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0
+dep: # libxml2            pkgs/main/linux-64::libxml2-2.9.9-hea5a465_1
+dep: # lz4-c              pkgs/main/linux-64::lz4-c-1.9.4-h6a678d5_1
+dep: # ncurses            pkgs/free/linux-64::ncurses-5.9-10
+dep: # openssl            pkgs/main/linux-64::openssl-1.1.1w-h7f8727e_0
+dep: # pango              pkgs/free/linux-64::pango-1.40.3-1
+dep: # pcre               pkgs/free/linux-64::pcre-8.39-1
+dep: # pixman             pkgs/main/linux-64::pixman-0.34.0-hceecf20_3
+dep: # pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1
+dep: # r-base             pkgs/r/linux-64::r-base-3.3.1-6
+dep: # readline           pkgs/main/linux-64::readline-7.0-hb321a52_4
+dep: # tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0
+dep: # xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1
+dep: # xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0
+dep: # xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0
+dep: # xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1
+dep: # xz                 pkgs/main/linux-64::xz-5.2.10-h5eee18b_1
+dep: # zlib               pkgs/main/linux-64::zlib-1.2.13-hd233ad5_2
+dep: # zstd               pkgs/main/linux-64::zstd-1.5.5-hc292b87_0
+[coble-create] End time: 2026-05-02 12:30:46
+[coble-create] Duration: 28s
+
+[coble-create] Start time: 2026-05-02 12:30:46 43/136
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:30:47
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:30:47 46/136
+install: conda install -y --solver=libmamba --no-update-deps  libpng  libgfortran 
+dep: # libgfortran        pkgs/main/linux-64::libgfortran-15.2.0-h166f726_7
+dep: # libgfortran5       pkgs/main/linux-64::libgfortran5-15.2.0-hc633d37_7
+[coble-create] End time: 2026-05-02 12:31:06
+[coble-create] Duration: 19s
+
+[coble-create] Start time: 2026-05-02 12:31:06 48/136
+install: rm -rf $CONDA_PREFIX/lib/libgfortran.so.3
+[coble-create] End time: 2026-05-02 12:31:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:06 50/136
+install: wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-6/libgfortran3_6.4.0-17ubuntu1_amd64.deb
+[coble-create] End time: 2026-05-02 12:31:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:06 52/136
+install: dpkg -x libgfortran3_6.4.0-17ubuntu1_amd64.deb /tmp/libgfortran3
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 54/136
+install: cp /tmp/libgfortran3/usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 56/136
+install: ln -s $CONDA_PREFIX/lib/libgfortran.so.3.0.0 $CONDA_PREFIX/lib/libgfortran.so.3
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 58/136
+install: rm -rf $CONDA_PREFIX/lib/libreadline.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 60/136
+install: rm -rf $CONDA_PREFIX/lib/libtinfow.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 62/136
+install: rm -rf $CONDA_PREFIX/lib/libtinfo.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 64/136
+install: ln -s $CONDA_PREFIX/lib/libreadline.so.7 $CONDA_PREFIX/lib/libreadline.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 66/136
+install: ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfow.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 68/136
+install: ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfo.so.6
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 70/136
+install: sed -i 's/^CFLAGS = /CFLAGS = -fcommon /' $CONDA_PREFIX/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 72/136
+install: echo "CXX = g++ -std=c++14" >> ~/miniforge3/envs/Zheng2017/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 74/136
+install: echo "CXX1X = g++ -std=c++14" >> ~/miniforge3/envs/Zheng2017/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 76/136
+install: echo "CXXFLAGS = -std=c++14" >> ~/miniforge3/envs/Zheng2017/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:31:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:31:07 78/136
+install: Rscript -e 'install.packages("lattice", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (lattice)
+[coble-create] End time: 2026-05-02 12:31:12
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:31:12 80/136
+install: Rscript -e 'install.packages("chron", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (chron)
+[coble-create] End time: 2026-05-02 12:31:17
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:31:17 82/136
+install: Rscript -e 'install.packages("DBI", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (DBI)
+[coble-create] End time: 2026-05-02 12:31:23
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-02 12:31:23 84/136
+install: Rscript -e 'install.packages("BH", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (BH)
+[coble-create] End time: 2026-05-02 12:31:45
+[coble-create] Duration: 22s
+
+[coble-create] Start time: 2026-05-02 12:31:45 86/136
+install: Rscript -e 'install.packages("assertthat", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (assertthat)
+[coble-create] End time: 2026-05-02 12:31:50
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:31:50 88/136
+install: Rscript -e 'install.packages("MASS", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (MASS)
+[coble-create] End time: 2026-05-02 12:32:02
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-05-02 12:32:02 90/136
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.9.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (digest)
+[coble-create] End time: 2026-05-02 12:32:04
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-02 12:32:04 93/136
+install: conda install -y --solver=libmamba --no-update-deps  'r-Rcpp=0.12.5' 
+dep: # r-rcpp             pkgs/r/linux-64::r-rcpp-0.12.5-r3.3.1_0
+[coble-create] End time: 2026-05-02 12:32:20
+[coble-create] Duration: 16s
+
+[coble-create] Start time: 2026-05-02 12:32:20 95/136
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.2-6.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (Matrix)
+[coble-create] End time: 2026-05-02 12:33:27
+[coble-create] Duration: 67s
+
+[coble-create] Start time: 2026-05-02 12:33:27 97/136
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.4.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (plyr)
+[coble-create] End time: 2026-05-02 12:33:34
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-02 12:33:34 99/136
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.2.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (gtable)
+[coble-create] End time: 2026-05-02 12:33:35
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:33:35 101/136
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_0.4.0.tar.gz", repos=NULL, type="source")'
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/Zheng2017/lib/R/library/scales’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/papers/Zheng2017/Zheng2017_summary.txt
+[coble-errors] Errors found (cmd_status=0, err_code=1), exiting due to --skip-errors flag
+[coble-create] End time: 2026-05-02 12:33:36
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 12:34:58 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 12:34:58 1/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:34:58
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:34:58 2/72
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 12:34:58
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:34:58 3/72
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:34:59 4/72
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:34:59 5/72
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:34:59 6/72
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:00 7/72
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:00 8/72
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: -1s
+
+[coble-create] Start time: 2026-05-02 12:34:59 9/72
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 12:34:59
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:34:59 10/72
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:35:00 11/72
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:00 12/72
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:00 13/72
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:00 14/72
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:35:00
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:01 15/72
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:35:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:01 16/72
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:35:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:01 17/72
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:35:01
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:01 18/72
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:35:02 19/72
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:02 20/72
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:02 21/72
+install: echo "CXX = g++ -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:02 23/72
+install: echo "CXX1X = g++ -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:02 25/72
+install: echo "CXXFLAGS = -std=c++14" >> $CONDA_PREFIX/lib/R/etc/Makeconf
+[coble-create] End time: 2026-05-02 12:35:02
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:35:02 27/72
+install: Rscript -e 'install.packages("RColorBrewer", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (RColorBrewer)
+[coble-create] End time: 2026-05-02 12:35:07
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:35:07 29/72
+install: Rscript -e 'install.packages("dichromat", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (dichromat)
+[coble-create] End time: 2026-05-02 12:35:11
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-02 12:35:11 31/72
+install: Rscript -e 'install.packages("munsell", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (colorspace)
+dep: # * DONE (munsell)
+[coble-create] End time: 2026-05-02 12:35:20
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-02 12:35:20 33/72
+install: Rscript -e 'install.packages("labeling", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (labeling)
+[coble-create] End time: 2026-05-02 12:35:24
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-02 12:35:24 35/72
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.2.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (gtable)
+[coble-create] End time: 2026-05-02 12:35:26
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-02 12:35:26 37/72
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_0.4.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (scales)
+[coble-create] End time: 2026-05-02 12:35:31
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:35:31 39/72
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.1.tar.gz", repos=NULL, type="source")'
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/Zheng2017/lib/R/library/reshape2’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/papers/Zheng2017/Zheng2017_summary.txt
+[coble-errors] Errors found (cmd_status=0, err_code=1), exiting due to --skip-errors flag
+[coble-create] End time: 2026-05-02 12:35:32
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 12:36:05 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 12:36:05 1/58
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:36:05
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:05 2/58
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 12:36:05
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:05 3/58
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:36:05
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:06 4/58
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:36:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:06 5/58
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 12:36:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:06 6/58
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:36:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:06 7/58
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 12:36:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:06 8/58
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:36:07
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:36:07 9/58
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 12:36:07
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:07 10/58
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:36:08
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:36:08 11/58
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:36:08
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:08 12/58
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:36:08
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:08 13/58
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:36:08
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:08 14/58
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:36:09
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:36:09 15/58
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:36:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:09 16/58
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:36:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:09 17/58
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:36:09
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:09 18/58
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:36:10
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:36:10 19/58
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:36:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:10 20/58
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:36:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:36:10 21/58
+install: Rscript -e 'install.packages("stringr", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (magrittr)
+dep: # * DONE (stringi)
+dep: # * DONE (stringr)
+[coble-create] End time: 2026-05-02 12:37:47
+[coble-create] Duration: 97s
+
+[coble-create] Start time: 2026-05-02 12:37:47 23/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_0.4.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (scales)
+[coble-create] End time: 2026-05-02 12:37:53
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-02 12:37:53 25/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.1.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (reshape2)
+[coble-create] End time: 2026-05-02 12:37:59
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-02 12:37:59 27/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/svd/svd_0.3.3.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (svd)
+[coble-create] End time: 2026-05-02 12:38:01
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-02 12:38:01 29/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/data.table/data.table_1.9.6.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (data.table)
+[coble-create] End time: 2026-05-02 12:38:11
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-05-02 12:38:11 31/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_2.1.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (ggplot2)
+[coble-create] End time: 2026-05-02 12:38:15
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-02 12:38:15 33/58
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_0.4.3.tar.gz", repos=NULL, type="source")'
+    # ERROR: from stderr found: * removing ‘/home/ralcraft/miniforge3/envs/Zheng2017/lib/R/library/dplyr’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/papers/Zheng2017/Zheng2017_summary.txt
+[coble-errors] Errors found (cmd_status=0, err_code=1), exiting due to --skip-errors flag
+[coble-create] End time: 2026-05-02 12:38:17
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 12:44:45 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 12:44:45 1/52
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:44:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:45 2/52
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 12:44:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:45 3/52
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:44:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:46 4/52
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 12:44:47
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:47 5/52
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 12:44:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:47 6/52
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 12:44:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:47 7/52
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 12:44:47
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:47 8/52
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:44:48
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:48 9/52
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 12:44:49
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:49 10/52
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:44:50
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:50 11/52
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 12:44:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:50 12/52
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:44:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:51 13/52
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 12:44:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:51 14/52
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:44:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:51 15/52
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:44:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:51 16/52
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:44:52
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:52 17/52
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 12:44:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:52 18/52
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:44:53
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:53 19/52
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 12:44:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:44:53 20/52
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 12:44:54
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 12:44:54 21/52
+install: Rscript -e 'install.packages("R6", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (R6)
+[coble-create] End time: 2026-05-02 12:45:00
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-02 12:45:00 23/52
+install: Rscript -e 'install.packages("lazyeval", repos="https://packagemanager.posit.co/cran/2017-10-10", dependencies=NA, Ncpus=8)'
+dep: # * DONE (lazyeval)
+[coble-create] End time: 2026-05-02 12:45:05
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-05-02 12:45:05 25/52
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_2.1.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (ggplot2)
+[coble-create] End time: 2026-05-02 12:45:12
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-02 12:45:12 27/52
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_0.4.3.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (dplyr)
+[coble-create] End time: 2026-05-02 12:47:04
+[coble-create] Duration: 112s
+
+[coble-create] Start time: 2026-05-02 12:47:04 29/52
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Rtsne/Rtsne_0.11.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (Rtsne)
+[coble-create] End time: 2026-05-02 12:47:21
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-05-02 12:47:21 31/52
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pheatmap/pheatmap_1.0.8.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (pheatmap)
+[coble-create] End time: 2026-05-02 12:47:23
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-02 12:47:23 35/52
+install: conda install -y --solver=libmamba --no-update-deps  cairo  pango 
+    # All requested packages already installed.
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 27s
+
+[coble-create] Start time: 2026-05-02 12:47:50 37/52
+install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 39/52
+install: echo 'echo "COBLE validation: No script has been specified for Zheng2017 environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 41/52
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 43/52
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 45/52
+install: mkdir -p ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 47/52
+install: cp recipes/papers/Zheng2017/Zheng2017.cbl ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 49/52
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 12:47:50 51/52
+install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-05-02 12:47:50
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-02 12:47:50
+[coble-create] Recipe took: 0h 3m 5s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 16:28:53 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 16:28:53 1/22
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:28:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:53 2/22
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 16:28:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:53 3/22
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:28:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:53 4/22
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:28:54
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:28:54 5/22
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 16:28:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:54 6/22
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:28:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:54 7/22
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 16:28:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:54 8/22
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:28:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:55 9/22
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 16:28:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:55 10/22
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:28:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:55 11/22
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:28:55
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:55 12/22
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:28:56
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:28:56 13/22
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:28:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:56 14/22
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:28:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:56 15/22
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:28:56
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:56 16/22
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:28:57
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:28:57 17/22
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:28:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:57 18/22
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:28:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:57 19/22
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:28:57
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:28:57 20/22
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:28:58
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:28:58 21/22
+install: ln -s $CONDA_PREFIX/lib/libffi.so.7 $CONDA_PREFIX/lib/libffi.so.6
+[coble-create] End time: 2026-05-02 16:28:58
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-02 16:28:58
+[coble-create] Recipe took: 0h 0m 5s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 16:33:49 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 16:33:49 1/24
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:33:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:49 2/24
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 16:33:49
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:49 3/24
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:33:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:50 4/24
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:33:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:50 5/24
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 16:33:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:50 6/24
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:33:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:50 7/24
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 16:33:50
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:50 8/24
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:33:51
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:33:51 9/24
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 16:33:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:51 10/24
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:33:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:51 11/24
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:33:51
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:51 12/24
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:33:52
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:33:52 13/24
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:33:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:52 14/24
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:33:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:52 15/24
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:33:52
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:52 16/24
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:33:53 17/24
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:53 18/24
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:53 19/24
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:53 20/24
+install: conda env config vars set FONTCONFIG_PATH=/etc/fonts
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:53 21/24
+install: export FONTCONFIG_PATH=/etc/fonts
+[coble-create] End time: 2026-05-02 16:33:53
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:53 22/24
+install: conda env config vars set FONTCONFIG_FILE=/etc/fonts/fonts.conf
+[coble-create] End time: 2026-05-02 16:33:54
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:33:54 23/24
+install: export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+[coble-create] End time: 2026-05-02 16:33:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:33:54 24/24
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:33:54
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-02 16:33:54
+[coble-create] Recipe took: 0h 0m 5s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 16:34:35 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 16:34:36 1/22
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:34:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:36 2/22
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 16:34:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:36 3/22
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:34:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:36 4/22
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 16:34:36
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:36 5/22
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 16:34:37
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:34:37 6/22
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 16:34:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:37 7/22
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 16:34:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:37 8/22
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:34:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:37 9/22
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 16:34:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:37 10/22
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:34:38
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:34:38 11/22
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 16:34:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:38 12/22
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:34:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:38 13/22
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 16:34:38
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:38 14/22
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:34:39 15/22
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:39 16/22
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:39 17/22
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:39 18/22
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:39 19/22
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 16:34:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:39 20/22
+install: conda env config vars set FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
+[coble-create] End time: 2026-05-02 16:34:40
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 16:34:40 21/22
+install: export FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
+[coble-create] End time: 2026-05-02 16:34:40
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 16:34:40 22/22
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 16:34:40
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-02 16:34:40
+[coble-create] Recipe took: 0h 0m 4s
+--------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-02 at 20:35:09 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-02 20:35:10 1/28
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 20:35:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:10 2/28
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-02 20:35:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:10 3/28
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 20:35:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:10 4/28
+install: conda deactivate | true
+[coble-create] End time: 2026-05-02 20:35:10
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:10 5/28
+install: conda activate Zheng2017
+[coble-create] End time: 2026-05-02 20:35:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:11 6/28
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-02 20:35:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:11 7/28
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-02 20:35:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:11 8/28
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 20:35:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:11 9/28
+install: conda config --env --set channel_priority flexible
+[coble-create] End time: 2026-05-02 20:35:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:11 10/28
+install: conda env config vars set CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 20:35:12
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 20:35:12 11/28
+install: export CFLAGS="-fcommon -O2"
+[coble-create] End time: 2026-05-02 20:35:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:12 12/28
+install: conda env config vars set PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 20:35:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:12 13/28
+install: export PKG_CFLAGS="-fcommon"
+[coble-create] End time: 2026-05-02 20:35:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:12 14/28
+install: conda env config vars set CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 20:35:13
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 20:35:13 15/28
+install: export CXX="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 20:35:13
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:13 16/28
+install: conda env config vars set CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 20:35:13
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:13 17/28
+install: export CXX1X="g++ -std=c++14"
+[coble-create] End time: 2026-05-02 20:35:13
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:13 18/28
+install: conda env config vars set CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 20:35:14
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 20:35:14 19/28
+install: export CXXFLAGS="-std=c++14"
+[coble-create] End time: 2026-05-02 20:35:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:14 20/28
+install: conda env config vars set FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
+[coble-create] End time: 2026-05-02 20:35:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:14 21/28
+install: export FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
+[coble-create] End time: 2026-05-02 20:35:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-02 20:35:14 22/28
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-02 20:35:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-02 20:35:15 27/28
+install: conda install -y --solver=libmamba --no-update-deps  cairo  pango  fonts-anaconda  fontconfig 
+    # All requested packages already installed.
+[coble-create] End time: 2026-05-02 20:35:34
+[coble-create] Duration: 19s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-02 20:35:34
+[coble-create] Recipe took: 0h 0m 24s
+--------------------------------------
