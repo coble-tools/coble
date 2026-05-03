@@ -28,7 +28,7 @@ conda:
   - make
 flags:
   - priority: strict
-  - compile-version: 7.5
+  - compile-version: 4
 conda:
   - libpng
   - libgfortran
