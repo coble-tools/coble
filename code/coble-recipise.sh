@@ -364,6 +364,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "cran-repo" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 CRAN_REPO="$value"
+                echo "Rscript -e 'options(repos=c(CRAN=\"$CRAN_REPO\"))'" >>  "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "ncpus" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 NCPUS="$value"

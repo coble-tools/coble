@@ -1,12 +1,13 @@
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
-# code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --rebuild
-# code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --containers docker,singularity --validate recipes/papers/zheng2017/validate.sh
+# code/coble build --recipe recipes/papers/zheng2017/zheng20172.cbl --env zheng20172 --rebuild
+# code/coble build --recipe recipes/papers/zheng2017/zheng20172.cbl --env zheng20172 --containers docker,singularity --code-source local --validate recipes/papers/zheng2017/validate.sh
 #######################################
 coble:
   - environment: zheng2017
 channels:
   - https://software.repos.intel.com/python/conda/
+  #- intel
   - https://repo.anaconda.com/pkgs/r
   - https://repo.anaconda.com/pkgs/free
   - https://repo.anaconda.com/pkgs/main
@@ -15,21 +16,13 @@ compilers:
 flags:
   - ncpus: 8
   - priority: flexible
-  - export: CFLAGS="-fcommon -O2"
-  - export: PKG_CFLAGS="-fcommon"
-  - export: CXX="g++ -std=c++14"
-  - export: CXX1X="g++ -std=c++14"
-  - export: CXXFLAGS="-std=c++14"
-  - export: FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
 conda:
   - r-base=3.3.1
   - ncurses=5.9
-  - _libgcc_mutex=0.1=free
-  - gxx_linux-64
   - make
 flags:
   - priority: strict
-  - compile-version: 4
+  - compile-version: 7.5
 conda:
   - libpng
   - libgfortran
@@ -55,12 +48,14 @@ ln -s $CONDA_PREFIX/lib/libreadline.so.7 $CONDA_PREFIX/lib/libreadline.so.6
 ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfow.so.6
 ln -s $CONDA_PREFIX/lib/libncursesw.so.5.9 $CONDA_PREFIX/lib/libtinfo.so.6
 ln -s $CONDA_PREFIX/lib/libffi.so.7 $CONDA_PREFIX/lib/libffi.so.6
+ln -sf $CONDA_PREFIX/lib/libstdc++.so.6.0.34 $CONDA_PREFIX/lib/libstdc++.so.6
 
 # grep a fix in makevar
 sed -i 's/^CFLAGS = /CFLAGS = -fcommon /' $CONDA_PREFIX/lib/R/etc/Makeconf
 sed -i 's/^CXX = g++$/CXX = g++ -std=c++14/' $CONDA_PREFIX/lib/R/etc/Makeconf
 sed -i 's/^CXX1X = g++$/CXX1X = g++ -std=c++14/' $CONDA_PREFIX/lib/R/etc/Makeconf
 sed -i 's/^CXXFLAGS = /CXXFLAGS = -std=c++14 /' $CONDA_PREFIX/lib/R/etc/Makeconf
+
 
 # added in dependency layers for versioning
 r-package:
@@ -78,6 +73,7 @@ r-package:
   - stringr
   - R6
   - lazyeval
+  - codetools
 r-conda:
   - Rcpp=0.12.5
   - plyr=1.8.4
@@ -99,3 +95,4 @@ conda:
   - pango
   - fonts-anaconda
   - fontconfig
+
