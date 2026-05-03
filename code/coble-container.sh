@@ -11,6 +11,7 @@ VAL_FILE=""
 VAL_FOLDER=""
 DRY_RUN=false
 CODE_SOURCE="main"
+SKIP_ERRORS=false
 
 # Help function
 show_help() {
@@ -76,6 +77,10 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --rebuild)
+            shift
+            ;;
+        --skip-errors)
+            SKIP_ERRORS=true
             shift
             ;;
         --dual-ci)
@@ -204,6 +209,7 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     echo "  VAL_FILE=$VAL_FILE"
     echo "  VAL_FOLDER=$VAL_FOLDER"
     echo "  CODE_SOURCE=$CODE_SOURCE"
+    echo "  SKIP_ERRORS=$SKIP_ERRORS"
     #docker build --progress=plain -f "$DOCKERFILE" \
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
@@ -212,6 +218,7 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     --build-arg VAL_FILE="$VAL_FILE" \
     --build-arg VAL_FOLDER="$VAL_FOLDER" \
     --build-arg CODE_SOURCE="$CODE_SOURCE" \
+    --build-arg SKIP_ERRORS="$SKIP_ERRORS" \
     --no-cache \
     -t "$IMAGE_NAME" . 2>&1 | tee $DOCKERLOGFILE
     BUILD_EXIT_CODE=${PIPESTATUS[0]}

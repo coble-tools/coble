@@ -136,8 +136,8 @@ RUN echo "=== AFTER COPY CHECK ===" && \
 COPY ${VAL_FOLDER:-code/validate}/ /app/validate/
 
 # Create .condarc with channels
-#RUN echo "channels:" > /app/.condarc && \
-#    echo "  - conda-forge" >> /app/.condarc && \
+RUN echo "channels:" > /app/.condarc && \
+    echo "  - conda-forge" >> /app/.condarc
 #    echo "  - bioconda" >> /app/.condarc && \
 #    echo "  - defaults" >> /app/.condarc && \
 RUN echo "notify_outdated_conda: false" > /app/.condarc && \

@@ -28,7 +28,7 @@ show_help() {
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
-	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
+	echo "  $0 build --recipe my.cbl --env my-env --rebuild --skip-errors"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"
 	echo "  $0 export --frozen my.cbl --env my-env"
 	echo "  $0 network --frozen my.cbl --env my-env"

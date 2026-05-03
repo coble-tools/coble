@@ -1,11 +1,11 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-03
-# Capture time: 09:56:50 BST
+# Capture time: 14:34:06 BST
 # Captured by: ralcraft
 
 coble:
 
-  - environment: zheng20172
+  - environment: zheng2017
 
 channels:
   - conda-forge
@@ -22,60 +22,50 @@ flags:
   - compile-tools: true
   - dependencies: false
   - priority: flexible
+  - export: CXX1X="g++ -std=c++14"
+  - export: FONTCONFIG_PATH="/home/ralcraft/miniforge3/envs/zheng2017/etc/fonts"
+  - export: PKG_CFLAGS="-fcommon"
 
 conda:
-  - binutils=2.36.1@conda-forge
-  - binutils_impl_linux-64=2.36.1@conda-forge
-  - binutils_linux-64=2.36@conda-forge
-  - gcc_impl_linux-64=7.5.0@conda-forge
-  - gcc_linux-64=7.5.0@conda-forge
-  - gxx_impl_linux-64=7.5.0@conda-forge
-  - gxx_linux-64=7.5.0@conda-forge
+  - binutils_impl_linux-64=2.44@defaults
+  - binutils_linux-64=2.44@defaults
+  - gcc_impl_linux-64=15.2.0@defaults
+  - gcc_linux-64=15.2.0@defaults
+  - gxx_impl_linux-64=15.2.0@defaults
+  - gxx_linux-64=15.2.0@defaults
 
 conda:
   - icu=54.1@https://repo.anaconda.com/pkgs/free
 
 conda:
-  - libcurl=8.16.0@defaults
-  - libgcc=15.2.0@defaults
+  - libcurl=7.69.1@defaults
 
 conda:
-  - libgcc-devel_linux-64=14.3.0@conda-forge
+  - libgcc=15.2.0@conda-forge
 
 conda:
-  - libgcc-ng=15.2.0@defaults
-  - libstdcxx=15.2.0@defaults
+  - libgcc-devel_linux-64=15.2.0@defaults
 
 conda:
-  - libstdcxx-devel_linux-64=14.3.0@conda-forge
+  - libgcc-ng=15.2.0@conda-forge
+  - libstdcxx=15.2.0@conda-forge
 
 conda:
-  - libstdcxx-ng=15.2.0@defaults
+  - libstdcxx-devel_linux-64=15.2.0@defaults
 
 conda:
-  - libzlib=1.2.13@conda-forge
-  - zlib=1.2.13@conda-forge
+  - libstdcxx-ng=15.2.0@conda-forge
 
 conda:
+  - zlib=1.2.13@defaults
   - bzip2=1.0.8@defaults
-
-conda:
-  - ca-certificates=2026.4.22@conda-forge
+  - ca-certificates=2026.3.19@defaults
 
 conda:
   - cairo=1.14.8@https://repo.anaconda.com/pkgs/free
 
 conda:
-  - c-ares=1.34.6@defaults
-
-conda:
-  - c-compiler=1.1.2@conda-forge
-
-conda:
-  - curl=8.16.0@defaults
-
-conda:
-  - cxx-compiler=1.1.2@conda-forge
+  - curl=7.69.1@defaults
 
 conda:
   - fontconfig=2.12.1@https://repo.anaconda.com/pkgs/free
@@ -89,12 +79,6 @@ conda:
 
 conda:
   - freetype=2.5.5@https://repo.anaconda.com/pkgs/free
-
-conda:
-  - gfortran_impl_linux-64=7.5.0@conda-forge
-  - gfortran_linux-64=7.5.0@conda-forge
-
-conda:
   - glib=2.50.2@https://repo.anaconda.com/pkgs/free
 
 conda:
@@ -105,49 +89,45 @@ conda:
 
 conda:
   - jpeg=9f@defaults
+  - kernel-headers_linux-64=4.18.0@defaults
 
 conda:
-  - kernel-headers_linux-64=6.12.0@conda-forge
-  - ld_impl_linux-64=2.36.1@conda-forge
+  - krb5=1.17.1@conda-forge
 
 conda:
+  - ld_impl_linux-64=2.44@defaults
   - lerc=4.1.0@defaults
   - libdeflate=1.22@defaults
-  - libev=4.33@defaults
+
+conda:
+  - libedit=3.1.20170329@conda-forge
+
+conda:
   - libffi=3.4.8@defaults
-  - libgfortran=15.2.0@defaults
 
 conda:
-  - libgfortran4=7.5.0@conda-forge
+  - libgfortran=3.0.0@https://repo.anaconda.com/pkgs/free
 
 conda:
-  - libgfortran5=15.2.0@defaults
-  - libgomp=15.2.0@defaults
+  - libgomp=15.2.0@conda-forge
 
 conda:
   - libiconv=1.14@https://repo.anaconda.com/pkgs/free
 
 conda:
-  - libidn2=2.3.4@defaults
-  - libnghttp2=1.57.0@defaults
   - libpng=1.6.54@defaults
-
-conda:
-  - libsanitizer=14.3.0@conda-forge
-
-conda:
-  - libssh2=1.11.1@defaults
+  - libsanitizer=15.2.0@defaults
+  - libssh2=1.10.0@defaults
   - libtiff=4.5.1@defaults
-  - libunistring=1.4.2@defaults
   - libxcb=1.17.0@defaults
   - libxml2=2.9.9@defaults
-  - make=4.2.1@defaults
+  - lz4-c=1.9.4@defaults
 
 conda:
   - ncurses=5.9@https://repo.anaconda.com/pkgs/free
 
 conda:
-  - openssl=3.6.2@conda-forge
+  - openssl=1.1.1w@defaults
 
 conda:
   - pango=1.40.3@https://repo.anaconda.com/pkgs/free
@@ -157,25 +137,15 @@ conda:
   - pixman=0.34.0@defaults
   - pthread-stubs=0.3@defaults
   - readline=7.0@defaults
-
-conda:
-  - sysroot_linux-64=2.39@conda-forge
-
-conda:
+  - sysroot_linux-64=2.28@defaults
   - tk=8.6.15@defaults
-
-conda:
-  - tzdata=2025c@conda-forge
-
-conda:
+  - tzdata=2026a@defaults
   - xorg-libx11=1.8.12@defaults
   - xorg-libxau=1.0.12@defaults
   - xorg-libxdmcp=1.1.5@defaults
   - xorg-xorgproto=2024.1@defaults
   - xz=5.2.10@defaults
-
-conda:
-  - zstd=1.5.6@conda-forge
+  - zstd=1.5.5@defaults
 
 r-conda:
   - plyr=1.8.4@defaults
