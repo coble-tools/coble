@@ -65,7 +65,7 @@ def test_coble_circle():
 
     assert result1.returncode == 0
     assert result2.returncode == 0
-    assert len(diffs) == 0#
+    assert len(diffs) == 0
     assert lena > 0
     assert lenb > 0
 
