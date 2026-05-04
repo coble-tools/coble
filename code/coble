@@ -50,7 +50,7 @@ echo '╚═══════════════════════�
 echo "[coble] Starting coble at $(date)" >&2
 copied_inputs=("$@")
 container_type="conda"
-env_name = ""
+env_name=""
 for i in "${!copied_inputs[@]}"; do
 	#echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
 	if [[ "${copied_inputs[$i]}" == "--env" ]]; then

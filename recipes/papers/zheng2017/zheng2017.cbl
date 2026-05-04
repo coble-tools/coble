@@ -5,6 +5,21 @@
 #######################################
 coble:
   - environment: zheng2017
+comments:
+  This recipe is for the environment used in Zheng et al. 2017,
+  "Massively parallel digital transcriptional profiling of single cells".
+  It includes R 3.3.1 and the specific package versions used in the paper,
+  along with necessary system libraries. The recipe also includes bash commands
+  to create symlinks for older library versions expected by R 3.3.1 and to
+  patch the Makeconf file for modern compiler compatibility.
+  The recipe includes specific versions of R packages that were likely used
+  in the original analysis, and it also includes comments on how to
+  patch the svd package for compatibility with modern gfortran.
+  Becuase of the age of the software, this recipe uses an older version of Ubuntu
+  (16.04) to maximize compatibility with the original environment.
+  It does not build on a local machine with a modern glibc,
+  but it should build successfully in a Docker container with Ubuntu
+  16.04 as the base image.
 channels:
   - https://software.repos.intel.com/python/conda/
   - https://repo.anaconda.com/pkgs/r
@@ -21,12 +36,8 @@ flags:
   - export: CXX1X="g++ -std=c++14"
   - export: CXXFLAGS="-std=c++14"
   - export: FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
- # - compile-version: 7.5
 conda:
   - sysroot_linux-64=2.17
-  - gcc_linux-64=7.5
-  - gxx_linux-64=7.5
-  - gfortran_linux-64=7.5
   - libgfortran=3
   - ncurses=5.9
   - libpng
@@ -64,40 +75,41 @@ r-package:
   - labeling
   - stringi
   - stringr
-#   - R6
-#   - lazyeval
-# r-conda:
-#   - Rcpp=0.12.5
-#   - plyr=1.8.4
-# r-package:
-#   - Matrix=1.2-6
-#   - gtable=0.2.0
-#   - scales=0.4.0
-#   - reshape2=1.4.1
-#   - data.table=1.9.6
-# r-package:
-#   - ggplot2=2.1.0
-#   - dplyr=0.4.3
-#   - Rtsne=0.11
-# r-package:
-#   - pheatmap=1.0.8
+  - R6
+  - lazyeval
+  - codetools
+r-conda:
+  - Rcpp=0.12.5
+  - plyr=1.8.4
+r-package:
+  - Matrix=1.2-6
+  - gtable=0.2.0
+  - scales=0.4.0
+  - reshape2=1.4.1
+  - data.table=1.9.6
+r-package:
+  - ggplot2=2.1.0
+  - dplyr=0.4.3
+  - Rtsne=0.11
+r-package:
+  - pheatmap=1.0.8
 
-# bash:
-# #Patch svd 0.3.3 - PROPACK second.f uses ETIME with undersized TARRAY which crashes on modern gfortran
-# wget https://cran.r-project.org/src/contrib/Archive/svd/svd_0.3.3.tar.gz
-# tar xzf svd_0.3.3.tar.gz
-# echo '      REAL FUNCTION SECOND()' > svd/src/propack/second.f
-# echo '      REAL T' >> svd/src/propack/second.f
-# echo '      CALL CPU_TIME(T)' >> svd/src/propack/second.f
-# echo '      SECOND = T' >> svd/src/propack/second.f
-# echo '      RETURN' >> svd/src/propack/second.f
-# echo '      END' >> svd/src/propack/second.f
-# tar czf svd_0.3.3_patched.tar.gz svd/
-# Rscript -e 'install.packages("svd_0.3.3_patched.tar.gz", repos=NULL, type="source")'
-# rm -rf svd/ svd_0.3.3.tar.gz svd_0.3.3_patched.tar.gz
+bash:
+#Patch svd 0.3.3 - PROPACK second.f uses ETIME with undersized TARRAY which crashes on modern gfortran
+wget https://cran.r-project.org/src/contrib/Archive/svd/svd_0.3.3.tar.gz
+tar xzf svd_0.3.3.tar.gz
+echo '      REAL FUNCTION SECOND()' > svd/src/propack/second.f
+echo '      REAL T' >> svd/src/propack/second.f
+echo '      CALL CPU_TIME(T)' >> svd/src/propack/second.f
+echo '      SECOND = T' >> svd/src/propack/second.f
+echo '      RETURN' >> svd/src/propack/second.f
+echo '      END' >> svd/src/propack/second.f
+tar czf svd_0.3.3_patched.tar.gz svd/
+Rscript -e 'install.packages("svd_0.3.3_patched.tar.gz", repos=NULL, type="source")'
+rm -rf svd/ svd_0.3.3.tar.gz svd_0.3.3_patched.tar.gz
 
-# conda:
-#   - cairo
-#   - pango
-#   - fonts-anaconda
-#   - fontconfig
+conda:
+  - cairo
+  - pango
+  - fonts-anaconda
+  - fontconfig
