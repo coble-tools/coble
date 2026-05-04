@@ -7,16 +7,13 @@
 #    --build-arg GITHUB_PAT="$GITHUB_PAT" \
 #    --build-arg VAL_FILE="$VAL_FILE" \
 #    --build-arg VAL_FOLDER="$VAL_FOLDER" \
-#    --build-arg UBUNTU_VERSION="$UBUNTU_VERSION" \
 #    --no-cache \
 #    -t "$IMAGE_NAME" .
 #########################################################################
 
 # ---- Ubuntu base replacing continuumio/miniconda3:24.9.2-0 ----
 # Swap ubuntu:22.04 → ubuntu:20.04 / ubuntu:24.04 to test different glibc versions
-ARG UBUNTU_VERSION=22.04
-FROM ubuntu:${UBUNTU_VERSION}
-#FROM ubuntu:22.04
+FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda

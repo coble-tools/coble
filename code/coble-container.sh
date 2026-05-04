@@ -12,6 +12,7 @@ VAL_FOLDER=""
 DRY_RUN=false
 CODE_SOURCE="main"
 SKIP_ERRORS=false
+UBUNTU="22.04"
 
 # Help function
 show_help() {
@@ -74,6 +75,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --code-source)
             CODE_SOURCE="$2"
+            shift 2
+            ;;
+        --ubuntu)
+            UBUNTU="$2"
             shift 2
             ;;
         --rebuild)
@@ -149,7 +154,13 @@ DOCKER_TAR="${IMAGE_NAME}.tar"
 SINGULARITY_SIF="${IMAGE_NAME}.sif"
 # same directory as this script/code/Dockerfile
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#if [[ $UBUNTU != "22.04" ]]; then
+#    # remove any . from ubuntu version for dockerfile naming convention
+#    UBUNTU_NO_DOT=$(echo "$UBUNTU" | tr -d '.')
+#    DOCKERFILE="${SCRIPT_DIR}/coble.${UBUNTU_NO_DOT}.Dockerfile"
+#else
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
+#fi
 RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
 DOCKERLOGFILE="${RESULTS_DIR}/${ENV_NAME}_docker_build.log"
@@ -187,6 +198,7 @@ cat > "$LOCALDOCKERFILE" << EOF
 # VAL_FILE=$VAL_FILE
 # VAL_FOLDER=$VAL_FOLDER
 # CODE_SOURCE=$CODE_SOURCE
+# UBUNTU_VERSION=$UBUNTU
 # ------------------------------
 # Instructions to build the image:
 # 1. Set the above environment variables in your terminal (or export them in your shell profile)
@@ -210,6 +222,7 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     echo "  VAL_FOLDER=$VAL_FOLDER"
     echo "  CODE_SOURCE=$CODE_SOURCE"
     echo "  SKIP_ERRORS=$SKIP_ERRORS"
+    echo "  UBUNTU_VERSION=$UBUNTU"
     #docker build --progress=plain -f "$DOCKERFILE" \
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
@@ -219,6 +232,7 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     --build-arg VAL_FOLDER="$VAL_FOLDER" \
     --build-arg CODE_SOURCE="$CODE_SOURCE" \
     --build-arg SKIP_ERRORS="$SKIP_ERRORS" \
+    --build-arg UBUNTU_VERSION="$UBUNTU" \
     --no-cache \
     -t "$IMAGE_NAME" . 2>&1 | tee $DOCKERLOGFILE
     BUILD_EXIT_CODE=${PIPESTATUS[0]}

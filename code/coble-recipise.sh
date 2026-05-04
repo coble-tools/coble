@@ -297,6 +297,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bash:"* \
         || "$line" == "find:"* \
         || "$line" == "validate:"* \
+        || "$line" == "comments:"* \
         || "$line" == "bioc-package:"* \
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"
@@ -612,6 +613,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
             # Preserve literal \n in bash commands
             echo "${line//\\n/\\\\n}" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "comments:"* ]]; then
+            echo "# $pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "find:"* ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -1,7 +1,7 @@
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
 # code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --rebuild
-# code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --containers docker,singularity --code-source local --validate recipes/papers/zheng2017/validate.sh
+# code/coble build --recipe recipes/papers/zheng2017/zheng2017.cbl --env zheng2017 --containers docker,singularity --code-source local --validate recipes/papers/zheng2017/validate.sh --ubuntu 16.04
 #######################################
 coble:
   - environment: zheng2017
@@ -21,14 +21,16 @@ flags:
   - export: CXX1X="g++ -std=c++14"
   - export: CXXFLAGS="-std=c++14"
   - export: FONTCONFIG_PATH=$CONDA_PREFIX/etc/fonts
-  - compile-version: 7.5
+ # - compile-version: 7.5
 conda:
-  - r-base=3.3.1
-  - ncurses=5.9
-  - _libgcc_mutex=0.1=free
-  - gxx_linux-64
-  - libpng
+  - sysroot_linux-64=2.17
+  - gcc_linux-64=7.5
+  - gxx_linux-64=7.5
+  - gfortran_linux-64=7.5
   - libgfortran=3
+  - ncurses=5.9
+  - libpng
+  - r-base=3.3.1
 flags:
   - priority: strict
 bash:
@@ -51,16 +53,17 @@ cat $CONDA_PREFIX/lib/R/etc/Makeconf | grep -E "^CXX|^CFLAGS"
 r-package:
   - lattice
   - chron
-#   - DBI
-#   - BH
-#   - assertthat
-#   - MASS
-#   - digest=0.6.9
-#   - RColorBrewer
-#   - dichromat
-#   - munsell
-#   - labeling
-#   - stringr
+  - DBI
+  - BH
+  - assertthat
+  - MASS
+  - digest=0.6.9
+  - RColorBrewer
+  - dichromat
+  - munsell
+  - labeling
+  - stringi
+  - stringr
 #   - R6
 #   - lazyeval
 # r-conda:
@@ -80,7 +83,7 @@ r-package:
 #   - pheatmap=1.0.8
 
 # bash:
-# Patch svd 0.3.3 - PROPACK second.f uses ETIME with undersized TARRAY which crashes on modern gfortran
+# #Patch svd 0.3.3 - PROPACK second.f uses ETIME with undersized TARRAY which crashes on modern gfortran
 # wget https://cran.r-project.org/src/contrib/Archive/svd/svd_0.3.3.tar.gz
 # tar xzf svd_0.3.3.tar.gz
 # echo '      REAL FUNCTION SECOND()' > svd/src/propack/second.f
