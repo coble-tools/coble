@@ -297,6 +297,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         || "$line" == "bash:"* \
         || "$line" == "find:"* \
         || "$line" == "validate:"* \
+        || "$line" == "comments:"* \
         || "$line" == "bioc-package:"* \
         || "$line" == "package-bioc:"* ]]; then
         CURRENT_SECTION="$line"
@@ -364,6 +365,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             elif [[ "${directive_lower}" == "cran-repo" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 CRAN_REPO="$value"
+                echo "Rscript -e 'options(repos=c(CRAN=\"$CRAN_REPO\"))'" >>  "$RECIPE_FILE"
             elif [[ "${directive_lower}" == "ncpus" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 NCPUS="$value"
@@ -569,11 +571,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ -n "$ver" && ( -z "$src" || "$src" == "CRAN"* ) ]]; then
                 #echo "Rscript -e 'remotes::install_version(\"$pkg_only\", version=\"$ver\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, upgrade=\"$UPDATE_R\", Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
                 url=https://cran.r-project.org/src/contrib/Archive/${pkg_only}/${pkg_only}_${ver}.tar.gz
-                echo "Rscript -e 'install.packages(\"$url\", repos=\"${CRAN_REPO}\", type=\"source\", method=\"wget\" )'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"$url\", repos=NULL, type=\"source\")'" >> "$RECIPE_FILE"
             elif [[ "$src" == "r-forge"* ]]; then
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"https://R-Forge.R-project.org\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             else
-                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS, method=\"wget\")'" >> "$RECIPE_FILE"
+                echo "Rscript -e 'install.packages(\"${pkg_only}\", repos=\"${CRAN_REPO}\", dependencies=$DEPS_R, Ncpus=$NCPUS)'" >> "$RECIPE_FILE"
             fi
         elif [[ "$CURRENT_SECTION" == "r-version:"* ]]; then
 
@@ -611,6 +613,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             echo "[coble-recipise] Adding bash command: $pkg_entry" >&2
             # Preserve literal \n in bash commands
             echo "${line//\\n/\\\\n}" >> "$RECIPE_FILE"
+        elif [[ "$CURRENT_SECTION" == "comments:"* ]]; then
+            echo "# $pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "find:"* ]]; then
             echo "[coble-recipise] Finding: $pkg_only, version: $ver, source: $src" >&2
             script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -1,4 +1,4 @@
-name: Choose Arch GitHub/Docker Image (Manual)
+name: GitHub/Docker Image (Manual)
 
 on:
   workflow_dispatch:
@@ -11,6 +11,10 @@ on:
         description: 'Name of cbl to build (e.g. small)'
         required: true
         default: 'small'
+      ubuntu:
+        description: 'Name of ubuntu version (e.g. 20.04, 22.04)'
+        required: true
+        default: '22.04'
       arch:
         description: 'Architecture to build (amd64, arm64 or both)'
         required: true
@@ -76,6 +80,7 @@ jobs:
             --validate recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate/validate.sh \
             --val-folder recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate \
             --env ${{ github.event.inputs.cbl }} \
+            --ubuntu ${{ github.event.inputs.ubuntu }} \
             --containers docker \
             --code-source local \
             --image ${{ env.IMAGE_TAG }}
@@ -150,6 +155,7 @@ jobs:
             --validate recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate/validate.sh \
             --val-folder recipes/${{ github.event.inputs.folder }}/${{ github.event.inputs.cbl }}/validate \
             --env ${{ github.event.inputs.cbl }} \
+            --ubuntu ${{ github.event.inputs.ubuntu }} \
             --containers docker \
             --code-source local \
             --image ${{ env.IMAGE_TAG }}
@@ -204,4 +210,4 @@ jobs:
           echo "Creating manifest from:$IMAGES"
           docker buildx imagetools create -t $TAG $IMAGES
 
-      
+

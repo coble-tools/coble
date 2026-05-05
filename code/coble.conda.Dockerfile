@@ -7,52 +7,16 @@
 #    --build-arg GITHUB_PAT="$GITHUB_PAT" \
 #    --build-arg VAL_FILE="$VAL_FILE" \
 #    --build-arg VAL_FOLDER="$VAL_FOLDER" \
-#    --build-arg UBUNTU_VERSION="$UBUNTU_VERSION" \
 #    --no-cache \
 #    -t "$IMAGE_NAME" .
 #########################################################################
-
-# ---- Ubuntu base replacing continuumio/miniconda3:24.9.2-0 ----
-# Swap ubuntu:22.04 → ubuntu:20.04 / ubuntu:24.04 to test different glibc versions
-ARG UBUNTU_VERSION=22.04
-FROM ubuntu:${UBUNTU_VERSION}
-#FROM ubuntu:22.04
-
-ENV DEBIAN_FRONTEND=noninteractive
-ENV CONDA_DIR=/opt/conda
-ENV PATH=$CONDA_DIR/bin:$PATH
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        wget \
-        ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-ARG TARGETPLATFORM
-RUN case "$TARGETPLATFORM" in \
-        "linux/arm64") ARCH="Linux-aarch64" ;; \
-        *)             ARCH="Linux-x86_64"  ;; \
-    esac && \
-    wget --quiet \
-        https://repo.anaconda.com/miniconda/Miniconda3-py312_24.9.2-0-${ARCH}.sh \
-        -O /tmp/miniconda.sh && \
-    bash /tmp/miniconda.sh -b -p $CONDA_DIR && \
-    rm /tmp/miniconda.sh && \
-    conda clean -afy
-
-# Replicate what the continuumio image does: initialise conda in bash
-# ← ADD THIS RIGHT HERE, before anything else runs
-RUN conda init bash && \
-    ln -sf /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-
-ENV BASH_ENV=/opt/conda/etc/profile.d/conda.sh
-
-SHELL ["/bin/bash", "--login", "-c"]
-# ---------------------------------------------------------------
+FROM continuumio/miniconda3:24.9.2-0
+#FROM condaforge/miniforge3:26.1.0-0
 
 WORKDIR /app
 
 # Build arguments for customization
+ARG TARGETPLATFORM
 ARG BUILD_TAG=custom
 ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
@@ -77,8 +41,7 @@ LABEL org.opencontainers.image.version="${BUILD_TAG}" \
 RUN conda config --set remote_read_timeout_secs 180 && \
     conda config --set remote_connect_timeout_secs 60 && \
     conda config --set remote_max_retries 10 && \
-    conda config --set path_conflict clobber && \
-    conda config --set changeps1 true
+    conda config --set path_conflict clobber
 
 # Ensure all channels cleaned out we only want to add ones we want
 RUN conda config --system --remove-key channels 2>/dev/null || true
@@ -92,6 +55,7 @@ RUN conda update -n base -c defaults conda -y && \
 
 
 # Configure timezone to prevent interactive prompts during apt-get
+ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
 RUN apt-get -o Acquire::Retries=3 update && \
@@ -198,8 +162,7 @@ RUN bash /app/coble/code/coble \
     $(if [ "$SKIP_ERRORS" = "true" ]; then echo "--skip-errors"; fi) \
     --env "${BUILD_TAG}"
 #########################################################################################
-RUN echo 'R_LIBS_USER=""' >> /opt/conda/envs/${BUILD_TAG}/lib/R/etc/Renviron.site
-ENV PYTHONNOUSERSITE=1
+
 # Initialize conda and set up auto-activation for Docker
 RUN conda init bash && \
     echo "conda activate ${BUILD_TAG}" >> /root/.bashrc
@@ -211,7 +174,7 @@ RUN mkdir -p /.singularity.d/env && \
     echo 'unset CONDA_EXE CONDA_PYTHON_EXE CONDA_SHLVL 2>/dev/null || true' >> /.singularity.d/env/99-conda.sh && \
     echo 'export PATH="/opt/conda/bin:$PATH"' >> /.singularity.d/env/99-conda.sh && \
     echo '. /opt/conda/etc/profile.d/conda.sh' >> /.singularity.d/env/99-conda.sh && \
-    #echo 'conda config --set changeps1 true' >> /.singularity.d/env/99-conda.sh && \
+    echo 'conda config --set changeps1 true' >> /.singularity.d/env/99-conda.sh && \
     echo "conda activate ${BUILD_TAG} 2>/dev/null || true" >> /.singularity.d/env/99-conda.sh && \
     echo 'if [ "$PS1" ] && [ -f /etc/motd ]; then cat /etc/motd; fi' >> /.singularity.d/env/99-conda.sh && \
     chmod +x /.singularity.d/env/99-conda.sh

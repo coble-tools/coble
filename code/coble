@@ -28,7 +28,7 @@ show_help() {
 	echo "Example:"
 	echo "  $0 template --recipe my.cbl --flavour basic"
 	echo "  $0 build --recipe my.cbl --env my-env"
-	echo "  $0 build --recipe my.cbl --env my-env --rebuild"
+	echo "  $0 build --recipe my.cbl --env my-env --rebuild --skip-errors"
 	echo "  $0 build --recipe my.cbl --env my-env --containers conda,docker,singularity"
 	echo "  $0 export --frozen my.cbl --env my-env"
 	echo "  $0 network --frozen my.cbl --env my-env"
@@ -50,7 +50,7 @@ echo '╚═══════════════════════�
 echo "[coble] Starting coble at $(date)" >&2
 copied_inputs=("$@")
 container_type="conda"
-env_name = ""
+env_name=""
 for i in "${!copied_inputs[@]}"; do
 	#echo "[coble] Checking arg: ${copied_inputs[$i]}" >&2
 	if [[ "${copied_inputs[$i]}" == "--env" ]]; then

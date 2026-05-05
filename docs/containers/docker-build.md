@@ -8,6 +8,7 @@ The coble utility can be called with `--containers docker,singularity` which bui
 **env** `my-env`
 ```bash
 coble build --recipe config/basic.cbl --env my-env --containers docker,singularity
+# optionally specify an ubuntu base version with --ubuntu 22.04
 ```
 This outputs:
 - `cbl-my-env.tar` a docker file
@@ -53,6 +54,7 @@ docker build -f code/Dockerfile.cbl \
   --build-arg RECIPE_CBL=config/basic.cbl \
   --build-arg BUILD_TAG=basic \
   --build_arg GITHUB_PAT=$GITHUB_PAT \
+  --build_arg UBUNTU_VER=22.04 \
   -t basic-cbl .
 ```
 
