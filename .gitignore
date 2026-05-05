@@ -153,3 +153,4 @@ libgfortran3_6.4.0-17ubuntu1_amd64.deb
 data.tar.xz
 control.tar.xz
 debian-binary
+recipes/demos/*
