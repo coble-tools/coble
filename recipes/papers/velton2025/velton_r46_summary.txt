@@ -1,0 +1,16 @@
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-08 at 15:53:49 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-08 15:53:49 1/73
+install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
+[coble-create] End time: 2026-05-08 15:53:50
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-08 15:53:50 3/73
+install: conda env remove --name velton_r46 -y 2>/dev/null || true
+[coble-create] End time: 2026-05-08 15:53:53
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-05-08 15:53:53 5/73
+install: conda create --no-default-packages --name velton_r46 -y
