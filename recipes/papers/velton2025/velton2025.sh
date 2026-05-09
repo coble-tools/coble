@@ -2,14 +2,14 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-05-08
-# Capture time: 07:52:56 BST
+# Capture date: 2026-05-09
+# Capture time: 18:35:37 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
 #####################################################
 
 conda env remove --name velton2025 -y 2>/dev/null || true
@@ -35,7 +35,7 @@ conda config --env --add channels conda-forge
 # INSTALL SECTION FOR CONDA
 #######################################
 # COBLE:Reproducible environment yaml, (c) ICR 2026
-# code/coble build --recipe recipes/demos/velton2025/velton2025.cbl --env velton2025 --rebuild
+# code/coble build --recipe recipes/papers/velton2025/velton2025.cbl --env velton2025 --rebuild --val-folder recipes/papers/velton2025/validate --validate recipes/papers/velton2025/validate/validate.sh
 #######################################
 # comments:
 # compilers:
@@ -53,7 +53,13 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-RCurl' \
 'r-xml2' \
 'r-XML' \
-'r-locfit' 
+'r-locfit' \
+'r-corrplot' \
+'r-harmony' \
+'r-infotheo' \
+'r-caret' \
+'r-randomForest' \
+'r-uwot' 
 # bioc-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-biomaRt' \
@@ -77,6 +83,13 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-pheatmap=1.0.12' \
 'r-viridis=0.6.2' 
 
+# bash:
+mkdir -p $CONDA_PREFIX/GitHub/
+git clone https://github.com/veltenlab/EPI-clone.git $CONDA_PREFIX/GitHub/EPI-clone
+mkdir -p $CONDA_PREFIX/GitHub/EPI-clone/data/
+curl -L -o $CONDA_PREFIX/GitHub/EPI-clone/data/larry_seurat.rds 'https://api.figshare.com/v2/file/download/42479346'
+
+
 # End of recipe
 # Validation script setup
 echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
@@ -84,7 +97,7 @@ echo 'echo "COBLE validation: No script has been specified for velton2025 enviro
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 chmod +x ${CONDA_PREFIX}/bin/validate.sh
 mkdir -p ${CONDA_PREFIX}/coble-recipe
-cp recipes/demos/velton2025/velton2025.cbl ${CONDA_PREFIX}/coble-recipe
+cp recipes/papers/velton2025/velton2025.cbl ${CONDA_PREFIX}/coble-recipe
 cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
 cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
 

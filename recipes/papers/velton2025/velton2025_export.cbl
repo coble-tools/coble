@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
-# Capture date: 2026-05-08
-# Capture time: 08:01:18 BST
+# Capture date: 2026-05-09
+# Capture time: 18:44:21 BST
 # Captured by: ralcraft
 
 coble:
@@ -149,14 +149,18 @@ r-conda:
   - blob=1.2.4@conda-forge
   - bslib=0.7.0@conda-forge
   - cachem=1.1.0@conda-forge
+  - caret=6.0_94@conda-forge
   - catools=1.18.2@conda-forge
   - circlize=0.4.16@conda-forge
+  - class=7.3_22@conda-forge
   - cli=3.6.3@conda-forge
+  - clock=0.7.0@conda-forge
   - clue=0.3_65@conda-forge
   - cluster=2.1.6@conda-forge
   - codetools=0.2_20@conda-forge
   - colorspace=2.1_0@conda-forge
   - commonmark=1.9.1@conda-forge
+  - corrplot=0.92@conda-forge
   - cowplot=1.1.3@conda-forge
   - cpp11=0.5.2@conda-forge
   - crayon=1.5.3@conda-forge
@@ -165,11 +169,13 @@ r-conda:
   - dbi=1.2.3@conda-forge
   - dbplyr=2.5.0@conda-forge
   - deldir=2.0_4@conda-forge
+  - diagram=1.6.5@conda-forge
   - digest=0.6.36@conda-forge
   - doparallel=1.0.17@conda-forge
   - dotcall64=1.1_1@conda-forge
   - dplyr=1.1.4@conda-forge
   - dqrng=0.3.2@conda-forge
+  - e1071=1.7_14@conda-forge
   - ellipsis=0.3.2@conda-forge
   - evaluate=0.24.0@conda-forge
   - fansi=1.0.6@conda-forge
@@ -197,10 +203,13 @@ r-conda:
   - globals=0.16.3@conda-forge
   - glue=1.7.0@conda-forge
   - goftest=1.2_3@conda-forge
+  - gower=1.0.1@conda-forge
   - gplots=3.1.3.1@conda-forge
   - gridextra=2.3@conda-forge
   - gtable=0.3.5@conda-forge
   - gtools=3.9.5@conda-forge
+  - hardhat=1.4.0@conda-forge
+  - harmony=1.2.0@conda-forge
   - here=1.0.1@conda-forge
   - hexbin=1.28.3@conda-forge
   - highr=0.11@conda-forge
@@ -211,6 +220,8 @@ r-conda:
   - httr=1.4.7@conda-forge
   - ica=1.0_3@conda-forge
   - igraph=1.4.2@conda-forge
+  - infotheo=1.2.0.1@conda-forge
+  - ipred=0.9_14@conda-forge
   - irlba=2.3.5.1@conda-forge
   - isoband=0.2.7@conda-forge
   - iterators=1.0.14@conda-forge
@@ -222,6 +233,7 @@ r-conda:
   - lambda.r=1.2.4@conda-forge
   - later=1.3.2@conda-forge
   - lattice=0.22_6@conda-forge
+  - lava=1.7.3@conda-forge
   - lazyeval=0.2.2@conda-forge
   - leiden=0.4.3.1@conda-forge
   - lifecycle=1.0.4@conda-forge
@@ -229,6 +241,7 @@ r-conda:
   - lmtest=0.9_40@conda-forge
   - locfit=1.5_9.9@conda-forge
   - lsei=1.3_0@conda-forge
+  - lubridate=1.9.3@conda-forge
   - magrittr=2.0.3@conda-forge
   - maps=3.4.2@conda-forge
   - mass=7.3_60.0.1@conda-forge
@@ -238,9 +251,12 @@ r-conda:
   - mgcv=1.9_1@conda-forge
   - mime=0.12@conda-forge
   - miniui=0.1.1.1@conda-forge
+  - modelmetrics=1.2.2.2@conda-forge
   - munsell=0.5.1@conda-forge
   - nlme=3.1_165@conda-forge
+  - nnet=7.3_19@conda-forge
   - npsurv=0.5_0@conda-forge
+  - numderiv=2016.8_1.1@conda-forge
   - parallelly=1.37.1@conda-forge
   - patchwork=1.2.0@conda-forge
   - pbapply=1.7_2@conda-forge
@@ -253,11 +269,15 @@ r-conda:
   - png=0.1_8@conda-forge
   - polyclip=1.10_6@conda-forge
   - prettyunits=1.2.0@conda-forge
+  - proc=1.18.5@conda-forge
+  - prodlim=2024.06.25@conda-forge
   - progress=1.2.3@conda-forge
   - progressr=0.14.0@conda-forge
   - promises=1.3.0@conda-forge
+  - proxy=0.4_27@conda-forge
   - purrr=1.0.2@conda-forge
   - r6=2.5.1@conda-forge
+  - randomforest=4.7_1.1@conda-forge
   - rann=2.6.1@conda-forge
   - rappdirs=0.3.3@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
@@ -268,6 +288,7 @@ r-conda:
   - rcppprogress=0.4.2@conda-forge
   - rcpptoml=0.2.2@conda-forge
   - rcurl=1.98_1.12@conda-forge
+  - recipes=1.0.10@conda-forge
   - reshape2=1.4.4@conda-forge
 
 r-conda:
@@ -275,10 +296,12 @@ r-conda:
 
 r-conda:
   - reticulate=1.38.0@conda-forge
+  - rhpcblasctl=0.23_42@conda-forge
   - rjson=0.2.21@conda-forge
   - rlang=1.1.4@conda-forge
   - rmarkdown=2.27@conda-forge
   - rocr=1.0_11@conda-forge
+  - rpart=4.1.23@conda-forge
   - rprojroot=2.0.4@conda-forge
   - rsqlite=2.3.4@conda-forge
   - rtsne=0.17@conda-forge
@@ -302,6 +325,7 @@ r-conda:
   - spatstat.random=3.2_3@conda-forge
   - spatstat.sparse=3.1_0@conda-forge
   - spatstat.utils=3.1_0@conda-forge
+  - squarem=2021.1@conda-forge
   - stringi=1.7.12@conda-forge
   - stringr=1.5.1@conda-forge
   - survival=3.7_0@conda-forge
@@ -310,7 +334,10 @@ r-conda:
   - tibble=3.2.1@conda-forge
   - tidyr=1.3.1@conda-forge
   - tidyselect=1.2.1@conda-forge
+  - timechange=0.3.0@conda-forge
+  - timedate=4032.109@conda-forge
   - tinytex=0.51@conda-forge
+  - tzdb=0.4.0@conda-forge
   - utf8=1.2.4@conda-forge
   - uwot=0.1.16@conda-forge
   - vctrs=0.6.5@conda-forge
@@ -376,7 +403,6 @@ r-package:
   - R.oo=1.27.1
   - R.utils=2.13.0
   - scrime=1.3.7
-  - tzdb=0.5.0
   - vroom=1.7.1
 
 bioc-package:
