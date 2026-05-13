@@ -50,6 +50,7 @@ bioc-package:
   - methylumi
   - RnBeads
   - GenomicRanges
+  - patchwork
 
 r-package:
   - pheatmap

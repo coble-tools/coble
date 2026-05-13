@@ -3,7 +3,7 @@
 library(Seurat)
 library(ggplot2)
 library(viridis)
-library(gridExtra)
+library(patchwork)
 #library(corrplot)
 #library(harmony)
 #library(infotheo)

@@ -43,7 +43,7 @@ plot_mpp <- plot_type_methylation(seurat_obj,
                                   panel = panel_file)+
                                   plot_theme_title#+ggtitle('MPP3/4 high')
 
-p <- arrangeGrob(plot_hsc, plot_mpp, nrow=1)
+p <- plot_hsc + plot_mpp + patchwork::plot_layout(nrow = 1)
 ggsave(paste0(plot_folder, prefix, "Fig.1.2", suffix, ".png"), plot = p, width = 4, height = 4, dpi = 300)
 
 # Surface protein expression per cell type (Figure 1f)---------------------------------
@@ -61,7 +61,7 @@ plot_spi <- plot_tfbs_methylation(seurat_obj,
                                    panel=panel_file,
                                    'Spi1',
                                   export_to_plot=FALSE)+plot_theme_title+ggtitle('Spi1')
-p <- arrangeGrob(plot_gata2, plot_spi, nrow=2)
+p <- plot_gata2 + plot_spi + patchwork::plot_layout(ncol = 1)
 ggsave(paste0(plot_folder, prefix, "Fig.1.3", suffix, ".png"), plot = p, width = 4, height = 4, dpi = 300)
 
 # Unsupervised uMAP (Figure 1g,h) ----------------------------
