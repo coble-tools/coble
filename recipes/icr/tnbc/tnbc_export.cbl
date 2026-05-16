@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-16
-# Capture time: 18:02:12 BST
+# Capture time: 18:17:27 BST
 # Captured by: ralcraft
 
 coble:
@@ -48,6 +48,8 @@ conda:
   - c-ares=1.34.6@conda-forge
   - c-compiler=1.3.0@conda-forge
   - compilers=1.3.0@conda-forge
+  - cudatoolkit=11.8.0@conda-forge
+  - cuda-version=11.8@conda-forge
   - curl=7.86.0@conda-forge
   - cxx-compiler=1.3.0@conda-forge
   - expat=2.8.0@conda-forge
@@ -106,8 +108,10 @@ conda:
   - libuuid=2.42@conda-forge
   - libxcb=1.17.0@conda-forge
   - libxcrypt=4.4.36@conda-forge
+  - libxgboost=1.7.4@conda-forge
   - libxml2=2.9.12@conda-forge
   - make=4.4.1@conda-forge
+  - nccl=2.27.3.1@conda-forge
   - ncurses=6.6@conda-forge
   - nlopt=2.7.1@conda-forge
   - numpy=2.4.5@conda-forge
@@ -147,6 +151,7 @@ r-conda:
   - assertthat=0.2.1@conda-forge
   - backports=1.4.1@conda-forge
   - base64enc=0.1_3@conda-forge
+  - beeswarm=0.4.0@conda-forge
   - bh=1.81.0_1@conda-forge
   - bit=4.0.5@conda-forge
   - bit64=4.0.5@conda-forge
@@ -215,6 +220,7 @@ r-conda:
   - gargle=1.4.0@conda-forge
   - generics=0.1.3@conda-forge
   - getopt=1.20.3@conda-forge
+  - ggbeeswarm=0.7.2@conda-forge
   - ggforce=0.4.1@conda-forge
   - ggplot2=3.4.2@conda-forge
   - ggpubr=0.4.0@conda-forge
@@ -267,6 +273,7 @@ r-conda:
   - listenv=0.9.0@conda-forge
   - lme4=1.1_33@conda-forge
   - lmtest=0.9_40@conda-forge
+  - locfit=1.5_9.7@conda-forge
   - lsei=1.3_0@conda-forge
   - lubridate=1.9.2@conda-forge
   - magrittr=2.0.3@conda-forge
@@ -393,11 +400,13 @@ r-conda:
   - uuid=1.1_0@conda-forge
   - uwot=0.1.14@conda-forge
   - vctrs=0.6.2@conda-forge
+  - vipor=0.4.5@conda-forge
   - viridis=0.6.3@conda-forge
   - viridislite=0.4.1@conda-forge
   - vroom=1.6.3@conda-forge
   - withr=2.5.0@conda-forge
   - xfun=0.39@conda-forge
+  - xgboost=1.7.4@conda-forge
   - xml2=1.3.3@conda-forge
   - xml=3.99_0.9@conda-forge
   - xtable=1.8_4@conda-forge
@@ -414,8 +423,10 @@ bioc-conda:
   - biocparallel=1.28.3@bioconda
   - biocsingular=1.10.0@bioconda
   - biostrings=2.62.0@bioconda
+  - bluster=1.4.0@bioconda
   - delayedarray=0.20.0@bioconda
   - delayedmatrixstats=1.16.0@bioconda
+  - edger=3.36.0@bioconda
   - fgsea=1.20.0@bioconda
   - genomeinfodb=1.30.1@bioconda
   - genomeinfodbdata=1.2.7@bioconda
@@ -425,9 +436,15 @@ bioc-conda:
   - keggrest=1.34.0@bioconda
   - limma=3.50.3@bioconda
   - matrixgenerics=1.6.0@bioconda
+  - metapod=1.2.0@bioconda
   - multtest=2.50.0@bioconda
   - s4vectors=0.32.4@bioconda
   - scaledmatrix=1.2.0@bioconda
+  - scater=1.22.0@bioconda
+  - scdblfinder=1.8.0@bioconda
+  - scran=1.22.1@bioconda
+  - scuttle=1.4.0@bioconda
+  - singlecellexperiment=1.16.0@bioconda
   - singler=1.8.1@bioconda
   - sparsematrixstats=1.6.0@bioconda
   - summarizedexperiment=1.24.0@bioconda

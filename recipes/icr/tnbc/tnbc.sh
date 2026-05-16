@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-16
-# Capture time: 18:01:30 BST
+# Capture time: 18:32:37 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -128,7 +128,14 @@ conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-multtest' \
 'bioconductor-limma' \
 'bioconductor-fgsea' \
-'bioconductor-SingleR' 
+'bioconductor-SingleR' \
+'bioconductor-scDblFinder' 
+
+# flags:
+# Flag: Directive: updates, Value: false
+# r-github:
+Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", dependencies=NA, upgrade="never", Ncpus=4)'
+
 # bash:
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
