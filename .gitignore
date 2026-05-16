@@ -61,6 +61,7 @@ recipes/**
 !recipes/**/*_summary.txt
 !recipes/**/*.sh
 !recipes/**/*.Dockerfile
+!recipes/**/session.info.txt
 
 cbl-icr-small.sif
 cbl-carbine.sif
