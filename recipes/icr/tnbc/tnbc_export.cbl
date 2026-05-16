@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-16
-# Capture time: 17:36:30 BST
+# Capture time: 18:02:12 BST
 # Captured by: ralcraft
 
 coble:
@@ -323,6 +323,7 @@ r-conda:
   - rcppannoy=0.0.20@conda-forge
   - rcpparmadillo=0.12.4.0.0@conda-forge
   - rcppeigen=0.3.3.9.3@conda-forge
+  - rcpphnsw=0.4.1@conda-forge
   - rcppparallel=5.1.6@conda-forge
   - rcppprogress=0.4.2@conda-forge
   - rcpptoml=0.2.2@conda-forge
@@ -347,6 +348,7 @@ r-conda:
   - rsqlite=2.3.1@conda-forge
   - rstatix=0.7.2@conda-forge
   - rstudioapi=0.14@conda-forge
+  - rsvd=1.0.5@conda-forge
   - rtsne=0.16@conda-forge
   - rvest=1.0.3@conda-forge
   - sass=0.4.6@conda-forge
@@ -406,18 +408,29 @@ r-conda:
 bioc-conda:
   - annotate=1.72.0@bioconda
   - annotationdbi=1.56.2@bioconda
+  - beachmat=2.10.0@bioconda
   - biocgenerics=0.40.0@bioconda
+  - biocneighbors=1.12.0@bioconda
   - biocparallel=1.28.3@bioconda
+  - biocsingular=1.10.0@bioconda
   - biostrings=2.62.0@bioconda
+  - delayedarray=0.20.0@bioconda
+  - delayedmatrixstats=1.16.0@bioconda
   - fgsea=1.20.0@bioconda
   - genomeinfodb=1.30.1@bioconda
   - genomeinfodbdata=1.2.7@bioconda
+  - genomicranges=1.46.1@bioconda
   - graph=1.72.0@bioconda
   - iranges=2.28.0@bioconda
   - keggrest=1.34.0@bioconda
   - limma=3.50.3@bioconda
+  - matrixgenerics=1.6.0@bioconda
   - multtest=2.50.0@bioconda
   - s4vectors=0.32.4@bioconda
+  - scaledmatrix=1.2.0@bioconda
+  - singler=1.8.1@bioconda
+  - sparsematrixstats=1.6.0@bioconda
+  - summarizedexperiment=1.24.0@bioconda
   - xvector=0.34.0@bioconda
   - zlibbioc=1.40.0@bioconda
 

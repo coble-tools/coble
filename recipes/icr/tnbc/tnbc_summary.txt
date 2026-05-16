@@ -933,3 +933,68 @@ install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/b
 [coble-create] Recipe created at: 2026-05-16 17:36:13
 [coble-create] Recipe took: 0h 9m 1s
 --------------------------------------
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-16 at 18:01:31 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-16 18:01:31 1/15
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-16 18:01:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:32 2/15
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-16 18:01:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:32 3/15
+install: conda deactivate | true
+[coble-create] End time: 2026-05-16 18:01:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:32 4/15
+install: conda deactivate | true
+[coble-create] End time: 2026-05-16 18:01:32
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:32 5/15
+install: conda activate tnbc
+[coble-create] End time: 2026-05-16 18:01:33
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-16 18:01:33 6/15
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-16 18:01:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:33 7/15
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-16 18:01:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:33 8/15
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-16 18:01:33
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-16 18:01:33 14/15
+install: conda install -y --solver=libmamba --no-update-deps  'bioconductor-GSEABase'  'bioconductor-multtest'  'bioconductor-limma'  'bioconductor-fgsea'  'bioconductor-SingleR' 
+dep: # bioconductor-beac~ bioconda/linux-64::bioconductor-beachmat-2.10.0-r41hc247a5b_2
+dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocneighbors-1.12.0-r41hc247a5b_2
+dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocsingular-1.10.0-r41hc247a5b_2
+dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.20.0-r41hc0cfd56_2
+dep: # bioconductor-dela~ bioconda/noarch::bioconductor-delayedmatrixstats-1.16.0-r41hdfd78af_0
+dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicranges-1.46.1-r41hc0cfd56_1
+dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.6.0-r41hdfd78af_0
+dep: # bioconductor-scal~ bioconda/noarch::bioconductor-scaledmatrix-1.2.0-r41hdfd78af_0
+dep: # bioconductor-sing~ bioconda/linux-64::bioconductor-singler-1.8.1-r41hc247a5b_1
+dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsematrixstats-1.6.0-r41hc247a5b_2
+dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.24.0-r41hdfd78af_0
+dep: # r-rcpphnsw         conda-forge/linux-64::r-rcpphnsw-0.4.1-r41h7525677_1
+dep: # r-rsvd             conda-forge/noarch::r-rsvd-1.0.5-r41hc72bb7e_0
+[coble-create] End time: 2026-05-16 18:01:56
+[coble-create] Duration: 23s
+--------------------------------------
+[coble-create] Recipe created at: 2026-05-16 18:01:56
+[coble-create] Recipe took: 0h 0m 25s
+--------------------------------------
