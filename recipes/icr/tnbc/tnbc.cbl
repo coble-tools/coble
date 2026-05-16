@@ -97,13 +97,8 @@ bioc-conda::
   - fgsea
   - SingleR
   - scDblFinder
-
-flags:
-  - updates: false
-r-github:
-  - chris-mcginnis-ucsf/DoubletFinder
-
 bash:
+Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
