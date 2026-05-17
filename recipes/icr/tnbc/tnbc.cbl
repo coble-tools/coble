@@ -122,6 +122,7 @@ Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", \
 host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependencies=NA, upgrade="never")'
 
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
-remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
-host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
+#Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+#remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
+#host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
+Rscript -e 'remove.packages("BCN.singlecell.utilities")'

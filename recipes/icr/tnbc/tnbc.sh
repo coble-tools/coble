@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-17
-# Capture time: 12:31:34 BST
+# Capture time: 13:29:16 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -39,7 +39,7 @@ conda config --env --add channels conda-forge
 #######################################
 # comments:
 # compilers:
-# Flag: Directive: cran-repo, Value: 
+# Flag: Directive: cran-repo, Value:
 # flags:
 # Flag: Directive: ncpus, Value: 4
 # conda:
@@ -47,7 +47,7 @@ conda install -y --solver=libmamba --no-update-deps \
 r-base=4.1.0 \
 compilers \
 curl \
-libcurl 
+libcurl
 # r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/KernSmooth/KernSmooth_2.23-20.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("dotCall64", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
@@ -78,7 +78,7 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-ggraph=2.0.5' \
 'r-ggpubr=0.4.0' \
 'r-tidyverse=1.3.1' \
-'r-optparse=1.7.3' 
+'r-optparse=1.7.3'
 
 # r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/viridis/viridis_0.6.3.tar.gz", repos=NULL, type="source")'
@@ -119,7 +119,7 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-Seurat=4.2.1' \
 'r-remotes' \
 'r-FactoMineR' \
-'r-factoextra' 
+'r-factoextra'
 # bioc-conda::
 conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-GSEABase' \
@@ -127,9 +127,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-limma' \
 'bioconductor-fgsea' \
 'bioconductor-SingleR' \
-'bioconductor-scDblFinder' 
+'bioconductor-scDblFinder'
 # bash:
-Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
+#Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
 
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", \
@@ -155,9 +155,10 @@ Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", \
 host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependencies=NA, upgrade="never")'
 
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
-remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
-host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
+#Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+#remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
+#host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
+#Rscript -e 'remove.packages("BCN.singlecell.utilities")'
 
 # End of recipe
 # Validation script setup

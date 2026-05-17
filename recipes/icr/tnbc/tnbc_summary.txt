@@ -1,83 +1,83 @@
 ------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-05-16 at 19:36:35 BST
+[coble-create] Summary log started by ralcraft on 2026-05-17 at 13:29:17 BST
 ------------------------------------------------
 
-[coble-create] Start time: 2026-05-16 19:36:35 1/192
+[coble-create] Start time: 2026-05-17 13:29:18 1/202
 install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
-[coble-create] End time: 2026-05-16 19:36:36
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-05-17 13:29:18
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:36:36 3/192
+[coble-create] Start time: 2026-05-17 13:29:18 3/202
 install: conda env remove --name tnbc -y 2>/dev/null || true
-[coble-create] End time: 2026-05-16 19:36:42
+[coble-create] End time: 2026-05-17 13:29:24
 [coble-create] Duration: 6s
 
-[coble-create] Start time: 2026-05-16 19:36:42 5/192
+[coble-create] Start time: 2026-05-17 13:29:24 5/202
 install: conda create --no-default-packages --name tnbc -y
-[coble-create] End time: 2026-05-16 19:37:01
-[coble-create] Duration: 19s
+[coble-create] End time: 2026-05-17 13:29:40
+[coble-create] Duration: 16s
 
-[coble-create] Start time: 2026-05-16 19:37:01 7/192
+[coble-create] Start time: 2026-05-17 13:29:40 7/202
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-05-16 19:37:01
+[coble-create] End time: 2026-05-17 13:29:40
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:01 8/192
+[coble-create] Start time: 2026-05-17 13:29:40 8/202
 install: unset PYTHONPATH
-[coble-create] End time: 2026-05-16 19:37:01
+[coble-create] End time: 2026-05-17 13:29:40
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:01 9/192
+[coble-create] Start time: 2026-05-17 13:29:40 9/202
 install: conda  clean --all -y --force-pkgs-dirs
-[coble-create] End time: 2026-05-16 19:37:05
-[coble-create] Duration: 4s
+[coble-create] End time: 2026-05-17 13:29:43
+[coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-05-16 19:37:05 11/192
+[coble-create] Start time: 2026-05-17 13:29:43 11/202
 install: conda deactivate | true
-[coble-create] End time: 2026-05-16 19:37:05
+[coble-create] End time: 2026-05-17 13:29:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:05 12/192
+[coble-create] Start time: 2026-05-17 13:29:43 12/202
 install: conda deactivate | true
-[coble-create] End time: 2026-05-16 19:37:05
+[coble-create] End time: 2026-05-17 13:29:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:05 13/192
+[coble-create] Start time: 2026-05-17 13:29:43 13/202
 install: conda activate tnbc
-[coble-create] End time: 2026-05-16 19:37:06
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-05-17 13:29:43
+[coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:06 14/192
+[coble-create] Start time: 2026-05-17 13:29:43 14/202
 install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-05-16 19:37:06
+[coble-create] End time: 2026-05-17 13:29:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:06 15/192
+[coble-create] Start time: 2026-05-17 13:29:43 15/202
 install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-05-16 19:37:06
+[coble-create] End time: 2026-05-17 13:29:43
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:06 16/192
+[coble-create] Start time: 2026-05-17 13:29:43 16/202
 install: conda config --env --show channels | grep -q 'channels:' && conda config --env --remove-key channels || true
-[coble-create] End time: 2026-05-16 19:37:06
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:37:06 18/192
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-05-16 19:37:06
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:37:06 19/192
-install: conda config --env --add channels bioconda
-[coble-create] End time: 2026-05-16 19:37:07
+[coble-create] End time: 2026-05-17 13:29:44
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-05-16 19:37:07 21/192
-install: conda config --env --add channels conda-forge
-[coble-create] End time: 2026-05-16 19:37:07
+[coble-create] Start time: 2026-05-17 13:29:44 18/202
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-17 13:29:44
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-16 19:37:07 27/192
+[coble-create] Start time: 2026-05-17 13:29:44 19/202
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-05-17 13:29:45
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-17 13:29:45 21/202
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-05-17 13:29:45
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-17 13:29:45 27/202
 install: conda install -y --solver=libmamba --no-update-deps  r-base=4.1.0  compilers  curl  libcurl 
 dep: # _openmp_mutex      conda-forge/linux-64::_openmp_mutex-4.5-20_gnu
 dep: # _r-mutex           conda-forge/noarch::_r-mutex-1.0.1-anacondar_1
@@ -190,131 +190,131 @@ dep: # xz-gpl-tools       conda-forge/linux-64::xz-gpl-tools-5.8.3-ha02ee65_0
 dep: # xz-tools           conda-forge/linux-64::xz-tools-5.8.3-hb03c661_0
 dep: # zlib               conda-forge/linux-64::zlib-1.2.13-h4ab18f5_6
 dep: # zstd               conda-forge/linux-64::zstd-1.5.6-ha6fb4c9_0
-[coble-create] End time: 2026-05-16 19:37:45
+[coble-create] End time: 2026-05-17 13:30:23
 [coble-create] Duration: 38s
 
-[coble-create] Start time: 2026-05-16 19:37:45 29/192
+[coble-create] Start time: 2026-05-17 13:30:23 29/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/KernSmooth/KernSmooth_2.23-20.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (KernSmooth)
-[coble-create] End time: 2026-05-16 19:37:48
-[coble-create] Duration: 3s
+[coble-create] End time: 2026-05-17 13:30:25
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-05-16 19:37:48 31/192
+[coble-create] Start time: 2026-05-17 13:30:25 31/202
 install: Rscript -e 'install.packages("dotCall64", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (dotCall64)
-[coble-create] End time: 2026-05-16 19:37:51
-[coble-create] Duration: 3s
+[coble-create] End time: 2026-05-17 13:30:29
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:37:51 33/192
+[coble-create] Start time: 2026-05-17 13:30:29 33/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/spam/spam_2.8-0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (spam)
-[coble-create] End time: 2026-05-16 19:37:59
+[coble-create] End time: 2026-05-17 13:30:37
 [coble-create] Duration: 8s
 
-[coble-create] Start time: 2026-05-16 19:37:59 35/192
+[coble-create] Start time: 2026-05-17 13:30:37 35/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/viridisLite/viridisLite_0.4.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (viridisLite)
-[coble-create] End time: 2026-05-16 19:38:01
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-05-16 19:38:01 37/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/glue/glue_1.6.2.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (glue)
-[coble-create] End time: 2026-05-16 19:38:02
+[coble-create] End time: 2026-05-17 13:30:38
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-05-16 19:38:02 39/192
+[coble-create] Start time: 2026-05-17 13:30:38 37/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/glue/glue_1.6.2.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (glue)
+[coble-create] End time: 2026-05-17 13:30:40
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-17 13:30:40 39/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.29.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (digest)
-[coble-create] End time: 2026-05-16 19:38:05
+[coble-create] End time: 2026-05-17 13:30:43
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-05-16 19:38:05 41/192
+[coble-create] Start time: 2026-05-17 13:30:43 41/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.3.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (gtable)
-[coble-create] End time: 2026-05-16 19:38:07
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-05-17 13:30:42
+[coble-create] Duration: -1s
 
-[coble-create] Start time: 2026-05-16 19:38:07 43/192
+[coble-create] Start time: 2026-05-17 13:30:42 43/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/MASS/MASS_7.3-58.1.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (MASS)
-[coble-create] End time: 2026-05-16 19:38:09
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-05-17 13:30:46
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:38:09 45/192
+[coble-create] Start time: 2026-05-17 13:30:46 45/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/rlang/rlang_1.0.6.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (rlang)
-[coble-create] End time: 2026-05-16 19:38:16
+[coble-create] End time: 2026-05-17 13:30:53
 [coble-create] Duration: 7s
 
-[coble-create] Start time: 2026-05-16 19:38:16 47/192
+[coble-create] Start time: 2026-05-17 13:30:53 47/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fansi/fansi_1.0.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (fansi)
-[coble-create] End time: 2026-05-16 19:38:19
+[coble-create] End time: 2026-05-17 13:30:56
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-05-16 19:38:19 49/192
+[coble-create] Start time: 2026-05-17 13:30:56 49/202
 install: Rscript -e 'install.packages("lifecycle", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (cli)
 dep: # * DONE (rlang)
 dep: # * DONE (lifecycle)
-[coble-create] End time: 2026-05-16 19:38:30
-[coble-create] Duration: 11s
+[coble-create] End time: 2026-05-17 13:31:08
+[coble-create] Duration: 12s
 
-[coble-create] Start time: 2026-05-16 19:38:30 51/192
+[coble-create] Start time: 2026-05-17 13:31:08 51/202
 install: Rscript -e 'install.packages("magrittr", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (magrittr)
-[coble-create] End time: 2026-05-16 19:38:34
+[coble-create] End time: 2026-05-17 13:31:12
 [coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:38:34 53/192
+[coble-create] Start time: 2026-05-17 13:31:12 53/202
 install: Rscript -e 'install.packages("pillar", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (utf8)
 dep: # * DONE (vctrs)
 dep: # * DONE (pillar)
-[coble-create] End time: 2026-05-16 19:38:51
-[coble-create] Duration: 17s
+[coble-create] End time: 2026-05-17 13:31:27
+[coble-create] Duration: 15s
 
-[coble-create] Start time: 2026-05-16 19:38:51 55/192
+[coble-create] Start time: 2026-05-17 13:31:27 55/202
 install: Rscript -e 'install.packages("pkgconfig", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (pkgconfig)
-[coble-create] End time: 2026-05-16 19:38:54
-[coble-create] Duration: 3s
+[coble-create] End time: 2026-05-17 13:31:31
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:38:54 57/192
+[coble-create] Start time: 2026-05-17 13:31:31 57/202
 install: Rscript -e 'install.packages("vctrs", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (vctrs)
-[coble-create] End time: 2026-05-16 19:39:06
+[coble-create] End time: 2026-05-17 13:31:43
 [coble-create] Duration: 12s
 
-[coble-create] Start time: 2026-05-16 19:39:06 59/192
+[coble-create] Start time: 2026-05-17 13:31:43 59/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tibble/tibble_3.1.8.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (tibble)
-[coble-create] End time: 2026-05-16 19:39:07
+[coble-create] End time: 2026-05-17 13:31:44
 [coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-05-16 19:39:07 61/192
+[coble-create] Start time: 2026-05-17 13:31:44 61/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/withr/withr_2.5.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (withr)
-[coble-create] End time: 2026-05-16 19:39:09
-[coble-create] Duration: 2s
+[coble-create] End time: 2026-05-17 13:31:45
+[coble-create] Duration: 1s
 
-[coble-create] Start time: 2026-05-16 19:39:09 63/192
+[coble-create] Start time: 2026-05-17 13:31:45 63/202
 install: Rscript -e 'install.packages("isoband", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (isoband)
-[coble-create] End time: 2026-05-16 19:39:15
+[coble-create] End time: 2026-05-17 13:31:51
 [coble-create] Duration: 6s
 
-[coble-create] Start time: 2026-05-16 19:39:15 65/192
+[coble-create] Start time: 2026-05-17 13:31:51 65/202
 install: Rscript -e 'install.packages("mgcv", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (lattice)
 dep: # * DONE (nlme)
 dep: # * DONE (Matrix)
 dep: # * DONE (mgcv)
-[coble-create] End time: 2026-05-16 19:40:36
-[coble-create] Duration: 81s
+[coble-create] End time: 2026-05-17 13:33:11
+[coble-create] Duration: 80s
 
-[coble-create] Start time: 2026-05-16 19:40:36 67/192
+[coble-create] Start time: 2026-05-17 13:33:11 67/202
 install: Rscript -e 'install.packages("scales", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (R6)
 dep: # * DONE (labeling)
@@ -323,16 +323,16 @@ dep: # * DONE (colorspace)
 dep: # * DONE (munsell)
 dep: # * DONE (farver)
 dep: # * DONE (scales)
-[coble-create] End time: 2026-05-16 19:40:59
-[coble-create] Duration: 23s
+[coble-create] End time: 2026-05-17 13:33:32
+[coble-create] Duration: 21s
 
-[coble-create] Start time: 2026-05-16 19:40:59 69/192
+[coble-create] Start time: 2026-05-17 13:33:32 69/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_3.3.5.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (ggplot2)
-[coble-create] End time: 2026-05-16 19:41:06
+[coble-create] End time: 2026-05-17 13:33:39
 [coble-create] Duration: 7s
 
-[coble-create] Start time: 2026-05-16 19:41:06 77/192
+[coble-create] Start time: 2026-05-17 13:33:39 77/202
 install: conda install -y --solver=libmamba --no-update-deps  'r-gridExtra=2.3'  'r-plotly'  'r-ggraph=2.0.5'  'r-ggpubr=0.4.0'  'r-tidyverse=1.3.1'  'r-optparse=1.7.3' 
 dep: # gmp                conda-forge/linux-64::gmp-6.3.0-hac33072_2
 dep: # libnsl             conda-forge/linux-64::libnsl-2.0.1-hb9d3cd8_1
@@ -534,527 +534,129 @@ dep: # r-yaml             conda-forge/linux-64::r-yaml-2.3.7-r41h133d619_0
 dep: # r-zip              conda-forge/linux-64::r-zip-2.3.0-r41h133d619_0
 dep: # setuptools         conda-forge/noarch::setuptools-82.0.1-pyh332efcf_0
 dep: # wheel              conda-forge/noarch::wheel-0.47.0-pyhd8ed1ab_0
-[coble-create] End time: 2026-05-16 19:41:35
-[coble-create] Duration: 29s
+[coble-create] End time: 2026-05-17 13:34:10
+[coble-create] Duration: 31s
 
-[coble-create] Start time: 2026-05-16 19:41:35 79/192
+[coble-create] Start time: 2026-05-17 13:34:10 79/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/viridis/viridis_0.6.3.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (viridis)
-[coble-create] End time: 2026-05-16 19:41:38
-[coble-create] Duration: 3s
+[coble-create] End time: 2026-05-17 13:34:12
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-05-16 19:41:38 81/192
+[coble-create] Start time: 2026-05-17 13:34:12 81/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/maps/maps_3.4.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (maps)
-[coble-create] End time: 2026-05-16 19:41:40
-[coble-create] Duration: 1s
+[coble-create] End time: 2026-05-17 13:34:14
+[coble-create] Duration: 2s
 
-[coble-create] Start time: 2026-05-16 19:41:40 83/192
+[coble-create] Start time: 2026-05-17 13:34:14 83/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fields/fields_13.3.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (fields)
-[coble-create] End time: 2026-05-16 19:41:46
+[coble-create] End time: 2026-05-17 13:34:20
 [coble-create] Duration: 6s
 
-[coble-create] Start time: 2026-05-16 19:41:46 85/192
+[coble-create] Start time: 2026-05-17 13:34:20 85/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pracma/pracma_2.4.2.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (pracma)
-[coble-create] End time: 2026-05-16 19:41:52
+[coble-create] End time: 2026-05-17 13:34:27
 [coble-create] Duration: 6s
 
-[coble-create] Start time: 2026-05-16 19:41:52 87/192
+[coble-create] Start time: 2026-05-17 13:34:27 87/202
 install: Rscript -e 'install.packages("globals", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (globals)
-[coble-create] End time: 2026-05-16 19:41:58
-[coble-create] Duration: 6s
+[coble-create] End time: 2026-05-17 13:34:31
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:41:58 89/192
+[coble-create] Start time: 2026-05-17 13:34:31 89/202
 install: Rscript -e 'install.packages("listenv", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (listenv)
-[coble-create] End time: 2026-05-16 19:42:01
+[coble-create] End time: 2026-05-17 13:34:34
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-05-16 19:42:01 91/192
+[coble-create] Start time: 2026-05-17 13:34:35 91/202
 install: Rscript -e 'install.packages("parallelly", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (parallelly)
-[coble-create] End time: 2026-05-16 19:42:06
-[coble-create] Duration: 5s
+[coble-create] End time: 2026-05-17 13:34:39
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:42:06 93/192
+[coble-create] Start time: 2026-05-17 13:34:39 93/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/future/future_1.25.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (future)
-[coble-create] End time: 2026-05-16 19:42:09
+[coble-create] End time: 2026-05-17 13:34:42
 [coble-create] Duration: 3s
 
-[coble-create] Start time: 2026-05-16 19:42:09 95/192
+[coble-create] Start time: 2026-05-17 13:34:42 95/202
 install: Rscript -e 'install.packages("jsonlite", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (jsonlite)
-[coble-create] End time: 2026-05-16 19:42:14
+[coble-create] End time: 2026-05-17 13:34:47
 [coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-05-16 19:42:14 97/192
+[coble-create] Start time: 2026-05-17 13:34:47 97/202
 install: Rscript -e 'install.packages("RCurl", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (bitops)
 dep: # * DONE (RCurl)
-[coble-create] End time: 2026-05-16 19:42:24
-[coble-create] Duration: 10s
+[coble-create] End time: 2026-05-17 13:34:58
+[coble-create] Duration: 11s
 
-[coble-create] Start time: 2026-05-16 19:42:24 99/192
+[coble-create] Start time: 2026-05-17 13:34:58 99/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tidyr/tidyr_1.2.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (tidyr)
-[coble-create] End time: 2026-05-16 19:42:29
-[coble-create] Duration: 5s
+[coble-create] End time: 2026-05-17 13:35:02
+[coble-create] Duration: 4s
 
-[coble-create] Start time: 2026-05-16 19:42:29 101/192
+[coble-create] Start time: 2026-05-17 13:35:02 101/202
 install: Rscript -e 'install.packages("crosstalk", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 dep: # * DONE (crosstalk)
-[coble-create] End time: 2026-05-16 19:42:33
-[coble-create] Duration: 4s
-
-[coble-create] Start time: 2026-05-16 19:42:33 103/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_1.0.8.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (dplyr)
-[coble-create] End time: 2026-05-16 19:42:39
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-05-16 19:42:39 105/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gprofiler2/gprofiler2_0.2.1.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (gprofiler2)
-[coble-create] End time: 2026-05-16 19:42:42
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-05-16 19:42:42 107/192
-install: Rscript -e 'install.packages("checkmate", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
-dep: # * DONE (checkmate)
-[coble-create] End time: 2026-05-16 19:42:48
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-05-16 19:42:48 109/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggrepel/ggrepel_0.9.1.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (ggrepel)
-[coble-create] End time: 2026-05-16 19:42:55
-[coble-create] Duration: 7s
-
-[coble-create] Start time: 2026-05-16 19:42:55 111/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/clustree/clustree_0.4.4.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (clustree)
-[coble-create] End time: 2026-05-16 19:42:58
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-05-16 19:42:58 113/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/forcats/forcats_0.5.1.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (forcats)
-[coble-create] End time: 2026-05-16 19:43:00
-[coble-create] Duration: 2s
-
-[coble-create] Start time: 2026-05-16 19:43:00 115/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringr/stringr_1.4.0.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (stringr)
-[coble-create] End time: 2026-05-16 19:43:01
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:01 117/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/purrr/purrr_0.3.4.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (purrr)
-[coble-create] End time: 2026-05-16 19:43:04
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-05-16 19:43:04 119/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/readr/readr_2.0.1.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (readr)
-[coble-create] End time: 2026-05-16 19:43:19
-[coble-create] Duration: 15s
-
-[coble-create] Start time: 2026-05-16 19:43:19 121/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/DoubletFinder/DoubletFinder_2.0.3.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:20
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:20 123/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scDblFinder/scDblFinder_1.6.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:20
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:20 125/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/SingleR/SingleR_1.6.1.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:21
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:21 127/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/SummarizedExperiment/SummarizedExperiment_1.24.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:21 129/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Biobase/Biobase_2.54.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:21
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:21 131/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/GenomicRanges/GenomicRanges_1.46.1.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:22
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:22 133/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/GenomeInfoDb/GenomeInfoDb_1.28.4.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:22
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:22 135/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/IRanges/IRanges_2.28.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:23
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:23 137/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/S4Vectors/S4Vectors_0.32.4.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:23
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:23 139/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocGenerics/BiocGenerics_0.40.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:24
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-16 19:43:24 141/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/MatrixGenerics/MatrixGenerics_1.6.0.tar.gz", repos=NULL, type="source")'
-[coble-create] End time: 2026-05-16 19:43:24
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:43:24 143/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/matrixStats/matrixStats_0.61.0.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (matrixStats)
-[coble-create] End time: 2026-05-16 19:43:30
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-05-16 19:43:30 145/192
-install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/SeuratObject/SeuratObject_4.1.3.tar.gz", repos=NULL, type="source")'
-dep: # * DONE (SeuratObject)
-[coble-create] End time: 2026-05-16 19:43:42
-[coble-create] Duration: 12s
-
-[coble-create] Start time: 2026-05-16 19:43:42 151/192
-install: conda install -y --solver=libmamba --no-update-deps  'r-Seurat=4.2.1'  'r-remotes'  'r-FactoMineR'  'r-factoextra' 
-dep: # geos               conda-forge/linux-64::geos-3.11.2-hcb278e6_0
-dep: # r-bh               conda-forge/noarch::r-bh-1.81.0_1-r41hc72bb7e_0
-dep: # r-bitops           conda-forge/linux-64::r-bitops-1.0_7-r41h06615bd_1
-dep: # r-catools          conda-forge/linux-64::r-catools-1.18.2-r41h7525677_1
-dep: # r-cluster          conda-forge/linux-64::r-cluster-2.1.4-r41h8da6f51_0
-dep: # r-commonmark       conda-forge/linux-64::r-commonmark-1.9.0-r41h133d619_0
-dep: # r-deldir           conda-forge/linux-64::r-deldir-1.0_9-r41h61816a4_0
-dep: # r-dendextend       conda-forge/noarch::r-dendextend-1.17.1-r41hc72bb7e_0
-dep: # r-dqrng            conda-forge/linux-64::r-dqrng-0.3.0-r41h7525677_1
-dep: # r-dt               conda-forge/noarch::r-dt-0.28-r41hc72bb7e_0
-dep: # r-ellipse          conda-forge/noarch::r-ellipse-0.4.5-r41hc72bb7e_0
-dep: # r-emmeans          conda-forge/noarch::r-emmeans-1.8.6-r41hc72bb7e_0
-dep: # r-estimability     conda-forge/noarch::r-estimability-1.4.1-r41hc72bb7e_1
-dep: # r-factoextra       conda-forge/noarch::r-factoextra-1.0.7-r41hc72bb7e_2
-dep: # r-factominer       conda-forge/linux-64::r-factominer-2.8-r41h133d619_0
-dep: # r-fitdistrplus     conda-forge/noarch::r-fitdistrplus-1.1_11-r41hc72bb7e_0
-dep: # r-flashclust       conda-forge/linux-64::r-flashclust-1.01_2-r41h8da6f51_1007
-dep: # r-fnn              conda-forge/linux-64::r-fnn-1.1.3.2-r41h38f115c_0
-dep: # r-ggridges         conda-forge/noarch::r-ggridges-0.5.4-r41hc72bb7e_1
-dep: # r-goftest          conda-forge/linux-64::r-goftest-1.2_3-r41h06615bd_1
-dep: # r-gplots           conda-forge/noarch::r-gplots-3.1.3-r41hc72bb7e_1
-dep: # r-gtools           conda-forge/linux-64::r-gtools-3.9.4-r41h06615bd_0
-dep: # r-here             conda-forge/noarch::r-here-1.0.1-r41hc72bb7e_1
-dep: # r-httpuv           conda-forge/linux-64::r-httpuv-1.6.11-r41ha503ecb_0
-dep: # r-ica              conda-forge/noarch::r-ica-1.0_3-r41hc72bb7e_1
-dep: # r-irlba            conda-forge/linux-64::r-irlba-2.3.5.1-r41h5f7b363_0
-dep: # r-leaps            conda-forge/linux-64::r-leaps-3.1-r41h8da6f51_3
-dep: # r-leiden           conda-forge/noarch::r-leiden-0.4.3-r41hc72bb7e_1
-dep: # r-lmtest           conda-forge/linux-64::r-lmtest-0.9_40-r41h8da6f51_1
-dep: # r-lsei             conda-forge/linux-64::r-lsei-1.3_0-r41hc3ea6d6_2
-dep: # r-miniui           conda-forge/noarch::r-miniui-0.1.1.1-r41hc72bb7e_1003
-dep: # r-multcompview     conda-forge/noarch::r-multcompview-0.1_9-r41hc72bb7e_0
-dep: # r-mvtnorm          conda-forge/linux-64::r-mvtnorm-1.2_2-r41h61816a4_0
-dep: # r-npsurv           conda-forge/noarch::r-npsurv-0.5_0-r41hc72bb7e_1
-dep: # r-patchwork        conda-forge/noarch::r-patchwork-1.1.2-r41hc72bb7e_1
-dep: # r-pbapply          conda-forge/noarch::r-pbapply-1.7_0-r41hc72bb7e_0
-dep: # r-png              conda-forge/linux-64::r-png-0.1_8-r41h10cf519_0
-dep: # r-rann             conda-forge/linux-64::r-rann-2.6.1-r41h7525677_3
-dep: # r-rcppannoy        conda-forge/linux-64::r-rcppannoy-0.0.20-r41h7525677_0
-dep: # r-rcppparallel     conda-forge/linux-64::r-rcppparallel-5.1.6-r41h38f115c_0
-dep: # r-rcppprogress     conda-forge/noarch::r-rcppprogress-0.4.2-r41hc72bb7e_2
-dep: # r-rcpptoml         conda-forge/linux-64::r-rcpptoml-0.2.2-r41h38f115c_0
-dep: # r-remotes          conda-forge/noarch::r-remotes-2.4.2-r41hc72bb7e_1
-dep: # r-reticulate       conda-forge/linux-64::r-reticulate-1.30-r41ha503ecb_1
-dep: # r-rgeos            conda-forge/linux-64::r-rgeos-0.6_3-r41h214e639_0
-dep: # r-rocr             conda-forge/linux-64::r-rocr-1.0_11-r41hc72bb7e_2
-dep: # r-rprojroot        conda-forge/noarch::r-rprojroot-2.0.3-r41hc72bb7e_1
-dep: # r-rspectra         conda-forge/linux-64::r-rspectra-0.16_1-r41h9f5de39_1
-dep: # r-rtsne            conda-forge/linux-64::r-rtsne-0.16-r41h37cf8d7_1
-dep: # r-scattermore      conda-forge/linux-64::r-scattermore-1.1-r41ha503ecb_0
-dep: # r-scatterplot3d    conda-forge/noarch::r-scatterplot3d-0.3_44-r41hc72bb7e_0
-dep: # r-sctransform      conda-forge/linux-64::r-sctransform-0.3.5-r41h9f5de39_1
-dep: # r-seurat           conda-forge/linux-64::r-seurat-4.2.1-r41h7525677_0
-dep: # r-seuratobject     conda-forge/linux-64::r-seuratobject-4.1.3-r41h38f115c_0
-dep: # r-shiny            conda-forge/noarch::r-shiny-1.7.4-r41h785f33e_0
-dep: # r-sitmo            conda-forge/linux-64::r-sitmo-2.0.2-r41h7525677_1
-dep: # r-sourcetools      conda-forge/linux-64::r-sourcetools-0.1.7_1-r41h38f115c_0
-dep: # r-spatstat.data    conda-forge/noarch::r-spatstat.data-3.0_1-r41hc72bb7e_0
-dep: # r-spatstat.explore conda-forge/linux-64::r-spatstat.explore-3.2_1-r41h57805ef_0
-dep: # r-spatstat.geom    conda-forge/linux-64::r-spatstat.geom-3.2_1-r41h57805ef_0
-dep: # r-spatstat.random  conda-forge/linux-64::r-spatstat.random-3.1_5-r41ha503ecb_0
-dep: # r-spatstat.sparse  conda-forge/linux-64::r-spatstat.sparse-3.0_1-r41h133d619_0
-dep: # r-spatstat.utils   conda-forge/linux-64::r-spatstat.utils-3.1_0-r41h2b5f3a1_1
-dep: # r-tensor           conda-forge/noarch::r-tensor-1.5-r41hc72bb7e_1004
-dep: # r-uwot             conda-forge/linux-64::r-uwot-0.1.14-r41h7525677_1
-dep: # r-xtable           conda-forge/noarch::r-xtable-1.8_4-r41hc72bb7e_4
-dep: # r-zoo              conda-forge/linux-64::r-zoo-1.8_12-r41h133d619_0
-[coble-create] End time: 2026-05-16 19:44:06
-[coble-create] Duration: 24s
-
-[coble-create] Start time: 2026-05-16 19:44:06 159/192
-install: conda install -y --solver=libmamba --no-update-deps  'bioconductor-GSEABase'  'bioconductor-multtest'  'bioconductor-limma'  'bioconductor-fgsea'  'bioconductor-SingleR'  'bioconductor-scDblFinder' 
-dep: # _r-xgboost-mutex   conda-forge/linux-64::_r-xgboost-mutex-2.0-gpu_0
-dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotate-1.72.0-r41hdfd78af_0
-dep: # bioconductor-anno~ bioconda/noarch::bioconductor-annotationdbi-1.56.2-r41hdfd78af_0
-dep: # bioconductor-beac~ bioconda/linux-64::bioconductor-beachmat-2.10.0-r41hc247a5b_2
-dep: # bioconductor-biob~ bioconda/linux-64::bioconductor-biobase-2.54.0-r41hc0cfd56_2
-dep: # bioconductor-bioc~ bioconda/noarch::bioconductor-biocgenerics-0.40.0-r41hdfd78af_0
-dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocneighbors-1.12.0-r41hc247a5b_2
-dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocparallel-1.28.3-r41hc247a5b_1
-dep: # bioconductor-bioc~ bioconda/linux-64::bioconductor-biocsingular-1.10.0-r41hc247a5b_2
-dep: # bioconductor-bios~ bioconda/linux-64::bioconductor-biostrings-2.62.0-r41hc0cfd56_2
-dep: # bioconductor-blus~ bioconda/linux-64::bioconductor-bluster-1.4.0-r41hc247a5b_2
-dep: # bioconductor-dela~ bioconda/linux-64::bioconductor-delayedarray-0.20.0-r41hc0cfd56_2
-dep: # bioconductor-dela~ bioconda/noarch::bioconductor-delayedmatrixstats-1.16.0-r41hdfd78af_0
-dep: # bioconductor-edger bioconda/linux-64::bioconductor-edger-3.36.0-r41hc247a5b_2
-dep: # bioconductor-fgsea bioconda/linux-64::bioconductor-fgsea-1.20.0-r41hc247a5b_2
-dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodb-1.30.1-r41hdfd78af_0
-dep: # bioconductor-geno~ bioconda/noarch::bioconductor-genomeinfodbdata-1.2.7-r41hdfd78af_2
-dep: # bioconductor-geno~ bioconda/linux-64::bioconductor-genomicranges-1.46.1-r41hc0cfd56_1
-dep: # bioconductor-graph bioconda/linux-64::bioconductor-graph-1.72.0-r41hc0cfd56_2
-dep: # bioconductor-gsea~ bioconda/noarch::bioconductor-gseabase-1.56.0-r41hdfd78af_0
-dep: # bioconductor-iran~ bioconda/linux-64::bioconductor-iranges-2.28.0-r41hc0cfd56_2
-dep: # bioconductor-kegg~ bioconda/noarch::bioconductor-keggrest-1.34.0-r41hdfd78af_0
-dep: # bioconductor-limma bioconda/linux-64::bioconductor-limma-3.50.3-r41hc0cfd56_0
-dep: # bioconductor-matr~ bioconda/noarch::bioconductor-matrixgenerics-1.6.0-r41hdfd78af_0
-dep: # bioconductor-meta~ bioconda/linux-64::bioconductor-metapod-1.2.0-r41hc247a5b_2
-dep: # bioconductor-mult~ bioconda/linux-64::bioconductor-multtest-2.50.0-r41hc0cfd56_2
-dep: # bioconductor-s4ve~ bioconda/linux-64::bioconductor-s4vectors-0.32.4-r41hc0cfd56_0
-dep: # bioconductor-scal~ bioconda/noarch::bioconductor-scaledmatrix-1.2.0-r41hdfd78af_0
-dep: # bioconductor-scat~ bioconda/noarch::bioconductor-scater-1.22.0-r41hdfd78af_0
-dep: # bioconductor-scdb~ bioconda/noarch::bioconductor-scdblfinder-1.8.0-r41hdfd78af_0
-dep: # bioconductor-scran bioconda/linux-64::bioconductor-scran-1.22.1-r41hc247a5b_1
-dep: # bioconductor-scut~ bioconda/linux-64::bioconductor-scuttle-1.4.0-r41hc247a5b_2
-dep: # bioconductor-sing~ bioconda/noarch::bioconductor-singlecellexperiment-1.16.0-r41hdfd78af_0
-dep: # bioconductor-sing~ bioconda/linux-64::bioconductor-singler-1.8.1-r41hc247a5b_1
-dep: # bioconductor-spar~ bioconda/linux-64::bioconductor-sparsematrixstats-1.6.0-r41hc247a5b_2
-dep: # bioconductor-summ~ bioconda/noarch::bioconductor-summarizedexperiment-1.24.0-r41hdfd78af_0
-dep: # bioconductor-xvec~ bioconda/linux-64::bioconductor-xvector-0.34.0-r41hc0cfd56_2
-dep: # bioconductor-zlib~ bioconda/linux-64::bioconductor-zlibbioc-1.40.0-r41hc0cfd56_2
-dep: # cuda-version       conda-forge/noarch::cuda-version-11.8-h70ddcb2_3
-dep: # cudatoolkit        conda-forge/linux-64::cudatoolkit-11.8.0-h4ba93d1_13
-dep: # libxgboost         conda-forge/linux-64::libxgboost-1.7.4-cuda112h075c576_2
-dep: # nccl               conda-forge/linux-64::nccl-2.27.3.1-h03a54cd_0
-dep: # r-beeswarm         conda-forge/linux-64::r-beeswarm-0.4.0-r41h06615bd_2
-dep: # r-fastmatch        conda-forge/linux-64::r-fastmatch-1.1_3-r41h06615bd_1
-dep: # r-formatr          conda-forge/noarch::r-formatr-1.14-r41hc72bb7e_0
-dep: # r-futile.logger    conda-forge/noarch::r-futile.logger-1.4.3-r41hc72bb7e_1004
-dep: # r-futile.options   conda-forge/noarch::r-futile.options-1.0.1-r41hc72bb7e_1003
-dep: # r-ggbeeswarm       conda-forge/noarch::r-ggbeeswarm-0.7.2-r41hc72bb7e_0
-dep: # r-lambda.r         conda-forge/noarch::r-lambda.r-1.2.4-r41hc72bb7e_2
-dep: # r-locfit           conda-forge/linux-64::r-locfit-1.5_9.7-r41h133d619_0
-dep: # r-plogr            conda-forge/noarch::r-plogr-0.2.0-r41hc72bb7e_1004
-dep: # r-rcpphnsw         conda-forge/linux-64::r-rcpphnsw-0.4.1-r41h7525677_1
-dep: # r-rcurl            conda-forge/linux-64::r-rcurl-1.98_1.12-r41h133d619_0
-dep: # r-rsqlite          conda-forge/linux-64::r-rsqlite-2.3.1-r41h38f115c_0
-dep: # r-rsvd             conda-forge/noarch::r-rsvd-1.0.5-r41hc72bb7e_0
-dep: # r-snow             conda-forge/noarch::r-snow-0.4_4-r41hc72bb7e_1
-dep: # r-vipor            conda-forge/noarch::r-vipor-0.4.5-r41hc72bb7e_1004
-dep: # r-xgboost          conda-forge/linux-64::r-xgboost-1.7.4-cuda112_r41h075c576_2
-dep: # r-xml              conda-forge/linux-64::r-xml-3.99_0.9-r41h06615bd_0
-[coble-create] End time: 2026-05-16 19:44:56
-[coble-create] Duration: 50s
-
-[coble-create] Start time: 2026-05-16 19:44:56 161/192
-install: Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
-dep: # * DONE (DoubletFinder)
-[coble-create] End time: 2026-05-16 19:45:00
-[coble-create] Duration: 4s
-
-[coble-create] Start time: 2026-05-16 19:45:00 163/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (FC14.genesets.DB)
-[coble-create] End time: 2026-05-16 19:45:03
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-05-16 19:45:03 165/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (VennDiagram)
-dep: # * DONE (FC14.statistics.lib)
-[coble-create] End time: 2026-05-16 19:45:09
-[coble-create] Duration: 6s
-
-[coble-create] Start time: 2026-05-16 19:45:09 167/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (FC14.genome.annotations)
-[coble-create] End time: 2026-05-16 19:45:22
-[coble-create] Duration: 13s
-
-[coble-create] Start time: 2026-05-16 19:45:22 169/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (BCN.genesets.utilities)
-[coble-create] End time: 2026-05-16 19:45:27
+[coble-create] End time: 2026-05-17 13:35:07
 [coble-create] Duration: 5s
 
-[coble-create] Start time: 2026-05-16 19:45:27 171/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (S7)
-dep: # * DONE (plotrix)
-dep: # * DONE (UpSetR)
-dep: # * DONE (FC14.plotting.lib)
-[coble-create] End time: 2026-05-16 19:45:43
-[coble-create] Duration: 16s
-
-[coble-create] Start time: 2026-05-16 19:45:43 173/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (BCN.general.utilities)
-[coble-create] End time: 2026-05-16 19:45:46
-[coble-create] Duration: 3s
-
-[coble-create] Start time: 2026-05-16 19:45:46 175/192
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-dep: # * DONE (rbibutils)
-dep: # * DONE (Formula)
-dep: # * DONE (proto)
-dep: # * DONE (doParallel)
-dep: # * DONE (jpeg)
-dep: # * DONE (Rdpack)
-dep: # * DONE (gsubfn)
-dep: # * DONE (reformulas)
-dep: # * DONE (BCN.singlecell.utilities)
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 23s
-
-[coble-create] Start time: 2026-05-16 19:46:09 177/192
-install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 179/192
-install: echo 'echo "COBLE validation: No script has been specified for tnbc environment."' >> ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 181/192
-install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 183/192
-install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 185/192
-install: mkdir -p ${CONDA_PREFIX}/coble-recipe
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 187/192
-install: cp recipes/icr/tnbc/tnbc.cbl ${CONDA_PREFIX}/coble-recipe
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 189/192
-install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble ${CONDA_PREFIX}/bin/
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-16 19:46:09 191/192
-install: cp /home/ralcraft/DEV/gh-rse/BCRDS/coble/code/coble-* ${CONDA_PREFIX}/bin/
-[coble-create] End time: 2026-05-16 19:46:09
-[coble-create] Duration: 0s
---------------------------------------
-[coble-create] Recipe created at: 2026-05-16 19:46:09
-[coble-create] Recipe took: 0h 9m 34s
---------------------------------------
-------------------------------------------------
-[coble-create] Summary log started by ralcraft on 2026-05-17 at 12:31:35 BST
-------------------------------------------------
-
-[coble-create] Start time: 2026-05-17 12:31:36 1/38
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-05-17 12:31:36
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:36 2/38
-install: unset PYTHONPATH
-[coble-create] End time: 2026-05-17 12:31:36
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:36 3/38
-install: conda deactivate | true
-[coble-create] End time: 2026-05-17 12:31:36
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:36 4/38
-install: conda deactivate | true
-[coble-create] End time: 2026-05-17 12:31:36
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:36 5/38
-install: conda activate tnbc
-[coble-create] End time: 2026-05-17 12:31:37
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:37 6/38
-install: export PYTHONNOUSERSITE=1
-[coble-create] End time: 2026-05-17 12:31:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:37 7/38
-install: export | grep PYTHONNOUSERSITE
-[coble-create] End time: 2026-05-17 12:31:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:37 8/38
-install: conda config --env --set channel_priority strict
-[coble-create] End time: 2026-05-17 12:31:37
-[coble-create] Duration: 0s
-
-[coble-create] Start time: 2026-05-17 12:31:37 9/38
+[coble-create] Start time: 2026-05-17 13:35:07 103/202
 install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_1.1.0.tar.gz", repos=NULL, type="source")'
 dep: # * DONE (dplyr)
-[coble-create] End time: 2026-05-17 12:31:44
-[coble-create] Duration: 7s
+[coble-create] End time: 2026-05-17 13:35:13
+[coble-create] Duration: 6s
 
-[coble-create] Start time: 2026-05-17 12:31:44 13/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB",  host="git.icr.ac.uk", ref="71458584580db2f463945076b73e897b2c6efec8", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:45
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:45 17/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib",  host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:46
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:46 21/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations",  host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:47
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:47 25/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities",  host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:48
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:48 29/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib",  host="git.icr.ac.uk", ref="912c674ebb2dc7bcdfe6fa3013de5952e8c77c4c", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:49
-[coble-create] Duration: 1s
-
-[coble-create] Start time: 2026-05-17 12:31:49 33/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities",  host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:49
+[coble-create] Start time: 2026-05-17 13:35:13 105/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gprofiler2/gprofiler2_0.2.1.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (gprofiler2)
+[coble-create] End time: 2026-05-17 13:35:13
 [coble-create] Duration: 0s
 
-[coble-create] Start time: 2026-05-17 12:31:49 37/38
-install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities",  host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
-[coble-create] End time: 2026-05-17 12:31:50
+[coble-create] Start time: 2026-05-17 13:35:13 107/202
+install: Rscript -e 'install.packages("checkmate", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
+dep: # * DONE (checkmate)
+[coble-create] End time: 2026-05-17 13:35:19
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-17 13:35:19 109/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggrepel/ggrepel_0.9.1.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (ggrepel)
+[coble-create] End time: 2026-05-17 13:35:26
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-17 13:35:26 111/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/clustree/clustree_0.4.4.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (clustree)
+[coble-create] End time: 2026-05-17 13:35:30
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-05-17 13:35:30 113/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/forcats/forcats_0.5.1.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (forcats)
+[coble-create] End time: 2026-05-17 13:35:31
 [coble-create] Duration: 1s
---------------------------------------
-[coble-create] Recipe created at: 2026-05-17 12:31:50
-[coble-create] Recipe took: 0h 0m 15s
---------------------------------------
+
+[coble-create] Start time: 2026-05-17 13:35:31 115/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringr/stringr_1.4.0.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (stringr)
+[coble-create] End time: 2026-05-17 13:35:33
+[coble-create] Duration: 2s
+
+[coble-create] Start time: 2026-05-17 13:35:33 117/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/purrr/purrr_0.3.4.tar.gz", repos=NULL, type="source")'
+dep: # * DONE (purrr)
+[coble-create] End time: 2026-05-17 13:35:36
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-05-17 13:35:36 119/202
+install: Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/readr/readr_2.0.1.tar.gz", repos=NULL, type="source")'
