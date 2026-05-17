@@ -2,8 +2,8 @@
 
 #####################################################
 # COBLE:recipe, (c) ICR 2026
-# Capture date: 2026-05-16
-# Capture time: 19:36:33 BST
+# Capture date: 2026-05-17
+# Capture time: 12:31:34 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -93,7 +93,7 @@ Rscript -e 'install.packages("jsonlite", repos="https://packagemanager.posit.co/
 Rscript -e 'install.packages("RCurl", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tidyr/tidyr_1.2.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("crosstalk", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_1.0.8.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_1.1.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gprofiler2/gprofiler2_0.2.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("checkmate", repos="https://packagemanager.posit.co/cran/2024-04-01", dependencies=NA, Ncpus=4)'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggrepel/ggrepel_0.9.1.tar.gz", repos=NULL, type="source")'
@@ -102,8 +102,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/for
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringr/stringr_1.4.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/purrr/purrr_0.3.4.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/readr/readr_2.0.1.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/DoubletFinder/DoubletFinder_2.0.3.tar.gz", repos=NULL, type="source")'
-
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scDblFinder/scDblFinder_1.6.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/SingleR/SingleR_1.6.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/SummarizedExperiment/SummarizedExperiment_1.24.0.tar.gz", repos=NULL, type="source")'
@@ -132,13 +130,34 @@ conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-scDblFinder' 
 # bash:
 Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", \
+host="git.icr.ac.uk", ref="71458584580db2f463945076b73e897b2c6efec8", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib", \
+host="git.icr.ac.uk", ref="912c674ebb2dc7bcdfe6fa3013de5952e8c77c4c", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", \
+host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
+host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
 
 # End of recipe
 # Validation script setup

@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-16
-# Capture time: 18:17:27 BST
+# Capture time: 19:46:25 BST
 # Captured by: ralcraft
 
 coble:
@@ -486,6 +486,9 @@ r-package:
   - spam=2.8-0
   - UpSetR=1.4.0
   - VennDiagram=1.8.2
+
+r-github:
+  - DoubletFinder=2.0.4@github@chris-mcginnis-ucsf/DoubletFinder/03e9f37f891ef76a23cc55ea69f940c536ae8f9f
 
 # r-package(unknown source):
 #  - compiler=4.1.0

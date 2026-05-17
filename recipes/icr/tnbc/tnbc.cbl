@@ -62,7 +62,7 @@ r-package:
   - RCurl
   - tidyr=1.2.0
   - crosstalk
-  - dplyr=1.0.8
+  - dplyr=1.1.0
   - gprofiler2=0.2.1
   - checkmate
   - ggrepel=0.9.1
@@ -71,8 +71,6 @@ r-package:
   - stringr=1.4.0
   - purrr=0.3.4
   - readr=2.0.1
-  - DoubletFinder=2.0.3
-
   - scDblFinder=1.6.0
   - SingleR=1.6.1
   - SummarizedExperiment=1.24.0
@@ -99,10 +97,31 @@ bioc-conda::
   - scDblFinder
 bash:
 Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
-Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", \
+host="git.icr.ac.uk", ref="71458584580db2f463945076b73e897b2c6efec8", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genome.annotations", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.genesets.utilities", \
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.plotting.lib", \
+host="git.icr.ac.uk", ref="912c674ebb2dc7bcdfe6fa3013de5952e8c77c4c", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.general.utilities", \
+host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependencies=NA, upgrade="never")'
+
+Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
+remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
+host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
