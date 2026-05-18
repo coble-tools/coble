@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-17
-# Capture time: 12:32:07 BST
+# Capture time: 14:45:31 BST
 # Captured by: ralcraft
 
 coble:
@@ -454,14 +454,12 @@ bioc-conda:
 r-package:
   - BCN.general.utilities=0.3.6@System/Manual  (unknown method)@f469d348aa9dce8b974b12adbe8c14d1e23c3dc1
   - BCN.genesets.utilities=0.1.6@System/Manual  (unknown method)@353735b7a0856bb4787c23fabf2cb630802c6881
-  - BCN.singlecell.utilities=0.0.19@System/Manual  (unknown method)@74be36428d07a53e9a9610eac795bc7e6b90432c
 
 r-package:
   - checkmate=2.3.1@RSPM
 
 r-package:
   - clustree=0.4.4
-  - doParallel=1.0.17
 
 r-package:
   - dotCall64=1.1-1@RSPM
@@ -472,16 +470,10 @@ r-package:
 
 r-package:
   - fields=13.3
-  - Formula=1.2-5
   - gprofiler2=0.2.1
-  - gsubfn=0.7
   - maps=3.4.0
   - plotrix=3.8-14
   - pracma=2.4.2
-  - proto=1.0.0
-  - rbibutils=2.4.1
-  - Rdpack=2.6.6
-  - reformulas=0.4.4
   - S7=0.2.2
   - spam=2.8-0
   - UpSetR=1.4.0

@@ -96,7 +96,7 @@ bioc-conda::
   - SingleR
   - scDblFinder
 bash:
-Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="03e9f37f891ef76a23cc55ea69f940c536ae8f9f", dependencies=NA, upgrade="never", Ncpus=4)'
+Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="243b02f5badfed677ef7500b8753fd651f21a67f", dependencies=NA, upgrade="never", Ncpus=4)'
 
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", \
@@ -125,4 +125,4 @@ host="git.icr.ac.uk", ref="505467ce5e9cb0bc4f9f301c624e751f01667afc", dependenci
 #Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 #remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/BCN.singlecell.utilities", \
 #host="git.icr.ac.uk", ref="70f04179565510c10095ecca753f5cf983331bb0", dependencies=NA, upgrade="never")'
-Rscript -e 'remove.packages("BCN.singlecell.utilities")'
+#Rscript -e 'remove.packages("BCN.singlecell.utilities")'
