@@ -40,7 +40,7 @@ r-conda:
   - pracma=2.4.2
   - SeuratObject=4.1.3
   - future=1.25.0
-  - future.apply=1.8.0
+  - future.apply=1.8.1
 bioc-conda:
   - fgsea=1.18.0
   - limma=3.50.1

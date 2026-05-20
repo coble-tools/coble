@@ -3,13 +3,13 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 14:52:40 BST
+# Capture time: 16:33:39 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
 if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
-# Using conda executable conda: /home/ralcraft/miniforge3/condabin/conda
-# Using conda alias conda: /home/ralcraft/miniforge3/condabin/conda
+# Using conda executable conda: /home/ralcraft/miniforge3/bin/conda
+# Using conda alias conda: /home/ralcraft/miniforge3/bin/conda
 #####################################################
 
 conda env remove --name tnbc-new -y 2>/dev/null || true
@@ -65,7 +65,9 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-ggplot2=3.3.5' \
 'r-data.table=1.14.2' \
 'r-pracma=2.4.2' \
-'r-SeuratObject=4.1.3' 
+'r-SeuratObject=4.1.3' \
+'r-future=1.25.0' \
+'r-future.apply=1.8.1' 
 # bioc-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'bioconductor-fgsea=1.18.0' \
@@ -123,7 +125,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gta
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/zlibbioc/zlibbioc_1.40.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/XVector/XVector_0.34.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/leiden/leiden_0.3.9.tar.gz", repos=NULL, type="source")'
-#- future.apply=1.8.1
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocGenerics/BiocGenerics_0.40.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/abind/abind_1.4-5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_1.1.1.tar.gz", repos=NULL, type="source")'
@@ -176,7 +177,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pur
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RANN/RANN_2.6.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/KEGGREST/KEGGREST_1.34.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pbapply/pbapply_1.5-0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/future/future_1.25.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/nlme/nlme_3.1-152.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/mime/mime_0.12.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/formatR/formatR_1.11.tar.gz", repos=NULL, type="source")'
