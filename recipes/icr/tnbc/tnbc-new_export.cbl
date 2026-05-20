@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 16:34:23 BST
+# Capture time: 16:54:36 BST
 # Captured by: ralcraft
 
 coble:
@@ -224,7 +224,7 @@ r-conda:
   - ggridges=0.5.4@conda-forge
   - ggsci=3.0.0@conda-forge
   - ggsignif=0.6.4@conda-forge
-  - globals=0.16.2@conda-forge
+  - globals=0.15.0@conda-forge
   - glue=1.6.2@conda-forge
   - goftest=1.2_3@conda-forge
   - googledrive=2.1.0@conda-forge
@@ -247,9 +247,9 @@ r-conda:
   - httr=1.4.6@conda-forge
   - ica=1.0_3@conda-forge
   - ids=1.0.1@conda-forge
-  - igraph=1.3.0@conda-forge
+  - igraph=1.2.6@conda-forge
   - ipred=0.9_14@conda-forge
-  - irlba=2.3.3@conda-forge
+  - irlba=2.3.5.1@conda-forge
   - isoband=0.2.7@conda-forge
   - iterators=1.0.14@conda-forge
   - jquerylib=0.1.4@conda-forge
@@ -263,9 +263,9 @@ r-conda:
   - lava=1.7.2.1@conda-forge
   - lazyeval=0.2.2@conda-forge
   - leaps=3.1@conda-forge
-  - leiden=0.4.3@conda-forge
+  - leiden=0.3.9@conda-forge
   - lifecycle=1.0.3@conda-forge
-  - listenv=0.9.0@conda-forge
+  - listenv=0.8.0@conda-forge
   - lme4=1.1_33@conda-forge
   - lmtest=0.9_40@conda-forge
   - lsei=1.3_0@conda-forge
@@ -273,9 +273,9 @@ r-conda:
   - magrittr=2.0.3@conda-forge
   - maptools=1.1_7@conda-forge
   - mass=7.3_58.3@conda-forge
-  - matrix=1.5_4.1@conda-forge
+  - matrix=1.5_3@conda-forge
   - matrixmodels=0.5_1@conda-forge
-  - matrixstats=1.0.0@conda-forge
+  - matrixstats=0.61.0@conda-forge
   - memoise=2.0.1@conda-forge
   - mgcv=1.8_42@conda-forge
   - mime=0.12@conda-forge
@@ -293,7 +293,7 @@ r-conda:
   - numderiv=2016.8_1.1@conda-forge
   - openxlsx=4.2.5.2@conda-forge
   - optparse=1.7.3@conda-forge
-  - parallelly=1.36.0@conda-forge
+  - parallelly=1.31.1@conda-forge
   - patchwork=1.1.2@conda-forge
   - pbapply=1.7_0@conda-forge
   - pbkrtest=0.5.2@conda-forge
@@ -322,7 +322,7 @@ r-conda:
   - rappdirs=0.3.3@conda-forge
   - rcolorbrewer=1.1_3@conda-forge
   - rcpp=1.0.10@conda-forge
-  - rcppannoy=0.0.20@conda-forge
+  - rcppannoy=0.0.19@conda-forge
   - rcpparmadillo=0.12.4.0.0@conda-forge
   - rcppeigen=0.3.3.9.3@conda-forge
   - rcppparallel=5.1.6@conda-forge
@@ -353,7 +353,7 @@ r-conda:
   - rvest=1.0.3@conda-forge
   - sass=0.4.6@conda-forge
   - scales=1.2.1@conda-forge
-  - scattermore=1.1@conda-forge
+  - scattermore=0.7@conda-forge
   - scatterplot3d=0.3_44@conda-forge
   - sctransform=0.3.5@conda-forge
   - selectr=0.4_2@conda-forge
@@ -364,7 +364,7 @@ r-conda:
   - sitmo=2.0.2@conda-forge
   - snow=0.4_4@conda-forge
   - sourcetools=0.1.7_1@conda-forge
-  - sp=1.6_1@conda-forge
+  - sp=1.5_1@conda-forge
   - sparsem=1.81@conda-forge
   - spatstat.data=3.0_0@conda-forge
   - spatstat.explore=3.0_5@conda-forge

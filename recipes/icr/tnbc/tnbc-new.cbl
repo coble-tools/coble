@@ -32,7 +32,6 @@ r-conda:
   - ggpubr=0.4.0
   - tidyverse=1.3.1
   - optparse=1.7.3
-  - irlba=2.3.3
   - png=0.1-7
   - Seurat=4.2.1
   - ggplot2=3.3.5
@@ -42,12 +41,22 @@ r-conda:
   - future=1.25.0
   - future.apply=1.8.1
   - RcppAnnoy=0.0.19
+  - globals=0.15.0
   - spatstat.sparse=3.0-0
   - spatstat.data=3.0-0
   - spatstat.random=3.0-1
   - spatstat.utils=3.0-1
   - spatstat.geom=3.0-3
   - spatstat.explore=3.0-5
+  - igraph=1.2.6
+  - sp=1.5-1
+  - matrixStats=0.61.0
+  - scattermore=0.7
+  - listenv=0.8.0
+  - parallelly=1.31.1
+  - leiden=0.3.9
+  - irlba=2.3.5
+  - Matrix=1.5-3
 
 bioc-conda:
   - fgsea=1.18.0
@@ -57,13 +66,9 @@ bioc-conda:
 r-package:
   - fastmatch=1.1-3
   - plyr=1.8.7
-  - igraph=1.2.6
   - lazyeval=0.2.2
-  - sp=1.5-1
   - splines=4.1.0
   - BiocParallel=1.28.0
-  - listenv=0.8.0
-  - scattermore=0.7
   - GenomeInfoDb=1.28.4
   - digest=0.6.29
   - htmltools=0.5.2
@@ -74,10 +79,8 @@ r-package:
   - tensor=1.5
   - cluster=2.1.2
   - ROCR=1.0-11
-  - globals=0.15.0
   - Biostrings=2.62.0
   - annotate=1.72.0
-  - matrixStats=0.61.0
   - colorspace=2.0-2
   - blob=1.2.2
   - ggrepel=0.9.1
@@ -94,7 +97,6 @@ r-package:
   - gtable=0.3.0
   - zlibbioc=1.40.0
   - XVector=0.34.0
-  - leiden=0.3.9
   - BiocGenerics=0.40.0
   - abind=1.4-5
   - scales=1.1.1
@@ -152,14 +154,12 @@ r-package:
   - compiler=4.1.0
   - stringi=1.7.5
   - lattice=0.20-45
-  - Matrix=1.5-3
   - vctrs=0.5.0
   - pillar=1.8.1
   - lifecycle=1.0.3
   - lmtest=0.9-38
   - bitops=1.0-7
   - cowplot=1.1.1
-  - irlba=2.3.5
   - httpuv=1.6.5
   - patchwork=1.1.1
   - R6=2.5.1
@@ -167,7 +167,6 @@ r-package:
   - KernSmooth=2.23-20
   - gridExtra=2.3
   - IRanges=2.28.0
-  - parallelly=1.31.1
   - codetools=0.2-18
   - lambda.r=1.2.4
   - gtools=3.9.4

@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 16:45:32 BST
+# Capture time: 16:53:56 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -59,7 +59,6 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-ggpubr=0.4.0' \
 'r-tidyverse=1.3.1' \
 'r-optparse=1.7.3' \
-'r-irlba=2.3.3' \
 'r-png=0.1-7' \
 'r-Seurat=4.2.1' \
 'r-ggplot2=3.3.5' \
@@ -69,12 +68,22 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-future=1.25.0' \
 'r-future.apply=1.8.1' \
 'r-RcppAnnoy=0.0.19' \
+'r-globals=0.15.0' \
 'r-spatstat.sparse=3.0-0' \
 'r-spatstat.data=3.0-0' \
 'r-spatstat.random=3.0-1' \
 'r-spatstat.utils=3.0-1' \
 'r-spatstat.geom=3.0-3' \
-'r-spatstat.explore=3.0-5' 
+'r-spatstat.explore=3.0-5' \
+'r-igraph=1.2.6' \
+'r-sp=1.5-1' \
+'r-matrixStats=0.61.0' \
+'r-scattermore=0.7' \
+'r-listenv=0.8.0' \
+'r-parallelly=1.31.1' \
+'r-leiden=0.3.9' \
+'r-irlba=2.3.5' \
+'r-Matrix=1.5-3' 
 
 # bioc-conda:
 conda install -y --solver=libmamba --no-update-deps \
@@ -85,13 +94,9 @@ conda install -y --solver=libmamba --no-update-deps \
 # r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fastmatch/fastmatch_1.1-3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.7.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/igraph/igraph_1.2.6.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lazyeval/lazyeval_0.2.2.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/sp/sp_1.5-1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/splines/splines_4.1.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocParallel/BiocParallel_1.28.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/listenv/listenv_0.8.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scattermore/scattermore_0.7.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/GenomeInfoDb/GenomeInfoDb_1.28.4.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.29.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/htmltools/htmltools_0.5.2.tar.gz", repos=NULL, type="source")'
@@ -102,10 +107,8 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/mem
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tensor/tensor_1.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cluster/cluster_2.1.2.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ROCR/ROCR_1.0-11.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/globals/globals_0.15.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Biostrings/Biostrings_2.62.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/annotate/annotate_1.72.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/matrixStats/matrixStats_0.61.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_2.0-2.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/blob/blob_1.2.2.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggrepel/ggrepel_0.9.1.tar.gz", repos=NULL, type="source")'
@@ -122,7 +125,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pol
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.3.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/zlibbioc/zlibbioc_1.40.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/XVector/XVector_0.34.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/leiden/leiden_0.3.9.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocGenerics/BiocGenerics_0.40.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/abind/abind_1.4-5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_1.1.1.tar.gz", repos=NULL, type="source")'
@@ -181,14 +183,12 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/for
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/compiler/compiler_4.1.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringi/stringi_1.7.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lattice/lattice_0.20-45.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/vctrs/vctrs_0.5.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pillar/pillar_1.8.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lifecycle/lifecycle_1.0.3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lmtest/lmtest_0.9-38.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/bitops/bitops_1.0-7.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cowplot/cowplot_1.1.1.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/irlba/irlba_2.3.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/httpuv/httpuv_1.6.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/patchwork/patchwork_1.1.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/R6/R6_2.5.1.tar.gz", repos=NULL, type="source")'
@@ -196,7 +196,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pro
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/KernSmooth/KernSmooth_2.23-20.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gridExtra/gridExtra_2.3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/IRanges/IRanges_2.28.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/parallelly/parallelly_1.31.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/codetools/codetools_0.2-18.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lambda.r/lambda.r_1.2.4.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtools/gtools_3.9.4.tar.gz", repos=NULL, type="source")'
