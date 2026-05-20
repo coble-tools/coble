@@ -123,8 +123,12 @@ r-package:
   - cachem=1.0.6
   - cli=3.4.1
   - generics=0.1.2
+r-conda:
   - RSQLite=2.2.8
-  - ggridges=0.5.3
+  - plotly=4.10.0
+  - tibble=3.1.8
+r-package:
+  #- ggridges=0.5.3
   - stringr=1.4.0
   - fastmap=1.1.0
   - goftest=1.2-2
@@ -141,9 +145,7 @@ r-package:
   - mime=0.12
   - formatR=1.11
   - compiler=4.1.0
-  - plotly=4.10.0
   - spatstat.utils=3.0-1
-  - tibble=3.1.8
   - stringi=1.7.5
   - lattice=0.20-45
   - Matrix=1.5-3
@@ -170,7 +172,9 @@ r-package:
   - MASS=7.3-58.1
   - assertthat=0.2.1
   - withr=2.5.0
+r-conda:
   - sctransform=0.3.5
+r-package:
   - GenomeInfoDbData=1.2.7
   - S4Vectors=0.32.4
   - parallel=4.1.0

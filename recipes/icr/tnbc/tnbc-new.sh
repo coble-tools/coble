@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 10:35:53 BST
+# Capture time: 11:31:12 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -150,8 +150,13 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/too
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cachem/cachem_1.0.6.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cli/cli_3.4.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/generics/generics_0.1.2.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RSQLite/RSQLite_2.2.8.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggridges/ggridges_0.5.3.tar.gz", repos=NULL, type="source")'
+# r-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'r-RSQLite=2.2.8' \
+'r-plotly=4.10.0' \
+'r-tibble=3.1.8' 
+# r-package:
+#- ggridges=0.5.3
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringr/stringr_1.4.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fastmap/fastmap_1.1.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/goftest/goftest_1.2-2.tar.gz", repos=NULL, type="source")'
@@ -168,9 +173,7 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/nlm
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/mime/mime_0.12.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/formatR/formatR_1.11.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/compiler/compiler_4.1.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/plotly/plotly_4.10.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/spatstat.utils/spatstat.utils_3.0-1.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tibble/tibble_3.1.8.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringi/stringi_1.7.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lattice/lattice_0.20-45.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")'
@@ -197,7 +200,10 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gto
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/MASS/MASS_7.3-58.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/assertthat/assertthat_0.2.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/withr/withr_2.5.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/sctransform/sctransform_0.3.5.tar.gz", repos=NULL, type="source")'
+# r-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'r-sctransform=0.3.5' 
+# r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/GenomeInfoDbData/GenomeInfoDbData_1.2.7.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/S4Vectors/S4Vectors_0.32.4.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/parallel/parallel_4.1.0.tar.gz", repos=NULL, type="source")'
