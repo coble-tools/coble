@@ -15,6 +15,7 @@ flags:
   - ncpus: 4
 conda:
   - r-base=4.1.0
+  - libopenblas=0.3.15
   - compilers
   - curl
   - libcurl

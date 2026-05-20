@@ -15,6 +15,7 @@ flags:
   - ncpus: 4
 conda:
   - r-base=4.1.0
+  - libopenblas=0.3.15
   - compilers
   - curl
   - libcurl
@@ -101,7 +102,7 @@ Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="24
 
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.genesets.DB", \
-host="git.icr.ac.uk", ref="71458584580db2f463945076b73e897b2c6efec8", dependencies=NA, upgrade="never")'
+host="git.icr.ac.uk", ref="main", dependencies=NA, upgrade="never")'
 
 Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT")); \
 remotes::install_gitlab("bcr_ds_team/bcrbioinformatics/Resources/R_Packages/FC14.statistics.lib", \
