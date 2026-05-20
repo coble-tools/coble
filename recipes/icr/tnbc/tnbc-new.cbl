@@ -39,10 +39,19 @@ r-conda:
   - data.table=1.14.2
   - pracma=2.4.2
   - SeuratObject=4.1.3
-  - BiocManager
-bioc-package:
+bioc-conda:
   - fgsea=1.18.0
   - limma=3.50.1
+  - GSEABase=1.56.0
+
+r-conda:
+  - spatstat.sparse=3.0-0
+  - spatstat.data=3.0-0
+  - spatstat.random=3.0-1
+  - spatstat.utils=3.0-1
+  - spatstat.geom=3.0-3
+  - spatstat.explore=3.0-5
+
 
 r-package:
   - fastmatch=1.1-3
@@ -50,8 +59,6 @@ r-package:
   - igraph=1.2.6
   - lazyeval=0.2.2
   - sp=1.5-1
-bioc-package:
-  - GSEABase=1.56.0
   - splines=4.1.0
   - BiocParallel=1.28.0
   - listenv=0.8.0
@@ -70,7 +77,6 @@ bioc-package:
   - Biostrings=2.62.0
   - annotate=1.72.0
   - matrixStats=0.61.0
-  - spatstat.sparse=3.0-0
   - colorspace=2.0-2
   - blob=1.2.2
   - ggrepel=0.9.1
@@ -80,7 +86,6 @@ bioc-package:
   - jsonlite=1.7.2
   - graph=1.72.0
   - progressr=0.9.0
-  - spatstat.data=3.0-0
   - survival=3.2-13
   - zoo=1.8-11
   - glue=1.6.2
@@ -95,7 +100,6 @@ bioc-package:
   - scales=1.1.1
   - futile.options=1.0.1
   - DBI=1.1.2
-  - spatstat.random=3.0-1
   #- miniUI=0.1.1.1
   - Rcpp=1.0.7
   - viridisLite=0.4.0
@@ -147,14 +151,12 @@ r-package:
   - mime=0.12
   - formatR=1.11
   - compiler=4.1.0
-  - spatstat.utils=3.0-1
   - stringi=1.7.5
   - lattice=0.20-45
   - Matrix=1.5-3
   - vctrs=0.5.0
   - pillar=1.8.1
   - lifecycle=1.0.3
-  - spatstat.geom=3.0-3
   - lmtest=0.9-38
   - RcppAnnoy=0.0.19
   - bitops=1.0-7
@@ -182,7 +184,6 @@ r-package:
   - parallel=4.1.0
   - tidyr=1.2.0
   - Rtsne=0.16
-  - spatstat.explore=3.0-5
   - Biobase=2.54.0
   - shiny=1.7.1
 
@@ -190,9 +191,9 @@ r-conda:
   - remotes
   - FactoMineR
   - factoextra
+  - biocmanager
 
-bioc-conda::
-  - GSEABase
+bioc-package:
   - multtest
   - SingleR
   - scDblFinder

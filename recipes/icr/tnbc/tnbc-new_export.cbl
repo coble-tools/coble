@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 07:48:09 BST
+# Capture time: 14:58:45 BST
 # Captured by: ralcraft
 
 coble:
@@ -48,8 +48,6 @@ conda:
   - c-ares=1.34.6@conda-forge
   - c-compiler=1.3.0@conda-forge
   - compilers=1.3.0@conda-forge
-  - cudatoolkit=11.8.0@conda-forge
-  - cuda-version=11.8@conda-forge
   - curl=7.86.0@conda-forge
   - cxx-compiler=1.3.0@conda-forge
   - expat=2.8.0@conda-forge
@@ -108,10 +106,8 @@ conda:
   - libuuid=2.42.1@conda-forge
   - libxcb=1.17.0@conda-forge
   - libxcrypt=4.4.36@conda-forge
-  - libxgboost=1.7.4@conda-forge
   - libxml2=2.9.12@conda-forge
   - make=4.4.1@conda-forge
-  - nccl=2.27.3.1@conda-forge
   - ncurses=6.6@conda-forge
   - nlopt=2.7.1@conda-forge
   - numpy=2.4.6@conda-forge
@@ -151,8 +147,8 @@ r-conda:
   - assertthat=0.2.1@conda-forge
   - backports=1.4.1@conda-forge
   - base64enc=0.1_3@conda-forge
-  - beeswarm=0.4.0@conda-forge
   - bh=1.81.0_1@conda-forge
+  - biocmanager=1.30.21@conda-forge
   - bit=4.0.5@conda-forge
   - bit64=4.0.5@conda-forge
   - bitops=1.0_7@conda-forge
@@ -181,7 +177,7 @@ r-conda:
   - cpp11=0.5.2@conda-forge
   - crayon=1.5.2@conda-forge
   - crosstalk=1.2.0@conda-forge
-  - data.table=1.14.8@conda-forge
+  - data.table=1.14.2@conda-forge
   - dbi=1.1.3@conda-forge
   - dbplyr=2.3.2@conda-forge
   - deldir=1.0_9@conda-forge
@@ -220,9 +216,8 @@ r-conda:
   - gargle=1.4.0@conda-forge
   - generics=0.1.3@conda-forge
   - getopt=1.20.3@conda-forge
-  - ggbeeswarm=0.7.2@conda-forge
-  - ggforce=0.4.1@conda-forge
-  - ggplot2=3.4.2@conda-forge
+  - ggforce=0.4.0@conda-forge
+  - ggplot2=3.3.5@conda-forge
   - ggpubr=0.4.0@conda-forge
   - ggraph=2.0.5@conda-forge
   - ggrepel=0.9.3@conda-forge
@@ -273,7 +268,6 @@ r-conda:
   - listenv=0.9.0@conda-forge
   - lme4=1.1_33@conda-forge
   - lmtest=0.9_40@conda-forge
-  - locfit=1.5_9.7@conda-forge
   - lsei=1.3_0@conda-forge
   - lubridate=1.9.2@conda-forge
   - magrittr=2.0.3@conda-forge
@@ -306,11 +300,12 @@ r-conda:
   - pillar=1.9.0@conda-forge
   - pkgconfig=2.0.3@conda-forge
   - plogr=0.2.0@conda-forge
-  - plotly=4.10.2@conda-forge
+  - plotly=4.10.0@conda-forge
   - plyr=1.8.8@conda-forge
-  - png=0.1_8@conda-forge
+  - png=0.1_7@conda-forge
   - polyclip=1.10_4@conda-forge
   - polynom=1.4_1@conda-forge
+  - pracma=2.4.2@conda-forge
   - prettyunits=1.1.1@conda-forge
   - proc=1.18.2@conda-forge
   - processx=3.8.1@conda-forge
@@ -330,7 +325,6 @@ r-conda:
   - rcppannoy=0.0.20@conda-forge
   - rcpparmadillo=0.12.4.0.0@conda-forge
   - rcppeigen=0.3.3.9.3@conda-forge
-  - rcpphnsw=0.4.1@conda-forge
   - rcppparallel=5.1.6@conda-forge
   - rcppprogress=0.4.2@conda-forge
   - rcpptoml=0.2.2@conda-forge
@@ -352,10 +346,9 @@ r-conda:
   - rpart=4.1.19@conda-forge
   - rprojroot=2.0.3@conda-forge
   - rspectra=0.16_1@conda-forge
-  - rsqlite=2.3.1@conda-forge
+  - rsqlite=2.2.8@conda-forge
   - rstatix=0.7.2@conda-forge
   - rstudioapi=0.14@conda-forge
-  - rsvd=1.0.5@conda-forge
   - rtsne=0.16@conda-forge
   - rvest=1.0.3@conda-forge
   - sass=0.4.6@conda-forge
@@ -373,12 +366,12 @@ r-conda:
   - sourcetools=0.1.7_1@conda-forge
   - sp=1.6_1@conda-forge
   - sparsem=1.81@conda-forge
-  - spatstat.data=3.0_1@conda-forge
-  - spatstat.explore=3.2_1@conda-forge
-  - spatstat.geom=3.2_1@conda-forge
-  - spatstat.random=3.1_5@conda-forge
-  - spatstat.sparse=3.0_1@conda-forge
-  - spatstat.utils=3.1_0@conda-forge
+  - spatstat.data=3.0_0@conda-forge
+  - spatstat.explore=3.0_5@conda-forge
+  - spatstat.geom=3.0_3@conda-forge
+  - spatstat.random=3.0_1@conda-forge
+  - spatstat.sparse=3.0_0@conda-forge
+  - spatstat.utils=3.0_1@conda-forge
   - squarem=2021.1@conda-forge
   - statmod=1.5.0@conda-forge
   - stringi=1.7.6@conda-forge
@@ -386,7 +379,7 @@ r-conda:
   - survival=3.5_5@conda-forge
   - sys=3.4.2@conda-forge
   - tensor=1.5@conda-forge
-  - tibble=3.2.1@conda-forge
+  - tibble=3.1.8@conda-forge
   - tidygraph=1.2.3@conda-forge
   - tidyr=1.3.0@conda-forge
   - tidyselect=1.2.0@conda-forge
@@ -400,13 +393,11 @@ r-conda:
   - uuid=1.1_0@conda-forge
   - uwot=0.1.14@conda-forge
   - vctrs=0.6.2@conda-forge
-  - vipor=0.4.5@conda-forge
   - viridis=0.6.3@conda-forge
   - viridislite=0.4.1@conda-forge
   - vroom=1.6.3@conda-forge
   - withr=2.5.0@conda-forge
   - xfun=0.39@conda-forge
-  - xgboost=1.7.4@conda-forge
   - xml2=1.3.3@conda-forge
   - xml=3.99_0.9@conda-forge
   - xtable=1.8_4@conda-forge
@@ -417,37 +408,17 @@ r-conda:
 bioc-conda:
   - annotate=1.72.0@bioconda
   - annotationdbi=1.56.2@bioconda
-  - beachmat=2.10.0@bioconda
   - biocgenerics=0.40.0@bioconda
-  - biocneighbors=1.12.0@bioconda
-  - biocparallel=1.28.3@bioconda
-  - biocsingular=1.10.0@bioconda
+  - biocparallel=1.26.0@bioconda
   - biostrings=2.62.0@bioconda
-  - bluster=1.4.0@bioconda
-  - delayedarray=0.20.0@bioconda
-  - delayedmatrixstats=1.16.0@bioconda
-  - edger=3.36.0@bioconda
-  - fgsea=1.20.0@bioconda
+  - fgsea=1.18.0@bioconda
   - genomeinfodb=1.30.1@bioconda
   - genomeinfodbdata=1.2.7@bioconda
-  - genomicranges=1.46.1@bioconda
   - graph=1.72.0@bioconda
   - iranges=2.28.0@bioconda
   - keggrest=1.34.0@bioconda
-  - limma=3.50.3@bioconda
-  - matrixgenerics=1.6.0@bioconda
-  - metapod=1.2.0@bioconda
-  - multtest=2.50.0@bioconda
+  - limma=3.50.1@bioconda
   - s4vectors=0.32.4@bioconda
-  - scaledmatrix=1.2.0@bioconda
-  - scater=1.22.0@bioconda
-  - scdblfinder=1.8.0@bioconda
-  - scran=1.22.1@bioconda
-  - scuttle=1.4.0@bioconda
-  - singlecellexperiment=1.16.0@bioconda
-  - singler=1.8.1@bioconda
-  - sparsematrixstats=1.6.0@bioconda
-  - summarizedexperiment=1.24.0@bioconda
   - xvector=0.34.0@bioconda
   - zlibbioc=1.40.0@bioconda
 
@@ -457,35 +428,49 @@ r-package:
   - BCN.singlecell.utilities=0.0.19@System/Manual  (unknown method)@74be36428d07a53e9a9610eac795bc7e6b90432c
 
 r-package:
-  - checkmate=2.3.1@RSPM
-
-r-package:
-  - clustree=0.4.4
+  - beeswarm=0.4.0
   - doParallel=1.0.17
-
-r-package:
-  - dotCall64=1.1-1@RSPM
   - FC14.genesets.DB=0.4.1@System/Manual  (unknown method)@159e731f0b7c0e893b3e42f0b4879f27a6f2092e
   - FC14.genome.annotations=0.0.8@System/Manual  (unknown method)@b2d84ace0e0ec7be220161c0a5914a3d25a59bec
   - FC14.plotting.lib=1.5.7@System/Manual  (unknown method)@99d35c9b86022165ba267ca8ed07e3a3e838471b
   - FC14.statistics.lib=0.1.2@System/Manual  (unknown method)@8d896d47e445366f089945e7e37eff196d5c36d4
-
-r-package:
-  - fields=13.3
   - Formula=1.2-5
-  - gprofiler2=0.2.1
+  - ggbeeswarm=0.7.3
   - gsubfn=0.7
-  - maps=3.4.0
+  - locfit=1.5-9.12
   - plotrix=3.8-14
-  - pracma=2.4.2
   - proto=1.0.0
   - rbibutils=2.4.1
+  - RcppHNSW=0.6.0
   - Rdpack=2.6.6
   - reformulas=0.4.4
+  - rsvd=1.0.5
   - S7=0.2.2
-  - spam=2.8-0
   - UpSetR=1.4.0
   - VennDiagram=1.8.2
+  - vipor=0.4.7
+
+bioc-package:
+  - beachmat=2.10.0
+  - BiocNeighbors=1.12.0
+  - BiocSingular=1.10.0
+  - BiocVersion=3.14.0
+  - bluster=1.4.0
+  - DelayedArray=0.20.0
+  - DelayedMatrixStats=1.16.0
+  - edgeR=3.36.0
+  - GenomicRanges=1.46.1
+  - MatrixGenerics=1.6.0
+  - metapod=1.2.0
+  - multtest=2.50.0
+  - ScaledMatrix=1.2.0
+  - scater=1.22.0
+  - scran=1.22.1
+  - scuttle=1.4.0
+  - SingleCellExperiment=1.16.0
+  - SingleR=1.8.1
+  - sparseMatrixStats=1.6.0
+  - SummarizedExperiment=1.24.0
 
 r-github:
   - DoubletFinder=2.0.1@github@chris-mcginnis-ucsf/DoubletFinder/243b02f5badfed677ef7500b8753fd651f21a67f

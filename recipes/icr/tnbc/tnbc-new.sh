@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 13:23:09 BST
+# Capture time: 14:52:40 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -65,11 +65,22 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-ggplot2=3.3.5' \
 'r-data.table=1.14.2' \
 'r-pracma=2.4.2' \
-'r-SeuratObject=4.1.3' \
-'r-BiocManager' 
-# bioc-package:
-Rscript -e 'BiocManager::install("fgsea", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=4)'
+'r-SeuratObject=4.1.3' 
+# bioc-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'bioconductor-fgsea=1.18.0' \
+'bioconductor-limma=3.50.1' \
+'bioconductor-GSEABase=1.56.0' 
+
+# r-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'r-spatstat.sparse=3.0-0' \
+'r-spatstat.data=3.0-0' \
+'r-spatstat.random=3.0-1' \
+'r-spatstat.utils=3.0-1' \
+'r-spatstat.geom=3.0-3' \
+'r-spatstat.explore=3.0-5' 
+
 
 # r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fastmatch/fastmatch_1.1-3.tar.gz", repos=NULL, type="source")'
@@ -77,81 +88,76 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ply
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/igraph/igraph_1.2.6.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lazyeval/lazyeval_0.2.2.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/sp/sp_1.5-1.tar.gz", repos=NULL, type="source")'
-# bioc-package:
-Rscript -e 'BiocManager::install("GSEABase", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("splines", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("BiocParallel", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("listenv", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("scattermore", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("GenomeInfoDb", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("digest", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("htmltools", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("viridis", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("fansi", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("magrittr", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("memoise", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("tensor", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("cluster", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("ROCR", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("globals", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("Biostrings", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("annotate", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("matrixStats", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("spatstat.sparse", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("colorspace", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("blob", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("ggrepel", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("dplyr", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("RCurl", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("crayon", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("jsonlite", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("graph", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("progressr", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("spatstat.data", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("survival", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("zoo", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("glue", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("polyclip", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("gtable", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("zlibbioc", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("XVector", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("leiden", dependencies=NA, Ncpus=4)'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/splines/splines_4.1.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocParallel/BiocParallel_1.28.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/listenv/listenv_0.8.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scattermore/scattermore_0.7.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/GenomeInfoDb/GenomeInfoDb_1.28.4.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.29.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/htmltools/htmltools_0.5.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/viridis/viridis_0.6.3.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fansi/fansi_1.0.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/magrittr/magrittr_2.0.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/memoise/memoise_2.0.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tensor/tensor_1.5.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cluster/cluster_2.1.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ROCR/ROCR_1.0-11.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/globals/globals_0.15.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Biostrings/Biostrings_2.62.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/annotate/annotate_1.72.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/matrixStats/matrixStats_0.61.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/colorspace/colorspace_2.0-2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/blob/blob_1.2.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ggrepel/ggrepel_0.9.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/dplyr/dplyr_1.0.8.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RCurl/RCurl_1.98-1.6.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/crayon/crayon_1.4.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/jsonlite/jsonlite_1.7.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/graph/graph_1.72.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/progressr/progressr_0.9.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/survival/survival_3.2-13.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/zoo/zoo_1.8-11.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/glue/glue_1.6.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/polyclip/polyclip_1.10-0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gtable/gtable_0.3.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/zlibbioc/zlibbioc_1.40.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/XVector/XVector_0.34.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/leiden/leiden_0.3.9.tar.gz", repos=NULL, type="source")'
 #- future.apply=1.8.1
-Rscript -e 'BiocManager::install("BiocGenerics", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("abind", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("scales", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("futile.options", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("DBI", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("spatstat.random", dependencies=NA, Ncpus=4)'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/BiocGenerics/BiocGenerics_0.40.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/abind/abind_1.4-5.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/scales/scales_1.1.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/futile.options/futile.options_1.0.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/DBI/DBI_1.1.2.tar.gz", repos=NULL, type="source")'
 #- miniUI=0.1.1.1
-Rscript -e 'BiocManager::install("Rcpp", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("viridisLite", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("xtable", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("reticulate", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("bit", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("stats4", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("htmlwidgets", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("httr", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("gplots", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("RColorBrewer", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("ellipsis", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("ica", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("pkgconfig", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("XML", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("farver", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("uwot", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("deldir", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("utf8", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("tidyselect", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("rlang", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("reshape2", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("later", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("AnnotationDbi", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("munsell", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("tools", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("cachem", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("cli", dependencies=NA, Ncpus=4)'
-Rscript -e 'BiocManager::install("generics", dependencies=NA, Ncpus=4)'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Rcpp/Rcpp_1.0.7.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/viridisLite/viridisLite_0.4.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/xtable/xtable_1.8-4.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/reticulate/reticulate_1.25.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/bit/bit_4.0.4.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stats4/stats4_4.1.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/htmlwidgets/htmlwidgets_1.5.4.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/httr/httr_1.4.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/gplots/gplots_3.1.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RColorBrewer/RColorBrewer_1.1-3.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ellipsis/ellipsis_0.3.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/ica/ica_1.0-2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pkgconfig/pkgconfig_2.0.3.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/XML/XML_3.99-0.6.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/farver/farver_2.1.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/uwot/uwot_0.1.14.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/deldir/deldir_1.0-6.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/utf8/utf8_1.2.2.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tidyselect/tidyselect_1.2.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/rlang/rlang_1.0.6.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/reshape2/reshape2_1.4.4.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/later/later_1.2.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/AnnotationDbi/AnnotationDbi_1.56.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/munsell/munsell_0.5.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tools/tools_4.1.0.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cachem/cachem_1.0.6.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cli/cli_3.4.1.tar.gz", repos=NULL, type="source")'
+Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/generics/generics_0.1.2.tar.gz", repos=NULL, type="source")'
 # r-conda:
 conda install -y --solver=libmamba --no-update-deps \
 'r-RSQLite=2.2.8' \
@@ -175,14 +181,12 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/nlm
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/mime/mime_0.12.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/formatR/formatR_1.11.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/compiler/compiler_4.1.0.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/spatstat.utils/spatstat.utils_3.0-1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/stringi/stringi_1.7.5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lattice/lattice_0.20-45.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/vctrs/vctrs_0.5.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pillar/pillar_1.8.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lifecycle/lifecycle_1.0.3.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/spatstat.geom/spatstat.geom_3.0-3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lmtest/lmtest_0.9-38.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.19.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/bitops/bitops_1.0-7.tar.gz", repos=NULL, type="source")'
@@ -211,7 +215,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/S4V
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/parallel/parallel_4.1.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/tidyr/tidyr_1.2.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Rtsne/Rtsne_0.16.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/spatstat.explore/spatstat.explore_3.0-5.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/Biobase/Biobase_2.54.0.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.7.1.tar.gz", repos=NULL, type="source")'
 
@@ -219,14 +222,13 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/shi
 conda install -y --solver=libmamba --no-update-deps \
 'r-remotes' \
 'r-FactoMineR' \
-'r-factoextra' 
+'r-factoextra' \
+'r-biocmanager' 
 
-# bioc-conda::
-conda install -y --solver=libmamba --no-update-deps \
-'bioconductor-GSEABase' \
-'bioconductor-multtest' \
-'bioconductor-SingleR' \
-'bioconductor-scDblFinder' 
+# bioc-package:
+Rscript -e 'BiocManager::install("multtest", dependencies=NA, Ncpus=4)'
+Rscript -e 'BiocManager::install("SingleR", dependencies=NA, Ncpus=4)'
+Rscript -e 'BiocManager::install("scDblFinder", dependencies=NA, Ncpus=4)'
 
 # bash:
 Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="243b02f5badfed677ef7500b8753fd651f21a67f", dependencies=NA, upgrade="never", Ncpus=4)'
