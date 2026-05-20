@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 16:33:39 BST
+# Capture time: 16:45:32 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -67,15 +67,8 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-pracma=2.4.2' \
 'r-SeuratObject=4.1.3' \
 'r-future=1.25.0' \
-'r-future.apply=1.8.1' 
-# bioc-conda:
-conda install -y --solver=libmamba --no-update-deps \
-'bioconductor-fgsea=1.18.0' \
-'bioconductor-limma=3.50.1' \
-'bioconductor-GSEABase=1.56.0' 
-
-# r-conda:
-conda install -y --solver=libmamba --no-update-deps \
+'r-future.apply=1.8.1' \
+'r-RcppAnnoy=0.0.19' \
 'r-spatstat.sparse=3.0-0' \
 'r-spatstat.data=3.0-0' \
 'r-spatstat.random=3.0-1' \
@@ -83,6 +76,11 @@ conda install -y --solver=libmamba --no-update-deps \
 'r-spatstat.geom=3.0-3' \
 'r-spatstat.explore=3.0-5' 
 
+# bioc-conda:
+conda install -y --solver=libmamba --no-update-deps \
+'bioconductor-fgsea=1.18.0' \
+'bioconductor-limma=3.50.1' \
+'bioconductor-GSEABase=1.56.0' 
 
 # r-package:
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/fastmatch/fastmatch_1.1-3.tar.gz", repos=NULL, type="source")'
@@ -188,7 +186,6 @@ Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/vct
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/pillar/pillar_1.8.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lifecycle/lifecycle_1.0.3.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/lmtest/lmtest_0.9-38.tar.gz", repos=NULL, type="source")'
-Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/RcppAnnoy/RcppAnnoy_0.0.19.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/bitops/bitops_1.0-7.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/cowplot/cowplot_1.1.1.tar.gz", repos=NULL, type="source")'
 Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/irlba/irlba_2.3.5.tar.gz", repos=NULL, type="source")'

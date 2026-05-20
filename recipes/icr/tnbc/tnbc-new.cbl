@@ -41,12 +41,7 @@ r-conda:
   - SeuratObject=4.1.3
   - future=1.25.0
   - future.apply=1.8.1
-bioc-conda:
-  - fgsea=1.18.0
-  - limma=3.50.1
-  - GSEABase=1.56.0
-
-r-conda:
+  - RcppAnnoy=0.0.19
   - spatstat.sparse=3.0-0
   - spatstat.data=3.0-0
   - spatstat.random=3.0-1
@@ -54,6 +49,10 @@ r-conda:
   - spatstat.geom=3.0-3
   - spatstat.explore=3.0-5
 
+bioc-conda:
+  - fgsea=1.18.0
+  - limma=3.50.1
+  - GSEABase=1.56.0
 
 r-package:
   - fastmatch=1.1-3
@@ -158,7 +157,6 @@ r-package:
   - pillar=1.8.1
   - lifecycle=1.0.3
   - lmtest=0.9-38
-  - RcppAnnoy=0.0.19
   - bitops=1.0-7
   - cowplot=1.1.1
   - irlba=2.3.5

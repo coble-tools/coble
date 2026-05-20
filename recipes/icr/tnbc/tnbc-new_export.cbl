@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 14:58:45 BST
+# Capture time: 16:34:23 BST
 # Captured by: ralcraft
 
 coble:
@@ -211,8 +211,8 @@ r-conda:
   - fs=1.6.2@conda-forge
   - futile.logger=1.4.3@conda-forge
   - futile.options=1.0.1@conda-forge
-  - future=1.32.0@conda-forge
-  - future.apply=1.11.0@conda-forge
+  - future=1.25.0@conda-forge
+  - future.apply=1.8.1@conda-forge
   - gargle=1.4.0@conda-forge
   - generics=0.1.3@conda-forge
   - getopt=1.20.3@conda-forge
@@ -300,7 +300,7 @@ r-conda:
   - pillar=1.9.0@conda-forge
   - pkgconfig=2.0.3@conda-forge
   - plogr=0.2.0@conda-forge
-  - plotly=4.10.0@conda-forge
+  - plotly=4.10.2@conda-forge
   - plyr=1.8.8@conda-forge
   - png=0.1_7@conda-forge
   - polyclip=1.10_4@conda-forge
