@@ -39,6 +39,8 @@ r-conda:
   - data.table=1.14.2
   - pracma=2.4.2
   - SeuratObject=4.1.3
+  - future=1.25.0
+  - future.apply=1.8.0
 bioc-conda:
   - fgsea=1.18.0
   - limma=3.50.1
@@ -94,7 +96,6 @@ r-package:
   - zlibbioc=1.40.0
   - XVector=0.34.0
   - leiden=0.3.9
-  #- future.apply=1.8.1
   - BiocGenerics=0.40.0
   - abind=1.4-5
   - scales=1.1.1
@@ -146,7 +147,6 @@ r-package:
   - RANN=2.6.1
   - KEGGREST=1.34.0
   - pbapply=1.5-0
-  - future=1.25.0
   - nlme=3.1-152
   - mime=0.12
   - formatR=1.11
