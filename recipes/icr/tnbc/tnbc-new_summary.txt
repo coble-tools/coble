@@ -1962,3 +1962,340 @@ install: Rscript -e 'Sys.setenv(GITLAB_PAT=Sys.getenv("GITLAB_PAT"));  remotes::
 [coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/tnbc/tnbc-new_summary.txt
 [coble-errors] Errors found (cmd_status=0, err_code=1), exiting due to --skip-errors flag
 [coble-create] End time: 2026-05-20 11:36:05
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-20 at 13:22:13 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-20 13:22:14 1/44
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-20 13:22:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:22:14 2/44
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-20 13:22:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:22:14 3/44
+install: conda deactivate | true
+[coble-create] End time: 2026-05-20 13:22:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:22:15 4/44
+install: conda deactivate | true
+[coble-create] End time: 2026-05-20 13:22:15
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:22:15 5/44
+install: conda activate tnbc-new
+[coble-create] End time: 2026-05-20 13:22:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:22:16 6/44
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-20 13:22:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:22:16 7/44
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-20 13:22:16
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:22:16 8/44
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-20 13:22:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:22:17 9/44
+install: Rscript -e 'BiocManager::install("fgsea", dependencies=NA, Ncpus=4)'
+    # ERROR: from stderr found: Error in loadNamespace(x) : there is no package called ‘BiocManager’
+[coble-errors] Errors were found during recreation. Please review the recipe file: recipes/icr/tnbc/tnbc-new_summary.txt
+[coble-errors] Errors found (cmd_status=1, err_code=1), exiting due to --skip-errors flag
+[coble-create] End time: 2026-05-20 13:22:17
+------------------------------------------------
+[coble-create] Summary log started by ralcraft on 2026-05-20 at 13:23:12 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-05-20 13:23:12 1/204
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-20 13:23:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:23:12 2/204
+install: unset PYTHONPATH
+[coble-create] End time: 2026-05-20 13:23:12
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:23:12 3/204
+install: conda deactivate | true
+[coble-create] End time: 2026-05-20 13:23:13
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:23:13 4/204
+install: conda deactivate | true
+[coble-create] End time: 2026-05-20 13:23:13
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:23:13 5/204
+install: conda activate tnbc-new
+[coble-create] End time: 2026-05-20 13:23:14
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:23:14 6/204
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-05-20 13:23:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:23:14 7/204
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-05-20 13:23:14
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-05-20 13:23:14 8/204
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-05-20 13:23:15
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-05-20 13:23:15 23/204
+install: conda install -y --solver=libmamba --no-update-deps  'r-gridExtra=2.3'  'r-plotly'  'r-ggraph=2.0.5'  'r-ggpubr=0.4.0'  'r-tidyverse=1.3.1'  'r-optparse=1.7.3'  'r-irlba=2.3.3'  'r-png=0.1-7'  'r-Seurat=4.2.1'  'r-ggplot2=3.3.5'  'r-data.table=1.14.2'  'r-pracma=2.4.2'  'r-SeuratObject=4.1.3'  'r-BiocManager' 
+dep: # r-biocmanager      conda-forge/noarch::r-biocmanager-1.30.21-r41hc72bb7e_0
+[coble-create] End time: 2026-05-20 13:23:37
+[coble-create] Duration: 22s
+
+[coble-create] Start time: 2026-05-20 13:23:37 25/204
+install: Rscript -e 'BiocManager::install("fgsea", dependencies=NA, Ncpus=4)'
+dep: # * DONE (BiocVersion)
+dep: # * DONE (fgsea)
+[coble-create] End time: 2026-05-20 13:23:58
+[coble-create] Duration: 21s
+
+[coble-create] Start time: 2026-05-20 13:23:58 27/204
+install: Rscript -e 'BiocManager::install("limma", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:24:06
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-05-20 13:24:06 29/204
+install: Rscript -e 'BiocManager::install("GSEABase", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:24:12
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-20 13:24:12 31/204
+install: Rscript -e 'BiocManager::install("splines", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:24:19
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-20 13:24:19 33/204
+install: Rscript -e 'BiocManager::install("BiocParallel", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:24:26
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-20 13:24:26 35/204
+install: Rscript -e 'BiocManager::install("listenv", dependencies=NA, Ncpus=4)'
+dep: # * DONE (listenv)
+[coble-create] End time: 2026-05-20 13:24:35
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:24:35 37/204
+install: Rscript -e 'BiocManager::install("scattermore", dependencies=NA, Ncpus=4)'
+dep: # * DONE (scattermore)
+[coble-create] End time: 2026-05-20 13:24:45
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-05-20 13:24:45 39/204
+install: Rscript -e 'BiocManager::install("GenomeInfoDb", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:24:52
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-20 13:24:52 41/204
+install: Rscript -e 'BiocManager::install("digest", dependencies=NA, Ncpus=4)'
+dep: # * DONE (digest)
+[coble-create] End time: 2026-05-20 13:25:02
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-05-20 13:25:02 43/204
+install: Rscript -e 'BiocManager::install("htmltools", dependencies=NA, Ncpus=4)'
+dep: # * DONE (htmltools)
+[coble-create] End time: 2026-05-20 13:25:12
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-05-20 13:25:12 45/204
+install: Rscript -e 'BiocManager::install("viridis", dependencies=NA, Ncpus=4)'
+dep: # * DONE (viridis)
+[coble-create] End time: 2026-05-20 13:25:22
+[coble-create] Duration: 10s
+
+[coble-create] Start time: 2026-05-20 13:25:22 47/204
+install: Rscript -e 'BiocManager::install("fansi", dependencies=NA, Ncpus=4)'
+dep: # * DONE (fansi)
+[coble-create] End time: 2026-05-20 13:25:31
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:25:31 49/204
+install: Rscript -e 'BiocManager::install("magrittr", dependencies=NA, Ncpus=4)'
+dep: # * DONE (magrittr)
+[coble-create] End time: 2026-05-20 13:25:40
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:25:40 51/204
+install: Rscript -e 'BiocManager::install("memoise", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:25:47
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-20 13:25:47 53/204
+install: Rscript -e 'BiocManager::install("tensor", dependencies=NA, Ncpus=4)'
+dep: # * DONE (tensor)
+[coble-create] End time: 2026-05-20 13:25:55
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-05-20 13:25:55 55/204
+install: Rscript -e 'BiocManager::install("cluster", dependencies=NA, Ncpus=4)'
+dep: # * DONE (cluster)
+[coble-create] End time: 2026-05-20 13:26:06
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-20 13:26:06 57/204
+install: Rscript -e 'BiocManager::install("ROCR", dependencies=NA, Ncpus=4)'
+dep: # * DONE (ROCR)
+[coble-create] End time: 2026-05-20 13:26:15
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:26:15 59/204
+install: Rscript -e 'BiocManager::install("globals", dependencies=NA, Ncpus=4)'
+dep: # * DONE (globals)
+[coble-create] End time: 2026-05-20 13:26:24
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:26:24 61/204
+install: Rscript -e 'BiocManager::install("Biostrings", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:26:30
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-20 13:26:30 63/204
+install: Rscript -e 'BiocManager::install("annotate", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:26:37
+[coble-create] Duration: 7s
+
+[coble-create] Start time: 2026-05-20 13:26:37 65/204
+install: Rscript -e 'BiocManager::install("matrixStats", dependencies=NA, Ncpus=4)'
+dep: # * DONE (matrixStats)
+[coble-create] End time: 2026-05-20 13:26:50
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-05-20 13:26:50 67/204
+install: Rscript -e 'BiocManager::install("spatstat.sparse", dependencies=NA, Ncpus=4)'
+dep: # * DONE (spatstat.utils)
+dep: # * DONE (spatstat.sparse)
+[coble-create] End time: 2026-05-20 13:27:02
+[coble-create] Duration: 12s
+
+[coble-create] Start time: 2026-05-20 13:27:02 69/204
+install: Rscript -e 'BiocManager::install("colorspace", dependencies=NA, Ncpus=4)'
+dep: # * DONE (colorspace)
+[coble-create] End time: 2026-05-20 13:27:13
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-20 13:27:13 71/204
+install: Rscript -e 'BiocManager::install("blob", dependencies=NA, Ncpus=4)'
+dep: # * DONE (blob)
+[coble-create] End time: 2026-05-20 13:27:22
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:27:22 73/204
+install: Rscript -e 'BiocManager::install("ggrepel", dependencies=NA, Ncpus=4)'
+dep: # * DONE (withr)
+dep: # * DONE (S7)
+dep: # * DONE (rlang)
+dep: # * DONE (gtable)
+dep: # * DONE (scales)
+dep: # * DONE (vctrs)
+dep: # * DONE (ggplot2)
+dep: # * DONE (ggrepel)
+[coble-create] End time: 2026-05-20 13:28:06
+[coble-create] Duration: 44s
+
+[coble-create] Start time: 2026-05-20 13:28:06 75/204
+install: Rscript -e 'BiocManager::install("dplyr", dependencies=NA, Ncpus=4)'
+dep: # * DONE (cli)
+dep: # * DONE (lifecycle)
+dep: # * DONE (pillar)
+dep: # * DONE (tibble)
+dep: # * DONE (dplyr)
+[coble-create] End time: 2026-05-20 13:28:30
+[coble-create] Duration: 24s
+
+[coble-create] Start time: 2026-05-20 13:28:30 77/204
+install: Rscript -e 'BiocManager::install("RCurl", dependencies=NA, Ncpus=4)'
+dep: # * DONE (RCurl)
+[coble-create] End time: 2026-05-20 13:28:43
+[coble-create] Duration: 13s
+
+[coble-create] Start time: 2026-05-20 13:28:43 79/204
+install: Rscript -e 'BiocManager::install("crayon", dependencies=NA, Ncpus=4)'
+dep: # * DONE (crayon)
+[coble-create] End time: 2026-05-20 13:28:52
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:28:52 81/204
+install: Rscript -e 'BiocManager::install("jsonlite", dependencies=NA, Ncpus=4)'
+dep: # * DONE (jsonlite)
+[coble-create] End time: 2026-05-20 13:29:03
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-20 13:29:03 83/204
+install: Rscript -e 'BiocManager::install("graph", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:29:09
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-20 13:29:09 85/204
+install: Rscript -e 'BiocManager::install("progressr", dependencies=NA, Ncpus=4)'
+dep: # * DONE (progressr)
+[coble-create] End time: 2026-05-20 13:29:18
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:29:18 87/204
+install: Rscript -e 'BiocManager::install("spatstat.data", dependencies=NA, Ncpus=4)'
+dep: # * DONE (spatstat.data)
+[coble-create] End time: 2026-05-20 13:29:29
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-20 13:29:29 89/204
+install: Rscript -e 'BiocManager::install("survival", dependencies=NA, Ncpus=4)'
+dep: # * DONE (survival)
+[coble-create] End time: 2026-05-20 13:29:53
+[coble-create] Duration: 23s
+
+[coble-create] Start time: 2026-05-20 13:29:53 91/204
+install: Rscript -e 'BiocManager::install("zoo", dependencies=NA, Ncpus=4)'
+dep: # * DONE (zoo)
+[coble-create] End time: 2026-05-20 13:30:02
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:30:02 93/204
+install: Rscript -e 'BiocManager::install("glue", dependencies=NA, Ncpus=4)'
+dep: # * DONE (glue)
+[coble-create] End time: 2026-05-20 13:30:11
+[coble-create] Duration: 9s
+
+[coble-create] Start time: 2026-05-20 13:30:11 95/204
+install: Rscript -e 'BiocManager::install("polyclip", dependencies=NA, Ncpus=4)'
+dep: # * DONE (polyclip)
+[coble-create] End time: 2026-05-20 13:30:22
+[coble-create] Duration: 11s
+
+[coble-create] Start time: 2026-05-20 13:30:22 97/204
+install: Rscript -e 'BiocManager::install("gtable", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:30:28
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-20 13:30:28 99/204
+install: Rscript -e 'BiocManager::install("zlibbioc", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:30:36
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-05-20 13:30:36 101/204
+install: Rscript -e 'BiocManager::install("XVector", dependencies=NA, Ncpus=4)'
+[coble-create] End time: 2026-05-20 13:30:42
+[coble-create] Duration: 6s
+
+[coble-create] Start time: 2026-05-20 13:30:42 103/204
+install: Rscript -e 'BiocManager::install("leiden", dependencies=NA, Ncpus=4)'

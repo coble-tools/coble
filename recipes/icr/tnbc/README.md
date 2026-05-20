@@ -7,8 +7,7 @@ git checkout issue-140-example
 
 code/coble build --recipe recipes/icr/tnbc/tnbc.cbl --env tnbc --rebuild
 
-code/coble build --recipe recipes/icr/tnbc/tnbc-new.cbl --env tnbc-new 
---rebuild
+code/coble build --recipe recipes/icr/tnbc/tnbc-new.cbl --env tnbc-new --rebuild
 
 
 conda activate /data/scratch/DBC/UBCN/BCRBIOIN/SHARED/software/conda_envs/R-4.1.0

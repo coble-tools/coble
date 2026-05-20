@@ -39,7 +39,8 @@ r-conda:
   - data.table=1.14.2
   - pracma=2.4.2
   - SeuratObject=4.1.3
-r-package:
+  - BiocManager
+bioc-package:
   - fgsea=1.18.0
   - limma=3.50.1
 
@@ -49,6 +50,7 @@ r-package:
   - igraph=1.2.6
   - lazyeval=0.2.2
   - sp=1.5-1
+bioc-package:
   - GSEABase=1.56.0
   - splines=4.1.0
   - BiocParallel=1.28.0
