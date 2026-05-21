@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 16:54:36 BST
+# Capture time: 20:07:55 BST
 # Captured by: ralcraft
 
 coble:
@@ -460,9 +460,14 @@ bioc-package:
   - DelayedMatrixStats=1.16.0
   - edgeR=3.36.0
   - GenomicRanges=1.46.1
+  - glmGamPoi=1.6.0
+  - HDF5Array=1.22.1
   - MatrixGenerics=1.6.0
   - metapod=1.2.0
   - multtest=2.50.0
+  - rhdf5=2.38.1
+  - rhdf5filters=1.6.0
+  - Rhdf5lib=1.16.0
   - ScaledMatrix=1.2.0
   - scater=1.22.0
   - scran=1.22.1

@@ -194,6 +194,7 @@ bioc-package:
   - multtest
   - SingleR
   - scDblFinder
+  - glmGamPoi
 
 bash:
 Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="243b02f5badfed677ef7500b8753fd651f21a67f", dependencies=NA, upgrade="never", Ncpus=4)'

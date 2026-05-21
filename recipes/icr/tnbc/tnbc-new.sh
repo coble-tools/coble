@@ -3,7 +3,7 @@
 #####################################################
 # COBLE:recipe, (c) ICR 2026
 # Capture date: 2026-05-20
-# Capture time: 16:53:56 BST
+# Capture time: 20:04:51 BST
 # Captured by: ralcraft
 #####################################################
 # source bashrc for conda
@@ -225,6 +225,7 @@ conda install -y --solver=libmamba --no-update-deps \
 Rscript -e 'BiocManager::install("multtest", dependencies=NA, Ncpus=4)'
 Rscript -e 'BiocManager::install("SingleR", dependencies=NA, Ncpus=4)'
 Rscript -e 'BiocManager::install("scDblFinder", dependencies=NA, Ncpus=4)'
+Rscript -e 'BiocManager::install("glmGamPoi", dependencies=NA, Ncpus=4)'
 
 # bash:
 Rscript -e 'remotes::install_github("chris-mcginnis-ucsf/DoubletFinder", ref="243b02f5badfed677ef7500b8753fd651f21a67f", dependencies=NA, upgrade="never", Ncpus=4)'
