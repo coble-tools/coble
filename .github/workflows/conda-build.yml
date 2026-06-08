@@ -78,9 +78,12 @@ jobs:
           git push origin "v${{ github.event.inputs.version }}"
 
       - name: Build conda package
+        id: build
         shell: bash -el {0}
         run: |
           conda build conda-recipe/
+          PKG_PATH=$(conda build conda-recipe/ --output | tail -n 1)
+          echo "pkg_path=$PKG_PATH" >> "$GITHUB_OUTPUT"
 
       - name: Upload to Anaconda.org
         shell: bash -el {0}
@@ -90,4 +93,4 @@ jobs:
           $CONDA/bin/anaconda --token $ANACONDA_API_TOKEN upload \
             --user ${{ secrets.ANACONDA_USER }} \
             --label main \
-            /usr/share/miniconda/envs/build-conda/conda-bld/noarch/coble-${{ github.event.inputs.version }}-0.conda
+            "${{ steps.build.outputs.pkg_path }}"
