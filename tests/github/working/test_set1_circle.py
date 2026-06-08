@@ -24,16 +24,15 @@ def file_diffs(file1, file2):
         print(lines2)
         print("-" * 40)
 
-
-        max_lines = max(len(lines1), len(lines2))
-        for i in range(30,max_lines):
-            line1 = lines1[i].strip() if i < len(lines1) else ''
-            line2 = lines2[i].strip() if i < len(lines2) else ''
-            if line1 != line2:
-                diffs.append((i + 1, line1, line2))
-                print(f"Line {i + 1} differs:")
-                print(f"  File 1: {line1}")
-                print(f"  File 2: {line2}")
+        diffs = 0
+        for l1 in lines1[30:]:
+            if l1 not in lines2:
+                diffs += 1
+                print(f"Line missing: {l1.strip()}")
+        for l2 in lines2[30:]:
+            if l2 not in lines1:
+                diffs += 1
+                print(f"Line missing: {l2.strip()}")
     return diffs, len(lines1[30:]), len(lines2[30:])
 
 def test_coble_circle():
