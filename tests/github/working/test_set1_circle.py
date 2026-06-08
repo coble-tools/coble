@@ -27,10 +27,13 @@ def file_diffs(file1, file2):
 
         max_lines = max(len(lines1), len(lines2))
         for i in range(30,max_lines):
-            line1 = lines1[i].rstrip() if i < len(lines1) else ''
-            line2 = lines2[i].rstrip() if i < len(lines2) else ''
+            line1 = lines1[i].strip() if i < len(lines1) else ''
+            line2 = lines2[i].strip() if i < len(lines2) else ''
             if line1 != line2:
                 diffs.append((i + 1, line1, line2))
+                print(f"Line {i + 1} differs:")
+                print(f"  File 1: {line1}")
+                print(f"  File 2: {line2}")
     return diffs, len(lines1[30:]), len(lines2[30:])
 
 def test_coble_circle():
@@ -59,7 +62,6 @@ def test_coble_circle():
     result2 = subprocess.run(params2, cwd=cwd, capture_output=True, text=True)
 
     diffs, lena, lenb = file_diffs(freeze_1, freeze_2)
-    print(diffs)
     print(f"Length of file 1 (after line 30): {lena}")
     print(f"Length of file 2 (after line 30): {lenb}")
 
