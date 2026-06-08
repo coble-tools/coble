@@ -40,7 +40,7 @@ jobs:
       - name: Install build tools
         shell: bash -el {0}
         run: |
-          conda install -n base -c conda-forge conda-build anaconda-client conda-index -y
+          conda install -c conda-forge conda-build anaconda-client conda-index -y
 
       - name: Set versions in release files
         run: |
