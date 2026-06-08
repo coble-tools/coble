@@ -61,6 +61,7 @@ recipes/**
 !recipes/**/*_summary.txt
 !recipes/**/*.sh
 !recipes/**/*.Dockerfile
+!recipes/**/session.info.txt
 
 cbl-icr-small.sif
 cbl-carbine.sif
@@ -154,3 +155,15 @@ data.tar.xz
 control.tar.xz
 debian-binary
 recipes/demos/*
+githubs/Tumorigenesis2018/data/Tumorigenesis/Robjects/UMAP_graphs.rds
+sifs/cbl-zheng2017.sif
+sifs/cbl-zheng20172.tar
+sifs/cbl-velton2025.sif
+sifs/cbl-zheng20172.sif
+sifs/cbl-zheng2017.tar
+sifs/cbl-velton2025.tar
+recipes/demos/tumorigenesis/data/sce_tumour_GB_04_umap.rds
+recipes/demos/tumorigenesis/data/sce_tumour_GB_01_norm.rds
+recipes/demos/tumorigenesis/data/BRCA1_SCE.rds
+recipes/demos/tumorigenesis/data/sce_tumour_GB_03_mnn.rds
+recipes/demos/tumorigenesis/data/sce_tumour_GB_02_hvg.rds

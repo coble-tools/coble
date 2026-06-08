@@ -1,6 +1,6 @@
 # COBLE:export, (c) ICR 2026
-# Capture date: 2026-05-03
-# Capture time: 08:01:10 BST
+# Capture date: 2026-05-13
+# Capture time: 11:25:11 BST
 # Captured by: ralcraft
 
 coble:
@@ -79,7 +79,7 @@ conda:
   - libdeflate=1.25@conda-forge
   - libedit=3.1.20250104@conda-forge
   - libev=4.33@conda-forge
-  - libexpat=2.7.5@conda-forge
+  - libexpat=2.8.0@conda-forge
   - libffi=3.5.2@conda-forge
   - libfreetype=2.14.3@conda-forge
   - libfreetype6=2.14.3@conda-forge
@@ -97,22 +97,22 @@ conda:
   - liblzma-devel=5.8.3@conda-forge
   - libmpdec=4.0.0@conda-forge
   - libnghttp2=1.68.1@conda-forge
-  - libopenblas=0.3.32@conda-forge
+  - libopenblas=0.3.33@conda-forge
   - libpng=1.6.58@conda-forge
   - libsanitizer=14.3.0@conda-forge
-  - libsqlite=3.53.0@conda-forge
+  - libsqlite=3.53.1@conda-forge
   - libssh2=1.11.1@conda-forge
   - libtiff=4.7.1@conda-forge
   - libuuid=2.42@conda-forge
   - libxcb=1.15@conda-forge
   - make=4.4.1@conda-forge
   - ncurses=6.6@conda-forge
-  - numpy=2.4.3@conda-forge
+  - numpy=2.4.4@conda-forge
   - openssl=3.6.2@conda-forge
-  - pandas=3.0.2@conda-forge
+  - pandas=3.0.3@conda-forge
   - pango=1.50.14@conda-forge
   - pcre2=10.40@conda-forge
-  - pip=26.0.1@conda-forge
+  - pip=26.1.1@conda-forge
   - pixman=0.46.4@conda-forge
   - pthread-stubs=0.4@conda-forge
   - python_abi=3.13@conda-forge
