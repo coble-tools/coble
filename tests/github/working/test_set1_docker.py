@@ -10,6 +10,7 @@ def test_coble_small_docker():
         'bash', 'code/coble', 'build',
         '--recipe', 'tests/fixtures/small.cbl',
         '--validate', 'tests/fixtures/validate.sh',
+        '--val-folder', 'code/validate',
         '--env', 'xsmall',
         '--code-source', 'local',
         '--containers', 'docker'
