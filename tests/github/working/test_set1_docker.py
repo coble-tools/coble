@@ -3,6 +3,7 @@ import os
 cwd = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # code/coble build --recipe tests/fixtures/small.cbl --validate tests/fixtures/validate.sh --env small --containers docker
+# code/coble build --recipe tests/fixtures/small.cbl --validate tests/fixtures/validate.sh --env small --containers docker --val-folder code/validate
 
 def test_coble_small_docker():
     """Test that the small env runs."""
@@ -10,7 +11,6 @@ def test_coble_small_docker():
         'bash', 'code/coble', 'build',
         '--recipe', 'tests/fixtures/small.cbl',
         '--validate', 'tests/fixtures/validate.sh',
-        '--val-folder', 'code/validate',
         '--env', 'xsmall',
         '--code-source', 'local',
         '--containers', 'docker'

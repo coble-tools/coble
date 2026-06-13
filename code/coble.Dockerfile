@@ -6,7 +6,6 @@
 #    --build-arg BUILD_TAG="$ENV_NAME" \
 #    --build-arg GITHUB_PAT="$GITHUB_PAT" \
 #    --build-arg VAL_FILE="$VAL_FILE" \
-#    --build-arg VAL_FOLDER="$VAL_FOLDER" \
 #    --build-arg UBUNTU_VERSION="$UBUNTU_VERSION" \
 #    --no-cache \
 #    -t "$IMAGE_NAME" .
@@ -58,7 +57,6 @@ ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
 ARG GITHUB_PAT=""
 ARG VAL_FILE=""
-ARG VAL_FOLDER=""
 ARG CODE_SOURCE="local"
 
 ENV CONDA_VERBOSITY=2
@@ -123,7 +121,7 @@ ENV MAMBA_NO_BANNER=1
 ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
-RUN mkdir -p code recipe validate workspace
+RUN mkdir -p code recipe validate workspace 
 COPY code /app/coble/code
 # Install coble from GitHub or locally
 RUN if [ "$CODE_SOURCE" = "local" ]; then \
@@ -166,10 +164,6 @@ RUN echo "=== AFTER COPY CHECK ===" && \
         echo "✗ File NOT copied"; \
     fi && \
     echo "========================"
-
-
-# Extra validation files (only if folder specified)
-COPY ${VAL_FOLDER:-/app/coble/code/validate}/ /app/validate/
 
 # Create .condarc with channels
 RUN echo "channels:" > /app/.condarc && \

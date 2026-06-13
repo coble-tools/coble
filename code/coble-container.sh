@@ -154,12 +154,8 @@ DOCKER_TAR="${IMAGE_NAME}.tar"
 SINGULARITY_SIF="${IMAGE_NAME}.sif"
 # same directory as this script/code/Dockerfile
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-#if [[ $UBUNTU != "22.04" ]]; then
-#    # remove any . from ubuntu version for dockerfile naming convention
-#    UBUNTU_NO_DOT=$(echo "$UBUNTU" | tr -d '.')
-#    DOCKERFILE="${SCRIPT_DIR}/coble.${UBUNTU_NO_DOT}.Dockerfile"
-#else
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
+DOCKERFILE_VAL="${SCRIPT_DIR}/coble.val.Dockerfile"
 echo "[coble-docker] Using Dockerfile: $DOCKERFILE"
 RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
@@ -168,12 +164,6 @@ if [[ $CODE_SOURCE == "main" ]]; then
     CODE_SOURCE=$(git ls-remote git@github.com:coble-tools/coble.git refs/heads/main | awk '{print $1}')
     echo "Using specific COBLE code version: $CODE_SOURCE"
 fi
-# if VAL_FOLDER is not set, default to the directory of the VAL_FILE
-if [[ -z "$VAL_FOLDER" ]]; then
-    VAL_FOLDER="${SCRIPT_DIR}/validate"
-fi
-
-
 
 ### Docker #######################
 
@@ -224,26 +214,40 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     echo "  BUILD_TAG=$ENV_NAME"
     echo "  GITHUB_PAT=***"
     echo "  VAL_FILE=$VAL_FILE"
-    echo "  VAL_FOLDER=$VAL_FOLDER"
     echo "  CODE_SOURCE=$CODE_SOURCE"
     echo "  SKIP_ERRORS=$SKIP_ERRORS"
     echo "  UBUNTU_VERSION=$UBUNTU"
-    #docker build --progress=plain -f "$DOCKERFILE" \
     docker build -f "$DOCKERFILE" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
     --build-arg BUILD_TAG="$ENV_NAME" \
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
     --build-arg VAL_FILE="$VAL_FILE" \
-    --build-arg VAL_FOLDER="$VAL_FOLDER" \
     --build-arg CODE_SOURCE="$CODE_SOURCE" \
     --build-arg SKIP_ERRORS="$SKIP_ERRORS" \
     --build-arg UBUNTU_VERSION="$UBUNTU" \
     --no-cache \
-    -t "$IMAGE_NAME" . 2>&1 | tee $DOCKERLOGFILE
+    -t "coble-${ENV_NAME}:latest" . 2>&1 | tee $DOCKERLOGFILE
     BUILD_EXIT_CODE=${PIPESTATUS[0]}
     if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
         echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
         exit 1
+    fi
+    if [[ -n "$VAL_FOLDER"  ]]; then
+        echo "[coble-docker] Adding val folder layer to $IMAGE_NAME..."
+        echo "  BUILD_TAG=$ENV_NAME"
+        echo "  VAL_FOLDER=$VAL_FOLDER"
+        docker build -f "$DOCKERFILE_VAL" \
+        --build-arg BUILD_TAG="$ENV_NAME" \
+        --build-arg VAL_FOLDER="$VAL_FOLDER" \
+        --no-cache \
+        -t "$IMAGE_NAME" . 2>&1 | tee $DOCKERLOGFILE
+        BUILD_EXIT_CODE=${PIPESTATUS[0]}
+        if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
+            echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
+            exit 1
+        fi
+    else
+        docker tag "coble-${ENV_NAME}:latest" "$IMAGE_NAME"
     fi
 
 
