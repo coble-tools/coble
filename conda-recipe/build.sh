@@ -17,4 +17,4 @@ done
 
 # Non-executable extras
 cp README.md "$PREFIX/bin/README.md"
-cp code/validate/* "$PREFIX/bin/validate/"
+cp code/validate/validate.sh "$PREFIX/bin/validate/validate.sh"

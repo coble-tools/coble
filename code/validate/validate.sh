@@ -1,0 +1,1 @@
+echo "Validating COBLE code (placeholder)..."
