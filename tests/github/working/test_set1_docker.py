@@ -12,7 +12,6 @@ def test_coble_small_docker():
         '--recipe', 'tests/fixtures/small.cbl',
         '--validate', 'tests/fixtures/validate.sh',
         '--env', 'xsmall',
-        '--code-source', 'local',
         '--containers', 'docker'
     ], cwd=cwd, capture_output=True, text=True)
     assert result.returncode == 0
