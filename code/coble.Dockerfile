@@ -121,24 +121,19 @@ ENV MAMBA_NO_BANNER=1
 ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
-RUN mkdir -p code recipe validate workspace 
-COPY code /app/coble/code
+RUN mkdir -p code recipe validate workspace
 # Install coble from GitHub or locally
-RUN if [ "$CODE_SOURCE" = "local" ]; then \
-        echo "Using local code..."; \
+RUN echo "Cloning COBLE from GitHub..." && \
+    rm -rf /app/coble && \
+    if [ -n "${GITHUB_PAT}" ]; then \
+        git clone https://${GITHUB_PAT}@github.com/coble-tools/coble.git /app/coble; \
     else \
-        echo "Cloning COBLE from GitHub..." && \
-        rm -rf /app/coble && \
-        if [ -n "${GITHUB_PAT}" ]; then \
-            git clone https://${GITHUB_PAT}@github.com/coble-tools/coble.git /app/coble; \
-        else \
-            git clone https://github.com/coble-tools/coble.git /app/coble; \
-        fi && \
-        cd /app/coble && \
-        git checkout ${CODE_SOURCE} && \
-        rm -rf .git && \
-        echo "COBLE cloned successfully."; \
-    fi
+        git clone https://github.com/coble-tools/coble.git /app/coble; \
+    fi && \
+    cd /app/coble && \
+    git checkout ${CODE_SOURCE} && \
+    rm -rf .git && \
+    echo "COBLE cloned successfully.";
 
 # Recipe cbl is copied to standard location
 COPY $RECIPE_CBL /app/recipe/$BUILD_TAG.cbl
