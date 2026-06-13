@@ -2,6 +2,7 @@
 set -euo pipefail
 
 mkdir -p "$PREFIX/bin"
+mkdir -p "$PREFIX/bin/validate"
 
 # Copy and make executable all coble-* files (scripts, R files, Dockerfile, etc.)
 for f in code/coble*; do
@@ -16,3 +17,4 @@ done
 
 # Non-executable extras
 cp README.md "$PREFIX/bin/README.md"
+cp code/validate/* "$PREFIX/bin/validate/"

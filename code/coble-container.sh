@@ -161,7 +161,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 #else
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 echo "[coble-docker] Using Dockerfile: $DOCKERFILE"
-#fi
 RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
 DOCKERLOGFILE="${RESULTS_DIR}/${ENV_NAME}_docker_build.log"
@@ -169,6 +168,11 @@ if [[ $CODE_SOURCE == "main" ]]; then
     CODE_SOURCE=$(git ls-remote git@github.com:coble-tools/coble.git refs/heads/main | awk '{print $1}')
     echo "Using specific COBLE code version: $CODE_SOURCE"
 fi
+# if VAL_FOLDER is not set, default to the directory of the VAL_FILE
+if [[ -z "$VAL_FOLDER" ]]; then
+    VAL_FOLDER="${SCRIPT_DIR}/validate"
+fi
+
 
 
 ### Docker #######################
@@ -182,9 +186,9 @@ if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers
     # 1. CI environment: use buildx with --push for multi-platform
     # 2. Buildx available locally: use buildx with --load for single platform
     # 3. Fallback: regular docker build for single platform
-
     echo "[coble-docker] VAL_FILE='$VAL_FILE'"
     echo "[coble-docker] VAL_FOLDER='$VAL_FOLDER'"
+
 
     # We copy the dockerfile to our set for reproducibility
     # First we make explicit the build args so it can be directly reproduced
