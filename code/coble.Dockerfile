@@ -169,7 +169,7 @@ RUN echo "=== AFTER COPY CHECK ===" && \
 
 
 # Extra validation files (only if folder specified)
-COPY ${VAL_FOLDER:-code/validate}/ /app/validate/
+COPY ${VAL_FOLDER:-/app/coble/code/validate}/ /app/validate/
 
 # Create .condarc with channels
 RUN echo "channels:" > /app/.condarc && \
