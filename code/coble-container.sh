@@ -160,6 +160,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 #    DOCKERFILE="${SCRIPT_DIR}/coble.${UBUNTU_NO_DOT}.Dockerfile"
 #else
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
+echo "[coble-docker] Using Dockerfile: $DOCKERFILE"
 #fi
 RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
