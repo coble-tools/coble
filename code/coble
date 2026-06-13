@@ -9,7 +9,7 @@ else
 	install_context="github"
 fi
 containers="conda"
-VERSION="0.1.4"
+VERSION="0.1.5"
 # Optionally, you can use $install_context in help or logic
 # Detect operating system
 os_type="$(uname)"

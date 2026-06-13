@@ -10,6 +10,6 @@ authors:
 message: "If you use this software, please cite it using these metadata."
 type: software
 date-released: 2026-04-20
-version: 0.1.4
+version: 0.1.5
 license: GPL-3.0
 repository-code: "https://github.com/coble-tools/coble"
