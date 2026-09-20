@@ -19,13 +19,14 @@ line-by-line and `eval`s each logical line independently
   line (use `&&` / `||` / `;` / `{ }` grouping), or every line it spans must
   end in a trailing `\`. A bare multi-line `if ... then` / body / `fi` with no
   continuation backslashes gets `eval`'d as separate, independently-broken
-  statements — this was a real bug caught in this repo, in an early version of
-  the `<os=,arch=>` conditional export mechanism below (now fixed properly:
-  see next bullet).
+  statements.
 - All eval'd lines run in the *same* persistent shell process, not a
   subshell per line — `export` / `conda activate` on one line correctly
   carries forward to later lines.
-- The recipe.sh is not supposed to replicate the coble recipe it is supposed to be the resolution of it, don't defer if statements forever they are resolved and the statement is in the sh file or it is not.
+- `recipe.sh` holds the already-resolved result for whichever machine
+  generated it — coble-recipise.sh resolves any machine-dependent choices
+  (see the `<os=,arch=>` condition syntax below) at generation time, not as
+  runtime `if` statements in the recipe.
 
 Whenever you generate new lines for `recipe.sh` from coble-recipise.sh, sanity
 check them against this model, not against "is this valid as a whole script."
@@ -62,17 +63,19 @@ check them against this model, not against "is this valid as a whole script."
   `recipe.sh`. It prints which way it resolved
   (`[coble-recipise] Conditional export on ..., adding/skipping ...`) and
   either writes the plain, unconditional `export`/`conda env config vars set`
-  lines, or writes nothing at all. This matches the execution-model rule
-  above: `recipe.sh` holds the *already-resolved* result for this machine,
-  never a deferred `if`. Currently wired into the `export` directive only
-  (coble-recipise.sh:407-419) — adding a condition to any other directive is
-  silently ignored.
+  lines, or writes nothing at all. Currently wired into the `export`
+  directive only (coble-recipise.sh:407-419) — adding a condition to any
+  other directive is silently ignored.
 - Directive ordering in the `.cbl` matters: `recipe.sh` is written out in the
-  same order the `.cbl` is read, so a `flags:` line (e.g. the `export<...>`
-  above) only affects package installs that come **after** it in the file.
-  Putting it after the `languages:`/`conda:` block it's meant to affect is a
-  real bug that will silently resolve too late (hit this exact issue with
-  `CONDA_SUBDIR` being set after `r-base` had already failed to solve).
+  same order the `.cbl` is read, so a `flags:` line only affects package
+  installs that come **after** it in the file. Some directives need to
+  precede `languages:`/package sections they configure (e.g. a `CONDA_SUBDIR`
+  export), while others need to *follow* R being installed (e.g. `cran-repo:`,
+  which emits a direct `Rscript -e 'options(repos=...)'` call). If a single
+  `flags:` block would need to sit both before and after `languages:` to
+  satisfy every directive in it, split it into two blocks instead — this is
+  a normal, supported pattern; a file can have as many `flags:` blocks as it
+  needs, in whatever order the individual directives require.
 - Standalone comment lines are gathered into a `comment_gather` buffer
   instead of being written immediately, and get flushed (prefixed `#^`,
   meaning "belongs to the block above") whenever `remove_trailing_backslash`
@@ -81,69 +84,25 @@ check them against this model, not against "is this valid as a whole script."
   truncate an in-progress `\`-continued `conda install` command.
 - Several per-line-parse variables (`value_lower`, `pkg_entry`, etc.) are
   script-global and not reset between sections — a directive handler in one
-  section can accidentally echo a stale value left over from a previous
-  section's iteration. Found and fixed two real instances of this (the old
-  `compilers:` → `cran-repo` handler, and the old `flags: - compile-tools:`
-  handler — see the migration note below); be alert for more if you touch
-  this parser.
+  section can accidentally echo or act on a stale value left over from a
+  previous section's iteration. Be alert for this if you add or move
+  directive handlers in this parser.
 
-## Retired directives: migrate compile-tools/compile-version/compile-paths/system-tools/compilers:
+## The `compile:` flags directive
 
-These no longer exist — they were consolidated into a single `flags:`
-directive, `compile: <key>=<value>`, with `tools=`/`version=`/`paths=`/
-`system=` sub-keys (coble-recipise.sh:492-567, hard-fail for the old names
-at coble-recipise.sh:568-572). The `compilers:` section
-header was retired entirely; anything that lived under it moves into
-`flags:`.
+Compiler/build-tool settings live under one `flags:` directive, `compile:
+<key>=<value>` (coble-recipise.sh:492-567):
 
-If you find a `.cbl` still using the old names, migrate it like this:
-
-| Old | New |
+| Sub-key | Effect |
 |---|---|
-| `flags: - compile-tools: V` | `flags: - compile: tools=V` |
-| `flags: - compile-version: V` | `flags: - compile: version=V` |
-| `flags: - compile-paths: V` | `flags: - compile: paths=V` |
-| `flags: - system-tools: V` | `flags: - compile: system=V` |
-| `compilers:` (section header) | rename in place to `flags:` |
-| `compilers: - cran-repo: V` | `flags: - cran-repo: V` (directive name unchanged, just moves section) |
+| `compile: system=true` | Installs a fixed bundle of common system libraries for building R/Python packages from source (libcurl, gdal/proj/geos/cairo, HDF5, libtool/autoconf/cmake/pkg-config, zlib/openssl/sqlite, plus R- or Python-specific extras if that language is present). |
+| `compile: tools=true` or `compile: tools=13.1` | Installs conda-forge's generic `compilers` meta-package. The version number is not currently used to pin an exact version — use `version=` for that. |
+| `compile: version=11.4` | Installs and pins an exact compiler version. On Linux x86_64 this pins `gcc`/`g++`/`gfortran` to that version with symlinks; on any other platform it installs a generic compiler instead (the exact version isn't available there). |
+| `compile: paths=true` | Sets `umask 0022` before subsequent installs. Nothing is installed by this alone. |
 
-Rename in place rather than physically relocating lines — directive order
-in the file matters (see the ordering note above), and an in-place rename
-preserves it automatically. Ending up with two separate `flags:` blocks in
-the same file (e.g. one renamed from `compilers:`, one already there) is
-fine — they don't need merging.
+There is no `compilers:` section — everything here lives under `flags:`.
 
-coble-recipise.sh hard-fails with a clear message if it sees any of the
-four old directive names or a `compilers:` header, the same way it does for
-any other unrecognized header — that error is the signal a file needs this
-migration, not a sign of a new bug.
-
-**Status: this migration is done.** Every real `.cbl` in the repo (85 files)
-was migrated and verified in this session — each has a `.premigration.bak`
-alongside it (this repo has no git, so that's the only rollback path; don't
-delete them). If you see the old syntax anywhere now, it's a new file that
-was written with stale knowledge, not a leftover from this migration.
-
-Two real bugs were fixed as part of this consolidation — expect these
-specific differences (and only these) if you diff a migrated file's
-generated recipe.sh against its pre-migration version:
-- The old `compile-version` unconditionally installed the Linux-only
-  `sysroot_linux-64` package before even checking the OS, and had no real
-  logic for any platform but Linux x86_64 (every other platform just got a
-  comment, nothing installed). `compile: version=` only installs
-  `sysroot_linux-64` on genuine Linux x86_64, and installs a generic
-  `c-compiler cxx-compiler` everywhere else instead of doing nothing.
-- The old `flags: - compile-tools:` handler read a stale, possibly
-  uninitialized global `$version` variable instead of its own directive's
-  value, so `compile-tools: false` could be silently ignored if an earlier
-  `compile-version`/`compile-paths` line in the same block had already set
-  `$version` to something else (this genuinely happened in
-  `coble/code/tml_full.cbl`). `compile: tools=false` now reliably skips.
-
-Any other difference in a migrated file's output is not expected — treat it
-as a real bug to investigate, not as one of these two known fixes.
-
-## Platform / architecture facts (verified, don't re-derive from scratch)
+## Platform / architecture facts
 
 - Singularity/Apptainer has no macOS build — it depends on Linux kernel
   namespaces. `.sif` images are Linux-only; there is no "mac SIF." The
@@ -160,90 +119,71 @@ as a real bug to investigate, not as one of these two known fixes.
   `manifest` job then uses `docker buildx imagetools create` only to merge
   the two arch-specific images into one manifest list — buildx is not used
   to cross-build.
-- coble-container.sh has dead `--dual` / `--dual-ci` flags: parsed into
-  `DUAL` / `DUAL_CI` but never referenced afterward. Confirmed history: an
-  earlier buildx-with-`--platform` implementation was deliberately deleted,
-  because the approach that actually works is the one container.yml uses —
-  native runner per architecture, each doing a plain build, merged
-  afterward into one manifest (see the bullet above) — not a single job
-  cross-building multiple platforms with buildx. `--dual`/`--dual-ci` are
-  leftovers from that deleted approach; don't assume they do anything.
+- coble-container.sh has unused `--dual` / `--dual-ci` flags: parsed into
+  `DUAL` / `DUAL_CI` but never referenced afterward. Don't assume they do
+  anything. For building a specific non-native platform, use `--platform`
+  (below), not these.
 - `coble-platform.sh` is a separate sibling script for the one case the
   native-runner approach doesn't cover: building a specific *non-native*
   platform *locally* (e.g. testing linux/arm64 on an amd64 dev machine, or
   vice versa) via `docker buildx build --platform ... --load`. It is not
   used by container.yml or by coble-container.sh's normal path.
-  **Full dispatch chain**, since users invoke the top-level `coble` wrapper,
-  not coble-container.sh directly: `coble build --containers docker
-  --platform <value> ...` → `coble` forwards `"${@:2}"` to
-  coble-container.sh whenever `$container_type` contains `docker` or
-  `singularity` (coble:271-274) → coble-container.sh detects `--platform`
-  right after its own arg parsing and does
-  `exec coble-platform.sh "${ORIGINAL_ARGS[@]}"` before any of its own
-  validation runs (coble-container.sh:132-135). Because of that hand-off,
-  coble-platform.sh has to fully validate its own arguments rather than
+  **Dispatch chain**, since users invoke the top-level `coble` wrapper, not
+  coble-container.sh directly: `coble build --containers docker --platform
+  <value> ...` → `coble` forwards `"${@:2}"` to coble-container.sh whenever
+  `$container_type` contains `docker` or `singularity` (coble:271-274) →
+  coble-container.sh detects `--platform` right after its own arg parsing
+  and does `exec coble-platform.sh "${ORIGINAL_ARGS[@]}"` before any of its
+  own validation runs (coble-container.sh:132-135). Because of that
+  hand-off, coble-platform.sh fully validates its own arguments rather than
   relying on the caller having done it — `--env`/`--recipe`/`--platform`
-  are required; `--validate` is optional in both coble-container.sh and
-  coble-platform.sh (skips the validation layer if omitted). `--platform`
-  takes the same syntax `docker buildx` itself does (e.g. `linux/arm64`),
-  but only a single platform — `--load` cannot load a multi-platform
-  manifest into the local Docker daemon, so coble-platform.sh rejects a
-  comma-separated value outright rather than attempting it.
+  are required; `--validate` is optional. `--platform` takes the same
+  syntax `docker buildx` itself does (e.g. `linux/arm64`), but only a
+  single platform — `--load` cannot load a multi-platform manifest into the
+  local Docker daemon, so a comma-separated value is rejected outright.
 - coble-platform.sh never builds Singularity, even if `--containers`
-  mentions it (it just warns and ignores that part) — a buildx `--platform`
-  build is routinely cross-arch (and cross-OS, from a Mac), and per the
-  no-macOS-Singularity fact above there's no guarantee singularity/apptainer
-  is even present on the machine running it. Use coble-container.sh's
-  normal native-runner-per-arch path for Singularity images.
-- The top-level `coble` wrapper (coble/code/coble) had a real bug, same
-  class as the stale-global-variable ones above: two separate variables
-  both meant to track `--containers` — a dead `containers` (hardcoded to
-  `"conda"`, never updated after declaration) and the real one,
-  `container_type` (correctly parsed from `--containers`, correctly used
-  everywhere the actual routing logic depends on it, e.g. coble:156,
-  coble:271). One log line read the dead variable, so it always printed
-  `Containers to build: conda` regardless of what `--containers` actually
-  was — purely cosmetic, the real routing was never affected, but confusing
-  enough to look like `--containers`/`--platform` weren't working. Fixed by
-  removing the dead variable and pointing the log line at `container_type`.
-  If you see two near-identical variable names for the same concept
-  anywhere in this codebase, assume one of them is dead until proven
-  otherwise — this is the third time it's happened in one session.
+  mentions it (it warns and ignores that part) — a buildx `--platform`
+  build is routinely cross-arch (and cross-OS, from a Mac), and there's no
+  guarantee singularity/apptainer is even present on the machine running
+  it. Use coble-container.sh's normal native-runner-per-arch path for
+  Singularity images.
+- `container_type` (parsed from `--containers` in the top-level `coble`
+  wrapper, coble:63-69) is what actually drives routing — the `conda`
+  branch (coble:156) and the docker/singularity dispatch to
+  coble-container.sh (coble:271). If you're tracing what a `--containers`
+  value does, follow `container_type`, not any other similarly-named
+  variable.
 - `--code-source` (coble-container.sh, coble-platform.sh) controls which
   version of the coble tool itself gets installed *inside* the Docker
-  image — it is never conda, and never actually your local working copy by
-  default. coble.Dockerfile always either `git clone`s
+  image — never conda, and never your local working copy unless you ask
+  for it. `coble.Dockerfile` either `git clone`s
   `github.com/coble-tools/coble.git` fresh and does `git checkout
-  ${CODE_SOURCE}`, or (only for `local`) copies in a staged local checkout —
-  see below. Three values:
+  ${CODE_SOURCE}`, or (only for `local`) copies in a staged local checkout.
+  Three values:
   - `main` (the default): passed straight through as the literal string
     `"main"` and resolved by `git checkout main` at actual Docker-build
-    time — deliberately **not** pre-resolved to a SHA beforehand (an
-    earlier version of coble-container.sh did resolve it via `git
-    ls-remote` ahead of the build, which defeated the point of choosing
-    `main` over a pin - removed). Running the identical command twice on
-    different days can produce different images, by design.
+    time — not pre-resolved to a SHA. Running the identical command on
+    different days can produce different images, by design; use a SHA if
+    you need a pin.
   - a specific git SHA (or any real ref name) — used as-is via `git
     checkout <value>`. This is how you pin an exact, reproducible coble
-    version; `main` is not a pin.
+    version.
   - `local` — debug/dev only, never used by the published community/CI
     builds. Docker's `COPY` can only reach files inside the build context
-    (which is wherever you happen to run the command from, not this
-    checkout), so coble-container.sh/coble-platform.sh stage this
-    checkout's own root (`$SCRIPT_DIR/..`, no path argument needed or
-    offered - if you want a different local source, it isn't this
-    mechanism) into `.coble-local-src-stage/` in the build context just
-    before invoking `docker build`, and clean it up again right after
-    (success or failure). coble.Dockerfile's `COPY .coble-local-src-stage
-    ...` runs unconditionally — the staging step always creates that
-    directory, empty unless `local` was requested, so the same Dockerfile
-    line works for every case without needing BuildKit's multi-context
-    features.
-  - Verified all three paths directly: an isolated Dockerfile test
-    confirmed `local` picks up a staged marker file and `main` does not
-    (falls through to a real git clone); the staging shell logic was
-    checked separately to confirm it resolves to this checkout's actual
-    root and contains `code/coble-recipise.sh`.
+    (wherever you happen to run the command from, not this checkout), so
+    coble-container.sh/coble-platform.sh stage this checkout's own root
+    (`$SCRIPT_DIR/..`, no path argument needed or offered) into
+    `.coble-local-src-stage/` in the build context just before invoking
+    `docker build`, and clean it up again right after. `coble.Dockerfile`'s
+    `COPY .coble-local-src-stage ...` runs unconditionally — the staging
+    step always creates that directory, empty unless `local` was
+    requested, so the same Dockerfile line works for every case.
+- `--validate` is optional in coble-container.sh/coble-platform.sh. Since
+  Docker's `COPY` needs a real source either way, both scripts stage a
+  fixed file at `.coble-validate-stage` before `docker build` — a copy of
+  the given validate script, or an empty placeholder if none was given —
+  and `coble.Dockerfile` always `COPY`s from that fixed path rather than
+  from `$VAL_FILE` directly.
 
 ## Working style for this repo
 
@@ -254,7 +194,7 @@ as a real bug to investigate, not as one of these two known fixes.
   (`bash coble-recipise.sh --recipe <file> --env test --output <scratch>/test.sh --outdir <scratch>`),
   grep the emitted lines, and, for anything conditional, sanity-test that
   exact snippet standalone with `bash -c` (mocking `conda`/`uname` as
-  needed). This caught two real bugs in one session that reading the
-  generator's source code alone missed.
+  needed). Reading the generator's source alone doesn't reliably tell you
+  what it actually emits for a given input.
 
-**Never touch git state in this repo unless explicitly asked to, in that moment** — no `git add`, `git rm`, `git commit`, staging, or offering to commit. Git here is the user's own review and control layer over changes made in this session: they inspect `git status`/`git diff` and decide what to stage or commit themselves. An agent staging or committing on its own removes exactly the review step git exists to provide. Make changes with plain file operations (`rm`, edits) and leave every git command to the user, even `git add` of something you just deleted.
+**Never touch git state in this repo unless explicitly asked to, in that moment** — no `git add`, `git rm`, `git commit`, staging, or offering to commit. Git here is the user's own review and control layer over changes made in a session: they inspect `git status`/`git diff` and decide what to stage or commit themselves. An agent staging or committing on its own removes exactly the review step git exists to provide. Make changes with plain file operations (`rm`, edits) and leave every git command to the user, even `git add` of something you just deleted.

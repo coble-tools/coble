@@ -155,15 +155,13 @@ COPY $RECIPE_CBL /app/recipe/$BUILD_TAG.cbl
 # COPY README.md /app/README.md
 
 
-# === BEFORE CHECK ===
-# List what's available in the build context at /app
-RUN echo "=== BEFORE COPY CHECK ===" && \
-    echo "Looking for VAL_FILE: ${VAL_FILE}" && \
-    ls -la recipes/publications/DESeq2/validate/ 2>/dev/null || echo "Directory not found in context" && \
-    echo "========================="
-
-# Do the copy
-COPY $VAL_FILE /app/validate.sh
+# coble-container.sh/coble-platform.sh always stage a real file at this fixed
+# path - a copy of VAL_FILE if one was given, or an empty placeholder if
+# --validate was omitted (it's optional). COPY needs a real source either way;
+# copying directly from a possibly-empty $VAL_FILE here previously turned
+# /app/validate.sh into an empty directory instead of a file when --validate
+# was omitted, which then broke the recipe's own `cp` of it later.
+COPY .coble-validate-stage /app/validate.sh
 
 # === AFTER CHECK ===
 RUN echo "=== AFTER COPY CHECK ===" && \

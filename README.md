@@ -6,7 +6,7 @@
 
 # COBLE
 `COBLE - COnda BuiLdEr: Build and manage conda environments`  
-Created by the RSE team at the ICR for and with the Breast Cancer Research Data Science Group.  
+Created by the Breast Cancer Data Science Group and the RSE team at the ICR.  
 *Contacts: Rachel Alcraft, Syed Haider*
 
 ---
