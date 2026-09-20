@@ -18,6 +18,7 @@
 
 # Default values
 ENV_INPUT="coble"
+ENV_SET_BY_USER=false
 YAML_FILE=""
 RECIPE_FILE=""
 ENV_NAME=""
@@ -74,6 +75,7 @@ while [[ $# -gt 0 ]]; do
     case $key in
         --env)
             ENV_INPUT="$2"
+            ENV_SET_BY_USER=true
             shift; shift
             ;;
         --recipe)
@@ -109,6 +111,29 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# If --env wasn't given explicitly, look for a "coble: - environment: NAME" entry
+# in the recipe itself and use that as the environment name instead of the default.
+if [[ "$ENV_SET_BY_USER" == false && -n "$YAML_FILE" && -f "$YAML_FILE" ]]; then
+    scan_section=""
+    while IFS= read -r scan_line; do
+        scan_line="$(echo -e "${scan_line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+        if [[ "$scan_line" == "coble:"* ]]; then
+            scan_section="coble"
+        elif [[ -z "$scan_line" || "$scan_line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+            scan_section=""
+        elif [[ "$scan_section" == "coble" && "$scan_line" == "-"* ]]; then
+            scan_entry="${scan_line#- }"
+            if [[ "$scan_entry" == "environment:"* ]]; then
+                coble_env_name="$(echo "${scan_entry#environment:}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+                if [[ -n "$coble_env_name" ]]; then
+                    echo "[coble-recipise] Using environment name '$coble_env_name' from recipe's coble: section" >&2
+                    ENV_INPUT="$coble_env_name"
+                fi
+            fi
+        fi
+    done < "$YAML_FILE"
+fi
 
 # Set CONDA_ENV: blank if ENV_INPUT is empty, otherwise --name or --prefix
 if [[ -z "$ENV_INPUT" ]]; then
@@ -181,6 +206,7 @@ echo "[coble-recipise] Using conda alias $CONDA_ALIAS: $(which $CONDA_ALIAS)" >&
 	echo -e "# Capture date: $CAPTURE_DATE"
 	echo -e "# Capture time: $CAPTURE_TIME"
 	echo -e "# Captured by: $CAPTURE_USER"
+    echo -e "# Captured on: $(hostname)"
     echo "#####################################################"
     echo -e "# source bashrc for conda"
     #echo -e "source \"\$(conda info --base)/etc/profile.d/conda.sh\""
@@ -241,7 +267,7 @@ echo "export | grep PYTHONNOUSERSITE" >> "$RECIPE_FILE"
 
 echo "[coble-recipise] Clearing default channels." >&2
 echo "# Channels section" >> "$RECIPE_FILE"
-echo "${CONDA_EXE} config --env --show channels | grep -q 'channels:' && ${CONDA_EXE} config --env --remove-key channels || true" >> "$RECIPE_FILE"
+echo "${CONDA_EXE} config --env --remove-key channels 2>/dev/null || true" >> "$RECIPE_FILE"
 echo "${CONDA_EXE} config --env --set channel_priority $PRIORITY" >> "$RECIPE_FILE"
 
 # Exit if there is more than 1 r or python version
@@ -279,6 +305,7 @@ while IFS= read -r line; do
 done < "$YAML_FILE"
 
 ### 02 MAIN TRANSLATION ###
+echo "COBLE env creation commencing - see $RECIPE_FILE." >&2
 echo "" >> "$RECIPE_FILE"
 echo "# INSTALL SECTION FOR CONDA" >> "$RECIPE_FILE"
 CURRENT_SECTION=""
@@ -286,9 +313,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     # Trim leading/trailing whitespace
     line="$(echo -e "${line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
     if [[ "$line" == "flags:"* \
-        || "$line" == "variables:"* \
+        || "$line" == "coble:"* \
         || "$line" == "channels:"* \
-        || "$line" == "compilers:"* \
         || "$line" == "languages:"* \
         || "$line" == "conda-r:"* \
         || "$line" == "r-conda:"* \
@@ -321,6 +347,12 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         if [[ "$line" == *conda* ]]; then
           echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${UPDATE_CONDA} \\" >> "$RECIPE_FILE"
         fi
+    # any other bare "word:" line is an unhandled/unknown section - a recipe is
+    # meant to be reproduced exactly, so refuse to silently drop part of it
+    elif [[ "$line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+        echo "[coble-recipise] This is an invalid header \"$line\" please fix the recipe file and then resume" >&2
+        echo "N"
+        exit 1
     elif [[ "$CURRENT_SECTION" == "validate:"* ]]; then
         line="${line#- }"
         echo "[coble-recipise] Adding line to validate: $line" >&2
@@ -338,11 +370,51 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         # For flags, parse directive and value from 'directive = value' format
         if [[ "$CURRENT_SECTION" == "channels:"* ]]; then
             continue
+        elif [[ "$CURRENT_SECTION" == "coble:"* ]]; then
+            # metadata only - environment name is already resolved earlier from this section
+            echo "# coble: $pkg_entry" >> "$RECIPE_FILE"
         elif [[ "$CURRENT_SECTION" == "flags:"* ]]; then
             directive="$(echo "$pkg_entry" | cut -d':' -f1)"
             value="$(echo "$pkg_entry" | cut -d':' -f2-)"
             directive="${directive## }"
             directive="${directive%% }"
+
+            # allow a <key=val,key=val> condition suffix on the directive, e.g. export<os=darwin,arch=arm64>
+            # this is resolved NOW, against the machine coble-recipise.sh is running on -
+            # the recipe.sh it writes is the already-resolved result for THIS machine, not a
+            # portable script that re-checks uname when it's run later.
+            condition=""
+            if [[ "$directive" =~ ^([a-zA-Z0-9_-]+)\<([^\>]*)\>$ ]]; then
+                directive="${BASH_REMATCH[1]}"
+                condition="${BASH_REMATCH[2]}"
+            fi
+            condition_met=true
+            if [[ -n "$condition" ]]; then
+                actual_os="$(uname -s)"
+                actual_arch="$(uname -m)"
+                IFS=',' read -ra cond_pairs <<< "$condition"
+                for pair in "${cond_pairs[@]}"; do
+                    ckey="$(echo "${pair%%=*}" | tr '[:upper:]' '[:lower:]')"
+                    cval="$(echo "${pair#*=}" | tr '[:upper:]' '[:lower:]')"
+                    case "$ckey" in
+                        os)
+                            case "$cval" in
+                                darwin|mac|macos) [[ "$actual_os" == "Darwin" ]] || condition_met=false ;;
+                                linux) [[ "$actual_os" == "Linux" ]] || condition_met=false ;;
+                                *) [[ "$(echo "$actual_os" | tr '[:upper:]' '[:lower:]')" == "$cval" ]] || condition_met=false ;;
+                            esac
+                            ;;
+                        arch)
+                            case "$cval" in
+                                arm64|aarch64) [[ "$actual_arch" == "arm64" || "$actual_arch" == "aarch64" ]] || condition_met=false ;;
+                                x86_64|amd64) [[ "$actual_arch" == "x86_64" || "$actual_arch" == "amd64" ]] || condition_met=false ;;
+                                *) [[ "$(echo "$actual_arch" | tr '[:upper:]' '[:lower:]')" == "$cval" ]] || condition_met=false ;;
+                            esac
+                            ;;
+                    esac
+                done
+            fi
+
             directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
             value="${value## }"
             value="${value%% }"
@@ -363,8 +435,18 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 DEPS_PYTHON=""
                 DEPS_R="NA"
             elif [[ "${directive_lower}" == "export" ]]; then
-                echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
-                echo "export ${value}" >> "$RECIPE_FILE"
+                if [[ -n "$condition" ]]; then
+                    if [[ "$condition_met" == true ]]; then
+                        echo "[coble-recipise] Conditional export on $condition. This machine is $(uname -s)/$(uname -m), adding $value" >&2
+                        echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
+                        echo "export ${value}" >> "$RECIPE_FILE"
+                    else
+                        echo "[coble-recipise] Conditional export on $condition. This machine is $(uname -s)/$(uname -m), skipping $value" >&2
+                    fi
+                else
+                    echo "${CONDA_EXE} env config vars set ${value}" >> "$RECIPE_FILE"
+                    echo "export ${value}" >> "$RECIPE_FILE"
+                fi
             elif [[ "${directive_lower}" == "alias" ]]; then
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 CONDA_ALIAS="$value"
@@ -407,112 +489,87 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "${CONDA_ALIAS} install -y --solver=${SOLVER} --no-update-deps -c conda-forge r-tidyverse r-visnetwork r-igraph r-ggraph" >>  "$RECIPE_FILE"
                 echo "" >> "$RECIPE_FILE"
 
-            elif [[ "${directive_lower}" == "system-tools" && "${value_lower}" == "true" ]]; then
-                echo "" >> "$RECIPE_FILE"
-                echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
-                echo "# Essential shared packages" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
-                if [[ $r_count -gt 0 ]]; then
-                    echo "# System r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
-                    echo "# Essential r packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"
-                    echo "" >> "$RECIPE_FILE"
-                fi
-                if [[ $python_count -gt 0 ]]; then
-                    echo "# Essential python packages" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge cython protobuf" >> "$RECIPE_FILE"
-                    echo "" >> "$RECIPE_FILE"
-                fi
-                # language build tools
-                echo "# Language build tools" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"
-                echo "# Language core system libraries" >> "$RECIPE_FILE"
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
-
-
-            elif [[ "${directive_lower}" == "compile-version" ]]; then
-                version="${value_lower}"
-                ARCH=$(uname -m)
-                OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-                echo "# Compile version $version on $OS for architecture $ARCH" >> "$RECIPE_FILE"
-                add_ver=""
-                if [[ $version != "true" ]]; then
-                    add_ver="=$version"
-                fi
-                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
-                # Installing for architecture
-                if [[ $OS == "linux" && $ARCH == "x86_64" ]]; then
-                    echo "# Detected Linux x86_64 - using linux-64 compilers" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge 'gcc_linux-64$add_ver' 'gxx_linux-64$add_ver' 'gfortran_linux-64$add_ver'" >>  "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
-                    echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
-                    echo "ln -sf /usr/bin/ld \${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld" >> "$RECIPE_FILE"
-                elif [[ $OS == "linux" ]]; then
-                    echo "# Detected Linux $ARCH - using generic linux compilers" >> "$RECIPE_FILE"
-                elif [[ $OS == "darwin" && $ARCH == "x86_64" ]]; then
-                    echo "# Detected MacOS x86_64 - using osx-64 compilers" >> "$RECIPE_FILE"
-                elif [[ $OS == "darwin" ]]; then
-                    echo "# Detected MacOS $ARCH - using generic osx compilers" >> "$RECIPE_FILE"
-                else
-                    echo "# Unrecognized OS/architecture ($OS/$ARCH) - using generic linux compilers" >> "$RECIPE_FILE"
-                fi
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then
-                if [[ "$version" != "false" ]]; then
-                    echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
-                fi
-            elif [[ "${directive_lower}" == "compile-paths" ]]; then
-                # only compile-paths no installs
-                echo "" >> "$RECIPE_FILE"
-                version="${value_lower}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile paths to recipe." >&2
-                    continue
-                fi
-                if [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile paths to recipe." >&2
-                    # symlinks
-                    #echo "# Set up compiler symlinks for R package compilation - COS6 compatibility" >> "$RECIPE_FILE"
-                    echo "umask 0022" >> "$RECIPE_FILE"
-                    echo "" >> "$RECIPE_FILE"
-                fi
+            elif [[ "${directive_lower}" == "compile" ]]; then
+                compile_key="$(echo "${value%%=*}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr '[:upper:]' '[:lower:]')"
+                compile_val="$(echo "${value#*=}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+                compile_val_lower=$(echo "$compile_val" | tr '[:upper:]' '[:lower:]')
+                case "$compile_key" in
+                    tools)
+                        if [[ "$compile_val_lower" != "false" ]]; then
+                            echo "[coble-recipise] Adding compile tools ($compile_val) to recipe." >&2
+                            echo "# Language compile tools" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
+                        else
+                            echo "[coble-recipise] Not adding compile tools to recipe." >&2
+                        fi
+                        ;;
+                    version)
+                        ARCH=$(uname -m)
+                        OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+                        echo "# Compile version $compile_val on $OS for architecture $ARCH" >> "$RECIPE_FILE"
+                        add_ver=""
+                        if [[ "$compile_val_lower" != "true" ]]; then
+                            add_ver="=$compile_val"
+                        fi
+                        if [[ $OS == "linux" && $ARCH == "x86_64" ]]; then
+                            echo "# Detected Linux x86_64 - using linux-64 compilers" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge sysroot_linux-64 c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge 'gcc_linux-64$add_ver' 'gxx_linux-64$add_ver' 'gfortran_linux-64$add_ver'" >>  "$RECIPE_FILE"
+                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc \$CONDA_PREFIX/bin/gcc" >> "$RECIPE_FILE"
+                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ \$CONDA_PREFIX/bin/g++" >> "$RECIPE_FILE"
+                            echo "ln -sf \$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran \$CONDA_PREFIX/bin/gfortran" >> "$RECIPE_FILE"
+                            echo "ln -sf /usr/bin/ld \${CONDA_PREFIX}/x86_64-conda-linux-gnu/bin/ld" >> "$RECIPE_FILE"
+                        elif [[ $OS == "linux" ]]; then
+                            echo "# Detected Linux $ARCH - using generic linux compilers (no sysroot_linux-64, that's x86_64-only)" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                        elif [[ $OS == "darwin" ]]; then
+                            echo "# Detected MacOS $ARCH - using osx compilers" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                        else
+                            echo "# Unrecognized OS/architecture ($OS/$ARCH) - using generic compilers" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge c-compiler cxx-compiler" >>  "$RECIPE_FILE"
+                        fi
+                        ;;
+                    paths)
+                        if [[ "$compile_val_lower" == "true" ]]; then
+                            echo "[coble-recipise] Adding default compile paths to recipe." >&2
+                            echo "" >> "$RECIPE_FILE"
+                            echo "umask 0022" >> "$RECIPE_FILE"
+                            echo "" >> "$RECIPE_FILE"
+                        else
+                            echo "[coble-recipise] Not adding compile paths to recipe." >&2
+                        fi
+                        ;;
+                    system)
+                        if [[ "$compile_val_lower" == "true" ]]; then
+                            echo "" >> "$RECIPE_FILE"
+                            echo "# Including system dependencies for source installations" >> "$RECIPE_FILE"
+                            echo "# Essential shared packages" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libcurl libprotobuf libpng libtiff libjpeg-turbo gdal proj geos gsl nlopt hdf5 cairo freetype expat fontconfig harfbuzz fribidi imagemagick" >>  "$RECIPE_FILE"
+                            if [[ $r_count -gt 0 ]]; then
+                                echo "# System r packages" >> "$RECIPE_FILE"
+                                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge librsvg udunits2" >> "$RECIPE_FILE"
+                                echo "# Essential r packages" >> "$RECIPE_FILE"
+                                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge r-cpp11 r-openssl r-rsqlite r-essentials r-rsvg" >>  "$RECIPE_FILE"
+                                echo "" >> "$RECIPE_FILE"
+                            fi
+                            if [[ $python_count -gt 0 ]]; then
+                                echo "# Essential python packages" >> "$RECIPE_FILE"
+                                echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge cython protobuf" >> "$RECIPE_FILE"
+                                echo "" >> "$RECIPE_FILE"
+                            fi
+                            echo "# Language build tools" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge libtool autoconf cmake pkg-config" >>  "$RECIPE_FILE"
+                            echo "# Language core system libraries" >> "$RECIPE_FILE"
+                            echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge zlib bzip2 xz libxcrypt openssl sqlite" >> "$RECIPE_FILE"
+                        fi
+                        ;;
+                esac
+            elif [[ "${directive_lower}" == "compile-tools" || "${directive_lower}" == "compile-version" || "${directive_lower}" == "compile-paths" || "${directive_lower}" == "system-tools" ]]; then
+                echo "[coble-recipise] '$directive' has been replaced by 'compile: <key>=<value>' (tools=/version=/paths=/system=) - please fix the recipe file and then resume" >&2
+                echo "N"
+                exit 1
             fi
-        elif [[ "$CURRENT_SECTION" == "compilers:"* ]]; then
-            directive="$(echo "$pkg_entry" | cut -d':' -f1)"
-            pkg_entry="$(echo "$pkg_entry" | cut -d':' -f2-)"
-            directive="${directive## }"
-            directive="${directive%% }"
-            directive_lower=$(echo "$directive" | tr '[:upper:]' '[:lower:]')
-            pkg_entry="${pkg_entry## }"
-            pkg_entry="${pkg_entry%% }"
-            echo "[coble-recipise] Processing compiler directive: $directive $pkg_entry" >&2
-            if [[ "${directive_lower}" == "cran-repo" ]]; then
-                echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
-                CRAN_REPO="$pkg_entry"
-            elif [[ "${directive_lower}" == "compile-tools" ]]; then
-                echo "[coble-recipise] Compile tools" >&2
-                # if compile-tools = true then add compiler installs
-                # if a version is given use the specific version
-                echo "" >> "$RECIPE_FILE"
-                version="${pkg_entry}"
-                if [[ "$version" == "false" ]]; then
-                    echo "[coble-recipise] Not adding compile tools to recipe." >&2
-                    continue
-                elif [[ "$version" == "true" ]]; then
-                    echo "[coble-recipise] Adding default compile tools to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
-
-                elif [[ "$version" != "false" ]]; then
-                    echo "[coble-recipise] Adding compile tools version $version to recipe." >&2
-                    echo "# Language compile tools" >> "$RECIPE_FILE"
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} $UPDATE_CONDA -c conda-forge compilers" >>  "$RECIPE_FILE"
-                fi
-            fi
-
         elif [[ "$CURRENT_SECTION" == "languages:"* ]]; then
             # trim whitespace from src
             src="${src## }"    # remove leading spaces
