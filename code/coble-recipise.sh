@@ -40,6 +40,7 @@ echo "[coble-recipise] Starting recipise process..." >&2
 MAX_DEACTIVATIONS=5
 count=0
 comment_gather=""
+R_INSTALLED=false
 
 remove_trailing_backslash() {
     local file="$1"
@@ -451,6 +452,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 CONDA_ALIAS="$value"
             elif [[ "${directive_lower}" == "cran-repo" ]]; then
+                if [[ "$R_INSTALLED" != true ]]; then
+                    echo "[coble-recipise] cran-repo sets its CRAN mirror via a direct Rscript call, but R hasn't been installed yet at this point in the recipe - move this 'flags: - cran-repo: ...' line to after 'languages:' (a separate flags: block is fine) and then resume." >&2
+                    echo "N"
+                    exit 1
+                fi
                 echo "# Flag: Directive: $directive, Value: $value_lower" >> "$RECIPE_FILE"
                 CRAN_REPO="$value"
                 echo "Rscript -e 'options(repos=c(CRAN=\"$CRAN_REPO\"))'" >>  "$RECIPE_FILE"
@@ -579,6 +585,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             if [[ "$pkg_only" == *"no-deps"* ]]; then
                 DEPS_CONDA="--no-deps"
             elif [[ "$pkg_only" == "r-base" ]]; then
+                R_INSTALLED=true
                 # R may need compilers for itself so simlink the system tools into the env first
                 echo "CONDA_BASE=\$(conda info --base)" >> "$RECIPE_FILE"
                 echo "ARCH=\$(uname -m)" >> "$RECIPE_FILE"

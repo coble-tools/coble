@@ -135,14 +135,44 @@ if [[ -n "$PLATFORM" ]]; then
 fi
 
 # Validate required arguments
-if [[ -z "$ENV_NAME" ]]; then
-    echo "Error: --env is required"
+if [[ -z "$INPUT_RECIPE" ]]; then
+    echo "Error: --recipe is required"
     show_help
     exit 1
 fi
 
-if [[ -z "$INPUT_RECIPE" ]]; then
-    echo "Error: --recipe is required"
+if [[ ! -f "$INPUT_RECIPE" ]]; then
+    echo "Error: Recipe file not found: $INPUT_RECIPE"
+    exit 1
+fi
+
+# If --env wasn't given explicitly, look for a "coble: - environment: NAME" entry
+# in the recipe itself - same fallback coble-recipise.sh applies internally, but
+# needed here too since ENV_NAME drives image/file naming before the recipe is
+# ever parsed by coble-recipise.sh.
+if [[ -z "$ENV_NAME" ]]; then
+    scan_section=""
+    while IFS= read -r scan_line; do
+        scan_line="$(echo -e "${scan_line}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+        if [[ "$scan_line" == "coble:"* ]]; then
+            scan_section="coble"
+        elif [[ -z "$scan_line" || "$scan_line" =~ ^([a-zA-Z0-9_-]+):$ ]]; then
+            scan_section=""
+        elif [[ "$scan_section" == "coble" && "$scan_line" == "-"* ]]; then
+            scan_entry="${scan_line#- }"
+            if [[ "$scan_entry" == "environment:"* ]]; then
+                coble_env_name="$(echo "${scan_entry#environment:}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+                if [[ -n "$coble_env_name" ]]; then
+                    echo "[coble-docker] Using environment name '$coble_env_name' from recipe's coble: section"
+                    ENV_NAME="$coble_env_name"
+                fi
+            fi
+        fi
+    done < "$INPUT_RECIPE"
+fi
+
+if [[ -z "$ENV_NAME" ]]; then
+    echo "Error: --env is required"
     show_help
     exit 1
 fi
@@ -154,11 +184,6 @@ else
         echo "Error: Validate file not found: $VAL_FILE"
         exit 1
     fi
-fi
-
-if [[ ! -f "$INPUT_RECIPE" ]]; then
-    echo "Error: Recipe file not found: $INPUT_RECIPE"
-    exit 1
 fi
 
 if [[ -z "$IMAGE_NAME" ]]; then

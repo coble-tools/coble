@@ -70,12 +70,14 @@ check them against this model, not against "is this valid as a whole script."
   same order the `.cbl` is read, so a `flags:` line only affects package
   installs that come **after** it in the file. Some directives need to
   precede `languages:`/package sections they configure (e.g. a `CONDA_SUBDIR`
-  export), while others need to *follow* R being installed (e.g. `cran-repo:`,
-  which emits a direct `Rscript -e 'options(repos=...)'` call). If a single
-  `flags:` block would need to sit both before and after `languages:` to
-  satisfy every directive in it, split it into two blocks instead — this is
-  a normal, supported pattern; a file can have as many `flags:` blocks as it
-  needs, in whatever order the individual directives require.
+  export); `cran-repo:` is the opposite — it runs a direct `Rscript` call, so
+  it must come *after* `languages:`, not before (placing it too early is
+  caught with a clear error at generation time rather than failing later
+  inside a Docker build). If a single `flags:` block would need to sit both
+  before and after `languages:` to satisfy every directive in it, split it
+  into two blocks instead — this is a normal, supported pattern; a file can
+  have as many `flags:` blocks as it needs, in whatever order the individual
+  directives require.
 - Standalone comment lines are gathered into a `comment_gather` buffer
   instead of being written immediately, and get flushed (prefixed `#^`,
   meaning "belongs to the block above") whenever `remove_trailing_backslash`
@@ -187,6 +189,12 @@ There is no `compilers:` section — everything here lives under `flags:`.
   the given validate script, or an empty placeholder if none was given —
   and `coble.Dockerfile` always `COPY`s from that fixed path rather than
   from `$VAL_FILE` directly.
+- `--env` is optional in coble-container.sh/coble-platform.sh too, same
+  fallback as `coble-recipise.sh`: if omitted, both scan the recipe for a
+  `coble: - environment: NAME` entry and use that. This has to be a
+  separate scan in each script, not shared with `coble-recipise.sh`'s own
+  version, because `$ENV_NAME` drives image tag and file naming on the host
+  side before the recipe is ever handed to `coble-recipise.sh`.
 
 ## Working style for this repo
 
