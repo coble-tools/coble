@@ -26,7 +26,7 @@ When installing an old version of R, the recommendation is to use a cran snapsho
 
 ```yaml
 
-compilers:
+flags:
   - cran-repo: https://packagemanager.posit.co/cran/2020-04-01
 
 ```
