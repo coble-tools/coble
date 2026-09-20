@@ -1,0 +1,213 @@
+------------------------------------------------
+[coble-create] Summary log started by rachel.alcraft on 2026-09-20 at 11:03:10 BST
+------------------------------------------------
+
+[coble-create] Start time: 2026-09-20 11:03:11 1/      64
+install: if [ -f ~/.bash_profile ]; then source ~/.bash_profile; elif [ -f ~/.bashrc ]; then source ~/.bashrc; elif command -v conda > /dev/null 2>&1; then eval "$(conda shell.bash hook)"; fi
+[coble-create] End time: 2026-09-20 11:03:14
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:14 3/      64
+install: conda env remove --name tmp -y 2>/dev/null || true
+[coble-create] End time: 2026-09-20 11:03:17
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:17 5/      64
+install: conda create --no-default-packages --name tmp -y
+[coble-create] End time: 2026-09-20 11:03:22
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-09-20 11:03:22 7/      64
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-09-20 11:03:24
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:03:24 8/      64
+install: unset PYTHONPATH
+[coble-create] End time: 2026-09-20 11:03:26
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:03:26 9/      64
+install: conda  clean --all -y --force-pkgs-dirs
+[coble-create] End time: 2026-09-20 11:03:32
+[coble-create] Duration: 4s
+
+[coble-create] Start time: 2026-09-20 11:03:32 11/      64
+install: conda deactivate | true
+[coble-create] End time: 2026-09-20 11:03:34
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:34 12/      64
+install: conda deactivate | true
+[coble-create] End time: 2026-09-20 11:03:37
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:37 13/      64
+install: conda activate tmp
+[coble-create] End time: 2026-09-20 11:03:39
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:39 14/      64
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-09-20 11:03:41
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:41 15/      64
+install: export | grep PYTHONNOUSERSITE
+[coble-create] End time: 2026-09-20 11:03:43
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:03:43 16/      64
+install: conda config --env --show channels | grep -q 'channels:' && conda config --env --remove-key channels || true
+[coble-create] End time: 2026-09-20 11:03:46
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:46 18/      64
+install: conda config --env --set channel_priority strict
+[coble-create] End time: 2026-09-20 11:03:49
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:49 19/      64
+install: conda config --env --add channels bioconda
+[coble-create] End time: 2026-09-20 11:03:52
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:03:52 21/      64
+install: conda config --env --add channels conda-forge
+[coble-create] End time: 2026-09-20 11:03:54
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:03:54 23/      64
+install: conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
+dep: # ca-certificates    conda-forge/noarch::ca-certificates-2026.7.22-hbd8a1cb_0
+dep: # compiler-rt21_osx~ conda-forge/noarch::compiler-rt21_osx-arm64-21.1.8-hb8825d9_2
+dep: # compiler-rt_osx-a~ conda-forge/noarch::compiler-rt_osx-arm64-21.1.8-hce30654_2
+dep: # libcxx-headers     conda-forge/noarch::libcxx-headers-21.1.8-h707e725_3
+dep: # libgcc-devel_osx-~ conda-forge/noarch::libgcc-devel_osx-arm64-15.3.0-h647fcfe_105
+[coble-create] End time: 2026-09-20 11:04:13
+[coble-create] Duration: 17s
+
+[coble-create] Start time: 2026-09-20 11:04:13 25/      64
+install: CONDA_BASE=$(conda info --base)
+[coble-create] End time: 2026-09-20 11:04:16
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:04:16 27/      64
+install: ARCH=$(uname -m)
+[coble-create] End time: 2026-09-20 11:04:18
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:04:18 29/      64
+install: conda install -y --solver=libmamba --no-update-deps 'r-base=4.4.2'
+dep: # _r-mutex           conda-forge/noarch::_r-mutex-1.0.1-anacondar_1
+dep: # font-ttf-dejavu-s~ conda-forge/noarch::font-ttf-dejavu-sans-mono-2.37-hab24e00_0
+dep: # font-ttf-inconsol~ conda-forge/noarch::font-ttf-inconsolata-3.000-h77eed37_0
+dep: # font-ttf-source-c~ conda-forge/noarch::font-ttf-source-code-pro-2.038-h77eed37_0
+dep: # font-ttf-ubuntu    conda-forge/noarch::font-ttf-ubuntu-0.83-h77eed37_3
+dep: # fonts-conda-ecosy~ conda-forge/noarch::fonts-conda-ecosystem-1-0
+dep: # fonts-conda-forge  conda-forge/noarch::fonts-conda-forge-1-hc364b38_1
+dep: # libgfortran-devel~ conda-forge/noarch::libgfortran-devel_osx-arm64-13.4.0-ha240a38_1
+dep: # tzdata             conda-forge/noarch::tzdata-2026c-h151e31d_0
+[coble-create] End time: 2026-09-20 11:04:41
+[coble-create] Duration: 20s
+
+[coble-create] Start time: 2026-09-20 11:04:41 31/      64
+install: conda install -y --solver=libmamba --no-update-deps r-remotes r-biocmanager r-renv
+dep: # r-biocmanager      conda-forge/noarch::r-biocmanager-1.30.27-r44hc72bb7e_0
+dep: # r-remotes          conda-forge/noarch::r-remotes-2.5.0-r44hc72bb7e_2
+[coble-create] End time: 2026-09-20 11:04:46
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-09-20 11:04:47 33/      64
+install: conda install -y --solver=libmamba --no-update-deps 'python=3.12.12'
+dep: # packaging          conda-forge/noarch::packaging-26.3-pyhc364b38_0
+dep: # pip                conda-forge/noarch::pip-26.2.1-pyh8b19718_0
+dep: # setuptools         conda-forge/noarch::setuptools-84.0.0-pyh332efcf_0
+dep: # wheel              conda-forge/noarch::wheel-0.48.0-pyhd8ed1ab_0
+[coble-create] End time: 2026-09-20 11:05:04
+[coble-create] Duration: 15s
+
+[coble-create] Start time: 2026-09-20 11:05:04 35/      64
+install: python -m site
+[coble-create] End time: 2026-09-20 11:05:06
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:06 37/      64
+install: conda env config vars set PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-09-20 11:05:09
+[coble-create] Duration: 1s
+
+[coble-create] Start time: 2026-09-20 11:05:09 38/      64
+install: export PYTHONNOUSERSITE=1
+[coble-create] End time: 2026-09-20 11:05:11
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:11 41/      64
+install: conda install -y --solver=libmamba --no-update-deps  cairo=1.18  pango=1.56 
+    # All requested packages already installed.
+[coble-create] End time: 2026-09-20 11:05:16
+[coble-create] Duration: 3s
+
+[coble-create] Start time: 2026-09-20 11:05:16 45/      64
+install: conda install -y --solver=libmamba --no-update-deps  'r-data.table'  'r-tidyr' 
+dep: # r-crayon           conda-forge/noarch::r-crayon-1.5.3-r44hc72bb7e_2
+dep: # r-generics         conda-forge/noarch::r-generics-0.1.4-r44hc72bb7e_1
+dep: # r-lifecycle        conda-forge/noarch::r-lifecycle-1.0.5-r44hc72bb7e_0
+dep: # r-pillar           conda-forge/noarch::r-pillar-1.11.1-r44hc72bb7e_0
+dep: # r-pkgconfig        conda-forge/noarch::r-pkgconfig-2.0.3-r44hc72bb7e_5
+dep: # r-r6               conda-forge/noarch::r-r6-2.6.1-r44hc72bb7e_1
+dep: # r-stringr          conda-forge/noarch::r-stringr-1.6.0-r44h785f33e_0
+dep: # r-tidyselect       conda-forge/noarch::r-tidyselect-1.2.1-r44hc72bb7e_2
+dep: # r-withr            conda-forge/noarch::r-withr-3.0.3-r44hc72bb7e_0
+[coble-create] End time: 2026-09-20 11:05:23
+[coble-create] Duration: 5s
+
+[coble-create] Start time: 2026-09-20 11:05:23 47/      64
+install: python -m pip install 'requests' 
+    Successfully installed certifi-2026.7.22 charset_normalizer-3.5.1 idna-3.20 requests-2.34.2 urllib3-2.8.0
+[coble-create] End time: 2026-09-20 11:05:33
+[coble-create] Duration: 8s
+
+[coble-create] Start time: 2026-09-20 11:05:33 49/      64
+install: echo "#!/usr/bin/env bash" > ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-09-20 11:05:35
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:35 51/      64
+install: echo 'echo "COBLE validation: No script has been specified for tmp environment."' >> ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-09-20 11:05:37
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:37 53/      64
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-09-20 11:05:39
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:39 55/      64
+install: chmod +x ${CONDA_PREFIX}/bin/validate.sh
+[coble-create] End time: 2026-09-20 11:05:41
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:41 57/      64
+install: mkdir -p ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-09-20 11:05:44
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:44 59/      64
+install: cp tmp.cbl ${CONDA_PREFIX}/coble-recipe
+[coble-create] End time: 2026-09-20 11:05:46
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:46 61/      64
+install: cp /Users/rachel.alcraft/dev/gh-bcds/COBLE/coble/code/coble ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-09-20 11:05:48
+[coble-create] Duration: 0s
+
+[coble-create] Start time: 2026-09-20 11:05:48 63/      64
+install: cp /Users/rachel.alcraft/dev/gh-bcds/COBLE/coble/code/coble-* ${CONDA_PREFIX}/bin/
+[coble-create] End time: 2026-09-20 11:05:50
+[coble-create] Duration: 0s
+--------------------------------------
+[coble-create] Recipe created at: 2026-09-20 11:05:50
+[coble-create] Recipe took: 0h 2m 39s
+--------------------------------------
