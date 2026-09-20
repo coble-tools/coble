@@ -39,4 +39,4 @@ The workflow needs these set as repository secrets (it checks `ANACONDA_TOKEN`/`
 
 ## Container images (separate process)
 
-Docker/Singularity images built from `.cbl` recipes (the community environments published to `ghcr.io`) are a downstream consumer of the released conda package, not part of releasing `coble` itself - they run `conda install rachelsa::coble` (or build from local/GitHub source, see `--code-source` in `coble/CLAUDE.md`) to get the tool, then use it to build a specific recipe's environment. Those are triggered separately via `coble-community/.github/workflows/container.yml` and `cont-conda.yml`.
+Docker/Singularity images built from `.cbl` recipes (the community environments published to `ghcr.io`) are a downstream consumer of the released conda package, not part of releasing `coble` itself - they run `conda install rachelsa::coble` to get the tool, then use it to build a specific recipe's environment. Those are triggered separately via `coble-community/.github/workflows/cont-conda.yml`.

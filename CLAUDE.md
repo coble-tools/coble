@@ -113,12 +113,15 @@ There is no `compilers:` section — everything here lives under `flags:`.
   onto a Linux run: a bare `arch=arm64` condition would also match Linux
   ARM64 (`uname -m == aarch64`, e.g. GitHub's `ubuntu-24.04-arm` runner),
   which is why the guard always pairs `os=darwin` with `arch=arm64`.
-- coble-community/.github/workflows/container.yml's multi-arch strategy is
+- coble-community/.github/workflows/cont-conda.yml's multi-arch strategy is
   native-runner-per-arch: `ubuntu-latest` builds amd64, `ubuntu-24.04-arm`
   builds arm64, each with a plain `docker build` (no buildx). A separate
   `manifest` job then uses `docker buildx imagetools create` only to merge
   the two arch-specific images into one manifest list — buildx is not used
-  to cross-build.
+  to cross-build. This workflow installs `coble` via `conda install
+  rachelsa::coble` to run the orchestration itself, and doesn't pass
+  `--code-source` to the build — so the image's own coble installation is a
+  fresh GitHub clone of `main`, not tied to any local checkout.
 - coble-container.sh has unused `--dual` / `--dual-ci` flags: parsed into
   `DUAL` / `DUAL_CI` but never referenced afterward. Don't assume they do
   anything. For building a specific non-native platform, use `--platform`
@@ -127,7 +130,7 @@ There is no `compilers:` section — everything here lives under `flags:`.
   native-runner approach doesn't cover: building a specific *non-native*
   platform *locally* (e.g. testing linux/arm64 on an amd64 dev machine, or
   vice versa) via `docker buildx build --platform ... --load`. It is not
-  used by container.yml or by coble-container.sh's normal path.
+  used by cont-conda.yml or by coble-container.sh's normal path.
   **Dispatch chain**, since users invoke the top-level `coble` wrapper, not
   coble-container.sh directly: `coble build --containers docker --platform
   <value> ...` → `coble` forwards `"${@:2}"` to coble-container.sh whenever

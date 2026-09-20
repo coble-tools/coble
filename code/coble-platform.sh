@@ -39,7 +39,7 @@ Singularity is never built here, even if you were used to passing
 cross-arch (and cross-OS, from a Mac), and there's no guarantee
 singularity/apptainer is even present or meaningful on the machine running
 this script. Use coble-container.sh's native-runner-per-arch path (as
-container.yml does) for Singularity images.
+cont-conda.yml does) for Singularity images.
 
 OPTIONS:
     --platform PLATFORM  Required. A single buildx platform, e.g. linux/amd64 or linux/arm64
