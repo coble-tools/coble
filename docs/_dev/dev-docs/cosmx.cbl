@@ -9,8 +9,8 @@ languages:
   - r-base=4.4@conda-forge
 flags:
   - dependencies: NA
-  - system-tools: False
-  - compile-tools: True 
+  - compile: system=False
+  - compile: tools=True 
 conda:
   - zlib@conda-forge
 r-conda: 

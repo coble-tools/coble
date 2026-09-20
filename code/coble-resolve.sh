@@ -72,7 +72,7 @@ cp "$YAML_FINAL" "$YAML_BACKUP"
 
 # First check if there are any 'find:' entries OR any 'found|''
 if ! grep -qE '^[[:space:]]*find:' "$YAML_FILE" && ! grep -qE '^[[:space:]]*found\|' "$YAML_FILE"; then
-    echo "[coble-find] No find: or found| entries found, already resolved: $YAML_FILE" >&2
+    #echo "[coble-find] No find: or found| entries found, already resolved: $YAML_FILE" >&2
     echo N
     exit 0
 #else

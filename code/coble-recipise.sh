@@ -38,6 +38,7 @@ echo "[coble-recipise] Starting recipise process..." >&2
 # NOW deactivate
 MAX_DEACTIVATIONS=5
 count=0
+comment_gather=""
 
 remove_trailing_backslash() {
     local file="$1"
@@ -48,6 +49,11 @@ remove_trailing_backslash() {
 
     cp "$file" "$file.bak" || { rm -f "$tmp"; return 1; }
     mv "$tmp" "$file"
+
+    if [[ -n "$comment_gather" ]]; then
+        printf '%s' "$comment_gather" >> "$file"
+        comment_gather=""
+    fi
 }
 
 # Parse named arguments
@@ -638,13 +644,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
             fi
         fi
     else
-        # remove a trailing \ if needed
-        remove_trailing_backslash "$RECIPE_FILE"
-        # if it is a comment
+        # if it is a comment, hold it - don't let it interrupt an in-progress continuation
         if [[ "$line" == \#* ]]; then
-            echo "$line" >> "$RECIPE_FILE"
+            # mark with ^ to show, once flushed, it belongs to the block above
+            comment_gather+="#^${line:1}"$'\n'
         # if line is a space we preserve it
         elif [[ -z "$line" ]]; then
+            remove_trailing_backslash "$RECIPE_FILE"
             echo "" >> "$RECIPE_FILE"
         fi
     fi

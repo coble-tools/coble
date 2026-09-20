@@ -15,9 +15,9 @@ languages:
   - r-base=4.3.1@conda-forge #  you must choose a version for them
 flags:
   - dependencies: NA # NA / true / false - NA+true - required dependencies only, false - all dependencies, true means also suggested
-  - system-tools: false # some common system tools e.g. devtools BiocManager, remotes
-  - compile-tools: false # false / 13.1 / true  - installs defaults or specified versions of common libs
-  - compile-paths: true # true / false - adds compile tool paths only to conda env (not needed if you have the above)
+  - compile: system=false # some common system tools e.g. devtools BiocManager, remotes
+  - compile: tools=false # false / 13.1 / true  - installs defaults or specified versions of common libs
+  - compile: paths=true # true / false - adds compile tool paths only to conda env (not needed if you have the above)
   - network-viz: true # true / false - installs R packages for network visualisation of R package dependencies
   - export: VAR1=VALUE1 # sets environment variables within the conda env
   - updates: false # false / true = --no-update-deps / --update-deps or a specific flag string such as "--freeze-installed"

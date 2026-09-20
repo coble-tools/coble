@@ -9,12 +9,12 @@ channels:
 languages:
   - r-base=4.5.2@conda-forge
   - python=3.14.0@conda-forge
-compilers:      
-  - compile-tools: true
+flags:      
+  - compile: tools=true
   - cran-repo: https://packagemanager.posit.co/cran/2026-02-01  
 flags:
-  - compile-version: 11.4 
-  - system-tools: true
+  - compile: version=11.4 
+  - compile: system=true
   - dependencies: NA     
   - ncpus: 8  
 bash:
