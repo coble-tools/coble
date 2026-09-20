@@ -238,6 +238,17 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
         cp -r "$COBLE_ROOT"/. "$STAGE_DIR"/
     fi
 
+    # Same reasoning for --validate: it's optional, but Docker's COPY needs a
+    # real file either way - stage the given file, or an empty placeholder if
+    # none was given, rather than letting COPY see an empty/missing source.
+    VAL_STAGE=".coble-validate-stage"
+    rm -rf "$VAL_STAGE"
+    if [[ -n "$VAL_FILE" ]]; then
+        cp "$VAL_FILE" "$VAL_STAGE"
+    else
+        : > "$VAL_STAGE"
+    fi
+
     echo "[coble-docker] Using regular docker build (native platform)..."
     echo "[coble-docker] Building Docker image $IMAGE_NAME with build args"
     echo "  RECIPE_CBL=$INPUT_RECIPE"
@@ -258,7 +269,7 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     --no-cache \
     -t "coble-${ENV_NAME}:latest" . 2>&1 | tee $DOCKERLOGFILE
     BUILD_EXIT_CODE=${PIPESTATUS[0]}
-    rm -rf "$STAGE_DIR"
+    rm -rf "$STAGE_DIR" "$VAL_STAGE"
     if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
         echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
         exit 1
