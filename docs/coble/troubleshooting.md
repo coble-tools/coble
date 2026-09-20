@@ -25,7 +25,7 @@ conda env list
 You may need to change from `bioc-conda` to `bioc-package` when a new version of r comes out, and potentially solve some dependencies. Some of the packages will not pull in dependencies from others, so for example Biocmanager will need you to explicitly make some conda installs. R-Forge packages will not pull in cran.
 
 ## Missing compiler tools
-Most are installed if you set the compile-tools and system-tools flag to true. Different versions of operating systems and code may have dependencies on old or newer compilers, so instead of just true you can specify a version eg `13.3.0`.
+Most are installed if you set `compile: tools=true` and `compile: system=true` in a `flags:` section. Different versions of operating systems and code may have dependencies on old or newer compilers, so instead of `tools=true` you can specify a version, e.g. `compile: tools=13.3.0` (or `compile: version=13.3.0` to pin an exact compiler version rather than just installing the generic toolchain - see [anatomy](anatomy.md#flags)).
 
 For more bespoke compiler issues, you can use an environment variable in the flags, or set through bash, or explicitly set a more permissive compiler warning like:
 ```bash
@@ -97,4 +97,17 @@ I had to keep trying versions of sp until I found one that had header files and 
 **update message** it can be annoying to get warning messages about updates when you just updated and the version is 0.01 out of date. You can supporess these warnings by passing a flag to the .condarc which you can do manually or by:
 ```bash
 conda config --set notify_outdated_conda false
+```
+
+## CURL location
+#bioconda's bioconductor-genomeinfodbdata post-link script fetches its data
+tarball with `curl` and no -L. bioconductor.org has since moved to 302
+redirects for package downloads, so that fetch quietly stores the redirect
+page, the md5 check fails and the whole conda transaction aborts. For such cases, give curl
+a config that follows redirects; scoped to this environment and this build.
+```bash
+bash:
+  mkdir -p $CONDA_PREFIX/etc/coble
+  echo location > $CONDA_PREFIX/etc/coble/.curlrc
+  export CURL_HOME=$CONDA_PREFIX/etc/coble
 ```

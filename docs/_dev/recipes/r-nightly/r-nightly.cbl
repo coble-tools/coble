@@ -7,8 +7,8 @@ channels:
   - defaults
   - bioconda
   - conda-forge  
-compilers:  
-  - compile-tools: true  
+flags:  
+  - compile: tools=true  
 languages:
   - r-base=devel@source
 flags:

@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-
-# Keep the original args around in case we need to hand off to coble-platform.sh below
-ORIGINAL_ARGS=("$@")
+##############
+# Build a Docker container for one specific platform via buildx, e.g. for
+# local cross-platform testing. Docker only - never Singularity: a buildx
+# --platform build is routinely cross-arch (and, run from a Mac, cross-OS
+# too), and there's no guarantee singularity/apptainer is even present or
+# meaningful on the machine running this - see the "no macOS Singularity
+# build" fact in CLAUDE.md.
+# This is coble-container.sh's --platform sibling: coble-container.sh hands
+# off here as soon as it sees --platform, so this script has to parse and
+# validate its own arguments rather than relying on the caller.
+##############
 
 # Default values
 ENV_NAME=""
 INPUT_RECIPE=""
-containers="docker,singularity"
 IMAGE_NAME=""
-DUAL_CI=false
-DUAL=""
 VAL_FILE=""
 VAL_FOLDER=""
 DRY_RUN=false
@@ -21,37 +26,38 @@ PLATFORM=""
 # Help function
 show_help() {
     cat << EOF
-Usage: $(basename "$0") [OPTIONS]
+Usage: $(basename "$0") --platform PLATFORM [OPTIONS]
 
-Build Docker and Singularity containers from COBLE recipes.
+Build a Docker container (never Singularity - see note below) for one
+specific platform via 'docker buildx build --platform ... --load', so the
+image lands in your local Docker daemon ready to run - useful for testing a
+non-native platform locally (e.g. building linux/arm64 on an amd64 machine,
+or vice versa, via QEMU/Rosetta emulation).
+
+Singularity is never built here, even if you were used to passing
+--containers to coble-container.sh: a buildx --platform build is routinely
+cross-arch (and cross-OS, from a Mac), and there's no guarantee
+singularity/apptainer is even present or meaningful on the machine running
+this script. Use coble-container.sh's native-runner-per-arch path (as
+container.yml does) for Singularity images.
 
 OPTIONS:
-    --env NAME          Name for the container environment (required)
-    --recipe PATH        Path to the .cbl recipe file (required)
-    --containers TYPE    Comma-separated list of containers to build: conda,docker,singularity (default: conda)
-    --image NAME         Name for the Docker image (default: cbl-ENV_NAME)
-    --dry-run            Show the build commands without executing them
-    --rebuild            Force rebuild of the Docker image without using cache
-    --code-source SOURCE Source for COBLE code: main (default) or local, or a specific SHA
-    --platform PLATFORM  Build for a specific platform via buildx (e.g. linux/arm64) - delegates to coble-platform.sh
-    -h, --help          Show this help message
+    --platform PLATFORM  Required. A single buildx platform, e.g. linux/amd64 or linux/arm64
+                          (the same syntax docker/buildx itself takes). Multiple
+                          comma-separated platforms are not supported here, since
+                          --load cannot load a multi-platform manifest locally.
+    --env NAME            Name for the container environment (required)
+    --recipe PATH         Path to the .cbl recipe file (required)
+    --validate PATH       Path to the validation script (required)
+    --val-folder PATH     Additional validation files to layer in
+    --image NAME          Name for the Docker image (default: cbl-ENV_NAME)
+    --dry-run             Show the build commands without executing them
+    --code-source SOURCE  Source for COBLE code: main (default) or local, or a specific SHA
+    --ubuntu VERSION       Ubuntu base image version (default: 22.04)
+    -h, --help             Show this help message
 
-# Then test the image
-docker run --rm -it cbl-carbine-arm64 /bin/bash
-
-EXAMPLES:
-    # Build both Docker and Singularity containers
-    $(basename "$0") --env basic --recipe config/basic.cbl
-
-    # Only build Docker image
-    $(basename "$0") --env basic --recipe config/basic.cbl --steps 1
-
-    # Only build Singularity image (assumes Docker image exists)
-    $(basename "$0") --env basic --recipe config/basic.cbl --steps 2
-
-    # Build mac and linuc
-    $(basename "$0") --env basic --recipe config/basic.cbl --dual mac
-
+EXAMPLE:
+    $(basename "$0") --env basic --recipe config/basic.cbl --validate config/validate.sh --platform linux/arm64
 EOF
 }
 
@@ -67,7 +73,9 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --containers)
-            containers="$2"
+            if [[ "$2" == *"singularity"* || "$2" == *"apptainer"* ]]; then
+                echo "[coble-platform] Note: --containers '$2' mentions singularity/apptainer, but this script only ever builds Docker - ignoring that part. Use coble-container.sh for Singularity images." >&2
+            fi
             shift 2
             ;;
         --dry-run)
@@ -93,14 +101,6 @@ while [[ $# -gt 0 ]]; do
             SKIP_ERRORS=true
             shift
             ;;
-        --dual-ci)
-            DUAL_CI=true
-            shift
-            ;;
-        --dual)
-            DUAL="$2"
-            shift 2
-            ;;
         --validate)
             VAL_FILE="$2"
             shift 2
@@ -125,16 +125,18 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# --platform uses the same syntax docker/buildx itself takes (e.g. linux/amd64,
-# linux/arm64/v8). Building for a specific platform - as opposed to the
-# native-runner-per-arch approach the GitHub workflow uses - needs buildx, so
-# hand off entirely to the sibling script rather than growing this one.
-if [[ -n "$PLATFORM" ]]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    exec "$SCRIPT_DIR/coble-platform.sh" "${ORIGINAL_ARGS[@]}"
+# Validate required arguments
+if [[ -z "$PLATFORM" ]]; then
+    echo "Error: --platform is required"
+    show_help
+    exit 1
 fi
 
-# Validate required arguments
+if [[ "$PLATFORM" == *,* ]]; then
+    echo "Error: --platform '$PLATFORM' names more than one platform - 'docker buildx --load' can only load a single-platform image into the local daemon. Build one platform at a time."
+    exit 1
+fi
+
 if [[ -z "$ENV_NAME" ]]; then
     echo "Error: --env is required"
     show_help
@@ -161,18 +163,21 @@ if [[ ! -f "$INPUT_RECIPE" ]]; then
     exit 1
 fi
 
+if ! docker buildx version >/dev/null 2>&1; then
+    echo "Error: docker buildx is not available - install/enable it before using --platform"
+    exit 1
+fi
+
 if [[ -z "$IMAGE_NAME" ]]; then
     IMAGE_NAME="cbl-${ENV_NAME}"
 fi
 
-# make file names
-DOCKER_TAR="${IMAGE_NAME}.tar"
-SINGULARITY_SIF="${IMAGE_NAME}.sif"
 # same directory as this script/code/Dockerfile
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKERFILE="${SCRIPT_DIR}/coble.Dockerfile"
 DOCKERFILE_VAL="${SCRIPT_DIR}/coble.val.Dockerfile"
-echo "[coble-docker] Using Dockerfile: $DOCKERFILE"
+echo "[coble-platform] Using Dockerfile: $DOCKERFILE"
+echo "[coble-platform] Target platform: $PLATFORM"
 RESULTS_DIR="$(dirname "$INPUT_RECIPE")"
 LOCALDOCKERFILE="${RESULTS_DIR}/${ENV_NAME}.Dockerfile"
 DOCKERLOGFILE="${RESULTS_DIR}/${ENV_NAME}_docker_build.log"
@@ -182,20 +187,9 @@ DOCKERLOGFILE="${RESULTS_DIR}/${ENV_NAME}_docker_build.log"
 # handled by staging this checkout into the build context just before the build below.
 STAGE_DIR=".coble-local-src-stage"
 
-### Docker #######################
+### Docker (buildx, single platform, loaded into the local daemon) #######################
 
-if [[ $containers == *"docker"* || $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
-
-    echo "[coble-docker] Building Docker image..."
-    echo "[coble-docker] CI=$CI, GITHUB_ACTIONS=$GITHUB_ACTIONS"
-
-    # Fallback chain:
-    # 1. CI environment: use buildx with --push for multi-platform
-    # 2. Buildx available locally: use buildx with --load for single platform
-    # 3. Fallback: regular docker build for single platform
-    echo "[coble-docker] VAL_FILE='$VAL_FILE'"
-    echo "[coble-docker] VAL_FOLDER='$VAL_FOLDER'"
-
+echo "[coble-platform] Building Docker image for $PLATFORM..."
 
     # We copy the dockerfile to our set for reproducibility
     # First we make explicit the build args so it can be directly reproduced
@@ -211,6 +205,7 @@ cat > "$LOCALDOCKERFILE" << EOF
 # VAL_FOLDER=$VAL_FOLDER
 # CODE_SOURCE=$CODE_SOURCE
 # UBUNTU_VERSION=$UBUNTU
+# PLATFORM=$PLATFORM
 # ------------------------------
 # Instructions to build the image:
 # 1. Set the above environment variables in your terminal (or export them in your shell profile)
@@ -220,9 +215,8 @@ EOF
 
 cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
 
-
     if [[ "$DRY_RUN" == true ]]; then
-        echo "[coble-docker] DRY RUN: The Docker that would be run is copied as $LOCALDOCKERFILE"
+        echo "[coble-platform] DRY RUN: The Docker that would be run is copied as $LOCALDOCKERFILE"
         exit 0
     fi
 
@@ -234,12 +228,11 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     mkdir -p "$STAGE_DIR"
     if [[ "$CODE_SOURCE" == "local" ]]; then
         COBLE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-        echo "[coble-docker] --code-source local (debug/dev only): staging this checkout's coble source from $COBLE_ROOT"
+        echo "[coble-platform] --code-source local (debug/dev only): staging this checkout's coble source from $COBLE_ROOT"
         cp -r "$COBLE_ROOT"/. "$STAGE_DIR"/
     fi
 
-    echo "[coble-docker] Using regular docker build (native platform)..."
-    echo "[coble-docker] Building Docker image $IMAGE_NAME with build args"
+    echo "[coble-platform] Building Docker image $IMAGE_NAME for $PLATFORM with build args"
     echo "  RECIPE_CBL=$INPUT_RECIPE"
     echo "  BUILD_TAG=$ENV_NAME"
     echo "  GITHUB_PAT=***"
@@ -247,7 +240,8 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     echo "  CODE_SOURCE=$CODE_SOURCE"
     echo "  SKIP_ERRORS=$SKIP_ERRORS"
     echo "  UBUNTU_VERSION=$UBUNTU"
-    docker build -f "$DOCKERFILE" \
+    docker buildx build -f "$DOCKERFILE" \
+    --platform "$PLATFORM" \
     --build-arg RECIPE_CBL="$INPUT_RECIPE" \
     --build-arg BUILD_TAG="$ENV_NAME" \
     --build-arg GITHUB_PAT="$GITHUB_PAT" \
@@ -256,82 +250,48 @@ cat "$DOCKERFILE" >> "$LOCALDOCKERFILE"
     --build-arg SKIP_ERRORS="$SKIP_ERRORS" \
     --build-arg UBUNTU_VERSION="$UBUNTU" \
     --no-cache \
+    --load \
     -t "coble-${ENV_NAME}:latest" . 2>&1 | tee $DOCKERLOGFILE
     BUILD_EXIT_CODE=${PIPESTATUS[0]}
     rm -rf "$STAGE_DIR"
     if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-        echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
+        echo "[coble-platform] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
         exit 1
     fi
     if [[ -n "$VAL_FOLDER"  ]]; then
-        echo "[coble-docker] Adding val folder layer to $IMAGE_NAME..."
+        echo "[coble-platform] Adding val folder layer to $IMAGE_NAME..."
         echo "  BUILD_TAG=$ENV_NAME"
         echo "  VAL_FOLDER=$VAL_FOLDER"
-        docker build -f "$DOCKERFILE_VAL" \
+        docker buildx build -f "$DOCKERFILE_VAL" \
+        --platform "$PLATFORM" \
         --build-arg BUILD_TAG="$ENV_NAME" \
         --build-arg VAL_FOLDER="$VAL_FOLDER" \
         --no-cache \
+        --load \
         -t "$IMAGE_NAME" . 2>&1 | tee $DOCKERLOGFILE
         BUILD_EXIT_CODE=${PIPESTATUS[0]}
         if [[ $BUILD_EXIT_CODE -ne 0 ]]; then
-            echo "[coble-docker] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
+            echo "[coble-platform] ERROR: Docker build failed with exit code $BUILD_EXIT_CODE"
             exit 1
         fi
     else
         docker tag "coble-${ENV_NAME}:latest" "$IMAGE_NAME"
     fi
 
-
     # Verify image was created successfully
-    # Note: Skip verification when using --dual-ci since image is pushed directly to registry
-    # and not loaded into local Docker daemon
-
     if ! docker inspect "$IMAGE_NAME" &> /dev/null; then
-        echo "[coble-docker] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
+        echo "[coble-platform] ERROR: Docker image $IMAGE_NAME was not created or cannot be inspected"
         exit 1
     fi
 
     # Display image creation time and size for verification
     IMAGE_INFO=$(docker inspect "$IMAGE_NAME" --format='Created: {{.Created}}, Size: {{.Size}} bytes')
-    echo "[coble-docker] ✓ Docker image created successfully"
-    echo "[coble-docker] $IMAGE_INFO"
+    echo "[coble-platform] ✓ Docker image created successfully for $PLATFORM"
+    echo "[coble-platform] $IMAGE_INFO"
 
-    echo "[coble-docker] Docker build complete at image $DOCKER_TAR"
+    echo "[coble-platform] Docker build complete: $IMAGE_NAME ($PLATFORM)"
 
-    echo "[coble-docker] To run use:"
+    echo "[coble-platform] To run use:"
     echo ""
     echo "docker run --rm -it -v .:/workspace -w /workspace $IMAGE_NAME"
     echo ""
-
-fi
-
-### Singularity #######################
-if [[ $containers == *"singularity"* || $containers == *"apptainer"* ]]; then
-    sing_app="singularity"
-    if [[ $containers == *"apptainer"* ]]; then
-        sing_app="apptainer"
-    fi
-    sing_app=$(echo "$sing_app" | tr '[:upper:]' '[:lower:]')
-    sing_app=$(echo "$sing_app" | tr -d ' ')
-
-    echo "[coble-$sing_app] Building $sing_app image..."
-
-    echo "[coble-$sing_app] ...removing old tar..."
-    rm -rf "$DOCKER_TAR" || true
-
-    echo "[coble-$sing_app] ...saving Docker image to tar..."
-    docker save "$IMAGE_NAME" -o "$DOCKER_TAR"
-
-    echo "[coble-$sing_app] ...removing old sif..."
-    rm -rf "$SINGULARITY_SIF" || true
-
-    echo "[coble-$sing_app] ...building sif..."
-    $sing_app build "$SINGULARITY_SIF" docker-archive://"$DOCKER_TAR"
-    echo "[coble-$sing_app] Singularity build complete at $SINGULARITY_SIF"
-    echo "[coble-$sing_app] To run use:"
-    echo ""
-    echo "$sing_app shell $SINGULARITY_SIF"
-    echo ""
-    echo "[coble-$sing_app] completed successfully."
-
-fi

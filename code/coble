@@ -8,7 +8,6 @@ if [[ "$script_base" == "bin" ]]; then
 else
 	install_context="github"
 fi
-containers="conda"
 VERSION="0.1.7"
 # Optionally, you can use $install_context in help or logic
 # Detect operating system
@@ -151,7 +150,7 @@ if [[ "$1" == "template" ]]; then
 	exit $?
 fi
 
-echo "[coble] Containers to build: $containers" >&2
+echo "[coble] Containers to build: $container_type" >&2
 
 # If the first argument is 'build or update', call a succession of scripts checking status and exit
 if [[ "$container_type" == *"conda"* ]]; then

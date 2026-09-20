@@ -23,6 +23,10 @@ languages:
 Note that the order of channels is important - the last channel has the highest priority. `strict` priority is the best practice for building reproducible conda environments, however it can lead to conflicts with some installs as versions become archived so some movement of the channels may be needed as per flags section below. 
 There is a maximum of 1 version of R and 1 version of python allowed in the languages section. Other languages may be specified later.
 
+The `coble: - environment: NAME` entry sets the environment name to use when the command line's `--env` option is not given; an explicit `--env` on the command line always takes priority over it.
+
+Any section header that isn't one of the ones documented on this page (a typo, or a name that was never a real section) stops recipe generation immediately with an error, rather than silently dropping whatever was under it - a recipe is meant to reproduce a specific environment exactly, so a mistyped section is treated as a mistake to fix, not something to skip past.
+
 ## Sequential sections
 After the initial sections, the rest of the file is made up of sequential sections that are processed in order. There are flags and package managers available.
 
@@ -30,15 +34,17 @@ After the initial sections, the rest of the file is made up of sequential sectio
 Flags set environment variables or conda install options for the following sections. They remain in effect until changed by another flags section.
 ```yaml
 flags:  
-  - system-tools: true
-  - compile-tools: 13.1
-  - compile-paths: true
+  - compile: system=true
+  - compile: tools=13.1
+  - compile: paths=true
 ```
-This first set you would only need once at the start to ensure that build tools are available for any subsequent package installs that need compiling.
-The following flags can be set:
-- `system-tools:` if set to true it installs common system tools such as wget, curl, build-essential, make, gcc, g++, cmake, git, unzip, tar, vim, nano.
-- `compile-tools:` if set to a version number it installs conda build tools for that version, e.g., `13.1` for conda-build 13.1. If `true` it allows conda to install the best choice. It also sets environment variables to ensure the compilers point to the conda installed tools.
-- `compile-paths:` if set to true it sets up environment variables such as `C_INCLUDE_PATH`, `CPLUS_INCLUDE_PATH`, `LIBRARY_PATH`, and `LD_LIBRARY_PATH` to the conda paths - but nothing is installed. This is a lesser version of `compile-tools` which installs and sets the paths so you would not also need this.
+This first set you would only need once at the start to ensure that build tools are available for any subsequent package installs that need compiling. All compiler/build-related settings live under the single `compile:` directive, using a `key=value` sub-setting on the value side (the directive name itself never changes, only what follows the `=`):
+- `compile: system=true` installs a fixed bundle of common system libraries used when building R/Python packages from source (libcurl, image/geo libraries such as gdal/proj/geos/cairo, HDF5, build tools like libtool/autoconf/cmake/pkg-config, and core system libraries such as zlib/openssl/sqlite), plus extra R- or Python-specific packages if that language is present in the recipe.
+- `compile: tools=true` or `compile: tools=13.1` installs conda-forge's generic `compilers` meta-package, which resolves to a working C/C++/Fortran toolchain for whatever platform is building the environment. Note: unlike `compile: version=`, the version number here isn't currently used to pin an exact compiler version - use `compile: version=` for that.
+- `compile: version=11.4` installs and pins an *exact* compiler version, for cases where reproducibility depends on matching a specific historical toolchain. On Linux x86_64 this pins `gcc`/`g++`/`gfortran` to that version and sets up symlinks; on any other platform it installs a generic compiler instead (the exact version isn't available/pinned there).
+- `compile: paths=true` sets `umask 0022` before subsequent installs - nothing is installed by this flag alone.
+
+Each `compile:` sub-setting is resolved and applied independently the moment it's parsed. Note that the `<os=,arch=>` condition syntax described below is currently only wired up for the `export` directive - writing it on `compile:` is parsed but has no effect yet.
 
 ```yaml
 flags:
@@ -54,6 +60,16 @@ This second set you may lay sequentially as necessary throughout the file to mod
 - `channel`: sets the specifed conda channel to the top priority for the following sections.  
 - `export`: sets environment variables inside conda using `conda env config vars set VAR_NAME=VALUE`. These will automatically be activated when activating the environment.  
 - `updates`: not a recommended option, if set to it allows updates of packages. The default is false --no-update-deps' for conda installs to avoid changing the R or python versions. Note that as an automated tool choices are not given interactively.  
+
+#### Conditional flags
+The `export` directive can carry a `<key=value,key=value>` condition on the directive name, so it only applies on a matching machine:
+```yaml
+flags:
+  - export<os=darwin,arch=arm64>: CONDA_SUBDIR=osx-64
+```
+Only `os=` and `arch=` keys are understood (`darwin`/`linux`, and `arm64`/`aarch64` treated as the same architecture). The condition is checked once, immediately, against whichever machine is generating the recipe (`coble recipe`/`coble build`) - the generated bash recipe file only ever contains the plain, already-resolved command if the condition matched, or nothing at all if it didn't. It is not a runtime check inside the generated recipe.
+
+Remember that a `flags:` directive only affects sections that come **after** it in the file - a `flags:` block placed after the `languages:`/package sections it's meant to affect will resolve too late to matter.
 
 ### Package manager sections
 Each section starts with a header indicating the package manager or type of install to be done. The section header is followed by a list of packages to be installed using that package manager or method. The supported section headers are:
@@ -123,8 +139,8 @@ languages:
   - r-base=4.3.1@conda-forge
 flags:
   - dependencies: NA
-  - system-tools: False
-  - compile-tools: True  
+  - compile: system=false
+  - compile: tools=true
 conda:
   - pandas
 r-conda:  
@@ -177,31 +193,8 @@ conda install -y  'conda-forge::python=3.13.1'
 conda install -y  -c conda-forge 'r-base=4.3.1'
 # flags:
 # Flag: Directive: dependencies, Value: na
-# Flag: Directive: system-tools, Value: false
-# Flag: Directive: compile-tools, Value: true
-
 # Language compile tools
-conda install -y --no-update-deps -c conda-forge gcc_linux-64 gxx_linux-64 gfortran_linux-64
-conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler
-# Set up compiler symlinks for R package compilation - COS6 compatibility
-umask 0022
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-c++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gfortran $CONDA_PREFIX/bin/x86_64-conda_cos6-linux-gnu-gfortran
-# Set up compiler symlinks for R package compilation - standard aliases
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/gcc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc $CONDA_PREFIX/bin/cc
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/g++
-ln -sf $CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++ $CONDA_PREFIX/bin/c++
-# Set compiler flags for R package compilation
-export CFLAGS="-I$CONDA_PREFIX/include"
-export CXXFLAGS="-I$CONDA_PREFIX/include"
-export CPPFLAGS="-I$CONDA_PREFIX/include"
-export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
-conda env config vars set CFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CXXFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set CPPFLAGS="-I$CONDA_PREFIX/include"
-conda env config vars set LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath,$CONDA_PREFIX/lib"
+conda install -y --solver=libmamba --no-update-deps -c conda-forge compilers
 
 # conda:
 conda install -y  --no-update-deps \

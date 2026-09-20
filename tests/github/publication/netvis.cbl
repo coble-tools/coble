@@ -3,13 +3,13 @@ coble:
 channels:
   - bioconda
   - conda-forge
-compilers:
-  - compile-tools: 11.2
+flags:
+  - compile: tools=11.2
 languages:
   - r-base=4.4.2
   - python=3.12.12
 flags:
-  - system-tools: true
+  - compile: system=true
 conda:
   - cairo=1.18
   - pango=1.56

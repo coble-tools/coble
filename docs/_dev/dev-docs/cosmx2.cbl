@@ -8,8 +8,8 @@ languages:
   - r-base=4.4@conda-forge
 flags:
   - dependencies: NA
-  - compile-tools: True 
-  - system-tools: True  
+  - compile: tools=True 
+  - compile: system=True  
 r-conda: 
   - seurat
   - spatspat

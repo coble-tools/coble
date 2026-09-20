@@ -51,6 +51,28 @@ coble/code/coble build -h
 ```
 You need to add the folder coble/code to the path or refer to the coble utility script by full or relative path.
 
+## Mac Packages
+Not all packages are available for arm when running on a mac. The intel environment can be run through rosetta, which needs installing only once:
+```
+softwareupdate --install-rosetta
+```
+Thereafter, if you start your terminal with the environment variable to instruct use of osx-64, you have access to the Intel (x86_64) builds of the conda environment, run via Rosetta translation:
+```
+export CONDA_SUBDIR=osx-64 
+# use this terminal for coble build etc ...  
+```
+
+The recipe itself can house this requirement in the flags section, guarded so it
+only applies on an Apple Silicon Mac and never on Linux (where `osx-64` would
+break the build - see the [anatomy](../coble/anatomy.md#flags) page for the
+full `<key=value,...>` condition syntax):
+```yaml
+flags:
+  - export<os=darwin,arch=arm64>: CONDA_SUBDIR=osx-64
+```
+The condition is resolved once, at recipe-generation time, against whichever
+machine is running `coble recipe`/`coble build` - not re-checked when the
+generated recipe is later executed.
 
 
 

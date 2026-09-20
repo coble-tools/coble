@@ -38,9 +38,6 @@ conda install -y  'conda-forge::python=3.13.1'
 conda install -y  -c conda-forge 'r-base=4.3.1'
 # flags:
 # Flag: Directive: dependencies, Value: na
-# Flag: Directive: system-tools, Value: false
-# Flag: Directive: compile-tools, Value: true
-
 # Language compile tools
 conda install -y --no-update-deps -c conda-forge 'gcc_linux-64=13.1' 'gxx_linux-64=13.1' 'gfortran_linux-64=13.1'
 conda install -y --no-update-deps -c conda-forge sysroot_linux-64 c-compiler cxx-compiler

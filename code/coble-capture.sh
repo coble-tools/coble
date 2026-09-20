@@ -396,7 +396,7 @@ echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
 	fi
     # Get env vars and format for YAML
 	echo -e "flags:"
-	echo -e "  - compile-tools: true"
+	echo -e "  - compile: tools=true"
 	echo -e "  - dependencies: false"
     echo -e "  - priority: flexible"
 	conda env config vars list | sort | while IFS='=' read -r key value; do

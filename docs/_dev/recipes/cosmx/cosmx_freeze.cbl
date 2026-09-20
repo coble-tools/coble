@@ -13,7 +13,7 @@ channels:
   - bioconda
 
 flags:
-  - compile-paths: true
+  - compile: paths=true
   - dependencies: false
   - priority: flexible
 

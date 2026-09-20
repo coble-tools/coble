@@ -57,7 +57,7 @@ ARG RECIPE_CBL=""
 ARG SKIP_ERRORS=false
 ARG GITHUB_PAT=""
 ARG VAL_FILE=""
-ARG CODE_SOURCE="local"
+ARG CODE_SOURCE="main"
 
 ENV CONDA_VERBOSITY=2
 
@@ -122,22 +122,37 @@ ENV DOWNLOAD_STATIC_LIBV8=1
 
 # Create directory structure
 RUN mkdir -p code recipe validate workspace
-# Install coble from GitHub or locally
-RUN echo "Cloning COBLE from GitHub..." && \
-    rm -rf /app/coble && \
-    if [ -n "${GITHUB_PAT}" ]; then \
-        git clone https://${GITHUB_PAT}@github.com/coble-tools/coble.git /app/coble; \
+
+# Debug/dev only: coble-container.sh/coble-platform.sh always stage
+# .coble-local-src-stage in the build context (empty unless --code-source local
+# was used) so this COPY always succeeds regardless of which source is used below.
+COPY .coble-local-src-stage /app/.coble-local-src-stage
+
+# Install coble: from the staged local checkout if CODE_SOURCE=local (debug/dev
+# only - never used by the published community/CI builds), otherwise fresh from
+# GitHub at whatever ref CODE_SOURCE names ("main" resolves live, at this point,
+# to whatever main currently is; a specific SHA/tag/branch is used as given).
+RUN rm -rf /app/coble && \
+    if [ "${CODE_SOURCE}" = "local" ]; then \
+        echo "Using local COBLE source (debug/dev mode)..." && \
+        cp -r /app/.coble-local-src-stage /app/coble; \
     else \
-        git clone https://github.com/coble-tools/coble.git /app/coble; \
+        echo "Cloning COBLE from GitHub..." && \
+        if [ -n "${GITHUB_PAT}" ]; then \
+            git clone https://${GITHUB_PAT}@github.com/coble-tools/coble.git /app/coble; \
+        else \
+            git clone https://github.com/coble-tools/coble.git /app/coble; \
+        fi && \
+        cd /app/coble && \
+        git checkout ${CODE_SOURCE} && \
+        rm -rf .git; \
     fi && \
-    cd /app/coble && \
-    git checkout ${CODE_SOURCE} && \
-    rm -rf .git && \
-    echo "COBLE cloned successfully.";
+    rm -rf /app/.coble-local-src-stage && \
+    echo "COBLE source ready.";
 
 # Recipe cbl is copied to standard location
 COPY $RECIPE_CBL /app/recipe/$BUILD_TAG.cbl
-COPY README.md /app/README.md
+# COPY README.md /app/README.md
 
 
 # === BEFORE CHECK ===
