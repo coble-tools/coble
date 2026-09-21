@@ -759,6 +759,7 @@ echo "mkdir -p \${CONDA_PREFIX}/coble-recipe" >> "$RECIPE_FILE"
 echo "cp $YAML_FILE \${CONDA_PREFIX}/coble-recipe" >> "$RECIPE_FILE"
 
 # copy all contents of coble/bin into bin of env for access to coble tools
+echo "mkdir -p \${CONDA_PREFIX}/bin" >> "$RECIPE_FILE"
 echo "[coble-recipise] Copying coble tools into environment bin for access within environment" >&2
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "cp $script_dir/coble \${CONDA_PREFIX}/bin/" >> "$RECIPE_FILE"
