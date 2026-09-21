@@ -8,7 +8,7 @@ if [[ "$script_base" == "bin" ]]; then
 else
 	install_context="github"
 fi
-VERSION="0.2.0"
+VERSION="0.2.1"
 # Optionally, you can use $install_context in help or logic
 # Detect operating system
 os_type="$(uname)"
