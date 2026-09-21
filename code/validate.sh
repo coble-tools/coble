@@ -1,0 +1,1 @@
+echo "Validation script not implemented for this container."
