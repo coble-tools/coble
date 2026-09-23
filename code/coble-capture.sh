@@ -40,7 +40,7 @@ show_help() {
     echo "  -h,--help          Show this help message and exit"
 }
 
-echo "[coble-capture] Start processing arguments..." >&2
+echo "[coble-export] Start processing arguments..." >&2
 
 while [[ $# -gt 0 ]]; do
 	key="$1"
@@ -76,12 +76,12 @@ while [[ $# -gt 0 ]]; do
 done
 # If dry run we simply exit
 if [[ "$DRY_RUN" == true ]]; then
-	echo "[coble-capture] DRY RUN: Not executing capture stage" >&2
+	echo "[coble-export] DRY RUN: Not executing capture stage" >&2
 	exit 0
 fi
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
-	echo "[coble-freeze] Error: --frozen output file must be specified." >&2
+	echo "[coble-export] Error: --frozen output file must be specified." >&2
 	show_help
 	exit 1
 fi
@@ -89,45 +89,40 @@ fi
 if [[ $RESULTS_DIR == "" ]]; then
 	RESULTS_DIR="$(dirname "$AGGREGATE_TXT")"
 fi
-echo "[coble-freeze] Capturing conda environment to $RESULTS_DIR" >&2
+echo "[coble-export] Capturing conda environment to $RESULTS_DIR" >&2
 
 # Parse named arguments
 # Set ENV_FORMATTED: blank if ENV_INPUT is empty, otherwise --name ENV_INPUT
 if [[ -z "$ENV_INPUT" ]]; then
-	ACTIVE_ENV_NAME=$(echo "$CONDA_DEFAULT_ENV")
-	ACTIVE_PREFIX=$(echo "$CONDA_PREFIX")
-	if [[ -z "$ACTIVE_ENV_NAME" ]]; then
-		echo "[coble-freeze] Error: No conda environment is currently activated and none was specified." >&2
-		echo "[coble-freeze] Please activate a conda environment or use --env to specify one." >&2
-		exit 2
-	fi
-	echo "[coble-freeze] No environment specified, using currently activated environment: $ACTIVE_ENV_NAME at $ACTIVE_PREFIX"
-	ENV_FORMATTED="--name $ACTIVE_ENV_NAME"
-	ENV_NAME="$ACTIVE_ENV_NAME"
-elif [[ "$ENV_INPUT" == */* ]]; then
+	echo "[coble-export] Please activate a conda environment or use --env to specify one." >&2
+	show_help
+	exit 1
+fi
+
+if [[ "$ENV_INPUT" == */* ]]; then
 	ENV_FORMATTED="--prefix $ENV_INPUT"
     # take of the last / for the name
     ENV_NAME="${ENV_INPUT##*/}"
 	# Check if the prefix directory exists and contains conda-meta
 	if [[ ! -d "$ENV_INPUT" || ! -d "$ENV_INPUT/conda-meta" ]]; then
-		echo "[coble-freeze] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
+		echo "[coble-export] Error: The specified environment prefix does not exist or is not a valid conda environment: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "[coble-freeze] Activating environment: $ENV_INPUT" >&2
+    echo "[coble-export] Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 else
 	ENV_FORMATTED="--name $ENV_INPUT"
     ENV_NAME="$ENV_INPUT"
 	# Check if the environment name exists in conda env list
 	if ! conda env list | awk '{print $1}' | grep -qx "$ENV_INPUT"; then
-		echo "[coble-freeze] Error: The specified environment name does not exist: $ENV_INPUT" >&2
+		echo "[coble-export] Error: The specified environment name does not exist: $ENV_INPUT" >&2
 		exit 2
 	fi
-    echo "[coble-freeze] Activating environment: $ENV_INPUT" >&2
+    echo "[coble-export] Activating environment: $ENV_INPUT" >&2
     conda activate $ENV_INPUT
 fi
 
-echo "[coble-freeze] Using conda environment argument: $ENV_FORMATTED"
+echo "[coble-export] Using conda environment argument: $ENV_FORMATTED"
 
 # Define output filenames
 mkdir -p "$RESULTS_DIR"
@@ -140,13 +135,13 @@ TMP_SORTED="$RESULTS_DIR/coble_tmp_coble-captured-sorted2-$ENV_NAME.tmp"
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "[coble-freeze] Running: conda list $ENV_FORMATTED" >&2
+echo "[coble-export] Running: conda list $ENV_FORMATTED" >&2
 conda list $ENV_FORMATTED --show-channel-urls> "$TMP_CONDA_LIST_TXT"
 
 # Capture pip freeze output for provenance (e.g., GitHub installs)
 
 #echo "[coble-capture] Running: conda run $ENV_FORMATTED python -m pip freeze > $TMP_PIP_FREEZE_TXT"
-echo "[coble-freeze] Running: conda run $ENV_FORMATTED python -m pip freeze | grep -v '@ file:///home/conda/feedstock_root/build_artifacts/' > $TMP_PIP_FREEZE_TXT"
+echo "[coble-export] Running: conda run $ENV_FORMATTED python -m pip freeze | grep -v '@ file:///home/conda/feedstock_root/build_artifacts/' > $TMP_PIP_FREEZE_TXT"
 
 if conda run $ENV_FORMATTED python --version &> /dev/null 2>&1; then
     #conda run $ENV_FORMATTED python -m pip freeze > "$TMP_PIP_FREEZE_TXT"
@@ -156,7 +151,7 @@ else
 fi
 
 # List all R packages with version and source
-echo "[coble-freeze] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
+echo "[coble-export] Running: conda run $ENV_FORMATTED Rscript ... > $TMP_R_PACKAGES_TXT"
 # if Rscript is in the environment, run the Rscript to get package info
 if ! conda run $ENV_FORMATTED Rscript --version &> /dev/null 2>&1; then
 	echo "    R is not available in conda environment" >&2
@@ -170,7 +165,7 @@ else
 fi
 
 # Clear the aggregate file at the start
-echo "[coble-freeze] Aggregating package lists into $AGGREGATE_TXT" >&2
+echo "[coble-export] Aggregating package lists into $AGGREGATE_TXT" >&2
 :> "$TMP_AGGREGATE"
 :> "$AGGREGATE_TXT"
 
@@ -303,7 +298,7 @@ if [ -f "$TMP_PIP_FREEZE_TXT" ]; then
 	done < "$TMP_PIP_FREEZE_TXT"
 fi
 
-echo "[coble-freeze] Interim aggregated package list at $TMP_AGGREGATE"
+echo "[coble-export] Interim aggregated package list at $TMP_AGGREGATE"
 
 # Now take the file created and rearrange it nicely
 
@@ -341,23 +336,23 @@ awk 'BEGIN {OFS="\t"}
 R_BASE_VERSION=""
 PYTHON_VERSION=""
 COMPILE_VERSION=""
-echo "[coble-freeze] Detecting R and Python base versions from $TMP_AGGREGATE ..." >&2
+echo "[coble-export] Detecting R and Python base versions from $TMP_AGGREGATE ..." >&2
 while IFS=$'\t' read -r manager pkg src path; do
-    #echo "[coble-freeze] Checking package: $manager | $pkg | $src"
+    #echo "[coble-export] Checking package: $manager | $pkg | $src"
     if [[ "$manager" == "r-conda" && "$pkg" == base=* ]]; then
         R_BASE_VERSION="r-base=${pkg#base=}@$src"
         HAS_R=1
-        echo "[coble-freeze] R detected in environment."
+        echo "[coble-export] R detected in environment."
     elif [[ "$manager" == "conda" && "$pkg" == python=* ]]; then
         PYTHON_VERSION="python=${pkg#python=}@$src"
-        echo "[coble-freeze] Python detected in environment."
+        echo "[coble-export] Python detected in environment."
 	elif [[ "$manager" == "conda" && ( "$pkg" == "gcc="* || "$pkg" == "gxx="* ) ]]; then
         COMPILE_VERSION="${pkg#*=}"
-        echo "[coble-freeze] Compile tools detected in environment."
+        echo "[coble-export] Compile tools detected in environment."
     fi
 done < "$TMP_AGGREGATE"
-echo "[coble-freeze] Detected r-conda base version: $R_BASE_VERSION" >&2
-echo "[coble-freeze] Detected conda python version: $PYTHON_VERSION" >&2
+echo "[coble-export] Detected r-conda base version: $R_BASE_VERSION" >&2
+echo "[coble-export] Detected conda python version: $PYTHON_VERSION" >&2
 # in the AGGREGATE_TXT file add the languages to the top
 {
 	CAPTURE_DATE=$(date '+%Y-%m-%d')
@@ -483,15 +478,15 @@ if [[ ${#my_find_list[@]} -gt 0 ]]; then
     done
 fi
 
-echo "[coble-freeze] Final aggregated package list at $AGGREGATE_TXT" >&2
+echo "[coble-export] Final aggregated package list at $AGGREGATE_TXT" >&2
 
 
 # Clean up temporary files
 if [[ $KEEP_LOGS -eq 0 ]]; then
-    echo "[coble-freeze] Cleaning up temporary files..."
+    echo "[coble-export] Cleaning up temporary files..."
     rm -f "$TMP_CONDA_LIST_TXT" "$TMP_PIP_FREEZE_TXT" "$TMP_R_PACKAGES_TXT" "$TMP_AGGREGATE" "$TMP_SORTED1" "$TMP_SORTED"
 elif [[ $KEEP_LOGS -eq 1 ]]; then
-    echo "[coble-freeze] Temporary files retained for inspection:" >&2
+    echo "[coble-export] Temporary files retained for inspection:" >&2
     echo "  $TMP_CONDA_LIST_TXT" >&2
     echo "  $TMP_PIP_FREEZE_TXT" >&2
     echo "  $TMP_R_PACKAGES_TXT" >&2
@@ -500,8 +495,8 @@ elif [[ $KEEP_LOGS -eq 1 ]]; then
     echo "  $TMP_AGGREGATE" >&2
 fi
 
-echo "[coble-freeze] Freeze complete. Output written to $AGGREGATE_TXT" >&2
+echo "[coble-export] Export complete. Output written to $AGGREGATE_TXT" >&2
 
-echo "[coble-freeze] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_export.cbl" >&2
+echo "[coble-export] Copying capture file to $CONDA_PREFIX/coble-recipe/${base_name_noext}_export.cbl" >&2
 cp "$AGGREGATE_TXT" "$CONDA_PREFIX/coble-recipe/${ENV_NAME}_export.cbl"
 

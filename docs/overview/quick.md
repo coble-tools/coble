@@ -85,7 +85,7 @@ coble build --recipe my-recipe.cbl --env my-env
 
 **Freeze**: Freeze an existing environment into a coble recipe file.
 ```bash
-coble freeze --frozen my-frozen-env.cbl --env my-env
+coble export --frozen my-frozen-env.cbl --env my-env
 ```
 --- Optional arguments:
 - `--env`: Active environment is frozen if not specified.
@@ -95,15 +95,15 @@ coble freeze --frozen my-frozen-env.cbl --env my-env
 ```bash
 coble network --frozen my-frozen-env.cbl --env my-env
 ```
---- Optional arguments:
-- `--env`: Active environment is frozen if not specified.
+**Arguments:**  
+- `--env`: Active environment is frozen if not specified.  
 The output is to the same folder as the input, frozen, called:  
-- `<env>_network_interactive.html` : an interactive dependdency explorer
-- `<env>_dependencies.txt` : the data for the dependency viewer
-- `<env>_network_stats.txt` : some info on the network
+- `<env>_network_interactive.html` : an interactive dependdency explorer. 
+- `<env>_dependencies.txt` : the data for the dependency viewer. 
+- `<env>_network_stats.txt` : some info on the network. 
 
 
-**Template**: Generate a template recipe file to start from.
+**Template**: Generate a template recipe file to start from.  
 ```bash
 coble template --recipe template-recipe.cbl --flavour basic
 ```
