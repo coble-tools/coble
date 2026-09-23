@@ -191,6 +191,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	done < <("$script_dir/coble-recipise.sh" "${@:2}")
 	success="${result[0]}"
 	recipe_file="${result[1]}"
+	resolved_env="${result[2]}"
 	if [[ "$success" == "N" ]]; then
 		echo "[coble] Error in creating recipe, please correct input before resuming." >&2
 		exit 1
@@ -224,7 +225,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 
 	echo "[coble 4/6] Created recipe, proceeding to creation from $DELTA_FILE" >&2
 
-	result=$("$script_dir/coble-create.sh" --recipe-bash "$DELTA_FILE" "${@:2}")
+	result=$("$script_dir/coble-create.sh" --recipe-bash "$DELTA_FILE" "${@:2}" --env "$resolved_env")
 
 	if [[ $? -ne 0 ]]; then
 		echo "[coble] Error in environment creation, please review logs before resuming." >&2
@@ -241,7 +242,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 	echo "[coble 5/6] Created env, proceeding to export in file $capture_file" >&2
     # replace --recipe existring with capture file
 	#recipe_dir="$(dirname "$recipe_file")"
-	result=$("$script_dir/coble-capture.sh" --export "$capture_file" "${@:2}")
+	result=$("$script_dir/coble-capture.sh" --export "$capture_file" "${@:2}" --env "$resolved_env")
 
 	# Do not do this by default as it is very time consuming and very experimental
 	# The function network allows it to be done as a seperate step
@@ -250,7 +251,7 @@ if [[ "$1" == "build" || "$1" == "update" ]]; then
 
 	echo "[coble 6/6] Completed succesfully." >&2
 	echo "[coble] To activate environment call:" >&2
-	echo "    conda activate $ENV_INPUT" >&2
+	echo "    conda activate $resolved_env" >&2
 	echo "  then validate the environment with:" >&2
 	echo "    coble validate">&2
 	echo "  for info on the environment created, use the command:" >&2

@@ -14,7 +14,7 @@ AGGREGATE_TXT=""
 
 show_help() {
 	echo "Usage: $0 --frozen <recipe_file> [--env ENV]"
-	echo "  --export  clb    Specify export cbl file"
+	echo "  --frozen  cbl    Specify frozen cbl file"
 	echo "  --env     ENV    Specify conda environment name or prefix (optional, default is current activated environment)"
     echo "  -h,--help        Show this help message and exit"
 }
@@ -28,7 +28,7 @@ while [[ $# -gt 0 ]]; do
 			ENV_INPUT="$2"
 			shift; shift
 			;;
-		--export)
+		--frozen)
 			AGGREGATE_TXT="$2"
 			shift; shift
 			;;
@@ -43,7 +43,7 @@ while [[ $# -gt 0 ]]; do
 done
 # if there is no results file we have to exit
 if [[ -z "$AGGREGATE_TXT" ]]; then
-	echo "[coble-network] Error: --export input file must be specified." >&2
+	echo "[coble-network] Error: --frozen input file must be specified." >&2
 	show_help
 	exit 1
 fi

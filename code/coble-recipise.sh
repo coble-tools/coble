@@ -769,6 +769,7 @@ echo "[coble-recipise] Recipe generation complete: $RECIPE_FILE" >&2
 echo "" >> "$RECIPE_FILE"
 echo "Y"
 echo "$RECIPE_FILE"
+echo "$ENV_INPUT"
 
 
 
