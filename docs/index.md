@@ -1,8 +1,6 @@
 <img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
 
-# COBLE: COnda BuiLdEr
-
-COBLE is a tool to build and manage mixed conda environments from multiple package managers, developed at the Institute of Cancer Research by the *Research Software Engineering* team for, and with, the *Breast Cancer Research Data Science* group.
+**COBLE** is a tool to build and manage mixed conda environments from multiple package managers, developed at the Institute of Cancer Research.
 
 ### Overview
 
