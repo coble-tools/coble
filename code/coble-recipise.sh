@@ -613,7 +613,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
                 if [[ "$src" == "" ]]; then
                     echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$pkg'">> "$RECIPE_FILE"
                 else
-                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} '$src::$pkg'" >> "$RECIPE_FILE"
+                    echo "${CONDA_ALIAS} install -y --solver=${SOLVER} ${DEPS_CONDA} -c $src '$pkg'" >> "$RECIPE_FILE"
                 fi
                 echo "python -m site" >> "$RECIPE_FILE"
                 echo "${CONDA_EXE} env config vars set PYTHONNOUSERSITE=1" >> "$RECIPE_FILE"
