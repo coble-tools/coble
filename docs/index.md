@@ -1,4 +1,4 @@
-**COBLE** is a tool to build and manage mixed conda environments from multiple package managers, developed at the Institute of Cancer Research.
+**COBLE** is a tool to build and manage mixed conda environments from multiple package managers, developed by the Breast Cancer Data Science Group and the Scientific Computing Group, at the ICR.
 
 <img src="coble.png" alt="COBLE logo" width="200" style="float: right; margin-right: 20px; margin-bottom: 10px;" />
 
